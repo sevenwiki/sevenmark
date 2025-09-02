@@ -117,12 +117,12 @@ Typical performance: **>10 MB/s** parsing speed on modern hardware.
 
 1. Fork the repository
 2. Create a feature branch
-3. Follow the established parser implementation patterns (see CLAUDE.md)
+3. Follow the established parser implementation patterns
 4. Add tests for new functionality
 5. Submit a pull request
 
 ---
 
 <div align="center">
-<b>Made with ♥️ and lots of ☕ by levish (Levi Lim) & Community</b>
+<b>Made with ♥️ and lots of ☕ by SevenWiki Team & Community</b>
 </div>
