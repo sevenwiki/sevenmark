@@ -1,0 +1,129 @@
+[
+  {
+    "StyledElement": {
+      "location": {
+        "start": 0,
+        "end": 87
+      },
+      "common_style": {
+        "color": [
+          {
+            "Text": {
+              "location": {
+                "start": 39,
+                "end": 44
+              },
+              "content": "green"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 46,
+              "end": 83
+            },
+            "content": "Multiple same parameter - which wins?"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 83,
+              "end": 84
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 87,
+        "end": 88
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 88,
+        "end": 89
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "ListElement": {
+      "location": {
+        "start": 89,
+        "end": 170
+      },
+      "kind": "1",
+      "common_style": {},
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 115,
+                  "end": 147
+                },
+                "content": "Item with conflicting list types"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 152,
+                  "end": 164
+                },
+                "content": "Another item"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 170,
+        "end": 171
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 171,
+        "end": 172
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "TeXElement": {
+      "location": {
+        "start": 172,
+        "end": 214
+      },
+      "is_block": true,
+      "content": "E = mc^2\n"
+    }
+  }
+]

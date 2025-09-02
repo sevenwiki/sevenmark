@@ -1,0 +1,1576 @@
+[
+  {
+    "Header": {
+      "location": {
+        "start": 0,
+        "end": 38
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 3,
+              "end": 37
+            },
+            "content": "Mathematical Concepts and Formulas"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 38,
+        "end": 39
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 39,
+        "end": 78
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 43,
+              "end": 77
+            },
+            "content": "Einstein's Mass-Energy Equivalence"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 78,
+        "end": 79
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "TeXElement": {
+      "location": {
+        "start": 79,
+        "end": 146
+      },
+      "is_block": true,
+      "content": "E = mc^2\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 146,
+        "end": 147
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 147,
+        "end": 148
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 148,
+        "end": 185
+      },
+      "content": "This famous equation shows that mass "
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 185,
+        "end": 190
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 186,
+              "end": 189
+            },
+            "content": "(m)"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 190,
+        "end": 202
+      },
+      "content": " and energy "
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 202,
+        "end": 207
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 203,
+              "end": 206
+            },
+            "content": "(E)"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 207,
+        "end": 212
+      },
+      "content": " are "
+    }
+  },
+  {
+    "Bold": {
+      "location": {
+        "start": 212,
+        "end": 231
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 214,
+              "end": 229
+            },
+            "content": "interchangeable"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 231,
+        "end": 232
+      },
+      "content": ","
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 232,
+        "end": 238
+      },
+      "content": " with "
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 238,
+        "end": 241
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 239,
+              "end": 240
+            },
+            "content": "c"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 241,
+        "end": 267
+      },
+      "content": " being the speed of light."
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 267,
+        "end": 268
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 268,
+        "end": 269
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "FoldElement": {
+      "location": {
+        "start": 269,
+        "end": 672
+      },
+      "common_style": {
+        "bg_color": [
+          {
+            "Text": {
+              "location": {
+                "start": 288,
+                "end": 299
+              },
+              "content": "lightyellow"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 303,
+                  "end": 323
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 305,
+                        "end": 321
+                      },
+                      "content": "Derivation Steps"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 323,
+                  "end": 328
+                },
+                "content": " 📚"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "ListElement": {
+                "location": {
+                  "start": 334,
+                  "end": 505
+                },
+                "kind": "1",
+                "common_style": {},
+                "content": [
+                  {
+                    "common_style": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 348,
+                            "end": 382
+                          },
+                          "content": "Start with relativistic momentum: "
+                        }
+                      },
+                      {
+                        "TeXElement": {
+                          "location": {
+                            "start": 382,
+                            "end": 407
+                          },
+                          "is_block": false,
+                          "content": "p = \\gamma mv "
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "common_style": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 412,
+                            "end": 442
+                          },
+                          "content": "Apply energy-momentum relation"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "common_style": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 447,
+                            "end": 474
+                          },
+                          "content": "Simplify for rest mass case"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "common_style": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 479,
+                            "end": 487
+                          },
+                          "content": "Result: "
+                        }
+                      },
+                      {
+                        "Bold": {
+                          "location": {
+                            "start": 487,
+                            "end": 499
+                          },
+                          "content": [
+                            {
+                              "Text": {
+                                "location": {
+                                  "start": 489,
+                                  "end": 497
+                                },
+                                "content": "E = mc²"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 505,
+                  "end": 506
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 506,
+                  "end": 507
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "BlockQuoteElement": {
+                "location": {
+                  "start": 507,
+                  "end": 665
+                },
+                "common_style": {
+                  "style": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 525,
+                          "end": 573
+                        },
+                        "content": "border-left:3px solid #007acc; padding-left:15px"
+                      }
+                    }
+                  ]
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 575,
+                        "end": 639
+                      },
+                      "content": "\"The most beautiful thing we can experience is the mysterious.\" "
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 639,
+                        "end": 640
+                      },
+                      "content": "\n"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 640,
+                        "end": 644
+                      },
+                      "content": "— "
+                    }
+                  },
+                  {
+                    "Italic": {
+                      "location": {
+                        "start": 644,
+                        "end": 661
+                      },
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 645,
+                              "end": 660
+                            },
+                            "content": "Albert Einstein"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 661,
+                        "end": 662
+                      },
+                      "content": "\n"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 665,
+                  "end": 666
+                },
+                "content": "\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 672,
+        "end": 673
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 673,
+        "end": 674
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 674,
+        "end": 709
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 678,
+              "end": 708
+            },
+            "content": "Applications in Modern Physics"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 709,
+        "end": 710
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "TableElement": {
+      "location": {
+        "start": 710,
+        "end": 1100
+      },
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 728,
+                "end": 762
+              },
+              "content": "margin:10px; border:1px solid #ccc"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 768,
+                      "end": 777
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 770,
+                            "end": 775
+                          },
+                          "content": "Field"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 782,
+                      "end": 797
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 784,
+                            "end": 795
+                          },
+                          "content": "Application"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 802,
+                      "end": 813
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 804,
+                            "end": 811
+                          },
+                          "content": "Formula"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 822,
+                      "end": 837
+                    },
+                    "content": "Nuclear Physics"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 842,
+                      "end": 869
+                    },
+                    "content": "Binding energy calculations"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "TeXElement": {
+                    "location": {
+                      "start": 874,
+                      "end": 909
+                    },
+                    "is_block": false,
+                    "content": "\\Delta E = \\Delta m c^2 "
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 918,
+                      "end": 934
+                    },
+                    "content": "Particle Physics"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 939,
+                      "end": 973
+                    },
+                    "content": "Particle-antiparticle annihilation"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "TeXElement": {
+                    "location": {
+                      "start": 978,
+                      "end": 1007
+                    },
+                    "is_block": false,
+                    "content": "E_{total} = 2mc^2 "
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 1016,
+                      "end": 1025
+                    },
+                    "content": "Cosmology"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 1030,
+                      "end": 1055
+                    },
+                    "content": "Stellar energy production"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "TeXElement": {
+                    "location": {
+                      "start": 1060,
+                      "end": 1092
+                    },
+                    "is_block": false,
+                    "content": "L = \\frac{dm}{dt}c^2 "
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1100,
+        "end": 1101
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1101,
+        "end": 1102
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 1102,
+        "end": 1124
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1106,
+              "end": 1123
+            },
+            "content": "Related Constants"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1124,
+        "end": 1125
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1125,
+        "end": 1154
+      },
+      "content": "Important physical constants "
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 1154,
+        "end": 1178
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1155,
+              "end": 1171
+            },
+            "content": "(measured as of "
+          }
+        },
+        "TimeNow",
+        {
+          "Text": {
+            "location": {
+              "start": 1176,
+              "end": 1177
+            },
+            "content": ")"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1178,
+        "end": 1179
+      },
+      "content": ":"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1179,
+        "end": 1180
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1180,
+        "end": 1181
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "ListElement": {
+      "location": {
+        "start": 1181,
+        "end": 1376
+      },
+      "kind": "i",
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 1201,
+                "end": 1222
+              },
+              "content": "font-family:monospace"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1226,
+                  "end": 1250
+                },
+                "content": "Speed of light: `c = 299"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1250,
+                  "end": 1251
+                },
+                "content": ","
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1251,
+                  "end": 1254
+                },
+                "content": "792"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1254,
+                  "end": 1255
+                },
+                "content": ","
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1255,
+                  "end": 1260
+                },
+                "content": "458 m"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1260,
+                  "end": 1261
+                },
+                "content": "/"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1261,
+                  "end": 1263
+                },
+                "content": "s`"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1268,
+                  "end": 1316
+                },
+                "content": "Planck constant: `h = 6.626 × 10⁻³⁴ J⋅s`"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1321,
+                  "end": 1340
+                },
+                "content": "Avogadro number: `N"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1340,
+                  "end": 1341
+                },
+                "content": "_"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1341,
+                  "end": 1370
+                },
+                "content": "A = 6.022 × 10²³ mol⁻¹`"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1376,
+        "end": 1377
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1377,
+        "end": 1378
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 1378,
+        "end": 1408
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1382,
+              "end": 1407
+            },
+            "content": "Experimental Verification"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1408,
+        "end": 1409
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "CodeElement": {
+      "location": {
+        "start": 1409,
+        "end": 1752
+      },
+      "language": [
+        {
+          "Text": {
+            "location": {
+              "start": 1425,
+              "end": 1431
+            },
+            "content": "python"
+          }
+        }
+      ],
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1461,
+              "end": 1709
+            },
+            "content": "# Simple energy calculation\ndef mass_energy_equiv(mass_kg):\n    \"\"\"Calculate energy from mass using E=mc²\"\"\"\n    c = 299792458  # m/s\n    energy_joules = mass_kg * c**2\n    return energy_joules\n\n# Example: 1 gram of matter\nprint(f\"Energy from 1g: "
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1709,
+              "end": 1710
+            },
+            "content": "{"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1710,
+              "end": 1738
+            },
+            "content": "mass_energy_equiv(0.001):.2e"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1738,
+              "end": 1739
+            },
+            "content": "}"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1739,
+              "end": 1749
+            },
+            "content": " Joules\")\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1752,
+        "end": 1753
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1753,
+        "end": 1754
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "FoldElement": {
+      "location": {
+        "start": 1754,
+        "end": 2209
+      },
+      "common_style": {},
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 1765,
+                  "end": 1784
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1767,
+                        "end": 1782
+                      },
+                      "content": "Historical Note"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1784,
+                  "end": 1792
+                },
+                "content": " 🏛️"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1798,
+                  "end": 1829
+                },
+                "content": "This equation was published in "
+              }
+            },
+            {
+              "Bold": {
+                "location": {
+                  "start": 1829,
+                  "end": 1837
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1831,
+                        "end": 1835
+                      },
+                      "content": "1905"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1837,
+                  "end": 1860
+                },
+                "content": " as part of Einstein's "
+              }
+            },
+            {
+              "Italic": {
+                "location": {
+                  "start": 1860,
+                  "end": 1880
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1861,
+                        "end": 1879
+                      },
+                      "content": "special relativity"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1880,
+                  "end": 1887
+                },
+                "content": " paper."
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1887,
+                  "end": 1888
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1888,
+                  "end": 1910
+                },
+                "content": "The paper was titled \""
+              }
+            },
+            {
+              "Underline": {
+                "location": {
+                  "start": 1910,
+                  "end": 1982
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1912,
+                        "end": 1980
+                      },
+                      "content": "Ist die Trägheit eines Körpers von seinem Energieinhalt abhängig?"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1982,
+                  "end": 1983
+                },
+                "content": "\""
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1983,
+                  "end": 1984
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1984,
+                  "end": 1985
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1985,
+                  "end": 2004
+                },
+                "content": "Fun fact: Einstein "
+              }
+            },
+            {
+              "Strikethrough": {
+                "location": {
+                  "start": 2004,
+                  "end": 2017
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 2006,
+                        "end": 2015
+                      },
+                      "content": "initially"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2017,
+                  "end": 2063
+                },
+                "content": " didn't receive the Nobel Prize for relativity"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2063,
+                  "end": 2064
+                },
+                "content": ","
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2064,
+                  "end": 2065
+                },
+                "content": " "
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2065,
+                  "end": 2066
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2066,
+                  "end": 2090
+                },
+                "content": "but for his work on the "
+              }
+            },
+            {
+              "Superscript": {
+                "location": {
+                  "start": 2090,
+                  "end": 2107
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 2092,
+                        "end": 2105
+                      },
+                      "content": "photoelectric"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2107,
+                  "end": 2115
+                },
+                "content": " effect!"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2115,
+                  "end": 2116
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2116,
+                  "end": 2117
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Comment": {
+                "location": {
+                  "start": 2117,
+                  "end": 2202
+                },
+                "content": " Einstein's original paper can be found in \n   Annalen der Physik, vol. 18, 1905 "
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 2202,
+                  "end": 2203
+                },
+                "content": "\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 2209,
+        "end": 2210
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 2210,
+        "end": 2211
+      },
+      "content": "\n"
+    }
+  },
+  "HLine",
+  {
+    "Text": {
+      "location": {
+        "start": 2215,
+        "end": 2216
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 2216,
+        "end": 2271
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 2217,
+              "end": 2270
+            },
+            "content": "Mathematical notation powered by SevenMark TeX engine"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 2271,
+        "end": 2273
+      },
+      "content": "  "
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 2273,
+        "end": 2274
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 2274,
+        "end": 2303
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 2275,
+              "end": 2297
+            },
+            "content": "Document generated on "
+          }
+        },
+        "TimeNow"
+      ]
+    }
+  }
+]

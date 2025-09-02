@@ -1,0 +1,68 @@
+[
+  {
+    "CodeElement": {
+      "location": {
+        "start": 0,
+        "end": 70
+      },
+      "language": [
+        {
+          "Text": {
+            "location": {
+              "start": 16,
+              "end": 20
+            },
+            "content": "rust"
+          }
+        }
+      ],
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 22,
+              "end": 32
+            },
+            "content": "fn main() "
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 32,
+              "end": 33
+            },
+            "content": "{"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 33,
+              "end": 65
+            },
+            "content": "\n    println!(\"Hello, world!\");\n"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 65,
+              "end": 66
+            },
+            "content": "}"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 66,
+              "end": 67
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  }
+]

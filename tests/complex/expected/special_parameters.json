@@ -1,0 +1,170 @@
+[
+  {
+    "StyledElement": {
+      "location": {
+        "start": 0,
+        "end": 95
+      },
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 12,
+                "end": 13
+              },
+              "content": " "
+            }
+          }
+        ],
+        "size": [
+          {
+            "Text": {
+              "location": {
+                "start": 22,
+                "end": 23
+              },
+              "content": " "
+            }
+          }
+        ],
+        "color": [
+          {
+            "Text": {
+              "location": {
+                "start": 33,
+                "end": 61
+              },
+              "content": "with spaces and symbols!@#$%"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 63,
+              "end": 91
+            },
+            "content": "Empty and special parameters"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 91,
+              "end": 92
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 95,
+        "end": 96
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 96,
+        "end": 97
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "FoldElement": {
+      "location": {
+        "start": 97,
+        "end": 216
+      },
+      "common_style": {},
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 156,
+                  "end": 180
+                },
+                "content": "Title with special chars"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 185,
+                  "end": 210
+                },
+                "content": "Content with empty params"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 216,
+        "end": 217
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 217,
+        "end": 218
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "CodeElement": {
+      "location": {
+        "start": 218,
+        "end": 290
+      },
+      "language": [
+        {
+          "Text": {
+            "location": {
+              "start": 234,
+              "end": 235
+            },
+            "content": " "
+          }
+        }
+      ],
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 237,
+              "end": 287
+            },
+            "content": "// Empty language parameter\ncode without language\n"
+          }
+        }
+      ]
+    }
+  }
+]

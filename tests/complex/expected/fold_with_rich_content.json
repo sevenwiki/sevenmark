@@ -1,0 +1,441 @@
+[
+  {
+    "FoldElement": {
+      "location": {
+        "start": 0,
+        "end": 469
+      },
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 17,
+                "end": 38
+              },
+              "content": "border:1px solid #ccc"
+            }
+          }
+        ],
+        "bg_color": [
+          {
+            "Text": {
+              "location": {
+                "start": 50,
+                "end": 59
+              },
+              "content": "lightgray"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "common_style": {
+            "style": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 71,
+                    "end": 87
+                  },
+                  "content": "font-weight:bold"
+                }
+              }
+            ],
+            "color": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 97,
+                    "end": 105
+                  },
+                  "content": "darkblue"
+                }
+              }
+            ]
+          },
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 110,
+                  "end": 121
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 112,
+                        "end": 119
+                      },
+                      "content": "Summary"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 121,
+                  "end": 138
+                },
+                "content": ": Click to expand"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 144,
+                  "end": 163
+                },
+                "content": "This fold contains:"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 163,
+                  "end": 164
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 164,
+                  "end": 166
+                },
+                "content": "- "
+              }
+            },
+            {
+              "Bold": {
+                "location": {
+                  "start": 166,
+                  "end": 179
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 168,
+                        "end": 177
+                      },
+                      "content": "Bold text"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 179,
+                  "end": 184
+                },
+                "content": " and "
+              }
+            },
+            {
+              "Italic": {
+                "location": {
+                  "start": 184,
+                  "end": 197
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 185,
+                        "end": 196
+                      },
+                      "content": "italic text"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 197,
+                  "end": 198
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 198,
+                  "end": 232
+                },
+                "content": "- A code snippet: `print(\"hello\")`"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 232,
+                  "end": 233
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 233,
+                  "end": 249
+                },
+                "content": "- Current time: "
+              }
+            },
+            "TimeNow",
+            {
+              "Text": {
+                "location": {
+                  "start": 254,
+                  "end": 255
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 255,
+                  "end": 257
+                },
+                "content": "- "
+              }
+            },
+            {
+              "Strikethrough": {
+                "location": {
+                  "start": 257,
+                  "end": 274
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 259,
+                        "end": 272
+                      },
+                      "content": "Strikethrough"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 274,
+                  "end": 279
+                },
+                "content": " and "
+              }
+            },
+            {
+              "Superscript": {
+                "location": {
+                  "start": 279,
+                  "end": 294
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 281,
+                        "end": 292
+                      },
+                      "content": "superscript"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 294,
+                  "end": 295
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 295,
+                  "end": 296
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "BlockQuoteElement": {
+                "location": {
+                  "start": 296,
+                  "end": 374
+                },
+                "common_style": {
+                  "style": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 314,
+                          "end": 325
+                        },
+                        "content": "margin:10px"
+                      }
+                    }
+                  ]
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 327,
+                        "end": 337
+                      },
+                      "content": "This is a "
+                    }
+                  },
+                  {
+                    "Bold": {
+                      "location": {
+                        "start": 337,
+                        "end": 353
+                      },
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 339,
+                              "end": 351
+                            },
+                            "content": "nested quote"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 353,
+                        "end": 370
+                      },
+                      "content": " with formatting."
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 370,
+                        "end": 371
+                      },
+                      "content": "\n"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 374,
+                  "end": 375
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 375,
+                  "end": 376
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Comment": {
+                "location": {
+                  "start": 376,
+                  "end": 418
+                },
+                "content": " This comment should be inside the fold"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 418,
+                  "end": 439
+                },
+                "content": "Final paragraph with "
+              }
+            },
+            {
+              "Escape": {
+                "location": {
+                  "start": 439,
+                  "end": 441
+                },
+                "content": "*"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 441,
+                  "end": 448
+                },
+                "content": "escaped"
+              }
+            },
+            {
+              "Escape": {
+                "location": {
+                  "start": 448,
+                  "end": 450
+                },
+                "content": "*"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 450,
+                  "end": 462
+                },
+                "content": " characters."
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 462,
+                  "end": 463
+                },
+                "content": "\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "FoldElement": {
+      "location": {
+        "start": 0,
+        "end": 92
+      },
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 17,
+                "end": 26
+              },
+              "content": "color:red"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "common_style": {
+            "bg_color": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 40,
+                    "end": 44
+                  },
+                  "content": "blue"
+                }
+              }
+            ]
+          },
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 49,
+                  "end": 67
+                },
+                "content": "content with param"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 72,
+                  "end": 86
+                },
+                "content": "normal content"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

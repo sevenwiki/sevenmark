@@ -1,0 +1,230 @@
+[
+  {
+    "Header": {
+      "location": {
+        "start": 0,
+        "end": 17
+      },
+      "level": 1,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 2,
+              "end": 16
+            },
+            "content": "Header Level 1"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 17,
+        "end": 35
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 20,
+              "end": 34
+            },
+            "content": "Header Level 2"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 35,
+        "end": 54
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 39,
+              "end": 53
+            },
+            "content": "Header Level 3"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 54,
+        "end": 74
+      },
+      "level": 4,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 59,
+              "end": 73
+            },
+            "content": "Header Level 4"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 74,
+        "end": 95
+      },
+      "level": 5,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 80,
+              "end": 94
+            },
+            "content": "Header Level 5"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 95,
+        "end": 117
+      },
+      "level": 6,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 102,
+              "end": 116
+            },
+            "content": "Header Level 6"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 117,
+        "end": 144
+      },
+      "level": 3,
+      "is_folded": true,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 122,
+              "end": 143
+            },
+            "content": "Folded Header Level 3"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 144,
+        "end": 145
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Bold": {
+      "location": {
+        "start": 145,
+        "end": 153
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 147,
+              "end": 151
+            },
+            "content": "bold"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 153,
+        "end": 166
+      },
+      "content": " # not header"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 166,
+        "end": 167
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "ListElement": {
+      "location": {
+        "start": 167,
+        "end": 196
+      },
+      "kind": "",
+      "common_style": {},
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 183,
+                  "end": 189
+                },
+                "content": "header"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 189,
+                  "end": 190
+                },
+                "content": "\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

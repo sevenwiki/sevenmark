@@ -1,0 +1,61 @@
+[
+  {
+    "Text": {
+      "location": {
+        "start": 0,
+        "end": 14
+      },
+      "content": "Current time: "
+    }
+  },
+  "TimeNow",
+  {
+    "Text": {
+      "location": {
+        "start": 19,
+        "end": 20
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 20,
+        "end": 37
+      },
+      "content": "Age calculation: "
+    }
+  },
+  {
+    "Age": "1990-01-15"
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 54,
+        "end": 55
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 55,
+        "end": 66
+      },
+      "content": "Line break:"
+    }
+  },
+  "NewLine",
+  {
+    "Text": {
+      "location": {
+        "start": 70,
+        "end": 79
+      },
+      "content": "Next line"
+    }
+  }
+]

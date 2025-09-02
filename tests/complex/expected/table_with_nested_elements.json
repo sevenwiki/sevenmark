@@ -1,0 +1,281 @@
+[
+  {
+    "TableElement": {
+      "location": {
+        "start": 0,
+        "end": 308
+      },
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 18,
+                "end": 42
+              },
+              "content": "border-collapse:collapse"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 48,
+                      "end": 60
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 50,
+                            "end": 58
+                          },
+                          "content": "Header 1"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Italic": {
+                    "location": {
+                      "start": 65,
+                      "end": 75
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 66,
+                            "end": 74
+                          },
+                          "content": "Header 2"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Strikethrough": {
+                    "location": {
+                      "start": 80,
+                      "end": 92
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 82,
+                            "end": 90
+                          },
+                          "content": "Header 3"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 101,
+                      "end": 112
+                    },
+                    "content": "Simple cell"
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "CodeElement": {
+                    "location": {
+                      "start": 117,
+                      "end": 165
+                    },
+                    "language": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 133,
+                            "end": 139
+                          },
+                          "content": "python"
+                        }
+                      }
+                    ],
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 141,
+                            "end": 162
+                          },
+                          "content": "print(\"nested code\") "
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 170,
+                      "end": 176
+                    },
+                    "content": "List: "
+                  }
+                },
+                {
+                  "ListElement": {
+                    "location": {
+                      "start": 176,
+                      "end": 213
+                    },
+                    "kind": "a",
+                    "common_style": {},
+                    "content": [
+                      {
+                        "common_style": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 190,
+                                "end": 196
+                              },
+                              "content": "Item A"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "common_style": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 201,
+                                "end": 207
+                              },
+                              "content": "Item B"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "inner_content": [
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 222,
+                      "end": 227
+                    },
+                    "content": "Age: "
+                  }
+                },
+                {
+                  "Age": "1995-06-20"
+                }
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 249,
+                      "end": 258
+                    },
+                    "content": "Current: "
+                  }
+                },
+                "TimeNow"
+              ]
+            },
+            {
+              "common_style": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 268,
+                      "end": 275
+                    },
+                    "content": "Quote: "
+                  }
+                },
+                {
+                  "BlockQuoteElement": {
+                    "location": {
+                      "start": 275,
+                      "end": 300
+                    },
+                    "common_style": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 285,
+                            "end": 297
+                          },
+                          "content": "Short quote "
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

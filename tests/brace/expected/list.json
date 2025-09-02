@@ -1,0 +1,56 @@
+[
+  {
+    "ListElement": {
+      "location": {
+        "start": 0,
+        "end": 48
+      },
+      "kind": "1",
+      "common_style": {},
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 14,
+                  "end": 20
+                },
+                "content": "Item 1"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 25,
+                  "end": 31
+                },
+                "content": "Item 2"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 36,
+                  "end": 42
+                },
+                "content": "Item 3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

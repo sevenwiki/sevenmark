@@ -1,0 +1,45 @@
+[
+  {
+    "StyledElement": {
+      "location": {
+        "start": 0,
+        "end": 59
+      },
+      "common_style": {
+        "style": [
+          {
+            "Text": {
+              "location": {
+                "start": 12,
+                "end": 21
+              },
+              "content": "color:red"
+            }
+          }
+        ],
+        "size": [
+          {
+            "Text": {
+              "location": {
+                "start": 30,
+                "end": 34
+              },
+              "content": "16px"
+            }
+          }
+        ]
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 36,
+              "end": 56
+            },
+            "content": "Styled text content "
+          }
+        }
+      ]
+    }
+  }
+]

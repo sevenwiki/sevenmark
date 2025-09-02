@@ -1,0 +1,41 @@
+[
+  {
+    "FoldElement": {
+      "location": {
+        "start": 0,
+        "end": 49
+      },
+      "common_style": {},
+      "content": [
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 11,
+                  "end": 24
+                },
+                "content": "first content"
+              }
+            }
+          ]
+        },
+        {
+          "common_style": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 29,
+                  "end": 43
+                },
+                "content": "second content"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
