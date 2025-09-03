@@ -35,29 +35,53 @@ features:
 Try SevenMark syntax:
 
 ```sevenmark
-**Bold text** and *italic text* can be used together.
+**Bold text** and *italic text* with ^^superscript^^ and ,,subscript,,.
 
 {{{#table
-[[[[Header 1]] [[Header 2]]]]
-[[[[Cell 1]] [[Cell 2]]]]
+    [[[[Header 1]] [[Header 2]]]]
+    [[[[Cell 1]] [[Cell 2]]]]
 }}}
+
+{{{#list #1
+    [[First item with **bold** text]]
+    [[Second item with {{{#code console.log("hello") }}}]]
+    [[Third item]]
+}}}
+
+Current time: [now] // This is a comment
 ```
 
 ## Key Features
 
 ### Text Styling
 - `**bold**`, `*italic*`, `__underline__`, `~~strikethrough~~`
-- `^superscript^`, `,subscript,`
+- `^^superscript^^`, `,,subscript,,`
+- Headers: `# ## ### #### ##### ######`
+- Collapsible headers: `## Header-`
 
 ### Block Elements
-- Tables: `{{{#table}}}`
-- Lists: `{{{#list}}}`
-- Code: `{{{#code}}}`
-- Math: `{{{#tex}}}`
+- Tables: `{{{#table [[[[Cell]]]] }}}`
+- Lists: `{{{#list #1 [[Item]] }}}`
+- Code: `{{{#code #lang="rust" code }}}` 
+- Math: `{{{#tex formula }}}` or `{{{#tex #block formula }}}`
+- Quotes: `{{{#quote content }}}`
+- Folds: `{{{#fold [[summary]] [[details]] }}}`
+
+### Media & Links
+- Images: `[[#file="image.png" Alt text]]`
+- Links: `[[#url="https://example.com" Link text]]`
+- Files: `[[#file="doc.pdf" #url="backup" Document]]`
 
 ### Wiki Features
-- Include: `{{{#include}}}`
-- Category: `{{{#category}}}`
-- Redirect: `{{{#redirect}}}`
+- Include: `{{{#include #page="PageName" content }}}`
+- Category: `{{{#category Category Name }}}`
+- Redirect: `{{{#redirect TargetPage }}}`
+
+### Advanced Features
+- Comments: `// inline` and `/* multiline */`
+- Macros: `[now]`, `[age(1990-01-01)]`, `[br]`
+- Styling: `{{{ #style="css" #color="red" content }}}`
+- Parameters: `#style`, `#color`, `#size`, `#x`, `#y`
+- Escaping: `\*literal\*`, `\{\{\{not-element\}\}\}`
 
 </div>
