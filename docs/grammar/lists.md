@@ -1,146 +1,106 @@
-# 리스트
+# Lists
 
 <div v-pre>
 
-SevenMark에서 리스트는 `{{{#list}}}` 구문을 사용합니다.
+SevenMark uses `{{{#list}}}` syntax for creating lists with various numbering styles.
 
-## 기본 리스트
+## Basic Lists
 
-### 숫자 리스트 (1, 2, 3...)
+### Numeric List (1, 2, 3...)
 
 ```sevenmark
-{{{#list #kind="1"
-첫 번째 항목
-두 번째 항목
-세 번째 항목
+{{{#list #1
+[[Item 1]]
+[[Item 2]]
+[[Item 3]]
 }}}
 ```
 
-### 알파벳 리스트 (a, b, c...)
+### Lowercase Alphabetic List (a, b, c...)
 
 ```sevenmark
-{{{#list #kind="a"
-첫 번째 항목
-두 번째 항목
-세 번째 항목
+{{{#list #a
+[[First item]]
+[[Second item]]
+[[Third item]]
 }}}
 ```
 
-### 대문자 알파벳 리스트 (A, B, C...)
+### Uppercase Alphabetic List (A, B, C...)
 
 ```sevenmark
-{{{#list #kind="A"
-첫 번째 항목
-두 번째 항목
-세 번째 항목
+{{{#list #A
+[[First item]]
+[[Second item]]
+[[Third item]]
 }}}
 ```
 
-### 로마 숫자 리스트 (i, ii, iii...)
+### Lowercase Roman Numerals (i, ii, iii...)
 
 ```sevenmark
-{{{#list #kind="i"
-첫 번째 항목
-두 번째 항목
-세 번째 항목
+{{{#list #i
+[[First item]]
+[[Second item]]
+[[Third item]]
 }}}
 ```
 
-### 대문자 로마 숫자 리스트 (I, II, III...)
+### Uppercase Roman Numerals (I, II, III...)
 
 ```sevenmark
-{{{#list #kind="I"
-첫 번째 항목
-두 번째 항목
-세 번째 항목
+{{{#list #I
+[[First item]]
+[[Second item]]
+[[Third item]]
 }}}
 ```
 
-## 중첩 리스트
+## Nested Lists
 
-리스트 항목 안에 다른 리스트를 중첩할 수 있습니다:
+Lists can be nested within other lists:
 
 ```sevenmark
-{{{#list #kind="1"
-첫 번째 주요 항목
-{{{#list #kind="a"
-하위 항목 a
-하위 항목 b
-}}}
-두 번째 주요 항목
-{{{#list #kind="i"
-하위 항목 i
-하위 항목 ii
-}}}
+{{{#list #1 #style="margin-left:20px"
+[[**Chapter 1**: Introduction]]
+[[Subsection: {{{#list #a [[Point A with *emphasis*]] [[Point B with [now]]] }}} ]]
+[[**Chapter 2**: Advanced Topics]]
 }}}
 ```
 
-## 스타일이 적용된 리스트
+## Styled Lists
 
-### 전체 리스트 스타일
+### List-wide Styling
 
 ```sevenmark
-{{{#list #kind="1" #color="blue"
-파란색 리스트 항목 1
-파란색 리스트 항목 2
+{{{#list #1 #style="color:blue; margin-left:20px"
+[[Blue colored item 1]]
+[[Blue colored item 2]]
 }}}
 ```
 
-### 개별 항목 스타일
+### Complex List Example
 
 ```sevenmark
-{{{#list #kind="1"
-{{{#item #style="font-weight: bold;" 볼드 항목 }}}
-{{{#item #color="red" 빨간색 항목 }}}
-일반 항목
+{{{#list #1 #style="margin-left:20px"
+[[**Chapter 1**: Introduction]]
+[[Subsection: {{{#list #a [[Point A with *emphasis*]] [[Point B with [now]]] }}} ]]
+[[**Chapter 2**: Advanced Topics]]
+[[Complex item: {{{#fold [[Click here]] [[Hidden: {{{#code #lang="rust" fn main() { println!("Deep!"); } }}}]] }}} ]]
+[[Final chapter with ^^superscript^^ text]]
 }}}
 ```
 
-## 복잡한 리스트 예제
+## Lists with Rich Content
+
+List items can contain any SevenMark elements:
 
 ```sevenmark
-{{{#list #kind="1" #style="line-height: 1.8;"
-{{{#item
-**주요 기능**
-- 빠른 성능
-- 다양한 문법 지원
-}}}
-{{{#item #color="green"
-**장점**
-{{{#list #kind="a"
-사용하기 쉬움
-확장성이 좋음
-{{{#list #kind="i"
-플러그인 시스템
-매크로 지원
-}}}
-}}}
-}}}
-{{{#item
-**예제 코드**
-{{{#code #language="rust"
-fn main() {
-    println!("Hello, SevenMark!");
-}
-}}}
-}}}
-}}}
-```
-
-## 리스트와 다른 요소 조합
-
-```sevenmark
-{{{#list #kind="1"
-텍스트 스타일: **볼드**, *이탤릭*, __밑줄__
-코드: {{{#code println!("Hello!"); }}}
-테이블:
-{{{#table
-| 항목 | 값 |
-| ---- | -- |
-| A    | 1  |
-| B    | 2  |
-}}}
-이미지: [[#file="example.png" 예제 이미지]]
+{{{#list #1
+[[Text styles: **bold**, *italic*, __underline__]]
+[[Code: {{{#code println!("Hello!"); }}}]]
+[[Tables: {{{#table [[[[Item]] [[Value]]]] [[[[A]] [[1]]]] [[[[B]] [[2]]]] }}}]]
+[[Media: [[#file="example.png" Example image]]]]
 }}}
 ```
 

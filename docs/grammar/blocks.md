@@ -1,95 +1,93 @@
-# 블록 요소
+# Block Elements
 
 <div v-pre>
 
-SevenMark는 다양한 블록 레벨 요소를 지원합니다.
+SevenMark supports various block-level elements.
 
-## 헤더
+## Headers
 
-`#` 기호를 사용하여 헤더를 만들 수 있습니다. 레벨 1부터 6까지 지원합니다.
-
-```sevenmark
-# 레벨 1 헤더
-## 레벨 2 헤더
-### 레벨 3 헤더
-#### 레벨 4 헤더
-##### 레벨 5 헤더
-###### 레벨 6 헤더
-```
-
-### 접히는 헤더
-
-헤더 뒤에 `-`를 붙이면 접힘 가능한 헤더가 됩니다:
+Use `#` symbols to create headers. Levels 1-6 are supported.
 
 ```sevenmark
-## 접히는 헤더-
-이 내용은 헤더를 클릭하면 접힙니다.
+# Level 1 Header
+## Level 2 Header
+### Level 3 Header
+#### Level 4 Header
+##### Level 5 Header
+###### Level 6 Header
 ```
 
-## 수평선
+### Collapsible Headers
 
-세 개의 하이픈(`---`)으로 수평선을 만들 수 있습니다:
+Add `-` after header to make it collapsible:
+
+```sevenmark
+## Collapsible Header-
+This content will be hidden when header is collapsed.
+```
+
+## Horizontal Line
+
+Use three hyphens (`---`) to create a horizontal line:
 
 ```sevenmark
 ---
 ```
 
-## 인용문
+## Blockquotes
 
-`{{{#blockquote}}}` 구문을 사용합니다:
+Use `{{{#quote}}}` syntax for quoted text:
 
 ```sevenmark
-{{{#blockquote
-이것은 인용문입니다.
-여러 줄에 걸쳐 쓸 수 있습니다.
+{{{#quote
+This is a quoted text block.
+It can span multiple lines.
 }}}
 ```
 
-### 스타일이 적용된 인용문
+### Styled Blockquotes
 
-매개변수를 사용해 스타일을 지정할 수 있습니다:
+Parameters can be used to apply styling:
 
 ```sevenmark
-{{{#blockquote #color="blue"
-파란색 인용문
+{{{#quote #style="font-style:italic"
+This is a quoted text block with some **bold** content.
 }}}
 ```
 
-## 폴드
+## Fold
 
-접고 펼칠 수 있는 영역을 만듭니다:
+Create collapsible sections:
 
 ```sevenmark
 {{{#fold
-요약 텍스트
----
-접혀있는 상세 내용
+[[Summary text]]
+[[Hidden detailed content]]
 }}}
 ```
 
-### 스타일이 적용된 폴드
+### Styled Fold
 
 ```sevenmark
 {{{#fold #style="border: 1px solid #ccc;"
-커스텀 스타일 폴드
----
-내용
+[[Custom styled fold]]
+[[Content]]
 }}}
 ```
 
-## 코드 블록
+## Code Blocks
 
-프로그래밍 코드를 표시할 때 사용합니다:
+Display programming code with syntax highlighting:
 
 ```sevenmark
-{{{#code #language="rust"
+{{{#code #lang="rust"
 fn main() {
-    println!("Hello, World!");
+    println!("Hello, world!");
 }
 }}}
 ```
 
-### 언어 지정 없는 코드 블록
+### Code Block without Language
 
 ```sevenmark
 {{{#code
@@ -97,33 +95,41 @@ plain text code
 }}}
 ```
 
-## TeX 수식
+## TeX Math
 
-수학 수식을 표시할 수 있습니다:
+Display mathematical expressions:
 
-### 인라인 수식
+### Inline Math
 
 ```sevenmark
 {{{#tex E = mc^2 }}}
 ```
 
-### 블록 수식
+### Block Math
 
 ```sevenmark
-{{{#tex #block=true
-\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+{{{#tex #block
+E = mc^2
 }}}
 ```
 
-## 리터럴
+## Literal
 
-마크업을 그대로 표시하고 싶을 때 사용합니다:
+Display markup literally without processing:
 
 ```sevenmark
 {{{
-**이것은 볼드로 렌더링되지 않습니다**
-*이탤릭도 마찬가지입니다*
+**This will not be rendered as bold**
+*Italic won't work either*
 }}}
+```
+
+## Styled Elements
+
+Apply custom styling to any content:
+
+```sevenmark
+{{{ #style="color:red" #size="16px" Styled text content }}}
 ```
 
 </div>

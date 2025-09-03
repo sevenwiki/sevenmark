@@ -1,76 +1,77 @@
-# 텍스트 스타일
+# Text Styles
 
 <div v-pre>
 
-SevenMark는 다양한 텍스트 스타일링을 지원합니다.
+SevenMark supports various text formatting styles.
 
-## 기본 스타일
+## Basic Formatting
 
-### 볼드 (Bold)
-두 개의 별표(`**`)로 감싸서 볼드 텍스트를 만들 수 있습니다.
+### Bold
+Use two asterisks (`**`) to create bold text.
 
 ```sevenmark
-**볼드 텍스트**
+**Bold text**
 ```
 
-### 이탤릭 (Italic)
-한 개의 별표(`*`)로 감싸서 이탤릭 텍스트를 만들 수 있습니다.
+### Italic
+Use single asterisk (`*`) to create italic text.
 
 ```sevenmark
-*이탤릭 텍스트*
+*Italic text*
 ```
 
-### 볼드 이탤릭 (Bold Italic)
-세 개의 별표(`***`)로 감싸서 볼드 이탤릭을 만들 수 있습니다.
+### Bold Italic
+Use three asterisks (`***`) to create bold italic text.
 
 ```sevenmark
-***볼드 이탤릭 텍스트***
+***Bold italic text***
 ```
 
-### 밑줄 (Underline)
-두 개의 언더스코어(`__`)로 감싸서 밑줄을 만들 수 있습니다.
+### Underline
+Use two underscores (`__`) to create underlined text.
 
 ```sevenmark
-__밑줄 텍스트__
+__Underlined text__
 ```
 
-### 취소선 (Strikethrough)
-두 개의 물결표(`~~`)로 감싸서 취소선을 만들 수 있습니다.
+### Strikethrough
+Use two tildes (`~~`) to create strikethrough text.
 
 ```sevenmark
-~~취소선 텍스트~~
+~~Strikethrough text~~
 ```
 
-### 위첨자 (Superscript)
-캐럿 기호(`^`)로 감싸서 위첨자를 만들 수 있습니다.
+### Superscript
+Use double carets (`^^`) to create superscript text.
 
 ```sevenmark
-x^2^ + y^2^ = z^2^
+x^^2^^ + y^^2^^ = z^^2^^
 ```
 
-### 아래첨자 (Subscript)
-쉼표(`,`)로 감싸서 아래첨자를 만들 수 있습니다.
+### Subscript
+Use double commas (`,,`) to create subscript text.
 
 ```sevenmark
-H,2,O
+H,,2,,O
 ```
 
-## 중첩 스타일
+## Combined Formatting
 
-여러 스타일을 중첩해서 사용할 수 있습니다:
+Multiple formatting can be combined:
 
 ```sevenmark
-**볼드와 *이탤릭*을 함께**
-__밑줄과 **볼드**를 함께__
+**Bold with *italic* inside**
+__Underline with **bold** inside__
+This text has **bold**, *italic*, __underlined__, ~~strikethrough~~, ^^superscript^^, and ,,subscript,, formatting.
 ```
 
-## 이스케이프
+## Escaping
 
-특수 문자를 그대로 표시하려면 백슬래시(`\`)를 사용합니다:
+Use backslash (`\`) to escape special characters:
 
 ```sevenmark
-\*별표를 그대로 표시\*
-\**볼드 기호를 그대로 표시\**
+\*Display asterisk literally\*
+\**Display bold markers literally\**
 ```
 
 </div>
