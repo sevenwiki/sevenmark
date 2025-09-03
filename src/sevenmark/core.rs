@@ -1,4 +1,4 @@
-use crate::sevenmark::ast::{ErrorElement, Location, SevenMarkElement, TextElement};
+use crate::sevenmark::ast::{ErrorElement, Location, SevenMarkElement};
 use crate::sevenmark::context::ParseContext;
 use crate::sevenmark::parser::document::document_parser;
 use crate::sevenmark::visitor::preprocessor::{PreVisitor, PreprocessInfo, SevenMarkPreprocessor};

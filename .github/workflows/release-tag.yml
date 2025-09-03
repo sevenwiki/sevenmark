@@ -1,0 +1,60 @@
+name: Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install wasm-pack and wasm-opt
+        run: |
+          cargo install wasm-pack
+          cargo install wasm-opt
+
+      - name: Add WASM target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Build WASM (Web)
+        run: |
+          wasm-pack build --target web --features wasm
+          cp -r pkg pkg-web
+
+      - name: Build WASM (Bundler)
+        run: |
+          wasm-pack build --target bundler --features wasm
+          cp -r pkg pkg-bundler
+
+      - name: Build WASM (Node.js)  
+        run: |
+          wasm-pack build --target nodejs --features wasm
+          cp -r pkg pkg-nodejs
+
+      - name: Create archives
+        run: |
+          tar -czf sevenmark-wasm-web-${{ github.ref_name }}.tar.gz -C pkg-web .
+          tar -czf sevenmark-wasm-bundler-${{ github.ref_name }}.tar.gz -C pkg-bundler .
+          tar -czf sevenmark-wasm-nodejs-${{ github.ref_name }}.tar.gz -C pkg-nodejs .
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            sevenmark-wasm-web-${{ github.ref_name }}.tar.gz
+            sevenmark-wasm-bundler-${{ github.ref_name }}.tar.gz  
+            sevenmark-wasm-nodejs-${{ github.ref_name }}.tar.gz
+          generate_release_notes: true
+          draft: false
+          prerelease: false

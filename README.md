@@ -103,6 +103,37 @@ fn hello() {
 }}}
 ```
 
+## Build Options
+
+SevenMark supports multiple build configurations:
+
+```bash
+# Basic library (parsing only)
+cargo build
+
+# With server features (axum, tokio, tracing)
+cargo build --features server
+
+# WebAssembly build (web)
+wasm-pack build --target web --features wasm
+
+# WebAssembly build (bundler - webpack/vite)
+wasm-pack build --target bundler --features wasm
+
+# WebAssembly build (Node.js/VS Code extensions)  
+wasm-pack build --target nodejs --features wasm
+```
+
+### Binary Targets
+
+```bash
+# Parse without preprocessing
+cargo run --bin parse
+
+# Parse with preprocessing (includes, redirects, etc.)
+cargo run --bin svm_file
+```
+
 ## Performance
 
 SevenMark is designed for high performance:

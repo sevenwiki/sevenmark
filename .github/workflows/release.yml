@@ -33,3 +33,20 @@ jobs:
 
       - name: Run Tests
         run: cargo test --all --locked -- --nocapture
+
+      - name: Install wasm-pack and wasm-opt
+        run: |
+          cargo install wasm-pack
+          cargo install wasm-opt
+
+      - name: Add WASM target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Test WASM build (Web)
+        run: wasm-pack build --target web --features wasm
+
+      - name: Test WASM build (Bundler)  
+        run: wasm-pack build --target bundler --features wasm
+
+      - name: Test WASM build (Node.js)
+        run: wasm-pack build --target nodejs --features wasm

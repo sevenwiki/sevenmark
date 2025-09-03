@@ -4,22 +4,48 @@ version = "0.1.0"
 authors = [
     "Levi Lim <shiueo.csh@gmail.com>",
 ]
+license = "Apache-2.0"
+repository = "https://github.com/sevenwiki/sevenmark"
+description = "A DSL designed for Sevenwiki"
 edition = "2024"
 rust-version = "1.89.0"
 
 [dependencies]
 anyhow = "1.0.99"
-axum = { version = "0.8.4", features = ["multipart", "macros"] }
-dotenvy = "0.15.7"
 winnow = {version = "0.7.13", features = ["simd"] }
 serde = {version = "1.0.219", features = ["derive"]}
-tokio = {version = "1.47.1", features = ["full"]}
-tracing = "0.1.41"
-tracing-subscriber = "0.3.19"
 serde_json = "1.0.142"
-tracing-appender = "0.2.3"
 paste = "1.0.15"
 line-span = "0.1.5"
+
+# Non-WASM dependencies
+axum = { version = "0.8.4", features = ["multipart", "macros"], optional = true }
+dotenvy = { version = "0.15.7", optional = true }
+tokio = { version = "1.47.1", features = ["full"], optional = true }
+tracing = { version = "0.1.41", optional = true }
+tracing-subscriber = { version = "0.3.19", optional = true }
+tracing-appender = { version = "0.2.3", optional = true }
+
+# WASM dependencies
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
+web-sys = { version = "0.3", optional = true }
+
+[features]
+default = []
+server = ["axum", "dotenvy", "tokio", "tracing", "tracing-subscriber", "tracing-appender"]
+wasm = ["wasm-bindgen", "js-sys", "web-sys"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "svm_file"
+path = "src/bin/svm_file.rs"
+
+[[bin]]
+name = "parse"
+path = "src/bin/parse.rs"
 
 [profile.dev]
 opt-level = 1

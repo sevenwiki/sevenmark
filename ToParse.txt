@@ -16,38 +16,3 @@ This document covers the **SevenMark** parsing engine implementation.
 }}}
 ]]
 }}}
-
-## Core Methods
-
-{{{#table #style="border-collapse:collapse; width:100%"
-[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
-[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
-[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
-}}}
-
-### Example Usage
-
-{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
-use sevenmark::parse_document;
-
-fn main() {
-    let content = "**Hello** [now]";
-    let result = parse_document(content);
-    println!("Parsed: {:#?}", result);
-}
-}}}
-
-### Error Cases
-
-{{{#quote #style="background:#fff3cd; border-left:4px solid #ffc107; padding:10px"
-**Warning**: Always handle parsing errors gracefully. Common issues include:
-- Malformed brace syntax: `{{{unclosed`
-- Invalid macro parameters: `[age(invalid-date)]`
-- Deeply nested elements exceeding recursion limits
-}}}
-
----
-
-*Documentation last updated: [now]*
-
-// TODO: Add more examples for complex nesting scenarios
