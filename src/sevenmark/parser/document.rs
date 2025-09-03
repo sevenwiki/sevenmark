@@ -1,5 +1,5 @@
-use super::element::element_parser;
 use super::brace::brace_redirect_parser;
+use super::element::element_parser;
 use super::{InputSource, ParserInput};
 use crate::sevenmark::ast::{SevenMarkElement, TextElement};
 use crate::sevenmark::context::ParseContext;
@@ -17,7 +17,7 @@ pub fn document_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkEl
     if let Ok(redirect_element) = brace_redirect_parser(parser_input) {
         return Ok(vec![redirect_element]);
     }
-    
+
     // redirect가 아니면 기존처럼 모든 element 파싱
     repeat(0.., element_parser)
         .map(|elements: Vec<_>| elements.into_iter().flatten().collect())
