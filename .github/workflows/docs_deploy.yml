@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: docs   # 👉 VitePress 프로젝트 폴더명 (예: mofumofu-ui 대신 docs)
+        working-directory: docs
 
     steps:
       - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: 'docs/.nvmrc'  # 👉 프로젝트에 .nvmrc 있으면 그대로 사용
+          node-version-file: 'docs/.nvmrc'
           cache: 'pnpm'
 
       - name: Setup pnpm
