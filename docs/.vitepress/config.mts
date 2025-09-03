@@ -1,32 +1,73 @@
 import { defineConfig } from "vitepress";
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/sevenmark/",
+  title: "SevenMark",
+  description: "A DSL designed for SevenWiki",
 
-  srcDir: "docs",
-
-  title: "Sevenmark",
-  description: "A DSL designed for Sevenwiki ",
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
-      { text: "Examples", link: "/markdown-examples" },
+      { text: "Grammar", link: "/grammar/text-styles" },
+      { text: "Examples", link: "/examples/basic" },
+      { text: "API", link: "/api/" },
     ],
 
-    sidebar: [
-      {
-        text: "Examples",
-        items: [
-          { text: "Markdown Examples", link: "/markdown-examples" },
-          { text: "Runtime API Examples", link: "/api-examples" },
-        ],
-      },
-    ],
+    sidebar: {
+      "/grammar/": [
+        {
+          text: "Basic Grammar",
+          items: [
+            { text: "Text Styles", link: "/grammar/text-styles" },
+            { text: "Block Elements", link: "/grammar/blocks" },
+            { text: "Lists", link: "/grammar/lists" },
+            { text: "Tables", link: "/grammar/tables" },
+          ],
+        },
+        {
+          text: "Advanced Grammar",
+          items: [
+            { text: "Parameters", link: "/grammar/parameters" },
+            { text: "Styling", link: "/grammar/styling" },
+            { text: "Macros", link: "/grammar/macros" },
+          ],
+        },
+        {
+          text: "Wiki Features",
+          items: [
+            { text: "Include", link: "/grammar/include" },
+            { text: "Category", link: "/grammar/category" },
+            { text: "Redirect", link: "/grammar/redirect" },
+          ],
+        },
+      ],
+      "/examples/": [
+        {
+          text: "Examples",
+          items: [
+            { text: "Basic Examples", link: "/examples/basic" },
+            { text: "Complex Structures", link: "/examples/complex" },
+            { text: "Real World Usage", link: "/examples/real-world" },
+          ],
+        },
+      ],
+      "/api/": [
+        {
+          text: "API",
+          items: [
+            { text: "Parser API", link: "/api/parser" },
+            { text: "AST Structure", link: "/api/ast" },
+          ],
+        },
+      ],
+    },
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      { icon: "github", link: "https://github.com/sevenwiki/sevenmark" },
     ],
+
+    search: {
+      provider: "local",
+    },
   },
 });
