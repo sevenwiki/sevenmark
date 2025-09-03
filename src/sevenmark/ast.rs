@@ -32,6 +32,13 @@ pub struct CommentElement {
     pub content: String,
 }
 
+/// 에러 요소 (파싱 실패한 내용)
+#[derive(Debug, Clone, Serialize)]
+pub struct ErrorElement {
+    pub location: Location,
+    pub content: String,
+}
+
 /// 공통 스타일 속성들
 #[derive(Debug, Clone, Serialize)]
 pub struct CommonStyleAttributes {
@@ -198,6 +205,7 @@ pub struct CategoryElement {
 /// 리다이렉트 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct RedirectElement {
+    pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
 
@@ -208,6 +216,7 @@ pub enum SevenMarkElement {
     Text(TextElement),
     Comment(CommentElement),
     Escape(EscapeElement),
+    Error(ErrorElement),
 
     // Block elements
     LiteralElement(LiteralElement),

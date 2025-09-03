@@ -1,13 +1,14 @@
-{{{ #style=" " #size=" " #color="with spaces and symbols!@#$%"
-Empty and special parameters
+{{{#redirect aaa}}}
+{{{#category aaa\d\d\d}}}
+{{{#table
+[[
+[[
+{{{#category aaa}}}
+{{{#category bbb}}}
+]]
+]]
 }}}
 
-{{{#fold #empty #flag
-[[#special="quotes\"and\\slashes" || Title with special chars]]
-[[Content with empty params]]
-}}}
-
-{{{#code #lang=" "
-// Empty language parameter
-code without language
-}}}
+{{{#include #x="xasdasds" asdasdasd}}}
+{{{#include #x="xasdasds" asdasdaaewefawef}}}
+[[awefawefawef]]

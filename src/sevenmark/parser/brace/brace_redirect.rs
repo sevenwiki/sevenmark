@@ -1,4 +1,4 @@
-use crate::sevenmark::ParserInput;
+use crate::sevenmark::{ParserInput, RedirectElement};
 use crate::sevenmark::ast::{LiteralElement, Location, SevenMarkElement};
 use crate::sevenmark::parser::brace::redirect::redirect_content_parser;
 use crate::sevenmark::parser::utils::with_depth;
@@ -23,7 +23,7 @@ pub fn brace_redirect_parser(parser_input: &mut ParserInput) -> Result<SevenMark
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::LiteralElement(LiteralElement {
+    Ok(SevenMarkElement::Redirect(RedirectElement {
         location: Location { start, end },
         content: parsed_content,
     }))

@@ -14,8 +14,6 @@ pub mod text;
 pub mod token;
 mod utils;
 
-pub use document::parse_document;
-
 pub type InputSource<'i> = LocatingSlice<&'i str>;
 
 pub type ParserInput<'i> = Stateful<InputSource<'i>, ParseContext>;
