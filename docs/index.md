@@ -11,7 +11,7 @@ hero:
       link: /grammar/text-styles
     - theme: alt
       text: View on GitHub
-      link: https://github.com/username/sevenmark
+      link: https://github.com/sevenwiki/sevenmark
 
 features:
   - title: Rich Text Styling
@@ -54,30 +54,35 @@ Current time: [now] // This is a comment
 ## Key Features
 
 ### Text Styling
+
 - `**bold**`, `*italic*`, `__underline__`, `~~strikethrough~~`
 - `^^superscript^^`, `,,subscript,,`
 - Headers: `# ## ### #### ##### ######`
 - Collapsible headers: `## Header-`
 
 ### Block Elements
+
 - Tables: `{{{#table [[[[Cell]]]] }}}`
 - Lists: `{{{#list #1 [[Item]] }}}`
-- Code: `{{{#code #lang="rust" code }}}` 
+- Code: `{{{#code #lang="rust" code }}}`
 - Math: `{{{#tex formula }}}` or `{{{#tex #block formula }}}`
 - Quotes: `{{{#quote content }}}`
 - Folds: `{{{#fold [[summary]] [[details]] }}}`
 
 ### Media & Links
+
 - Images: `[[#file="image.png" Alt text]]`
 - Links: `[[#url="https://example.com" Link text]]`
 - Files: `[[#file="doc.pdf" #url="backup" Document]]`
 
 ### Wiki Features
+
 - Include: `{{{#include #page="PageName" content }}}`
 - Category: `{{{#category Category Name }}}`
 - Redirect: `{{{#redirect TargetPage }}}`
 
 ### Advanced Features
+
 - Comments: `// inline` and `/* multiline */`
 - Macros: `[now]`, `[age(1990-01-01)]`, `[br]`
 - Styling: `{{{ #style="css" #color="red" content }}}`
