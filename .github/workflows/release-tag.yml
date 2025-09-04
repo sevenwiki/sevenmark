@@ -19,6 +19,11 @@ jobs:
           toolchain: stable
           override: true
 
+      - name: Install wasm-pack and wasm-opt
+        run: |
+          which wasm-pack || cargo install wasm-pack
+          which wasm-opt || cargo install wasm-opt
+
       - name: Cache Cargo dependencies
         uses: actions/cache@v4
         with:
@@ -28,11 +33,6 @@ jobs:
             ~/.cargo/bin
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-tools
-
-      - name: Install wasm-pack and wasm-opt
-        run: |
-          which wasm-pack || cargo install wasm-pack
-          which wasm-opt || cargo install wasm-opt
 
       - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
