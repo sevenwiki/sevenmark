@@ -28,12 +28,12 @@ pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
     let url = parameters
         .as_ref()
         .and_then(|p| p.get("url"))
-        .cloned()
+        .map(|param| param.value.clone())
         .unwrap_or_default();
     let file = parameters
         .as_ref()
         .and_then(|p| p.get("file"))
-        .cloned()
+        .map(|param| param.value.clone())
         .unwrap_or_default();
     let display_text = parsed_content.unwrap_or_default();
 

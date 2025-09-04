@@ -1,18 +1,3 @@
-# SevenMark Parser API Documentation
-
-## Overview
-
-This document covers the **SevenMark** parsing engine implementation.
-
-{{{#fold #style="border:1px solid #ddd; margin:10px"
-[[**Table of Contents** _(click to expand)_]]
-[[
-{{{#list #1
-[[Introduction and Setup]]
-[[Core API Methods]]
-[[Error Handling]]
-[[Performance Considerations]]
-[[Examples and Tutorials]]
-}}}
-]]
+{{{#include #page="HomePage"
+Include some content here
 }}}

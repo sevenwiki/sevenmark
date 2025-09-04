@@ -1,8 +1,16 @@
 use serde::Serialize;
 use std::collections::HashMap;
 
-/// 파라미터 맵: key-value 쌍으로 각 value는 SevenMarkElement> 벡터
-pub type Parameters = HashMap<String, Vec<SevenMarkElement>>;
+/// Individual parameter with location tracking
+#[derive(Debug, Clone, Serialize)]
+pub struct Parameter {
+    pub location: Location,
+    pub key: String,
+    pub value: Vec<SevenMarkElement>,
+}
+
+/// 파라미터 맵: key-value 쌍으로 각 value는 Parameter 구조체 (location 포함)  
+pub type Parameters = HashMap<String, Parameter>;
 
 /// 소스 코드 위치 정보
 #[derive(Debug, Clone, Serialize)]

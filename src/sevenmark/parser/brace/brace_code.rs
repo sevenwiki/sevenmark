@@ -28,7 +28,7 @@ pub fn brace_code_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElem
     let language = parameters
         .as_ref()
         .and_then(|p| p.get("lang"))
-        .cloned()
+        .map(|param| param.value.clone())
         .unwrap_or_else(Vec::new);
 
     Ok(SevenMarkElement::CodeElement(CodeElement {

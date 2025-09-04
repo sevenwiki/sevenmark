@@ -54,8 +54,8 @@ fn table_inner_element_parser(parser_input: &mut ParserInput) -> Result<TableInn
     let parameters = parameters.unwrap_or_default();
 
     // x, y
-    let x = parameters.get("x").cloned().unwrap_or_else(Vec::new);
-    let y = parameters.get("y").cloned().unwrap_or_else(Vec::new);
+    let x = parameters.get("x").map(|p| p.value.clone()).unwrap_or_else(Vec::new);
+    let y = parameters.get("y").map(|p| p.value.clone()).unwrap_or_else(Vec::new);
 
     let common_style = utils_get_common_style(parameters);
 

@@ -1,5 +1,6 @@
+use winnow::stream::Location as StreamLocation;
 use crate::sevenmark::ParserInput;
-use crate::sevenmark::ast::{Parameters, SevenMarkElement};
+use crate::sevenmark::ast::{Parameter, Parameters, SevenMarkElement};
 use crate::sevenmark::parser::parameter::parameter_content::parameter_content_parser;
 use std::collections::HashMap;
 use winnow::Result;
@@ -10,7 +11,9 @@ use winnow::token::literal;
 
 /// Parse a single parameter in the format #key="value"
 /// The value part is optional - if not provided, an empty Vec is used
-fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Vec<SevenMarkElement>)> {
+fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter)> {
+    let start = parser_input.input.current_token_start();
+    
     // Parse: whitespace, #key, optional ="value", whitespace
     let (_, key, value_opt, _) = (
         multispace0,
@@ -23,10 +26,18 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Vec<Seven
     )
         .parse_next(parser_input)?;
 
-    let key = key.to_string();
+    let end = parser_input.input.previous_token_end();
+    
+    let key_string = key.to_string();
     let value = value_opt.unwrap_or_else(Vec::new);
 
-    Ok((key, value))
+    let parameter = Parameter {
+        location: crate::sevenmark::ast::Location { start, end },
+        key: key_string.clone(),
+        value,
+    };
+
+    Ok((key_string, parameter))
 }
 
 /// Parse multiple parameters and collect them into a HashMap

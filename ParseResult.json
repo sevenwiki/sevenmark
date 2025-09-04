@@ -1,294 +1,39 @@
 [
   {
-    "Header": {
+    "Include": {
       "location": {
         "start": 0,
-        "end": 37
+        "end": 58
       },
-      "level": 1,
-      "is_folded": false,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 2,
-              "end": 36
-            },
-            "content": "SevenMark Parser API Documentation"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 37,
-        "end": 38
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Header": {
-      "location": {
-        "start": 38,
-        "end": 50
-      },
-      "level": 2,
-      "is_folded": false,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 41,
-              "end": 49
-            },
-            "content": "Overview"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 50,
-        "end": 51
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 51,
-        "end": 76
-      },
-      "content": "This document covers the "
-    }
-  },
-  {
-    "Bold": {
-      "location": {
-        "start": 76,
-        "end": 89
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 78,
-              "end": 87
-            },
-            "content": "SevenMark"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 89,
-        "end": 120
-      },
-      "content": " parsing engine implementation."
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 120,
-        "end": 121
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 121,
-        "end": 122
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "FoldElement": {
-      "location": {
-        "start": 122,
-        "end": 371
-      },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 139,
-                "end": 173
-              },
-              "content": "border:1px solid #ddd; margin:10px"
-            }
-          }
-        ]
-      },
-      "content": [
-        {
-          "common_style": {},
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 177,
-                  "end": 198
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 179,
-                        "end": 196
-                      },
-                      "content": "Table of Contents"
-                    }
-                  }
-                ]
-              }
-            },
+      "parameters": {
+        "page": {
+          "location": {
+            "start": 11,
+            "end": 29
+          },
+          "key": "page",
+          "value": [
             {
               "Text": {
                 "location": {
-                  "start": 198,
-                  "end": 199
+                  "start": 19,
+                  "end": 27
                 },
-                "content": " "
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 199,
-                  "end": 200
-                },
-                "content": "_"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 200,
-                  "end": 217
-                },
-                "content": "(click to expand)"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 217,
-                  "end": 218
-                },
-                "content": "_"
+                "content": "HomePage"
               }
             }
           ]
-        },
+        }
+      },
+      "content": [
         {
-          "common_style": {},
-          "content": [
-            {
-              "ListElement": {
-                "location": {
-                  "start": 224,
-                  "end": 364
-                },
-                "kind": "1",
-                "common_style": {},
-                "content": [
-                  {
-                    "common_style": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 238,
-                            "end": 260
-                          },
-                          "content": "Introduction and Setup"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "common_style": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 265,
-                            "end": 281
-                          },
-                          "content": "Core API Methods"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "common_style": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 286,
-                            "end": 300
-                          },
-                          "content": "Error Handling"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "common_style": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 305,
-                            "end": 331
-                          },
-                          "content": "Performance Considerations"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "common_style": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 336,
-                            "end": 358
-                          },
-                          "content": "Examples and Tutorials"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
+          "Text": {
+            "location": {
+              "start": 29,
+              "end": 55
             },
-            {
-              "Text": {
-                "location": {
-                  "start": 364,
-                  "end": 365
-                },
-                "content": "\n"
-              }
-            }
-          ]
+            "content": "Include some content here\n"
+          }
         }
       ]
     }

@@ -73,17 +73,24 @@
         "end": 129
       },
       "parameters": {
-        "page": [
-          {
-            "Text": {
-              "location": {
-                "start": 88,
-                "end": 97
-              },
-              "content": "RustIntro"
+        "page": {
+          "location": {
+            "start": 80,
+            "end": 99
+          },
+          "key": "page",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 88,
+                  "end": 97
+                },
+                "content": "RustIntro"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {

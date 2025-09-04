@@ -6,17 +6,24 @@
         "end": 58
       },
       "parameters": {
-        "page": [
-          {
-            "Text": {
-              "location": {
-                "start": 19,
-                "end": 27
-              },
-              "content": "HomePage"
+        "page": {
+          "location": {
+            "start": 11,
+            "end": 29
+          },
+          "key": "page",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 19,
+                  "end": 27
+                },
+                "content": "HomePage"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
