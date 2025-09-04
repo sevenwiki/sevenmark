@@ -1,6 +1,6 @@
 [package]
 name = "sevenmark"
-version = "2.0.9"
+version = "2.0.10"
 authors = [
     "Levi Lim <shiueo.csh@gmail.com>",
 ]
