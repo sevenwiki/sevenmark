@@ -1,7 +1,7 @@
 use super::super::element::element_parser;
 use super::super::parameter::parameter_core_parser;
 use crate::sevenmark::ast::SevenMarkElement;
-use crate::sevenmark::parser::utils::{utils_get_common_style, with_depth};
+use crate::sevenmark::parser::utils::with_depth;
 use crate::sevenmark::{BlockQuoteElement, Location, ParserInput};
 use winnow::Result;
 use winnow::ascii::multispace0;
@@ -25,11 +25,9 @@ pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<SevenMa
 
     let end = parser_input.input.previous_token_end();
 
-    let common_style = utils_get_common_style(parameters.unwrap_or_default());
-
     Ok(SevenMarkElement::BlockQuoteElement(BlockQuoteElement {
         location: Location { start, end },
-        common_style,
+        parameters: parameters.unwrap_or_default(),
         content: parsed_content,
     }))
 }

@@ -6,22 +6,37 @@
         "end": 354
       },
       "kind": "1",
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 20,
-                "end": 36
-              },
-              "content": "margin-left:20px"
+      "parameters": {
+        "1": {
+          "location": {
+            "start": 8,
+            "end": 12
+          },
+          "key": "1",
+          "value": []
+        },
+        "style": {
+          "location": {
+            "start": 12,
+            "end": 38
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 20,
+                  "end": 36
+                },
+                "content": "margin-left:20px"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -54,7 +69,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -72,10 +87,19 @@
                   "end": 150
                 },
                 "kind": "a",
-                "common_style": {},
+                "parameters": {
+                  "a": {
+                    "location": {
+                      "start": 92,
+                      "end": 96
+                    },
+                    "key": "a",
+                    "value": []
+                  }
+                },
                 "content": [
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -108,7 +132,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -137,7 +161,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -170,7 +194,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -187,10 +211,10 @@
                   "start": 205,
                   "end": 303
                 },
-                "common_style": {},
+                "parameters": {},
                 "content": [
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -204,7 +228,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -298,7 +322,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {

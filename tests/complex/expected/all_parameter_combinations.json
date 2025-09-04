@@ -5,62 +5,97 @@
         "start": 0,
         "end": 144
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 12,
-                "end": 39
-              },
-              "content": "color:red; font-weight:bold"
+      "parameters": {
+        "bgcolor": {
+          "location": {
+            "start": 68,
+            "end": 86
+          },
+          "key": "bgcolor",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 78,
+                  "end": 84
+                },
+                "content": "yellow"
+              }
             }
-          }
-        ],
-        "size": [
-          {
-            "Text": {
-              "location": {
-                "start": 48,
-                "end": 52
-              },
-              "content": "18px"
+          ]
+        },
+        "style": {
+          "location": {
+            "start": 3,
+            "end": 41
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 12,
+                  "end": 39
+                },
+                "content": "color:red; font-weight:bold"
+              }
             }
-          }
-        ],
-        "color": [
-          {
-            "Text": {
-              "location": {
-                "start": 62,
-                "end": 66
-              },
-              "content": "blue"
+          ]
+        },
+        "color": {
+          "location": {
+            "start": 54,
+            "end": 68
+          },
+          "key": "color",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 62,
+                  "end": 66
+                },
+                "content": "blue"
+              }
             }
-          }
-        ],
-        "bg_color": [
-          {
-            "Text": {
-              "location": {
-                "start": 78,
-                "end": 84
-              },
-              "content": "yellow"
+          ]
+        },
+        "opacity": {
+          "location": {
+            "start": 86,
+            "end": 101
+          },
+          "key": "opacity",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 96,
+                  "end": 99
+                },
+                "content": "0.8"
+              }
             }
-          }
-        ],
-        "opacity": [
-          {
-            "Text": {
-              "location": {
-                "start": 96,
-                "end": 99
-              },
-              "content": "0.8"
+          ]
+        },
+        "size": {
+          "location": {
+            "start": 41,
+            "end": 54
+          },
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 48,
+                  "end": 52
+                },
+                "content": "18px"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
@@ -108,44 +143,65 @@
         "start": 146,
         "end": 370
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 163,
-                "end": 186
-              },
-              "content": "border:2px dashed green"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 154,
+            "end": 188
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 163,
+                  "end": 186
+                },
+                "content": "border:2px dashed green"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {
-            "size": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 197,
-                    "end": 201
-                  },
-                  "content": "14px"
+          "parameters": {
+            "color": {
+              "location": {
+                "start": 203,
+                "end": 219
+              },
+              "key": "color",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 211,
+                      "end": 217
+                    },
+                    "content": "purple"
+                  }
                 }
-              }
-            ],
-            "color": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 211,
-                    "end": 217
-                  },
-                  "content": "purple"
+              ]
+            },
+            "size": {
+              "location": {
+                "start": 190,
+                "end": 203
+              },
+              "key": "size",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 197,
+                      "end": 201
+                    },
+                    "content": "14px"
+                  }
                 }
-              }
-            ]
+              ]
+            }
           },
           "content": [
             {
@@ -179,40 +235,61 @@
           ]
         },
         {
-          "common_style": {
-            "style": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 312,
-                    "end": 324
-                  },
-                  "content": "padding:10px"
+          "parameters": {
+            "opacity": {
+              "location": {
+                "start": 289,
+                "end": 304
+              },
+              "key": "opacity",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 299,
+                      "end": 302
+                    },
+                    "content": "0.9"
+                  }
                 }
-              }
-            ],
-            "bg_color": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 278,
-                    "end": 287
-                  },
-                  "content": "lightblue"
+              ]
+            },
+            "style": {
+              "location": {
+                "start": 304,
+                "end": 326
+              },
+              "key": "style",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 312,
+                      "end": 324
+                    },
+                    "content": "padding:10px"
+                  }
                 }
-              }
-            ],
-            "opacity": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 299,
-                    "end": 302
-                  },
-                  "content": "0.9"
+              ]
+            },
+            "bgcolor": {
+              "location": {
+                "start": 268,
+                "end": 289
+              },
+              "key": "bgcolor",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 278,
+                      "end": 287
+                    },
+                    "content": "lightblue"
+                  }
                 }
-              }
-            ]
+              ]
+            }
           },
           "content": [
             {

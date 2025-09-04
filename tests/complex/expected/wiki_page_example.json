@@ -234,10 +234,19 @@
         "end": 443
       },
       "kind": "1",
-      "common_style": {},
+      "parameters": {
+        "1": {
+          "location": {
+            "start": 258,
+            "end": 262
+          },
+          "key": "1",
+          "value": []
+        }
+      },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -270,7 +279,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -303,7 +312,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -339,7 +348,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -428,22 +437,29 @@
         "start": 462,
         "end": 1101
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 479,
-                "end": 523
-              },
-              "content": "background:#f0f8ff; border:1px solid #4682b4"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 470,
+            "end": 525
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 479,
+                  "end": 523
+                },
+                "content": "background:#f0f8ff; border:1px solid #4682b4"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -512,7 +528,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "TableElement": {
@@ -520,13 +536,13 @@
                   "start": 583,
                   "end": 912
                 },
-                "common_style": {},
+                "parameters": {},
                 "content": [
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "inner_content": [
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Bold": {
@@ -550,7 +566,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Bold": {
@@ -574,7 +590,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Bold": {
@@ -600,10 +616,10 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "inner_content": [
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -617,7 +633,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -649,7 +665,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -665,10 +681,10 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "inner_content": [
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -682,7 +698,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -714,7 +730,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -730,10 +746,10 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "inner_content": [
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -747,7 +763,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -761,7 +777,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -1050,18 +1066,25 @@
         "start": 1203,
         "end": 1365
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 1221,
-                "end": 1250
-              },
-              "content": "font-style:italic; color:#666"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 1212,
+            "end": 1252
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1221,
+                  "end": 1250
+                },
+                "content": "font-style:italic; color:#666"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
@@ -1445,10 +1468,19 @@
         "end": 1833
       },
       "kind": "a",
-      "common_style": {},
+      "parameters": {
+        "a": {
+          "location": {
+            "start": 1649,
+            "end": 1653
+          },
+          "key": "a",
+          "value": []
+        }
+      },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -1481,7 +1513,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -1514,7 +1546,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -1556,7 +1588,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {

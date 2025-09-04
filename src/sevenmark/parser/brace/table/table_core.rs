@@ -2,7 +2,7 @@ use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
 use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::{TableInnerElement1, TableInnerElement2};
-use crate::sevenmark::parser::utils::{utils_get_common_style, with_depth};
+use crate::sevenmark::parser::utils::with_depth;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt, repeat};
@@ -28,10 +28,8 @@ fn table_element_parser(parser_input: &mut ParserInput) -> Result<TableInnerElem
     )
         .parse_next(parser_input)?;
 
-    let common_style = utils_get_common_style(parameters.unwrap_or_default());
-
     Ok(TableInnerElement1 {
-        common_style,
+        parameters: parameters.unwrap_or_default(),
         inner_content: parsed_content,
     })
 }
@@ -57,10 +55,8 @@ fn table_inner_element_parser(parser_input: &mut ParserInput) -> Result<TableInn
     let x = parameters.get("x").map(|p| p.value.clone()).unwrap_or_else(Vec::new);
     let y = parameters.get("y").map(|p| p.value.clone()).unwrap_or_else(Vec::new);
 
-    let common_style = utils_get_common_style(parameters);
-
     Ok(TableInnerElement2 {
-        common_style,
+        parameters,
         x,
         y,
         content: parsed_content,

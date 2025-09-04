@@ -2,7 +2,7 @@ use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
 use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::FoldInnerElement;
-use crate::sevenmark::parser::utils::{utils_get_common_style, with_depth};
+use crate::sevenmark::parser::utils::with_depth;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};
@@ -38,16 +38,13 @@ pub fn fold_core_parser(
     let parameters_1 = parameters_1.unwrap_or_default();
     let parameters_2 = parameters_2.unwrap_or_default();
 
-    let common_style_1 = utils_get_common_style(parameters_1);
-    let common_style_2 = utils_get_common_style(parameters_2);
-
     Ok((
         FoldInnerElement {
-            common_style: common_style_1,
+            parameters: parameters_1,
             content: parsed_content_1,
         },
         FoldInnerElement {
-            common_style: common_style_2,
+            parameters: parameters_2,
             content: parsed_content_2,
         },
     ))

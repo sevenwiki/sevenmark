@@ -120,22 +120,29 @@
         "start": 122,
         "end": 371
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 139,
-                "end": 173
-              },
-              "content": "border:1px solid #ddd; margin:10px"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 130,
+            "end": 175
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 139,
+                  "end": 173
+                },
+                "content": "border:1px solid #ddd; margin:10px"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -195,7 +202,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "ListElement": {
@@ -204,10 +211,19 @@
                   "end": 364
                 },
                 "kind": "1",
-                "common_style": {},
+                "parameters": {
+                  "1": {
+                    "location": {
+                      "start": 232,
+                      "end": 236
+                    },
+                    "key": "1",
+                    "value": []
+                  }
+                },
                 "content": [
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -221,7 +237,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -235,7 +251,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -249,7 +265,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -263,7 +279,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -347,25 +363,32 @@
         "start": 390,
         "end": 683
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 408,
-                "end": 444
-              },
-              "content": "border-collapse:collapse; width:100%"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 399,
+            "end": 446
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 408,
+                  "end": 444
+                },
+                "content": "border-collapse:collapse; width:100%"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -389,7 +412,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -413,7 +436,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -439,10 +462,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -474,7 +497,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -488,7 +511,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -504,10 +527,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -539,7 +562,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -553,7 +576,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {

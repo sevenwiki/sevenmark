@@ -5,13 +5,13 @@
         "start": 0,
         "end": 73
       },
-      "common_style": {},
+      "parameters": {},
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -43,7 +43,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -77,10 +77,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -112,7 +112,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {

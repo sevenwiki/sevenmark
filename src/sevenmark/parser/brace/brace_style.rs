@@ -1,7 +1,7 @@
 use super::super::element::element_parser;
 use super::super::parameter::parameter_core_parser;
 use crate::sevenmark::ast::{SevenMarkElement, StyledElement};
-use crate::sevenmark::parser::utils::{utils_get_common_style, with_depth};
+use crate::sevenmark::parser::utils::with_depth;
 use crate::sevenmark::{Location, ParserInput};
 use winnow::Result;
 use winnow::combinator::delimited;
@@ -24,11 +24,9 @@ pub fn brace_style_parser(parser_input: &mut ParserInput) -> Result<SevenMarkEle
 
     let end = parser_input.input.previous_token_end();
 
-    let common_style = utils_get_common_style(parameters);
-
     Ok(SevenMarkElement::StyledElement(StyledElement {
         location: Location { start, end },
-        common_style,
+        parameters,
         content: parsed_content,
     }))
 }

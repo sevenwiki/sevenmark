@@ -5,55 +5,83 @@
         "start": 0,
         "end": 469
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 17,
-                "end": 38
-              },
-              "content": "border:1px solid #ccc"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 8,
+            "end": 40
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 17,
+                  "end": 38
+                },
+                "content": "border:1px solid #ccc"
+              }
             }
-          }
-        ],
-        "bg_color": [
-          {
-            "Text": {
-              "location": {
-                "start": 50,
-                "end": 59
-              },
-              "content": "lightgray"
+          ]
+        },
+        "bgcolor": {
+          "location": {
+            "start": 40,
+            "end": 61
+          },
+          "key": "bgcolor",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 50,
+                  "end": 59
+                },
+                "content": "lightgray"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {
-            "style": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 71,
-                    "end": 87
-                  },
-                  "content": "font-weight:bold"
+          "parameters": {
+            "color": {
+              "location": {
+                "start": 89,
+                "end": 107
+              },
+              "key": "color",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 97,
+                      "end": 105
+                    },
+                    "content": "darkblue"
+                  }
                 }
-              }
-            ],
-            "color": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 97,
-                    "end": 105
-                  },
-                  "content": "darkblue"
+              ]
+            },
+            "style": {
+              "location": {
+                "start": 63,
+                "end": 89
+              },
+              "key": "style",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 71,
+                      "end": 87
+                    },
+                    "content": "font-weight:bold"
+                  }
                 }
-              }
-            ]
+              ]
+            }
           },
           "content": [
             {
@@ -87,7 +115,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -289,18 +317,25 @@
                   "start": 296,
                   "end": 374
                 },
-                "common_style": {
-                  "style": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 314,
-                          "end": 325
-                        },
-                        "content": "margin:10px"
+                "parameters": {
+                  "style": {
+                    "location": {
+                      "start": 305,
+                      "end": 327
+                    },
+                    "key": "style",
+                    "value": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 314,
+                            "end": 325
+                          },
+                          "content": "margin:10px"
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 },
                 "content": [
                   {

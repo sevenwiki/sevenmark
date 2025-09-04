@@ -5,18 +5,25 @@
         "start": 0,
         "end": 96
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 18,
-                "end": 35
-              },
-              "content": "font-style:italic"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 9,
+            "end": 37
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 18,
+                  "end": 35
+                },
+                "content": "font-style:italic"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {

@@ -1,7 +1,6 @@
 use super::super::parameter::parameter_core_parser;
 use super::table::table_core_parser;
 use crate::sevenmark::ast::{SevenMarkElement, TableElement};
-use crate::sevenmark::parser::utils::utils_get_common_style;
 use crate::sevenmark::{Location, ParserInput};
 use winnow::Result;
 use winnow::combinator::{delimited, opt};
@@ -21,11 +20,9 @@ pub fn brace_table_parser(parser_input: &mut ParserInput) -> Result<SevenMarkEle
 
     let end = parser_input.input.previous_token_end();
 
-    let common_style = utils_get_common_style(parameters.unwrap_or_default());
-
     Ok(SevenMarkElement::TableElement(TableElement {
         location: Location { start, end },
-        common_style,
+        parameters: parameters.unwrap_or_default(),
         content: parsed_content,
     }))
 }

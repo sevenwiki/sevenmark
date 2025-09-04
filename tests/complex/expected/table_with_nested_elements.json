@@ -5,25 +5,32 @@
         "start": 0,
         "end": 308
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 18,
-                "end": 42
-              },
-              "content": "border-collapse:collapse"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 9,
+            "end": 44
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 18,
+                  "end": 42
+                },
+                "content": "border-collapse:collapse"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -47,7 +54,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Italic": {
@@ -71,7 +78,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Strikethrough": {
@@ -97,10 +104,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -114,7 +121,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "CodeElement": {
@@ -149,7 +156,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -167,10 +174,19 @@
                       "end": 213
                     },
                     "kind": "a",
-                    "common_style": {},
+                    "parameters": {
+                      "a": {
+                        "location": {
+                          "start": 184,
+                          "end": 188
+                        },
+                        "key": "a",
+                        "value": []
+                      }
+                    },
                     "content": [
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -184,7 +200,7 @@
                         ]
                       },
                       {
-                        "common_style": {},
+                        "parameters": {},
                         "content": [
                           {
                             "Text": {
@@ -205,10 +221,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -225,7 +241,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -240,7 +256,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -257,7 +273,7 @@
                       "start": 275,
                       "end": 300
                     },
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {

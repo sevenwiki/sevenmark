@@ -1,7 +1,6 @@
 use super::super::parameter::parameter_core_parser;
 use super::fold::fold_core_parser;
 use crate::sevenmark::ast::{FoldElement, SevenMarkElement};
-use crate::sevenmark::parser::utils::utils_get_common_style;
 use crate::sevenmark::{Location, ParserInput};
 use winnow::Result;
 use winnow::combinator::{delimited, opt};
@@ -21,11 +20,9 @@ pub fn brace_fold_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElem
 
     let end = parser_input.input.previous_token_end();
 
-    let common_style = utils_get_common_style(parameters.unwrap_or_default());
-
     Ok(SevenMarkElement::FoldElement(FoldElement {
         location: Location { start, end },
-        common_style,
+        parameters: parameters.unwrap_or_default(),
         content: parsed_content,
     }))
 }

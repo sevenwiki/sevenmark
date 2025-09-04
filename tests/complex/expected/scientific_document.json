@@ -241,22 +241,29 @@
         "start": 269,
         "end": 672
       },
-      "common_style": {
-        "bg_color": [
-          {
-            "Text": {
-              "location": {
-                "start": 288,
-                "end": 299
-              },
-              "content": "lightyellow"
+      "parameters": {
+        "bgcolor": {
+          "location": {
+            "start": 277,
+            "end": 301
+          },
+          "key": "bgcolor",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 288,
+                  "end": 299
+                },
+                "content": "lightyellow"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -289,7 +296,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "ListElement": {
@@ -298,10 +305,19 @@
                   "end": 505
                 },
                 "kind": "1",
-                "common_style": {},
+                "parameters": {
+                  "1": {
+                    "location": {
+                      "start": 342,
+                      "end": 346
+                    },
+                    "key": "1",
+                    "value": []
+                  }
+                },
                 "content": [
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -325,7 +341,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -339,7 +355,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -353,7 +369,7 @@
                     ]
                   },
                   {
-                    "common_style": {},
+                    "parameters": {},
                     "content": [
                       {
                         "Text": {
@@ -412,18 +428,25 @@
                   "start": 507,
                   "end": 665
                 },
-                "common_style": {
-                  "style": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 525,
-                          "end": 573
-                        },
-                        "content": "border-left:3px solid #007acc; padding-left:15px"
+                "parameters": {
+                  "style": {
+                    "location": {
+                      "start": 516,
+                      "end": 575
+                    },
+                    "key": "style",
+                    "value": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 525,
+                            "end": 573
+                          },
+                          "content": "border-left:3px solid #007acc; padding-left:15px"
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 },
                 "content": [
                   {
@@ -552,25 +575,32 @@
         "start": 710,
         "end": 1100
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 728,
-                "end": 762
-              },
-              "content": "margin:10px; border:1px solid #ccc"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 719,
+            "end": 764
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 728,
+                  "end": 762
+                },
+                "content": "margin:10px; border:1px solid #ccc"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -594,7 +624,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -618,7 +648,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Bold": {
@@ -644,10 +674,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -661,7 +691,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -675,7 +705,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "TeXElement": {
@@ -692,10 +722,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -709,7 +739,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -723,7 +753,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "TeXElement": {
@@ -740,10 +770,10 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "inner_content": [
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -757,7 +787,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "Text": {
@@ -771,7 +801,7 @@
               ]
             },
             {
-              "common_style": {},
+              "parameters": {},
               "content": [
                 {
                   "TeXElement": {
@@ -910,22 +940,37 @@
         "end": 1376
       },
       "kind": "i",
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 1201,
-                "end": 1222
-              },
-              "content": "font-family:monospace"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 1193,
+            "end": 1224
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1201,
+                  "end": 1222
+                },
+                "content": "font-family:monospace"
+              }
             }
-          }
-        ]
+          ]
+        },
+        "i": {
+          "location": {
+            "start": 1189,
+            "end": 1193
+          },
+          "key": "i",
+          "value": []
+        }
       },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -993,7 +1038,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -1007,7 +1052,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -1179,10 +1224,10 @@
         "start": 1754,
         "end": 2209
       },
-      "common_style": {},
+      "parameters": {},
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -1215,7 +1260,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {

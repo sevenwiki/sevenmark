@@ -5,18 +5,25 @@
         "start": 0,
         "end": 87
       },
-      "common_style": {
-        "color": [
-          {
-            "Text": {
-              "location": {
-                "start": 39,
-                "end": 44
-              },
-              "content": "green"
+      "parameters": {
+        "color": {
+          "location": {
+            "start": 31,
+            "end": 46
+          },
+          "key": "color",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 39,
+                  "end": 44
+                },
+                "content": "green"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
@@ -65,10 +72,51 @@
         "end": 170
       },
       "kind": "1",
-      "common_style": {},
+      "parameters": {
+        "i": {
+          "location": {
+            "start": 107,
+            "end": 110
+          },
+          "key": "i",
+          "value": []
+        },
+        "a": {
+          "location": {
+            "start": 101,
+            "end": 104
+          },
+          "key": "a",
+          "value": []
+        },
+        "1": {
+          "location": {
+            "start": 97,
+            "end": 101
+          },
+          "key": "1",
+          "value": []
+        },
+        "A": {
+          "location": {
+            "start": 104,
+            "end": 107
+          },
+          "key": "A",
+          "value": []
+        },
+        "I": {
+          "location": {
+            "start": 110,
+            "end": 113
+          },
+          "key": "I",
+          "value": []
+        }
+      },
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -82,7 +130,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {

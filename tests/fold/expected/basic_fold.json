@@ -5,10 +5,10 @@
         "start": 0,
         "end": 49
       },
-      "common_style": {},
+      "parameters": {},
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {
@@ -22,7 +22,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {

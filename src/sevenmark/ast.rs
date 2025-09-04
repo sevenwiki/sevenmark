@@ -73,7 +73,7 @@ pub struct LiteralElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct StyledElement {
     pub location: Location,
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }
 
@@ -89,7 +89,7 @@ pub struct MediaElement {
 /// 테이블 셀
 #[derive(Debug, Clone, Serialize)]
 pub struct TableInnerElement2 {
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub x: Vec<SevenMarkElement>,
     #[serde(skip_serializing_if = "Vec::is_empty")]
@@ -100,7 +100,7 @@ pub struct TableInnerElement2 {
 /// 테이블 행
 #[derive(Debug, Clone, Serialize)]
 pub struct TableInnerElement1 {
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub inner_content: Vec<TableInnerElement2>,
 }
 
@@ -108,14 +108,14 @@ pub struct TableInnerElement1 {
 #[derive(Debug, Clone, Serialize)]
 pub struct TableElement {
     pub location: Location,
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: Vec<TableInnerElement1>,
 }
 
 /// 리스트 아이템
 #[derive(Debug, Clone, Serialize)]
 pub struct ListInnerElement1 {
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }
 
@@ -124,14 +124,14 @@ pub struct ListInnerElement1 {
 pub struct ListElement {
     pub location: Location,
     pub kind: String,
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: Vec<ListInnerElement1>,
 }
 
 /// 폴드 내부 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct FoldInnerElement {
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }
 
@@ -139,7 +139,7 @@ pub struct FoldInnerElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct FoldElement {
     pub location: Location,
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: (FoldInnerElement, FoldInnerElement),
 }
 
@@ -147,7 +147,7 @@ pub struct FoldElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct BlockQuoteElement {
     pub location: Location,
-    pub common_style: CommonStyleAttributes,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }
 

@@ -5,33 +5,47 @@
         "start": 0,
         "end": 92
       },
-      "common_style": {
-        "style": [
-          {
-            "Text": {
-              "location": {
-                "start": 17,
-                "end": 26
-              },
-              "content": "color:red"
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 8,
+            "end": 28
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 17,
+                  "end": 26
+                },
+                "content": "color:red"
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "content": [
         {
-          "common_style": {
-            "bg_color": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 40,
-                    "end": 44
-                  },
-                  "content": "blue"
+          "parameters": {
+            "bgcolor": {
+              "location": {
+                "start": 30,
+                "end": 46
+              },
+              "key": "bgcolor",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 40,
+                      "end": 44
+                    },
+                    "content": "blue"
+                  }
                 }
-              }
-            ]
+              ]
+            }
           },
           "content": [
             {
@@ -46,7 +60,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Text": {

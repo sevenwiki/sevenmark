@@ -2,7 +2,7 @@ use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
 use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::ListInnerElement1;
-use crate::sevenmark::parser::utils::{utils_get_common_style, with_depth};
+use crate::sevenmark::parser::utils::with_depth;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt, repeat};
@@ -28,10 +28,8 @@ fn list_element_parser(parser_input: &mut ParserInput) -> Result<ListInnerElemen
     )
         .parse_next(parser_input)?;
 
-    let common_style = utils_get_common_style(parameters.unwrap_or_default());
-
     Ok(ListInnerElement1 {
-        common_style,
+        parameters: parameters.unwrap_or_default(),
         content: parsed_content,
     })
 }

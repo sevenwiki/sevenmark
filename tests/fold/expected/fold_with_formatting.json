@@ -5,10 +5,10 @@
         "start": 0,
         "end": 64
       },
-      "common_style": {},
+      "parameters": {},
       "content": [
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Bold": {
@@ -41,7 +41,7 @@
           ]
         },
         {
-          "common_style": {},
+          "parameters": {},
           "content": [
             {
               "Italic": {

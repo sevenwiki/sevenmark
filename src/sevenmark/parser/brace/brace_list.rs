@@ -1,7 +1,6 @@
 use super::super::parameter::parameter_core_parser;
 use super::list::list_core_parser;
 use crate::sevenmark::ast::{ListElement, SevenMarkElement};
-use crate::sevenmark::parser::utils::utils_get_common_style;
 use crate::sevenmark::{Location, ParserInput};
 use winnow::Result;
 use winnow::combinator::{delimited, opt};
@@ -29,12 +28,10 @@ pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElem
         .map(|&k| k.to_string())
         .unwrap_or_default();
 
-    let common_style = utils_get_common_style(parameters);
-
     Ok(SevenMarkElement::ListElement(ListElement {
         location: Location { start, end },
         kind,
-        common_style,
+        parameters,
         content: parsed_content,
     }))
 }
