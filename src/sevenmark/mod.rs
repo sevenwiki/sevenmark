@@ -3,7 +3,7 @@ pub mod context;
 pub mod core;
 pub mod error;
 pub mod parser;
-mod visitor;
+pub mod visitor;
 
 pub use ast::*;
 pub use context::*;

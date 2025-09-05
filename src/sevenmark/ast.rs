@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 
 /// Individual parameter with location tracking
@@ -13,7 +13,7 @@ pub struct Parameter {
 pub type Parameters = HashMap<String, Parameter>;
 
 /// 소스 코드 위치 정보
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Location {
     pub start: usize,
     pub end: usize,
