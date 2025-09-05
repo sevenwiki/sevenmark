@@ -5,7 +5,23 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.11] - 2025-01-09
+## [2.0.12] - 2025-09-05
+
+### Added
+- **Monaco Editor Support**: Complete integration for Monaco Editor decorations
+  - New `parse_sevenmark_to_monaco` WASM function for web integration
+  - O(1) byte-to-line/column position conversion with pre-computed mapping arrays
+  - `MonacoVisitor` for converting AST elements to Monaco-compatible JSON format
+  - `LineColumnLocation` struct with 1-based line/column positions
+  - Efficient handling of UTF-8 multi-byte characters in position calculations
+
+### Changed
+- **Location System Enhancement**: AST Location now supports JSON deserialization
+  - Added `Deserialize` trait to Location struct for JSON processing
+  - Enables round-trip serialization/deserialization of parsed documents
+  - Improved compatibility with web-based development tools
+
+## [2.0.11] - 2025-09-04
 
 ### Added
 - **Parameter Location Tracking**: Parameters now include precise location information
@@ -19,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Semantic processing moved to visitor pattern for better separation of concerns
   - Maintains all location information throughout parsing pipeline
 
-## [2.0.10] - 2025-01-09
+## [2.0.10] - 2025-09-04
 
 ### Added
 - **WASM Parser Build**: Enhanced WebAssembly compilation support
