@@ -5,6 +5,32 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.15] - 2025-09-07
+
+### Added
+- **New Parser Elements**: Added support for footnote, ruby, and variable elements
+  - `{{{#fn content}}}` - Footnote parser with nested content support and anti-recursion protection
+  - `{{{#ruby #ruby="text" content}}}` - Ruby text parser for Japanese typography with parameter support
+  - `[var(name)]` - Variable macro parser for template variable substitution
+  - `[age(YYYY-MM-DD)]` - Enhanced age macro parser with proper location tracking
+
+### Enhanced
+- **AST Structure Improvements**: Unified parameter handling across elements
+  - Added `Parameters` field to `RubyElement` and `CodeElement` for consistency
+  - Converted `Age` and `Variable` from simple enum variants to structured elements with location tracking
+  - All brace elements now follow consistent parameter pattern for visitor processing
+
+### Improved
+- **Parser Context Management**: Enhanced recursion and nesting prevention
+  - Added `inside_footnote` context flag to prevent infinite footnote nesting
+  - Footnote parser follows established markdown parser patterns for context handling
+  - Improved error handling with proper context preservation
+
+- **Visitor Pattern**: Comprehensive AST traversal support
+  - Updated preprocessor visitor with complete element coverage
+  - Added explicit handling for all 43 AST element types with clear categorization
+  - Enhanced documentation for visitor extension and maintenance
+
 ## [2.0.14] - 2025-09-06
 
 ### Changed

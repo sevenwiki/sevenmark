@@ -1,65 +1,11 @@
 [
   {
-    "Text": {
+    "Variable": {
       "location": {
         "start": 0,
-        "end": 9
+        "end": 14
       },
-      "content": "한국어"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 9,
-        "end": 10
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 10,
-        "end": 19
-      },
-      "content": "日本語"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 19,
-        "end": 20
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 20,
-        "end": 35
-      },
-      "content": "Emoji 🚀 test"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 35,
-        "end": 36
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 36,
-        "end": 57
-      },
-      "content": "Special chars: åäö"
+      "content": "xasxasx"
     }
   }
 ]

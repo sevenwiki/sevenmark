@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
 /// Individual parameter with location tracking
@@ -30,6 +30,20 @@ pub struct TextElement {
 /// 이스케이프 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct EscapeElement {
+    pub location: Location,
+    pub content: String,
+}
+
+/// age
+#[derive(Debug, Clone, Serialize)]
+pub struct AgeElement {
+    pub location: Location,
+    pub content: String,
+}
+
+/// variable
+#[derive(Debug, Clone, Serialize)]
+pub struct VariableElement {
     pub location: Location,
     pub content: String,
 }
@@ -156,15 +170,15 @@ pub struct BlockQuoteElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct RubyElement {
     pub location: Location,
-    pub base: Vec<SevenMarkElement>,
-    pub ruby: Vec<SevenMarkElement>,
+    pub parameters: Parameters,
+    pub content: Vec<SevenMarkElement>,
 }
 
 /// 코드 블록
 #[derive(Debug, Clone, Serialize)]
 pub struct CodeElement {
     pub location: Location,
-    pub language: Vec<SevenMarkElement>,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }
 
@@ -254,8 +268,8 @@ pub enum SevenMarkElement {
     FootNote,
     TimeNow,
     NewLine,
-    Age(String),
-    Variable(String),
+    Age(AgeElement),
+    Variable(VariableElement),
 
     // Markdown text styles
     BoldItalic(TextStyle),

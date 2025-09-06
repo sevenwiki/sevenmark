@@ -330,17 +330,62 @@
         "start": 372,
         "end": 519
       },
-      "language": [
-        {
-          "Text": {
-            "location": {
-              "start": 388,
-              "end": 398
-            },
-            "content": "javascript"
-          }
+      "parameters": {
+        "lang": {
+          "location": {
+            "start": 380,
+            "end": 400
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 388,
+                  "end": 398
+                },
+                "content": "javascript"
+              }
+            }
+          ]
+        },
+        "size": {
+          "location": {
+            "start": 438,
+            "end": 451
+          },
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 445,
+                  "end": 449
+                },
+                "content": "12px"
+              }
+            }
+          ]
+        },
+        "style": {
+          "location": {
+            "start": 400,
+            "end": 438
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 408,
+                  "end": 436
+                },
+                "content": "background:black; color:lime"
+              }
+            }
+          ]
         }
-      ],
+      },
       "content": [
         {
           "Text": {

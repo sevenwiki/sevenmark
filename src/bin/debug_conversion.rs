@@ -1,4 +1,3 @@
-use line_span::LineSpanExt;
 use std::fs;
 
 fn main() {

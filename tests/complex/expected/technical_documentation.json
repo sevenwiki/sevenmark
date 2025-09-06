@@ -648,17 +648,44 @@
         "start": 704,
         "end": 935
       },
-      "language": [
-        {
-          "Text": {
-            "location": {
-              "start": 720,
-              "end": 724
-            },
-            "content": "rust"
-          }
+      "parameters": {
+        "lang": {
+          "location": {
+            "start": 712,
+            "end": 726
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 720,
+                  "end": 724
+                },
+                "content": "rust"
+              }
+            }
+          ]
+        },
+        "style": {
+          "location": {
+            "start": 726,
+            "end": 768
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 734,
+                  "end": 766
+                },
+                "content": "background:#f8f8f8; padding:10px"
+              }
+            }
+          ]
         }
-      ],
+      },
       "content": [
         {
           "Text": {

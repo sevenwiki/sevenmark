@@ -245,17 +245,26 @@
                             "start": 239,
                             "end": 297
                           },
-                          "language": [
-                            {
-                              "Text": {
-                                "location": {
-                                  "start": 255,
-                                  "end": 259
-                                },
-                                "content": "rust"
-                              }
+                          "parameters": {
+                            "lang": {
+                              "location": {
+                                "start": 247,
+                                "end": 261
+                              },
+                              "key": "lang",
+                              "value": [
+                                {
+                                  "Text": {
+                                    "location": {
+                                      "start": 255,
+                                      "end": 259
+                                    },
+                                    "content": "rust"
+                                  }
+                                }
+                              ]
                             }
-                          ],
+                          },
                           "content": [
                             {
                               "Text": {

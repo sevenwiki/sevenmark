@@ -1,13 +1,13 @@
 use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
-use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::{TableInnerElement1, TableInnerElement2};
 use crate::sevenmark::parser::utils::with_depth;
-use winnow::Result;
+use crate::sevenmark::ParserInput;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt, repeat};
 use winnow::prelude::*;
 use winnow::token::literal;
+use winnow::Result;
 
 pub fn table_core_parser(parser_input: &mut ParserInput) -> Result<Vec<TableInnerElement1>> {
     repeat(1.., table_element_parser).parse_next(parser_input)
@@ -48,7 +48,7 @@ fn table_inner_element_parser(parser_input: &mut ParserInput) -> Result<TableInn
         multispace0,
     )
         .parse_next(parser_input)?;
-
+    
     let parameters = parameters.unwrap_or_default();
 
     // x, y
