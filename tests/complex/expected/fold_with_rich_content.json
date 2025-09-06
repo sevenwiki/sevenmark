@@ -6,24 +6,6 @@
         "end": 469
       },
       "parameters": {
-        "style": {
-          "location": {
-            "start": 8,
-            "end": 40
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 17,
-                  "end": 38
-                },
-                "content": "border:1px solid #ccc"
-              }
-            }
-          ]
-        },
         "bgcolor": {
           "location": {
             "start": 40,
@@ -38,6 +20,24 @@
                   "end": 59
                 },
                 "content": "lightgray"
+              }
+            }
+          ]
+        },
+        "style": {
+          "location": {
+            "start": 8,
+            "end": 40
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 17,
+                  "end": 38
+                },
+                "content": "border:1px solid #ccc"
               }
             }
           ]

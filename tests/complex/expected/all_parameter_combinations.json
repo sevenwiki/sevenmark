@@ -24,24 +24,6 @@
             }
           ]
         },
-        "style": {
-          "location": {
-            "start": 3,
-            "end": 41
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 12,
-                  "end": 39
-                },
-                "content": "color:red; font-weight:bold"
-              }
-            }
-          ]
-        },
         "color": {
           "location": {
             "start": 54,
@@ -92,6 +74,24 @@
                   "end": 52
                 },
                 "content": "18px"
+              }
+            }
+          ]
+        },
+        "style": {
+          "location": {
+            "start": 3,
+            "end": 41
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 12,
+                  "end": 39
+                },
+                "content": "color:red; font-weight:bold"
               }
             }
           ]
@@ -236,6 +236,24 @@
         },
         {
           "parameters": {
+            "bgcolor": {
+              "location": {
+                "start": 268,
+                "end": 289
+              },
+              "key": "bgcolor",
+              "value": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 278,
+                      "end": 287
+                    },
+                    "content": "lightblue"
+                  }
+                }
+              ]
+            },
             "opacity": {
               "location": {
                 "start": 289,
@@ -268,24 +286,6 @@
                       "end": 324
                     },
                     "content": "padding:10px"
-                  }
-                }
-              ]
-            },
-            "bgcolor": {
-              "location": {
-                "start": 268,
-                "end": 289
-              },
-              "key": "bgcolor",
-              "value": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 278,
-                      "end": 287
-                    },
-                    "content": "lightblue"
                   }
                 }
               ]

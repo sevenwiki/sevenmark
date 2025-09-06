@@ -17,78 +17,62 @@ pub struct MonacoResult {
     pub elements: serde_json::Value,
 }
 
-/// O(1) byte-to-line/column converter using pre-computed mapping arrays
+/// Memory-efficient byte-to-line/column converter using line spans and binary search
 /// 
-/// This struct trades memory for speed by pre-computing two arrays that map
-/// every byte position in the input string to its corresponding line and column.
-/// This enables O(1) position lookups, which is crucial for efficient Monaco Editor
-/// decoration when dealing with large documents.
+/// This struct uses O(lines) memory instead of O(bytes) by storing only line start positions
+/// and using binary search for O(log n) position lookups. This is much more memory efficient
+/// for large documents while maintaining good performance.
 struct ByteToLineMapper {
-    byte_to_line: Vec<usize>,     // Maps each byte position → line number (0-based)
-    byte_to_column: Vec<usize>,   // Maps each byte position → column number (0-based)
+    line_starts: Vec<usize>,  // Start byte position of each line (0-based)
+    input: String,           // Keep reference to input for column calculation
 }
 
 impl ByteToLineMapper {
-    /// Creates a new mapper by pre-computing line/column positions for every byte
+    /// Creates a new mapper using line_span to efficiently find line boundaries
     /// 
-    /// Time complexity: O(n) where n is the length of input in bytes
-    /// Space complexity: O(n) - stores two arrays of size input.len() + 1
+    /// Time complexity: O(n) for initial scan
+    /// Space complexity: O(lines) - much more efficient than O(bytes)
     fn new(input: &str) -> Self {
-        let mut byte_to_line = vec![0; input.len() + 1];
-        let mut byte_to_column = vec![0; input.len() + 1];
-        
-        let mut current_line = 0;
-        let mut current_column = 0;
-        let mut byte_pos = 0;
-        
-        // Iterate through each Unicode character
-        for ch in input.chars() {
-            let char_byte_len = ch.len_utf8();
-            
-            // Assign the same line/column to all bytes of this character
-            // This handles multi-byte UTF-8 characters correctly
-            for i in 0..char_byte_len {
-                if byte_pos + i < byte_to_line.len() {
-                    byte_to_line[byte_pos + i] = current_line;
-                    byte_to_column[byte_pos + i] = current_column;
-                }
-            }
-            
-            // Update position counters
-            if ch == '\n' {
-                current_line += 1;
-                current_column = 0;
-            } else {
-                current_column += 1;
-            }
-            
-            byte_pos += char_byte_len;
-        }
-        
-        // Handle the final position (end of input)
-        if byte_pos < byte_to_line.len() {
-            byte_to_line[byte_pos] = current_line;
-            byte_to_column[byte_pos] = current_column;
-        }
+        let line_starts: Vec<usize> = input
+            .line_spans()
+            .map(|span| span.range().start)
+            .collect();
         
         Self {
-            byte_to_line,
-            byte_to_column,
+            line_starts,
+            input: input.to_string(),
         }
     }
     
-    /// Converts byte position to line/column coordinates in O(1) time
+    /// Converts byte position to line/column coordinates using binary search
     /// 
+    /// Time complexity: O(log n) where n is the number of lines
     /// Returns 1-based line and column numbers as expected by Monaco Editor
     fn byte_to_line_column(&self, byte_offset: usize) -> (usize, usize) {
-        let safe_offset = byte_offset.min(self.byte_to_line.len() - 1);
-        let line = self.byte_to_line[safe_offset] + 1;     // Convert to 1-based
-        let column = self.byte_to_column[safe_offset] + 1; // Convert to 1-based
-        (line, column)
+        let clamped_pos = byte_offset.min(self.input.len());
+        
+        // Binary search to find the line containing this position
+        let line = match self.line_starts.binary_search(&clamped_pos) {
+            Ok(index) => index,  // Exact match - position is at line start
+            Err(index) => {
+                if index == 0 {
+                    0  // Position is before first line (shouldn't happen)
+                } else {
+                    index - 1  // Position is in the line that starts at index-1
+                }
+            }
+        };
+        
+        // Calculate column by subtracting line start from position
+        let line_start = self.line_starts[line];
+        let column = clamped_pos - line_start;
+        
+        // Convert to 1-based as expected by Monaco Editor
+        (line + 1, column + 1)
     }
 }
 
-/// Monaco Editor location converter with O(1) position lookup optimization
+/// Monaco Editor location converter with memory-efficient position lookup
 /// 
 /// This visitor converts SevenMark AST elements with byte-based locations
 /// to Monaco Editor-compatible JSON with 1-based line/column positions.

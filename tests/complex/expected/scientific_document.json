@@ -941,6 +941,14 @@
       },
       "kind": "i",
       "parameters": {
+        "i": {
+          "location": {
+            "start": 1189,
+            "end": 1193
+          },
+          "key": "i",
+          "value": []
+        },
         "style": {
           "location": {
             "start": 1193,
@@ -958,14 +966,6 @@
               }
             }
           ]
-        },
-        "i": {
-          "location": {
-            "start": 1189,
-            "end": 1193
-          },
-          "key": "i",
-          "value": []
         }
       },
       "content": [

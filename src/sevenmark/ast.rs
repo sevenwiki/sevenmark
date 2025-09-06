@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// Individual parameter with location tracking
 #[derive(Debug, Clone, Serialize)]
@@ -10,7 +10,8 @@ pub struct Parameter {
 }
 
 /// 파라미터 맵: key-value 쌍으로 각 value는 Parameter 구조체 (location 포함)  
-pub type Parameters = HashMap<String, Parameter>;
+/// BTreeMap을 사용하여 키 순서를 일관되게 유지 (테스트 안정성을 위해)
+pub type Parameters = BTreeMap<String, Parameter>;
 
 /// 소스 코드 위치 정보
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -154,6 +155,7 @@ pub struct BlockQuoteElement {
 /// 루비 텍스트
 #[derive(Debug, Clone, Serialize)]
 pub struct RubyElement {
+    pub location: Location,
     pub base: Vec<SevenMarkElement>,
     pub ruby: Vec<SevenMarkElement>,
 }
@@ -176,6 +178,7 @@ pub struct TeXElement {
 /// 각주
 #[derive(Debug, Clone, Serialize)]
 pub struct FootnoteElement {
+    pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
 
