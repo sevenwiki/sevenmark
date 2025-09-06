@@ -96,9 +96,8 @@ pub struct StyledElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct MediaElement {
     pub location: Location,
-    pub file: Vec<SevenMarkElement>,
-    pub url: Vec<SevenMarkElement>,
-    pub display_text: Vec<SevenMarkElement>,
+    pub parameters: Parameters,
+    pub content: Vec<SevenMarkElement>,
 }
 
 /// 테이블 셀

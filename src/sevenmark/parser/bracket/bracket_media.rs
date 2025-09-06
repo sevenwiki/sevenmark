@@ -11,43 +11,33 @@ use winnow::Result;
 
 /// Parse media elements enclosed in [[ ]] with parameters
 pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+    // MediaElement 중첩 방지
+    if parser_input.state.inside_media_element {
+        return Err(winnow::error::ContextError::new());
+    }
+
     let start = parser_input.input.current_token_start();
 
     let (parameters, parsed_content) = delimited(
         literal("[["),
         (opt(parameter_core_parser), |input: &mut ParserInput| {
-            opt(|inner_input: &mut ParserInput| with_depth(inner_input, element_parser))
-                .parse_next(input)
+            opt(|inner_input: &mut ParserInput| {
+                inner_input.state.set_media_element_context();
+                let result = with_depth(inner_input, element_parser);
+                inner_input.state.unset_media_element_context();
+                result
+            })
+            .parse_next(input)
         }),
         literal("]]"),
     )
     .parse_next(parser_input)?;
 
     let end = parser_input.input.previous_token_end();
-
-    let url = parameters
-        .as_ref()
-        .and_then(|p| p.get("url"))
-        .map(|param| param.value.clone())
-        .unwrap_or_default();
-    let file = parameters
-        .as_ref()
-        .and_then(|p| p.get("file"))
-        .map(|param| param.value.clone())
-        .unwrap_or_default();
-    let display_text = parsed_content.unwrap_or_default();
-
-    // If no parameters, treat content as URL (hyperlink behavior)
-    let (final_url, final_display_text) = if parameters.is_none() && !display_text.is_empty() {
-        (display_text.clone(), Vec::new())
-    } else {
-        (url, display_text)
-    };
-
+    
     Ok(SevenMarkElement::MediaElement(MediaElement {
         location: Location { start, end },
-        file,
-        url: final_url,
-        display_text: final_display_text,
+        parameters: parameters.unwrap_or_default(),
+        content: parsed_content.unwrap_or_default(),
     }))
 }

@@ -58,9 +58,19 @@ impl SevenMarkPreprocessor {
                     }
                 }
                 SevenMarkElement::MediaElement(media_element) => {
-                    let url = Self::extract_text_content(&media_element.url);
-                    if !url.is_empty() {
-                        info.media.insert(url);
+                    // url 파라미터에서 URL 추출
+                    if let Some(url_param) = media_element.parameters.get("url") {
+                        let url = Self::extract_text_content(&url_param.value);
+                        if !url.is_empty() {
+                            info.media.insert(url);
+                        }
+                    }
+                    // file 파라미터에서 파일 경로 추출
+                    if let Some(file_param) = media_element.parameters.get("file") {
+                        let file = Self::extract_text_content(&file_param.value);
+                        if !file.is_empty() {
+                            info.media.insert(file);
+                        }
                     }
                 }
                 _ => {}
@@ -138,10 +148,10 @@ impl SevenMarkPreprocessor {
             | SevenMarkElement::Redirect(_) => {
                 // 이미 collect_from_elements에서 처리됨
             }
-
-            // ❌ 순회하지 않는 요소들 - 미디어
-            SevenMarkElement::MediaElement(_) => {
-                // 이미 collect_from_elements에서 처리됨
+            
+            // ✅ MediaElement - content 필드 순회 필요
+            SevenMarkElement::MediaElement(media) => {
+                Self::collect_from_elements(&media.content, info);
             }
 
             // ❌ 순회하지 않는 요소들 - 매크로/단순값

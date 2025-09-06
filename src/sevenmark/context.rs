@@ -30,6 +30,7 @@ pub struct ParseContext {
     pub inside_superscript: bool,
     pub inside_underline: bool,
     pub inside_footnote: bool,
+    pub inside_media_element: bool,
     pub line_starts: HashSet<usize>,
     pub max_recursion_depth: usize,
 }
@@ -47,6 +48,7 @@ impl ParseContext {
             inside_superscript: false,
             inside_underline: false,
             inside_footnote: false,
+            inside_media_element: false,
             line_starts: HashSet::new(),
             max_recursion_depth: 16,
         }
@@ -106,7 +108,8 @@ impl ParseContext {
         subscript => inside_subscript,
         superscript => inside_superscript,
         underline => inside_underline,
-        footnote => inside_footnote
+        footnote => inside_footnote,
+        media_element => inside_media_element
     }
 }
 

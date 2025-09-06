@@ -1,4 +1,5 @@
 use super::super::element::element_parser;
+use super::super::utils::with_depth;
 use crate::sevenmark::ast::{Location, SevenMarkElement, TextStyle};
 use crate::sevenmark::ParserInput;
 use winnow::combinator::delimited;
@@ -15,19 +16,9 @@ pub fn markdown_underline_parser(parser_input: &mut ParserInput) -> Result<Seven
     let parsed_content = delimited(
         literal("__"),
         |input: &mut ParserInput| {
-            let mut inner_input = input.clone();
-            inner_input
-                .state
-                .increase_depth()
-                .map_err(|e| e.into_context_error())?;
-            inner_input.state.set_underline_context();
-            let result = element_parser(&mut inner_input);
-            inner_input.state.unset_underline_context();
-            inner_input
-                .state
-                .decrease_depth()
-                .map_err(|e| e.into_context_error())?;
-            *input = inner_input;
+            input.state.set_underline_context();
+            let result = with_depth(input, element_parser);
+            input.state.unset_underline_context();
             result
         },
         literal("__"),

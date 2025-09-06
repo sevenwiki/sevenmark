@@ -1,4 +1,5 @@
 use super::super::element::element_parser;
+use super::super::utils::with_depth;
 use crate::sevenmark::ast::{Header, Location, SevenMarkElement};
 use crate::sevenmark::ParserInput;
 use winnow::ascii::line_ending;
@@ -33,17 +34,9 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<SevenMar
         opt(literal(' ')),
         terminated(
             |input: &mut ParserInput| {
-                input
-                    .state
-                    .increase_depth()
-                    .map_err(|e| e.into_context_error())?;
                 input.state.set_header_context();
-                let result = element_parser(input);
+                let result = with_depth(input, element_parser);
                 input.state.unset_header_context();
-                input
-                    .state
-                    .decrease_depth()
-                    .map_err(|e| e.into_context_error())?;
                 result
             },
             alt((line_ending, eof)),

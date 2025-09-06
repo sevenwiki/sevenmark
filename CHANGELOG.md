@@ -5,6 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.16] - 2025-09-07
+
+### Added
+- **MediaElement Context Protection**: Added `inside_media_element` context flag to prevent nested MediaElement parsing
+  - MediaElement (`[[content]]`) now prevents infinite nesting for better parsing stability
+  - Uses same pattern as footnote context management for consistency
+
+### Improved
+- **Parser Code Quality**: Refactored all markdown parsers to use `with_depth` utility
+  - Simplified markdown_bold, markdown_italic, markdown_strikethrough, markdown_underline parsers
+  - Refactored markdown_superscript, markdown_subscript, and markdown_header parsers
+  - Eliminated complex manual depth management in favor of centralized utility function
+  - Improved code consistency and maintainability across all text formatting parsers
+
 ## [2.0.15] - 2025-09-07
 
 ### Added
