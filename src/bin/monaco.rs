@@ -1,5 +1,5 @@
 use sevenmark::sevenmark::core::parse_document;
-use sevenmark::sevenmark::visitor::convert_ast_to_monaco_json;
+use sevenmark::sevenmark::visitor::monaco::convert_ast_to_monaco_json;
 use std::fs;
 use std::time::Instant;
 

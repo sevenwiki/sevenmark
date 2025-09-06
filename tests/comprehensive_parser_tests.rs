@@ -7,6 +7,7 @@ fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error
     Ok(json)
 }
 
+
 fn run_parser_test(category: &str, test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let input_path = format!("tests/{}/input/{}.txt", category, test_name);
     let expected_path = format!("tests/{}/expected/{}.json", category, test_name);
@@ -31,6 +32,7 @@ fn run_parser_test(category: &str, test_name: &str) -> Result<(), Box<dyn std::e
 
     Ok(())
 }
+
 
 // Fold Tests
 #[test]
@@ -191,3 +193,4 @@ fn test_complex_scientific_document() {
     run_parser_test("complex", "scientific_document")
         .expect("complex scientific document test failed");
 }
+

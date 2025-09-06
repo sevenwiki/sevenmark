@@ -8,10 +8,9 @@ use std::collections::HashSet;
 use winnow::stream::Location as StreamLocation;
 
 pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
-    let normalized_input = input.replace("\r\n", "\n");
 
     // Pre-calculate all line start positions for O(1) lookups
-    let line_starts: HashSet<usize> = normalized_input
+    let line_starts: HashSet<usize> = input
         .line_spans()
         .map(|span| span.range().start)
         .collect();
@@ -20,7 +19,7 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
     context.line_starts = line_starts;
 
     let mut stateful_input = ParserInput {
-        input: InputSource::new(&normalized_input),
+        input: InputSource::new(&input),
         state: context,
     };
 
