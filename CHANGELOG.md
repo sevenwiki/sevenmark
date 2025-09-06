@@ -5,6 +5,27 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.14] - 2025-09-06
+
+### Changed
+- **Parameter Storage Optimization**: Replaced HashMap with BTreeMap for parameter storage
+  - Ensures consistent parameter ordering across multiple parsing sessions
+  - Improves test stability by eliminating non-deterministic hash-based ordering
+  - Parameters now appear in alphabetical key order in serialized output
+
+### Performance
+- **Monaco Editor Memory Optimization**: Reduced memory usage from O(bytes) to O(lines)
+  - Replaced byte-level position mapping with line-based binary search approach
+  - Memory usage now scales with document line count instead of total bytes
+  - Maintained efficient O(log n) position lookup performance using `line_span` crate
+  - Significant memory savings for large documents (e.g., 1MB document: 2MB → ~1KB memory)
+
+### Added
+- **Monaco Editor Test Suite**: Comprehensive test coverage for position conversion
+  - Added `tests/monaco/` directory with input/expected file pairs
+  - Tests for UTF-8 handling, complex elements, markdown formatting, and edge cases
+  - Automated verification of byte-to-line/column position accuracy
+
 ## [2.0.12] - 2025-09-05
 
 ### Added
