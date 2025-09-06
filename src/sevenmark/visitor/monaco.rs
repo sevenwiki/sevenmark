@@ -52,16 +52,13 @@ impl ByteToLineMapper {
         let clamped_pos = byte_offset.min(self.input.len());
         
         // Binary search to find the line containing this position
-        let line = match self.line_starts.binary_search(&clamped_pos) {
-            Ok(index) => index,  // Exact match - position is at line start
-            Err(index) => {
-                if index == 0 {
-                    0  // Position is before first line (shouldn't happen)
-                } else {
-                    index - 1  // Position is in the line that starts at index-1
-                }
+        let line = self.line_starts.binary_search(&clamped_pos).unwrap_or_else(|index| {
+            if index == 0 {
+                0  // Position is before first line (shouldn't happen)
+            } else {
+                index - 1  // Position is in the line that starts at index-1
             }
-        };
+        });
         
         // Calculate column by subtracting line start from position
         let line_start = self.line_starts[line];
