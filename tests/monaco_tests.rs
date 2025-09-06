@@ -6,9 +6,6 @@ fn monaco_parse_file_content(content: &str) -> Result<String, Box<dyn std::error
     let result = parse_document(content);
     let monaco_json = convert_ast_to_monaco_json(&result, content);
     
-    // Debug: save to file to compare
-    std::fs::write("test_monaco_output.json", &monaco_json).ok();
-    
     Ok(monaco_json)
 }
 
@@ -16,13 +13,10 @@ fn run_monaco_test(test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let input_path = format!("tests/monaco/input/{}.txt", test_name);
     let expected_path = format!("tests/monaco/expected/{}.json", test_name);
 
-    // 입력 파일 읽기
     let input_content = fs::read_to_string(&input_path)?;
 
-    // Monaco 변환 실행
     let actual_output = monaco_parse_file_content(&input_content)?;
-
-    // 예상 결과와 비교
+    
     let expected_output = fs::read_to_string(&expected_path)
         .map_err(|_| format!("Expected Monaco output file not found: {}", expected_path))?;
 
