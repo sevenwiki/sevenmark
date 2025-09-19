@@ -57,9 +57,8 @@ SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 �
 
 ```sevenmark
 {{{#table #style="border: 2px solid #333;"
-| 헤더1 | 헤더2 |
-| ----- | ----- |
-| 셀1   | 셀2   |
+[[[[헤더1]] [[헤더2]]]]
+[[[[셀1]] [[셀2]]]]
 }}}
 ```
 
@@ -67,10 +66,9 @@ SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 �
 
 ```sevenmark
 {{{#table
-| 헤더1 | 헤더2 |
-| ----- | ----- |
-| {{{#cell #color="red" 빨간 텍스트 }}} | 일반 셀 |
-| {{{#cell #bg_color="yellow" 노란 배경 }}} | 일반 셀 |
+[[[[헤더1]] [[헤더2]]]]
+[[[[#color="red" 빨간 텍스트]] [[일반 셀]]]]
+[[[[#bg_color="yellow" 노란 배경]] [[일반 셀]]]]
 }}}
 ```
 
@@ -78,11 +76,10 @@ SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 �
 
 ```sevenmark
 {{{#table #style="width: 100%; border-collapse: collapse;"
-| {{{#cell #style="text-align: center; font-weight: bold;" 제품명 }}} | 가격 | 재고 |
-| ----- | ----- | ----- |
-| {{{#cell #color="blue" 노트북 }}} | {{{#cell #style="text-align: right;" ₩1,200,000 }}} | 5개 |
-| {{{#cell #color="green" 마우스 }}} | {{{#cell #style="text-align: right;" ₩30,000 }}} | 20개 |
-| {{{#cell #x="2" #style="text-align: center; font-weight: bold;" 총 합계 }}} | {{{#cell #style="text-align: right; font-weight: bold;" ₩1,230,000 }}} |
+[[[[#style="text-align: center; font-weight: bold;" 제품명]] [[가격]] [[재고]]]]
+[[[[#color="blue" 노트북]] [[#style="text-align: right;" ₩1,200,000]] [[5개]]]]
+[[[[#color="green" 마우스]] [[#style="text-align: right;" ₩30,000]] [[20개]]]]
+[[[[#x="2" #style="text-align: center; font-weight: bold;" 총 합계]] [[#style="text-align: right; font-weight: bold;" ₩1,230,000]]]]
 }}}
 ```
 
@@ -92,11 +89,10 @@ SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 �
 
 ```sevenmark
 {{{#table
-| 기능 | 설명 |
-| ---- | ---- |
-| **볼드** | *이탤릭과* 함께 사용 |
-| {{{#code inline_code() }}} | 코드도 가능 |
-| [[#file="image.png" 이미지]] | 미디어 요소도 가능 |
+[[[[기능]] [[설명]]]]
+[[[[**볼드**]] [[*이탤릭과* 함께 사용]]]]
+[[[[{{{#code inline_code() }}}]] [[코드도 가능]]]]
+[[[[@media #file="image.png" 이미지]] [[미디어 요소도 가능]]]]
 }}}
 ```
 

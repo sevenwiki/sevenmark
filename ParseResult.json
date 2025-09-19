@@ -1,11 +1,11 @@
 [
   {
-    "Variable": {
+    "Error": {
       "location": {
         "start": 0,
-        "end": 14
+        "end": 89
       },
-      "content": "xasxasx"
+      "content": "[[#file=\"file+1\" #url=\"file_2\" xxfwefwefxx[[#file=\"file+1\" #url=\"file_2\" xxfwefwefxx]] ]]"
     }
   }
 ]

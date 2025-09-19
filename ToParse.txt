@@ -1,1 +1,1 @@
-[var(xasxasx)]
+[[#file="file+1" #url="file_2" xxfwefwefxx[[#file="file+1" #url="file_2" xxfwefwefxx]] ]]
