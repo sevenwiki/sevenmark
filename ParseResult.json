@@ -1,50 +1,84 @@
 [
   {
-    "BlockQuoteElement": {
+    "DefineElement": {
       "location": {
         "start": 0,
-        "end": 33
+        "end": 42
       },
       "parameters": {
-        "style": {
+        "w": {
           "location": {
-            "start": 9,
-            "end": 22
+            "start": 32,
+            "end": 39
           },
-          "key": "style",
+          "key": "w",
           "value": [
             {
               "Text": {
                 "location": {
-                  "start": 18,
-                  "end": 20
+                  "start": 36,
+                  "end": 37
                 },
-                "content": "xx"
+                "content": "w"
+              }
+            }
+          ]
+        },
+        "x": {
+          "location": {
+            "start": 10,
+            "end": 18
+          },
+          "key": "x",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 15,
+                  "end": 16
+                },
+                "content": "x"
+              }
+            }
+          ]
+        },
+        "y": {
+          "location": {
+            "start": 18,
+            "end": 25
+          },
+          "key": "y",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 22,
+                  "end": 23
+                },
+                "content": "y"
+              }
+            }
+          ]
+        },
+        "z": {
+          "location": {
+            "start": 25,
+            "end": 32
+          },
+          "key": "z",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 29,
+                  "end": 30
+                },
+                "content": "z"
               }
             }
           ]
         }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 22,
-              "end": 29
-            },
-            "content": "aefawef"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 29,
-              "end": 30
-            },
-            "content": "\n"
-          }
-        }
-      ]
+      }
     }
   }
 ]

@@ -13,17 +13,17 @@ rust-version = "1.89.0"
 [dependencies]
 anyhow = "1.0.100"
 winnow = {version = "0.7.13", features = ["simd"] }
-serde = {version = "1.0.226", features = ["derive"]}
+serde = {version = "1.0.228", features = ["derive"]}
 serde_json = "1.0.142"
 paste = "1.0.15"
 line-span = "0.1.5"
 
 # Non-WASM dependencies
-axum = { version = "0.8.4", features = ["multipart", "macros"], optional = true }
+axum = { version = "0.8.5", features = ["multipart", "macros"], optional = true }
 dotenvy = { version = "0.15.7", optional = true }
 tokio = { version = "1.47.1", features = ["full"], optional = true }
 tracing = { version = "0.1.41", optional = true }
-tracing-subscriber = { version = "0.3.19", optional = true }
+tracing-subscriber = { version = "0.3.20", optional = true }
 tracing-appender = { version = "0.2.3", optional = true }
 
 # WASM dependencies
