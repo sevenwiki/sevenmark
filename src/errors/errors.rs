@@ -8,9 +8,9 @@ use axum::Json;
 use axum::extract::Request;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
-use sea_orm::{DbErr, TransactionError};
+use sea_orm::DbErr;
 use serde::Serialize;
-use tracing::{debug, error, warn};
+use tracing::{debug, error};
 use utoipa::ToSchema;
 // 이 모듈은 애플리케이션의 오류 처리 시스템을 구현합니다.
 // 주요 기능:
