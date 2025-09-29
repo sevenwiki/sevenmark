@@ -39,17 +39,17 @@ jobs:
 
       - name: Build WASM (Web)
         run: |
-          wasm-pack build --target web --features wasm
+          wasm-pack build --target web --features wasm --no-default-features
           cp -r pkg pkg-web
 
       - name: Build WASM (Bundler)
         run: |
-          wasm-pack build --target bundler --features wasm
+          wasm-pack build --target bundler --features wasm --no-default-features
           cp -r pkg pkg-bundler
 
       - name: Build WASM (Node.js)  
         run: |
-          wasm-pack build --target nodejs --features wasm
+          wasm-pack build --target nodejs --features wasm --no-default-features
           cp -r pkg pkg-nodejs
 
       - name: Create archives

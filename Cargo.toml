@@ -1,6 +1,6 @@
 [package]
 name = "sevenmark"
-version = "2.0.20"
+version = "2.0.21"
 authors = [
     "Levi Lim <shiueo.csh@gmail.com>",
 ]
@@ -37,7 +37,7 @@ web-sys = { version = "0.3.81", optional = true }
 [features]
 default = ["server"]
 server = ["axum", "dotenvy", "tokio", "tracing", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui"]
-wasm = ["wasm-bindgen", "js-sys", "web-sys"]
+wasm = [ "wasm-bindgen", "js-sys", "web-sys"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]

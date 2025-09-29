@@ -5,6 +5,40 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.21] - 2025-09-29
+
+### Added
+- **Web Server Infrastructure**: Complete HTTP API server implementation
+  - Added `sevenmark-server` binary with Axum-based web framework
+  - Database connectivity with SeaORM and PostgreSQL support
+  - Comprehensive error handling system with structured HTTP responses
+  - Environment-based configuration management with `.env` file support
+  - Structured logging with tracing and log rotation capabilities
+
+- **REST API Framework**: Full API infrastructure for SevenMark processing
+  - Health check endpoints (`/v0/health_check`) with OpenAPI documentation
+  - Modular API routing system with versioned endpoints (`v0/`)
+  - Request/response middleware with CORS and cookie support
+  - Auto-generated OpenAPI/Swagger documentation with utoipa
+
+- **Database Integration**: Production-ready database layer
+  - Connection pooling with configurable min/max connections
+  - Automatic connection retry and error recovery
+  - Environment-specific database configuration
+  - Integrated transaction support for complex operations
+
+- **Development Tools**: Enhanced development and deployment support
+  - Conditional compilation with `server` feature flag
+  - WASM compatibility maintained alongside server features
+  - Structured application state management
+  - Comprehensive error protocol definitions
+
+### Fixed
+- **Build System**: Resolved filename collision between binary and library targets
+  - Renamed main binary from `sevenmark` to `sevenmark-server` to prevent conflicts with library name
+  - Fixed compilation errors in error handling system by adding missing `NotFound(_)` enum variant coverage
+  - Resolved import path issue in health check routes (`super::health_check` → `super::health_check::health_check`)
+
 ## [2.0.20] - 2025-09-29
 
 ### Added
