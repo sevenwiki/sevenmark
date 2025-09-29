@@ -14,13 +14,13 @@ WORKDIR /app
 # Copy manifest files first to leverage Docker cache for dependencies
 COPY Cargo.toml Cargo.lock ./
 
-# Create a dummy src directory and main.rs to cache dependencies
-# This allows Docker to cache the build of dependencies when Cargo.toml/Cargo.lock don't change
-RUN mkdir src && echo "fn main() {}" > src/main.rs
+# Create dummy src directory and files for dependency caching
+RUN mkdir src && \
+    echo "fn main() {}" > src/main.rs && \
+    echo "pub fn dummy() {}" > src/lib.rs
 
-# Build dependencies. This command will cache the build of all dependencies listed in Cargo.toml.
-# It will only re-run if Cargo.toml or Cargo.lock changes.
-RUN cargo build --release --target-dir /app/target_deps
+# Build dependencies for sevenmark-server only with server features
+RUN cargo build --release --bin sevenmark-server --features server --target-dir /app/target_deps
 
 # Remove the dummy src directory and its content
 RUN rm -rf src
@@ -28,9 +28,8 @@ RUN rm -rf src
 # Copy the actual source code
 COPY src ./src
 
-# Build the application using previously cached dependencies.
-# The previous step's target_deps will be leveraged, making this step faster.
-RUN cargo build --release
+# Build the sevenmark-server binary using previously cached dependencies
+RUN cargo build --release --bin sevenmark-server --features server
 
 # Runtime stage
 FROM debian:stable-slim AS runtime

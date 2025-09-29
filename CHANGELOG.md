@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.22] - 2025-09-29
+
+### Added
+- **Docker Support**: Complete containerization for development and deployment
+  - Added optimized multi-stage Dockerfile with dependency caching
+  - Docker Compose configuration for local development
+  - GitHub Actions workflow for automated Docker image builds and publishing
+  - Container runs on port 9000 with PostgreSQL integration support
+  - Production-ready container with security best practices (non-root user)
+
 ## [2.0.21] - 2025-09-29
 
 ### Added
@@ -18,7 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **REST API Framework**: Full API infrastructure for SevenMark processing
   - Health check endpoints (`/v0/health_check`) with OpenAPI documentation
   - Modular API routing system with versioned endpoints (`v0/`)
-  - Request/response middleware with CORS and cookie support
   - Auto-generated OpenAPI/Swagger documentation with utoipa
 
 - **Database Integration**: Production-ready database layer
