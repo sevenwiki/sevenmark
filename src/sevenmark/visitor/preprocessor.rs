@@ -1,6 +1,7 @@
-use crate::SevenMarkElement;
+use crate::{SevenMarkElement};
 use serde::Serialize;
 use std::collections::HashSet;
+use crate::sevenmark::Traversable;
 
 #[derive(Debug, Clone, Serialize)]
 pub struct PreprocessInfo {
@@ -38,133 +39,52 @@ impl PreVisitor for SevenMarkPreprocessor {
 impl SevenMarkPreprocessor {
     fn collect_from_elements(elements: &[SevenMarkElement], info: &mut PreprocessInfo) {
         for element in elements {
-            match element {
-                SevenMarkElement::Include(include_element) => {
-                    let name = Self::extract_text_content(&include_element.content);
-                    if !name.is_empty() {
-                        info.includes.insert(name);
-                    }
-                }
-                SevenMarkElement::Category(category_element) => {
-                    let name = Self::extract_text_content(&category_element.content);
-                    if !name.is_empty() {
-                        info.categories.insert(name);
-                    }
-                }
-                SevenMarkElement::Redirect(redirect_element) => {
-                    let target = Self::extract_text_content(&redirect_element.content);
-                    if !target.is_empty() {
-                        info.redirect = Some(target);
-                    }
-                }
-                SevenMarkElement::MediaElement(media_element) => {
-                    // url 파라미터에서 URL 추출
-                    if let Some(url_param) = media_element.parameters.get("url") {
-                        let url = Self::extract_text_content(&url_param.value);
-                        if !url.is_empty() {
-                            info.media.insert(url);
-                        }
-                    }
-                    // file 파라미터에서 파일 경로 추출
-                    if let Some(file_param) = media_element.parameters.get("file") {
-                        let file = Self::extract_text_content(&file_param.value);
-                        if !file.is_empty() {
-                            info.media.insert(file);
-                        }
-                    }
-                }
-                _ => {}
-            }
-            Self::visit_nested_elements(element, info);
+            Self::visit_element(element, info);
         }
     }
 
-    fn visit_nested_elements(element: &SevenMarkElement, info: &mut PreprocessInfo) {
+    fn visit_element(element: &SevenMarkElement, info: &mut PreprocessInfo) {
+        // 특수 케이스 처리 (정보 수집이 필요한 4개 요소만)
         match element {
-            // ✅ 순회하는 요소들 - content 필드 하나만 있는 구조
-            SevenMarkElement::StyledElement(styled) => {
-                Self::collect_from_elements(&styled.content, info);
+            SevenMarkElement::Include(e) => {
+                let name = Self::extract_text_content(&e.content);
+                if !name.is_empty() {
+                    info.includes.insert(name);
+                }
             }
-            SevenMarkElement::BlockQuoteElement(quote) => {
-                Self::collect_from_elements(&quote.content, info);
+            SevenMarkElement::Category(e) => {
+                let name = Self::extract_text_content(&e.content);
+                if !name.is_empty() {
+                    info.categories.insert(name);
+                }
             }
-            SevenMarkElement::FootnoteElement(footnote) => {
-                Self::collect_from_elements(&footnote.content, info);
+            SevenMarkElement::Redirect(e) => {
+                let target = Self::extract_text_content(&e.content);
+                if !target.is_empty() {
+                    info.redirect = Some(target);
+                }
             }
-            SevenMarkElement::Header(header) => {
-                Self::collect_from_elements(&header.content, info);
-            }
-
-            // ✅ 순회하는 요소들 - TextStyle 계열 (모두 content 필드)
-            SevenMarkElement::BoldItalic(style)
-            | SevenMarkElement::Bold(style)
-            | SevenMarkElement::Italic(style)
-            | SevenMarkElement::Strikethrough(style)
-            | SevenMarkElement::Underline(style)
-            | SevenMarkElement::Superscript(style)
-            | SevenMarkElement::Subscript(style) => {
-                Self::collect_from_elements(&style.content, info);
-            }
-
-            // ✅ 순회하는 요소들 - 복잡한 중첩 구조
-            SevenMarkElement::TableElement(table) => {
-                for row in &table.content {
-                    for cell in &row.inner_content {
-                        Self::collect_from_elements(&cell.content, info);
+            SevenMarkElement::MediaElement(e) => {
+                if let Some(url_param) = e.parameters.get("url") {
+                    let url = Self::extract_text_content(&url_param.value);
+                    if !url.is_empty() {
+                        info.media.insert(url);
+                    }
+                }
+                if let Some(file_param) = e.parameters.get("file") {
+                    let file = Self::extract_text_content(&file_param.value);
+                    if !file.is_empty() {
+                        info.media.insert(file);
                     }
                 }
             }
-            SevenMarkElement::ListElement(list) => {
-                for item in &list.content {
-                    Self::collect_from_elements(&item.content, info);
-                }
-            }
-            SevenMarkElement::FoldElement(fold) => {
-                Self::collect_from_elements(&fold.content.0.content, info);
-                Self::collect_from_elements(&fold.content.1.content, info);
-            }
-            SevenMarkElement::RubyElement(ruby) => {
-                Self::collect_from_elements(&ruby.content, info);
-            }
-
-            // ❌ 순회하지 않는 요소들 - 리터럴/코드 블록 (내부 파싱 안함)
-            SevenMarkElement::LiteralElement(_)
-            | SevenMarkElement::CodeElement(_)
-            | SevenMarkElement::TeXElement(_) => {
-                // 내부 순회하지 않음 (리터럴/코드/수식 블록)
-            }
-
-            // ❌ 순회하지 않는 요소들 - 단순 텍스트/값
-            SevenMarkElement::Text(_)
-            | SevenMarkElement::Comment(_)
-            | SevenMarkElement::Escape(_)
-            | SevenMarkElement::Error(_) => {
-                // 단순 텍스트 요소들 - 순회 불필요
-            }
-
-            // ❌ 순회하지 않는 요소들 - 위키 요소들 (이미 위에서 처리됨)
-            SevenMarkElement::Include(_)
-            | SevenMarkElement::Category(_)
-            | SevenMarkElement::Redirect(_) => {
-                // 이미 collect_from_elements에서 처리됨
-            }
-            
-            // ✅ MediaElement - content 필드 순회 필요
-            SevenMarkElement::MediaElement(media) => {
-                Self::collect_from_elements(&media.content, info);
-            }
-
-            // ❌ 순회하지 않는 요소들 - 매크로/단순값
-            SevenMarkElement::Null
-            | SevenMarkElement::FootNote
-            | SevenMarkElement::TimeNow
-            | SevenMarkElement::NewLine
-            | SevenMarkElement::Age(_)
-            | SevenMarkElement::Variable(_)
-            | SevenMarkElement::HLine => {
-                // 단순 값들 - 순회 불필요
-            }
+            _ => {}
         }
+
+        // trait을 사용한 자동 순회
+        element.traverse_children(&mut |child| {
+            Self::visit_element(child, info);
+        });
     }
     fn extract_text_content(elements: &[SevenMarkElement]) -> String {
         elements

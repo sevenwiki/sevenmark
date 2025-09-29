@@ -7,7 +7,7 @@ use super::markdown::{
 use super::text::text_parser;
 use super::token::*;
 use crate::sevenmark::ast::SevenMarkElement;
-use crate::sevenmark::parser::brace::{brace_blockquote_parser, brace_category_parser, brace_code_parser, brace_fold_parser, brace_footnote_parser, brace_include_parser, brace_list_parser, brace_literal_parser, brace_ruby_parser, brace_style_parser, brace_table_parser, brace_tex_parser};
+use crate::sevenmark::parser::brace::{brace_blockquote_parser, brace_category_parser, brace_code_parser, brace_define_parser, brace_fold_parser, brace_footnote_parser, brace_include_parser, brace_list_parser, brace_literal_parser, brace_ruby_parser, brace_style_parser, brace_table_parser, brace_tex_parser};
 use crate::sevenmark::parser::bracket::bracket_media_parser;
 use crate::sevenmark::parser::comment::{inline_comment_parser, multiline_comment_parser};
 use crate::sevenmark::parser::r#macro::{macro_age_parser, macro_footnote_parser, macro_newline_parser, macro_now_parser, macro_null_parser, macro_variable_parser};
@@ -39,6 +39,7 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkEle
                 brace_ruby_parser,
                 brace_code_parser,
                 brace_tex_parser,
+                brace_define_parser,
                 brace_style_parser,
                 brace_literal_parser,
             )),

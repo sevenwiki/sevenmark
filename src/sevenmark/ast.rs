@@ -93,6 +93,12 @@ pub struct StyledElement {
     pub content: Vec<SevenMarkElement>,
 }
 
+#[derive(Debug, Clone, Serialize)]
+pub struct DefineElement {
+    pub location: Location,
+    pub parameters: Parameters
+}
+
 /// 미디어 요소 [[#file="..." #url="..." display_text]]
 #[derive(Debug, Clone, Serialize)]
 pub struct MediaElement {
@@ -245,6 +251,7 @@ pub enum SevenMarkElement {
 
     // Block elements
     LiteralElement(LiteralElement),
+    DefineElement(DefineElement),
     StyledElement(StyledElement),
     TableElement(TableElement),
     ListElement(ListElement),
@@ -293,6 +300,82 @@ impl Default for CommonStyleAttributes {
             color: Vec::new(),
             bg_color: Vec::new(),
             opacity: Vec::new(),
+        }
+    }
+}
+
+/// Trait for automatically traversing AST elements
+pub trait Traversable {
+    fn traverse_children<F>(&self, visitor: &mut F)
+    where F: FnMut(&SevenMarkElement);
+}
+
+impl Traversable for SevenMarkElement {
+    fn traverse_children<F>(&self, visitor: &mut F)
+    where F: FnMut(&SevenMarkElement) {
+        match self {
+            // 자식이 없는 요소들
+            SevenMarkElement::Text(_)
+            | SevenMarkElement::Comment(_)
+            | SevenMarkElement::Escape(_)
+            | SevenMarkElement::Error(_)
+            | SevenMarkElement::Age(_)
+            | SevenMarkElement::Variable(_)
+            | SevenMarkElement::TeXElement(_)
+            | SevenMarkElement::DefineElement(_)
+            | SevenMarkElement::Null
+            | SevenMarkElement::FootNote
+            | SevenMarkElement::TimeNow
+            | SevenMarkElement::NewLine
+            | SevenMarkElement::HLine => {
+                // 자식 없음
+            }
+
+            // content 필드 하나만 있는 요소들
+            SevenMarkElement::LiteralElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::StyledElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::BlockQuoteElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::RubyElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::FootnoteElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::CodeElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::Header(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::Include(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::Category(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::Redirect(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::MediaElement(e) => e.content.iter().for_each(visitor),
+
+            // TextStyle 계열
+            SevenMarkElement::BoldItalic(e) | SevenMarkElement::Bold(e) | SevenMarkElement::Italic(e)
+            | SevenMarkElement::Strikethrough(e) | SevenMarkElement::Underline(e)
+            | SevenMarkElement::Superscript(e) | SevenMarkElement::Subscript(e) => {
+                e.content.iter().for_each(visitor);
+            }
+
+            // 특수 중첩 구조들
+            SevenMarkElement::TableElement(table) => {
+                for row in &table.content {
+                    for cell in &row.inner_content {
+                        for child in &cell.content {
+                            visitor(child);
+                        }
+                    }
+                }
+            }
+            SevenMarkElement::ListElement(list) => {
+                for item in &list.content {
+                    for child in &item.content {
+                        visitor(child);
+                    }
+                }
+            }
+            SevenMarkElement::FoldElement(fold) => {
+                for child in &fold.content.0.content {
+                    visitor(child);
+                }
+                for child in &fold.content.1.content {
+                    visitor(child);
+                }
+            }
         }
     }
 }

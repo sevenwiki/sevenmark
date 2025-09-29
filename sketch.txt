@@ -1,0 +1,6 @@
+{{{#table
+{{{#if [var(age)] == "xx"
+aefwefawef
+}}}
+{{{#if [var(x)] == "xxx"
+}}}

@@ -5,6 +5,23 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.19] - 2025-09-29
+
+### Added
+- **DefineElement Support**: New AST element for variable definition and substitution
+  - Added `DefineElement` for `{{{#define #name="value"}}}` syntax parsing
+  - Enables variable definition that can be referenced with `[var(name)]` macro
+  - Struct includes location tracking and parameter storage for defined variables
+  - Integrated into main `SevenMarkElement` enum for full parser support
+
+### Improved
+- **Visitor Pattern Architecture**: Redesigned AST traversal with trait-based approach
+  - Added `Traversable` trait for automatic AST element traversal
+  - Reduced preprocessor code complexity by 50% (180 → 87 lines)
+  - Eliminated need to manually handle all AST variants in visitors
+  - New elements automatically supported by implementing trait pattern
+  - Enhanced maintainability and reduced code duplication across visitor implementations
+
 ## [2.0.16] - 2025-09-07
 
 ### Added
