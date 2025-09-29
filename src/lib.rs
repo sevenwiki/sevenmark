@@ -1,16 +1,16 @@
-pub mod sevenmark;
+#[cfg(feature = "server")]
+pub mod api;
+#[cfg(feature = "server")]
+pub mod config;
 #[cfg(feature = "server")]
 pub mod connection;
 #[cfg(feature = "server")]
-pub mod config;
+pub mod errors;
+pub mod sevenmark;
 #[cfg(feature = "server")]
 pub mod state;
 #[cfg(feature = "server")]
 pub mod utils;
-#[cfg(feature = "server")]
-pub mod api;
-#[cfg(feature = "server")]
-pub mod errors;
 
 pub use sevenmark::ast::SevenMarkElement;
 pub use sevenmark::core::parse_document;

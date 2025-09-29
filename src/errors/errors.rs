@@ -1,12 +1,10 @@
 use crate::config::db_config::DbConfig;
 use crate::errors::protocol::general::{BAD_REQUEST, VALIDATION_ERROR};
-use crate::errors::protocol::system::{
-    SYS_DATABASE_ERROR, SYS_INTERNAL_ERROR, SYS_NOT_FOUND,
-};
+use crate::errors::protocol::system::{SYS_DATABASE_ERROR, SYS_INTERNAL_ERROR, SYS_NOT_FOUND};
+use axum::Json;
 use axum::extract::Request;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
-use axum::Json;
 use sea_orm::DbErr;
 use serde::Serialize;
 use tracing::{debug, error};
@@ -45,17 +43,16 @@ impl From<DbErr> for Errors {
     }
 }
 
-
 #[derive(Debug)]
 pub enum Errors {
     // 일반 오류
-    BadRequestError(String),   // 잘못된 요청 (추가 정보 포함)
-    ValidationError(String),   // 유효성 검사 오류 (추가 정보 포함)
+    BadRequestError(String), // 잘못된 요청 (추가 정보 포함)
+    ValidationError(String), // 유효성 검사 오류 (추가 정보 포함)
 
     // 시스템 오류
     SysInternalError(String),
-    DatabaseError(String),      // 데이터베이스 오류 (추가 정보 포함)
-    NotFound(String),           // 리소스를 찾을 수 없음 (추가 정보 포함)
+    DatabaseError(String), // 데이터베이스 오류 (추가 정보 포함)
+    NotFound(String),      // 리소스를 찾을 수 없음 (추가 정보 포함)
 }
 
 // IntoResponse 트레이트 구현: Errors를 HTTP 응답으로 변환
@@ -66,15 +63,12 @@ impl IntoResponse for Errors {
         // 에러 레벨에 따른 중앙집중식 로깅
         match &self {
             // 시스템 심각도 에러 - error! 레벨
-            Errors::SysInternalError(_)
-            | Errors::DatabaseError(_) => {
+            Errors::SysInternalError(_) | Errors::DatabaseError(_) => {
                 error!("System error occurred: {:?}", self);
             }
 
             // 비즈니스 로직 에러 - debug! 레벨 (클라이언트 실수)
-            Errors::BadRequestError(_)
-            | Errors::ValidationError(_)
-            | Errors::NotFound(_) => {
+            Errors::BadRequestError(_) | Errors::ValidationError(_) | Errors::NotFound(_) => {
                 debug!("Client error: {:?}", self);
             }
         }
@@ -87,7 +81,6 @@ impl IntoResponse for Errors {
             Errors::BadRequestError(msg) => (StatusCode::BAD_REQUEST, BAD_REQUEST, Some(msg)),
             Errors::ValidationError(msg) => (StatusCode::BAD_REQUEST, VALIDATION_ERROR, Some(msg)),
 
-
             // 시스템 오류 - 주로 500 Internal Server Error
             Errors::SysInternalError(msg) => {
                 (StatusCode::BAD_REQUEST, SYS_INTERNAL_ERROR, Some(msg))
@@ -99,7 +92,6 @@ impl IntoResponse for Errors {
                 Some(msg),
             ),
             Errors::NotFound(msg) => (StatusCode::NOT_FOUND, SYS_NOT_FOUND, Some(msg)),
-
         };
 
         // 개발 환경에서만 상세 오류 정보 포함

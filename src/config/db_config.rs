@@ -44,7 +44,6 @@ static CONFIG: LazyLock<DbConfig> = LazyLock::new(|| {
             .and_then(|v| v.parse().ok())
             .unwrap_or(10),
 
-
         server_host: env::var("HOST").expect("HOST must be set in .env file"),
         server_port: env::var("PORT").expect("PORT must be set in .env file"),
     }

@@ -6,6 +6,7 @@ use super::markdown::{
 };
 use super::text::text_parser;
 use super::token::*;
+use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::SevenMarkElement;
 use crate::sevenmark::parser::brace::{
     brace_blockquote_parser, brace_category_parser, brace_code_parser, brace_define_parser,
@@ -19,11 +20,10 @@ use crate::sevenmark::parser::r#macro::{
     macro_age_parser, macro_footnote_parser, macro_newline_parser, macro_now_parser,
     macro_null_parser, macro_variable_parser,
 };
-use crate::sevenmark::ParserInput;
+use winnow::Result;
 use winnow::combinator::alt;
 use winnow::combinator::repeat;
 use winnow::prelude::*;
-use winnow::Result;
 
 pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkElement>> {
     let result = repeat(

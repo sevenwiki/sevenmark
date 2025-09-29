@@ -2,11 +2,8 @@
 use {
     axum::Router,
     sevenmark::{
-        api::api_routes,
-        config::db_config::DbConfig,
-        connection::database::establish_connection,
-        state::AppState,
-        utils::logger::init_tracing
+        api::api_routes, config::db_config::DbConfig, connection::database::establish_connection,
+        state::AppState, utils::logger::init_tracing,
     },
     std::net::SocketAddr,
 };
@@ -21,9 +18,7 @@ pub async fn run_server() -> anyhow::Result<()> {
         &DbConfig::get().server_port
     );
 
-    let state = AppState {
-        conn,
-    };
+    let state = AppState { conn };
 
     let app = Router::new()
         .merge(api_routes(state.clone()))
@@ -36,7 +31,7 @@ pub async fn run_server() -> anyhow::Result<()> {
         listener,
         app.into_make_service_with_connect_info::<SocketAddr>(),
     )
-        .await?;
+    .await?;
     Ok(())
 }
 

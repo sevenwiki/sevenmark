@@ -1,3 +1,3 @@
 mod health;
-pub mod routes;
 mod openapi;
+pub mod routes;

@@ -2,12 +2,12 @@ use crate::sevenmark::ast::{Location, SevenMarkElement};
 use crate::sevenmark::parser::brace::redirect::redirect_content_parser;
 use crate::sevenmark::parser::utils::with_depth;
 use crate::sevenmark::{ParserInput, RedirectElement};
+use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::delimited;
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
-use winnow::Result;
 
 pub fn brace_redirect_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
     let start = parser_input.input.current_token_start();

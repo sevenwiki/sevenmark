@@ -1,13 +1,13 @@
 use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
+use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::FoldInnerElement;
 use crate::sevenmark::parser::utils::with_depth;
-use crate::sevenmark::ParserInput;
+use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;
 use winnow::token::literal;
-use winnow::Result;
 
 pub fn fold_core_parser(
     parser_input: &mut ParserInput,

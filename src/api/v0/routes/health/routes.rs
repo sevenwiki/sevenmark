@@ -1,9 +1,7 @@
 use super::health_check::health_check;
 use crate::state::AppState;
-use axum::{routing::get, Router};
-
+use axum::{Router, routing::get};
 
 pub fn health_routes() -> Router<AppState> {
-    Router::new()
-        .route("/health_check", get(health_check))
+    Router::new().route("/health_check", get(health_check))
 }

@@ -311,7 +311,6 @@ pub trait Traversable {
 }
 
 impl Traversable for SevenMarkElement {
-
     fn traverse_children<F>(&mut self, visitor: &mut F)
     where
         F: FnMut(&mut SevenMarkElement),

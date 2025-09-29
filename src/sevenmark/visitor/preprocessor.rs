@@ -1,5 +1,5 @@
-use crate::sevenmark::{TextElement, Traversable};
 use crate::SevenMarkElement;
+use crate::sevenmark::{TextElement, Traversable};
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 
@@ -53,13 +53,20 @@ impl SevenMarkPreprocessor {
     }
 
     /// 재귀적으로 요소 처리 (mutable, forward-only)
-    fn substitute_variables_in_element_recursively(element: &mut SevenMarkElement, defined_vars: &mut HashMap<String, String>) {
+    fn substitute_variables_in_element_recursively(
+        element: &mut SevenMarkElement,
+        defined_vars: &mut HashMap<String, String>,
+    ) {
         match element {
             SevenMarkElement::DefineElement(def) => {
                 // parameter들을 변수로 수집 (치환 후 저장)
                 for (key, param) in &def.parameters {
                     let mut resolved_value = String::new();
-                    Self::extract_text_with_variable_substitution(&param.value, defined_vars, &mut resolved_value);
+                    Self::extract_text_with_variable_substitution(
+                        &param.value,
+                        defined_vars,
+                        &mut resolved_value,
+                    );
                     if !resolved_value.is_empty() {
                         defined_vars.insert(key.clone(), resolved_value);
                     }
@@ -84,7 +91,11 @@ impl SevenMarkPreprocessor {
     }
 
     /// Vec<SevenMarkElement>에서 텍스트 추출하면서 Variable 해결
-    fn extract_text_with_variable_substitution(elements: &[SevenMarkElement], defined_vars: &HashMap<String, String>, result: &mut String) {
+    fn extract_text_with_variable_substitution(
+        elements: &[SevenMarkElement],
+        defined_vars: &HashMap<String, String>,
+        result: &mut String,
+    ) {
         for element in elements {
             match element {
                 SevenMarkElement::Text(text_element) => {
@@ -98,19 +109,24 @@ impl SevenMarkPreprocessor {
                         result.push_str(value);
                     }
                 }
-                _ => {
-                }
+                _ => {}
             }
         }
     }
 
-    fn traverse_elements_and_collect_preprocess_info(elements: &mut [SevenMarkElement], info: &mut PreprocessInfo) {
+    fn traverse_elements_and_collect_preprocess_info(
+        elements: &mut [SevenMarkElement],
+        info: &mut PreprocessInfo,
+    ) {
         for element in elements {
             Self::extract_preprocess_info_from_element(element, info);
         }
     }
 
-    fn extract_preprocess_info_from_element(element: &mut SevenMarkElement, info: &mut PreprocessInfo) {
+    fn extract_preprocess_info_from_element(
+        element: &mut SevenMarkElement,
+        info: &mut PreprocessInfo,
+    ) {
         // 특수 케이스 처리 (정보 수집이 필요한 5개 요소)
         match element {
             SevenMarkElement::Include(e) => {
