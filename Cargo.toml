@@ -22,7 +22,7 @@ line-span = "0.1.5"
 axum = { version = "0.8.5", features = ["multipart", "macros"], optional = true }
 dotenvy = { version = "0.15.7", optional = true }
 sea-orm = {version = "1.1.14", features = ["sqlx-postgres", "runtime-tokio-native-tls"], optional = true}
-utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time", "uuid", "chrono"], optional = true }
+utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"], optional = true }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"], optional = true }
 tokio = { version = "1.47.1", features = ["full"], optional = true }
 tracing = { version = "0.1.41", optional = true }
