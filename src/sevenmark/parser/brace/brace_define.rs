@@ -1,13 +1,11 @@
-use super::super::element::element_parser;
 use super::super::parameter::parameter_core_parser;
-use crate::sevenmark::ast::{SevenMarkElement, StyledElement};
-use crate::sevenmark::parser::utils::with_depth;
+use crate::sevenmark::ast::SevenMarkElement;
 use crate::sevenmark::{DefineElement, Location, ParserInput};
-use winnow::Result;
 use winnow::combinator::delimited;
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
+use winnow::Result;
 
 /// Parse styled elements enclosed in {{{ }}}
 pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {

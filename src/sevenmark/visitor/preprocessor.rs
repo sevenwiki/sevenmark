@@ -1,5 +1,5 @@
-use crate::SevenMarkElement;
 use crate::sevenmark::{TextElement, Traversable};
+use crate::SevenMarkElement;
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 

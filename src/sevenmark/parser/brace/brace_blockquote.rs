@@ -3,12 +3,12 @@ use super::super::parameter::parameter_core_parser;
 use crate::sevenmark::ast::SevenMarkElement;
 use crate::sevenmark::parser::utils::with_depth;
 use crate::sevenmark::{BlockQuoteElement, Location, ParserInput};
-use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
+use winnow::Result;
 
 pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
     let start = parser_input.input.current_token_start();

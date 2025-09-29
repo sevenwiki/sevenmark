@@ -1,11 +1,11 @@
 use crate::sevenmark::ast::SevenMarkElement;
 use crate::sevenmark::{AgeElement, Location, ParserInput};
-use winnow::Result;
 use winnow::combinator::delimited;
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 use winnow::token::take_while;
+use winnow::Result;
 
 pub fn macro_age_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
     let start = parser_input.input.current_token_start();
