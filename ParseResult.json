@@ -233,5 +233,53 @@
         }
       ]
     }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 180,
+        "end": 181
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "MediaElement": {
+      "location": {
+        "start": 181,
+        "end": 211
+      },
+      "parameters": {
+        "url": {
+          "location": {
+            "start": 183,
+            "end": 202
+          },
+          "key": "url",
+          "value": [
+            {
+              "Variable": {
+                "location": {
+                  "start": 189,
+                  "end": 200
+                },
+                "content": "var4"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 202,
+              "end": 209
+            },
+            "content": "content"
+          }
+        }
+      ]
+    }
   }
 ]

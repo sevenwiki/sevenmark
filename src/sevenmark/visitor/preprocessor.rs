@@ -96,9 +96,6 @@ impl SevenMarkPreprocessor {
                 SevenMarkElement::Variable(var_element) => {
                     if let Some(value) = defined_vars.get(&var_element.content) {
                         result.push_str(value);
-                    } else {
-                        // 정의되지 않은 변수는 원래 형태로 유지
-                        result.push_str(&format!("[var({})]", var_element.content));
                     }
                 }
                 _ => {
