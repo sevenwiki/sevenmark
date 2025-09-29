@@ -2,12 +2,11 @@ use crate::config::db_config::DbConfig;
 use crate::errors::protocol::general::{BAD_REQUEST, VALIDATION_ERROR};
 use crate::errors::protocol::system::{
     SYS_DATABASE_ERROR, SYS_INTERNAL_ERROR, SYS_NOT_FOUND,
-
 };
-use axum::Json;
 use axum::extract::Request;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
+use axum::Json;
 use sea_orm::DbErr;
 use serde::Serialize;
 use tracing::{debug, error};

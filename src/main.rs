@@ -1,14 +1,14 @@
 #[cfg(feature = "server")]
 use {
-    std::net::SocketAddr,
     axum::Router,
     sevenmark::{
+        api::api_routes,
         config::db_config::DbConfig,
         connection::database::establish_connection,
         state::AppState,
-        utils::logger::init_tracing,
-        api::api_routes
+        utils::logger::init_tracing
     },
+    std::net::SocketAddr,
 };
 
 #[cfg(feature = "server")]

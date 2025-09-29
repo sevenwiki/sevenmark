@@ -1,8 +1,7 @@
 use super::health::openapi::HealthApiDoc;
 
 use crate::errors::errors::ErrorResponse;
-use utoipa::openapi::security::{ApiKey, ApiKeyValue};
-use utoipa::{Modify, OpenApi, openapi::security::SecurityScheme};
+use utoipa::{Modify, OpenApi};
 
 #[derive(OpenApi)]
 #[openapi(
