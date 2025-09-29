@@ -1,13 +1,13 @@
+use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::{Location, MediaElement, SevenMarkElement};
 use crate::sevenmark::parser::element::element_parser;
 use crate::sevenmark::parser::parameter::parameter_core_parser;
 use crate::sevenmark::parser::utils::with_depth;
-use crate::sevenmark::ParserInput;
+use winnow::Result;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
-use winnow::Result;
 
 /// Parse media elements enclosed in [[ ]] with parameters
 pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
@@ -34,7 +34,7 @@ pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
     .parse_next(parser_input)?;
 
     let end = parser_input.input.previous_token_end();
-    
+
     Ok(SevenMarkElement::MediaElement(MediaElement {
         location: Location { start, end },
         parameters: parameters.unwrap_or_default(),

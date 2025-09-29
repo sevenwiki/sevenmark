@@ -5,6 +5,23 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.20] - 2025-09-29
+
+### Added
+- **Variable Substitution System**: Complete implementation of template variable functionality
+  - Forward-only variable resolution prevents circular dependencies
+  - `{{{#define #var1="value" #var2="[var(var1)]"}}}` supports nested variable references
+  - `[var(name)]` substitution works in MediaElement URLs and other contexts
+  - Real-time variable expansion during preprocessing with proper composition
+  - Enhanced preprocessor with 2-stage architecture: variable substitution → information collection
+
+### Enhanced
+- **Preprocessing Pipeline**: Restructured for better variable handling
+  - Stage 1: `substitute_all_variables_in_ast()` resolves all variable references
+  - Stage 2: `traverse_elements_and_collect_preprocess_info()` collects metadata
+  - Variables are resolved before media URL collection for accurate preprocessing info
+  - Improved performance with single-pass variable resolution
+
 ## [2.0.19] - 2025-09-29
 
 ### Added

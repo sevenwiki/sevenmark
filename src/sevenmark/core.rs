@@ -8,12 +8,8 @@ use std::collections::HashSet;
 use winnow::stream::Location as StreamLocation;
 
 pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
-
     // Pre-calculate all line start positions for O(1) lookups
-    let line_starts: HashSet<usize> = input
-        .line_spans()
-        .map(|span| span.range().start)
-        .collect();
+    let line_starts: HashSet<usize> = input.line_spans().map(|span| span.range().start).collect();
 
     let mut context = ParseContext::new();
     context.line_starts = line_starts;
@@ -53,10 +49,10 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
 
 pub fn parse_document_with_preprocessing(input: &str) -> (Vec<SevenMarkElement>, PreprocessInfo) {
     // Step 1: Basic parsing
-    let elements = parse_document(input);
+    let mut elements = parse_document(input);
 
-    // Step 2: Collect preprocessing info
-    let preprocess_info = SevenMarkPreprocessor::collect_info(&elements);
+    // Step 2: Variable resolution & preprocessing info collection
+    let preprocess_info = SevenMarkPreprocessor::preprocess(&mut elements);
 
     (elements, preprocess_info)
 }

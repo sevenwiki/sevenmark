@@ -20,10 +20,11 @@ SevenMark is a Domain Specific Language (DSL) designed for Sevenwiki, implemente
 The codebase follows a modular parser combinator architecture using winnow with comprehensive context management:
 
 ### Core Foundation
-- `src/sevenmark/ast.rs` - Abstract Syntax Tree definitions with 50+ comprehensive element types, all serializable
+- `src/sevenmark/ast.rs` - Abstract Syntax Tree definitions with 50+ comprehensive element types, all serializable with Traversable trait for automatic visitor pattern support
 - `src/sevenmark/context.rs` - Parsing context management with recursion depth tracking (max 16 levels)
 - `src/sevenmark/error.rs` - Custom error handling types that integrate with winnow
 - `src/sevenmark/parser/` - Complete parser implementation organized by functionality
+- `src/sevenmark/visitor/` - Visitor pattern implementations including preprocessor with variable substitution
 
 ### Parser Input System
 - **InputSource**: `LocatingSlice<&str>` for precise position tracking
@@ -71,6 +72,8 @@ The parser uses sophisticated context management to prevent infinite recursion a
 
 **Advanced Features**: CodeElement with language specification, TeXElement for math, RubyElement for Japanese typography, FootnoteElement, comprehensive macro system
 
+**Variable System**: DefineElement for template variables with `{{{#define #name="value"}}}` syntax, Variable macro `[var(name)]` for substitution, forward-only resolution preventing circular dependencies
+
 ### Key Dependencies
 - `winnow` (0.7.13 with SIMD features) - Primary parser combinator library
 - `serde` (1.0.219 with derive) - AST serialization to JSON
@@ -107,6 +110,23 @@ pub fn element_parser(input: &mut ParserInput) -> Result<SevenMarkElement> {
     }))
 }
 ```
+
+### Visitor Pattern Architecture
+
+The parser includes a sophisticated visitor pattern system for AST processing:
+
+```rust
+pub trait Traversable {
+    fn traverse_children<F>(&mut self, visitor: &mut F)
+    where F: FnMut(&mut SevenMarkElement);
+}
+```
+
+**Key Features**:
+- **Automatic Traversal**: Eliminates need to manually handle all AST variants in visitors
+- **Variable Substitution**: 2-stage preprocessor resolves `[var(name)]` references from `{{{#define #name="value"}}}` definitions
+- **Forward-only Resolution**: Prevents circular dependencies in variable definitions
+- **Preprocessing Pipeline**: Stage 1 substitutes variables, Stage 2 collects metadata (includes, categories, media, redirects)
 
 ### Development Workflow
 - `ToParse.txt` - Input test file for development

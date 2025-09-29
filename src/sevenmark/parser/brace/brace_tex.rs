@@ -1,12 +1,12 @@
 use crate::sevenmark::ast::SevenMarkElement;
 use crate::sevenmark::parser::parameter::parameter_core_parser;
 use crate::sevenmark::{Location, ParserInput, TeXElement};
+use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_until};
-use winnow::Result;
 
 /// Parse TeX elements enclosed in {{{#tex }}}
 pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {

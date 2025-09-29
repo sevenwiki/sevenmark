@@ -1,11 +1,11 @@
 use super::super::element::element_parser;
 use crate::sevenmark::ast::{FootnoteElement, SevenMarkElement};
 use crate::sevenmark::{Location, ParserInput};
+use winnow::Result;
 use winnow::combinator::delimited;
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
-use winnow::Result;
 
 /// Parse footnote elements enclosed in {{{#fn }}}
 pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {

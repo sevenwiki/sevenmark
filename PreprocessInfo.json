@@ -2,5 +2,9 @@
   "includes": [],
   "categories": [],
   "redirect": null,
-  "media": []
+  "media": [
+    "link2",
+    "link1link2",
+    "link1"
+  ]
 }

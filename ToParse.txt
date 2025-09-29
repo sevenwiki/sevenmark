@@ -1,6 +1,10 @@
 {{{#define
-#x="x"
-#y="y"
-#z="z"
-#w="w"
+    #var1="link1"
+    #var2="link2"
+    #var3="[var(var1)][var(var2)]"
 }}}
+
+
+[[#url="[var(var1)]" content]]
+[[#url="[var(var2)]" content]]
+[[#url="[var(var3)]" content]]

@@ -1,19 +1,19 @@
+use crate::sevenmark::ParserInput;
 use crate::sevenmark::ast::{Parameter, Parameters};
 use crate::sevenmark::parser::parameter::parameter_content::parameter_content_parser;
-use crate::sevenmark::ParserInput;
 use std::collections::BTreeMap;
+use winnow::Result;
 use winnow::ascii::{alphanumeric1, multispace0};
 use winnow::combinator::{delimited, opt, preceded, repeat, terminated};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
-use winnow::Result;
 
 /// Parse a single parameter in the format #key="value"
 /// The value part is optional - if not provided, an empty Vec is used
 fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter)> {
     let start = parser_input.input.current_token_start();
-    
+
     // Parse: whitespace, #key, optional ="value", whitespace
     let (_, key, value_opt, _) = (
         multispace0,
@@ -27,7 +27,7 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
         .parse_next(parser_input)?;
 
     let end = parser_input.input.previous_token_end();
-    
+
     let key_string = key.to_string();
     let value = value_opt.unwrap_or_else(Vec::new);
 

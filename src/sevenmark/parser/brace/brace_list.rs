@@ -2,11 +2,11 @@ use super::super::parameter::parameter_core_parser;
 use super::list::list_core_parser;
 use crate::sevenmark::ast::{ListElement, SevenMarkElement};
 use crate::sevenmark::{Location, ParserInput};
+use winnow::Result;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
-use winnow::Result;
 
 pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
     let start = parser_input.input.current_token_start();

@@ -5,7 +5,7 @@ use std::fs;
 fn monaco_parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {
     let result = parse_document(content);
     let monaco_json = convert_ast_to_monaco_json(&result, content);
-    
+
     Ok(monaco_json)
 }
 
@@ -16,7 +16,7 @@ fn run_monaco_test(test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let input_content = fs::read_to_string(&input_path)?;
 
     let actual_output = monaco_parse_file_content(&input_content)?;
-    
+
     let expected_output = fs::read_to_string(&expected_path)
         .map_err(|_| format!("Expected Monaco output file not found: {}", expected_path))?;
 

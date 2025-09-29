@@ -8,7 +8,6 @@ pub struct Location {
     pub end: usize,
 }
 
-
 /// Individual parameter with location tracking
 #[derive(Debug, Clone, Serialize)]
 pub struct Parameter {
@@ -96,7 +95,7 @@ pub struct StyledElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct DefineElement {
     pub location: Location,
-    pub parameters: Parameters
+    pub parameters: Parameters,
 }
 
 /// 미디어 요소 [[#file="..." #url="..." display_text]]
@@ -306,13 +305,17 @@ impl Default for CommonStyleAttributes {
 
 /// Trait for automatically traversing AST elements
 pub trait Traversable {
-    fn traverse_children<F>(&self, visitor: &mut F)
-    where F: FnMut(&SevenMarkElement);
+    fn traverse_children<F>(&mut self, visitor: &mut F)
+    where
+        F: FnMut(&mut SevenMarkElement);
 }
 
 impl Traversable for SevenMarkElement {
-    fn traverse_children<F>(&self, visitor: &mut F)
-    where F: FnMut(&SevenMarkElement) {
+
+    fn traverse_children<F>(&mut self, visitor: &mut F)
+    where
+        F: FnMut(&mut SevenMarkElement),
+    {
         match self {
             // 자식이 없는 요소들
             SevenMarkElement::Text(_)
@@ -322,7 +325,6 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Age(_)
             | SevenMarkElement::Variable(_)
             | SevenMarkElement::TeXElement(_)
-            | SevenMarkElement::DefineElement(_)
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote
             | SevenMarkElement::TimeNow
@@ -332,47 +334,116 @@ impl Traversable for SevenMarkElement {
             }
 
             // content 필드 하나만 있는 요소들
-            SevenMarkElement::LiteralElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::StyledElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::BlockQuoteElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::RubyElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::FootnoteElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::CodeElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Header(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Include(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Category(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Redirect(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::MediaElement(e) => e.content.iter().for_each(visitor),
+            SevenMarkElement::LiteralElement(e) => e.content.iter_mut().for_each(visitor),
+            SevenMarkElement::Header(e) => e.content.iter_mut().for_each(visitor),
+            SevenMarkElement::Category(e) => e.content.iter_mut().for_each(visitor),
+            SevenMarkElement::Redirect(e) => e.content.iter_mut().for_each(visitor),
+            SevenMarkElement::FootnoteElement(e) => e.content.iter_mut().for_each(visitor),
+
+            // content + parameters 둘 다 있는 요소들
+            SevenMarkElement::StyledElement(e) => {
+                for child in &mut e.content {
+                    visitor(child);
+                }
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
+            SevenMarkElement::BlockQuoteElement(e) => {
+                for child in &mut e.content {
+                    visitor(child);
+                }
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
+            SevenMarkElement::RubyElement(e) => {
+                for child in &mut e.content {
+                    visitor(child);
+                }
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
+            SevenMarkElement::CodeElement(e) => {
+                for child in &mut e.content {
+                    visitor(child);
+                }
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
+            SevenMarkElement::Include(e) => {
+                for child in &mut e.content {
+                    visitor(child);
+                }
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
+            SevenMarkElement::MediaElement(e) => {
+                for child in &mut e.content {
+                    visitor(child);
+                }
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
+
+            // parameters만 있는 요소
+            SevenMarkElement::DefineElement(e) => {
+                for param in e.parameters.values_mut() {
+                    for child in &mut param.value {
+                        visitor(child);
+                    }
+                }
+            }
 
             // TextStyle 계열
-            SevenMarkElement::BoldItalic(e) | SevenMarkElement::Bold(e) | SevenMarkElement::Italic(e)
-            | SevenMarkElement::Strikethrough(e) | SevenMarkElement::Underline(e)
-            | SevenMarkElement::Superscript(e) | SevenMarkElement::Subscript(e) => {
-                e.content.iter().for_each(visitor);
+            SevenMarkElement::BoldItalic(e)
+            | SevenMarkElement::Bold(e)
+            | SevenMarkElement::Italic(e)
+            | SevenMarkElement::Strikethrough(e)
+            | SevenMarkElement::Underline(e)
+            | SevenMarkElement::Superscript(e)
+            | SevenMarkElement::Subscript(e) => {
+                e.content.iter_mut().for_each(visitor);
             }
 
             // 특수 중첩 구조들
             SevenMarkElement::TableElement(table) => {
-                for row in &table.content {
-                    for cell in &row.inner_content {
-                        for child in &cell.content {
+                for row in &mut table.content {
+                    for cell in &mut row.inner_content {
+                        for child in &mut cell.content {
                             visitor(child);
                         }
                     }
                 }
             }
             SevenMarkElement::ListElement(list) => {
-                for item in &list.content {
-                    for child in &item.content {
+                for item in &mut list.content {
+                    for child in &mut item.content {
                         visitor(child);
                     }
                 }
             }
             SevenMarkElement::FoldElement(fold) => {
-                for child in &fold.content.0.content {
+                for child in &mut fold.content.0.content {
                     visitor(child);
                 }
-                for child in &fold.content.1.content {
+                for child in &mut fold.content.1.content {
                     visitor(child);
                 }
             }

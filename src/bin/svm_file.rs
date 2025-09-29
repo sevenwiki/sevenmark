@@ -18,6 +18,9 @@ fn main() {
     println!("\n=== Preprocessing Info ===");
     println!("Includes found: {:?}", preprocess_info.includes);
     println!("Categories found: {:?}", preprocess_info.categories);
+    println!("Media found {:?}", preprocess_info.media);
+    println!("Redirect found {:?}", preprocess_info.redirect);
+
     if let Some(redirect) = &preprocess_info.redirect {
         println!("Redirect to: {}", redirect);
     }

@@ -21,7 +21,7 @@ fn main() {
     let monaco_start = Instant::now();
     let monaco_json = convert_ast_to_monaco_json(&result, &input_content);
     let monaco_duration = monaco_start.elapsed();
-    
+
     fs::write("ParseResult_Monaco.json", &monaco_json).ok();
 
     println!("\nResult saved to ParseResult.json");

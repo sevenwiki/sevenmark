@@ -3,82 +3,235 @@
     "DefineElement": {
       "location": {
         "start": 0,
-        "end": 42
+        "end": 85
       },
       "parameters": {
-        "w": {
-          "location": {
-            "start": 32,
-            "end": 39
-          },
-          "key": "w",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 36,
-                  "end": 37
-                },
-                "content": "w"
-              }
-            }
-          ]
-        },
-        "x": {
+        "var1": {
           "location": {
             "start": 10,
-            "end": 18
+            "end": 33
           },
-          "key": "x",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 15,
-                  "end": 16
-                },
-                "content": "x"
-              }
-            }
-          ]
-        },
-        "y": {
-          "location": {
-            "start": 18,
-            "end": 25
-          },
-          "key": "y",
+          "key": "var1",
           "value": [
             {
               "Text": {
                 "location": {
                   "start": 22,
-                  "end": 23
+                  "end": 27
                 },
-                "content": "y"
+                "content": "link1"
               }
             }
           ]
         },
-        "z": {
+        "var2": {
           "location": {
-            "start": 25,
-            "end": 32
+            "start": 33,
+            "end": 51
           },
-          "key": "z",
+          "key": "var2",
           "value": [
             {
               "Text": {
                 "location": {
-                  "start": 29,
-                  "end": 30
+                  "start": 40,
+                  "end": 45
                 },
-                "content": "z"
+                "content": "link2"
+              }
+            }
+          ]
+        },
+        "var3": {
+          "location": {
+            "start": 51,
+            "end": 82
+          },
+          "key": "var3",
+          "value": [
+            {
+              "Variable": {
+                "location": {
+                  "start": 58,
+                  "end": 69
+                },
+                "content": "var1"
+              }
+            },
+            {
+              "Variable": {
+                "location": {
+                  "start": 69,
+                  "end": 80
+                },
+                "content": "var2"
               }
             }
           ]
         }
       }
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 85,
+        "end": 86
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 86,
+        "end": 87
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 87,
+        "end": 88
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "MediaElement": {
+      "location": {
+        "start": 88,
+        "end": 118
+      },
+      "parameters": {
+        "url": {
+          "location": {
+            "start": 90,
+            "end": 109
+          },
+          "key": "url",
+          "value": [
+            {
+              "Variable": {
+                "location": {
+                  "start": 96,
+                  "end": 107
+                },
+                "content": "var1"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 109,
+              "end": 116
+            },
+            "content": "content"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 118,
+        "end": 119
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "MediaElement": {
+      "location": {
+        "start": 119,
+        "end": 149
+      },
+      "parameters": {
+        "url": {
+          "location": {
+            "start": 121,
+            "end": 140
+          },
+          "key": "url",
+          "value": [
+            {
+              "Variable": {
+                "location": {
+                  "start": 127,
+                  "end": 138
+                },
+                "content": "var2"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 140,
+              "end": 147
+            },
+            "content": "content"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 149,
+        "end": 150
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "MediaElement": {
+      "location": {
+        "start": 150,
+        "end": 180
+      },
+      "parameters": {
+        "url": {
+          "location": {
+            "start": 152,
+            "end": 171
+          },
+          "key": "url",
+          "value": [
+            {
+              "Variable": {
+                "location": {
+                  "start": 158,
+                  "end": 169
+                },
+                "content": "var3"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 171,
+              "end": 178
+            },
+            "content": "content"
+          }
+        }
+      ]
     }
   }
 ]
