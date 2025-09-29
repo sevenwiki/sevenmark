@@ -44,10 +44,10 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
 
       - name: Test WASM build (Web)
-        run: wasm-pack build --target web --features wasm
+        run: wasm-pack build --target web --features wasm --no-default-features
 
       - name: Test WASM build (Bundler)  
-        run: wasm-pack build --target bundler --features wasm
+        run: wasm-pack build --target bundler --features wasm --no-default-features
 
       - name: Test WASM build (Node.js)
-        run: wasm-pack build --target nodejs --features wasm
+        run: wasm-pack build --target nodejs --features wasm --no-default-features

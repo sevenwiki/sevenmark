@@ -1,4 +1,5 @@
 use crate::config::db_config::DbConfig;
+use crate::errors::protocol::document::{DOCUMENT_NOT_FOUND, DOCUMENT_REVISION_NOT_FOUND};
 use crate::errors::protocol::general::{BAD_REQUEST, VALIDATION_ERROR};
 use crate::errors::protocol::system::{SYS_DATABASE_ERROR, SYS_INTERNAL_ERROR, SYS_NOT_FOUND};
 use axum::Json;
@@ -7,7 +8,7 @@ use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use sea_orm::DbErr;
 use serde::Serialize;
-use tracing::{debug, error};
+use tracing::{debug, error, warn};
 use utoipa::ToSchema;
 // 이 모듈은 애플리케이션의 오류 처리 시스템을 구현합니다.
 // 주요 기능:
@@ -45,6 +46,10 @@ impl From<DbErr> for Errors {
 
 #[derive(Debug)]
 pub enum Errors {
+    // Document
+    DocumentNotFound,
+    DocumentRevisionNotFound,
+
     // 일반 오류
     BadRequestError(String), // 잘못된 요청 (추가 정보 포함)
     ValidationError(String), // 유효성 검사 오류 (추가 정보 포함)
@@ -68,23 +73,31 @@ impl IntoResponse for Errors {
             }
 
             // 비즈니스 로직 에러 - debug! 레벨 (클라이언트 실수)
-            Errors::BadRequestError(_) | Errors::ValidationError(_) | Errors::NotFound(_) => {
+            Errors::BadRequestError(_) | Errors::ValidationError(_) => {
                 debug!("Client error: {:?}", self);
+            }
+
+            Errors::DocumentNotFound | Errors::DocumentRevisionNotFound | Errors::NotFound(_) => {
+                warn!("Resource not found: {:?}", self);
             }
         }
 
         // 오류 유형에 따라 상태 코드, 오류 코드, 상세 정보를 결정
         let (status, code, details) = match self {
-            // 사용자 관련 오류 - 주로 401 Unauthorized 또는 404 Not Found
-
+            Errors::DocumentNotFound => (StatusCode::NOT_FOUND, DOCUMENT_NOT_FOUND, None),
+            Errors::DocumentRevisionNotFound => {
+                (StatusCode::NOT_FOUND, DOCUMENT_REVISION_NOT_FOUND, None)
+            }
             // 일반 오류 - 400 Bad Request
             Errors::BadRequestError(msg) => (StatusCode::BAD_REQUEST, BAD_REQUEST, Some(msg)),
             Errors::ValidationError(msg) => (StatusCode::BAD_REQUEST, VALIDATION_ERROR, Some(msg)),
 
             // 시스템 오류 - 주로 500 Internal Server Error
-            Errors::SysInternalError(msg) => {
-                (StatusCode::BAD_REQUEST, SYS_INTERNAL_ERROR, Some(msg))
-            }
+            Errors::SysInternalError(msg) => (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                SYS_INTERNAL_ERROR,
+                Some(msg),
+            ),
 
             Errors::DatabaseError(msg) => (
                 StatusCode::INTERNAL_SERVER_ERROR,
