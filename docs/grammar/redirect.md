@@ -64,5 +64,15 @@ This article has been renamed to "Modern Web Development" to better reflect curr
 - Redirects cannot be nested (A → B → C)
 - The redirect target should be a valid page name
 - Content after a redirect may not be processed depending on parser configuration
+- Redirects **do not support parameters**
+- The entire content inside `{{{#redirect}}}` is treated as the target page name and optional message
+
+## Parser Behavior
+
+During preprocessing, redirect elements are collected and can be used to:
+- Automatically forward users to the target page
+- Update internal links
+- Generate redirect index pages
+- Track page moves and aliases
 
 </div>

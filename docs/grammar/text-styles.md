@@ -20,13 +20,6 @@ Use single asterisk (`*`) to create italic text.
 *Italic text*
 ```
 
-### Bold Italic
-Use three asterisks (`***`) to create bold italic text.
-
-```sevenmark
-***Bold italic text***
-```
-
 ### Underline
 Use two underscores (`__`) to create underlined text.
 

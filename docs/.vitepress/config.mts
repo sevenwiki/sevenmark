@@ -16,20 +16,40 @@ export default defineConfig({
     sidebar: {
       "/grammar/": [
         {
-          text: "Basic Grammar",
+          text: "Text Formatting",
           items: [
             { text: "Text Styles", link: "/grammar/text-styles" },
-            { text: "Block Elements", link: "/grammar/blocks" },
+            { text: "Headers", link: "/grammar/headers" },
+            { text: "Comments", link: "/grammar/comments" },
+            { text: "Escape Characters", link: "/grammar/escape" },
+          ],
+        },
+        {
+          text: "Block Elements",
+          items: [
+            { text: "Blockquotes", link: "/grammar/blockquote" },
+            { text: "Code Blocks", link: "/grammar/code" },
+            { text: "Fold (Collapsible)", link: "/grammar/fold" },
             { text: "Lists", link: "/grammar/lists" },
             { text: "Tables", link: "/grammar/tables" },
           ],
         },
         {
-          text: "Advanced Grammar",
+          text: "Advanced Elements",
           items: [
-            { text: "Parameters", link: "/grammar/parameters" },
-            { text: "Styling", link: "/grammar/styling" },
+            { text: "TeX Math", link: "/grammar/tex" },
+            { text: "Literal Blocks", link: "/grammar/literal" },
+            { text: "Ruby Text", link: "/grammar/ruby" },
+            { text: "Footnotes", link: "/grammar/footnote" },
+            { text: "Styled Elements", link: "/grammar/styled" },
+          ],
+        },
+        {
+          text: "Media & Macros",
+          items: [
+            { text: "Media", link: "/grammar/media" },
             { text: "Macros", link: "/grammar/macros" },
+            { text: "Parameters", link: "/grammar/parameters" },
           ],
         },
         {

@@ -135,3 +135,58 @@ pub trait Traversable {
 - Built-in performance measurement reporting parsing speed and element counts
 
 The parser uses winnow combinators and follows a recursive descent pattern where complex elements are built from simpler token parsers, with comprehensive error handling and context management throughout.
+
+## Serena MCP Integration
+
+This project is integrated with Serena MCP (Model Context Protocol) for intelligent code analysis and LSP-like semantic understanding. Serena provides symbol-based navigation and editing capabilities.
+
+### Available Serena Capabilities
+
+**Code Analysis:**
+- `get_symbols_overview` - View file structure (classes, functions, structs)
+- `find_symbol` - Search by name path with depth and filtering (e.g., `TableElement/new`)
+- `find_referencing_symbols` - Find all symbol references
+- `search_for_pattern` - Flexible regex search with context
+
+**Symbol-Based Editing:**
+- `replace_symbol_body` - Replace entire functions/structs/impls
+- `insert_after_symbol` / `insert_before_symbol` - Add code at precise locations
+
+**Memory System:**
+- Project knowledge stored in `.serena/memories/` (created during onboarding)
+- Memories: project overview, codebase structure, commands, style conventions, task completion checklist
+
+### Working with SevenMark Code
+
+**Find Parser Code:**
+```
+# Find specific parser implementation
+find_symbol: name_path="table_parser" relative_path="src/sevenmark/parser/brace/table/"
+
+# Get parser module overview
+get_symbols_overview: relative_path="src/sevenmark/parser/brace/mod.rs"
+```
+
+**Find AST Elements:**
+```
+# View all element types
+get_symbols_overview: relative_path="src/sevenmark/ast.rs"
+
+# Get specific element with fields
+find_symbol: name_path="TableElement" depth=1 include_body=true
+```
+
+**Symbol Name Path Syntax:**
+- Simple: `method` - matches any symbol named "method"
+- Relative: `Class/method` - method in Class at any nesting level
+- Absolute: `/Class/method` - top-level Class only
+
+**LSP Symbol Kinds** (for filtering with `include_kinds`/`exclude_kinds`):
+- 5=Class, 6=Method, 10=Enum, 11=Trait, 12=Function, 13=Variable, 23=Struct, 26=TypeParameter
+
+### Best Practices with Serena
+
+1. **Start with overview**: Use `get_symbols_overview` before reading full files
+2. **Token-efficient**: Only read symbol bodies (`include_body=true`) when needed
+3. **Target edits**: Use symbol-based editing instead of line-based for functions/structs
+4. **Find impact**: Use `find_referencing_symbols` before making breaking changes

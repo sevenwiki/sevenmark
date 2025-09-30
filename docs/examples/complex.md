@@ -44,7 +44,7 @@ This section shows advanced SevenMark usage with nested structures and complex l
 ## Collapsible Documentation Section
 
 ```sevenmark
-## API Reference-
+## API Reference!
 
 {{{#fold
 [[📚 **Quick Reference** - Click to expand full documentation]]
@@ -149,7 +149,7 @@ Multi-line comment for peer review:
 
 {{{#include #page="CommonIntro" Basic introduction content}}}
 
-## Table of Contents-
+## Table of Contents!
 
 {{{#list #I
 [[**Text Formatting** - Styles and emphasis]]
@@ -158,7 +158,7 @@ Multi-line comment for peer review:
 [[**Advanced Features** - Math, code, comments]]
 }}}
 
-## Interactive Examples-
+## Interactive Examples!
 
 {{{#fold #style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px"
 [[🎯 **Try These Examples** - Expand to see interactive content]]

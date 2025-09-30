@@ -34,21 +34,15 @@ Provide both local file and backup URL:
 
 ## Hyperlinks
 
-### Simple Links
-
-For simple URLs, you can use the content as the URL:
+Create hyperlinks using the `#url` parameter:
 
 ```sevenmark
-[[https://example.com]]
-[[Click here to visit the site]]
-```
-
-### Links with Display Text
-
-```sevenmark
+[[#url="https://example.com"]]
 [[#url="https://rust-lang.org" Official Rust Website]]
 [[#url="https://github.com/rust-lang/rust" Rust GitHub Repository]]
 ```
+
+The first element is the URL (using `#url=`), and the second element is optional display text. If no display text is provided, the URL itself will be displayed.
 
 ## Media in Complex Structures
 

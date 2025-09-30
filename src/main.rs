@@ -2,15 +2,19 @@
 use {
     axum::Router,
     sevenmark::{
-        api::api_routes, config::db_config::DbConfig, connection::database::establish_connection,
+        api::api_routes, config::db_config::DbConfig, connection::http::create_http_client,
         state::AppState, utils::logger::init_tracing,
     },
     std::net::SocketAddr,
+    tracing::error,
 };
 
 #[cfg(feature = "server")]
 pub async fn run_server() -> anyhow::Result<()> {
-    let conn = establish_connection().await;
+    let http_client = create_http_client().await.map_err(|e| {
+        error!("Failed to create HTTP client: {}", e);
+        anyhow::anyhow!("HTTP client creation failed: {}", e)
+    })?;
 
     let server_url = format!(
         "{}:{}",
@@ -18,7 +22,7 @@ pub async fn run_server() -> anyhow::Result<()> {
         &DbConfig::get().server_port
     );
 
-    let state = AppState { conn };
+    let state = AppState { http_client };
 
     let app = Router::new()
         .merge(api_routes(state.clone()))

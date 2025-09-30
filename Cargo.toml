@@ -28,6 +28,7 @@ tokio = { version = "1.47.1", features = ["full"], optional = true }
 tracing = { version = "0.1.41", optional = true }
 tracing-subscriber = { version = "0.3.20", optional = true }
 tracing-appender = { version = "0.2.3", optional = true }
+reqwest = { version = "0.12.23", features = ["json", "multipart"], optional = true }
 
 # WASM dependencies
 wasm-bindgen = { version = "0.2.104", optional = true }
@@ -36,7 +37,7 @@ web-sys = { version = "0.3.81", optional = true }
 
 [features]
 default = ["server"]
-server = ["axum", "dotenvy", "tokio", "tracing", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui"]
+server = ["axum", "dotenvy", "tokio", "tracing", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui", "reqwest"]
 wasm = [ "wasm-bindgen", "js-sys", "web-sys"]
 
 [lib]

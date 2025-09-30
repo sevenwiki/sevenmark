@@ -68,11 +68,26 @@ Categories help create a hierarchical structure:
 {{{#category Python }}}
 {{{#category Tutorials }}}
 
-// For a web framework article  
+// For a web framework article
 {{{#category Web Development }}}
 {{{#category Frameworks }}}
 {{{#category Python }}}
 {{{#category Django }}}
 ```
+
+## Important Notes
+
+- Categories **do not support parameters**
+- The entire content inside `{{{#category}}}` is treated as the category name
+- Categories are typically placed at the end of a document
+- Category elements are collected during preprocessing for indexing and organization
+
+## Usage in Wiki Systems
+
+Categories are used to:
+- Organize related pages together
+- Create hierarchical navigation structures
+- Enable filtering and search by category
+- Generate category index pages automatically
 
 </div>

@@ -19,14 +19,14 @@ SevenMark supports 6 levels of headers:
 
 ## Collapsible Headers
 
-Add a hyphen (`-`) at the end to make a header collapsible:
+Add an exclamation mark (`!`) at the end to make a header collapsible:
 
 ```sevenmark
-## Collapsible Header-
+## Collapsible Header!
 This content will be hidden when the header is collapsed.
 Users can click the header to expand/collapse this section.
 
-### Another Collapsible Section-
+### Another Collapsible Section!
 More collapsible content here.
 ```
 
@@ -49,14 +49,14 @@ Headers work alongside other SevenMark elements:
 
 This is the introduction.
 
-## Subsection with List-
+## Subsection with List!
 
 {{{#list #1
 [[First item]]
 [[Second item with **bold** text]]
 }}}
 
-### Code Example-
+### Code Example!
 
 {{{#code #lang="rust"
 fn main() {
@@ -109,14 +109,14 @@ Proper header nesting creates a logical document structure:
 ```sevenmark
 # Documentation Overview
 
-## Quick Start-
+## Quick Start!
 {{{#list #1
 [[Install the software]]
 [[Run the setup wizard]]  
 [[Start using basic features]]
 }}}
 
-## Advanced Configuration-
+## Advanced Configuration!
 {{{#fold
 [[Summary: Advanced settings for power users]]
 [[

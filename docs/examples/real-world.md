@@ -13,7 +13,7 @@ This section demonstrates practical SevenMark usage for common documentation sce
 🚀 **A powerful web application built with modern technologies**
 }}}
 
-## Quick Start-
+## Quick Start!
 
 {{{#list #1
 [[Clone the repository: {{{#code git clone https://github.com/user/project.git }}}]]
@@ -31,7 +31,7 @@ This section demonstrates practical SevenMark usage for common documentation sce
 [[[[🔔 Notifications]] [[📋 Planned]] [[v1.2]]]]
 }}}
 
-## API Documentation-
+## API Documentation!
 
 {{{#fold
 [[📖 **API Endpoints** - Click to view]]
@@ -103,7 +103,7 @@ Our system follows a **microservices architecture** with the following component
    }}}]]
 }}}
 
-## Service Communication-
+## Service Communication!
 
 {{{#fold #style="border: 2px solid #007bff; background: #e7f1ff"
 [[⚙️ **Communication Patterns** - Technical Details]]
@@ -166,7 +166,7 @@ queues:
 **Date:** [now]  
 **Attendees:** Alice, Bob, Charlie, Diana
 
-## Agenda-
+## Agenda!
 
 {{{#list #1
 [[Product roadmap review]]
@@ -177,7 +177,7 @@ queues:
 
 ## Discussion Points
 
-### Q4 Roadmap Status-
+### Q4 Roadmap Status!
 
 {{{#table #style="margin: 10px 0"
 [[[[Feature]] [[Owner]] [[Status]] [[Target Date]]]]
@@ -234,7 +234,7 @@ Focus team resources on mobile app delivery.
 
 {{{#include #page="LegalDisclaimer" Standard disclaimer text}}}
 
-## Installation Guide-
+## Installation Guide!
 
 {{{#fold
 [[💿 **Installation Steps** - Choose your platform]]
@@ -301,7 +301,7 @@ cd dataanalyzer && make install
 [[[[Run Analysis]] [[Analysis → Execute]] [[F5]] [[Execute current analysis]]]]
 }}}
 
-## Troubleshooting-
+## Troubleshooting!
 
 {{{#fold #style="background: #f8d7da; border: 1px solid #f5c6cb"
 [[⚠️ **Common Issues** - Solutions and fixes]]

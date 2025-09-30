@@ -1,10 +1,10 @@
-# 테이블
+# Tables
 
 <div v-pre>
 
-SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 구조가 중첩된 `[[]]`로 구성됩니다.
+SevenMark uses `{{{#table}}}` syntax for tables, with rows and cells structured using nested `[[]]` brackets.
 
-## 기본 테이블
+## Basic Table
 
 ```sevenmark
 {{{#table
@@ -13,12 +13,12 @@ SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 �
 }}}
 ```
 
-실제 구조는 다음과 같습니다:
-- `{{{#table}}}`: 테이블 컨테이너
-- `[[[[셀]] [[셀]]]]`: 테이블 행 (TableInnerElement1)
-- 행 내부의 `[[셀]]`: 개별 셀 (TableInnerElement2)
+The structure is as follows:
+- `{{{#table}}}`: Table container
+- `[[[[Cell]] [[Cell]]]]`: Table row (TableInnerElement1)
+- Inner `[[Cell]]`: Individual cell (TableInnerElement2)
 
-## 스타일이 적용된 테이블
+## Styled Tables
 
 ```sevenmark
 {{{#table #style="border-collapse:collapse"
@@ -27,73 +27,75 @@ SevenMark에서 테이블은 `{{{#table}}}` 구문을 사용하며, 행과 셀 �
 }}}
 ```
 
-## 셀 병합
+## Cell Merging
 
-### 가로 병합 (colspan)
+### Horizontal Merge (colspan)
 
-`#x` 매개변수를 사용합니다:
-
-```sevenmark
-{{{#table
-[[[[#x="2" 가로로 병합된 셀]] [[일반 셀]]]]
-[[[[셀 1]] [[셀 2]] [[셀 3]]]]
-}}}
-```
-
-### 세로 병합 (rowspan)
-
-`#y` 매개변수를 사용합니다:
+Use the `#x` parameter:
 
 ```sevenmark
 {{{#table
-[[[[#y="2" 세로로 병합된 셀]] [[셀 1,2]]]]
-[[[[ ]] [[셀 2,2]]]]
+[[[[#x="2" Merged cell spanning 2 columns]] [[Normal cell]]]]
+[[[[Cell 1]] [[Cell 2]] [[Cell 3]]]]
 }}}
 ```
 
-## 스타일이 적용된 테이블
+### Vertical Merge (rowspan)
 
-### 테이블 전체 스타일
+Use the `#y` parameter:
+
+```sevenmark
+{{{#table
+[[[[#y="2" Merged cell spanning 2 rows]] [[Cell 1,2]]]]
+[[[[ ]] [[Cell 2,2]]]]
+}}}
+```
+
+## Table Styling
+
+### Table-Level Styling
 
 ```sevenmark
 {{{#table #style="border: 2px solid #333;"
-[[[[헤더1]] [[헤더2]]]]
-[[[[셀1]] [[셀2]]]]
+[[[[Header 1]] [[Header 2]]]]
+[[[[Cell 1]] [[Cell 2]]]]
 }}}
 ```
 
-### 개별 셀 스타일
+### Individual Cell Styling
 
 ```sevenmark
 {{{#table
-[[[[헤더1]] [[헤더2]]]]
-[[[[#color="red" 빨간 텍스트]] [[일반 셀]]]]
-[[[[#bg_color="yellow" 노란 배경]] [[일반 셀]]]]
+[[[[Header 1]] [[Header 2]]]]
+[[[[#color="red" Red text]] [[Normal cell]]]]
+[[[[#bg_color="yellow" Yellow background]] [[Normal cell]]]]
 }}}
 ```
 
-## 복잡한 테이블 예제
+## Complex Table Example
 
 ```sevenmark
 {{{#table #style="width: 100%; border-collapse: collapse;"
-[[[[#style="text-align: center; font-weight: bold;" 제품명]] [[가격]] [[재고]]]]
-[[[[#color="blue" 노트북]] [[#style="text-align: right;" ₩1,200,000]] [[5개]]]]
-[[[[#color="green" 마우스]] [[#style="text-align: right;" ₩30,000]] [[20개]]]]
-[[[[#x="2" #style="text-align: center; font-weight: bold;" 총 합계]] [[#style="text-align: right; font-weight: bold;" ₩1,230,000]]]]
+[[[[#style="text-align: center; font-weight: bold;" Product]] [[Price]] [[Stock]]]]
+[[[[#color="blue" Laptop]] [[#style="text-align: right;" $1,200]] [[5 units]]]]
+[[[[#color="green" Mouse]] [[#style="text-align: right;" $30]] [[20 units]]]]
+[[[[#x="2" #style="text-align: center; font-weight: bold;" Total]] [[#style="text-align: right; font-weight: bold;" $1,230]]]]
 }}}
 ```
 
-## 중첩된 마크업
+## Nested Markup
 
-테이블 셀 안에서도 다른 SevenMark 구문을 사용할 수 있습니다:
+Table cells can contain other SevenMark elements:
 
 ```sevenmark
 {{{#table
-[[[[기능]] [[설명]]]]
-[[[[**볼드**]] [[*이탤릭과* 함께 사용]]]]
-[[[[{{{#code inline_code() }}}]] [[코드도 가능]]]]
-[[[[@media #file="image.png" 이미지]] [[미디어 요소도 가능]]]]
+[[[[Feature]] [[Description]]]]
+[[[[**Bold**]] [[*Italic* text]]]]
+[[[[{{{#code inline_code() }}}]] [[Code is supported]]]]
+[[[[[[#file="image.png" Image]]]] [[Media elements work too]]]]
 }}}
 ```
+
+Note: Use `[[#file="..."]]` or `[[#url="..."]]` for media elements in tables, not `@media`.
 
 </div>
