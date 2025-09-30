@@ -1,5 +1,5 @@
 use crate::SevenMarkElement;
-use crate::sevenmark::{TextElement, Traversable};
+use crate::sevenmark::{Location, TextElement, Traversable};
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 
@@ -76,7 +76,7 @@ impl SevenMarkPreprocessor {
                 // 정의된 변수가 있으면 Text로 치환
                 if let Some(value) = defined_vars.get(&var.content) {
                     *element = SevenMarkElement::Text(TextElement {
-                        location: var.location.clone(),
+                        location: Location::synthesized(),
                         content: value.clone(),
                     });
                 }

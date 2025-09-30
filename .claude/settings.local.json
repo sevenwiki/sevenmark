@@ -12,7 +12,8 @@
       "mcp__serena__find_symbol",
       "mcp__serena__write_memory",
       "mcp__serena__think_about_collected_information",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "mcp__serena__insert_after_symbol"
     ],
     "deny": [],
     "ask": []

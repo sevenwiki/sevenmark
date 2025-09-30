@@ -8,9 +8,17 @@ pub struct Location {
     pub end: usize,
 }
 
+impl Location {
+    /// Creates a synthesized location for elements generated during preprocessing
+    pub fn synthesized() -> Self {
+        Self { start: 0, end: 0 }
+    }
+}
+
 /// Individual parameter with location tracking
 #[derive(Debug, Clone, Serialize)]
 pub struct Parameter {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub key: String,
     pub value: Vec<SevenMarkElement>,
@@ -23,6 +31,7 @@ pub type Parameters = BTreeMap<String, Parameter>;
 /// 텍스트 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct TextElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: String,
 }
@@ -30,6 +39,7 @@ pub struct TextElement {
 /// 이스케이프 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct EscapeElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: String,
 }
@@ -37,6 +47,7 @@ pub struct EscapeElement {
 /// age
 #[derive(Debug, Clone, Serialize)]
 pub struct AgeElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: String,
 }
@@ -44,6 +55,7 @@ pub struct AgeElement {
 /// variable
 #[derive(Debug, Clone, Serialize)]
 pub struct VariableElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: String,
 }
@@ -51,6 +63,7 @@ pub struct VariableElement {
 /// 주석 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct CommentElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: String,
 }
@@ -58,6 +71,7 @@ pub struct CommentElement {
 /// 에러 요소 (파싱 실패한 내용)
 #[derive(Debug, Clone, Serialize)]
 pub struct ErrorElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: String,
 }
@@ -80,6 +94,7 @@ pub struct CommonStyleAttributes {
 /// 리터럴 요소 {{{ content }}}
 #[derive(Debug, Clone, Serialize)]
 pub struct LiteralElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
@@ -87,6 +102,7 @@ pub struct LiteralElement {
 /// 스타일이 적용된 요소 {{{#style="..." content}}}
 #[derive(Debug, Clone, Serialize)]
 pub struct StyledElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
@@ -94,6 +110,7 @@ pub struct StyledElement {
 
 #[derive(Debug, Clone, Serialize)]
 pub struct DefineElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
 }
@@ -101,6 +118,7 @@ pub struct DefineElement {
 /// 미디어 요소 [[#file="..." #url="..." display_text]]
 #[derive(Debug, Clone, Serialize)]
 pub struct MediaElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
@@ -127,6 +145,7 @@ pub struct TableInnerElement1 {
 /// 테이블 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct TableElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<TableInnerElement1>,
@@ -142,6 +161,7 @@ pub struct ListInnerElement1 {
 /// 리스트 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct ListElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub kind: String,
     pub parameters: Parameters,
@@ -158,6 +178,7 @@ pub struct FoldInnerElement {
 /// 폴드 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct FoldElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: (FoldInnerElement, FoldInnerElement),
@@ -166,6 +187,7 @@ pub struct FoldElement {
 /// 인용 블록
 #[derive(Debug, Clone, Serialize)]
 pub struct BlockQuoteElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
@@ -174,6 +196,7 @@ pub struct BlockQuoteElement {
 /// 루비 텍스트
 #[derive(Debug, Clone, Serialize)]
 pub struct RubyElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
@@ -182,6 +205,7 @@ pub struct RubyElement {
 /// 코드 블록
 #[derive(Debug, Clone, Serialize)]
 pub struct CodeElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
@@ -189,6 +213,7 @@ pub struct CodeElement {
 
 #[derive(Debug, Clone, Serialize)]
 pub struct TeXElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub is_block: bool,
     pub content: String,
@@ -197,6 +222,7 @@ pub struct TeXElement {
 /// 각주
 #[derive(Debug, Clone, Serialize)]
 pub struct FootnoteElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
@@ -204,6 +230,7 @@ pub struct FootnoteElement {
 /// 헤더
 #[derive(Debug, Clone, Serialize)]
 pub struct Header {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub level: usize,
     pub is_folded: bool,
@@ -213,6 +240,7 @@ pub struct Header {
 /// 텍스트 스타일 (Bold, Italic 등)
 #[derive(Debug, Clone, Serialize)]
 pub struct TextStyle {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
@@ -220,6 +248,7 @@ pub struct TextStyle {
 /// 포함 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct IncludeElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
@@ -228,6 +257,7 @@ pub struct IncludeElement {
 /// 카테고리 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct CategoryElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
@@ -235,6 +265,7 @@ pub struct CategoryElement {
 /// 리다이렉트 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct RedirectElement {
+    #[serde(skip_serializing)]
     pub location: Location,
     pub content: Vec<SevenMarkElement>,
 }
