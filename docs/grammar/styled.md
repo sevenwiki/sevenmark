@@ -2,7 +2,7 @@
 
 <div v-pre>
 
-Styled elements allow you to apply custom styling to any content using CSS-style parameters.
+Styled elements allow you to apply custom styling parameters to any content.
 
 ## Basic Styled Element
 
@@ -53,7 +53,7 @@ Use `{{{` with parameters but no element identifier:
 
 ### Custom Styles
 
-The `#style` parameter accepts any valid CSS:
+The `#style` parameter accepts any CSS-like styling:
 
 ```sevenmark
 {{{ #style="font-weight:bold; text-decoration:underline" Bold and underlined }}}
@@ -111,14 +111,6 @@ Priority: {{{ #color="white" #bg_color="red" #style="padding: 3px 8px; border-ra
 }}}
 ```
 
-### Text Effects
-
-```sevenmark
-{{{ #style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3)" Text with shadow }}}
-
-{{{ #style="letter-spacing: 2px; text-transform: uppercase" Spaced uppercase }}}
-```
-
 ## Styled in Complex Structures
 
 ### In Lists
@@ -154,32 +146,8 @@ Priority: {{{ #color="white" #bg_color="red" #style="padding: 3px 8px; border-ra
 ### Box Styling
 
 ```sevenmark
-{{{ #style="
-  background: linear-gradient(to right, #f0f0f0, #e0e0e0);
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-"
+{{{ #style="background: linear-gradient(to right, #f0f0f0, #e0e0e0); border: 1px solid #ccc; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1)"
 Content in a styled box with gradient background, border, rounded corners, and shadow.
-}}}
-```
-
-### Responsive Sizing
-
-```sevenmark
-{{{ #size="clamp(12px, 2vw, 20px)"
-Text that scales responsively
-}}}
-```
-
-### CSS Variables
-
-If your rendering system supports CSS variables:
-
-```sevenmark
-{{{ #style="color: var(--primary-color); background: var(--bg-color)"
-Text using CSS variables
 }}}
 ```
 
@@ -197,52 +165,21 @@ Back to outer styling
 }}}
 ```
 
-## Parameter Priority
-
-When both individual parameters and `#style` are used, `#style` takes precedence:
-
-```sevenmark
-<!-- color parameter is overridden by style -->
-{{{ #color="red" #style="color: blue"
-This text will be blue
-}}}
-
-<!-- Recommended: Use one or the other -->
-{{{ #color="red" Red text }}}
-{{{ #style="color: blue" Blue text }}}
-```
-
-## Accessibility Considerations
-
-When using custom styling, consider accessibility:
-
-```sevenmark
-<!-- Good: Sufficient contrast -->
-{{{ #color="white" #bg_color="darkblue"
-High contrast text
-}}}
-
-<!-- Less ideal: Low contrast -->
-{{{ #color="lightgray" #bg_color="white"
-Low contrast text (harder to read)
-}}}
-```
-
 ## Common Style Patterns
 
-### Success/Error/Warning Messages
+### Status Messages
 
 ```sevenmark
 {{{ #color="white" #bg_color="green" #style="padding: 10px; border-radius: 5px"
- Success: Operation completed successfully.
+âœ“ Success: Operation completed successfully.
 }}}
 
 {{{ #color="white" #bg_color="red" #style="padding: 10px; border-radius: 5px"
- Error: Something went wrong.
+âœ— Error: Something went wrong.
 }}}
 
 {{{ #color="black" #bg_color="yellow" #style="padding: 10px; border-radius: 5px"
-  Warning: Please review before proceeding.
+âš  Warning: Please review before proceeding.
 }}}
 ```
 
@@ -270,47 +207,28 @@ new
 }}}
 ```
 
-## Performance Considerations
+## When to Use Styled Elements
 
-Excessive inline styling can impact performance. Consider:
+### Use Styled Elements For:
+- Custom visual styling needs
+- Creating visual emphasis or decoration
+- Implementing custom design patterns
+- Highlighting specific content
 
-- Using style classes in your render configuration instead of inline styles for repeated patterns
-- Limiting the number of styled elements on a single page
-- Preferring simpler parameter combinations
+### Use Specific Elements Instead:
+- Code â†’ Use `{{{#code}}}` for programming code
+- Quotes â†’ Use `{{{#quote}}}` for semantic meaning
+- Headers â†’ Use `#`, `##`, etc. for document structure
+- Lists â†’ Use `{{{#list}}}` for proper list semantics
 
 ## Technical Notes
 
 - Styled elements use `{{{` without an element identifier (e.g., no `#code`, `#list`, etc.)
 - At least one parameter must be provided
-- The `#style` parameter accepts any valid CSS property-value pairs
+- The `#style` parameter accepts styling property-value pairs
 - Individual parameters (`#color`, `#size`, etc.) are convenience shortcuts
 - Parameters are case-sensitive
 - Multiple parameters can be combined
-- CSS specificity rules apply when styles conflict
-- The actual rendering depends on the output format and CSS support
-- Invalid CSS in `#style` may be ignored by the renderer
-
-## Styled vs Other Elements
-
-| Feature | Styled `{{{#style}}}` | Other Elements | Best For |
-|---------|----------------------|----------------|-----------|
-| **Flexibility** | High - any CSS | Limited to element purpose | Custom styling |
-| **Semantics** | Generic container | Specific meaning | Meaningful content |
-| **Complexity** | Can be complex | Usually simpler | Visual customization |
-| **Purpose** | Visual styling | Structural/semantic | When semantics don't matter |
-
-### When to Use Styled Elements
-
- **Use when:**
-- You need custom visual styling
-- Existing elements don't fit your needs
-- Creating visual emphasis or decoration
-- Implementing custom design patterns
-
-L **Use specific elements instead:**
-- Code ’ Use `{{{#code}}}` not styled elements
-- Quotes ’ Use `{{{#quote}}}` for semantic meaning
-- Headers ’ Use `#`, `##`, etc. for document structure
-- Lists ’ Use `{{{#list}}}` for proper list semantics
+- Parameters are stored in the AST's `CommonStyleAttributes` structure
 
 </div>

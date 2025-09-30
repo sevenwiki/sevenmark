@@ -20,6 +20,7 @@ export default defineConfig({
           items: [
             { text: "Text Styles", link: "/grammar/text-styles" },
             { text: "Headers", link: "/grammar/headers" },
+            { text: "Horizontal Line", link: "/grammar/horizontal-line" },
             { text: "Comments", link: "/grammar/comments" },
             { text: "Escape Characters", link: "/grammar/escape" },
           ],

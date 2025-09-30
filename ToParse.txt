@@ -1,10 +1,5 @@
-{{{#define
-    #var1="link1"
-    #var2="link2"
-    #var3="[var(var1)][var(var2)]"
+{{{#table #style="border-collapse:collapse"
+[[[[**Header 1**]] [[*Header 2*]] [[~~Header 3~~]]]]
+[[[[Simple cell]] [[{{{#code #lang="python" print("nested code") }}}]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
+[[[[Age: [age(1995-06-20)]]] [[Current: [now]]] [[Quote: {{{#quote Short quote }}}]]]]
 }}}
-
-
-[[#url="[var(var1)]" content]]
-[[#url="[var(var2)]" content]]
-[[#url="[var(var3)]" content]]

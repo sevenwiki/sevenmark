@@ -1,283 +1,310 @@
 [
   {
-    "DefineElement": {
+    "TableElement": {
       "location": {
         "start": 0,
-        "end": 85
+        "end": 308
       },
       "parameters": {
-        "var1": {
+        "style": {
           "location": {
-            "start": 10,
-            "end": 33
+            "start": 9,
+            "end": 44
           },
-          "key": "var1",
+          "key": "style",
           "value": [
             {
               "Text": {
                 "location": {
-                  "start": 22,
-                  "end": 27
+                  "start": 18,
+                  "end": 42
                 },
-                "content": "link1"
+                "content": "border-collapse:collapse"
               }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "parameters": {},
+          "inner_content": [
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 48,
+                      "end": 60
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 50,
+                            "end": 58
+                          },
+                          "content": "Header 1"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Italic": {
+                    "location": {
+                      "start": 65,
+                      "end": 75
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 66,
+                            "end": 74
+                          },
+                          "content": "Header 2"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Strikethrough": {
+                    "location": {
+                      "start": 80,
+                      "end": 92
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 82,
+                            "end": 90
+                          },
+                          "content": "Header 3"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
-        "var2": {
-          "location": {
-            "start": 33,
-            "end": 51
-          },
-          "key": "var2",
-          "value": [
+        {
+          "parameters": {},
+          "inner_content": [
             {
-              "Text": {
-                "location": {
-                  "start": 40,
-                  "end": 45
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 101,
+                      "end": 112
+                    },
+                    "content": "Simple cell"
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "CodeElement": {
+                    "location": {
+                      "start": 117,
+                      "end": 165
+                    },
+                    "parameters": {
+                      "lang": {
+                        "location": {
+                          "start": 125,
+                          "end": 141
+                        },
+                        "key": "lang",
+                        "value": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 133,
+                                "end": 139
+                              },
+                              "content": "python"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 141,
+                            "end": 162
+                          },
+                          "content": "print(\"nested code\") "
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 170,
+                      "end": 176
+                    },
+                    "content": "List: "
+                  }
                 },
-                "content": "link2"
-              }
+                {
+                  "ListElement": {
+                    "location": {
+                      "start": 176,
+                      "end": 213
+                    },
+                    "kind": "a",
+                    "parameters": {
+                      "a": {
+                        "location": {
+                          "start": 184,
+                          "end": 188
+                        },
+                        "key": "a",
+                        "value": []
+                      }
+                    },
+                    "content": [
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 190,
+                                "end": 196
+                              },
+                              "content": "Item A"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 201,
+                                "end": 207
+                              },
+                              "content": "Item B"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
-        "var3": {
-          "location": {
-            "start": 51,
-            "end": 82
-          },
-          "key": "var3",
-          "value": [
-            {
-              "Variable": {
-                "location": {
-                  "start": 58,
-                  "end": 69
-                },
-                "content": "var1"
-              }
-            },
-            {
-              "Variable": {
-                "location": {
-                  "start": 69,
-                  "end": 80
-                },
-                "content": "var2"
-              }
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 85,
-        "end": 86
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 86,
-        "end": 87
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 87,
-        "end": 88
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "MediaElement": {
-      "location": {
-        "start": 88,
-        "end": 118
-      },
-      "parameters": {
-        "url": {
-          "location": {
-            "start": 90,
-            "end": 109
-          },
-          "key": "url",
-          "value": [
-            {
-              "Variable": {
-                "location": {
-                  "start": 96,
-                  "end": 107
-                },
-                "content": "var1"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
         {
-          "Text": {
-            "location": {
-              "start": 109,
-              "end": 116
-            },
-            "content": "content"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 118,
-        "end": 119
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "MediaElement": {
-      "location": {
-        "start": 119,
-        "end": 149
-      },
-      "parameters": {
-        "url": {
-          "location": {
-            "start": 121,
-            "end": 140
-          },
-          "key": "url",
-          "value": [
+          "parameters": {},
+          "inner_content": [
             {
-              "Variable": {
-                "location": {
-                  "start": 127,
-                  "end": 138
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 222,
+                      "end": 227
+                    },
+                    "content": "Age: "
+                  }
                 },
-                "content": "var2"
-              }
+                {
+                  "Age": {
+                    "location": {
+                      "start": 227,
+                      "end": 244
+                    },
+                    "content": "1995-06-20"
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 249,
+                      "end": 258
+                    },
+                    "content": "Current: "
+                  }
+                },
+                "TimeNow"
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 268,
+                      "end": 275
+                    },
+                    "content": "Quote: "
+                  }
+                },
+                {
+                  "BlockQuoteElement": {
+                    "location": {
+                      "start": 275,
+                      "end": 300
+                    },
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 285,
+                            "end": 297
+                          },
+                          "content": "Short quote "
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 140,
-              "end": 147
-            },
-            "content": "content"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 149,
-        "end": 150
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "MediaElement": {
-      "location": {
-        "start": 150,
-        "end": 180
-      },
-      "parameters": {
-        "url": {
-          "location": {
-            "start": 152,
-            "end": 171
-          },
-          "key": "url",
-          "value": [
-            {
-              "Variable": {
-                "location": {
-                  "start": 158,
-                  "end": 169
-                },
-                "content": "var3"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 171,
-              "end": 178
-            },
-            "content": "content"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 180,
-        "end": 181
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "MediaElement": {
-      "location": {
-        "start": 181,
-        "end": 211
-      },
-      "parameters": {
-        "url": {
-          "location": {
-            "start": 183,
-            "end": 202
-          },
-          "key": "url",
-          "value": [
-            {
-              "Variable": {
-                "location": {
-                  "start": 189,
-                  "end": 200
-                },
-                "content": "var4"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 202,
-              "end": 209
-            },
-            "content": "content"
-          }
         }
       ]
     }
