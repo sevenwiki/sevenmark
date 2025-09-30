@@ -127,35 +127,34 @@ impl SevenMarkPreprocessor {
         element: &mut SevenMarkElement,
         info: &mut PreprocessInfo,
     ) {
-        // 특수 케이스 처리 (정보 수집이 필요한 5개 요소)
         match element {
             SevenMarkElement::Include(e) => {
-                let name = Self::extract_plain_text_ignoring_markup(&e.content);
+                let name = Self::extract_plain_text(&e.content);
                 if !name.is_empty() {
                     info.includes.insert(name);
                 }
             }
             SevenMarkElement::Category(e) => {
-                let name = Self::extract_plain_text_ignoring_markup(&e.content);
+                let name = Self::extract_plain_text(&e.content);
                 if !name.is_empty() {
                     info.categories.insert(name);
                 }
             }
             SevenMarkElement::Redirect(e) => {
-                let target = Self::extract_plain_text_ignoring_markup(&e.content);
+                let target = Self::extract_plain_text(&e.content);
                 if !target.is_empty() {
                     info.redirect = Some(target);
                 }
             }
             SevenMarkElement::MediaElement(e) => {
                 if let Some(url_param) = e.parameters.get("url") {
-                    let url = Self::extract_plain_text_ignoring_markup(&url_param.value);
+                    let url = Self::extract_plain_text(&url_param.value);
                     if !url.is_empty() {
                         info.media.insert(url);
                     }
                 }
                 if let Some(file_param) = e.parameters.get("file") {
-                    let file = Self::extract_plain_text_ignoring_markup(&file_param.value);
+                    let file = Self::extract_plain_text(&file_param.value);
                     if !file.is_empty() {
                         info.media.insert(file);
                     }
@@ -169,7 +168,7 @@ impl SevenMarkPreprocessor {
             Self::extract_preprocess_info_from_element(child, info);
         });
     }
-    fn extract_plain_text_ignoring_markup(elements: &[SevenMarkElement]) -> String {
+    fn extract_plain_text(elements: &[SevenMarkElement]) -> String {
         elements
             .iter()
             .filter_map(|element| match element {
