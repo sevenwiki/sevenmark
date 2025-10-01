@@ -38,7 +38,7 @@ jobs:
         run: cargo build --release
 
       - name: Run Tests
-        run: cargo test --all --locked -- --nocapture
+        run: cargo test --all --locked --features include_locations -- --nocapture
 
       - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
