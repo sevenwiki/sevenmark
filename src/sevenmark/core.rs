@@ -1,7 +1,7 @@
 use crate::sevenmark::ast::{ErrorElement, Location, SevenMarkElement};
 use crate::sevenmark::context::ParseContext;
 use crate::sevenmark::parser::document::document_parser;
-use crate::sevenmark::visitor::preprocessor::{PreVisitor, PreprocessInfo, SevenMarkPreprocessor};
+use crate::sevenmark::processor::preprocessor::{PreVisitor, PreprocessInfo, SevenMarkPreprocessor};
 use crate::sevenmark::{InputSource, ParserInput};
 use line_span::LineSpanExt;
 use std::collections::HashSet;

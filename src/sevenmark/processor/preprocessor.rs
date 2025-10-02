@@ -1,20 +1,43 @@
 use crate::SevenMarkElement;
 use crate::sevenmark::{Location, TextElement, Traversable};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
+use crate::sevenmark::processor::wiki::DocumentNamespace;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IncludeInfo {
+    pub title: String,
+    pub namespace: DocumentNamespace,
+    pub parameters: HashMap<String, String>,
+}
 
 #[derive(Debug, Clone, Serialize)]
 pub struct PreprocessInfo {
-    pub includes: HashSet<String>,
+    pub includes: HashMap<String, IncludeInfo>, // key: "namespace:title"
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
     pub media: HashSet<String>,
 }
 
+#[derive(Debug, Clone, Serialize)]
+pub struct IncludeContentInfo {
+    pub includes: HashMap<String, IncludeInfo>,
+    pub media: HashSet<String>,
+}
+
+impl Default for IncludeContentInfo {
+    fn default() -> Self {
+        Self {
+            includes: HashMap::new(),
+            media: HashSet::new(),
+        }
+    }
+}
+
 impl Default for PreprocessInfo {
     fn default() -> Self {
         Self {
-            includes: HashSet::new(),
+            includes: HashMap::new(),
             categories: HashSet::new(),
             redirect: None,
             media: HashSet::new(),
@@ -43,6 +66,31 @@ impl PreVisitor for SevenMarkPreprocessor {
 }
 
 impl SevenMarkPreprocessor {
+    /// namespace 문자열을 DocumentNamespace enum으로 변환
+    fn parse_namespace(namespace: &str) -> DocumentNamespace {
+        match namespace {
+            "Document" => DocumentNamespace::Document,
+            "User" => DocumentNamespace::User,
+            "Template" => DocumentNamespace::Template,
+            "File" => DocumentNamespace::File,
+            "Category" => DocumentNamespace::Category,
+            "Wiki" => DocumentNamespace::Wiki,
+            _ => DocumentNamespace::Document, // 기본값
+        }
+    }
+
+    /// namespace enum을 문자열로 변환
+    fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
+        match namespace {
+            DocumentNamespace::Document => "Document",
+            DocumentNamespace::User => "User",
+            DocumentNamespace::Template => "Template",
+            DocumentNamespace::File => "File",
+            DocumentNamespace::Category => "Category",
+            DocumentNamespace::Wiki => "Wiki",
+        }
+    }
+
     /// 1단계: AST에서 Variable들을 해결
     fn substitute_all_variables_in_ast(elements: &mut [SevenMarkElement]) {
         let mut defined_vars = HashMap::new();
@@ -123,15 +171,104 @@ impl SevenMarkPreprocessor {
         }
     }
 
+    /// Include, Media만 수집 (Category/Redirect 제외)
+    pub fn collect_includes_and_media(elements: &[SevenMarkElement]) -> IncludeContentInfo {
+        let mut elements_mut = elements.to_vec();
+        let mut info = IncludeContentInfo::default();
+        for element in &mut elements_mut {
+            Self::extract_include_content_info_from_element(element, &mut info);
+        }
+        info
+    }
+
+    fn extract_include_content_info_from_element(
+        element: &mut SevenMarkElement,
+        info: &mut IncludeContentInfo,
+    ) {
+        match element {
+            SevenMarkElement::Include(e) => {
+                let title = Self::extract_plain_text(&e.content);
+                if !title.is_empty() {
+                    let parameters: HashMap<String, String> = e
+                        .parameters
+                        .iter()
+                        .map(|(k, v)| (k.clone(), Self::extract_plain_text(&v.value)))
+                        .collect();
+
+                    // namespace 추출 및 enum 변환 (기본값: "Document")
+                    let namespace_str = parameters
+                        .get("namespace")
+                        .map(|s| s.as_str())
+                        .unwrap_or("Document");
+                    let namespace = Self::parse_namespace(namespace_str);
+
+                    let key = format!("{}:{}", Self::namespace_to_string(&namespace), title);
+
+                    info.includes.insert(
+                        key,
+                        IncludeInfo {
+                            title,
+                            namespace,
+                            parameters,
+                        },
+                    );
+                }
+            }
+            SevenMarkElement::MediaElement(e) => {
+                if let Some(url_param) = e.parameters.get("url") {
+                    let url = Self::extract_plain_text(&url_param.value);
+                    if !url.is_empty() {
+                        info.media.insert(url);
+                    }
+                }
+                if let Some(file_param) = e.parameters.get("file") {
+                    let file = Self::extract_plain_text(&file_param.value);
+                    if !file.is_empty() {
+                        info.media.insert(file);
+                    }
+                }
+            }
+            _ => {}
+        }
+
+        // 자식 요소들도 재귀 처리
+        element.traverse_children(&mut |child| {
+            Self::extract_include_content_info_from_element(child, info);
+        });
+    }
+
     fn extract_preprocess_info_from_element(
         element: &mut SevenMarkElement,
         info: &mut PreprocessInfo,
     ) {
         match element {
             SevenMarkElement::Include(e) => {
-                let name = Self::extract_plain_text(&e.content);
-                if !name.is_empty() {
-                    info.includes.insert(name);
+                let title = Self::extract_plain_text(&e.content);
+                if !title.is_empty() {
+                    // parameters
+                    let parameters: HashMap<String, String> = e
+                        .parameters
+                        .iter()
+                        .map(|(k, v)| (k.clone(), Self::extract_plain_text(&v.value)))
+                        .collect();
+
+                    // namespace 추출 및 enum 변환 (기본값: "Document")
+                    let namespace_str = parameters
+                        .get("namespace")
+                        .map(|s| s.as_str())
+                        .unwrap_or("Document");
+                    let namespace = Self::parse_namespace(namespace_str);
+
+                    let key = format!("{}:{}", Self::namespace_to_string(&namespace), title);
+
+                    info.includes.insert(
+                        key,
+                        IncludeInfo {
+                            title,
+                            namespace,
+                            parameters,
+                        },
+                    );
                 }
             }
             SevenMarkElement::Category(e) => {

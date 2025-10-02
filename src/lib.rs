@@ -14,7 +14,7 @@ pub mod utils;
 
 pub use sevenmark::ast::SevenMarkElement;
 pub use sevenmark::core::parse_document;
-pub use sevenmark::visitor::convert_ast_to_monaco_json;
+pub use sevenmark::processor::convert_ast_to_monaco_json;
 
 #[cfg(feature = "wasm")]
 use wasm_bindgen::prelude::*;

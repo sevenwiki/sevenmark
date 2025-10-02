@@ -1,8 +1,13 @@
 {
-  "includes": [],
+  "includes": {
+    "{\"x\": \"xx\"}:content": {
+      "title": "content",
+      "parameters": {
+        "x": "xx"
+      }
+    }
+  },
   "categories": [],
   "redirect": null,
-  "media": [
-    "x"
-  ]
+  "media": []
 }

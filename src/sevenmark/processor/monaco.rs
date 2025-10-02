@@ -71,14 +71,14 @@ impl ByteToLineMapper {
 
 /// Monaco Editor location converter with memory-efficient position lookup
 ///
-/// This visitor converts SevenMark AST elements with byte-based locations
+/// This processor converts SevenMark AST elements with byte-based locations
 /// to Monaco Editor-compatible JSON with 1-based line/column positions.
 pub struct MonacoVisitor {
     mapper: ByteToLineMapper,
 }
 
 impl MonacoVisitor {
-    /// Creates a new Monaco visitor for the given input text
+    /// Creates a new Monaco processor for the given input text
     pub fn new(input: &str) -> Self {
         let mapper = ByteToLineMapper::new(input);
         Self { mapper }

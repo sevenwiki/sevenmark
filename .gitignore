@@ -3,3 +3,6 @@
 pkg/
 logs/
 .env
+CLAUDE.md
+.claude
+.serena

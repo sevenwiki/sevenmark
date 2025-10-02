@@ -1,1 +1,1 @@
-[[#file="x"]]
+{{{#include #x1="test x1" #x2="test x2" include1}}}
