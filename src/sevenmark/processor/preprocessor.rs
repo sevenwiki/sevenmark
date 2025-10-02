@@ -1,8 +1,8 @@
 use crate::SevenMarkElement;
+use crate::sevenmark::processor::wiki::DocumentNamespace;
 use crate::sevenmark::{Location, TextElement, Traversable};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
-use crate::sevenmark::processor::wiki::DocumentNamespace;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IncludeInfo {

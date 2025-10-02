@@ -1,7 +1,7 @@
 pub mod monaco;
-pub mod preprocessor;
 #[cfg(feature = "server")]
 pub mod postprocessor;
+pub mod preprocessor;
 #[cfg(feature = "server")]
 pub mod processor;
 #[cfg(feature = "server")]
@@ -10,9 +10,9 @@ pub mod recursive_processor;
 pub mod wiki;
 
 pub use monaco::{LineColumnLocation, MonacoVisitor, convert_ast_to_monaco_json};
-pub use preprocessor::{IncludeInfo, PreVisitor, PreprocessInfo, SevenMarkPreprocessor};
 #[cfg(feature = "server")]
 pub use postprocessor::SevenMarkPostprocessor;
+pub use preprocessor::{IncludeInfo, PreVisitor, PreprocessInfo, SevenMarkPreprocessor};
 #[cfg(feature = "server")]
 pub use processor::{ProcessedDocument, process_document};
 #[cfg(feature = "server")]

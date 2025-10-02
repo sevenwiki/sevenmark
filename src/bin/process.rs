@@ -1,7 +1,7 @@
-use sevenmark::sevenmark::processor::{process_document_recursive, DocumentNamespace, WikiClient};
+use sea_orm::Iden;
+use sevenmark::sevenmark::processor::{DocumentNamespace, WikiClient, process_document_recursive};
 use std::fs;
 use std::time::Instant;
-use sea_orm::Iden;
 
 #[tokio::main]
 async fn main() {
@@ -12,19 +12,29 @@ async fn main() {
 
     // WikiClient 생성 (로컬 서버 사용)
     let http_client = reqwest::Client::new();
-    let base_url = std::env::var("WIKI_BASE_URL")
-        .unwrap_or_else(|_| "http://127.0.0.1:8000".to_string());
+    let base_url =
+        std::env::var("WIKI_BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:8000".to_string());
     let wiki_client = WikiClient::new(http_client, base_url.clone());
 
     println!("Using wiki server: {}\n", base_url);
 
     let start_time = Instant::now();
-    let result = process_document_recursive( DocumentNamespace::Document , "a".to_string(), &input_content, &wiki_client).await;
+    let result = process_document_recursive(
+        DocumentNamespace::Document,
+        "a".to_string(),
+        &input_content,
+        &wiki_client,
+    )
+    .await;
     let duration = start_time.elapsed();
 
     match result {
         Ok(processed) => {
-            println!("Processed {} elements in {:?}", processed.ast.len(), duration);
+            println!(
+                "Processed {} elements in {:?}",
+                processed.ast.len(),
+                duration
+            );
 
             println!("\n=== Processing Info ===");
             println!("Media files: {} found", processed.media.len());

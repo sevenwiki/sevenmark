@@ -1,8 +1,10 @@
+use crate::SevenMarkElement;
 use crate::sevenmark::core::parse_document;
 use crate::sevenmark::processor::postprocessor::SevenMarkPostprocessor;
-use crate::sevenmark::processor::preprocessor::{PreprocessInfo, PreVisitor, SevenMarkPreprocessor, IncludeInfo};
+use crate::sevenmark::processor::preprocessor::{
+    IncludeInfo, PreVisitor, PreprocessInfo, SevenMarkPreprocessor,
+};
 use crate::sevenmark::processor::wiki::{WikiClient, WikiResolver};
-use crate::SevenMarkElement;
 use anyhow::Result;
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
@@ -20,10 +22,7 @@ pub struct ProcessedDocument {
     pub redirect: Option<String>,
 }
 
-pub async fn process_document(
-    input: &str,
-    wiki_client: &WikiClient,
-) -> Result<ProcessedDocument> {
+pub async fn process_document(input: &str, wiki_client: &WikiClient) -> Result<ProcessedDocument> {
     let mut ast = parse_document(input);
     let mut all_media = HashSet::new();
     let mut all_categories = HashSet::new();
@@ -37,7 +36,10 @@ pub async fn process_document(
         let info = SevenMarkPreprocessor::preprocess(&ast);
         println!("Preprocessor found {} includes", info.includes.len());
         for (key, include_info) in &info.includes {
-            println!("  - Include: {} (namespace: {:?})", key, include_info.namespace);
+            println!(
+                "  - Include: {} (namespace: {:?})",
+                key, include_info.namespace
+            );
         }
 
         // 2. Media, category, redirect 누적
@@ -75,7 +77,10 @@ pub async fn process_document(
         // 5. Wiki fetch
         println!("Fetching {} includes from wiki...", new_includes.len());
         let wiki_data = WikiResolver::resolve(&new_info, wiki_client).await?;
-        println!("WikiData received with {} includes", wiki_data.includes.len());
+        println!(
+            "WikiData received with {} includes",
+            wiki_data.includes.len()
+        );
         for key in wiki_data.includes.keys() {
             println!("  - WikiData has: {}", key);
         }
@@ -87,7 +92,10 @@ pub async fn process_document(
 
         // 7. 처리 완료 기록
         processed_includes.extend(new_includes.keys().cloned());
-        println!("Total processed includes so far: {}", processed_includes.len());
+        println!(
+            "Total processed includes so far: {}",
+            processed_includes.len()
+        );
     }
 
     Ok(ProcessedDocument {

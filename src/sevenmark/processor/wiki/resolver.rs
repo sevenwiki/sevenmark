@@ -36,10 +36,7 @@ impl WikiResolver {
             // namespace 문자열을 DocumentNamespace enum으로 변환
             let namespace = Self::parse_namespace(&namespace_str);
 
-            match client
-                .fetch_document(namespace, &include_info.title)
-                .await
-            {
+            match client.fetch_document(namespace, &include_info.title).await {
                 Ok(Some(doc)) => {
                     wiki_data.includes.insert(
                         key.clone(),

@@ -62,10 +62,7 @@ impl WikiClient {
                 Ok(Some(doc))
             }
             status if status.as_u16() == 404 => Ok(None),
-            status => Err(anyhow::anyhow!(
-                "Wiki backend returned error: {}",
-                status
-            )),
+            status => Err(anyhow::anyhow!("Wiki backend returned error: {}", status)),
         }
     }
 

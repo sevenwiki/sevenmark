@@ -1,7 +1,7 @@
-use crate::sevenmark::core::parse_document;
-use crate::sevenmark::processor::wiki::{WikiClient, DocumentNamespace};
-use crate::sevenmark::{Location, TextElement, Traversable};
 use crate::SevenMarkElement;
+use crate::sevenmark::core::parse_document;
+use crate::sevenmark::processor::wiki::{DocumentNamespace, WikiClient};
+use crate::sevenmark::{Location, TextElement, Traversable};
 use anyhow::{Context, Result};
 use async_recursion::async_recursion;
 use serde::Serialize;
@@ -97,12 +97,24 @@ async fn resolve_document_recursive(
 
     // 1. 문서 파싱
     let mut ast = parse_document(content);
-    println!("[Depth {}]   ✓ Parsed document ({} elements)", depth, ast.len());
+    println!(
+        "[Depth {}]   ✓ Parsed document ({} elements)",
+        depth,
+        ast.len()
+    );
 
     // 2. Define 수집 (현재 문서 스코프)
     let local_defines = collect_defines(&mut ast);
-    debug!("[Depth {}] Collected {} defines", depth, local_defines.len());
-    println!("[Depth {}]   ✓ Collected {} defines", depth, local_defines.len());
+    debug!(
+        "[Depth {}] Collected {} defines",
+        depth,
+        local_defines.len()
+    );
+    println!(
+        "[Depth {}]   ✓ Collected {} defines",
+        depth,
+        local_defines.len()
+    );
     if !local_defines.is_empty() {
         for (key, value) in &local_defines {
             println!("[Depth {}]     - {} = {:?}", depth, key, value);
@@ -113,15 +125,29 @@ async fn resolve_document_recursive(
     let mut all_params = local_defines.clone();
     all_params.extend(parent_params.clone()); // parent가 우선순위 높음
     substitute_variables(&mut ast, &all_params);
-    println!("[Depth {}]   ✓ Substituted variables ({} total params)", depth, all_params.len());
+    println!(
+        "[Depth {}]   ✓ Substituted variables ({} total params)",
+        depth,
+        all_params.len()
+    );
 
     // 4. Include, Media, Category, Redirect 수집
     let mut info = CollectedInfo::default();
     collect_info(&mut ast, &mut info);
-    debug!("[Depth {}] Collected {} includes, {} media, {} categories",
-           depth, info.includes.len(), info.media.len(), info.categories.len());
-    println!("[Depth {}]   ✓ Collected {} includes, {} media, {} categories",
-           depth, info.includes.len(), info.media.len(), info.categories.len());
+    debug!(
+        "[Depth {}] Collected {} includes, {} media, {} categories",
+        depth,
+        info.includes.len(),
+        info.media.len(),
+        info.categories.len()
+    );
+    println!(
+        "[Depth {}]   ✓ Collected {} includes, {} media, {} categories",
+        depth,
+        info.includes.len(),
+        info.media.len(),
+        info.categories.len()
+    );
 
     // 5. Include가 없거나 depth 한계 도달 시 종료
     if info.includes.is_empty() {
@@ -135,7 +161,10 @@ async fn resolve_document_recursive(
     }
 
     if depth >= max_depth {
-        warn!("[Depth {}] Maximum depth reached, includes will not be resolved", depth);
+        warn!(
+            "[Depth {}] Maximum depth reached, includes will not be resolved",
+            depth
+        );
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
@@ -160,7 +189,10 @@ async fn resolve_document_recursive(
         .collect();
 
     if new_includes.is_empty() {
-        debug!("[Depth {}] All includes already visited (circular reference)", depth);
+        debug!(
+            "[Depth {}] All includes already visited (circular reference)",
+            depth
+        );
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
@@ -175,21 +207,46 @@ async fn resolve_document_recursive(
         .map(|inc| (inc.namespace.clone(), inc.title.clone()))
         .collect();
 
-    debug!("[Depth {}] Fetching {} includes via batch API", depth, requests.len());
-    println!("[Depth {}]   🌐 Fetching {} includes via batch API...", depth, requests.len());
+    debug!(
+        "[Depth {}] Fetching {} includes via batch API",
+        depth,
+        requests.len()
+    );
+    println!(
+        "[Depth {}]   🌐 Fetching {} includes via batch API...",
+        depth,
+        requests.len()
+    );
     for (ns, title) in &requests {
-        println!("[Depth {}]     - {}:{}", depth, namespace_to_string(ns), title);
+        println!(
+            "[Depth {}]     - {}:{}",
+            depth,
+            namespace_to_string(ns),
+            title
+        );
     }
     let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
     debug!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
-    println!("[Depth {}]   ✓ Fetched {} documents", depth, fetched_docs.len());
+    println!(
+        "[Depth {}]   ✓ Fetched {} documents",
+        depth,
+        fetched_docs.len()
+    );
 
     // 8. 각 Include를 재귀적으로 resolve
     let mut resolved_includes: HashMap<String, ResolvedDocument> = HashMap::new();
 
-    println!("[Depth {}]   🔄 Resolving {} includes recursively...", depth, new_includes.len());
+    println!(
+        "[Depth {}]   🔄 Resolving {} includes recursively...",
+        depth,
+        new_includes.len()
+    );
     for (include_info, doc) in new_includes.iter().zip(fetched_docs.iter()) {
-        let key = format!("{}:{}", namespace_to_string(&include_info.namespace), &include_info.title);
+        let key = format!(
+            "{}:{}",
+            namespace_to_string(&include_info.namespace),
+            &include_info.title
+        );
 
         // visited에 추가
         visited.insert(key.clone());
@@ -215,7 +272,11 @@ async fn resolve_document_recursive(
 
     // 9. AST에서 Include 요소를 resolved AST로 치환
     substitute_includes(&mut ast, &resolved_includes);
-    println!("[Depth {}]   ✓ Substituted {} includes in AST", depth, resolved_includes.len());
+    println!(
+        "[Depth {}]   ✓ Substituted {} includes in AST",
+        depth,
+        resolved_includes.len()
+    );
 
     // 10. 모든 media/category를 누적
     let mut all_media = info.media;
@@ -227,8 +288,12 @@ async fn resolve_document_recursive(
     }
 
     debug!("[Depth {}] Document resolution complete", depth);
-    println!("[Depth {}] ✅ Document resolution complete (total media: {}, categories: {})",
-             depth, all_media.len(), all_categories.len());
+    println!(
+        "[Depth {}] ✅ Document resolution complete (total media: {}, categories: {})",
+        depth,
+        all_media.len(),
+        all_categories.len()
+    );
 
     Ok(ResolvedDocument {
         ast,
@@ -266,7 +331,10 @@ fn collect_defines(elements: &mut [SevenMarkElement]) -> HashMap<String, String>
     defines
 }
 
-fn collect_defines_recursive(element: &mut SevenMarkElement, defines: &mut HashMap<String, String>) {
+fn collect_defines_recursive(
+    element: &mut SevenMarkElement,
+    defines: &mut HashMap<String, String>,
+) {
     if let SevenMarkElement::DefineElement(def) = element {
         for (key, param) in &def.parameters {
             let value = extract_plain_text(&param.value);
@@ -294,7 +362,10 @@ fn substitute_variables(elements: &mut [SevenMarkElement], params: &HashMap<Stri
     }
 }
 
-fn substitute_variables_recursive(element: &mut SevenMarkElement, params: &HashMap<String, String>) {
+fn substitute_variables_recursive(
+    element: &mut SevenMarkElement,
+    params: &HashMap<String, String>,
+) {
     if let SevenMarkElement::Variable(var) = element {
         if let Some(value) = params.get(&var.content) {
             *element = SevenMarkElement::Text(TextElement {

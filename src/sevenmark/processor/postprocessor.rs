@@ -1,17 +1,14 @@
+use crate::SevenMarkElement;
 use crate::sevenmark::core::parse_document;
 use crate::sevenmark::processor::wiki::WikiData;
 use crate::sevenmark::{Location, TextElement, Traversable};
-use crate::SevenMarkElement;
 use std::collections::HashMap;
 
 pub struct SevenMarkPostprocessor;
 
 impl SevenMarkPostprocessor {
     /// Include 치환만 수행 (수집은 Preprocessor가 담당)
-    pub fn apply(
-        mut ast: Vec<SevenMarkElement>,
-        wiki_data: &WikiData,
-    ) -> Vec<SevenMarkElement> {
+    pub fn apply(mut ast: Vec<SevenMarkElement>, wiki_data: &WikiData) -> Vec<SevenMarkElement> {
         Self::replace_includes(&mut ast, wiki_data);
         ast
     }
@@ -57,7 +54,9 @@ impl SevenMarkPostprocessor {
                             }
                         }
                     } else {
-                        println!("  [Postprocessor] Include already processed, checking nested includes...");
+                        println!(
+                            "  [Postprocessor] Include already processed, checking nested includes..."
+                        );
                     }
 
                     // processed 여부와 무관하게 content 안의 Include도 처리 (중첩 Include)
@@ -144,9 +143,7 @@ impl SevenMarkPostprocessor {
             .iter()
             .filter_map(|element| match element {
                 SevenMarkElement::Text(text_element) => Some(text_element.content.as_str()),
-                SevenMarkElement::Escape(escape_element) => {
-                    Some(escape_element.content.as_str())
-                }
+                SevenMarkElement::Escape(escape_element) => Some(escape_element.content.as_str()),
                 _ => None,
             })
             .collect::<String>()
