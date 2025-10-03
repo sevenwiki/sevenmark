@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2025-10-03
 
+### Added
+- **Include Resolution System**: Complete recursive include processing with wiki integration
+  - Maximum depth limiting (16 levels) to prevent infinite recursion
+  - Circular reference detection and prevention with visited tracking
+  - Support for nested includes with proper AST substitution
+
+- **Metadata Collection Pipeline**: Comprehensive document metadata extraction
+  - Media file collection from all nested includes
+  - Category collection (depth 0 only)
+  - Redirect target detection (depth 0 only)
+  - Forward-only variable substitution with parent parameter precedence
+
+- **Build System**: Feature-gated preprocessor for WASM compatibility
+  - Added `transform` feature flag for preprocessor and wiki client dependencies
+  - WASM builds no longer require server-side dependencies (async-recursion, blake3, reqwest)
+  - Server feature now includes transform feature automatically
+  - Cleaner separation between client-side parsing and server-side processing
 
 ## [2.0.22] - 2025-09-29
 

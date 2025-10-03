@@ -105,73 +105,38 @@ async fn resolve_document(
     visited: &mut HashSet<String>,
     wiki_client: &WikiClient,
 ) -> Result<ResolvedDocument> {
-    debug!("[Depth {}] Starting document resolution", depth);
-
     let mut ast = parse_document(content);
 
-    // Substitute variables (forward-only, parent params take precedence)
     let mut all_params = parent_params.clone();
     substitute_variables_forward_only(&mut ast, &mut all_params);
-    debug!("[Depth {}] Processed variables (forward-only)", depth);
 
-    // Collect metadata (categories/redirect only at depth 0)
     let mut info = CollectedInfo::default();
     let is_top_level = depth == 0;
     collect_info(&mut ast, &mut info, is_top_level);
 
-    if is_top_level {
-        debug!(
-            "[Depth {}] Collected {} includes, {} media, {} categories",
-            depth,
-            info.includes.len(),
-            info.media.len(),
-            info.categories.len()
-        );
-    } else {
-        debug!(
-            "[Depth {}] Collected {} includes, {} media",
-            depth,
-            info.includes.len(),
-            info.media.len()
-        );
-    }
-
     if info.includes.is_empty() {
-        debug!("[Depth {}] No includes found, returning", depth);
         return Ok(ResolvedDocument::from_collected_info(ast, info, depth));
     }
 
     if depth >= max_depth {
-        debug!(
-            "[Depth {}] Maximum depth reached, includes will not be resolved",
-            depth
-        );
+        warn!("Maximum include depth ({}) reached, stopping recursion", max_depth);
         return Ok(ResolvedDocument::from_collected_info(ast, info, depth));
     }
 
     let new_includes = filter_new_includes(std::mem::take(&mut info.includes), visited, depth);
 
     if new_includes.is_empty() {
-        debug!(
-            "[Depth {}] All includes already visited (circular reference)",
-            depth
-        );
         return Ok(ResolvedDocument::from_collected_info(ast, info, depth));
     }
 
-    // Batch fetch all include targets
     let requests: Vec<_> = new_includes
         .iter()
         .map(|inc| (inc.namespace.clone(), inc.title.clone()))
         .collect();
 
-    debug!(
-        "[Depth {}] Fetching {} includes via batch API",
-        depth,
-        requests.len()
-    );
+    debug!("Fetching {} includes at depth {}", requests.len(), depth);
+
     let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
-    debug!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
 
     let mut resolved_includes: HashMap<String, ResolvedDocument> = HashMap::new();
 
@@ -216,7 +181,6 @@ async fn resolve_document(
 
         let hash_key = make_include_key(&include_info.title, &include_info.parameters);
         resolved_includes.insert(hash_key, resolved);
-        debug!("[Depth {}] Resolved include: {}", depth, doc_key);
 
         visited.remove(&doc_key);
     }
@@ -228,8 +192,6 @@ async fn resolve_document(
     for resolved in resolved_includes.values() {
         all_media.extend(resolved.media.clone());
     }
-
-    debug!("[Depth {}] Document resolution complete", depth);
 
     Ok(ResolvedDocument {
         ast,
@@ -243,7 +205,6 @@ async fn resolve_document(
     })
 }
 
-/// 순환 참조 필터링 + 파라미터별 중복 제거
 fn filter_new_includes(
     includes: Vec<IncludeInfo>,
     visited: &HashSet<String>,
@@ -252,12 +213,10 @@ fn filter_new_includes(
     let mut new_includes_map: HashMap<String, IncludeInfo> = HashMap::new();
 
     for inc in includes {
-        // 순환 참조는 namespace:title로만 체크
         let doc_key = format!("{}:{}", namespace_to_string(&inc.namespace), &inc.title);
         if visited.contains(&doc_key) {
             warn!("[Depth {}] Circular reference detected: {}", depth, doc_key);
         } else {
-            // 중복 제거는 파라미터 포함한 해시로 (같은 문서 + 같은 파라미터만 중복 제거)
             let hash_key = make_include_key(&inc.title, &inc.parameters);
             new_includes_map.insert(hash_key, inc);
         }
@@ -266,7 +225,6 @@ fn filter_new_includes(
     new_includes_map.into_values().collect()
 }
 
-/// AST에서 Define 수집 + Variable 치환 (단일 순회, forward-only)
 fn substitute_variables_forward_only(
     elements: &mut [SevenMarkElement],
     params: &mut HashMap<String, String>,
@@ -280,29 +238,25 @@ fn substitute_variables_forward_only_recursive(
     element: &mut SevenMarkElement,
     params: &mut HashMap<String, String>,
 ) {
-    // 1. Define 먼저 처리 (선언) - parent_params가 우선순위 높음
     if let SevenMarkElement::DefineElement(def) = element {
         for (key, param) in &def.parameters {
             let value = extract_plain_text(&param.value);
             if !value.is_empty() {
-                // parent_params에 이미 있으면 덮어쓰지 않음 (parent 우선)
                 params.entry(key.clone()).or_insert(value);
             }
         }
     }
 
-    // 2. Variable 처리 (사용)
     if let SevenMarkElement::Variable(var) = element {
         if let Some(value) = params.get(&var.content) {
             *element = SevenMarkElement::Text(TextElement {
                 location: Location::synthesized(),
                 content: value.clone(),
             });
-            return; // 치환했으니 자식 순회 불필요
+            return;
         }
     }
 
-    // 3. 자식 순회 (순서대로)
     let mut children = Vec::new();
     element.traverse_children(&mut |child| {
         children.push(child.clone());
@@ -313,7 +267,6 @@ fn substitute_variables_forward_only_recursive(
     }
 }
 
-/// AST에서 Include, Media 수집 (is_top_level이면 Category, Redirect도 수집)
 fn collect_info(
     elements: &mut [SevenMarkElement],
     info: &mut CollectedInfo,
@@ -333,7 +286,6 @@ fn collect_info_recursive(
         SevenMarkElement::Include(inc) => {
             let title = extract_plain_text(&inc.content);
             if !title.is_empty() {
-                // namespace 추출
                 let namespace_str = inc
                     .parameters
                     .get("namespace")
@@ -378,7 +330,6 @@ fn collect_info_recursive(
         _ => {}
     }
 
-    // 자식 순회
     let mut children = Vec::new();
     element.traverse_children(&mut |child| {
         children.push(child.clone());
@@ -389,7 +340,6 @@ fn collect_info_recursive(
     }
 }
 
-/// AST에서 Include 요소를 resolved AST로 치환
 fn substitute_includes(
     elements: &mut [SevenMarkElement],
     resolved_includes: &HashMap<String, ResolvedDocument>,
@@ -407,25 +357,18 @@ fn substitute_includes_recursive(
         SevenMarkElement::Include(inc) => {
             let title = extract_plain_text(&inc.content);
             if !title.is_empty() {
-                // 파라미터 포함한 해시 key로 조회
                 let hash_key = make_include_key(&title, &inc.parameters);
 
                 if let Some(resolved) = resolved_includes.get(&hash_key) {
-                    // Include의 content를 resolved AST로 교체
                     inc.content = resolved.ast.clone();
-                    debug!("Substituted include: {} (hash: {})", title, &hash_key);
-                    // 치환했으면 이 Include의 content는 이미 resolved된 AST이므로
-                    // 더 이상 traverse하지 않음 (circular reference 방지)
                     return;
                 }
             }
-            // 치환하지 못한 Include의 content는 traverse (nested includes 처리)
             for child in &mut inc.content {
                 substitute_includes_recursive(child, resolved_includes);
             }
         }
         _ => {
-            // 다른 element는 traverse_children 사용
             element.traverse_children(&mut |child| {
                 substitute_includes_recursive(child, resolved_includes);
             });
@@ -433,7 +376,6 @@ fn substitute_includes_recursive(
     }
 }
 
-/// Plain text 추출
 fn extract_plain_text(elements: &[SevenMarkElement]) -> String {
     elements
         .iter()
@@ -445,7 +387,6 @@ fn extract_plain_text(elements: &[SevenMarkElement]) -> String {
         .collect::<String>()
 }
 
-/// namespace 문자열을 DocumentNamespace enum으로 변환
 fn parse_namespace(namespace: &str) -> DocumentNamespace {
     match namespace {
         "Document" => DocumentNamespace::Document,
@@ -454,11 +395,10 @@ fn parse_namespace(namespace: &str) -> DocumentNamespace {
         "File" => DocumentNamespace::File,
         "Category" => DocumentNamespace::Category,
         "Wiki" => DocumentNamespace::Wiki,
-        _ => DocumentNamespace::Document, // Default
+        _ => DocumentNamespace::Document,
     }
 }
 
-/// namespace enum을 문자열로 변환
 fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
     match namespace {
         DocumentNamespace::Document => "Document",
@@ -470,12 +410,10 @@ fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
     }
 }
 
-/// Include의 고유 key 생성 (title + parameters의 blake3 해시)
 fn make_include_key(title: &str, params: &Parameters) -> String {
     let mut hasher = blake3::Hasher::new();
     hasher.update(title.as_bytes());
 
-    // BTreeMap은 이미 키로 정렬되어 있음
     for (k, v) in params {
         hasher.update(k.as_bytes());
         hasher.update(extract_plain_text(&v.value).as_bytes());

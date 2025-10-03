@@ -1,9 +1,6 @@
 use crate::sevenmark::ast::{ErrorElement, Location, SevenMarkElement};
 use crate::sevenmark::context::ParseContext;
 use crate::sevenmark::parser::document::document_parser;
-
-use crate::sevenmark::transform::preprocessor::{ProcessedDocument, preprocess_sevenmark};
-use crate::sevenmark::transform::{DocumentNamespace, WikiClient};
 use crate::sevenmark::{InputSource, ParserInput};
 use line_span::LineSpanExt;
 use std::collections::HashSet;
@@ -49,6 +46,8 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
     }
 }
 
+/*
+#[cfg(feature = "transform")]
 pub async fn parse_document_with_processing(
     namespace: DocumentNamespace,
     title: String,
@@ -67,3 +66,4 @@ pub async fn parse_document_with_processing(
             }
         })
 }
+*/

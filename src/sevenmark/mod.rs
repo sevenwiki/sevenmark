@@ -7,6 +7,6 @@ pub mod transform;
 
 pub use ast::*;
 pub use context::*;
-pub use core::{parse_document, parse_document_with_processing};
+pub use core::parse_document;
 pub use error::*;
 pub use parser::{InputSource, ParserInput};
