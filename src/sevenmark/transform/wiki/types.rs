@@ -40,14 +40,13 @@ pub struct DocumentResponse {
     pub current_revision: DocumentRevision,
 }
 
+
+
 /// 문서 revision 정보
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DocumentRevision {
-    pub id: String,
-    pub author_id: String,
-    pub content: String, // ← 실제 SevenMark 원본 텍스트
-    pub summary: Option<String>,
-    pub edit_summary: Option<String>,
+    pub content: String,
+    pub file_url: Option<String>,
 }
 
 // ===== Batch API Types =====

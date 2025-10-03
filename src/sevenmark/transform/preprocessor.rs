@@ -10,38 +10,39 @@ use tracing::{debug, warn};
 
 const MAX_INCLUDE_DEPTH: usize = 16;
 
-/// 처리 완료된 문서 (재귀 처리 결과)
+/// Final result after recursive include resolution
 #[derive(Debug, Clone, Serialize)]
 pub struct ProcessedDocument {
-    /// 모든 media 파일 목록 (중첩된 include 포함)
     pub media: HashSet<String>,
-    /// 모든 category 목록
     pub categories: HashSet<String>,
-    /// Redirect 대상 (있으면)
     pub redirect: Option<String>,
-    /// 최종 AST (모든 include가 치환됨)
     pub ast: Vec<SevenMarkElement>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct IncludeInfo {
+    pub title: String,
+    pub namespace: DocumentNamespace,
+    pub parameters: Parameters,
 }
 
 #[derive(Debug, Clone)]
 pub struct PreprocessInfo {
-    pub includes: HashMap<String, IncludeInfo>, // key: "namespace:title"
+    pub includes: HashMap<String, IncludeInfo>,
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
     pub media: HashSet<String>,
 }
 
-/// 재귀 처리 중간 결과
 #[derive(Debug, Clone)]
 struct ResolvedDocument {
     ast: Vec<SevenMarkElement>,
     media: HashSet<String>,
-    categories: HashSet<String>, // depth == 0일 때만 채워짐
-    redirect: Option<String>,    // depth == 0일 때만 채워짐
+    categories: HashSet<String>,
+    redirect: Option<String>,
 }
 
 impl ResolvedDocument {
-    /// CollectedInfo로부터 ResolvedDocument 생성 (depth에 따라 categories/redirect 포함 여부 결정)
     fn from_collected_info(ast: Vec<SevenMarkElement>, info: CollectedInfo, depth: usize) -> Self {
         Self {
             ast,
@@ -56,16 +57,15 @@ impl ResolvedDocument {
     }
 }
 
-/// 문서를 재귀적으로 처리 (진입점)
-///
-/// # Arguments
-/// * `namespace` - 문서의 namespace
-/// * `title` - 문서의 title
-/// * `input` - 처리할 SevenMark 원본 텍스트
-/// * `wiki_client` - Wiki 백엔드 클라이언트
-///
-/// # Returns
-/// 모든 include가 치환되고, media/category/redirect가 수집된 최종 문서
+#[derive(Debug, Clone, Default)]
+struct CollectedInfo {
+    includes: Vec<IncludeInfo>,
+    media: HashSet<String>,
+    categories: HashSet<String>,
+    redirect: Option<String>,
+}
+
+/// Recursively resolves includes and collects metadata
 pub async fn preprocess_sevenmark(
     namespace: DocumentNamespace,
     title: String,
@@ -75,7 +75,6 @@ pub async fn preprocess_sevenmark(
     let mut visited = HashSet::new();
     let parent_params = HashMap::new();
 
-    // 최초 문서를 visited에 추가 (순환 참조 방지)
     let initial_key = format!("{}:{}", namespace_to_string(&namespace), title);
     visited.insert(initial_key.clone());
 
@@ -97,15 +96,6 @@ pub async fn preprocess_sevenmark(
     })
 }
 
-/// 문서를 재귀적으로 해결 (핵심 재귀 함수)
-///
-/// # Arguments
-/// * `content` - SevenMark 원본 텍스트
-/// * `parent_params` - 상위 문서에서 전달된 parameters (include의 #param="value")
-/// * `depth` - 현재 재귀 깊이
-/// * `max_depth` - 최대 재귀 깊이
-/// * `visited` - 순환 참조 방지용 Set ("namespace:title")
-/// * `wiki_client` - Wiki 클라이언트
 #[async_recursion]
 async fn resolve_document(
     content: &str,
@@ -117,15 +107,14 @@ async fn resolve_document(
 ) -> Result<ResolvedDocument> {
     debug!("[Depth {}] Starting document resolution", depth);
 
-    // 1. 문서 파싱
     let mut ast = parse_document(content);
 
-    // 2. Define 수집 + Variable 치환 (단일 순회, forward-only, parent_params 우선)
+    // Substitute variables (forward-only, parent params take precedence)
     let mut all_params = parent_params.clone();
     substitute_variables_forward_only(&mut ast, &mut all_params);
     debug!("[Depth {}] Processed variables (forward-only)", depth);
 
-    // 3. Include, Media 수집 (depth == 0이면 Category, Redirect도 수집)
+    // Collect metadata (categories/redirect only at depth 0)
     let mut info = CollectedInfo::default();
     let is_top_level = depth == 0;
     collect_info(&mut ast, &mut info, is_top_level);
@@ -147,7 +136,6 @@ async fn resolve_document(
         );
     }
 
-    // 5. Include가 없거나 depth 한계 도달 시 종료
     if info.includes.is_empty() {
         debug!("[Depth {}] No includes found, returning", depth);
         return Ok(ResolvedDocument::from_collected_info(ast, info, depth));
@@ -161,7 +149,6 @@ async fn resolve_document(
         return Ok(ResolvedDocument::from_collected_info(ast, info, depth));
     }
 
-    // 6. 새로운 include 필터링 (순환 참조 방지) + 파라미터별 중복 제거
     let new_includes = filter_new_includes(std::mem::take(&mut info.includes), visited, depth);
 
     if new_includes.is_empty() {
@@ -172,7 +159,7 @@ async fn resolve_document(
         return Ok(ResolvedDocument::from_collected_info(ast, info, depth));
     }
 
-    // 7. Batch API로 모든 include 문서 가져오기
+    // Batch fetch all include targets
     let requests: Vec<_> = new_includes
         .iter()
         .map(|inc| (inc.namespace.clone(), inc.title.clone()))
@@ -186,10 +173,8 @@ async fn resolve_document(
     let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
     debug!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
 
-    // 8. 각 Include를 재귀적으로 resolve
     let mut resolved_includes: HashMap<String, ResolvedDocument> = HashMap::new();
 
-    // 응답 순서와 무관하게 매칭하기 위해 fetched_docs를 HashMap으로 변환
     let docs_map: HashMap<String, _> = fetched_docs
         .into_iter()
         .map(|doc| {
@@ -205,23 +190,19 @@ async fn resolve_document(
             &include_info.title
         );
 
-        // 응답에서 해당 문서 찾기
         let Some(doc) = docs_map.get(&doc_key) else {
             warn!("[Warning] Include target not found, skipping: {}", doc_key);
             continue;
         };
 
-        // visited에 추가 (순환 참조 방지용)
         visited.insert(doc_key.clone());
 
-        // Parameters를 HashMap으로 변환
         let params_map: HashMap<String, String> = include_info
             .parameters
             .iter()
             .map(|(k, v)| (k.clone(), extract_plain_text(&v.value)))
             .collect();
 
-        // 재귀 호출
         let resolved = resolve_document(
             &doc.current_revision.content,
             &params_map,
@@ -233,19 +214,15 @@ async fn resolve_document(
         .await
         .with_context(|| format!("Failed to resolve include: {}", doc_key))?;
 
-        // 결과 저장 (파라미터 포함한 해시 key로)
         let hash_key = make_include_key(&include_info.title, &include_info.parameters);
         resolved_includes.insert(hash_key, resolved);
         debug!("[Depth {}] Resolved include: {}", depth, doc_key);
 
-        // 재귀 종료 후 visited에서 제거 (다른 분기에서 재사용 가능하도록)
         visited.remove(&doc_key);
     }
 
-    // 9. AST에서 Include 요소를 resolved AST로 치환
     substitute_includes(&mut ast, &resolved_includes);
 
-    // 10. 모든 media를 누적 (categories/redirect는 depth 0에서만)
     let mut all_media = info.media;
 
     for resolved in resolved_includes.values() {
@@ -264,23 +241,6 @@ async fn resolve_document(
         },
         redirect: if depth == 0 { info.redirect } else { None },
     })
-}
-
-/// Include 정보
-#[derive(Debug, Clone, Serialize)]
-pub struct IncludeInfo {
-    pub title: String,
-    pub namespace: DocumentNamespace,
-    pub parameters: Parameters,
-}
-
-/// 수집된 정보
-#[derive(Debug, Clone, Default)]
-struct CollectedInfo {
-    includes: Vec<IncludeInfo>,
-    media: HashSet<String>,
-    categories: HashSet<String>,
-    redirect: Option<String>,
 }
 
 /// 순환 참조 필터링 + 파라미터별 중복 제거
@@ -494,7 +454,7 @@ fn parse_namespace(namespace: &str) -> DocumentNamespace {
         "File" => DocumentNamespace::File,
         "Category" => DocumentNamespace::Category,
         "Wiki" => DocumentNamespace::Wiki,
-        _ => DocumentNamespace::Document, // 기본값
+        _ => DocumentNamespace::Document, // Default
     }
 }
 
