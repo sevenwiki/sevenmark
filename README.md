@@ -115,13 +115,13 @@ cargo build
 cargo build --features server
 
 # WebAssembly build (web)
-wasm-pack build --target web --features wasm
+wasm-pack build --target web --features wasm --no-default-features
 
 # WebAssembly build (bundler - webpack/vite)
-wasm-pack build --target bundler --features wasm
+wasm-pack build --target bundler --features wasm --no-default-features
 
 # WebAssembly build (Node.js/VS Code extensions)  
-wasm-pack build --target nodejs --features wasm
+wasm-pack build --target nodejs --features wasm --no-default-features
 ```
 
 ### Binary Targets

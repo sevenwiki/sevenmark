@@ -40,8 +40,6 @@ pub struct DocumentResponse {
     pub current_revision: DocumentRevision,
 }
 
-
-
 /// 문서 revision 정보
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DocumentRevision {
