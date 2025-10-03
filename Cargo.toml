@@ -30,6 +30,7 @@ tracing-subscriber = { version = "0.3.20", optional = true }
 tracing-appender = { version = "0.2.3", optional = true }
 async-recursion = { version = "1.1.1" , optional = true}
 reqwest = { version = "0.12.23", features = ["json", "multipart"], optional = true }
+blake3 = {version = "1.8.2", optional = true}
 
 # WASM dependencies
 wasm-bindgen = { version = "0.2.104", optional = true }
@@ -38,7 +39,7 @@ web-sys = { version = "0.3.81", optional = true }
 
 [features]
 default = ["server"]
-server = ["axum", "dotenvy", "tokio", "tracing", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui", "reqwest", "async-recursion"]
+server = ["axum", "dotenvy", "tokio", "tracing", "blake3", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui", "reqwest", "async-recursion"]
 wasm = [ "wasm-bindgen", "js-sys", "web-sys"]
 include_locations = []
 

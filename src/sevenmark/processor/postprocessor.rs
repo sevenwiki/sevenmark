@@ -13,53 +13,45 @@ impl SevenMarkPostprocessor {
         ast
     }
 
-    /// Include 요소의 content를 파싱된 AST로 교체하고 processed 플래그 설정
+    /// Include 요소의 content를 파싱된 AST로 교체
     fn replace_includes(elements: &mut [SevenMarkElement], wiki_data: &WikiData) {
         for element in elements.iter_mut() {
             match element {
                 SevenMarkElement::Include(include_elem) => {
-                    // 아직 처리 안 된 Include만 처리
-                    if !include_elem.processed {
-                        let title = Self::extract_plain_text(&include_elem.content);
-                        if !title.is_empty() {
-                            // namespace 추출 및 key 생성
-                            let namespace_str = include_elem
-                                .parameters
-                                .get("namespace")
-                                .map(|param| Self::extract_plain_text(&param.value))
-                                .filter(|s| !s.is_empty())
-                                .unwrap_or_else(|| "Document".to_string());
+                    let title = Self::extract_plain_text(&include_elem.content);
+                    if !title.is_empty() {
+                        // namespace 추출 및 key 생성
+                        let namespace_str = include_elem
+                            .parameters
+                            .get("namespace")
+                            .map(|param| Self::extract_plain_text(&param.value))
+                            .filter(|s| !s.is_empty())
+                            .unwrap_or_else(|| "Document".to_string());
 
-                            let key = format!("{}:{}", namespace_str, title);
-                            println!("  [Postprocessor] Processing include: {}", key);
+                        let key = format!("{}:{}", namespace_str, title);
+                        println!("  [Postprocessor] Processing include: {}", key);
 
-                            // WikiData에서 Include된 문서 찾기
-                            if let Some(include_data) = wiki_data.includes.get(&key) {
-                                println!("    ✓ Found! Replacing content with parsed AST");
+                        // WikiData에서 Include된 문서 찾기
+                        if let Some(include_data) = wiki_data.includes.get(&key) {
+                            println!("    ✓ Found! Replacing content with parsed AST");
 
-                                // 1. Include된 문서 파싱
-                                let mut parsed_ast = parse_document(&include_data.content);
+                            // 1. Include된 문서 파싱
+                            let mut parsed_ast = parse_document(&include_data.content);
 
-                                // 2. IncludeInfo에서 parameters 가져오기
-                                let params = &include_data.info.parameters;
+                            // 2. IncludeInfo에서 parameters 가져오기
+                            let params = &include_data.info.parameters;
 
-                                // 3. 파싱된 AST에서 Variable 요소를 parameter 값으로 치환
-                                Self::substitute_variables(&mut parsed_ast, params);
+                            // 3. 파싱된 AST에서 Variable 요소를 parameter 값으로 치환
+                            Self::substitute_variables(&mut parsed_ast, params);
 
-                                // 4. Include 요소의 content를 치환된 AST로 교체하고 processed 플래그 설정
-                                include_elem.content = parsed_ast;
-                                include_elem.processed = true;
-                            } else {
-                                println!("    ✗ NOT FOUND in WikiData");
-                            }
+                            // 4. Include 요소의 content를 치환된 AST로 교체
+                            include_elem.content = parsed_ast;
+                        } else {
+                            println!("    ✗ NOT FOUND in WikiData");
                         }
-                    } else {
-                        println!(
-                            "  [Postprocessor] Include already processed, checking nested includes..."
-                        );
                     }
 
-                    // processed 여부와 무관하게 content 안의 Include도 처리 (중첩 Include)
+                    // content 안의 Include도 처리 (중첩 Include)
                     Self::replace_includes(&mut include_elem.content, wiki_data);
                 }
                 _ => {
@@ -75,29 +67,26 @@ impl SevenMarkPostprocessor {
         element.traverse_children(&mut |child| {
             // 자식이 Include이면 직접 처리
             if let SevenMarkElement::Include(include_elem) = child {
-                if !include_elem.processed {
-                    let title = Self::extract_plain_text(&include_elem.content);
-                    if !title.is_empty() {
-                        let namespace_str = include_elem
-                            .parameters
-                            .get("namespace")
-                            .map(|param| Self::extract_plain_text(&param.value))
-                            .filter(|s| !s.is_empty())
-                            .unwrap_or_else(|| "Document".to_string());
+                let title = Self::extract_plain_text(&include_elem.content);
+                if !title.is_empty() {
+                    let namespace_str = include_elem
+                        .parameters
+                        .get("namespace")
+                        .map(|param| Self::extract_plain_text(&param.value))
+                        .filter(|s| !s.is_empty())
+                        .unwrap_or_else(|| "Document".to_string());
 
-                        let key = format!("{}:{}", namespace_str, title);
-                        println!("  [Postprocessor] Processing nested include: {}", key);
+                    let key = format!("{}:{}", namespace_str, title);
+                    println!("  [Postprocessor] Processing nested include: {}", key);
 
-                        if let Some(include_data) = wiki_data.includes.get(&key) {
-                            println!("    ✓ Found! Replacing content");
-                            let mut parsed_ast = parse_document(&include_data.content);
-                            let params = &include_data.info.parameters;
-                            Self::substitute_variables(&mut parsed_ast, params);
-                            include_elem.content = parsed_ast;
-                            include_elem.processed = true;
-                        } else {
-                            println!("    ✗ NOT FOUND in WikiData");
-                        }
+                    if let Some(include_data) = wiki_data.includes.get(&key) {
+                        println!("    ✓ Found! Replacing content");
+                        let mut parsed_ast = parse_document(&include_data.content);
+                        let params = &include_data.info.parameters;
+                        Self::substitute_variables(&mut parsed_ast, params);
+                        include_elem.content = parsed_ast;
+                    } else {
+                        println!("    ✗ NOT FOUND in WikiData");
                     }
                 }
             }

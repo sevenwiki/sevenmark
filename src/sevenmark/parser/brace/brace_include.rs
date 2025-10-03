@@ -29,6 +29,5 @@ pub fn brace_include_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
         location: Location { start, end },
         parameters: parameters.unwrap_or_default(),
         content: parsed_content,
-        processed: false,
     }))
 }

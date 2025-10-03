@@ -1,4 +1,3 @@
-use sea_orm::Iden;
 use sevenmark::sevenmark::processor::{DocumentNamespace, WikiClient, process_document_recursive};
 use std::fs;
 use std::time::Instant;
@@ -21,7 +20,7 @@ async fn main() {
     let start_time = Instant::now();
     let result = process_document_recursive(
         DocumentNamespace::Document,
-        "a".to_string(),
+        "string".to_string(),
         &input_content,
         &wiki_client,
     )

@@ -1,26 +1,25 @@
 use crate::SevenMarkElement;
 use crate::sevenmark::core::parse_document;
 use crate::sevenmark::processor::wiki::{DocumentNamespace, WikiClient};
-use crate::sevenmark::{Location, TextElement, Traversable};
+use crate::sevenmark::{Location, Parameters, TextElement, Traversable};
 use anyhow::{Context, Result};
 use async_recursion::async_recursion;
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
-use tracing::{debug, warn};
 
 const MAX_INCLUDE_DEPTH: usize = 16;
 
 /// 처리 완료된 문서 (재귀 처리 결과)
 #[derive(Debug, Clone, Serialize)]
 pub struct ProcessedDocument {
-    /// 최종 AST (모든 include가 치환됨)
-    pub ast: Vec<SevenMarkElement>,
     /// 모든 media 파일 목록 (중첩된 include 포함)
     pub media: HashSet<String>,
     /// 모든 category 목록
     pub categories: HashSet<String>,
     /// Redirect 대상 (있으면)
     pub redirect: Option<String>,
+    /// 최종 AST (모든 include가 치환됨)
+    pub ast: Vec<SevenMarkElement>,
 }
 
 /// 재귀 처리 중간 결과
@@ -28,8 +27,8 @@ pub struct ProcessedDocument {
 struct ResolvedDocument {
     ast: Vec<SevenMarkElement>,
     media: HashSet<String>,
-    categories: HashSet<String>,
-    redirect: Option<String>,
+    categories: HashSet<String>,  // depth == 0일 때만 채워짐
+    redirect: Option<String>,      // depth == 0일 때만 채워짐
 }
 
 /// 문서를 재귀적으로 처리 (진입점)
@@ -54,7 +53,6 @@ pub async fn process_document_recursive(
     // 최초 문서를 visited에 추가 (순환 참조 방지)
     let initial_key = format!("{}:{}", namespace_to_string(&namespace), title);
     visited.insert(initial_key.clone());
-    println!("🚀 Starting recursive processing for: {}", initial_key);
 
     let resolved = resolve_document_recursive(
         input,
@@ -92,112 +90,95 @@ async fn resolve_document_recursive(
     visited: &mut HashSet<String>,
     wiki_client: &WikiClient,
 ) -> Result<ResolvedDocument> {
-    debug!("[Depth {}] Starting document resolution", depth);
-    println!("[Depth {}] 📄 Starting document resolution", depth);
+    println!("[Depth {}] Starting document resolution", depth);
 
     // 1. 문서 파싱
     let mut ast = parse_document(content);
-    println!(
-        "[Depth {}]   ✓ Parsed document ({} elements)",
-        depth,
-        ast.len()
-    );
 
     // 2. Define 수집 (현재 문서 스코프)
     let local_defines = collect_defines(&mut ast);
-    debug!(
+    println!(
         "[Depth {}] Collected {} defines",
         depth,
         local_defines.len()
     );
-    println!(
-        "[Depth {}]   ✓ Collected {} defines",
-        depth,
-        local_defines.len()
-    );
-    if !local_defines.is_empty() {
-        for (key, value) in &local_defines {
-            println!("[Depth {}]     - {} = {:?}", depth, key, value);
-        }
-    }
 
     // 3. Variable 치환 (parent_params 우선, 없으면 local_defines)
     let mut all_params = local_defines.clone();
     all_params.extend(parent_params.clone()); // parent가 우선순위 높음
     substitute_variables(&mut ast, &all_params);
-    println!(
-        "[Depth {}]   ✓ Substituted variables ({} total params)",
-        depth,
-        all_params.len()
-    );
 
-    // 4. Include, Media, Category, Redirect 수집
+    // 4. Include, Media 수집 (depth == 0이면 Category, Redirect도 수집)
     let mut info = CollectedInfo::default();
-    collect_info(&mut ast, &mut info);
-    debug!(
-        "[Depth {}] Collected {} includes, {} media, {} categories",
-        depth,
-        info.includes.len(),
-        info.media.len(),
-        info.categories.len()
-    );
-    println!(
-        "[Depth {}]   ✓ Collected {} includes, {} media, {} categories",
-        depth,
-        info.includes.len(),
-        info.media.len(),
-        info.categories.len()
-    );
+    let is_top_level = depth == 0;
+    collect_info(&mut ast, &mut info, is_top_level);
+
+    if is_top_level {
+        println!(
+            "[Depth {}] Collected {} includes, {} media, {} categories",
+            depth,
+            info.includes.len(),
+            info.media.len(),
+            info.categories.len()
+        );
+    } else {
+        println!(
+            "[Depth {}] Collected {} includes, {} media",
+            depth,
+            info.includes.len(),
+            info.media.len()
+        );
+    }
 
     // 5. Include가 없거나 depth 한계 도달 시 종료
     if info.includes.is_empty() {
-        debug!("[Depth {}] No includes found, returning", depth);
+        println!("[Depth {}] No includes found, returning", depth);
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
-            categories: info.categories,
-            redirect: info.redirect,
+            categories: if depth == 0 { info.categories } else { HashSet::new() },
+            redirect: if depth == 0 { info.redirect } else { None },
         });
     }
 
     if depth >= max_depth {
-        warn!(
+        println!(
             "[Depth {}] Maximum depth reached, includes will not be resolved",
             depth
         );
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
-            categories: info.categories,
-            redirect: info.redirect,
+            categories: if depth == 0 { info.categories } else { HashSet::new() },
+            redirect: if depth == 0 { info.redirect } else { None },
         });
     }
 
-    // 6. 새로운 include 필터링 (순환 참조 방지)
-    let new_includes: Vec<_> = info
-        .includes
-        .into_iter()
-        .filter(|inc| {
-            let key = format!("{}:{}", namespace_to_string(&inc.namespace), &inc.title);
-            if visited.contains(&key) {
-                warn!("[Depth {}] Circular reference detected: {}", depth, key);
-                false
-            } else {
-                true
-            }
-        })
-        .collect();
+    // 6. 새로운 include 필터링 (순환 참조 방지) + 파라미터별 중복 제거
+    let mut new_includes_map: HashMap<String, IncludeInfo> = HashMap::new();
+    for inc in info.includes {
+        // 순환 참조는 namespace:title로만 체크
+        let doc_key = format!("{}:{}", namespace_to_string(&inc.namespace), &inc.title);
+        if visited.contains(&doc_key) {
+            println!("[Depth {}] Circular reference detected: {}", depth, doc_key);
+        } else {
+            // 중복 제거는 파라미터 포함한 해시로 (같은 문서 + 같은 파라미터만 중복 제거)
+            let hash_key = make_include_key(&inc.title, &inc.parameters);
+            new_includes_map.insert(hash_key, inc);
+        }
+    }
+    let new_includes: Vec<_> = new_includes_map.into_values().collect();
 
     if new_includes.is_empty() {
-        debug!(
+        println!(
             "[Depth {}] All includes already visited (circular reference)",
             depth
         );
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
-            categories: info.categories,
-            redirect: info.redirect,
+            categories: if depth == 0 { info.categories } else { HashSet::new() },
+            redirect: if depth == 0 { info.redirect } else { None },
         });
     }
 
@@ -207,99 +188,83 @@ async fn resolve_document_recursive(
         .map(|inc| (inc.namespace.clone(), inc.title.clone()))
         .collect();
 
-    debug!(
+    println!(
         "[Depth {}] Fetching {} includes via batch API",
         depth,
         requests.len()
     );
-    println!(
-        "[Depth {}]   🌐 Fetching {} includes via batch API...",
-        depth,
-        requests.len()
-    );
-    for (ns, title) in &requests {
-        println!(
-            "[Depth {}]     - {}:{}",
-            depth,
-            namespace_to_string(ns),
-            title
-        );
-    }
     let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
-    debug!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
-    println!(
-        "[Depth {}]   ✓ Fetched {} documents",
-        depth,
-        fetched_docs.len()
-    );
+    println!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
 
     // 8. 각 Include를 재귀적으로 resolve
     let mut resolved_includes: HashMap<String, ResolvedDocument> = HashMap::new();
 
-    println!(
-        "[Depth {}]   🔄 Resolving {} includes recursively...",
-        depth,
-        new_includes.len()
-    );
-    for (include_info, doc) in new_includes.iter().zip(fetched_docs.iter()) {
-        let key = format!(
+    // 응답 순서와 무관하게 매칭하기 위해 fetched_docs를 HashMap으로 변환
+    let docs_map: HashMap<String, _> = fetched_docs
+        .into_iter()
+        .map(|doc| {
+            let key = format!("{}:{}", namespace_to_string(&doc.namespace), doc.title);
+            (key, doc)
+        })
+        .collect();
+
+    for include_info in new_includes.iter() {
+        let doc_key = format!(
             "{}:{}",
             namespace_to_string(&include_info.namespace),
             &include_info.title
         );
 
-        // visited에 추가
-        visited.insert(key.clone());
+        // 응답에서 해당 문서 찾기
+        let Some(doc) = docs_map.get(&doc_key) else {
+            eprintln!("[Warning] Include target not found, skipping: {}", doc_key);
+            continue;
+        };
 
-        println!("[Depth {}]     ⤷ Resolving: {}", depth, key);
+        // visited에 추가 (순환 참조 방지용)
+        visited.insert(doc_key.clone());
+
+        // Parameters를 HashMap으로 변환
+        let params_map: HashMap<String, String> = include_info.parameters
+            .iter()
+            .map(|(k, v)| (k.clone(), extract_plain_text(&v.value)))
+            .collect();
+
         // 재귀 호출
         let resolved = resolve_document_recursive(
             &doc.current_revision.content,
-            &include_info.parameters,
+            &params_map,
             depth + 1,
             max_depth,
             visited,
             wiki_client,
         )
         .await
-        .with_context(|| format!("Failed to resolve include: {}", key))?;
+        .with_context(|| format!("Failed to resolve include: {}", doc_key))?;
 
-        // 결과 저장
-        resolved_includes.insert(key.clone(), resolved);
-        debug!("[Depth {}] Resolved include: {}", depth, key);
-        println!("[Depth {}]     ✓ Resolved: {}", depth, key);
+        // 결과 저장 (파라미터 포함한 해시 key로)
+        let hash_key = make_include_key(&include_info.title, &include_info.parameters);
+        resolved_includes.insert(hash_key, resolved);
+        println!("[Depth {}] Resolved include: {}", depth, doc_key);
     }
 
     // 9. AST에서 Include 요소를 resolved AST로 치환
     substitute_includes(&mut ast, &resolved_includes);
-    println!(
-        "[Depth {}]   ✓ Substituted {} includes in AST",
-        depth,
-        resolved_includes.len()
-    );
 
-    // 10. 모든 media/category를 누적
+    // 10. 모든 media를 누적 (categories/redirect는 depth 0에서만)
     let mut all_media = info.media;
-    let mut all_categories = info.categories;
 
     for resolved in resolved_includes.values() {
         all_media.extend(resolved.media.clone());
-        all_categories.extend(resolved.categories.clone());
     }
 
-    debug!("[Depth {}] Document resolution complete", depth);
-    println!(
-        "[Depth {}] ✅ Document resolution complete (total media: {}, categories: {})",
-        depth,
-        all_media.len(),
-        all_categories.len()
-    );
+    println!("[Depth {}] Document resolution complete", depth);
 
     Ok(ResolvedDocument {
         ast,
         media: all_media,
-        categories: all_categories,
-        redirect: info.redirect,
+        categories: if depth == 0 { info.categories } else { HashSet::new() },
+        redirect: if depth == 0 { info.redirect } else { None },
     })
 }
 
@@ -308,7 +273,7 @@ async fn resolve_document_recursive(
 struct IncludeInfo {
     title: String,
     namespace: DocumentNamespace,
-    parameters: HashMap<String, String>,
+    parameters: Parameters,
 }
 
 /// 수집된 정보
@@ -382,39 +347,38 @@ fn substitute_variables_recursive(
     });
 }
 
-/// AST에서 Include, Media, Category, Redirect 수집
-fn collect_info(elements: &mut [SevenMarkElement], info: &mut CollectedInfo) {
+/// AST에서 Include, Media 수집 (is_top_level이면 Category, Redirect도 수집)
+fn collect_info(
+    elements: &mut [SevenMarkElement],
+    info: &mut CollectedInfo,
+    collect_categories_redirect: bool,
+) {
     for element in elements {
-        collect_info_recursive(element, info);
+        collect_info_recursive(element, info, collect_categories_redirect);
     }
 }
 
-fn collect_info_recursive(element: &mut SevenMarkElement, info: &mut CollectedInfo) {
+fn collect_info_recursive(
+    element: &mut SevenMarkElement,
+    info: &mut CollectedInfo,
+    collect_categories_redirect: bool,
+) {
     match element {
         SevenMarkElement::Include(inc) => {
-            // Include가 이미 processed되었으면 스킵
-            if inc.processed {
-                return;
-            }
-
             let title = extract_plain_text(&inc.content);
             if !title.is_empty() {
-                let parameters: HashMap<String, String> = inc
-                    .parameters
-                    .iter()
-                    .map(|(k, v)| (k.clone(), extract_plain_text(&v.value)))
-                    .collect();
-
-                let namespace_str = parameters
+                // namespace 추출
+                let namespace_str = inc.parameters
                     .get("namespace")
-                    .map(|s| s.as_str())
-                    .unwrap_or("Document");
-                let namespace = parse_namespace(namespace_str);
+                    .map(|param| extract_plain_text(&param.value))
+                    .filter(|s| !s.is_empty())
+                    .unwrap_or_else(|| "Document".to_string());
+                let namespace = parse_namespace(&namespace_str);
 
                 info.includes.push(IncludeInfo {
                     title,
                     namespace,
-                    parameters,
+                    parameters: inc.parameters.clone(),
                 });
             }
         }
@@ -432,13 +396,13 @@ fn collect_info_recursive(element: &mut SevenMarkElement, info: &mut CollectedIn
                 }
             }
         }
-        SevenMarkElement::Category(cat) => {
+        SevenMarkElement::Category(cat) if collect_categories_redirect => {
             let name = extract_plain_text(&cat.content);
             if !name.is_empty() {
                 info.categories.insert(name);
             }
         }
-        SevenMarkElement::Redirect(redir) => {
+        SevenMarkElement::Redirect(redir) if collect_categories_redirect => {
             let target = extract_plain_text(&redir.content);
             if !target.is_empty() {
                 info.redirect = Some(target);
@@ -454,7 +418,7 @@ fn collect_info_recursive(element: &mut SevenMarkElement, info: &mut CollectedIn
     });
 
     for child in &mut children {
-        collect_info_recursive(child, info);
+        collect_info_recursive(child, info, collect_categories_redirect);
     }
 }
 
@@ -472,34 +436,34 @@ fn substitute_includes_recursive(
     element: &mut SevenMarkElement,
     resolved_includes: &HashMap<String, ResolvedDocument>,
 ) {
-    if let SevenMarkElement::Include(inc) = element {
-        // 이미 처리된 Include는 스킵
-        if !inc.processed {
+    match element {
+        SevenMarkElement::Include(inc) => {
             let title = extract_plain_text(&inc.content);
             if !title.is_empty() {
-                let namespace_str = inc
-                    .parameters
-                    .get("namespace")
-                    .map(|param| extract_plain_text(&param.value))
-                    .filter(|s| !s.is_empty())
-                    .unwrap_or_else(|| "Document".to_string());
+                // 파라미터 포함한 해시 key로 조회
+                let hash_key = make_include_key(&title, &inc.parameters);
 
-                let key = format!("{}:{}", namespace_str, title);
-
-                if let Some(resolved) = resolved_includes.get(&key) {
-                    // Include의 content를 resolved AST로 교체하고 processed 설정
+                if let Some(resolved) = resolved_includes.get(&hash_key) {
+                    // Include의 content를 resolved AST로 교체
                     inc.content = resolved.ast.clone();
-                    inc.processed = true;
-                    debug!("Substituted include: {}", key);
+                    println!("Substituted include: {} (hash: {})", title, &hash_key);
+                    // 치환했으면 이 Include의 content는 이미 resolved된 AST이므로
+                    // 더 이상 traverse하지 않음 (circular reference 방지)
+                    return;
                 }
             }
+            // 치환하지 못한 Include의 content는 traverse (nested includes 처리)
+            for child in &mut inc.content {
+                substitute_includes_recursive(child, resolved_includes);
+            }
+        }
+        _ => {
+            // 다른 element는 traverse_children 사용
+            element.traverse_children(&mut |child| {
+                substitute_includes_recursive(child, resolved_includes);
+            });
         }
     }
-
-    // 자식 순회 (mutable)
-    element.traverse_children(&mut |child| {
-        substitute_includes_recursive(child, resolved_includes);
-    });
 }
 
 /// Plain text 추출
@@ -537,4 +501,18 @@ fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
         DocumentNamespace::Category => "Category",
         DocumentNamespace::Wiki => "Wiki",
     }
+}
+
+/// Include의 고유 key 생성 (title + parameters의 blake3 해시)
+fn make_include_key(title: &str, params: &Parameters) -> String {
+    let mut hasher = blake3::Hasher::new();
+    hasher.update(title.as_bytes());
+
+    // BTreeMap은 이미 키로 정렬되어 있음
+    for (k, v) in params {
+        hasher.update(k.as_bytes());
+        hasher.update(extract_plain_text(&v.value).as_bytes());
+    }
+
+    hasher.finalize().to_hex().to_string()
 }

@@ -252,8 +252,6 @@ pub struct IncludeElement {
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
-    /// Include가 이미 처리되었는지 여부 (postprocessor에서 사용)
-    pub processed: bool,
 }
 
 /// 카테고리 요소

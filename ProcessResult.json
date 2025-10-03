@@ -1,35 +1,14 @@
 [
   {
     "Include": {
-      "parameters": {
-        "x1": {
-          "key": "x1",
-          "value": [
-            {
-              "Text": {
-                "content": "test x1"
-              }
-            }
-          ]
-        },
-        "x2": {
-          "key": "x2",
-          "value": [
-            {
-              "Text": {
-                "content": "test x2"
-              }
-            }
-          ]
-        }
-      },
+      "parameters": {},
       "content": [
         {
           "Category": {
             "content": [
               {
                 "Text": {
-                  "content": "asdf"
+                  "content": "category"
                 }
               }
             ]
@@ -42,115 +21,36 @@
         },
         {
           "Include": {
-            "parameters": {},
+            "parameters": {
+              "x": {
+                "key": "x",
+                "value": [
+                  {
+                    "Text": {
+                      "content": "something"
+                    }
+                  }
+                ]
+              }
+            },
             "content": [
               {
-                "Category": {
-                  "content": [
-                    {
-                      "Text": {
-                        "content": "not_included"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
                 "Text": {
-                  "content": " "
-                }
-              },
-              {
-                "Variable": {
-                  "content": "x3"
-                }
-              },
-              {
-                "Text": {
-                  "content": " "
-                }
-              },
-              {
-                "Variable": {
-                  "content": "x4"
-                }
-              },
-              {
-                "Text": {
-                  "content": " confirmed "
-                }
-              },
-              {
-                "MediaElement": {
-                  "parameters": {
-                    "url": {
-                      "key": "url",
-                      "value": [
-                        {
-                          "Text": {
-                            "content": "media1"
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "content": "s"
-                      }
-                    }
-                  ]
+                  "content": "something"
                 }
               }
-            ],
-            "processed": true
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "Text": {
-            "content": "test x1"
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "Text": {
-            "content": "test x2"
-          }
-        },
-        {
-          "Text": {
-            "content": " confirmed "
+            ]
           }
         },
         {
           "Include": {
             "parameters": {
-              "x3": {
-                "key": "x3",
+              "x": {
+                "key": "x",
                 "value": [
                   {
                     "Text": {
-                      "content": "test x3"
-                    }
-                  }
-                ]
-              },
-              "x4": {
-                "key": "x4",
-                "value": [
-                  {
-                    "Text": {
-                      "content": "test x4"
+                      "content": "aaa"
                     }
                   }
                 ]
@@ -159,136 +59,64 @@
             "content": [
               {
                 "Text": {
-                  "content": "include3 "
-                }
-              },
-              {
-                "Include": {
-                  "parameters": {},
-                  "content": [
-                    {
-                      "Text": {
-                        "content": "include5 "
-                      }
-                    },
-                    {
-                      "Include": {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "content": "include5 "
-                            }
-                          },
-                          {
-                            "Include": {
-                              "parameters": {},
-                              "content": [
-                                {
-                                  "Text": {
-                                    "content": "include6"
-                                  }
-                                }
-                              ],
-                              "processed": true
-                            }
-                          },
-                          {
-                            "Text": {
-                              "content": " "
-                            }
-                          },
-                          {
-                            "Include": {
-                              "parameters": {},
-                              "content": [
-                                {
-                                  "Text": {
-                                    "content": "include7"
-                                  }
-                                }
-                              ],
-                              "processed": true
-                            }
-                          },
-                          {
-                            "Text": {
-                              "content": " "
-                            }
-                          },
-                          {
-                            "Include": {
-                              "parameters": {},
-                              "content": [
-                                {
-                                  "Text": {
-                                    "content": "include8"
-                                  }
-                                }
-                              ],
-                              "processed": true
-                            }
-                          },
-                          {
-                            "Text": {
-                              "content": " "
-                            }
-                          },
-                          {
-                            "Include": {
-                              "parameters": {},
-                              "content": [
-                                {
-                                  "Text": {
-                                    "content": "include9"
-                                  }
-                                }
-                              ],
-                              "processed": true
-                            }
-                          }
-                        ],
-                        "processed": true
-                      }
-                    }
-                  ],
-                  "processed": true
+                  "content": "aaa"
                 }
               }
-            ],
-            "processed": true
+            ]
+          }
+        },
+        {
+          "Include": {
+            "parameters": {
+              "x": {
+                "key": "x",
+                "value": [
+                  {
+                    "Text": {
+                      "content": "bbb"
+                    }
+                  }
+                ]
+              }
+            },
+            "content": [
+              {
+                "Text": {
+                  "content": "bbb"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Include": {
+            "parameters": {
+              "x": {
+                "key": "x",
+                "value": [
+                  {
+                    "Text": {
+                      "content": "bbbccc"
+                    }
+                  }
+                ]
+              }
+            },
+            "content": [
+              {
+                "Text": {
+                  "content": "bbbccc"
+                }
+              }
+            ]
           }
         },
         {
           "Text": {
-            "content": " "
-          }
-        },
-        {
-          "MediaElement": {
-            "parameters": {
-              "url": {
-                "key": "url",
-                "value": [
-                  {
-                    "Text": {
-                      "content": "media2"
-                    }
-                  }
-                ]
-              }
-            },
-            "content": [
-              {
-                "Text": {
-                  "content": "s"
-                }
-              }
-            ]
+            "content": " w3"
           }
         }
-      ],
-      "processed": true
+      ]
     }
   }
 ]
