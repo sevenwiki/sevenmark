@@ -4,8 +4,9 @@ use crate::sevenmark::processor::wiki::{DocumentNamespace, WikiClient};
 use crate::sevenmark::{Location, Parameters, TextElement, Traversable};
 use anyhow::{Context, Result};
 use async_recursion::async_recursion;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
+use tracing::{debug, warn};
 
 const MAX_INCLUDE_DEPTH: usize = 16;
 
@@ -22,13 +23,21 @@ pub struct ProcessedDocument {
     pub ast: Vec<SevenMarkElement>,
 }
 
+#[derive(Debug, Clone)]
+pub struct PreprocessInfo {
+    pub includes: HashMap<String, IncludeInfo>, // key: "namespace:title"
+    pub categories: HashSet<String>,
+    pub redirect: Option<String>,
+    pub media: HashSet<String>,
+}
+
 /// 재귀 처리 중간 결과
 #[derive(Debug, Clone)]
 struct ResolvedDocument {
     ast: Vec<SevenMarkElement>,
     media: HashSet<String>,
-    categories: HashSet<String>,  // depth == 0일 때만 채워짐
-    redirect: Option<String>,      // depth == 0일 때만 채워짐
+    categories: HashSet<String>, // depth == 0일 때만 채워짐
+    redirect: Option<String>,    // depth == 0일 때만 채워짐
 }
 
 /// 문서를 재귀적으로 처리 (진입점)
@@ -90,14 +99,14 @@ async fn resolve_document_recursive(
     visited: &mut HashSet<String>,
     wiki_client: &WikiClient,
 ) -> Result<ResolvedDocument> {
-    println!("[Depth {}] Starting document resolution", depth);
+    debug!("[Depth {}] Starting document resolution", depth);
 
     // 1. 문서 파싱
     let mut ast = parse_document(content);
 
     // 2. Define 수집 (현재 문서 스코프)
     let local_defines = collect_defines(&mut ast);
-    println!(
+    debug!(
         "[Depth {}] Collected {} defines",
         depth,
         local_defines.len()
@@ -114,7 +123,7 @@ async fn resolve_document_recursive(
     collect_info(&mut ast, &mut info, is_top_level);
 
     if is_top_level {
-        println!(
+        debug!(
             "[Depth {}] Collected {} includes, {} media, {} categories",
             depth,
             info.includes.len(),
@@ -122,7 +131,7 @@ async fn resolve_document_recursive(
             info.categories.len()
         );
     } else {
-        println!(
+        debug!(
             "[Depth {}] Collected {} includes, {} media",
             depth,
             info.includes.len(),
@@ -132,24 +141,32 @@ async fn resolve_document_recursive(
 
     // 5. Include가 없거나 depth 한계 도달 시 종료
     if info.includes.is_empty() {
-        println!("[Depth {}] No includes found, returning", depth);
+        debug!("[Depth {}] No includes found, returning", depth);
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
-            categories: if depth == 0 { info.categories } else { HashSet::new() },
+            categories: if depth == 0 {
+                info.categories
+            } else {
+                HashSet::new()
+            },
             redirect: if depth == 0 { info.redirect } else { None },
         });
     }
 
     if depth >= max_depth {
-        println!(
+        debug!(
             "[Depth {}] Maximum depth reached, includes will not be resolved",
             depth
         );
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
-            categories: if depth == 0 { info.categories } else { HashSet::new() },
+            categories: if depth == 0 {
+                info.categories
+            } else {
+                HashSet::new()
+            },
             redirect: if depth == 0 { info.redirect } else { None },
         });
     }
@@ -160,7 +177,7 @@ async fn resolve_document_recursive(
         // 순환 참조는 namespace:title로만 체크
         let doc_key = format!("{}:{}", namespace_to_string(&inc.namespace), &inc.title);
         if visited.contains(&doc_key) {
-            println!("[Depth {}] Circular reference detected: {}", depth, doc_key);
+            debug!("[Depth {}] Circular reference detected: {}", depth, doc_key);
         } else {
             // 중복 제거는 파라미터 포함한 해시로 (같은 문서 + 같은 파라미터만 중복 제거)
             let hash_key = make_include_key(&inc.title, &inc.parameters);
@@ -170,14 +187,18 @@ async fn resolve_document_recursive(
     let new_includes: Vec<_> = new_includes_map.into_values().collect();
 
     if new_includes.is_empty() {
-        println!(
+        debug!(
             "[Depth {}] All includes already visited (circular reference)",
             depth
         );
         return Ok(ResolvedDocument {
             ast,
             media: info.media,
-            categories: if depth == 0 { info.categories } else { HashSet::new() },
+            categories: if depth == 0 {
+                info.categories
+            } else {
+                HashSet::new()
+            },
             redirect: if depth == 0 { info.redirect } else { None },
         });
     }
@@ -188,13 +209,13 @@ async fn resolve_document_recursive(
         .map(|inc| (inc.namespace.clone(), inc.title.clone()))
         .collect();
 
-    println!(
+    debug!(
         "[Depth {}] Fetching {} includes via batch API",
         depth,
         requests.len()
     );
     let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
-    println!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
+    debug!("[Depth {}] Fetched {} documents", depth, fetched_docs.len());
 
     // 8. 각 Include를 재귀적으로 resolve
     let mut resolved_includes: HashMap<String, ResolvedDocument> = HashMap::new();
@@ -217,7 +238,7 @@ async fn resolve_document_recursive(
 
         // 응답에서 해당 문서 찾기
         let Some(doc) = docs_map.get(&doc_key) else {
-            eprintln!("[Warning] Include target not found, skipping: {}", doc_key);
+            warn!("[Warning] Include target not found, skipping: {}", doc_key);
             continue;
         };
 
@@ -225,7 +246,8 @@ async fn resolve_document_recursive(
         visited.insert(doc_key.clone());
 
         // Parameters를 HashMap으로 변환
-        let params_map: HashMap<String, String> = include_info.parameters
+        let params_map: HashMap<String, String> = include_info
+            .parameters
             .iter()
             .map(|(k, v)| (k.clone(), extract_plain_text(&v.value)))
             .collect();
@@ -245,7 +267,7 @@ async fn resolve_document_recursive(
         // 결과 저장 (파라미터 포함한 해시 key로)
         let hash_key = make_include_key(&include_info.title, &include_info.parameters);
         resolved_includes.insert(hash_key, resolved);
-        println!("[Depth {}] Resolved include: {}", depth, doc_key);
+        debug!("[Depth {}] Resolved include: {}", depth, doc_key);
     }
 
     // 9. AST에서 Include 요소를 resolved AST로 치환
@@ -258,22 +280,26 @@ async fn resolve_document_recursive(
         all_media.extend(resolved.media.clone());
     }
 
-    println!("[Depth {}] Document resolution complete", depth);
+    debug!("[Depth {}] Document resolution complete", depth);
 
     Ok(ResolvedDocument {
         ast,
         media: all_media,
-        categories: if depth == 0 { info.categories } else { HashSet::new() },
+        categories: if depth == 0 {
+            info.categories
+        } else {
+            HashSet::new()
+        },
         redirect: if depth == 0 { info.redirect } else { None },
     })
 }
 
 /// Include 정보
-#[derive(Debug, Clone)]
-struct IncludeInfo {
-    title: String,
-    namespace: DocumentNamespace,
-    parameters: Parameters,
+#[derive(Debug, Clone, Serialize)]
+pub struct IncludeInfo {
+    pub title: String,
+    pub namespace: DocumentNamespace,
+    pub parameters: Parameters,
 }
 
 /// 수집된 정보
@@ -368,7 +394,8 @@ fn collect_info_recursive(
             let title = extract_plain_text(&inc.content);
             if !title.is_empty() {
                 // namespace 추출
-                let namespace_str = inc.parameters
+                let namespace_str = inc
+                    .parameters
                     .get("namespace")
                     .map(|param| extract_plain_text(&param.value))
                     .filter(|s| !s.is_empty())
@@ -446,7 +473,7 @@ fn substitute_includes_recursive(
                 if let Some(resolved) = resolved_includes.get(&hash_key) {
                     // Include의 content를 resolved AST로 교체
                     inc.content = resolved.ast.clone();
-                    println!("Substituted include: {} (hash: {})", title, &hash_key);
+                    debug!("Substituted include: {} (hash: {})", title, &hash_key);
                     // 치환했으면 이 Include의 content는 이미 resolved된 AST이므로
                     // 더 이상 traverse하지 않음 (circular reference 방지)
                     return;

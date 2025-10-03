@@ -1,11 +1,15 @@
 use sevenmark::sevenmark::processor::{DocumentNamespace, WikiClient, process_document_recursive};
 use std::fs;
 use std::time::Instant;
+use tracing_subscriber::util::SubscriberInitExt;
 
 #[tokio::main]
 async fn main() {
     let input_content = fs::read_to_string("ToParse.txt").expect("ToParse.txt file not found");
     let document_len = input_content.len();
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::DEBUG)
+        .init();
 
     println!("Input ({} bytes):\n{}\n", document_len, "=".repeat(50));
 

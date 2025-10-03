@@ -1,17 +1,9 @@
-use crate::sevenmark::processor::preprocessor::IncludeInfo;
+use crate::sevenmark::processor::recursive_processor::IncludeInfo;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-/// Wiki 데이터 해결 결과
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct WikiData {
-    /// Include된 문서들 (name -> IncludeData)
-    /// HashMap에 없으면 문서가 존재하지 않거나 fetch 실패
-    pub includes: HashMap<String, IncludeData>,
-}
-
 /// Include된 문서 데이터
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct IncludeData {
     /// 문서의 원본 SevenMark 텍스트
     pub content: String,

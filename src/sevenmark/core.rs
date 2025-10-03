@@ -1,9 +1,9 @@
 use crate::sevenmark::ast::{ErrorElement, Location, SevenMarkElement};
 use crate::sevenmark::context::ParseContext;
 use crate::sevenmark::parser::document::document_parser;
-use crate::sevenmark::processor::preprocessor::{
-    PreVisitor, PreprocessInfo, SevenMarkPreprocessor,
-};
+
+use crate::sevenmark::processor::recursive_processor::ProcessedDocument;
+use crate::sevenmark::processor::{DocumentNamespace, WikiClient, process_document_recursive};
 use crate::sevenmark::{InputSource, ParserInput};
 use line_span::LineSpanExt;
 use std::collections::HashSet;
@@ -49,12 +49,24 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
     }
 }
 
-pub fn parse_document_with_preprocessing(input: &str) -> (Vec<SevenMarkElement>, PreprocessInfo) {
-    // Step 1: Basic parsing
-    let mut elements = parse_document(input);
+pub async fn parse_document_with_processing(
+    namespace: DocumentNamespace,
+    title: String,
+    input: &str,
+    wiki_client: &WikiClient,
+) -> ProcessedDocument {
+    let result = process_document_recursive(namespace, title, &input, &wiki_client).await;
 
-    // Step 2: Variable resolution & preprocessing info collection
-    let preprocess_info = SevenMarkPreprocessor::preprocess(&mut elements);
-
-    (elements, preprocess_info)
+    match result {
+        Ok(processed) => processed,
+        Err(e) => {
+            eprintln!("Error processing document: {}", e);
+            ProcessedDocument {
+                media: Default::default(),
+                categories: Default::default(),
+                redirect: None,
+                ast: vec![],
+            }
+        }
+    }
 }
