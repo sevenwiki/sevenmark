@@ -14,7 +14,7 @@ pub mod utils;
 
 pub use sevenmark::ast::SevenMarkElement;
 pub use sevenmark::core::parse_document;
-pub use sevenmark::processor::convert_ast_to_monaco_json;
+pub use sevenmark::transform::convert_ast_to_line_column_json;
 
 #[cfg(feature = "wasm")]
 use wasm_bindgen::prelude::*;
@@ -23,5 +23,5 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub fn parse_sevenmark_to_monaco(input: &str) -> String {
     let elements = parse_document(input);
-    convert_ast_to_monaco_json(&elements, input)
+    convert_ast_to_line_column_json(&elements, input)
 }

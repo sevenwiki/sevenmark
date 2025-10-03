@@ -1,5 +1,5 @@
 use sevenmark::sevenmark::core::parse_document;
-use sevenmark::sevenmark::processor::monaco::convert_ast_to_monaco_json;
+use sevenmark::sevenmark::transform::position_converter::convert_ast_to_line_column_json;
 use std::fs;
 use std::time::Instant;
 
@@ -19,7 +19,7 @@ fn main() {
     fs::write("ParseResult.json", &json_output).ok();
 
     let monaco_start = Instant::now();
-    let monaco_json = convert_ast_to_monaco_json(&result, &input_content);
+    let monaco_json = convert_ast_to_line_column_json(&result, &input_content);
     let monaco_duration = monaco_start.elapsed();
 
     fs::write("ParseResult_Monaco.json", &monaco_json).ok();

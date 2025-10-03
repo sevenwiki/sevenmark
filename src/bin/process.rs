@@ -1,4 +1,4 @@
-use sevenmark::sevenmark::processor::{DocumentNamespace, WikiClient, process_document_recursive};
+use sevenmark::sevenmark::transform::{DocumentNamespace, WikiClient, preprocess_sevenmark};
 use std::fs;
 use std::time::Instant;
 use tracing_subscriber::util::SubscriberInitExt;
@@ -22,7 +22,7 @@ async fn main() {
     println!("Using wiki server: {}\n", base_url);
 
     let start_time = Instant::now();
-    let result = process_document_recursive(
+    let result = preprocess_sevenmark(
         DocumentNamespace::Document,
         "string".to_string(),
         &input_content,

@@ -2,18 +2,18 @@ use crate::sevenmark::ast::{Location, SevenMarkElement};
 use line_span::LineSpanExt;
 use serde::Serialize;
 
-/// Location information for Monaco Editor (1-based line/column)
+/// Text position with 1-based line/column coordinates
 #[derive(Debug, Clone, Serialize)]
-pub struct LineColumnLocation {
+pub struct Position {
     pub start_line: usize,   // 1-based line number
     pub start_column: usize, // 1-based column number
     pub end_line: usize,     // 1-based line number
     pub end_column: usize,   // 1-based column number
 }
 
-/// Conversion result for Monaco Editor
+/// AST conversion result with line/column positions
 #[derive(Debug, Serialize)]
-pub struct MonacoResult {
+pub struct ConversionResult {
     pub elements: serde_json::Value,
 }
 
@@ -44,7 +44,7 @@ impl ByteToLineMapper {
     /// Converts byte position to line/column coordinates using binary search
     ///
     /// Time complexity: O(log n) where n is the number of lines
-    /// Returns 1-based line and column numbers as expected by Monaco Editor
+    /// Returns 1-based line and column numbers
     fn byte_to_line_column(&self, byte_offset: usize) -> (usize, usize) {
         let clamped_pos = byte_offset.min(self.input.len());
 
@@ -64,32 +64,32 @@ impl ByteToLineMapper {
         let line_start = self.line_starts[line];
         let column = clamped_pos - line_start;
 
-        // Convert to 1-based as expected by Monaco Editor
+        // Convert to 1-based
         (line + 1, column + 1)
     }
 }
 
-/// Monaco Editor location converter with memory-efficient position lookup
+/// Position converter with memory-efficient byte-to-line/column lookup
 ///
-/// This processor converts SevenMark AST elements with byte-based locations
-/// to Monaco Editor-compatible JSON with 1-based line/column positions.
-pub struct MonacoVisitor {
+/// Converts SevenMark AST elements with byte-based locations
+/// to JSON with 1-based line/column positions.
+pub struct PositionConverter {
     mapper: ByteToLineMapper,
 }
 
-impl MonacoVisitor {
-    /// Creates a new Monaco processor for the given input text
+impl PositionConverter {
+    /// Creates a new position converter for the given input text
     pub fn new(input: &str) -> Self {
         let mapper = ByteToLineMapper::new(input);
         Self { mapper }
     }
 
-    /// Converts a byte-based Location to Monaco Editor LineColumnLocation
-    pub fn convert_location(&self, location: &Location) -> LineColumnLocation {
+    /// Converts a byte-based Location to line/column Position
+    pub fn convert_location(&self, location: &Location) -> Position {
         let (start_line, start_column) = self.mapper.byte_to_line_column(location.start);
         let (end_line, end_column) = self.mapper.byte_to_line_column(location.end);
 
-        LineColumnLocation {
+        Position {
             start_line,
             start_column,
             end_line,
@@ -97,21 +97,21 @@ impl MonacoVisitor {
         }
     }
 
-    /// Converts SevenMark AST elements to Monaco Editor-compatible JSON
+    /// Converts SevenMark AST elements to JSON with line/column positions
     ///
     /// This method:
     /// 1. Serializes the AST to JSON
     /// 2. Recursively finds all "location" fields
     /// 3. Converts byte positions to line/column positions
     /// 4. Returns the transformed JSON
-    pub fn convert_elements(&self, elements: &[SevenMarkElement]) -> MonacoResult {
+    pub fn convert_elements(&self, elements: &[SevenMarkElement]) -> ConversionResult {
         // First serialize to regular JSON
         let mut json_value = serde_json::to_value(elements).unwrap_or(serde_json::Value::Null);
 
         // Transform all location fields in the JSON tree
         self.convert_locations_in_json(&mut json_value);
 
-        MonacoResult {
+        ConversionResult {
             elements: json_value,
         }
     }
@@ -119,7 +119,7 @@ impl MonacoVisitor {
     /// Recursively transforms location fields in JSON values
     ///
     /// Traverses the entire JSON structure and converts any "location" field
-    /// from byte-based Location to line/column-based LineColumnLocation
+    /// from byte-based Location to line/column-based Position
     fn convert_locations_in_json(&self, value: &mut serde_json::Value) {
         match value {
             serde_json::Value::Object(map) => {
@@ -150,11 +150,10 @@ impl MonacoVisitor {
     }
 }
 
-/// Converts SevenMark AST to Monaco Editor-compatible JSON string
+/// Converts SevenMark AST to JSON with line/column positions
 ///
-/// This is the main entry point for converting parsed SevenMark elements
-/// to a JSON format suitable for Monaco Editor decorations. All byte-based
-/// locations in the AST are converted to 1-based line/column positions.
+/// Main entry point for converting parsed SevenMark elements to JSON format
+/// with 1-based line/column positions instead of byte offsets.
 ///
 /// # Arguments
 /// * `elements` - The parsed SevenMark AST elements
@@ -162,9 +161,9 @@ impl MonacoVisitor {
 ///
 /// # Returns
 /// Pretty-formatted JSON string with line/column-based locations
-pub fn convert_ast_to_monaco_json(elements: &[SevenMarkElement], input: &str) -> String {
-    let visitor = MonacoVisitor::new(input);
-    let result = visitor.convert_elements(elements);
+pub fn convert_ast_to_line_column_json(elements: &[SevenMarkElement], input: &str) -> String {
+    let converter = PositionConverter::new(input);
+    let result = converter.convert_elements(elements);
 
     serde_json::to_string_pretty(&result.elements).unwrap_or_default()
 }

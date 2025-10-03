@@ -1,10 +1,10 @@
 use sevenmark::parse_document;
-use sevenmark::sevenmark::processor::monaco::convert_ast_to_monaco_json;
+use sevenmark::sevenmark::transform::position_converter::convert_ast_to_line_column_json;
 use std::fs;
 
 fn monaco_parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {
     let result = parse_document(content);
-    let monaco_json = convert_ast_to_monaco_json(&result, content);
+    let monaco_json = convert_ast_to_line_column_json(&result, content);
 
     Ok(monaco_json)
 }

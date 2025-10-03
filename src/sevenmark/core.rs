@@ -2,8 +2,8 @@ use crate::sevenmark::ast::{ErrorElement, Location, SevenMarkElement};
 use crate::sevenmark::context::ParseContext;
 use crate::sevenmark::parser::document::document_parser;
 
-use crate::sevenmark::processor::recursive_processor::ProcessedDocument;
-use crate::sevenmark::processor::{DocumentNamespace, WikiClient, process_document_recursive};
+use crate::sevenmark::transform::preprocessor::{ProcessedDocument, preprocess_sevenmark};
+use crate::sevenmark::transform::{DocumentNamespace, WikiClient};
 use crate::sevenmark::{InputSource, ParserInput};
 use line_span::LineSpanExt;
 use std::collections::HashSet;
@@ -55,18 +55,15 @@ pub async fn parse_document_with_processing(
     input: &str,
     wiki_client: &WikiClient,
 ) -> ProcessedDocument {
-    let result = process_document_recursive(namespace, title, &input, &wiki_client).await;
-
-    match result {
-        Ok(processed) => processed,
-        Err(e) => {
-            eprintln!("Error processing document: {}", e);
+    preprocess_sevenmark(namespace, title, input, wiki_client)
+        .await
+        .unwrap_or_else(|e| {
+            tracing::error!("Failed to process document: {}", e);
             ProcessedDocument {
-                media: Default::default(),
-                categories: Default::default(),
+                media: HashSet::new(),
+                categories: HashSet::new(),
                 redirect: None,
                 ast: vec![],
             }
-        }
-    }
+        })
 }
