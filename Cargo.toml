@@ -37,7 +37,7 @@ web-sys = { version = "0.3.81", optional = true }
 
 [features]
 default = ["server", "transform"]
-transform = [ "blake3", "reqwest"]
+transform = [ "reqwest"]
 server = ["transform", "axum", "dotenvy", "tokio", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui"]
 wasm = [ "wasm-bindgen", "js-sys", "web-sys"]
 include_locations = []
