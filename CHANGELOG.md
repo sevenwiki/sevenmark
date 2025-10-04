@@ -5,6 +5,25 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-10-04
+
+### Changed
+- **Include Processing Simplification**: Simplified to 1-depth include resolution
+  - Removed recursive include processing (includes now resolve only one level deep)
+  - Preprocessor now accepts parsed AST instead of raw string input for better modularity
+  - Improved memory efficiency by removing unnecessary Vec allocations and clones
+  - Each document fetched only once, then cloned per parameter combination
+
+### Removed
+- Maximum depth limiting (no longer needed with 1-depth includes)
+- Circular reference detection system (no longer needed)
+- `async-recursion, blake3` dependency
+- `visited` HashSet tracking
+
+### Fixed
+- Duplicate document fetching when same document included with different parameters
+- Variable substitution now correctly prioritizes include parameters over template defines
+
 ## [2.1.0] - 2025-10-03
 
 ### Added
