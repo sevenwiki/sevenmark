@@ -10,4 +10,4 @@ pub use position_converter::{
 #[cfg(feature = "transform")]
 pub use preprocessor::preprocess_sevenmark;
 #[cfg(feature = "transform")]
-pub use wiki::{DocumentNamespace, IncludeData, WikiClient};
+pub use wiki::{DocumentNamespace, WikiClient};

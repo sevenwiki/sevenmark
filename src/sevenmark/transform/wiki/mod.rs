@@ -2,4 +2,4 @@ pub mod client;
 pub mod types;
 
 pub use client::WikiClient;
-pub use types::{DocumentNamespace, IncludeData};
+pub use types::DocumentNamespace;

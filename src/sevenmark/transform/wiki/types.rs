@@ -1,27 +1,13 @@
-use crate::sevenmark::transform::preprocessor::IncludeInfo;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-
-/// Include된 문서 데이터
-#[derive(Debug, Clone)]
-pub struct IncludeData {
-    /// 문서의 원본 SevenMark 텍스트
-    pub content: String,
-    /// Include 정보 (title, namespace, parameters)
-    pub info: IncludeInfo,
-}
 
 // ===== Backend API Types =====
 
 /// 문서 namespace (백엔드 API 스펙)
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 pub enum DocumentNamespace {
     Document,
-    User,
-    Template,
     File,
     Category,
-    Wiki,
 }
 
 /// GET 문서 요청 (POST /v0/documents/get_raw_by_namespace_and_title)

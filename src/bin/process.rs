@@ -1,7 +1,7 @@
-use sevenmark::sevenmark::transform::{DocumentNamespace, WikiClient, preprocess_sevenmark};
+use sevenmark::sevenmark::core::parse_document;
+use sevenmark::sevenmark::transform::{WikiClient, preprocess_sevenmark};
 use std::fs;
 use std::time::Instant;
-use tracing_subscriber::util::SubscriberInitExt;
 
 #[tokio::main]
 async fn main() {
@@ -22,13 +22,11 @@ async fn main() {
     println!("Using wiki server: {}\n", base_url);
 
     let start_time = Instant::now();
-    let result = preprocess_sevenmark(
-        DocumentNamespace::Document,
-        "string".to_string(),
-        &input_content,
-        &wiki_client,
-    )
-    .await;
+
+    // Parse document first
+    let ast = parse_document(&input_content);
+
+    let result = preprocess_sevenmark(ast, &wiki_client).await;
     let duration = start_time.elapsed();
 
     match result {
