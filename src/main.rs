@@ -2,6 +2,7 @@
 use {
     axum::Router,
     sevenmark::{
+        sevenmark::transform::WikiClient,
         api::api_routes, config::db_config::DbConfig, connection::http::create_http_client,
         state::AppState, utils::logger::init_tracing,
     },
@@ -16,13 +17,21 @@ pub async fn run_server() -> anyhow::Result<()> {
         anyhow::anyhow!("HTTP client creation failed: {}", e)
     })?;
 
+    let wiki_base_url = format!(
+        "http://{}:{}",
+        &DbConfig::get().wiki_server_host,
+        &DbConfig::get().wiki_server_port
+    );
+
+    let wiki_client = WikiClient::new(http_client, wiki_base_url);
+
     let server_url = format!(
         "{}:{}",
         &DbConfig::get().server_host,
         &DbConfig::get().server_port
     );
 
-    let state = AppState { http_client };
+    let state = AppState { wiki_client };
 
     let app = Router::new()
         .merge(api_routes(state.clone()))

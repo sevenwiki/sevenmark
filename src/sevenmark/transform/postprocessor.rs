@@ -7,12 +7,14 @@ use anyhow::Result;
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
+use utoipa::ToSchema;
 
 /// Final result after media resolution
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, ToSchema)]
 pub struct ProcessedDocument {
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
+    #[schema(value_type = Vec<Object>)]
     pub ast: Vec<SevenMarkElement>,
 }
 

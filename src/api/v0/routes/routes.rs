@@ -1,4 +1,5 @@
 use super::health::routes::health_routes as HealthRoutes;
+use super::parse::routes::parse_routes as ParseRoutes;
 use super::openapi::ApiDoc;
 use crate::errors::errors::handler_404;
 use crate::state::AppState;
@@ -10,5 +11,6 @@ pub fn api_routes(state: AppState) -> Router<AppState> {
     Router::new()
         .merge(SwaggerUi::new("/docs").url("/swagger.json", ApiDoc::merged()))
         .nest("/v0", HealthRoutes())
+        .nest("/v0", ParseRoutes(state.clone()))
         .fallback(handler_404)
 }

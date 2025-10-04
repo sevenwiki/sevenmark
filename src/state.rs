@@ -1,6 +1,6 @@
-use reqwest::Client as HttpClient;
+use crate::sevenmark::transform::WikiClient;
 
 #[derive(Clone)]
 pub struct AppState {
-    pub http_client: HttpClient,
+    pub wiki_client: WikiClient
 }
