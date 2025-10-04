@@ -1,0 +1,147 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "sevenmark",
+    "description": "A DSL designed for Sevenwiki",
+    "contact": {
+      "name": "Levi Lim",
+      "email": "shiueo.csh@gmail.com"
+    },
+    "license": {
+      "name": "Apache-2.0",
+      "identifier": "Apache-2.0"
+    },
+    "version": "2.2.4"
+  },
+  "paths": {
+    "/v0/health_check": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "operationId": "health_check",
+        "responses": {
+          "204": {
+            "description": "Service is healthy and running"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/v0/parse": {
+      "post": {
+        "tags": [
+          "Parse"
+        ],
+        "operationId": "parse_endpoint",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParseDocumentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Document parsed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessedDocument"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "status",
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "details": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "ParseDocumentRequest": {
+        "type": "object",
+        "required": [
+          "content"
+        ],
+        "properties": {
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "ProcessedDocument": {
+        "type": "object",
+        "description": "Final result after media resolution",
+        "required": [
+          "categories",
+          "ast"
+        ],
+        "properties": {
+          "ast": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "redirect": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Health endpoints"
+    },
+    {
+      "name": "Parse",
+      "description": "Document parsing endpoints"
+    }
+  ]
+}
