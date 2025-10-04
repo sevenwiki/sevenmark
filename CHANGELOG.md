@@ -5,8 +5,23 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.2.4] - 2025-10-04
+## [2.3.0] - 2025-10-04
+### Added
+- **REST API Endpoints**: New document parsing HTTP endpoint
+  - Added `POST /v0/parse` endpoint for document parsing and processing
+  - Accepts `ParseDocumentRequest` with raw SevenMark content
+  - Returns `ProcessedDocument` with resolved AST, categories, and redirect metadata
+  - Full OpenAPI/Swagger documentation with `ParseApiDoc`
+  - Integrated with WikiClient for automatic media and include resolution
 
+### Changed
+- **Application State**: Refactored state management for better architecture
+  - Replaced `http_client` with `WikiClient` in `AppState`
+  - WikiClient now initialized at startup with configured wiki server URL from environment
+  - Centralized wiki backend configuration through `DbConfig` (WIKI_SERVER_HOST, WIKI_SERVER_PORT)
+  - Improved separation of concerns between HTTP transport and wiki-specific logic
+
+## [2.2.4] - 2025-10-04
 ### Added
 - **Media Resolution System**: Complete postprocessing pipeline for media references
   - Added `ResolvedMediaInfo` to `MediaElement` for storing resolved URLs and validation status
@@ -26,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added `MediaReference` type for tracking namespace+title pairs
   - `PreProcessedDocument` now uses structured `MediaReference` instead of plain strings
   - Better type safety for media collection and resolution workflow
+
 
 ### Changed
 - **WikiClient Enhancement**: Added comprehensive debug logging
