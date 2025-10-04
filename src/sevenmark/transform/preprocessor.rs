@@ -7,10 +7,17 @@ use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 use tracing::{debug, warn};
 
+/// Media reference with namespace and title
+#[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
+pub struct MediaReference {
+    pub namespace: DocumentNamespace,
+    pub title: String,
+}
+
 /// Final result after include resolution
 #[derive(Debug, Clone, Serialize)]
-pub struct ProcessedDocument {
-    pub media: HashSet<String>,
+pub struct PreProcessedDocument {
+    pub media: HashSet<MediaReference>,
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
     pub ast: Vec<SevenMarkElement>,
@@ -20,7 +27,7 @@ pub struct ProcessedDocument {
 pub async fn preprocess_sevenmark(
     mut ast: Vec<SevenMarkElement>,
     wiki_client: &WikiClient,
-) -> Result<ProcessedDocument> {
+) -> Result<PreProcessedDocument> {
     // Substitute variables in main document
     let mut main_params = HashMap::new();
     substitute_variables(&mut ast, &mut main_params);
@@ -37,7 +44,7 @@ pub async fn preprocess_sevenmark(
     collect_includes(&ast, &mut includes_to_fetch);
 
     if includes_to_fetch.is_empty() {
-        return Ok(ProcessedDocument {
+        return Ok(PreProcessedDocument {
             ast,
             media: all_media,
             categories,
@@ -65,7 +72,7 @@ pub async fn preprocess_sevenmark(
     // Substitute includes with their content
     substitute_includes(&mut ast, &docs_map, &mut all_media);
 
-    Ok(ProcessedDocument {
+    Ok(PreProcessedDocument {
         ast,
         media: all_media,
         categories,
@@ -111,7 +118,7 @@ fn collect_metadata(
     elements: &[SevenMarkElement],
     categories: &mut HashSet<String>,
     redirect: &mut Option<String>,
-    media: &mut HashSet<String>,
+    media: &mut HashSet<MediaReference>,
     collect_categories_redirect: bool,
 ) {
     for element in elements {
@@ -129,23 +136,42 @@ fn collect_metadata_recursive(
     element: &SevenMarkElement,
     categories: &mut HashSet<String>,
     redirect: &mut Option<String>,
-    media: &mut HashSet<String>,
+    media: &mut HashSet<MediaReference>,
     collect_categories_redirect: bool,
 ) {
     match element {
         SevenMarkElement::MediaElement(m) => {
-            if let Some(url_param) = m.parameters.get("url") {
-                let url = extract_plain_text(&url_param.value);
-                if !url.is_empty() {
-                    media.insert(url);
-                }
-            }
+            // Collect #file parameter
             if let Some(file_param) = m.parameters.get("file") {
-                let file = extract_plain_text(&file_param.value);
-                if !file.is_empty() {
-                    media.insert(file);
+                let title = extract_plain_text(&file_param.value);
+                if !title.is_empty() {
+                    media.insert(MediaReference {
+                        namespace: DocumentNamespace::File,
+                        title,
+                    });
                 }
             }
+            // Collect #document parameter
+            if let Some(doc_param) = m.parameters.get("document") {
+                let title = extract_plain_text(&doc_param.value);
+                if !title.is_empty() {
+                    media.insert(MediaReference {
+                        namespace: DocumentNamespace::Document,
+                        title,
+                    });
+                }
+            }
+            // Collect #category parameter
+            if let Some(cat_param) = m.parameters.get("category") {
+                let title = extract_plain_text(&cat_param.value);
+                if !title.is_empty() {
+                    media.insert(MediaReference {
+                        namespace: DocumentNamespace::Category,
+                        title,
+                    });
+                }
+            }
+            // #url parameter is ignored (already a complete URL, no need to fetch)
         }
         SevenMarkElement::Category(cat) if collect_categories_redirect => {
             let name = extract_plain_text(&cat.content);
@@ -220,7 +246,7 @@ fn collect_includes_recursive(
 fn substitute_includes(
     elements: &mut [SevenMarkElement],
     docs_map: &HashMap<String, Vec<SevenMarkElement>>,
-    all_media: &mut HashSet<String>,
+    all_media: &mut HashSet<MediaReference>,
 ) {
     for element in elements {
         substitute_includes_recursive(element, docs_map, all_media);
@@ -230,7 +256,7 @@ fn substitute_includes(
 fn substitute_includes_recursive(
     element: &mut SevenMarkElement,
     docs_map: &HashMap<String, Vec<SevenMarkElement>>,
-    all_media: &mut HashSet<String>,
+    all_media: &mut HashSet<MediaReference>,
 ) {
     if let SevenMarkElement::Include(inc) = element {
         let title = extract_plain_text(&inc.content);

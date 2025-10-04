@@ -1,5 +1,5 @@
 use sevenmark::sevenmark::core::parse_document;
-use sevenmark::sevenmark::transform::{WikiClient, preprocess_sevenmark};
+use sevenmark::sevenmark::transform::{WikiClient, process_sevenmark};
 use std::fs;
 use std::time::Instant;
 
@@ -26,7 +26,7 @@ async fn main() {
     // Parse document first
     let ast = parse_document(&input_content);
 
-    let result = preprocess_sevenmark(ast, &wiki_client).await;
+    let result = process_sevenmark(ast, &wiki_client).await;
     let duration = start_time.elapsed();
 
     match result {
@@ -38,12 +38,7 @@ async fn main() {
             );
 
             println!("\n=== Processing Info ===");
-            println!("Media files: {} found", processed.media.len());
-            for media in &processed.media {
-                println!("  - {}", media);
-            }
-
-            println!("\nCategories: {} found", processed.categories.len());
+            println!("Categories: {} found", processed.categories.len());
             for category in &processed.categories {
                 println!("  - {}", category);
             }

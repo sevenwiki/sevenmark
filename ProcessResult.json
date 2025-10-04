@@ -1,261 +1,23 @@
 [
   {
-    "Include": {
+    "MediaElement": {
       "parameters": {
-        "x": {
-          "key": "x",
+        "file": {
+          "key": "file",
           "value": [
             {
               "Text": {
-                "content": "xsxs"
+                "content": "file1"
               }
             }
           ]
         }
       },
-      "content": [
-        {
-          "Include": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "content": "vv2"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "MediaElement": {
-            "parameters": {
-              "url": {
-                "key": "url",
-                "value": [
-                  {
-                    "Text": {
-                      "content": "awef"
-                    }
-                  }
-                ]
-              }
-            },
-            "content": []
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "Category": {
-            "content": [
-              {
-                "Text": {
-                  "content": "not"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "DefineElement": {
-            "parameters": {
-              "x": {
-                "key": "x",
-                "value": [
-                  {
-                    "Text": {
-                      "content": "xx"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "Text": {
-            "content": "xsxs"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Include": {
-      "parameters": {
-        "x": {
-          "key": "x",
-          "value": [
-            {
-              "Text": {
-                "content": "xsxs2"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Include": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "content": "vv2"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "MediaElement": {
-            "parameters": {
-              "url": {
-                "key": "url",
-                "value": [
-                  {
-                    "Text": {
-                      "content": "awef"
-                    }
-                  }
-                ]
-              }
-            },
-            "content": []
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "Category": {
-            "content": [
-              {
-                "Text": {
-                  "content": "not"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "DefineElement": {
-            "parameters": {
-              "x": {
-                "key": "x",
-                "value": [
-                  {
-                    "Text": {
-                      "content": "xx"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "Text": {
-            "content": " "
-          }
-        },
-        {
-          "Text": {
-            "content": "xsxs2"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Include": {
-      "parameters": {
-        "x": {
-          "key": "x",
-          "value": [
-            {
-              "Text": {
-                "content": "xsxs3"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "content": "vv2"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Include": {
-      "parameters": {
-        "x": {
-          "key": "x",
-          "value": [
-            {
-              "Text": {
-                "content": "xsxs4"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "content": "vv3"
-          }
-        }
-      ]
+      "content": [],
+      "resolved_info": {
+        "resolved_url": "file_url_aaaa",
+        "is_valid": true
+      }
     }
   },
   {
@@ -266,18 +28,27 @@
   {
     "MediaElement": {
       "parameters": {
-        "file": {
-          "key": "file",
+        "document": {
+          "key": "document",
           "value": [
             {
               "Text": {
-                "content": "aweaaaf"
+                "content": "vv1"
               }
             }
           ]
         }
       },
-      "content": []
+      "content": [],
+      "resolved_info": {
+        "resolved_url": "/document/vv1",
+        "is_valid": true
+      }
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
     }
   }
 ]

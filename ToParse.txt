@@ -1,5 +1,2 @@
-{{{#include #x="xsxs" vv1}}}
-{{{#include #x="xsxs2" vv1}}}
-{{{#include #x="xsxs3" vv2}}}
-{{{#include #x="xsxs4" vv3}}}
-[[#file="aweaaaf"]]
+[[#file="file1"]]
+[[#document="vv1"]]

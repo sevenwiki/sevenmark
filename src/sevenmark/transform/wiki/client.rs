@@ -4,6 +4,7 @@ use super::types::{
 };
 use anyhow::{Context, Result};
 use reqwest::Client as HttpClient;
+use tracing::debug;
 
 /// API endpoint constants
 const ENDPOINT_GET_BATCH: &str = "/v0/documents/get_raw_batch_by_namespace_and_title";
@@ -39,14 +40,17 @@ impl WikiClient {
         requests: Vec<(DocumentNamespace, String)>,
     ) -> Result<Vec<DocumentResponse>> {
         if requests.is_empty() {
+            debug!("No documents to fetch");
             return Ok(Vec::new());
         }
 
         let url = format!("{}{}", self.base_url, ENDPOINT_GET_BATCH);
         let mut all_documents = Vec::new();
 
+        debug!("Fetching {} total documents from wiki", requests.len());
+
         // 100개씩 chunk로 나눠서 처리 (100개 이하면 1번만 루프)
-        for chunk in requests.chunks(BATCH_SIZE_LIMIT) {
+        for (chunk_idx, chunk) in requests.chunks(BATCH_SIZE_LIMIT).enumerate() {
             let request_body = GetDocumentsBatchRequest {
                 documents: chunk
                     .iter()
@@ -57,6 +61,13 @@ impl WikiClient {
                     .collect(),
             };
 
+            debug!(
+                "Sending batch request {} with {} documents to {}",
+                chunk_idx + 1,
+                chunk.len(),
+                url
+            );
+
             let response = self
                 .client
                 .post(&url)
@@ -65,10 +76,13 @@ impl WikiClient {
                 .await
                 .context("Failed to send batch request to wiki backend")?;
 
-            if !response.status().is_success() {
+            let status = response.status();
+            debug!("Received response with status: {}", status);
+
+            if !status.is_success() {
                 return Err(anyhow::anyhow!(
                     "Wiki backend returned error: {}",
-                    response.status()
+                    status
                 ));
             }
 
@@ -77,8 +91,19 @@ impl WikiClient {
                 .await
                 .context("Failed to parse batch document response")?;
 
+            debug!(
+                "Batch {} returned {} documents",
+                chunk_idx + 1,
+                doc_list.documents.len()
+            );
+
             all_documents.extend(doc_list.documents);
         }
+
+        debug!(
+            "Successfully fetched {} documents total",
+            all_documents.len()
+        );
 
         Ok(all_documents)
     }

@@ -24,13 +24,14 @@ pub struct DocumentResponse {
     pub namespace: DocumentNamespace,
     pub title: String,
     pub current_revision: DocumentRevision,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file_url: Option<String>,
 }
 
 /// 문서 revision 정보
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DocumentRevision {
     pub content: String,
-    pub file_url: Option<String>,
 }
 
 // ===== Batch API Types =====

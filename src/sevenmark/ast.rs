@@ -122,6 +122,14 @@ pub struct MediaElement {
     pub location: Location,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resolved_info: Option<ResolvedMediaInfo>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct ResolvedMediaInfo {
+    pub resolved_url: String,
+    pub is_valid: bool,
 }
 
 /// 테이블 셀

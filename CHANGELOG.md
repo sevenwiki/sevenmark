@@ -5,6 +5,45 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.4] - 2025-10-04
+
+### Added
+- **Media Resolution System**: Complete postprocessing pipeline for media references
+  - Added `ResolvedMediaInfo` to `MediaElement` for storing resolved URLs and validation status
+  - Created `postprocessor` module for resolving media references to actual URLs
+  - File namespace references resolve to storage URLs via wiki API
+  - Document/Category namespace references generate proper page links (`/document/{title}`, `/category/{title}`)
+  - URL parameters pass through without additional processing
+  - Invalid references marked with `is_valid: false` for error handling
+
+- **Processing Pipeline**: Unified document processing with pre/post stages
+  - Created `processor` module combining preprocessing and postprocessing
+  - `process_sevenmark()` function orchestrates full pipeline automatically
+  - Seamless integration of include resolution and media resolution
+  - Single entry point for complete document transformation
+
+- **Type System Enhancements**: Improved type safety for media handling
+  - Added `MediaReference` type for tracking namespace+title pairs
+  - `PreProcessedDocument` now uses structured `MediaReference` instead of plain strings
+  - Better type safety for media collection and resolution workflow
+
+### Changed
+- **WikiClient Enhancement**: Added comprehensive debug logging
+  - Request logging shows each document being fetched with namespace:title format
+  - Response logging displays received documents and file_url presence
+  - Better visibility into wiki API interactions for debugging
+
+- **API Response Structure**: Fixed `DocumentResponse` to match backend schema
+  - Moved `file_url` from `DocumentRevision` to top-level `DocumentResponse`
+  - Corrected deserialization to handle actual API response format
+  - Aligned type definitions with backend API specification
+
+### Fixed
+- **Media Collection**: Preprocessor now correctly collects file/document/category references
+  - Fixed to use `MediaReference` with proper namespace tracking
+  - URL parameters no longer incorrectly added to fetch list
+  - Only file/document/category parameters trigger wiki API requests
+
 ## [2.2.0] - 2025-10-04
 
 ### Changed
