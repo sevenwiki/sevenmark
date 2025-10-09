@@ -14,6 +14,7 @@ use utoipa::ToSchema;
 pub struct ProcessedDocument {
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
+    pub includes: HashSet<(DocumentNamespace, String)>,
     #[schema(value_type = Vec<Object>)]
     pub ast: Vec<SevenMarkElement>,
 }
@@ -30,6 +31,7 @@ pub async fn postprocess_sevenmark(
         return Ok(ProcessedDocument {
             categories: preprocessed.categories,
             redirect: preprocessed.redirect,
+            includes: preprocessed.includes,
             ast,
         });
     }
@@ -92,6 +94,7 @@ pub async fn postprocess_sevenmark(
     Ok(ProcessedDocument {
         categories: preprocessed.categories,
         redirect: preprocessed.redirect,
+        includes: preprocessed.includes,
         ast,
     })
 }

@@ -1,2 +1,392 @@
 [[#file="file1"]]
 [[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}
+[[#file="file1"]]
+[[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}
+[[#file="file1"]]
+[[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}
+[[#file="file1"]]
+[[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}
+[[#file="file1"]]
+[[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}
+[[#file="file1"]]
+[[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}
+[[#file="file1"]]
+[[#document="vv1"]]
+
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}
+
+{{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}} {{{#include vv1}}}
+
+# SevenMark Parser API Documentation
+
+## Overview
+
+This document covers the **SevenMark** parsing engine implementation.
+
+{{{#fold #style="border:1px solid #ddd; margin:10px"
+[[**Table of Contents** _(click to expand)_]]
+[[
+{{{#list #1
+[[Introduction and Setup]]
+[[Core API Methods]]
+[[Error Handling]]
+[[Performance Considerations]]
+[[Examples and Tutorials]]
+}}}
+]]
+}}}
+
+## Core Methods
+
+{{{#table #style="border-collapse:collapse; width:100%"
+[[[[**Method**]] [[**Description**]] [[**Return Type**]]]]
+[[[[`parse_document()`]] [[Parses full SevenMark document]] [[`Vec<SevenMarkElement>`]]]]
+[[[[`element_parser()`]] [[Parses individual elements]] [[`Result<Vec<Element>>`]]]]
+}}}
+
+### Example Usage
+
+{{{#code #lang="rust" #style="background:#f8f8f8; padding:10px"
+use sevenmark::parse_document;
+
+fn main() {
+    let content = "**Hello** [now]";
+    let result = parse_document(content);
+    println!("Parsed: {:#?}", result);
+}
+}}}

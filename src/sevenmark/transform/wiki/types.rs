@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
 
 // ===== Backend API Types =====
 
 /// 문서 namespace (백엔드 API 스펙)
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash, ToSchema)]
 pub enum DocumentNamespace {
     Document,
     File,

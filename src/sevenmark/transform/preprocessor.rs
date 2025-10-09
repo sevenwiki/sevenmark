@@ -20,6 +20,7 @@ pub struct PreProcessedDocument {
     pub media: HashSet<MediaReference>,
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
+    pub includes: HashSet<(DocumentNamespace, String)>,
     pub ast: Vec<SevenMarkElement>,
 }
 
@@ -49,8 +50,12 @@ pub async fn preprocess_sevenmark(
             media: all_media,
             categories,
             redirect,
+            includes: HashSet::new(),
         });
     }
+
+    // Store includes for result
+    let collected_includes = includes_to_fetch.clone();
 
     // Prepare batch fetch requests
     let requests: Vec<_> = includes_to_fetch.into_iter().collect();
@@ -77,6 +82,7 @@ pub async fn preprocess_sevenmark(
         media: all_media,
         categories,
         redirect,
+        includes: collected_includes,
     })
 }
 
