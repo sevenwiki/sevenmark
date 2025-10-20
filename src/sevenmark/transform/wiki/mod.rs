@@ -1,6 +1,6 @@
-pub mod db;
+pub mod bridge;
 pub mod entity;
 pub mod types;
 
-pub use db::fetch_documents_batch;
+pub use bridge::fetch_documents_batch;
 pub use types::DocumentNamespace;
