@@ -5,6 +5,42 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2025-10-21
+### Changed
+- **Database Access**: Replaced HTTP API calls with direct database access
+  - Removed `WikiClient` and HTTP-based document fetching
+  - Implemented direct PostgreSQL queries using Sea ORM
+  - Added `bridge` module for database operations (`fetch_documents_batch`)
+  - Significantly improved performance by eliminating network overhead
+  - Removed unnecessary serialization/deserialization steps
+
+### Added
+- **Entity Structure**: Created organized entity modules for database tables
+  - Added `entity/document_metadata.rs` for document metadata table
+  - Added `entity/document_revisions.rs` for document revisions table
+  - Added `entity/document_files.rs` for document files table
+  - Type-safe entity aliases: `DocumentMetadata`, `DocumentMetadataColumn`, etc.
+  - Proper Sea ORM entity definitions with derives and relations
+
+- **Type System**: Enhanced `DocumentNamespace` with Sea ORM support
+  - Added `DeriveActiveEnum` and `EnumIter` derives to `DocumentNamespace`
+  - Direct mapping to PostgreSQL enum: `document`, `file`, `category`
+  - Unified type for both business logic and database operations
+
+### Removed
+- **Deprecated HTTP Layer**: Cleaned up unused HTTP API components
+  - Removed `client.rs` module (WikiClient implementation)
+  - Removed `GetDocumentRequest` type (HTTP-only)
+  - Removed `GetDocumentsBatchRequest` type (HTTP-only)
+  - Removed `DocumentListResponse` type (HTTP-only)
+  - Simplified `types.rs` to essential types only
+
+### Configuration
+- **Database Configuration**: Added PostgreSQL connection settings
+  - New environment variables: `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_NAME`
+  - Connection pool configuration: `POSTGRES_MAX_CONNECTION`, `POSTGRES_MIN_CONNECTION`
+  - Removed: `WIKI_SERVER_HOST`, `WIKI_SERVER_PORT` (no longer needed)
+
 ## [2.3.0] - 2025-10-04
 ### Added
 - **REST API Endpoints**: New document parsing HTTP endpoint
