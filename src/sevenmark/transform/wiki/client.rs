@@ -80,10 +80,7 @@ impl WikiClient {
             debug!("Received response with status: {}", status);
 
             if !status.is_success() {
-                return Err(anyhow::anyhow!(
-                    "Wiki backend returned error: {}",
-                    status
-                ));
+                return Err(anyhow::anyhow!("Wiki backend returned error: {}", status));
             }
 
             let doc_list = response

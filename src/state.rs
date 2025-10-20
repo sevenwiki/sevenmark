@@ -1,6 +1,6 @@
-use crate::sevenmark::transform::WikiClient;
+use sea_orm::DatabaseConnection;
 
 #[derive(Clone)]
 pub struct AppState {
-    pub wiki_client: WikiClient
+    pub db: DatabaseConnection,
 }

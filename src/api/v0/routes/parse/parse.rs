@@ -1,11 +1,11 @@
-use axum::extract::State;
-use axum::Json;
-use serde::Deserialize;
-use utoipa::ToSchema;
 use crate::errors::errors::Errors;
 use crate::parse_document;
-use crate::sevenmark::transform::{process_sevenmark, ProcessedDocument};
+use crate::sevenmark::transform::{ProcessedDocument, process_sevenmark};
 use crate::state::AppState;
+use axum::Json;
+use axum::extract::State;
+use serde::Deserialize;
+use utoipa::ToSchema;
 
 #[derive(Debug, Deserialize, ToSchema)]
 pub struct ParseDocumentRequest {
@@ -25,10 +25,10 @@ pub struct ParseDocumentRequest {
 )]
 pub async fn parse_endpoint(
     State(state): State<AppState>,
-    Json(payload): Json<ParseDocumentRequest>
+    Json(payload): Json<ParseDocumentRequest>,
 ) -> Result<Json<ProcessedDocument>, Errors> {
     let ast = parse_document(payload.content.as_str());
-    let result = process_sevenmark(ast, &state.wiki_client)
+    let result = process_sevenmark(ast, &state.db)
         .await
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
     Ok(Json(result))

@@ -1,8 +1,9 @@
 use crate::SevenMarkElement;
 use crate::sevenmark::core::parse_document;
-use crate::sevenmark::transform::wiki::{DocumentNamespace, WikiClient};
+use crate::sevenmark::transform::wiki::{DocumentNamespace, fetch_documents_batch};
 use crate::sevenmark::{Location, TextElement, Traversable};
 use anyhow::Result;
+use sea_orm::DatabaseConnection;
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 use tracing::{debug, warn};
@@ -27,7 +28,7 @@ pub struct PreProcessedDocument {
 /// Processes document with 1-depth include resolution
 pub async fn preprocess_sevenmark(
     mut ast: Vec<SevenMarkElement>,
-    wiki_client: &WikiClient,
+    db: &DatabaseConnection,
 ) -> Result<PreProcessedDocument> {
     // Substitute variables in main document
     let mut main_params = HashMap::new();
@@ -63,7 +64,7 @@ pub async fn preprocess_sevenmark(
     debug!("Fetching {} unique documents", requests.len());
 
     // Fetch all documents
-    let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
+    let fetched_docs = fetch_documents_batch(db, requests).await?;
 
     // Parse fetched documents and store in map
     let mut docs_map: HashMap<String, Vec<SevenMarkElement>> = HashMap::new();

@@ -2,8 +2,9 @@ use crate::SevenMarkElement;
 use crate::sevenmark::Traversable;
 use crate::sevenmark::ast::ResolvedMediaInfo;
 use crate::sevenmark::transform::preprocessor::PreProcessedDocument;
-use crate::sevenmark::transform::wiki::{DocumentNamespace, WikiClient};
+use crate::sevenmark::transform::wiki::{DocumentNamespace, fetch_documents_batch};
 use anyhow::Result;
+use sea_orm::DatabaseConnection;
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
@@ -22,7 +23,7 @@ pub struct ProcessedDocument {
 /// Processes document with media resolution
 pub async fn postprocess_sevenmark(
     preprocessed: PreProcessedDocument,
-    wiki_client: &WikiClient,
+    db: &DatabaseConnection,
 ) -> Result<ProcessedDocument> {
     let mut ast = preprocessed.ast;
 
@@ -45,8 +46,8 @@ pub async fn postprocess_sevenmark(
 
     debug!("Fetching {} unique media references", requests.len());
 
-    // Fetch all documents from wiki
-    let fetched_docs = wiki_client.fetch_documents_batch(requests).await?;
+    // Fetch all documents from database
+    let fetched_docs = fetch_documents_batch(db, requests).await?;
 
     // Build resolution map
     let mut resolved_map: HashMap<(DocumentNamespace, String), ResolvedMediaInfo> = HashMap::new();

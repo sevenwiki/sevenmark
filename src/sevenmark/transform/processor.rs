@@ -1,8 +1,8 @@
 use crate::SevenMarkElement;
-use crate::sevenmark::transform::postprocessor::{postprocess_sevenmark, ProcessedDocument};
+use crate::sevenmark::transform::postprocessor::{ProcessedDocument, postprocess_sevenmark};
 use crate::sevenmark::transform::preprocessor::preprocess_sevenmark;
-use crate::sevenmark::transform::wiki::WikiClient;
 use anyhow::Result;
+use sea_orm::DatabaseConnection;
 
 /// Processes SevenMark AST through preprocessing and postprocessing pipeline
 ///
@@ -11,13 +11,13 @@ use anyhow::Result;
 /// 2. Postprocessing: Media reference resolution (file URLs, document/category links)
 pub async fn process_sevenmark(
     ast: Vec<SevenMarkElement>,
-    wiki_client: &WikiClient,
+    db: &DatabaseConnection,
 ) -> Result<ProcessedDocument> {
     // Step 1: Preprocess - resolve includes and collect media references
-    let preprocessed = preprocess_sevenmark(ast, wiki_client).await?;
+    let preprocessed = preprocess_sevenmark(ast, db).await?;
 
     // Step 2: Postprocess - resolve media references to URLs
-    let processed = postprocess_sevenmark(preprocessed, wiki_client).await?;
+    let processed = postprocess_sevenmark(preprocessed, db).await?;
 
     Ok(processed)
 }

@@ -6,8 +6,13 @@ use std::sync::LazyLock;
 pub struct DbConfig {
     pub is_dev: bool,
 
-    pub wiki_server_host: String,
-    pub wiki_server_port: String,
+    pub db_user: String,
+    pub db_password: String,
+    pub db_host: String,
+    pub db_port: String,
+    pub db_name: String,
+    pub db_max_connection: u32,
+    pub db_min_connection: u32,
 
     pub server_host: String,
     pub server_port: String,
@@ -25,8 +30,19 @@ static CONFIG: LazyLock<DbConfig> = LazyLock::new(|| {
     DbConfig {
         is_dev,
 
-        wiki_server_host: env::var("WIKI_SERVER_HOST").unwrap_or_else(|_| "127.0.0.1".to_string()),
-        wiki_server_port: env::var("WIKI_SERVER_PORT").unwrap_or_else(|_| "8000".to_string()),
+        db_user: env::var("POSTGRES_USER").expect("POSTGRES_USER must be set"),
+        db_password: env::var("POSTGRES_PASSWORD").expect("POSTGRES_PASSWORD must be set"),
+        db_host: env::var("POSTGRES_HOST").expect("POSTGRES_HOST must be set"),
+        db_port: env::var("POSTGRES_PORT").expect("POSTGRES_PORT must be set"),
+        db_name: env::var("POSTGRES_NAME").expect("POSTGRES_NAME must be set"),
+        db_max_connection: env::var("POSTGRES_MAX_CONNECTION")
+            .ok()
+            .and_then(|v| v.parse().ok())
+            .unwrap_or(100),
+        db_min_connection: env::var("POSTGRES_MIN_CONNECTION")
+            .ok()
+            .and_then(|v| v.parse().ok())
+            .unwrap_or(10),
 
         server_host: env::var("HOST").expect("HOST must be set in .env file"),
         server_port: env::var("PORT").expect("PORT must be set in .env file"),

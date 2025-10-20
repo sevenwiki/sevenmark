@@ -1,5 +1,5 @@
 use sevenmark::sevenmark::core::parse_document;
-use sevenmark::sevenmark::transform::{WikiClient, process_sevenmark};
+use sevenmark::sevenmark::transform::{process_sevenmark, wiki::establish_connection};
 use std::fs;
 use std::time::Instant;
 
@@ -13,20 +13,17 @@ async fn main() {
 
     println!("Input ({} bytes):\n{}\n", document_len, "=".repeat(50));
 
-    // WikiClient 생성 (로컬 서버 사용)
-    let http_client = reqwest::Client::new();
-    let base_url =
-        std::env::var("WIKI_BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:8000".to_string());
-    let wiki_client = WikiClient::new(http_client, base_url.clone());
+    // Establish database connection
+    let db = establish_connection().await;
 
-    println!("Using wiki server: {}\n", base_url);
+    println!("Using database connection\n");
 
     let start_time = Instant::now();
 
     // Parse document first
     let ast = parse_document(&input_content);
 
-    let result = process_sevenmark(ast, &wiki_client).await;
+    let result = process_sevenmark(ast, &db).await;
     let duration = start_time.elapsed();
 
     match result {
@@ -65,7 +62,7 @@ async fn main() {
         }
         Err(e) => {
             eprintln!("Error processing document: {}", e);
-            eprintln!("\nMake sure wiki server is running at: {}", base_url);
+            eprintln!("\nMake sure database is accessible");
             std::process::exit(1);
         }
     }
