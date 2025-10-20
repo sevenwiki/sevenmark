@@ -18,4 +18,4 @@ pub use preprocessor::{MediaReference, PreProcessedDocument, preprocess_sevenmar
 #[cfg(feature = "transform")]
 pub use processor::process_sevenmark;
 #[cfg(feature = "transform")]
-pub use wiki::{DocumentNamespace, WikiClient};
+pub use wiki::DocumentNamespace;

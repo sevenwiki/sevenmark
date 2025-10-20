@@ -1,6 +1,6 @@
-use sea_orm::DatabaseConnection;
+use sea_orm::DatabaseConnection as PostgresqlClient;
 
 #[derive(Clone)]
 pub struct AppState {
-    pub db: DatabaseConnection,
+    pub conn: PostgresqlClient,
 }

@@ -28,7 +28,7 @@ pub async fn parse_endpoint(
     Json(payload): Json<ParseDocumentRequest>,
 ) -> Result<Json<ProcessedDocument>, Errors> {
     let ast = parse_document(payload.content.as_str());
-    let result = process_sevenmark(ast, &state.db)
+    let result = process_sevenmark(ast, &state.conn)
         .await
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
     Ok(Json(result))

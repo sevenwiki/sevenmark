@@ -8,8 +8,14 @@ use utoipa_swagger_ui::SwaggerUi;
 
 /// API + Swagger UI 라우터 통합
 pub fn api_routes(state: AppState) -> Router<AppState> {
-    Router::new()
-        .merge(SwaggerUi::new("/docs").url("/swagger.json", ApiDoc::merged()))
+    let mut router = Router::new();
+
+    #[cfg(debug_assertions)]
+    {
+        router = router.merge(SwaggerUi::new("/docs").url("/swagger.json", ApiDoc::merged()));
+    }
+
+    router
         .nest("/v0", HealthRoutes())
         .nest("/v0", ParseRoutes(state.clone()))
         .fallback(handler_404)

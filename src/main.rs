@@ -2,9 +2,8 @@
 use {
     axum::Router,
     sevenmark::{
-        api::api_routes, config::db_config::DbConfig,
-        sevenmark::transform::wiki::establish_connection, state::AppState,
-        utils::logger::init_tracing,
+        api::api_routes, config::db_config::DbConfig, connection::database::establish_connection,
+        state::AppState, utils::logger::init_tracing,
     },
     std::net::SocketAddr,
 };
@@ -12,7 +11,7 @@ use {
 #[cfg(feature = "server")]
 pub async fn run_server() -> anyhow::Result<()> {
     // Establish database connection
-    let db = establish_connection().await;
+    let conn = establish_connection().await;
 
     let server_url = format!(
         "{}:{}",
@@ -20,7 +19,7 @@ pub async fn run_server() -> anyhow::Result<()> {
         &DbConfig::get().server_port
     );
 
-    let state = AppState { db };
+    let state = AppState { conn };
 
     let app = Router::new()
         .merge(api_routes(state.clone()))
