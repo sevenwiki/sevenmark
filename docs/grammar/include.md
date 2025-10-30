@@ -9,24 +9,54 @@ The Include element allows you to embed content from other pages or templates in
 Include content from another page by name:
 
 ```sevenmark
-{{{#include PageName }}}
-{{{#include HeaderTemplate }}}
-{{{#include CommonFooter }}}
+{{{#include
+PageName
+}}}
+
+{{{#include
+HeaderTemplate
+}}}
+
+{{{#include
+CommonFooter
+}}}
+```
+
+## Include with Namespace
+
+Specify the namespace of the included page using the `#namespace` parameter (default: `Document`):
+
+```sevenmark
+{{{#include #namespace="Document"
+PageName
+}}}
+
+{{{#include #namespace="File"
+TemplateFile
+}}}
+
+{{{#include #namespace="Category"
+CategoryPage
+}}}
 ```
 
 ## Include with Parameters
 
-Include elements support optional parameters that can be used to pass data to the included content:
+Include elements support optional parameters that can be passed to the included content:
 
 ```sevenmark
-{{{#include #page="TemplatePage" Content to pass }}}
-{{{#include #page="Header" #style="color:blue" Custom styled header }}}
-{{{#include #param1="value1" #param2="value2" Template content }}}
+{{{#include #param1="value1" #param2="value2"
+TemplatePage
+}}}
+
+{{{#include #title="Custom Title" #author="John Doe"
+ArticleTemplate
+}}}
 ```
 
-Parameters can include:
-- Standard SevenMark parameters: `#style`, `#size`, `#color`, `#bg_color`, `#opacity`
-- Custom parameters for template processing: `#page`, `#topic`, `#author`, etc.
+Parameters (excluding `#namespace`) are passed to the included document and can be used with the variable system:
+- Any custom parameters you define: `#title`, `#author`, `#date`, etc.
+- These parameters override variables defined in the included document
 
 ## Include Use Cases
 
@@ -35,13 +65,15 @@ Parameters can include:
 ```sevenmark
 # Article Title
 
-{{{#include #page="ArticleHeader" #author="John Doe" #date="2024-01-15"
-Programming Tutorial
+{{{#include #author="John Doe" #date="2024-01-15"
+ArticleHeader
 }}}
 
 Main article content here...
 
-{{{#include ArticleFooter }}}
+{{{#include
+ArticleFooter
+}}}
 ```
 
 ### Common Sections
@@ -49,24 +81,28 @@ Main article content here...
 ```sevenmark
 # Documentation Page
 
-{{{#include WarningBanner }}}
+{{{#include
+WarningBanner
+}}}
 
 ## Content
 
 Documentation goes here...
 
-{{{#include RelatedLinks }}}
+{{{#include
+RelatedLinks
+}}}
 ```
 
 ### Parameterized Content
 
 ```sevenmark
-{{{#include #page="ProductCard" #name="Laptop" #price="$1200" #stock="5"
-High-performance laptop for developers
+{{{#include #name="Laptop" #price="$1200" #stock="5"
+ProductCard
 }}}
 
-{{{#include #page="ProductCard" #name="Mouse" #price="$30" #stock="20"
-Ergonomic wireless mouse
+{{{#include #name="Mouse" #price="$30" #stock="20"
+ProductCard
 }}}
 ```
 
@@ -75,22 +111,29 @@ Ergonomic wireless mouse
 ```sevenmark
 # Programming Tutorial
 
-{{{#include #page="IntroTemplate" #topic="Programming" #level="Beginner"
-This tutorial covers fundamental programming concepts.
+{{{#include #topic="Programming" #level="Beginner"
+IntroTemplate
 }}}
 
 ## Variables and Data Types
 
 Variables store data that can be used throughout your program...
 
-{{{#include CodeExampleTemplate }}}
+{{{#include
+CodeExampleTemplate
+}}}
 
 ## Control Flow
 
 Control flow determines the order in which code executes...
 
-{{{#category Programming }}}
-{{{#category Tutorials }}}
+{{{#category
+Programming
+}}}
+
+{{{#category
+Tutorials
+}}}
 ```
 
 ## Technical Details

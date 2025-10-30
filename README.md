@@ -167,8 +167,12 @@ Welcome to [var(projectName)] version [var(version)]!
 
 **Include (Transclusion):**
 ```sevenmark
-{{{#include #page="PageName"
-Content to include
+{{{#include
+PageName
+}}}
+
+{{{#include #namespace="Document"
+PageName
 }}}
 ```
 

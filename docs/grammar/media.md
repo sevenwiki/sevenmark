@@ -32,6 +32,25 @@ Provide both local file and backup URL:
 [[#file="document.pdf" #url="https://backup.com/doc.pdf" PDF document]]
 ```
 
+### Wiki Page Links
+
+Link to wiki pages using the `#document` parameter:
+
+```sevenmark
+[[#document="HomePage" Home]]
+[[#document="API Reference" API Documentation]]
+[[#document="Tutorial" Getting Started Guide]]
+```
+
+### Category Links
+
+Link to category pages using the `#category` parameter:
+
+```sevenmark
+[[#category="Programming Languages" Category Page]]
+[[#category="Rust" All Rust Articles]]
+```
+
 ## Hyperlinks
 
 Create hyperlinks using the `#url` parameter:
@@ -77,6 +96,31 @@ SevenMark media elements can handle various file types:
 [[#file="video.mp4" Video File]]
 [[#file="audio.mp3" Audio File]]
 ```
+
+## Media Parameter Priority
+
+When multiple parameters are specified, they are resolved in this priority order:
+
+1. `#file` - Highest priority
+2. `#document` - Second priority
+3. `#category` - Third priority
+4. `#url` - Lowest priority (fallback)
+
+Example:
+
+```sevenmark
+// This will use #file (highest priority)
+[[#file="image.png" #url="https://example.com/image.jpg" My Image]]
+
+// This will use #document (only #document and #url specified)
+[[#document="HomePage" #url="https://example.com" Home Link]]
+```
+
+The preprocessing stage resolves media references to actual URLs:
+- **File namespace**: Resolved to storage URLs via API
+- **Document namespace**: Generates `/document/{title}` links
+- **Category namespace**: Generates `/category/{title}` links
+- **URL parameter**: Passes through unchanged
 
 ## Advanced Usage
 

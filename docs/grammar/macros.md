@@ -121,6 +121,7 @@ For assistance, contact [var(companyName)] support at [var(supportEmail)].
 
 - Variables are resolved in a **forward-only** manner to prevent circular dependencies
 - Variables must be defined before they are used
+- **Variable shadowing**: Later definitions override earlier ones with the same name
 - Variable substitution occurs during the preprocessing stage
 - Variables can be used in any SevenMark element after definition
 

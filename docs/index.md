@@ -58,7 +58,7 @@ Current time: [now] // This is a comment
 - `**bold**`, `*italic*`, `__underline__`, `~~strikethrough~~`
 - `^^superscript^^`, `,,subscript,,`
 - Headers: `# ## ### #### ##### ######`
-- Collapsible headers: `## Header-`
+- Collapsible headers: `##! Header` (exclamation after `#`)
 
 ### Block Elements
 
@@ -73,18 +73,22 @@ Current time: [now] // This is a comment
 
 - Images: `[[#file="image.png" Alt text]]`
 - Links: `[[#url="https://example.com" Link text]]`
+- Wiki Pages: `[[#document="PageName" Link text]]`
+- Categories: `[[#category="CategoryName" Link text]]`
 - Files: `[[#file="doc.pdf" #url="backup" Document]]`
 
 ### Wiki Features
 
-- Include: `{{{#include #page="PageName" content }}}`
+- Include: `{{{#include PageName }}}` or `{{{#include #namespace="Document" PageName }}}`
 - Category: `{{{#category Category Name }}}`
 - Redirect: `{{{#redirect TargetPage }}}`
 
 ### Advanced Features
 
 - Comments: `// inline` and `/* multiline */`
-- Macros: `[now]`, `[age(1990-01-01)]`, `[br]`
+- Macros: `[now]`, `[age(1990-01-01)]`, `[var(name)]`, `[br]`, `[fn]`, `[null]`
+- Variables: `{{{#define #name="key" #value="val"}}}` + `[var(key)]`
+- Variable Shadowing: Later definitions override earlier ones
 - Styling: `{{{ #style="css" #color="red" content }}}`
 - Parameters: `#style`, `#color`, `#size`, `#x`, `#y`
 - Escaping: `\*literal\*`, `\{\{\{not-element\}\}\}`
