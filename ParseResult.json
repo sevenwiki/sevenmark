@@ -1,14 +1,74 @@
 [
   {
-    "Include": {
-      "parameters": {},
-      "content": [
-        {
-          "Text": {
-            "content": "n_new1"
-          }
+    "DefineElement": {
+      "parameters": {
+        "xx": {
+          "key": "xx",
+          "value": [
+            {
+              "Text": {
+                "content": "123"
+              }
+            }
+          ]
         }
-      ]
+      }
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Variable": {
+      "content": "xx"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "DefineElement": {
+      "parameters": {
+        "xx": {
+          "key": "xx",
+          "value": [
+            {
+              "Text": {
+                "content": "another 123"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Variable": {
+      "content": "xx"
     }
   }
 ]

@@ -20,7 +20,6 @@ fn main() {
     fs::write("ParseResult.json", &json_output).ok();
 
     println!("\nResult saved to ParseResult.json");
-    println!("Preprocessing info saved to PreprocessInfo.json");
     println!(
         "Performance: {:.2} KB/s",
         document_len as f64 / 1024.0 / duration.as_secs_f64()

@@ -1,25 +1,21 @@
 {
   "categories": [],
   "redirect": null,
+  "includes": [],
   "ast": [
     {
-      "MediaElement": {
+      "DefineElement": {
         "parameters": {
-          "file": {
-            "key": "file",
+          "xx": {
+            "key": "xx",
             "value": [
               {
                 "Text": {
-                  "content": "file1"
+                  "content": "123"
                 }
               }
             ]
           }
-        },
-        "content": [],
-        "resolved_info": {
-          "resolved_url": "file_url_aaaa",
-          "is_valid": true
         }
       }
     },
@@ -29,29 +25,77 @@
       }
     },
     {
-      "MediaElement": {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "123"
+      }
+    },
+    {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "DefineElement": {
         "parameters": {
-          "document": {
-            "key": "document",
+          "xx": {
+            "key": "xx",
             "value": [
               {
                 "Text": {
-                  "content": "vv1"
+                  "content": "another 123"
                 }
               }
             ]
           }
-        },
-        "content": [],
-        "resolved_info": {
-          "resolved_url": "/document/vv1",
-          "is_valid": true
         }
       }
     },
     {
       "Text": {
         "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "StyledElement": {
+        "parameters": {
+          "adcs": {
+            "key": "adcs",
+            "value": [
+              {
+                "Text": {
+                  "content": "another 123"
+                }
+              }
+            ]
+          }
+        },
+        "content": [
+          {
+            "Text": {
+              "content": "asdasdasd"
+            }
+          },
+          {
+            "Text": {
+              "content": "\n"
+            }
+          }
+        ]
       }
     }
   ]

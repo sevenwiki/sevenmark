@@ -101,7 +101,7 @@ fn substitute_variables_recursive(
         for (key, param) in &def.parameters {
             let value = extract_plain_text(&param.value);
             if !value.is_empty() {
-                params.entry(key.clone()).or_insert(value);
+                params.insert(key.clone(), value);
             }
         }
     }

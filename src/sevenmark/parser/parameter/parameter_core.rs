@@ -1,4 +1,4 @@
-use crate::sevenmark::ParserInput;
+use crate::sevenmark::{Location, ParserInput};
 use crate::sevenmark::ast::{Parameter, Parameters};
 use crate::sevenmark::parser::parameter::parameter_content::parameter_content_parser;
 use std::collections::BTreeMap;
@@ -32,7 +32,7 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
     let value = value_opt.unwrap_or_else(Vec::new);
 
     let parameter = Parameter {
-        location: crate::sevenmark::ast::Location { start, end },
+        location: Location { start, end },
         key: key_string.clone(),
         value,
     };
