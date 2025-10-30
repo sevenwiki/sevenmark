@@ -10,6 +10,8 @@ pub mod escape;
 mod r#macro;
 pub mod markdown;
 mod parameter;
+
+mod expr;
 pub mod text;
 pub mod token;
 mod utils;
