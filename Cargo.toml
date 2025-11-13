@@ -1,8 +1,8 @@
 [workspace]
 members = [
-    "crates/sevenmark-parser",
-    "crates/sevenmark-transform",
-    "crates/sevenmark-server",
+    "sevenmark-parser",
+    "sevenmark-transform",
+    "sevenmark-server",
 ]
 resolver = "2"
 
@@ -17,8 +17,8 @@ rust-version = "1.91.1"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { version = "2.4.1", path = "crates/sevenmark-parser" }
-sevenmark-transform = { version = "2.4.1", path = "crates/sevenmark-transform" }
+sevenmark-parser = { version = "2.4.1", path = "sevenmark-parser" }
+sevenmark-transform = { version = "2.4.1", path = "sevenmark-transform" }
 
 # Shared dependencies (used by multiple crates)
 serde = { version = "1.0.228", features = ["derive"] }

@@ -1,0 +1,43 @@
+[package]
+name = "sevenmark-server"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+# Internal
+sevenmark-parser = { workspace = true }
+sevenmark-transform = { workspace = true }
+
+# Web framework
+axum = { version = "0.8.6", features = ["multipart", "macros"] }
+tokio = { version = "1.48.0", features = ["full"] }
+
+# Database
+sea-orm = { workspace = true }
+
+# API documentation
+utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
+utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"] }
+
+# Utilities
+dotenvy = "0.15.7"
+uuid = { version = "1.18.1", features = ["v7"] }
+validator = "0.20.0"
+
+# Logging
+tracing = { workspace = true }
+tracing-subscriber = "0.3.20"
+tracing-appender = "0.2.3"
+
+# Shared
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+
+[[bin]]
+name = "sevenmark-server"
+path = "src/main.rs"
