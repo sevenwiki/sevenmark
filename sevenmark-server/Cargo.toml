@@ -6,6 +6,7 @@ license.workspace = true
 repository.workspace = true
 edition.workspace = true
 rust-version.workspace = true
+description = "sevenmark/server"
 
 [dependencies]
 # Internal
@@ -25,12 +26,10 @@ utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"] }
 
 # Utilities
 dotenvy = "0.15.7"
-uuid = { version = "1.18.1", features = ["v7"] }
-validator = "0.20.0"
 
 # Logging
 tracing = { workspace = true }
-tracing-subscriber = "0.3.20"
+tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
 tracing-appender = "0.2.3"
 
 # Shared

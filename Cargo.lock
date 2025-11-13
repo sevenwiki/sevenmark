@@ -1221,6 +1221,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34080505efa8e45a4b816c349525ebe327ceaa8559756f0356cba97ef3bf7432"
 
 [[package]]
+name = "matchers"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d1525a2a28c7f4fa0fc98bb91ae755d1e2d1505079e05539e35bc876b5d65ae9"
+dependencies = [
+ "regex-automata",
+]
+
+[[package]]
 name = "matchit"
 version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2136,7 +2145,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.5.3"
+version = "2.5.4"
 dependencies = [
  "line-span",
  "paste",
@@ -2147,7 +2156,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.5.3"
+version = "2.5.4"
 dependencies = [
  "anyhow",
  "axum",
@@ -2163,13 +2172,11 @@ dependencies = [
  "tracing-subscriber",
  "utoipa",
  "utoipa-swagger-ui",
- "uuid",
- "validator",
 ]
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.5.3"
+version = "2.5.4"
 dependencies = [
  "anyhow",
  "js-sys",
@@ -2862,10 +2869,14 @@ version = "0.3.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2054a14f5307d601f88daf0553e1cbf472acc4f2c51afab632431cdcd72124d5"
 dependencies = [
+ "matchers",
  "nu-ansi-term",
+ "once_cell",
+ "regex-automata",
  "sharded-slab",
  "smallvec",
  "thread_local",
+ "tracing",
  "tracing-core",
  "tracing-log",
 ]
@@ -2981,25 +2992,9 @@ version = "1.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2f87b8aa10b915a06587d0dec516c282ff295b475d94abf425d62b57710070a2"
 dependencies = [
- "getrandom 0.3.4",
  "js-sys",
  "serde",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "validator"
-version = "0.20.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43fb22e1a008ece370ce08a3e9e4447a910e92621bb49b85d6e48a45397e7cfa"
-dependencies = [
- "idna",
- "once_cell",
- "regex",
- "serde",
- "serde_derive",
- "serde_json",
- "url",
 ]
 
 [[package]]
