@@ -1,14 +1,11 @@
-use crate::config::db_config::DbConfig;
-use crate::errors::protocol::document::{DOCUMENT_NOT_FOUND, DOCUMENT_REVISION_NOT_FOUND};
-use crate::errors::protocol::general::{BAD_REQUEST, VALIDATION_ERROR};
-use crate::errors::protocol::system::{SYS_DATABASE_ERROR, SYS_INTERNAL_ERROR, SYS_NOT_FOUND};
+use crate::errors::handlers::{document_handler, general_handler, system_handler};
 use axum::Json;
 use axum::extract::Request;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use sea_orm::DbErr;
 use serde::Serialize;
-use tracing::{debug, error, warn};
+use tracing::error;
 use utoipa::ToSchema;
 // 이 모듈은 애플리케이션의 오류 처리 시스템을 구현합니다.
 // 주요 기능:
@@ -65,56 +62,25 @@ pub enum Errors {
 // 중앙집중식 로깅도 여기서 처리
 impl IntoResponse for Errors {
     fn into_response(self) -> Response {
-        // 에러 레벨에 따른 중앙집중식 로깅
-        match &self {
-            // 시스템 심각도 에러 - error! 레벨
-            Errors::SysInternalError(_) | Errors::DatabaseError(_) => {
-                error!("System error occurred: {:?}", self);
-            }
+        // 도메인별 handler를 통한 중앙집중식 로깅
+        document_handler::log_error(&self);
+        general_handler::log_error(&self);
+        system_handler::log_error(&self);
 
-            // 비즈니스 로직 에러 - debug! 레벨 (클라이언트 실수)
-            Errors::BadRequestError(_) | Errors::ValidationError(_) => {
-                debug!("Client error: {:?}", self);
-            }
+        // 도메인별 handler를 통한 HTTP 응답 매핑
+        let (status, code, details) = document_handler::map_response(&self)
+            .or_else(|| general_handler::map_response(&self))
+            .or_else(|| system_handler::map_response(&self))
+            .unwrap_or_else(|| {
+                // Fallback: 처리되지 않은 에러
+                error!("Unhandled error: {:?}", self);
+                (StatusCode::INTERNAL_SERVER_ERROR, "UNKNOWN_ERROR", None)
+            });
 
-            Errors::DocumentNotFound | Errors::DocumentRevisionNotFound | Errors::NotFound(_) => {
-                warn!("Resource not found: {:?}", self);
-            }
-        }
-
-        // 오류 유형에 따라 상태 코드, 오류 코드, 상세 정보를 결정
-        let (status, code, details) = match self {
-            Errors::DocumentNotFound => (StatusCode::NOT_FOUND, DOCUMENT_NOT_FOUND, None),
-            Errors::DocumentRevisionNotFound => {
-                (StatusCode::NOT_FOUND, DOCUMENT_REVISION_NOT_FOUND, None)
-            }
-            // 일반 오류 - 400 Bad Request
-            Errors::BadRequestError(msg) => (StatusCode::BAD_REQUEST, BAD_REQUEST, Some(msg)),
-            Errors::ValidationError(msg) => (StatusCode::BAD_REQUEST, VALIDATION_ERROR, Some(msg)),
-
-            // 시스템 오류 - 주로 500 Internal Server Error
-            Errors::SysInternalError(msg) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                SYS_INTERNAL_ERROR,
-                Some(msg),
-            ),
-
-            Errors::DatabaseError(msg) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                SYS_DATABASE_ERROR,
-                Some(msg),
-            ),
-            Errors::NotFound(msg) => (StatusCode::NOT_FOUND, SYS_NOT_FOUND, Some(msg)),
-        };
-
-        // 개발 환경에서만 상세 오류 정보 포함
-        let is_dev = DbConfig::get().is_dev;
-
-        // 오류 응답 구성
         let body = ErrorResponse {
             status: status.as_u16(),
             code: code.to_string(),
-            details: if is_dev { details } else { None }, // 개발 환경에서만 상세 정보 표시
+            details,
         };
 
         // HTTP 응답으로 변환하여 반환
