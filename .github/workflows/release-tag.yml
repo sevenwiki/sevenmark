@@ -40,19 +40,19 @@ jobs:
       - name: Build WASM (Web)
         working-directory: ./sevenmark-transform
         run: |
-          wasm-pack build --target web --features wasm --no-default-features
+          wasm-pack build --target web --features wasm
           cp -r pkg ../pkg-web
 
       - name: Build WASM (Bundler)
         working-directory: ./sevenmark-transform
         run: |
-          wasm-pack build --target bundler --features wasm --no-default-features
+          wasm-pack build --target bundler --features wasm
           cp -r pkg ../pkg-bundler
 
       - name: Build WASM (Node.js)
         working-directory: ./sevenmark-transform
         run: |
-          wasm-pack build --target nodejs --features wasm --no-default-features
+          wasm-pack build --target nodejs --features wasm
           cp -r pkg ../pkg-nodejs
 
       - name: Create archives

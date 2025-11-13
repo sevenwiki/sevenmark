@@ -32,7 +32,7 @@ js-sys = { version = "0.3.82", optional = true }
 web-sys = { version = "0.3.82", optional = true }
 
 [features]
-default = ["server"]
+default = []
 server = ["sea-orm", "uuid", "utoipa", "tracing"]
 wasm = ["wasm-bindgen", "js-sys", "web-sys", "sevenmark-parser/include_locations"]
 

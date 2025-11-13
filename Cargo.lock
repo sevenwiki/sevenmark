@@ -2145,7 +2145,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.5.6"
+version = "2.5.7"
 dependencies = [
  "line-span",
  "paste",
@@ -2156,7 +2156,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.5.6"
+version = "2.5.7"
 dependencies = [
  "anyhow",
  "axum",
@@ -2176,7 +2176,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.5.6"
+version = "2.5.7"
 dependencies = [
  "anyhow",
  "js-sys",

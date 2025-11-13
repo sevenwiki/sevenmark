@@ -50,12 +50,12 @@ jobs:
 
       - name: Test WASM build (Web)
         working-directory: ./sevenmark-transform
-        run: wasm-pack build --target web --features wasm --no-default-features
+        run: wasm-pack build --target web --features wasm
 
       - name: Test WASM build (Bundler)
         working-directory: ./sevenmark-transform
-        run: wasm-pack build --target bundler --features wasm --no-default-features
+        run: wasm-pack build --target bundler --features wasm
 
       - name: Test WASM build (Node.js)
         working-directory: ./sevenmark-transform
-        run: wasm-pack build --target nodejs --features wasm --no-default-features
+        run: wasm-pack build --target nodejs --features wasm
