@@ -1,0 +1,28 @@
+use super::super::parameter::parameter_core_parser;
+use super::fold::fold_core_parser;
+use crate::ast::{FoldElement, SevenMarkElement};
+use crate::{Location, ParserInput};
+use winnow::Result;
+use winnow::combinator::{delimited, opt};
+use winnow::prelude::*;
+use winnow::stream::Location as StreamLocation;
+use winnow::token::literal;
+
+pub fn brace_fold_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+    let start = parser_input.input.current_token_start();
+
+    let (parameters, parsed_content) = delimited(
+        literal("{{{#fold"),
+        (opt(parameter_core_parser), fold_core_parser),
+        literal("}}}"),
+    )
+    .parse_next(parser_input)?;
+
+    let end = parser_input.input.previous_token_end();
+
+    Ok(SevenMarkElement::FoldElement(FoldElement {
+        location: Location { start, end },
+        parameters: parameters.unwrap_or_default(),
+        content: parsed_content,
+    }))
+}

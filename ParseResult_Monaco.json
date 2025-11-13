@@ -68,18 +68,6 @@
   },
   {
     "StyledElement": {
-      "parameters": {
-        "adcs": {
-          "key": "adcs",
-          "value": [
-            {
-              "Variable": {
-                "content": "xx"
-              }
-            }
-          ]
-        }
-      },
       "content": [
         {
           "Text": {
@@ -91,7 +79,19 @@
             "content": "\n"
           }
         }
-      ]
+      ],
+      "parameters": {
+        "adcs": {
+          "key": "adcs",
+          "value": [
+            {
+              "Variable": {
+                "content": "xx"
+              }
+            }
+          ]
+        }
+      }
     }
   }
 ]

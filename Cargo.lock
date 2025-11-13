@@ -2303,19 +2303,32 @@ dependencies = [
 ]
 
 [[package]]
-name = "sevenmark"
+name = "sevenmark-parser"
+version = "2.4.1"
+dependencies = [
+ "anyhow",
+ "js-sys",
+ "line-span",
+ "paste",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "web-sys",
+ "winnow",
+]
+
+[[package]]
+name = "sevenmark-server"
 version = "2.4.1"
 dependencies = [
  "anyhow",
  "axum",
  "dotenvy",
- "js-sys",
- "line-span",
- "paste",
- "reqwest",
  "sea-orm",
  "serde",
  "serde_json",
+ "sevenmark-parser",
+ "sevenmark-transform",
  "tokio",
  "tracing",
  "tracing-appender",
@@ -2324,9 +2337,22 @@ dependencies = [
  "utoipa-swagger-ui",
  "uuid",
  "validator",
- "wasm-bindgen",
- "web-sys",
- "winnow",
+]
+
+[[package]]
+name = "sevenmark-transform"
+version = "2.4.1"
+dependencies = [
+ "anyhow",
+ "line-span",
+ "reqwest",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "sevenmark-parser",
+ "tracing",
+ "utoipa",
+ "uuid",
 ]
 
 [[package]]

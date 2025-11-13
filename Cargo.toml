@@ -1,64 +1,31 @@
-[package]
-name = "sevenmark"
-version = "2.4.1"
-authors = [
-    "Levi Lim <shiueo.csh@gmail.com>",
+[workspace]
+members = [
+    "crates/sevenmark-parser",
+    "crates/sevenmark-transform",
+    "crates/sevenmark-server",
 ]
+resolver = "2"
+
+[workspace.package]
+version = "2.4.1"
+authors = ["Levi Lim <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
 description = "A DSL designed for Sevenwiki"
 edition = "2024"
-rust-version = "1.91.0"
+rust-version = "1.91.1"
 
-[dependencies]
-anyhow = "1.0.100"
-winnow = {version = "0.7.13", features = ["simd"] }
-serde = {version = "1.0.228", features = ["derive"]}
+[workspace.dependencies]
+# Internal crates
+sevenmark-parser = { version = "2.4.1", path = "crates/sevenmark-parser" }
+sevenmark-transform = { version = "2.4.1", path = "crates/sevenmark-transform" }
+
+# Shared dependencies (used by multiple crates)
+serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.145"
-paste = "1.0.15"
-line-span = "0.1.5"
-tracing = { version = "0.1.41" }
-
-# Server dependencies
-axum = { version = "0.8.6", features = ["multipart", "macros"], optional = true }
-dotenvy = { version = "0.15.7", optional = true }
-sea-orm = {version = "2.0.0-rc.18", features = ["sqlx-postgres", "runtime-tokio-native-tls"], optional = true}
-utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"], optional = true }
-utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"], optional = true }
-tokio = { version = "1.48.0", features = ["full"], optional = true }
-tracing-subscriber = { version = "0.3.20", optional = true }
-tracing-appender = { version = "0.2.3", optional = true }
-uuid = { version = "1.18.1", features = ["v7"], optional = true }
-reqwest = { version = "0.12.24", features = ["json", "multipart"], optional = true }
-validator = { version = "0.20.0", optional = true }
-
-# WASM dependencies
-wasm-bindgen = { version = "0.2.105", optional = true }
-js-sys = { version = "0.3.82", optional = true }
-web-sys = { version = "0.3.82", optional = true }
-
-[features]
-default = ["server", "transform"]
-transform = [ "reqwest"]
-server = ["uuid","transform", "axum", "validator", "dotenvy", "tokio", "tracing-subscriber", "tracing-appender", "sea-orm", "utoipa", "utoipa-swagger-ui"]
-wasm = [ "wasm-bindgen", "js-sys", "web-sys"]
-include_locations = []
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[[bin]]
-name = "sevenmark-server"
-path = "src/main.rs"
-
-[[bin]]
-name = "svm_file"
-path = "src/bin/svm_file.rs"
-required-features = []
-
-[[bin]]
-name = "parse"
-path = "src/bin/parse.rs"
+anyhow = "1.0.100"
+sea-orm = { version = "2.0.0-rc.18", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
+tracing = "0.1.41"
 
 [profile.dev]
 opt-level = 1
