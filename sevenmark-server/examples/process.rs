@@ -1,5 +1,5 @@
 use sevenmark_parser::core::parse_document;
-use sevenmark_server::connection::database::establish_connection;
+use sevenmark_server::connection::database_conn::establish_connection;
 use sevenmark_transform::process_sevenmark;
 use std::fs;
 use std::time::Instant;

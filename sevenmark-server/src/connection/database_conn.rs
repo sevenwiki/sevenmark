@@ -16,15 +16,25 @@ use tracing::{error, info};
 /// * `DatabaseConnection` - The successfully established database connection object.
 pub async fn establish_connection() -> DatabaseConnection {
     // Retrieve database connection information from the environment and build the URL
+    let db_config = DbConfig::get();
     let database_url = format!(
         "postgres://{}:{}@{}:{}/{}",
-        &DbConfig::get().db_user,
-        &DbConfig::get().db_password,
-        &DbConfig::get().db_host,
-        &DbConfig::get().db_port,
-        &DbConfig::get().db_name
+        &db_config.db_user,
+        &db_config.db_password,
+        &db_config.db_host,
+        &db_config.db_port,
+        &db_config.db_name
     );
-    info!("Attempting to connect to database: {}", database_url);
+
+    let masked_url = format!(
+        "postgres://{}:{}@{}:{}/{}",
+        &db_config.db_user,
+        "*".repeat(db_config.db_password.len()),
+        &db_config.db_host,
+        &db_config.db_port,
+        &db_config.db_name
+    );
+    info!("Attempting to connect to database: {}", masked_url);
 
     // Configure connection options
     let mut options = ConnectOptions::new(database_url);

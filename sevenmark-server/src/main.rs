@@ -1,5 +1,5 @@
 use axum::Router;
-use sevenmark_server::database::establish_connection;
+use sevenmark_server::database_conn::establish_connection;
 use sevenmark_server::db_config::DbConfig;
 use sevenmark_server::logger::init_tracing;
 use sevenmark_server::{AppState, api_routes};
