@@ -5,6 +5,118 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2025-11-13
+
+### Changed - BREAKING
+- **Project Structure**: Migrated from monolithic crate to Cargo workspace architecture
+  - Split into 3 specialized crates for better modularity and maintainability
+  - **`sevenmark-parser`**: Pure parsing library with minimal dependencies (winnow, serde, line-span)
+  - **`sevenmark-transform`**: AST preprocessing/postprocessing, position conversion, and WASM exports
+  - **`sevenmark-server`**: REST API server with database integration
+  - Each crate can now be used independently based on project needs
+
+### Changed
+- **Feature Flags**: Reorganized feature structure across workspace
+  - `sevenmark-parser`: Simplified to only `include_locations` feature
+    - Removed: `wasm`, `server`, `transform` features (no longer needed in parser)
+  - `sevenmark-transform`: Added `server` (default) and `wasm` features
+    - `server`: Enables preprocessing/postprocessing with database dependencies
+    - `wasm`: Enables WebAssembly exports with location tracking
+  - Server dependencies now optional in transform crate (sea-orm, uuid, utoipa, tracing)
+
+- **WASM Build Location**: Moved from root to `sevenmark-transform/`
+  - WASM function `parse_sevenmark_to_monaco()` now exported from transform crate
+  - Build command: `cd sevenmark-transform && wasm-pack build --target bundler --features wasm --no-default-features`
+  - `--no-default-features` required to exclude server dependencies incompatible with WASM
+  - Location tracking automatically included in WASM builds
+
+- **Crate Types**: Optimized library configuration
+  - Parser: Standard `rlib` only (removed `cdylib`)
+  - Transform: Both `cdylib` (for WASM) and `rlib` (for server)
+  - Server: Binary crate only
+
+### Removed
+- **Parser Crate Cleanup**: Removed WASM-related code
+  - Removed optional dependencies: `wasm-bindgen`, `js-sys`, `web-sys`
+  - Removed `[lib] crate-type = ["cdylib", "rlib"]` configuration
+  - Removed dead code: commented-out `parse_document_with_processing()` function
+
+- **Server Crate Cleanup**: Removed unnecessary feature declarations
+  - Removed empty `default = []` feature (no custom features needed)
+
+### Infrastructure
+- **CI/CD Workflows**: Updated for workspace architecture
+  - Builds: `cargo build --release --workspace`
+  - Tests: Separated per-package with appropriate feature flags
+    - `cargo test -p sevenmark-parser --features include_locations`
+    - `cargo test -p sevenmark-transform`
+    - `cargo test -p sevenmark-server`
+  - WASM tests: Execute from `sevenmark-transform/` directory with proper working directory
+
+- **Docker**: Updated Dockerfile for multi-crate workspace
+  - Copies all 3 crate Cargo.toml files for dependency caching
+  - Builds with `cargo build --release -p sevenmark-server`
+  - Updated Rust version to 1.91
+
+- **GitHub Actions**: Fixed WASM release workflow
+  - Release builds now run from correct directory with `working-directory: ./sevenmark-transform`
+  - Properly packages WASM artifacts for web, bundler, and nodejs targets
+
+### Documentation
+- **README**: Complete rewrite for workspace structure
+  - Added workspace architecture diagram showing crate relationships
+  - Updated all build commands for multi-package project
+  - Clarified WASM build requirements and exported function signature
+  - Updated dependency lists organized by crate
+  - Added migration guide for upgrading from 2.4.x
+
+### Migration Guide
+
+For users upgrading from 2.4.x to 2.5.0:
+
+**Rust Library Usage:**
+```rust
+// BEFORE (2.4.x)
+use sevenmark::parse_document;
+use sevenmark::convert_ast_to_line_column_json;
+
+// AFTER (2.5.0)
+use sevenmark_parser::core::parse_document;
+use sevenmark_transform::convert_ast_to_line_column_json;
+```
+
+**Cargo.toml Dependencies:**
+```toml
+# BEFORE (2.4.x)
+[dependencies]
+sevenmark = "2.4"
+
+# AFTER (2.5.0) - Choose what you need:
+[dependencies]
+sevenmark-parser = "2.5"  # Just parsing
+sevenmark-transform = "2.5"  # Parsing + preprocessing/postprocessing
+# Note: sevenmark-server is a binary, not a library
+```
+
+**WASM Build Commands:**
+```bash
+# BEFORE (2.4.x)
+wasm-pack build --target bundler --features wasm --no-default-features
+
+# AFTER (2.5.0)
+cd sevenmark-transform
+wasm-pack build --target bundler --features wasm --no-default-features
+```
+
+**Server Deployment:**
+```bash
+# BEFORE (2.4.x)
+cargo run --features server
+
+# AFTER (2.5.0)
+cargo run -p sevenmark-server
+```
+
 ## [2.4.0] - 2025-10-21
 ### Changed
 - **Database Access**: Replaced HTTP API calls with direct database access

@@ -1,5 +1,5 @@
 # Builder stage
-FROM rust:1.90 AS builder
+FROM rust:1.91 AS builder
 
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
@@ -11,25 +11,30 @@ RUN apt-get update && apt-get install -y \
 # Set work directory
 WORKDIR /app
 
-# Copy manifest files first to leverage Docker cache for dependencies
+# Copy workspace manifest files
 COPY Cargo.toml Cargo.lock ./
+COPY sevenmark-parser/Cargo.toml ./sevenmark-parser/Cargo.toml
+COPY sevenmark-transform/Cargo.toml ./sevenmark-transform/Cargo.toml
+COPY sevenmark-server/Cargo.toml ./sevenmark-server/Cargo.toml
 
-# Create dummy src directory and files for dependency caching
-RUN mkdir src && \
-    echo "fn main() {}" > src/main.rs && \
-    echo "pub fn dummy() {}" > src/lib.rs
+# Create dummy src directories for dependency caching
+RUN mkdir -p sevenmark-parser/src && echo "pub fn dummy() {}" > sevenmark-parser/src/lib.rs && \
+    mkdir -p sevenmark-transform/src && echo "pub fn dummy() {}" > sevenmark-transform/src/lib.rs && \
+    mkdir -p sevenmark-server/src && echo "fn main() {}" > sevenmark-server/src/main.rs
 
-# Build dependencies for sevenmark-server only with server features
-RUN cargo build --release --bin sevenmark-server --features server --target-dir /app/target_deps
+# Build dependencies
+RUN cargo build --release -p sevenmark-server
 
-# Remove the dummy src directory and its content
-RUN rm -rf src
+# Remove dummy src
+RUN rm -rf sevenmark-parser/src sevenmark-transform/src sevenmark-server/src
 
-# Copy the actual source code
-COPY src ./src
+# Copy actual source code
+COPY sevenmark-parser/src ./sevenmark-parser/src
+COPY sevenmark-transform/src ./sevenmark-transform/src
+COPY sevenmark-server/src ./sevenmark-server/src
 
-# Build the sevenmark-server binary using previously cached dependencies
-RUN cargo build --release --bin sevenmark-server --features server
+# Build the binary
+RUN cargo build --release -p sevenmark-server
 
 # Runtime stage
 FROM debian:stable-slim AS runtime

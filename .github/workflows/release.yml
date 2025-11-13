@@ -33,21 +33,29 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-tools
 
 
-      - name: Release Build
-        working-directory: ./
-        run: cargo build --release
+      - name: Release Build (Workspace)
+        run: cargo build --release --workspace
 
-      - name: Run Tests
-        run: cargo test --all --locked --features include_locations -- --nocapture
+      - name: Run Tests (Parser with locations)
+        run: cargo test -p sevenmark-parser --features include_locations -- --nocapture
+
+      - name: Run Tests (Transform)
+        run: cargo test -p sevenmark-transform -- --nocapture
+
+      - name: Run Tests (Server)
+        run: cargo test -p sevenmark-server -- --nocapture
 
       - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
 
       - name: Test WASM build (Web)
+        working-directory: ./sevenmark-transform
         run: wasm-pack build --target web --features wasm --no-default-features
 
-      - name: Test WASM build (Bundler)  
+      - name: Test WASM build (Bundler)
+        working-directory: ./sevenmark-transform
         run: wasm-pack build --target bundler --features wasm --no-default-features
 
       - name: Test WASM build (Node.js)
+        working-directory: ./sevenmark-transform
         run: wasm-pack build --target nodejs --features wasm --no-default-features

@@ -9,12 +9,18 @@ A high-performance Domain Specific Language (DSL) parser designed for SevenWiki 
 
 **SevenMark** is a sophisticated wiki markup parser written in Rust that transforms wiki-style text into structured Abstract Syntax Trees (AST). It combines the power of parser combinators (winnow) with comprehensive wiki features to provide a fast, reliable, and extensible parsing solution.
 
+The project is organized as a **Cargo workspace** with three specialized crates:
+- **sevenmark-parser** - Core parsing engine (can be used standalone)
+- **sevenmark-transform** - AST preprocessing and postprocessing utilities
+- **sevenmark-server** - Production-ready REST API server
+
 ### Key Features
 
 - 🚀 **High Performance** - SIMD-optimized parsing with >10 KB/s throughput
 - 📊 **50+ Element Types** - Comprehensive markup support for all wiki needs
 - 🎯 **Precise Location Tracking** - Every element tracks its source position (byte offsets)
-- 🔄 **Multiple Deployment Targets** - Library, REST API Server, WebAssembly
+- 🔄 **Multiple Deployment Targets** - Standalone library, REST API Server, or WebAssembly
+- 📦 **Modular Workspace** - Three specialized crates for different use cases
 - 📍 **JSON Serialization** - Full AST serialization with optional position data
 - 🛡️ **Graceful Error Handling** - Unparseable content becomes Error elements
 - 🔧 **Extensible Architecture** - Modular parser design for easy additions
@@ -317,38 +323,54 @@ fn main() {
 
 ## Architecture
 
-### Project Structure
+### Workspace Structure
+
+SevenMark is organized as a Cargo workspace with three specialized crates:
 
 ```
-src/
-├── sevenmark/
-│   ├── ast.rs              # 50+ AST element definitions
-│   ├── core.rs             # Main parse_document() entry point
-│   ├── context.rs          # Parsing context & recursion management
-│   ├── error.rs            # Error types
-│   ├── parser/             # All parsing logic
-│   │   ├── element.rs      # Parser router
-│   │   ├── brace/          # {{{#...}}} elements
-│   │   ├── bracket/        # [[...]] media elements
-│   │   ├── markdown/       # Markdown-style syntax
-│   │   ├── macro/          # [var()], [age()], etc.
-│   │   ├── comment/        # // and /* */ comments
-│   │   ├── escape/         # \ escaping
-│   │   ├── text/           # Plain text
-│   │   ├── parameter/      # Parameter parsing
-│   │   └── token/          # Fallback token parsers
-│   └── transform/          # AST transformation (optional)
-│       ├── preprocessor.rs # Variable substitution, includes
-│       ├── postprocessor.rs # Media URL resolution
-│       ├── processor.rs    # Full pipeline
-│       └── position_converter.rs # Byte → line/column
-├── api/                    # REST API (server feature)
-├── config/                 # Configuration
-├── connection/             # Database connection
-└── bin/                    # Binary tools
-    ├── parse.rs            # Simple parser
-    ├── monaco.rs           # Monaco format converter
-    └── process.rs          # Full preprocessing pipeline
+sevenmark/
+├── Cargo.toml                 # Workspace root
+├── sevenmark-parser/          # Core parsing library
+│   ├── src/
+│   │   ├── ast.rs             # 50+ AST element definitions
+│   │   ├── core.rs            # Main parse_document() entry point
+│   │   ├── context.rs         # Parsing context & recursion management
+│   │   ├── error.rs           # Error types
+│   │   └── parser/            # All parsing logic
+│   │       ├── element.rs     # Parser router
+│   │       ├── brace/         # {{{#...}}} elements
+│   │       ├── bracket/       # [[...]] media elements
+│   │       ├── markdown/      # Markdown-style syntax
+│   │       ├── macro/         # [var()], [age()], etc.
+│   │       ├── comment/       # // and /* */ comments
+│   │       ├── escape/        # \ escaping
+│   │       ├── text/          # Plain text
+│   │       ├── parameter/     # Parameter parsing
+│   │       └── token/         # Fallback token parsers
+│   └── examples/
+│       └── parse.rs           # Simple parser example
+│
+├── sevenmark-transform/       # AST transformation library
+│   ├── src/
+│   │   ├── preprocessor.rs    # Variable substitution, includes
+│   │   ├── postprocessor.rs   # Media URL resolution
+│   │   ├── processor.rs       # Full pipeline
+│   │   ├── position_converter.rs # Byte → line/column
+│   │   └── wiki/              # Wiki-specific utilities
+│   └── examples/
+│       ├── monaco.rs          # Monaco format converter
+│       ├── debug_conversion.rs
+│       └── debug_line_spans.rs
+│
+└── sevenmark-server/          # REST API server
+    ├── src/
+    │   ├── api/               # API routes
+    │   ├── config/            # Configuration
+    │   ├── connection/        # Database connection
+    │   ├── errors/            # Error handling
+    │   └── main.rs            # Server entry point
+    └── examples/
+        └── process.rs         # Full preprocessing pipeline
 ```
 
 ### Processing Pipeline
@@ -388,25 +410,38 @@ Input Text
 
 ## Build Options
 
-### Library Builds
+### Building Individual Crates
 
 ```bash
-# Core parser only
-cargo build --no-default-features
+# Core parser library
+cargo build -p sevenmark-parser
 
-# With transform features (preprocessing/postprocessing)
-cargo build --features transform
+# Transform library (preprocessing/postprocessing)
+cargo build -p sevenmark-transform
 
-# Full server (default)
-cargo build --features server
+# REST API server
+cargo build -p sevenmark-server
 
-# Include location data in JSON output
-cargo build --features include_locations
+# Build entire workspace
+cargo build --workspace
+```
+
+### Parser Features
+
+```bash
+# Include location data in JSON output (parser only)
+cargo build -p sevenmark-parser --features include_locations
 ```
 
 ### WebAssembly Builds
 
+WASM builds are provided by `sevenmark-transform`, which includes both parsing and Monaco position conversion.
+
+**Important:** Run these commands from the `sevenmark-transform/` directory:
+
 ```bash
+cd sevenmark-transform
+
 # Browser (web)
 wasm-pack build --target web --features wasm --no-default-features
 
@@ -417,17 +452,27 @@ wasm-pack build --target bundler --features wasm --no-default-features
 wasm-pack build --target nodejs --features wasm --no-default-features
 ```
 
-### Binary Tools
+Or use `--manifest-path` from workspace root:
+
+```bash
+wasm-pack build --target bundler --features wasm --no-default-features --manifest-path sevenmark-transform/Cargo.toml
+```
+
+**Exported function:** `parse_sevenmark_to_monaco(input: string): string`
+
+**Note:** `--no-default-features` is required to exclude server-only dependencies (sea-orm, tokio, etc.) that are incompatible with WASM.
+
+### Running Examples
 
 ```bash
 # Simple parser (ToParse.txt → ParseResult.json)
-cargo run --bin parse
+cargo run --example parse -p sevenmark-parser
 
 # Monaco format converter (with line/column positions)
-cargo run --bin monaco
+cargo run --example monaco -p sevenmark-transform
 
 # Full processing pipeline (requires database)
-cargo run --bin process
+cargo run --example process -p sevenmark-server
 ```
 
 ## REST API Server
@@ -435,7 +480,7 @@ cargo run --bin process
 Start the server:
 
 ```bash
-cargo run --features server
+cargo run -p sevenmark-server
 ```
 
 ### Endpoints
@@ -485,27 +530,40 @@ SERVER_PORT=8080
 
 ## Dependencies
 
-### Core Dependencies
+### sevenmark-parser (Core Parser)
 
 - **winnow** (0.7.13) - High-performance parser combinators with SIMD
 - **serde** (1.0.228) - Serialization framework
 - **serde_json** (1.0.145) - JSON support
-- **anyhow** (1.0.100) - Error handling
 - **line-span** (0.1.5) - Line position calculation
+- **paste** (1.0.15) - Macro utilities
 
-### Server Dependencies (feature = "server")
-
-- **axum** (0.8.6) - Web framework
-- **tokio** (1.48.0) - Async runtime
-- **sea-orm** (2.0.0-rc.16) - ORM for PostgreSQL
-- **utoipa** (5.4.0) - OpenAPI documentation
-- **utoipa-swagger-ui** (9.0.2) - Swagger UI
-
-### WASM Dependencies (feature = "wasm")
-
+**Optional (WASM):**
 - **wasm-bindgen** (0.2.105) - Rust ↔ JavaScript bridge
 - **js-sys** (0.3.82) - JavaScript standard library
 - **web-sys** (0.3.82) - Web API bindings
+
+### sevenmark-transform (Preprocessing/Postprocessing)
+
+- **sevenmark-parser** - Core parser (workspace)
+- **sea-orm** (2.0.0-rc.18) - ORM for PostgreSQL
+- **anyhow** (1.0.100) - Error handling
+- **uuid** (1.18.1) - UUID generation
+- **utoipa** (5.4.0) - OpenAPI types
+- **tracing** (0.1.41) - Logging
+
+### sevenmark-server (REST API)
+
+- **sevenmark-parser** - Core parser (workspace)
+- **sevenmark-transform** - Transform utilities (workspace)
+- **axum** (0.8.6) - Web framework
+- **tokio** (1.48.0) - Async runtime
+- **sea-orm** (2.0.0-rc.18) - ORM for PostgreSQL
+- **utoipa** (5.4.0) - OpenAPI documentation
+- **utoipa-swagger-ui** (9.0.2) - Swagger UI
+- **dotenvy** (0.15.7) - Environment variables
+- **validator** (0.20.0) - Input validation
+- **tracing** (0.1.41) - Logging
 
 ## Performance
 
@@ -524,19 +582,28 @@ SevenMark is optimized for high performance:
 ### Running Tests
 
 ```bash
-cargo test
+# Test all crates
+cargo test --workspace
+
+# Test specific crate
+cargo test -p sevenmark-parser
+cargo test -p sevenmark-transform
+cargo test -p sevenmark-server
+
+# Test with location tracking enabled
+cargo test -p sevenmark-parser --features include_locations
 ```
 
 ### Adding New Elements
 
-1. Define AST element in `src/sevenmark/ast.rs`
-2. Create parser in appropriate module:
-   - `parser/brace/` for `{{{#...}}}` elements
-   - `parser/bracket/` for `[[...]]` elements
-   - `parser/markdown/` for markdown-style syntax
-   - `parser/macro/` for `[...]` macros
-3. Add to `element_parser` router in `parser/element.rs`
-4. Implement `Traversable` if element has children
+1. Define AST element in `sevenmark-parser/src/ast.rs`
+2. Create parser in appropriate module under `sevenmark-parser/src/parser/`:
+   - `brace/` for `{{{#...}}}` elements
+   - `bracket/` for `[[...]]` elements
+   - `markdown/` for markdown-style syntax
+   - `macro/` for `[...]` macros
+3. Add to `element_parser` router in `sevenmark-parser/src/parser/element.rs`
+4. Implement `Traversable` trait if element has children
 5. Add tests in `tests/`
 
 ## Contributing

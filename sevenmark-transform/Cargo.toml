@@ -11,19 +11,29 @@ rust-version.workspace = true
 # Internal
 sevenmark-parser = { workspace = true }
 
-# Database & HTTP
-sea-orm = { workspace = true }
-uuid = { version = "1.18.1" }
+# Database & HTTP (optional, server only)
+sea-orm = { workspace = true, optional = true }
+uuid = { version = "1.18.1", optional = true }
 
 # Utilities
 line-span = "0.1.5"
-utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
+utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"], optional = true }
 
 # Shared
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }
-tracing = { workspace = true }
+tracing = { workspace = true, optional = true }
+
+# WASM (optional)
+wasm-bindgen = { version = "0.2.105", optional = true }
+js-sys = { version = "0.3.82", optional = true }
+web-sys = { version = "0.3.82", optional = true }
 
 [features]
-default = []
+default = ["server"]
+server = ["sea-orm", "uuid", "utoipa", "tracing"]
+wasm = ["wasm-bindgen", "js-sys", "web-sys", "sevenmark-parser/include_locations"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
