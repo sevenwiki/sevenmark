@@ -5,6 +5,23 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.4] - 2025-11-13
+
+### Changed
+- **Error Handling Architecture**: Refactored to handler pattern for better modularity
+  - Implemented domain-separated handler pattern inspired by sevenwiki-server architecture
+  - Created `handlers/` directory with specialized error handlers per domain
+    - `document_handler.rs`: Handles document-related errors (DocumentNotFound, DocumentRevisionNotFound)
+    - `general_handler.rs`: Handles client errors (BadRequestError, ValidationError)
+    - `system_handler.rs`: Handles system errors (SysInternalError, DatabaseError, NotFound)
+  - Each handler provides two core functions:
+    - `log_error(&Errors)`: Domain-specific logging with appropriate levels (warn/error/debug)
+    - `map_response(&Errors) -> Option<(StatusCode, &str, Option<String>)>`: HTTP response mapping
+  - Refactored `IntoResponse` implementation to use handler chain pattern with `or_else` composition
+  - Improved extensibility: new error domains can be added by creating new handlers
+  - Enhanced maintainability: each domain's error handling logic is now isolated and testable
+  - Better separation of concerns: logging and response mapping separated by domain
+
 ## [2.5.1] - 2025-11-13
 
 ### Fixed
