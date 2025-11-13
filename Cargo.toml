@@ -17,8 +17,8 @@ rust-version = "1.91.1"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { version = "2.4.1", path = "sevenmark-parser" }
-sevenmark-transform = { version = "2.4.1", path = "sevenmark-transform" }
+sevenmark-parser = { version = "2.5.1", path = "sevenmark-parser" }
+sevenmark-transform = { version = "2.5.1", path = "sevenmark-transform" }
 
 # Shared dependencies (used by multiple crates)
 serde = { version = "1.0.228", features = ["derive"] }
