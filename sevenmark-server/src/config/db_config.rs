@@ -4,8 +4,6 @@ use std::sync::LazyLock;
 
 #[derive(Debug, Clone)]
 pub struct DbConfig {
-    pub is_dev: bool,
-
     pub db_user: String,
     pub db_password: String,
     pub db_host: String,
@@ -22,14 +20,7 @@ pub struct DbConfig {
 static CONFIG: LazyLock<DbConfig> = LazyLock::new(|| {
     dotenv().ok();
 
-    let is_dev = matches!(
-        env::var("ENVIRONMENT").as_deref(),
-        Ok("dev") | Ok("development")
-    );
-
     DbConfig {
-        is_dev,
-
         db_user: env::var("POSTGRES_USER").expect("POSTGRES_USER must be set"),
         db_password: env::var("POSTGRES_PASSWORD").expect("POSTGRES_PASSWORD must be set"),
         db_host: env::var("POSTGRES_HOST").expect("POSTGRES_HOST must be set"),
