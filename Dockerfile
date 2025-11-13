@@ -17,18 +17,7 @@ COPY sevenmark-parser/Cargo.toml ./sevenmark-parser/Cargo.toml
 COPY sevenmark-transform/Cargo.toml ./sevenmark-transform/Cargo.toml
 COPY sevenmark-server/Cargo.toml ./sevenmark-server/Cargo.toml
 
-# Create dummy src directories for dependency caching
-RUN mkdir -p sevenmark-parser/src && echo "pub fn dummy() {}" > sevenmark-parser/src/lib.rs && \
-    mkdir -p sevenmark-transform/src && echo "pub fn dummy() {}" > sevenmark-transform/src/lib.rs && \
-    mkdir -p sevenmark-server/src && echo "fn main() {}" > sevenmark-server/src/main.rs
-
-# Build dependencies
-RUN cargo build --release -p sevenmark-server
-
-# Remove dummy src
-RUN rm -rf sevenmark-parser/src sevenmark-transform/src sevenmark-server/src
-
-# Copy actual source code
+# Copy all source code
 COPY sevenmark-parser/src ./sevenmark-parser/src
 COPY sevenmark-transform/src ./sevenmark-transform/src
 COPY sevenmark-server/src ./sevenmark-server/src
