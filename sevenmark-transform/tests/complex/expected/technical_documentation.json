@@ -1,0 +1,831 @@
+[
+  {
+    "Header": {
+      "location": {
+        "start": 0,
+        "end": 37
+      },
+      "level": 1,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 2,
+              "end": 36
+            },
+            "content": "SevenMark Parser API Documentation"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 37,
+        "end": 38
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 38,
+        "end": 50
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 41,
+              "end": 49
+            },
+            "content": "Overview"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 50,
+        "end": 51
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 51,
+        "end": 76
+      },
+      "content": "This document covers the "
+    }
+  },
+  {
+    "Bold": {
+      "location": {
+        "start": 76,
+        "end": 89
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 78,
+              "end": 87
+            },
+            "content": "SevenMark"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 89,
+        "end": 120
+      },
+      "content": " parsing engine implementation."
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 120,
+        "end": 121
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 121,
+        "end": 122
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "FoldElement": {
+      "location": {
+        "start": 122,
+        "end": 371
+      },
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 130,
+            "end": 175
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 139,
+                  "end": 173
+                },
+                "content": "border:1px solid #ddd; margin:10px"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 177,
+                  "end": 198
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 179,
+                        "end": 196
+                      },
+                      "content": "Table of Contents"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 198,
+                  "end": 199
+                },
+                "content": " "
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 199,
+                  "end": 200
+                },
+                "content": "_"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 200,
+                  "end": 217
+                },
+                "content": "(click to expand)"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 217,
+                  "end": 218
+                },
+                "content": "_"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "ListElement": {
+                "location": {
+                  "start": 224,
+                  "end": 364
+                },
+                "kind": "1",
+                "parameters": {
+                  "1": {
+                    "location": {
+                      "start": 232,
+                      "end": 236
+                    },
+                    "key": "1",
+                    "value": []
+                  }
+                },
+                "content": [
+                  {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 238,
+                            "end": 260
+                          },
+                          "content": "Introduction and Setup"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 265,
+                            "end": 281
+                          },
+                          "content": "Core API Methods"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 286,
+                            "end": 300
+                          },
+                          "content": "Error Handling"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 305,
+                            "end": 331
+                          },
+                          "content": "Performance Considerations"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 336,
+                            "end": 358
+                          },
+                          "content": "Examples and Tutorials"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 364,
+                  "end": 365
+                },
+                "content": "\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 371,
+        "end": 372
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 372,
+        "end": 373
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 373,
+        "end": 389
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 376,
+              "end": 388
+            },
+            "content": "Core Methods"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 389,
+        "end": 390
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "TableElement": {
+      "location": {
+        "start": 390,
+        "end": 683
+      },
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 399,
+            "end": 446
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 408,
+                  "end": 444
+                },
+                "content": "border-collapse:collapse; width:100%"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "parameters": {},
+          "inner_content": [
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 450,
+                      "end": 460
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 452,
+                            "end": 458
+                          },
+                          "content": "Method"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 465,
+                      "end": 480
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 467,
+                            "end": 478
+                          },
+                          "content": "Description"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Bold": {
+                    "location": {
+                      "start": 485,
+                      "end": 500
+                    },
+                    "content": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 487,
+                            "end": 498
+                          },
+                          "content": "Return Type"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "inner_content": [
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 509,
+                      "end": 515
+                    },
+                    "content": "`parse"
+                  }
+                },
+                {
+                  "Text": {
+                    "location": {
+                      "start": 515,
+                      "end": 516
+                    },
+                    "content": "_"
+                  }
+                },
+                {
+                  "Text": {
+                    "location": {
+                      "start": 516,
+                      "end": 527
+                    },
+                    "content": "document()`"
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 532,
+                      "end": 562
+                    },
+                    "content": "Parses full SevenMark document"
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 567,
+                      "end": 590
+                    },
+                    "content": "`Vec<SevenMarkElement>`"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "inner_content": [
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 599,
+                      "end": 607
+                    },
+                    "content": "`element"
+                  }
+                },
+                {
+                  "Text": {
+                    "location": {
+                      "start": 607,
+                      "end": 608
+                    },
+                    "content": "_"
+                  }
+                },
+                {
+                  "Text": {
+                    "location": {
+                      "start": 608,
+                      "end": 617
+                    },
+                    "content": "parser()`"
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 622,
+                      "end": 648
+                    },
+                    "content": "Parses individual elements"
+                  }
+                }
+              ]
+            },
+            {
+              "parameters": {},
+              "content": [
+                {
+                  "Text": {
+                    "location": {
+                      "start": 653,
+                      "end": 675
+                    },
+                    "content": "`Result<Vec<Element>>`"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 683,
+        "end": 684
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 684,
+        "end": 685
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 685,
+        "end": 703
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 689,
+              "end": 702
+            },
+            "content": "Example Usage"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 703,
+        "end": 704
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "CodeElement": {
+      "location": {
+        "start": 704,
+        "end": 935
+      },
+      "parameters": {
+        "lang": {
+          "location": {
+            "start": 712,
+            "end": 726
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 720,
+                  "end": 724
+                },
+                "content": "rust"
+              }
+            }
+          ]
+        },
+        "style": {
+          "location": {
+            "start": 726,
+            "end": 768
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 734,
+                  "end": 766
+                },
+                "content": "background:#f8f8f8; padding:10px"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 768,
+              "end": 810
+            },
+            "content": "use sevenmark::parse_document;\n\nfn main() "
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 810,
+              "end": 811
+            },
+            "content": "{"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 811,
+              "end": 913
+            },
+            "content": "\n    let content = \"**Hello** [now]\";\n    let result = parse_document(content);\n    println!(\"Parsed: "
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 913,
+              "end": 914
+            },
+            "content": "{"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 914,
+              "end": 917
+            },
+            "content": ":#?"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 917,
+              "end": 918
+            },
+            "content": "}"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 918,
+              "end": 930
+            },
+            "content": "\", result);\n"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 930,
+              "end": 931
+            },
+            "content": "}"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 931,
+              "end": 932
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 935,
+        "end": 936
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 936,
+        "end": 937
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 937,
+        "end": 953
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 941,
+              "end": 952
+            },
+            "content": "Error Cases"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 953,
+        "end": 954
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Error": {
+      "location": {
+        "start": 954,
+        "end": 1359
+      },
+      "content": "{{{#quote #style=\"background:#fff3cd; border-left:4px solid #ffc107; padding:10px\"\n**Warning**: Always handle parsing errors gracefully. Common issues include:\n- Malformed brace syntax: `{{{unclosed`\n- Invalid macro parameters: `[age(invalid-date)]`\n- Deeply nested elements exceeding recursion limits\n}}}\n\n---\n\n*Documentation last updated: [now]*\n\n// TODO: Add more examples for complex nesting scenarios"
+    }
+  }
+]

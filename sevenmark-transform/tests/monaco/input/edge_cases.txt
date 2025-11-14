@@ -1,0 +1,8 @@
+A
+
+Line with trailing spaces   
+Empty line above
+
+Mixed   whitespace	with	tabs
+
+End without newline

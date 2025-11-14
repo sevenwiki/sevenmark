@@ -1,0 +1,7 @@
+{{{#list #1 #style="margin-left:20px"
+[[**Chapter 1**: Introduction]]
+[[Subsection: {{{#list #a [[Point A with *emphasis*]] [[Point B with [now]]] }}} ]]
+[[**Chapter 2**: Advanced Topics]]
+[[Complex item: {{{#fold [[Click here]] [[Hidden: {{{#code #lang="rust" fn main() { println!("Deep!"); } }}}]] }}} ]]
+[[Final chapter with ^^superscript^^ text]]
+}}}

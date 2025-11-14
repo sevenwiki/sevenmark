@@ -1,6 +1,7 @@
-use sevenmark::parse_document;
-use sevenmark::sevenmark::transform::position_converter::convert_ast_to_line_column_json;
+
 use std::fs;
+use sevenmark_parser::core::parse_document;
+use sevenmark_transform::convert_ast_to_line_column_json;
 
 fn monaco_parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {
     let result = parse_document(content);
@@ -10,8 +11,8 @@ fn monaco_parse_file_content(content: &str) -> Result<String, Box<dyn std::error
 }
 
 fn run_monaco_test(test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let input_path = format!("tests/monaco/input/{}.txt", test_name);
-    let expected_path = format!("tests/monaco/expected/{}.json", test_name);
+    let input_path = format!("../tc/monaco/input/{}.txt", test_name);
+    let expected_path = format!("../tc/monaco/expected/{}.json", test_name);
 
     let input_content = fs::read_to_string(&input_path)?;
 

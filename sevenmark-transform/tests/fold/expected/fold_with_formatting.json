@@ -1,0 +1,79 @@
+[
+  {
+    "FoldElement": {
+      "location": {
+        "start": 0,
+        "end": 64
+      },
+      "parameters": {},
+      "content": [
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 11,
+                  "end": 24
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 13,
+                        "end": 22
+                      },
+                      "content": "bold text"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 24,
+                  "end": 35
+                },
+                "content": " and normal"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Italic": {
+                "location": {
+                  "start": 40,
+                  "end": 53
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 41,
+                        "end": 52
+                      },
+                      "content": "italic text"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 53,
+                  "end": 58
+                },
+                "content": " here"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

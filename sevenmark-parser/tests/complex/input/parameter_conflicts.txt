@@ -1,0 +1,12 @@
+{{{ #color="red" #color="blue" #color="green"
+Multiple same parameter - which wins?
+}}}
+
+{{{#list #1 #a #A #i #I
+[[Item with conflicting list types]]
+[[Another item]]
+}}}
+
+{{{#tex #block #inline #block
+E = mc^2
+}}}

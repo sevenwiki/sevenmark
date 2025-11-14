@@ -583,7 +583,7 @@ SevenMark is optimized for high performance:
 
 ```bash
 # Test all crates
-cargo test --workspace
+cargo test --workspace --all-features
 
 # Test specific crate
 cargo test -p sevenmark-parser

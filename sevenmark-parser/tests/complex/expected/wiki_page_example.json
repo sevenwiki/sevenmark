@@ -1,0 +1,1714 @@
+[
+  {
+    "Category": {
+      "location": {
+        "start": 0,
+        "end": 38
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 13,
+              "end": 35
+            },
+            "content": "Programming Languages\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 38,
+        "end": 39
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 39,
+        "end": 40
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 40,
+        "end": 68
+      },
+      "level": 1,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 42,
+              "end": 67
+            },
+            "content": "Rust Programming Language"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 68,
+        "end": 69
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Include": {
+      "location": {
+        "start": 69,
+        "end": 129
+      },
+      "parameters": {
+        "page": {
+          "location": {
+            "start": 80,
+            "end": 99
+          },
+          "key": "page",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 88,
+                  "end": 97
+                },
+                "content": "RustIntro"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 99,
+              "end": 126
+            },
+            "content": "Basic introduction to Rust\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 129,
+        "end": 130
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 130,
+        "end": 131
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 131,
+        "end": 158
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 134,
+              "end": 157
+            },
+            "content": "History and Development"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 158,
+        "end": 159
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Bold": {
+      "location": {
+        "start": 159,
+        "end": 167
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 161,
+              "end": 165
+            },
+            "content": "Rust"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 167,
+        "end": 196
+      },
+      "content": " was originally developed by "
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 196,
+        "end": 211
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 197,
+              "end": 210
+            },
+            "content": "Graydon Hoare"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 211,
+        "end": 248
+      },
+      "content": " at Mozilla Research. Key milestones:"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 248,
+        "end": 249
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 249,
+        "end": 250
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "ListElement": {
+      "location": {
+        "start": 250,
+        "end": 443
+      },
+      "kind": "1",
+      "parameters": {
+        "1": {
+          "location": {
+            "start": 258,
+            "end": 262
+          },
+          "key": "1",
+          "value": []
+        }
+      },
+      "content": [
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 264,
+                  "end": 272
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 266,
+                        "end": 270
+                      },
+                      "content": "2010"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 272,
+                  "end": 291
+                },
+                "content": ": Project announced"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 296,
+                  "end": 304
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 298,
+                        "end": 302
+                      },
+                      "content": "2012"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 304,
+                  "end": 332
+                },
+                "content": ": First public release (0.1)"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 337,
+                  "end": 345
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 339,
+                        "end": 343
+                      },
+                      "content": "2015"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 345,
+                  "end": 374
+                },
+                "content": ": Rust 1.0 stable release on "
+              }
+            },
+            {
+              "Age": {
+                "location": {
+                  "start": 374,
+                  "end": 391
+                },
+                "content": "2015-05-15"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 396,
+                  "end": 407
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 398,
+                        "end": 405
+                      },
+                      "content": "Present"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 407,
+                  "end": 437
+                },
+                "content": ": Active development continues"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 443,
+        "end": 444
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 444,
+        "end": 445
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 445,
+        "end": 461
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 448,
+              "end": 460
+            },
+            "content": "Key Features"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 461,
+        "end": 462
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "FoldElement": {
+      "location": {
+        "start": 462,
+        "end": 1101
+      },
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 470,
+            "end": 525
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 479,
+                  "end": 523
+                },
+                "content": "background:#f0f8ff; border:1px solid #4682b4"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 527,
+                  "end": 532
+                },
+                "content": "🔧 "
+              }
+            },
+            {
+              "Bold": {
+                "location": {
+                  "start": 532,
+                  "end": 554
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 534,
+                        "end": 552
+                      },
+                      "content": "Technical Features"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 554,
+                  "end": 555
+                },
+                "content": " "
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 555,
+                  "end": 556
+                },
+                "content": "_"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 556,
+                  "end": 576
+                },
+                "content": "(expand for details)"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 576,
+                  "end": 577
+                },
+                "content": "_"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "TableElement": {
+                "location": {
+                  "start": 583,
+                  "end": 912
+                },
+                "parameters": {},
+                "content": [
+                  {
+                    "parameters": {},
+                    "inner_content": [
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Bold": {
+                              "location": {
+                                "start": 597,
+                                "end": 608
+                              },
+                              "content": [
+                                {
+                                  "Text": {
+                                    "location": {
+                                      "start": 599,
+                                      "end": 606
+                                    },
+                                    "content": "Feature"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Bold": {
+                              "location": {
+                                "start": 613,
+                                "end": 628
+                              },
+                              "content": [
+                                {
+                                  "Text": {
+                                    "location": {
+                                      "start": 615,
+                                      "end": 626
+                                    },
+                                    "content": "Description"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Bold": {
+                              "location": {
+                                "start": 633,
+                                "end": 644
+                              },
+                              "content": [
+                                {
+                                  "Text": {
+                                    "location": {
+                                      "start": 635,
+                                      "end": 642
+                                    },
+                                    "content": "Benefit"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "inner_content": [
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 653,
+                                "end": 666
+                              },
+                              "content": "Memory Safety"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 671,
+                                "end": 687
+                              },
+                              "content": "No null pointers"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 687,
+                                "end": 688
+                              },
+                              "content": ","
+                            }
+                          },
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 688,
+                                "end": 705
+                              },
+                              "content": " buffer overflows"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 710,
+                                "end": 726
+                              },
+                              "content": "Prevents crashes"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "inner_content": [
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 735,
+                                "end": 757
+                              },
+                              "content": "Zero-cost Abstractions"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 762,
+                                "end": 781
+                              },
+                              "content": "High-level features"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 781,
+                                "end": 782
+                              },
+                              "content": ","
+                            }
+                          },
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 782,
+                                "end": 804
+                              },
+                              "content": " low-level performance"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 809,
+                                "end": 828
+                              },
+                              "content": "Best of both worlds"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "parameters": {},
+                    "inner_content": [
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 837,
+                                "end": 848
+                              },
+                              "content": "Concurrency"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 853,
+                                "end": 878
+                              },
+                              "content": "Safe parallel programming"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "parameters": {},
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 883,
+                                "end": 904
+                              },
+                              "content": "Scalable applications"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 912,
+                  "end": 913
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 913,
+                  "end": 914
+                },
+                "content": "\n"
+              }
+            },
+            {
+              "CodeElement": {
+                "location": {
+                  "start": 914,
+                  "end": 1094
+                },
+                "parameters": {
+                  "lang": {
+                    "location": {
+                      "start": 922,
+                      "end": 936
+                    },
+                    "key": "lang",
+                    "value": [
+                      {
+                        "Text": {
+                          "location": {
+                            "start": 930,
+                            "end": 934
+                          },
+                          "content": "rust"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 936,
+                        "end": 989
+                      },
+                      "content": "// Example: Safe memory management\nfn safe_example() "
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 989,
+                        "end": 990
+                      },
+                      "content": "{"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 990,
+                        "end": 1041
+                      },
+                      "content": "\n    let data = vec![1, 2, 3];\n    println!(\"Data: "
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1041,
+                        "end": 1042
+                      },
+                      "content": "{"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1042,
+                        "end": 1044
+                      },
+                      "content": ":?"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1044,
+                        "end": 1045
+                      },
+                      "content": "}"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1045,
+                        "end": 1089
+                      },
+                      "content": "\", data);\n    // Memory automatically freed\n"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1089,
+                        "end": 1090
+                      },
+                      "content": "}"
+                    }
+                  },
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1090,
+                        "end": 1091
+                      },
+                      "content": "\n"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1094,
+                  "end": 1095
+                },
+                "content": "\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1101,
+        "end": 1102
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1102,
+        "end": 1103
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 1103,
+        "end": 1130
+      },
+      "level": 2,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1106,
+              "end": 1129
+            },
+            "content": "Community and Ecosystem"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1130,
+        "end": 1131
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1131,
+        "end": 1169
+      },
+      "content": "The Rust community is known for being "
+    }
+  },
+  {
+    "Bold": {
+      "location": {
+        "start": 1169,
+        "end": 1182
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1171,
+              "end": 1180
+            },
+            "content": "welcoming"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1182,
+        "end": 1187
+      },
+      "content": " and "
+    }
+  },
+  {
+    "Underline": {
+      "location": {
+        "start": 1187,
+        "end": 1200
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1189,
+              "end": 1198
+            },
+            "content": "inclusive"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1200,
+        "end": 1201
+      },
+      "content": "."
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1201,
+        "end": 1202
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1202,
+        "end": 1203
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "BlockQuoteElement": {
+      "location": {
+        "start": 1203,
+        "end": 1365
+      },
+      "parameters": {
+        "style": {
+          "location": {
+            "start": 1212,
+            "end": 1252
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1221,
+                  "end": 1250
+                },
+                "content": "font-style:italic; color:#666"
+              }
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1252,
+              "end": 1304
+            },
+            "content": "\"Rust is a systems programming language that is fast"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1304,
+              "end": 1305
+            },
+            "content": ","
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1305,
+              "end": 1317
+            },
+            "content": " memory-safe"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1317,
+              "end": 1318
+            },
+            "content": ","
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1318,
+              "end": 1333
+            },
+            "content": " and parallel.\""
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1333,
+              "end": 1334
+            },
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1334,
+              "end": 1338
+            },
+            "content": "— "
+          }
+        },
+        {
+          "Italic": {
+            "location": {
+              "start": 1338,
+              "end": 1361
+            },
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1339,
+                    "end": 1360
+                  },
+                  "content": "Mozilla Research Team"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 1361,
+              "end": 1362
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1365,
+        "end": 1366
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1366,
+        "end": 1367
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 1367,
+        "end": 1390
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1371,
+              "end": 1389
+            },
+            "content": "Package Management"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1390,
+        "end": 1391
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1391,
+        "end": 1401
+      },
+      "content": "Rust uses "
+    }
+  },
+  {
+    "Bold": {
+      "location": {
+        "start": 1401,
+        "end": 1410
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1403,
+              "end": 1408
+            },
+            "content": "Cargo"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1410,
+        "end": 1415
+      },
+      "content": " for:"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1415,
+        "end": 1416
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1416,
+        "end": 1418
+      },
+      "content": "- "
+    }
+  },
+  {
+    "Strikethrough": {
+      "location": {
+        "start": 1418,
+        "end": 1450
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1420,
+              "end": 1448
+            },
+            "content": "Manual dependency management"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1450,
+        "end": 1486
+      },
+      "content": " → Automatic dependency resolution"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1486,
+        "end": 1487
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1487,
+        "end": 1525
+      },
+      "content": "- Building projects with `cargo build`"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1525,
+        "end": 1526
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1526,
+        "end": 1559
+      },
+      "content": "- Running tests with `cargo test`"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1559,
+        "end": 1560
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1560,
+        "end": 1576
+      },
+      "content": "- Publishing to "
+    }
+  },
+  {
+    "Superscript": {
+      "location": {
+        "start": 1576,
+        "end": 1589
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1578,
+              "end": 1587
+            },
+            "content": "crates.io"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1589,
+        "end": 1590
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1590,
+        "end": 1591
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Header": {
+      "location": {
+        "start": 1591,
+        "end": 1614
+      },
+      "level": 3,
+      "is_folded": false,
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 1595,
+              "end": 1613
+            },
+            "content": "Learning Resources"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1614,
+        "end": 1615
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1615,
+        "end": 1634
+      },
+      "content": "Current timestamp: "
+    }
+  },
+  "TimeNow",
+  {
+    "Text": {
+      "location": {
+        "start": 1639,
+        "end": 1640
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1640,
+        "end": 1641
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "ListElement": {
+      "location": {
+        "start": 1641,
+        "end": 1833
+      },
+      "kind": "a",
+      "parameters": {
+        "a": {
+          "location": {
+            "start": 1649,
+            "end": 1653
+          },
+          "key": "a",
+          "value": []
+        }
+      },
+      "content": [
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1655,
+                  "end": 1681
+                },
+                "content": "Official documentation at "
+              }
+            },
+            {
+              "Subscript": {
+                "location": {
+                  "start": 1681,
+                  "end": 1702
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1683,
+                        "end": 1700
+                      },
+                      "content": "doc.rust-lang.org"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Bold": {
+                "location": {
+                  "start": 1707,
+                  "end": 1724
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1709,
+                        "end": 1722
+                      },
+                      "content": "The Rust Book"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1724,
+                  "end": 1746
+                },
+                "content": " - comprehensive guide"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1751,
+                  "end": 1772
+                },
+                "content": "Community forums and "
+              }
+            },
+            {
+              "Strikethrough": {
+                "location": {
+                  "start": 1772,
+                  "end": 1779
+                },
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 1774,
+                        "end": 1777
+                      },
+                      "content": "IRC"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Text": {
+                "location": {
+                  "start": 1779,
+                  "end": 1787
+                },
+                "content": " Discord"
+              }
+            }
+          ]
+        },
+        {
+          "parameters": {},
+          "content": [
+            {
+              "Text": {
+                "location": {
+                  "start": 1792,
+                  "end": 1827
+                },
+                "content": "Rust by Example - hands-on learning"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1833,
+        "end": 1834
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 1834,
+        "end": 1835
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Comment": {
+      "location": {
+        "start": 1835,
+        "end": 2028
+      },
+      "content": " Multi-line comment explaining\n   the structure of this wiki page:\n   - Category classification\n   - Headers with different levels\n   - Mixed formatting styles\n   - Nested complex elements\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 2028,
+        "end": 2029
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 2029,
+        "end": 2030
+      },
+      "content": "\n"
+    }
+  },
+  "HLine",
+  {
+    "Text": {
+      "location": {
+        "start": 2034,
+        "end": 2035
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Italic": {
+      "location": {
+        "start": 2035,
+        "end": 2092
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 2036,
+              "end": 2064
+            },
+            "content": "This page was last modified "
+          }
+        },
+        {
+          "Age": {
+            "location": {
+              "start": 2064,
+              "end": 2081
+            },
+            "content": "2024-01-01"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 2081,
+              "end": 2091
+            },
+            "content": " days ago."
+          }
+        }
+      ]
+    }
+  }
+]

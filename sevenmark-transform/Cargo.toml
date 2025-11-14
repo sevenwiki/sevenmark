@@ -38,3 +38,7 @@ wasm = ["wasm-bindgen", "js-sys", "web-sys", "sevenmark-parser/include_locations
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[[test]]
+name = "monaco_tests"
+required-features = ["sevenmark-parser/include_locations"]

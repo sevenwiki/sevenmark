@@ -1,5 +1,6 @@
-use sevenmark::parse_document;
+
 use std::fs;
+use sevenmark_parser::core::parse_document;
 
 fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {
     let result = parse_document(content);
@@ -8,8 +9,8 @@ fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error
 }
 
 fn run_parser_test(category: &str, test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let input_path = format!("tests/{}/input/{}.txt", category, test_name);
-    let expected_path = format!("tests/{}/expected/{}.json", category, test_name);
+    let input_path = format!("../tc/{}/input/{}.txt", category, test_name);
+    let expected_path = format!("../tc/{}/expected/{}.json", category, test_name);
 
     // 입력 파일 읽기
     let input_content = fs::read_to_string(&input_path)?;

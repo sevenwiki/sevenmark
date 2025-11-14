@@ -1,0 +1,17 @@
+{{{#fold #style="border:1px solid #ccc" #bgcolor="lightgray"
+[[#style="font-weight:bold" #color="darkblue" || **Summary**: Click to expand]]
+[[
+This fold contains:
+- **Bold text** and *italic text*
+- A code snippet: `print("hello")`
+- Current time: [now]
+- ~~Strikethrough~~ and ^^superscript^^
+
+{{{#quote #style="margin:10px"
+This is a **nested quote** with formatting.
+}}}
+
+// This comment should be inside the fold
+Final paragraph with \*escaped\* characters.
+]]
+}}}

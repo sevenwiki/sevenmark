@@ -1,12 +1,24 @@
 [
   {
     "BlockQuoteElement": {
+      "location": {
+        "start": 0,
+        "end": 96
+      },
       "parameters": {
         "style": {
+          "location": {
+            "start": 9,
+            "end": 37
+          },
           "key": "style",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 18,
+                  "end": 35
+                },
                 "content": "font-style:italic"
               }
             }
@@ -16,14 +28,26 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 37,
+              "end": 75
+            },
             "content": "This is a quoted text block with some "
           }
         },
         {
           "Bold": {
+            "location": {
+              "start": 75,
+              "end": 83
+            },
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 77,
+                    "end": 81
+                  },
                   "content": "bold"
                 }
               }
@@ -32,11 +56,19 @@
         },
         {
           "Text": {
+            "location": {
+              "start": 83,
+              "end": 92
+            },
             "content": " content."
           }
         },
         {
           "Text": {
+            "location": {
+              "start": 92,
+              "end": 93
+            },
             "content": "\n"
           }
         }
