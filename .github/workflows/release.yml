@@ -40,7 +40,7 @@ jobs:
         run: cargo test -p sevenmark-parser --features include_locations -- --nocapture
 
       - name: Run Tests (Transform)
-        run: cargo test -p sevenmark-transform -- --nocapture
+        run: cargo test -p sevenmark-transform --features sevenmark-parser/include_locations -- --nocapture
 
       - name: Run Tests (Server)
         run: cargo test -p sevenmark-server -- --nocapture
