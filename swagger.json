@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "sevenmark",
-    "description": "A DSL designed for Sevenwiki",
+    "title": "sevenmark-server",
+    "description": "sevenmark/server",
     "contact": {
       "name": "Levi Lim",
       "email": "shiueo.csh@gmail.com"
@@ -11,7 +11,7 @@
       "name": "Apache-2.0",
       "identifier": "Apache-2.0"
     },
-    "version": "2.2.4"
+    "version": "2.5.7"
   },
   "paths": {
     "/v0/health_check": {
@@ -108,6 +108,7 @@
         "description": "Final result after media resolution",
         "required": [
           "categories",
+          "includes",
           "ast"
         ],
         "properties": {
@@ -121,6 +122,28 @@
             "type": "array",
             "items": {
               "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "includes": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": false,
+              "prefixItems": [
+                {
+                  "type": "string",
+                  "description": "문서 namespace (백엔드 API 스펙 & DB enum)",
+                  "enum": [
+                    "Document",
+                    "File",
+                    "Category"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ]
             },
             "uniqueItems": true
           },

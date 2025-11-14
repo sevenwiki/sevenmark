@@ -2,7 +2,7 @@ use std::sync::LazyLock;
 use tracing::info;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
-use tracing_subscriber::{fmt, EnvFilter, Layer};
+use tracing_subscriber::{EnvFilter, Layer, fmt};
 
 static TRACING_GUARD: LazyLock<Option<tracing_appender::non_blocking::WorkerGuard>> =
     LazyLock::new(|| {
