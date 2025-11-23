@@ -1,5 +1,15 @@
-# Builder stage
-FROM rust:1.91 AS builder
+# Chef stage - install cargo-chef
+FROM rust:1.91 AS chef
+WORKDIR /app
+RUN cargo install cargo-chef
+
+# Planner stage - generate recipe.json
+FROM chef AS planner
+COPY . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+# Builder stage - build dependencies then application
+FROM chef AS builder
 
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,22 +18,17 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Set work directory
-WORKDIR /app
+# Copy dependency recipe
+COPY --from=planner /app/recipe.json recipe.json
 
-# Copy workspace manifest files
-COPY Cargo.toml Cargo.lock ./
-COPY sevenmark-parser/Cargo.toml ./sevenmark-parser/Cargo.toml
-COPY sevenmark-transform/Cargo.toml ./sevenmark-transform/Cargo.toml
-COPY sevenmark-server/Cargo.toml ./sevenmark-server/Cargo.toml
+# Build dependencies (this layer is cached unless dependencies change)
+RUN cargo chef cook --release --recipe-path recipe.json --bin sevenmark-server
 
-# Copy all source code
-COPY sevenmark-parser/src ./sevenmark-parser/src
-COPY sevenmark-transform/src ./sevenmark-transform/src
-COPY sevenmark-server/src ./sevenmark-server/src
+# Copy source code
+COPY . .
 
-# Build the binary
-RUN cargo build --release -p sevenmark-server
+# Build application (dependencies already built, only source compilation)
+RUN cargo build --release --bin sevenmark-server
 
 # Runtime stage
 FROM debian:stable-slim AS runtime
