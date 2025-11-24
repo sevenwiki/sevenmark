@@ -20,9 +20,9 @@ target/
 !.env.example
 
 # Documentation
-*.md
-!README.md
 docs/
+*.md
+!/README.md
 
 # CI/CD
 .github/
@@ -85,6 +85,25 @@ dist/
 
 # Cargo local cache/config
 .cargo/
+
+# Test/example output files (temporary results)
+*.json
+!Cargo.lock
+!package.json
+!**/package.json
+
+# Temporary/scratch files
+ToParse.txt
+sketch.txt
+make_request.py
+docker.env
+wasm-pack.toml
+nul
+tc/
+misc/
+
+# MCP config (development only)
+.mcp.json
 
 # NOTE: tests/ is NOT excluded because Cargo.toml references it
 # and cargo chef prepare will fail if tests are missing
