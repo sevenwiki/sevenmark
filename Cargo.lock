@@ -1575,6 +1575,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
 
 [[package]]
+name = "pluralizer"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4b3eba432a00a1f6c16f39147847a870e94e2e9b992759b503e330efec778cbe"
+dependencies = [
+ "once_cell",
+ "regex",
+]
+
+[[package]]
 name = "potential_utf"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1932,9 +1942,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "2.0.0-rc.18"
+version = "2.0.0-rc.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd92b1f5f1a6bee6f51523dbd030c5f617e65da6caf312f166dabb404806db86"
+checksum = "ee6dda57d64724c4c3e2b39ce17ca5f4084561656a3518b65b26edc5b36e4607"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -1964,11 +1974,12 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "2.0.0-rc.18"
+version = "2.0.0-rc.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07e65b4d10f02744f19c203f2e02fac65bc718efdd98636ea445f0a8f1ee0c1d"
+checksum = "4e7674a565e093a4bfffbfd6d7fd79a5dc8d75463d442ffb44d0fc3a3dcce5a6"
 dependencies = [
  "heck 0.5.0",
+ "pluralizer",
  "proc-macro2",
  "quote",
  "sea-bae",
@@ -2145,7 +2156,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.5.9"
+version = "2.5.10"
 dependencies = [
  "line-span",
  "paste",
@@ -2156,7 +2167,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.5.9"
+version = "2.5.10"
 dependencies = [
  "anyhow",
  "axum",
@@ -2176,7 +2187,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.5.9"
+version = "2.5.10"
 dependencies = [
  "anyhow",
  "js-sys",
