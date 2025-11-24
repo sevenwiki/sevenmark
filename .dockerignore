@@ -56,5 +56,35 @@ docker-compose*.yml
 *.backup
 *~
 
+# Node.js dependencies (for docs/VitePress)
+node_modules/
+**/node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# WASM build artifacts (wasm-pack output)
+pkg/
+**/pkg/
+
+# Test coverage data
+coverage/
+tarpaulin-report.html
+*.profraw
+*.profdata
+
+# Performance profiling
+flamegraph.svg
+perf.data*
+
+# Build artifacts
+dist/
+
+# Rust backup files
+*.rs.bk
+
+# Cargo local cache/config
+.cargo/
+
 # NOTE: tests/ is NOT excluded because Cargo.toml references it
 # and cargo chef prepare will fail if tests are missing

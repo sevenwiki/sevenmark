@@ -1,2 +1,0 @@
-Text before comment // This is an inline comment
-Text after comment.

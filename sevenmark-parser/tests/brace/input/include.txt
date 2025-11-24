@@ -1,3 +1,0 @@
-{{{#include #page="HomePage"
-Include some content here
-}}}

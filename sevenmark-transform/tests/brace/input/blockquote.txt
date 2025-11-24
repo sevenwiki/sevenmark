@@ -1,3 +1,0 @@
-{{{#quote #style="font-style:italic"
-This is a quoted text block with some **bold** content.
-}}}

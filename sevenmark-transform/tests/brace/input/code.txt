@@ -1,5 +1,0 @@
-{{{#code #lang="rust"
-fn main() {
-    println!("Hello, world!");
-}
-}}}

@@ -1,3 +1,0 @@
-Text before comment /* This is a
-multiline comment
-that spans multiple lines */ text after comment.

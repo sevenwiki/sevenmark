@@ -1,4 +1,0 @@
-{{{#fold
-[[**bold text** and normal]]
-[[*italic text* here]]
-}}}

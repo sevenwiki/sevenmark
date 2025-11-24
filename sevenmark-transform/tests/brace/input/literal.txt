@@ -1,1 +1,0 @@
-{{{ Basic literal content with **bold** and *italic* text }}}

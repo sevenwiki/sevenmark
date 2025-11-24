@@ -1,3 +1,0 @@
-Text before horizontal line.
------
-Text after horizontal line.

@@ -1,4 +1,0 @@
-{{{#fold #style="color:red"
-[[#bgcolor="blue" || content with param]]
-[[normal content]]
-}}}
