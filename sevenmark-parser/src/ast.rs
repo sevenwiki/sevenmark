@@ -315,6 +315,7 @@ pub enum Expression {
     /// 조건식 전용 리터럴
     StringLiteral(String),
     NumberLiteral(i64),
+    BoolLiteral(bool),
     Null,
 
     /// 기존 SevenMarkElement 그대로 포함 (변환 없음)
@@ -650,7 +651,10 @@ where
         Expression::Element(elem) => {
             visitor(elem);
         }
-        Expression::StringLiteral(_) | Expression::NumberLiteral(_) | Expression::Null => {
+        Expression::StringLiteral(_)
+        | Expression::NumberLiteral(_)
+        | Expression::BoolLiteral(_)
+        | Expression::Null => {
             // 자식 없음
         }
     }

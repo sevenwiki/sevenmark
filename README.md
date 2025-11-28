@@ -214,6 +214,17 @@ Variable is defined
 }}}
 ```
 
+**Boolean Literals:**
+```sevenmark
+{{{#if [var(enabled)] == true
+Feature is enabled
+}}}
+
+{{{#if (5 > 3) == true
+Condition result comparison
+}}}
+```
+
 **Notes:**
 - Content is included only when condition is true
 - Resolved during preprocessing (after variable substitution)

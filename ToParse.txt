@@ -1,5 +1,5 @@
 {{{#define
-#x
+#x="1"
 }}}
 
 {{{#if [var(x)] == null

@@ -107,6 +107,8 @@ fn operand_parser(input: &mut ParserInput) -> Result<Expression> {
         function_call_parser,
         // null 키워드
         null_parser,
+        // bool 키워드: true, false
+        bool_literal_parser,
         // 문자열 리터럴
         string_literal_parser,
         // 숫자 리터럴
@@ -158,6 +160,15 @@ fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
 /// null 키워드 파서
 fn null_parser(input: &mut ParserInput) -> Result<Expression> {
     literal("null").value(Expression::Null).parse_next(input)
+}
+
+/// bool 리터럴 파서: true, false
+fn bool_literal_parser(input: &mut ParserInput) -> Result<Expression> {
+    alt((
+        literal("true").value(Expression::BoolLiteral(true)),
+        literal("false").value(Expression::BoolLiteral(false)),
+    ))
+    .parse_next(input)
 }
 
 /// 문자열 리터럴 파서: "..."

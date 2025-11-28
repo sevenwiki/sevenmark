@@ -50,6 +50,7 @@ export default defineConfig({
           items: [
             { text: "Media", link: "/grammar/media" },
             { text: "Macros", link: "/grammar/macros" },
+            { text: "Conditionals", link: "/grammar/conditionals" },
             { text: "Parameters", link: "/grammar/parameters" },
           ],
         },

@@ -1,28 +1,18 @@
 [
   {
-    "StyledElement": {
+    "DefineElement": {
       "parameters": {
-        "define": {
-          "key": "define",
-          "value": []
-        },
         "x": {
           "key": "x",
-          "value": []
+          "value": [
+            {
+              "Text": {
+                "content": "1"
+              }
+            }
+          ]
         }
-      },
-      "content": [
-        {
-          "Text": {
-            "content": "=\"\""
-          }
-        },
-        {
-          "Text": {
-            "content": "\n"
-          }
-        }
-      ]
+      }
     }
   },
   {

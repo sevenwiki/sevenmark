@@ -55,6 +55,7 @@ fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -
         }
         Expression::StringLiteral(s) => Value::String(s.clone()),
         Expression::NumberLiteral(n) => Value::Number(*n),
+        Expression::BoolLiteral(b) => Value::Bool(*b),
         Expression::Null => Value::Null,
         Expression::Element(elem) => evaluate_element(elem, variables),
         Expression::Group(inner) => evaluate_expression(inner, variables),
@@ -82,10 +83,19 @@ fn compare_values(left: &Value, operator: &ComparisonOperator, right: &Value) ->
     match operator {
         ComparisonOperator::Equal => values_equal(left, right),
         ComparisonOperator::NotEqual => !values_equal(left, right),
-        ComparisonOperator::GreaterThan => compare_numeric(left, right) > 0,
-        ComparisonOperator::LessThan => compare_numeric(left, right) < 0,
-        ComparisonOperator::GreaterEqual => compare_numeric(left, right) >= 0,
-        ComparisonOperator::LessEqual => compare_numeric(left, right) <= 0,
+        // 숫자 비교는 양쪽 모두 숫자로 변환 가능할 때만 수행
+        ComparisonOperator::GreaterThan => {
+            compare_numeric(left, right).is_some_and(|ord| ord > 0)
+        }
+        ComparisonOperator::LessThan => {
+            compare_numeric(left, right).is_some_and(|ord| ord < 0)
+        }
+        ComparisonOperator::GreaterEqual => {
+            compare_numeric(left, right).is_some_and(|ord| ord >= 0)
+        }
+        ComparisonOperator::LessEqual => {
+            compare_numeric(left, right).is_some_and(|ord| ord <= 0)
+        }
     }
 }
 
@@ -93,6 +103,7 @@ fn compare_values(left: &Value, operator: &ComparisonOperator, right: &Value) ->
 fn values_equal(left: &Value, right: &Value) -> bool {
     match (left, right) {
         (Value::Null, Value::Null) => true,
+        (Value::Bool(a), Value::Bool(b)) => a == b,
         (Value::String(a), Value::String(b)) => a == b,
         (Value::Number(a), Value::Number(b)) => a == b,
         (Value::String(s), Value::Number(n)) | (Value::Number(n), Value::String(s)) => {
@@ -102,26 +113,21 @@ fn values_equal(left: &Value, right: &Value) -> bool {
     }
 }
 
-/// 숫자 비교 (-1, 0, 1 반환)
-fn compare_numeric(left: &Value, right: &Value) -> i64 {
-    let left_num = value_to_number(left);
-    let right_num = value_to_number(right);
-    (left_num - right_num).signum()
+/// 숫자 비교 - 양쪽 모두 숫자로 변환 가능할 때만 비교
+/// 변환 불가능하면 None 반환
+fn compare_numeric(left: &Value, right: &Value) -> Option<i64> {
+    let left_num = to_number(left)?;
+    let right_num = to_number(right)?;
+    Some((left_num - right_num).signum())
 }
 
-/// Value를 숫자로 변환
-fn value_to_number(value: &Value) -> i64 {
+/// Value를 숫자로 변환 시도 (실패하면 None)
+fn to_number(value: &Value) -> Option<i64> {
     match value {
-        Value::Number(n) => *n,
-        Value::String(s) => s.parse().unwrap_or(0),
-        Value::Null => 0,
-        Value::Bool(b) => {
-            if *b {
-                1
-            } else {
-                0
-            }
-        }
+        Value::Number(n) => Some(*n),
+        Value::String(s) => s.parse().ok(),
+        Value::Bool(b) => Some(if *b { 1 } else { 0 }),
+        Value::Null => None,
     }
 }
 
@@ -135,7 +141,7 @@ fn evaluate_function(
         "int" => {
             if let Some(arg) = arguments.first() {
                 let val = evaluate_expression(arg, variables);
-                Value::Number(value_to_number(&val))
+                Value::Number(to_number(&val).unwrap_or(0))
             } else {
                 Value::Number(0)
             }
@@ -358,5 +364,115 @@ mod tests {
         );
         // undefined != null is false, so right side not evaluated
         assert!(!evaluate_condition(&expr_undefined, &variables));
+    }
+
+    #[test]
+    fn test_bool_comparison() {
+        let variables = HashMap::new();
+
+        // (5 > 3) == (10 > 8) → true == true → true
+        let expr = Expression::Comparison {
+            left: Box::new(Expression::Comparison {
+                left: Box::new(Expression::NumberLiteral(5)),
+                operator: ComparisonOperator::GreaterThan,
+                right: Box::new(Expression::NumberLiteral(3)),
+            }),
+            operator: ComparisonOperator::Equal,
+            right: Box::new(Expression::Comparison {
+                left: Box::new(Expression::NumberLiteral(10)),
+                operator: ComparisonOperator::GreaterThan,
+                right: Box::new(Expression::NumberLiteral(8)),
+            }),
+        };
+        assert!(evaluate_condition(&expr, &variables));
+
+        // (5 > 3) == (10 < 8) → true == false → false
+        let expr2 = Expression::Comparison {
+            left: Box::new(Expression::Comparison {
+                left: Box::new(Expression::NumberLiteral(5)),
+                operator: ComparisonOperator::GreaterThan,
+                right: Box::new(Expression::NumberLiteral(3)),
+            }),
+            operator: ComparisonOperator::Equal,
+            right: Box::new(Expression::Comparison {
+                left: Box::new(Expression::NumberLiteral(10)),
+                operator: ComparisonOperator::LessThan,
+                right: Box::new(Expression::NumberLiteral(8)),
+            }),
+        };
+        assert!(!evaluate_condition(&expr2, &variables));
+    }
+
+    #[test]
+    fn test_incomparable_types() {
+        let variables = HashMap::new();
+
+        // "abc" < 5 → false (비교 불가, 0으로 변환하지 않음)
+        let expr = Expression::Comparison {
+            left: Box::new(Expression::StringLiteral("abc".to_string())),
+            operator: ComparisonOperator::LessThan,
+            right: Box::new(Expression::NumberLiteral(5)),
+        };
+        assert!(!evaluate_condition(&expr, &variables));
+
+        // "abc" > 5 → false (비교 불가)
+        let expr2 = Expression::Comparison {
+            left: Box::new(Expression::StringLiteral("abc".to_string())),
+            operator: ComparisonOperator::GreaterThan,
+            right: Box::new(Expression::NumberLiteral(5)),
+        };
+        assert!(!evaluate_condition(&expr2, &variables));
+
+        // "10" > 5 → true (문자열이 숫자로 파싱 가능)
+        let expr3 = Expression::Comparison {
+            left: Box::new(Expression::StringLiteral("10".to_string())),
+            operator: ComparisonOperator::GreaterThan,
+            right: Box::new(Expression::NumberLiteral(5)),
+        };
+        assert!(evaluate_condition(&expr3, &variables));
+
+        // null > 5 → false (null은 숫자 비교 불가)
+        let expr4 = Expression::Comparison {
+            left: Box::new(Expression::Null),
+            operator: ComparisonOperator::GreaterThan,
+            right: Box::new(Expression::NumberLiteral(5)),
+        };
+        assert!(!evaluate_condition(&expr4, &variables));
+    }
+
+    #[test]
+    fn test_bool_literal() {
+        let variables = HashMap::new();
+
+        // true == true → true
+        let expr = Expression::Comparison {
+            left: Box::new(Expression::BoolLiteral(true)),
+            operator: ComparisonOperator::Equal,
+            right: Box::new(Expression::BoolLiteral(true)),
+        };
+        assert!(evaluate_condition(&expr, &variables));
+
+        // (5 > 3) == true → true
+        let expr2 = Expression::Comparison {
+            left: Box::new(Expression::Comparison {
+                left: Box::new(Expression::NumberLiteral(5)),
+                operator: ComparisonOperator::GreaterThan,
+                right: Box::new(Expression::NumberLiteral(3)),
+            }),
+            operator: ComparisonOperator::Equal,
+            right: Box::new(Expression::BoolLiteral(true)),
+        };
+        assert!(evaluate_condition(&expr2, &variables));
+
+        // false || true → true
+        let expr3 = Expression::Or(
+            Box::new(Expression::BoolLiteral(false)),
+            Box::new(Expression::BoolLiteral(true)),
+        );
+        assert!(evaluate_condition(&expr3, &variables));
+
+        // !false → true
+        let expr4 = Expression::Not(Box::new(Expression::BoolLiteral(false)));
+        assert!(evaluate_condition(&expr4, &variables));
     }
 }

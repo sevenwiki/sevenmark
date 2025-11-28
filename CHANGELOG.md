@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.1] - 2025-11-28
+
+### Added
+- **Boolean Literals**: Added `true` and `false` keyword support in expressions
+  - Parser: `bool_literal_parser` handles `true`/`false` keywords
+  - AST: New `Expression::BoolLiteral(bool)` variant
+  - Evaluator: Properly handles boolean literal values
+  - Enables patterns like `(5 > 3) == true` and `[var(enabled)] == false`
+
 ## [2.6.0] - 2025-11-28
 
 ### Added
@@ -24,19 +33,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Expression Evaluator**: Runtime condition evaluation in `sevenmark-transform`
   - Short-circuit evaluation: `false && X` and `true || X` skip right-side evaluation
   - Enables null-guard patterns: `[var(x)] != null && int([var(x)]) > 5`
-  - Loose type coercion for wiki-friendly comparisons (e.g., `2 == "2"` is true)
+  - Strict numeric comparison: `>`, `<`, `>=`, `<=` only work when both values are numeric
+    - `"abc" < 5` → false (not silently converted to `0 < 5`)
+    - `"10" > 5` → true (parseable strings work)
+    - `null > 5` → false (null is not comparable)
+  - Loose type coercion for equality only (e.g., `"5" == 5` is true)
+  - Bool equality comparison supported (e.g., `(a > b) == (c > d)`)
   - Variable references via `[var(name)]` syntax
-  - Numeric comparisons with automatic string-to-number conversion
   - Null handling for undefined variables
 
 - **Traversable Enhancement**: Added `for_each_content_vec` method to `Traversable` trait
   - Enables Vec-level operations on AST content collections
   - Used by preprocessor for conditional element expansion/removal
   - Complements existing `for_each_child` for element-level traversal
-
-### Changed
-- **Parser Module Organization**: Renamed `expr/` to `expression/` for naming consistency
-  - Aligns with other full-word folder names (bracket, comment, markdown, etc.)
 
 ## [2.5.5] - 2025-11-13
 
