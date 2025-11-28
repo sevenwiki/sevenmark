@@ -14,7 +14,7 @@ sevenmark-parser = { workspace = true }
 sevenmark-transform = { workspace = true, features = ["server"] }
 
 # Web framework
-axum = { version = "0.8.6", features = ["multipart", "macros"] }
+axum = { version = "0.8.7", features = ["multipart", "macros"] }
 tokio = { version = "1.48.0", features = ["full"] }
 
 # Database

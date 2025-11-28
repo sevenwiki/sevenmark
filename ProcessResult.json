@@ -2,15 +2,9 @@
   {
     "DefineElement": {
       "parameters": {
-        "xx": {
-          "key": "xx",
-          "value": [
-            {
-              "Text": {
-                "content": "123"
-              }
-            }
-          ]
+        "x": {
+          "key": "x",
+          "value": []
         }
       }
     }
@@ -27,71 +21,12 @@
   },
   {
     "Text": {
-      "content": "123"
+      "content": "aefwefawef"
     }
   },
   {
     "Text": {
       "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "DefineElement": {
-      "parameters": {
-        "xx": {
-          "key": "xx",
-          "value": [
-            {
-              "Text": {
-                "content": "another 123"
-              }
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "StyledElement": {
-      "parameters": {
-        "adcs": {
-          "key": "adcs",
-          "value": [
-            {
-              "Text": {
-                "content": "another 123"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "content": "asdasdasd"
-          }
-        },
-        {
-          "Text": {
-            "content": "\n"
-          }
-        }
-      ]
     }
   }
 ]

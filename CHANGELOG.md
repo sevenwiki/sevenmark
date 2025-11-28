@@ -5,6 +5,37 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2025-11-28
+
+### Added
+- **Conditional Elements**: New `{{{#if condition :: content}}}` syntax for conditional rendering
+  - Content is included in output only when condition evaluates to true
+  - Processed during preprocessing phase alongside variable substitution
+  - Supports nested elements and formatting inside conditional blocks
+
+- **Expression Parser**: Complete expression evaluation system in `parser/expression/` module
+  - Comparison operators: `==`, `!=`, `>`, `<`, `>=`, `<=`
+  - Logical operators: `&&` (and), `||` (or), `!` (not)
+  - Parentheses for grouping: `(a || b) && c`
+  - Type conversion functions: `int()`, `len()`, `str()`
+  - `null` keyword for null comparisons
+  - Optional `::` delimiter to explicitly separate condition from content
+
+- **Expression Evaluator**: Runtime condition evaluation in `sevenmark-transform`
+  - Loose type coercion for wiki-friendly comparisons (e.g., `2 == "2"` is true)
+  - Variable references via `[var(name)]` syntax
+  - Numeric comparisons with automatic string-to-number conversion
+  - Null handling for undefined variables
+
+- **Traversable Enhancement**: Added `for_each_content_vec` method to `Traversable` trait
+  - Enables Vec-level operations on AST content collections
+  - Used by preprocessor for conditional element expansion/removal
+  - Complements existing `for_each_child` for element-level traversal
+
+### Changed
+- **Parser Module Organization**: Renamed `expr/` to `expression/` for naming consistency
+  - Aligns with other full-word folder names (bracket, comment, markdown, etc.)
+
 ## [2.5.5] - 2025-11-13
 
 ### Changed

@@ -278,6 +278,61 @@ pub struct RedirectElement {
     pub content: Vec<SevenMarkElement>,
 }
 
+/// 비교 연산자
+#[derive(Debug, Clone, Serialize, PartialEq)]
+pub enum ComparisonOperator {
+    Equal,        // ==
+    NotEqual,     // !=
+    GreaterThan,  // >
+    LessThan,     // <
+    GreaterEqual, // >=
+    LessEqual,    // <=
+}
+
+/// 조건식 Expression AST
+#[derive(Debug, Clone, Serialize)]
+pub enum Expression {
+    /// 논리 OR 연산
+    Or(Box<Expression>, Box<Expression>),
+    /// 논리 AND 연산
+    And(Box<Expression>, Box<Expression>),
+    /// 논리 NOT 연산
+    Not(Box<Expression>),
+
+    /// 비교 연산
+    Comparison {
+        left: Box<Expression>,
+        operator: ComparisonOperator,
+        right: Box<Expression>,
+    },
+
+    /// 함수 호출: int([var(x)]), len([var(str)])
+    FunctionCall {
+        name: String,
+        arguments: Vec<Expression>,
+    },
+
+    /// 조건식 전용 리터럴
+    StringLiteral(String),
+    NumberLiteral(i64),
+    Null,
+
+    /// 기존 SevenMarkElement 그대로 포함 (변환 없음)
+    Element(Box<SevenMarkElement>),
+
+    /// 괄호 그룹
+    Group(Box<Expression>),
+}
+
+/// If 조건문 요소
+#[derive(Debug, Clone, Serialize)]
+pub struct IfElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub location: Location,
+    pub condition: Expression,
+    pub content: Vec<SevenMarkElement>,
+}
+
 /// 메인 SevenMark AST 요소들
 #[derive(Debug, Clone, Serialize)]
 pub enum SevenMarkElement {
@@ -328,6 +383,9 @@ pub enum SevenMarkElement {
     // Other markdown elements
     HLine,
     Header(Header),
+
+    // Conditional
+    IfElement(IfElement),
 }
 
 impl Default for CommonStyleAttributes {
@@ -344,9 +402,15 @@ impl Default for CommonStyleAttributes {
 
 /// Trait for automatically traversing AST elements
 pub trait Traversable {
+    /// 각 자식 요소에 대해 visitor 호출
     fn traverse_children<F>(&mut self, visitor: &mut F)
     where
         F: FnMut(&mut SevenMarkElement);
+
+    /// 각 content Vec에 대해 f 호출 (Vec 구조 변경이 필요할 때 사용)
+    fn for_each_content_vec<F>(&mut self, f: &mut F)
+    where
+        F: FnMut(&mut Vec<SevenMarkElement>);
 }
 
 impl Traversable for SevenMarkElement {
@@ -485,6 +549,109 @@ impl Traversable for SevenMarkElement {
                     visitor(child);
                 }
             }
+
+            // IfElement - content와 condition 내 Element들 순회
+            SevenMarkElement::IfElement(if_elem) => {
+                for child in &mut if_elem.content {
+                    visitor(child);
+                }
+                // condition 내 Expression::Element들도 순회
+                traverse_expression(&mut if_elem.condition, visitor);
+            }
+        }
+    }
+
+    fn for_each_content_vec<F>(&mut self, f: &mut F)
+    where
+        F: FnMut(&mut Vec<SevenMarkElement>),
+    {
+        match self {
+            // 자식이 없는 요소들
+            SevenMarkElement::Text(_)
+            | SevenMarkElement::Comment(_)
+            | SevenMarkElement::Escape(_)
+            | SevenMarkElement::Error(_)
+            | SevenMarkElement::Age(_)
+            | SevenMarkElement::Variable(_)
+            | SevenMarkElement::TeXElement(_)
+            | SevenMarkElement::Null
+            | SevenMarkElement::FootNote
+            | SevenMarkElement::TimeNow
+            | SevenMarkElement::NewLine
+            | SevenMarkElement::HLine
+            | SevenMarkElement::DefineElement(_) => {}
+
+            // content Vec 하나만 있는 요소들
+            SevenMarkElement::LiteralElement(e) => f(&mut e.content),
+            SevenMarkElement::Header(e) => f(&mut e.content),
+            SevenMarkElement::Category(e) => f(&mut e.content),
+            SevenMarkElement::Redirect(e) => f(&mut e.content),
+            SevenMarkElement::FootnoteElement(e) => f(&mut e.content),
+            SevenMarkElement::StyledElement(e) => f(&mut e.content),
+            SevenMarkElement::BlockQuoteElement(e) => f(&mut e.content),
+            SevenMarkElement::RubyElement(e) => f(&mut e.content),
+            SevenMarkElement::CodeElement(e) => f(&mut e.content),
+            SevenMarkElement::Include(e) => f(&mut e.content),
+            SevenMarkElement::MediaElement(e) => f(&mut e.content),
+            SevenMarkElement::IfElement(e) => f(&mut e.content),
+
+            // TextStyle 계열
+            SevenMarkElement::BoldItalic(e)
+            | SevenMarkElement::Bold(e)
+            | SevenMarkElement::Italic(e)
+            | SevenMarkElement::Strikethrough(e)
+            | SevenMarkElement::Underline(e)
+            | SevenMarkElement::Superscript(e)
+            | SevenMarkElement::Subscript(e) => f(&mut e.content),
+
+            // 특수 중첩 구조들
+            SevenMarkElement::TableElement(table) => {
+                for row in &mut table.content {
+                    for cell in &mut row.inner_content {
+                        f(&mut cell.content);
+                    }
+                }
+            }
+            SevenMarkElement::ListElement(list) => {
+                for item in &mut list.content {
+                    f(&mut item.content);
+                }
+            }
+            SevenMarkElement::FoldElement(fold) => {
+                f(&mut fold.content.0.content);
+                f(&mut fold.content.1.content);
+            }
+        }
+    }
+}
+
+/// Expression 내의 SevenMarkElement들을 순회하는 헬퍼 함수
+fn traverse_expression<F>(expr: &mut Expression, visitor: &mut F)
+where
+    F: FnMut(&mut SevenMarkElement),
+{
+    match expr {
+        Expression::Or(left, right) | Expression::And(left, right) => {
+            traverse_expression(left, visitor);
+            traverse_expression(right, visitor);
+        }
+        Expression::Not(inner) | Expression::Group(inner) => {
+            traverse_expression(inner, visitor);
+        }
+        Expression::Comparison { left, right, .. } => {
+            traverse_expression(left, visitor);
+            traverse_expression(right, visitor);
+        }
+        Expression::FunctionCall { arguments, .. } => {
+            for arg in arguments {
+                traverse_expression(arg, visitor);
+            }
+        }
+        Expression::Element(elem) => {
+            visitor(elem);
+        }
+        Expression::StringLiteral(_) | Expression::NumberLiteral(_) | Expression::Null => {
+            // 자식 없음
         }
     }
 }

@@ -1,3 +1,4 @@
+use crate::expression_evaluator::evaluate_condition;
 use crate::wiki::{DocumentNamespace, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
@@ -32,6 +33,9 @@ pub async fn preprocess_sevenmark(
     // Substitute variables in main document
     let mut main_params = HashMap::new();
     substitute_variables(&mut ast, &mut main_params);
+
+    // Process if conditionals
+    process_if_elements(&mut ast, &main_params);
 
     // Collect metadata from main document
     let mut categories = HashSet::new();
@@ -342,5 +346,33 @@ fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
         DocumentNamespace::Document => "Document",
         DocumentNamespace::File => "File",
         DocumentNamespace::Category => "Category",
+    }
+}
+
+/// If 요소를 조건 평가 후 처리 (조건 true: 내용 전개, false: 제거)
+fn process_if_elements(elements: &mut Vec<SevenMarkElement>, variables: &HashMap<String, String>) {
+    let mut i = 0;
+    while i < elements.len() {
+        // 먼저 자식 요소들의 If 처리
+        elements[i].for_each_content_vec(&mut |vec| {
+            process_if_elements(vec, variables);
+        });
+
+        // 현재 요소가 IfElement인 경우 처리
+        if let SevenMarkElement::IfElement(if_elem) = &elements[i] {
+            if evaluate_condition(&if_elem.condition, variables) {
+                // 조건이 true: 내용으로 대체
+                let content = if_elem.content.clone();
+                elements.splice(i..i + 1, content);
+                // splice 후 새로 삽입된 요소들도 재처리 필요 없음 (이미 자식 처리됨)
+                // 다음 요소로 이동하지 않고 같은 인덱스 유지 (새 요소 확인)
+            } else {
+                // 조건이 false: 제거
+                elements.remove(i);
+            }
+            // i를 증가시키지 않음 - splice/remove 후 다음 요소가 현재 위치에 있음
+            continue;
+        }
+        i += 1;
     }
 }

@@ -169,6 +169,58 @@ Welcome to [var(projectName)] version [var(version)]!
 [null]                   // Null element
 ```
 
+### Conditionals
+
+```sevenmark
+{{{#if [var(x)] == "value"
+Content shown when condition is true
+}}}
+
+{{{#if [var(count)] > 5 ::
+Content with explicit :: delimiter
+}}}
+```
+
+**Comparison Operators:**
+- `==` - Equal
+- `!=` - Not equal
+- `>`, `<`, `>=`, `<=` - Numeric comparisons
+
+**Logical Operators:**
+- `&&` - AND
+- `||` - OR
+- `!` - NOT (prefix)
+
+**Grouping:**
+```sevenmark
+{{{#if ([var(a)] == "1" || [var(b)] == "2") && [var(c)] != null
+Grouped conditions with parentheses
+}}}
+```
+
+**Type Functions:**
+- `int([var(x)])` - Convert to integer
+- `len([var(x)])` - Get string length
+- `str([var(x)])` - Convert to string
+
+**Null Checks:**
+```sevenmark
+{{{#if [var(optional)] == null
+Variable is not defined
+}}}
+
+{{{#if [var(required)] != null
+Variable is defined
+}}}
+```
+
+**Notes:**
+- Content is included only when condition is true
+- Resolved during preprocessing (after variable substitution)
+- Supports nested formatting inside conditional blocks
+- Uses loose type coercion (e.g., `2 == "2"` is true)
+- Optional `::` delimiter separates condition from content
+
 ### Wiki Elements
 
 **Include (Transclusion):**
@@ -342,6 +394,7 @@ sevenmark/
 │   │       ├── bracket/       # [[...]] media elements
 │   │       ├── markdown/      # Markdown-style syntax
 │   │       ├── macro/         # [var()], [age()], etc.
+│   │       ├── expr/    # Condition expression parsing
 │   │       ├── comment/       # // and /* */ comments
 │   │       ├── escape/        # \ escaping
 │   │       ├── text/          # Plain text
@@ -391,6 +444,7 @@ Input Text
 ┌─────────────────────────────┐
 │  2. PREPROCESSING           │
 │  - Variable substitution    │
+│  - Conditional evaluation   │
 │  - Include resolution       │
 │  - Media collection         │
 │  - Category/redirect        │

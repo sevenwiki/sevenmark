@@ -1,3 +1,7 @@
-{{{#quote #style="font-style:italic"
-This is a quoted text block with some **bold** content.
+{{{#define
+#x
+}}}
+
+{{{#if [var(x)] == null
+aefwefawef
 }}}

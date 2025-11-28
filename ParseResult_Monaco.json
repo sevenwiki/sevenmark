@@ -2,12 +2,32 @@
   {
     "DefineElement": {
       "parameters": {
-        "xx": {
-          "key": "xx",
+        "x": {
+          "key": "x",
           "value": [
             {
               "Text": {
-                "content": "123"
+                "content": "1"
+              }
+            }
+          ]
+        },
+        "y": {
+          "key": "y",
+          "value": [
+            {
+              "Text": {
+                "content": "3"
+              }
+            }
+          ]
+        },
+        "z": {
+          "key": "z",
+          "value": [
+            {
+              "Text": {
+                "content": "4"
               }
             }
           ]
@@ -21,57 +41,80 @@
     }
   },
   {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Variable": {
-      "content": "xx"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "DefineElement": {
-      "parameters": {
-        "xx": {
-          "key": "xx",
-          "value": [
-            {
-              "Text": {
-                "content": "another 123"
+    "IfElement": {
+      "condition": {
+        "And": [
+          {
+            "Comparison": {
+              "left": {
+                "Element": {
+                  "Variable": {
+                    "content": "x"
+                  }
+                }
+              },
+              "operator": "Equal",
+              "right": {
+                "StringLiteral": "1"
               }
             }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "StyledElement": {
+          },
+          {
+            "Group": {
+              "Or": [
+                {
+                  "Comparison": {
+                    "left": {
+                      "FunctionCall": {
+                        "arguments": [
+                          {
+                            "Element": {
+                              "Variable": {
+                                "content": "y"
+                              }
+                            }
+                          }
+                        ],
+                        "name": "int"
+                      }
+                    },
+                    "operator": "Equal",
+                    "right": {
+                      "StringLiteral": "2"
+                    }
+                  }
+                },
+                {
+                  "Comparison": {
+                    "left": {
+                      "FunctionCall": {
+                        "arguments": [
+                          {
+                            "Element": {
+                              "Variable": {
+                                "content": "z"
+                              }
+                            }
+                          }
+                        ],
+                        "name": "int"
+                      }
+                    },
+                    "operator": "Equal",
+                    "right": {
+                      "StringLiteral": "2"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
       "content": [
         {
           "Text": {
-            "content": "asdasdasd"
+            "content": "aefwefawef"
           }
         },
         {
@@ -79,19 +122,94 @@
             "content": "\n"
           }
         }
-      ],
-      "parameters": {
-        "adcs": {
-          "key": "adcs",
-          "value": [
-            {
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "condition": {
+        "Comparison": {
+          "left": {
+            "Element": {
               "Variable": {
-                "content": "xx"
+                "content": "x"
               }
             }
-          ]
+          },
+          "operator": "GreaterEqual",
+          "right": {
+            "NumberLiteral": 1
+          }
         }
-      }
+      },
+      "content": [
+        {
+          "Text": {
+            "content": "something with :: delimiter"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "condition": {
+        "Comparison": {
+          "left": {
+            "Element": {
+              "Variable": {
+                "content": "x"
+              }
+            }
+          },
+          "operator": "GreaterEqual",
+          "right": {
+            "NumberLiteral": -1
+          }
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "content": "something with :: delimiter"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        }
+      ]
     }
   }
 ]

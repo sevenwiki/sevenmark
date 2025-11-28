@@ -1,6 +1,5 @@
-
-use std::fs;
 use sevenmark_parser::core::parse_document;
+use std::fs;
 
 fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {
     let result = parse_document(content);

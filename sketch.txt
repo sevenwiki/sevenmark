@@ -1,6 +1,7 @@
-{{{#table
-{{{#if [var(age)] == "xx"
-aefwefawef
+{{{#define
+#x=""
 }}}
-{{{#if [var(x)] == "xxx"
+
+{{{#if [var(x)] == "1" && int([var(y)]) == "2"
+aefwefawef
 }}}

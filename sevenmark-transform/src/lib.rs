@@ -1,6 +1,8 @@
 pub mod position_converter;
 
 #[cfg(feature = "server")]
+pub mod expression_evaluator;
+#[cfg(feature = "server")]
 pub mod postprocessor;
 #[cfg(feature = "server")]
 pub mod preprocessor;

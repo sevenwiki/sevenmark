@@ -1,38 +1,59 @@
 [
   {
-    "BlockQuoteElement": {
+    "StyledElement": {
       "parameters": {
-        "style": {
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "content": "font-style:italic"
-              }
-            }
-          ]
+        "define": {
+          "key": "define",
+          "value": []
+        },
+        "x": {
+          "key": "x",
+          "value": []
         }
       },
       "content": [
         {
           "Text": {
-            "content": "This is a quoted text block with some "
-          }
-        },
-        {
-          "Bold": {
-            "content": [
-              {
-                "Text": {
-                  "content": "bold"
-                }
-              }
-            ]
+            "content": "=\"\""
           }
         },
         {
           "Text": {
-            "content": " content."
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "condition": {
+        "Comparison": {
+          "left": {
+            "Element": {
+              "Variable": {
+                "content": "x"
+              }
+            }
+          },
+          "operator": "Equal",
+          "right": "Null"
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "content": "aefwefawef"
           }
         },
         {
