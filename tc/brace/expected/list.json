@@ -18,46 +18,52 @@
       },
       "content": [
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 14,
-                  "end": 20
-                },
-                "content": "Item 1"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 14,
+                    "end": 20
+                  },
+                  "content": "Item 1"
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 25,
-                  "end": 31
-                },
-                "content": "Item 2"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 25,
+                    "end": 31
+                  },
+                  "content": "Item 2"
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 36,
-                  "end": 42
-                },
-                "content": "Item 3"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 36,
+                    "end": 42
+                  },
+                  "content": "Item 3"
+                }
               }
-            }
-          ]
+            ]
+          }
         }
       ]
     }

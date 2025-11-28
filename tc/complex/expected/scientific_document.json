@@ -317,89 +317,97 @@
                 },
                 "content": [
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 348,
-                            "end": 382
-                          },
-                          "content": "Start with relativistic momentum: "
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 348,
+                              "end": 382
+                            },
+                            "content": "Start with relativistic momentum: "
+                          }
+                        },
+                        {
+                          "TeXElement": {
+                            "location": {
+                              "start": 382,
+                              "end": 407
+                            },
+                            "is_block": false,
+                            "content": "p = \\gamma mv "
+                          }
                         }
-                      },
-                      {
-                        "TeXElement": {
-                          "location": {
-                            "start": 382,
-                            "end": 407
-                          },
-                          "is_block": false,
-                          "content": "p = \\gamma mv "
-                        }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 412,
-                            "end": 442
-                          },
-                          "content": "Apply energy-momentum relation"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 412,
+                              "end": 442
+                            },
+                            "content": "Apply energy-momentum relation"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 447,
-                            "end": 474
-                          },
-                          "content": "Simplify for rest mass case"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 447,
+                              "end": 474
+                            },
+                            "content": "Simplify for rest mass case"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 479,
-                            "end": 487
-                          },
-                          "content": "Result: "
-                        }
-                      },
-                      {
-                        "Bold": {
-                          "location": {
-                            "start": 487,
-                            "end": 499
-                          },
-                          "content": [
-                            {
-                              "Text": {
-                                "location": {
-                                  "start": 489,
-                                  "end": 497
-                                },
-                                "content": "E = mc²"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 479,
+                              "end": 487
+                            },
+                            "content": "Result: "
+                          }
+                        },
+                        {
+                          "Bold": {
+                            "location": {
+                              "start": 487,
+                              "end": 499
+                            },
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 489,
+                                    "end": 497
+                                  },
+                                  "content": "E = mc²"
+                                }
                               }
-                            }
-                          ]
+                            ]
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 ]
               }
@@ -606,225 +614,257 @@
       },
       "content": [
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Bold": {
-                    "location": {
-                      "start": 769,
-                      "end": 778
-                    },
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 771,
-                            "end": 776
-                          },
-                          "content": "Field"
-                        }
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Bold": {
+                        "location": {
+                          "start": 769,
+                          "end": 778
+                        },
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 771,
+                                "end": 776
+                              },
+                              "content": "Field"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Bold": {
-                    "location": {
-                      "start": 783,
-                      "end": 798
-                    },
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 785,
-                            "end": 796
-                          },
-                          "content": "Application"
-                        }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Bold": {
+                        "location": {
+                          "start": 783,
+                          "end": 798
+                        },
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 785,
+                                "end": 796
+                              },
+                              "content": "Application"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Bold": {
-                    "location": {
-                      "start": 803,
-                      "end": 814
-                    },
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 805,
-                            "end": 812
-                          },
-                          "content": "Formula"
-                        }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Bold": {
+                        "location": {
+                          "start": 803,
+                          "end": 814
+                        },
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 805,
+                                "end": 812
+                              },
+                              "content": "Formula"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         },
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 823,
-                      "end": 838
-                    },
-                    "content": "Nuclear Physics"
-                  }
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 823,
+                          "end": 838
+                        },
+                        "content": "Nuclear Physics"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 843,
-                      "end": 870
-                    },
-                    "content": "Binding energy calculations"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 843,
+                          "end": 870
+                        },
+                        "content": "Binding energy calculations"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "TeXElement": {
-                    "location": {
-                      "start": 875,
-                      "end": 910
-                    },
-                    "is_block": false,
-                    "content": "\\Delta E = \\Delta m c^2 "
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "TeXElement": {
+                        "location": {
+                          "start": 875,
+                          "end": 910
+                        },
+                        "is_block": false,
+                        "content": "\\Delta E = \\Delta m c^2 "
+                      }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         },
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 919,
-                      "end": 935
-                    },
-                    "content": "Particle Physics"
-                  }
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 919,
+                          "end": 935
+                        },
+                        "content": "Particle Physics"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 940,
-                      "end": 974
-                    },
-                    "content": "Particle-antiparticle annihilation"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 940,
+                          "end": 974
+                        },
+                        "content": "Particle-antiparticle annihilation"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "TeXElement": {
-                    "location": {
-                      "start": 979,
-                      "end": 1008
-                    },
-                    "is_block": false,
-                    "content": "E_{total} = 2mc^2 "
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "TeXElement": {
+                        "location": {
+                          "start": 979,
+                          "end": 1008
+                        },
+                        "is_block": false,
+                        "content": "E_{total} = 2mc^2 "
+                      }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         },
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 1017,
-                      "end": 1026
-                    },
-                    "content": "Cosmology"
-                  }
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 1017,
+                          "end": 1026
+                        },
+                        "content": "Cosmology"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 1031,
-                      "end": 1056
-                    },
-                    "content": "Stellar energy production"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 1031,
+                          "end": 1056
+                        },
+                        "content": "Stellar energy production"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "TeXElement": {
-                    "location": {
-                      "start": 1061,
-                      "end": 1093
-                    },
-                    "is_block": false,
-                    "content": "L = \\frac{dm}{dt}c^2 "
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "TeXElement": {
+                        "location": {
+                          "start": 1061,
+                          "end": 1093
+                        },
+                        "is_block": false,
+                        "content": "L = \\frac{dm}{dt}c^2 "
+                      }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         }
       ]
     }
@@ -979,118 +1019,124 @@
       },
       "content": [
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 1227,
-                  "end": 1251
-                },
-                "content": "Speed of light: `c = 299"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1227,
+                    "end": 1251
+                  },
+                  "content": "Speed of light: `c = 299"
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1251,
+                    "end": 1252
+                  },
+                  "content": ","
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1252,
+                    "end": 1255
+                  },
+                  "content": "792"
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1255,
+                    "end": 1256
+                  },
+                  "content": ","
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1256,
+                    "end": 1261
+                  },
+                  "content": "458 m"
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1261,
+                    "end": 1262
+                  },
+                  "content": "/"
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1262,
+                    "end": 1264
+                  },
+                  "content": "s`"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1251,
-                  "end": 1252
-                },
-                "content": ","
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1252,
-                  "end": 1255
-                },
-                "content": "792"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1255,
-                  "end": 1256
-                },
-                "content": ","
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1256,
-                  "end": 1261
-                },
-                "content": "458 m"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1261,
-                  "end": 1262
-                },
-                "content": "/"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1262,
-                  "end": 1264
-                },
-                "content": "s`"
-              }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 1269,
-                  "end": 1317
-                },
-                "content": "Planck constant: `h = 6.626 × 10⁻³⁴ J⋅s`"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1269,
+                    "end": 1317
+                  },
+                  "content": "Planck constant: `h = 6.626 × 10⁻³⁴ J⋅s`"
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 1322,
-                  "end": 1341
-                },
-                "content": "Avogadro number: `N"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1322,
+                    "end": 1341
+                  },
+                  "content": "Avogadro number: `N"
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1341,
+                    "end": 1342
+                  },
+                  "content": "_"
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1342,
+                    "end": 1371
+                  },
+                  "content": "A = 6.022 × 10²³ mol⁻¹`"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1341,
-                  "end": 1342
-                },
-                "content": "_"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1342,
-                  "end": 1371
-                },
-                "content": "A = 6.022 × 10²³ mol⁻¹`"
-              }
-            }
-          ]
+            ]
+          }
         }
       ]
     }

@@ -1,0 +1,11 @@
+{{{#if true && true
+both true
+}}}
+
+{{{#if true || false
+either true
+}}}
+
+{{{#if !false
+not false
+}}}

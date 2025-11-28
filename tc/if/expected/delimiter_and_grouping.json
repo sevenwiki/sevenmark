@@ -1,0 +1,209 @@
+[
+  {
+    "IfElement": {
+      "location": {
+        "start": 0,
+        "end": 36
+      },
+      "condition": {
+        "Comparison": {
+          "left": {
+            "NumberLiteral": 5
+          },
+          "operator": "GreaterThan",
+          "right": {
+            "NumberLiteral": 3
+          }
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 17,
+              "end": 32
+            },
+            "content": "with delimiter\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 32,
+              "end": 33
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 36,
+        "end": 37
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 37,
+        "end": 38
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 38,
+        "end": 39
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 39,
+        "end": 40
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "location": {
+        "start": 40,
+        "end": 94
+      },
+      "condition": {
+        "And": [
+          {
+            "Group": {
+              "Or": [
+                {
+                  "BoolLiteral": true
+                },
+                {
+                  "BoolLiteral": false
+                }
+              ]
+            }
+          },
+          {
+            "BoolLiteral": true
+          }
+        ]
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 72,
+              "end": 90
+            },
+            "content": "grouped condition\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 90,
+              "end": 91
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 94,
+        "end": 95
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 95,
+        "end": 96
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 96,
+        "end": 97
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 97,
+        "end": 98
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "location": {
+        "start": 98,
+        "end": 159
+      },
+      "condition": {
+        "Comparison": {
+          "left": {
+            "Group": {
+              "Comparison": {
+                "left": {
+                  "NumberLiteral": 5
+                },
+                "operator": "GreaterThan",
+                "right": {
+                  "NumberLiteral": 3
+                }
+              }
+            }
+          },
+          "operator": "Equal",
+          "right": {
+            "BoolLiteral": true
+          }
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 125,
+              "end": 155
+            },
+            "content": "comparison result equals true\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 155,
+              "end": 156
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  }
+]

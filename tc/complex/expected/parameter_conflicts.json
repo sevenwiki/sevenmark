@@ -116,32 +116,36 @@
       },
       "content": [
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 115,
-                  "end": 147
-                },
-                "content": "Item with conflicting list types"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 115,
+                    "end": 147
+                  },
+                  "content": "Item with conflicting list types"
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 152,
-                  "end": 164
-                },
-                "content": "Another item"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 152,
+                    "end": 164
+                  },
+                  "content": "Another item"
+                }
               }
-            }
-          ]
+            ]
+          }
         }
       ]
     }

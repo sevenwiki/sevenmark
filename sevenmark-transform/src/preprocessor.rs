@@ -4,7 +4,10 @@ use crate::wiki::{DocumentNamespace, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
-use sevenmark_parser::ast::{Location, SevenMarkElement, TextElement, Traversable};
+use sevenmark_parser::ast::{
+    ListContentItem, Location, SevenMarkElement, TableCellItem, TableRowItem, TextElement,
+    Traversable,
+};
 use sevenmark_parser::core::parse_document;
 use std::collections::{HashMap, HashSet};
 use tracing::{debug, warn};
@@ -199,21 +202,9 @@ fn collect_metadata_recursive(
         _ => {}
     }
 
-    let mut children = Vec::new();
-    let mut element_clone = element.clone();
-    element_clone.traverse_children(&mut |child| {
-        children.push(child.clone());
+    element.traverse_children_ref(&mut |child| {
+        collect_metadata_recursive(child, categories, redirect, media, collect_categories_redirect);
     });
-
-    for child in &children {
-        collect_metadata_recursive(
-            child,
-            categories,
-            redirect,
-            media,
-            collect_categories_redirect,
-        );
-    }
 }
 
 fn collect_includes(
@@ -243,15 +234,9 @@ fn collect_includes_recursive(
         }
     }
 
-    let mut children = Vec::new();
-    let mut element_clone = element.clone();
-    element_clone.traverse_children(&mut |child| {
-        children.push(child.clone());
-    });
-
-    for child in &children {
+    element.traverse_children_ref(&mut |child| {
         collect_includes_recursive(child, includes);
-    }
+    });
 }
 
 fn substitute_includes(
@@ -348,6 +333,16 @@ fn process_if_elements(elements: &mut Vec<SevenMarkElement>, variables: &HashMap
             process_if_elements(vec, variables);
         });
 
+        // TableElement 내부의 조건부 처리
+        if let SevenMarkElement::TableElement(table) = &mut elements[i] {
+            process_table_conditionals(&mut table.content, variables);
+        }
+
+        // ListElement 내부의 조건부 처리
+        if let SevenMarkElement::ListElement(list) = &mut elements[i] {
+            process_list_conditionals(&mut list.content, variables);
+        }
+
         // 현재 요소가 IfElement인 경우 처리
         if let SevenMarkElement::IfElement(if_elem) = &elements[i] {
             if evaluate_condition(&if_elem.condition, variables) {
@@ -364,5 +359,113 @@ fn process_if_elements(elements: &mut Vec<SevenMarkElement>, variables: &HashMap
             continue;
         }
         i += 1;
+    }
+}
+
+/// TableElement 내부의 행/셀 레벨 조건부 처리
+fn process_table_conditionals(
+    rows: &mut Vec<TableRowItem>,
+    variables: &HashMap<String, String>,
+) {
+    let mut i = 0;
+    while i < rows.len() {
+        match &mut rows[i] {
+            TableRowItem::Row(row) => {
+                // 행 내부의 셀 레벨 조건부 처리
+                process_table_cell_conditionals(&mut row.inner_content, variables);
+                i += 1;
+            }
+            TableRowItem::Conditional { condition, rows: cond_rows, .. } => {
+                if evaluate_condition(condition, variables) {
+                    // 조건이 true: rows를 펼침
+                    // 먼저 펼쳐질 rows 내부의 셀 조건부도 처리
+                    for row in cond_rows.iter_mut() {
+                        process_table_cell_conditionals(&mut row.inner_content, variables);
+                    }
+                    let expanded: Vec<TableRowItem> = cond_rows
+                        .drain(..)
+                        .map(TableRowItem::Row)
+                        .collect();
+                    rows.splice(i..i + 1, expanded);
+                    // 다음 반복에서 새로 삽입된 요소 확인
+                } else {
+                    // 조건이 false: 제거
+                    rows.remove(i);
+                }
+                // i를 증가시키지 않음
+            }
+        }
+    }
+}
+
+/// 테이블 셀 레벨 조건부 처리
+fn process_table_cell_conditionals(
+    cells: &mut Vec<TableCellItem>,
+    variables: &HashMap<String, String>,
+) {
+    let mut i = 0;
+    while i < cells.len() {
+        match &mut cells[i] {
+            TableCellItem::Cell(cell) => {
+                // 셀 내부의 일반 IfElement 처리
+                process_if_elements(&mut cell.content, variables);
+                i += 1;
+            }
+            TableCellItem::Conditional { condition, cells: cond_cells, .. } => {
+                if evaluate_condition(condition, variables) {
+                    // 조건이 true: cells를 펼침
+                    // 먼저 펼쳐질 cells 내부의 IfElement도 처리
+                    for cell in cond_cells.iter_mut() {
+                        process_if_elements(&mut cell.content, variables);
+                    }
+                    let expanded: Vec<TableCellItem> = cond_cells
+                        .drain(..)
+                        .map(TableCellItem::Cell)
+                        .collect();
+                    cells.splice(i..i + 1, expanded);
+                    // 다음 반복에서 새로 삽입된 요소 확인
+                } else {
+                    // 조건이 false: 제거
+                    cells.remove(i);
+                }
+                // i를 증가시키지 않음
+            }
+        }
+    }
+}
+
+/// ListElement 내부의 아이템 레벨 조건부 처리
+fn process_list_conditionals(
+    items: &mut Vec<ListContentItem>,
+    variables: &HashMap<String, String>,
+) {
+    let mut i = 0;
+    while i < items.len() {
+        match &mut items[i] {
+            ListContentItem::Item(item) => {
+                // 아이템 내부의 일반 IfElement 처리
+                process_if_elements(&mut item.content, variables);
+                i += 1;
+            }
+            ListContentItem::Conditional { condition, items: cond_items, .. } => {
+                if evaluate_condition(condition, variables) {
+                    // 조건이 true: items를 펼침
+                    // 먼저 펼쳐질 items 내부의 IfElement도 처리
+                    for item in cond_items.iter_mut() {
+                        process_if_elements(&mut item.content, variables);
+                    }
+                    let expanded: Vec<ListContentItem> = cond_items
+                        .drain(..)
+                        .map(ListContentItem::Item)
+                        .collect();
+                    items.splice(i..i + 1, expanded);
+                    // 다음 반복에서 새로 삽입된 요소 확인
+                } else {
+                    // 조건이 false: 제거
+                    items.remove(i);
+                }
+                // i를 증가시키지 않음
+            }
+        }
     }
 }

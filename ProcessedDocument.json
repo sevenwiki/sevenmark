@@ -4,13 +4,8 @@
   "includes": [],
   "ast": [
     {
-      "DefineElement": {
-        "parameters": {
-          "x": {
-            "key": "x",
-            "value": []
-          }
-        }
+      "Text": {
+        "content": "with delimiter"
       }
     },
     {
@@ -25,7 +20,32 @@
     },
     {
       "Text": {
-        "content": "aefwefawef"
+        "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "grouped condition"
+      }
+    },
+    {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "\n"
+      }
+    },
+    {
+      "Text": {
+        "content": "comparison result equals true"
       }
     },
     {

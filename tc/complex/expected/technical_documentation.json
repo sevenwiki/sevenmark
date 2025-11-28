@@ -223,74 +223,84 @@
                 },
                 "content": [
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 238,
-                            "end": 260
-                          },
-                          "content": "Introduction and Setup"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 238,
+                              "end": 260
+                            },
+                            "content": "Introduction and Setup"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 265,
-                            "end": 281
-                          },
-                          "content": "Core API Methods"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 265,
+                              "end": 281
+                            },
+                            "content": "Core API Methods"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 286,
-                            "end": 300
-                          },
-                          "content": "Error Handling"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 286,
+                              "end": 300
+                            },
+                            "content": "Error Handling"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 305,
-                            "end": 331
-                          },
-                          "content": "Performance Considerations"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 305,
+                              "end": 331
+                            },
+                            "content": "Performance Considerations"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 336,
-                            "end": 358
-                          },
-                          "content": "Examples and Tutorials"
+                    "Item": {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 336,
+                              "end": 358
+                            },
+                            "content": "Examples and Tutorials"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 ]
               }
@@ -385,211 +395,235 @@
       },
       "content": [
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Bold": {
-                    "location": {
-                      "start": 450,
-                      "end": 460
-                    },
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 452,
-                            "end": 458
-                          },
-                          "content": "Method"
-                        }
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Bold": {
+                        "location": {
+                          "start": 450,
+                          "end": 460
+                        },
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 452,
+                                "end": 458
+                              },
+                              "content": "Method"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Bold": {
-                    "location": {
-                      "start": 465,
-                      "end": 480
-                    },
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 467,
-                            "end": 478
-                          },
-                          "content": "Description"
-                        }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Bold": {
+                        "location": {
+                          "start": 465,
+                          "end": 480
+                        },
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 467,
+                                "end": 478
+                              },
+                              "content": "Description"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Bold": {
-                    "location": {
-                      "start": 485,
-                      "end": 500
-                    },
-                    "content": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 487,
-                            "end": 498
-                          },
-                          "content": "Return Type"
-                        }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Bold": {
+                        "location": {
+                          "start": 485,
+                          "end": 500
+                        },
+                        "content": [
+                          {
+                            "Text": {
+                              "location": {
+                                "start": 487,
+                                "end": 498
+                              },
+                              "content": "Return Type"
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         },
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 509,
-                      "end": 515
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 509,
+                          "end": 515
+                        },
+                        "content": "`parse"
+                      }
                     },
-                    "content": "`parse"
-                  }
-                },
-                {
-                  "Text": {
-                    "location": {
-                      "start": 515,
-                      "end": 516
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 515,
+                          "end": 516
+                        },
+                        "content": "_"
+                      }
                     },
-                    "content": "_"
-                  }
-                },
-                {
-                  "Text": {
-                    "location": {
-                      "start": 516,
-                      "end": 527
-                    },
-                    "content": "document()`"
-                  }
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 516,
+                          "end": 527
+                        },
+                        "content": "document()`"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 532,
-                      "end": 562
-                    },
-                    "content": "Parses full SevenMark document"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 532,
+                          "end": 562
+                        },
+                        "content": "Parses full SevenMark document"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 567,
-                      "end": 590
-                    },
-                    "content": "`Vec<SevenMarkElement>`"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 567,
+                          "end": 590
+                        },
+                        "content": "`Vec<SevenMarkElement>`"
+                      }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         },
         {
-          "parameters": {},
-          "inner_content": [
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 599,
-                      "end": 607
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 599,
+                          "end": 607
+                        },
+                        "content": "`element"
+                      }
                     },
-                    "content": "`element"
-                  }
-                },
-                {
-                  "Text": {
-                    "location": {
-                      "start": 607,
-                      "end": 608
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 607,
+                          "end": 608
+                        },
+                        "content": "_"
+                      }
                     },
-                    "content": "_"
-                  }
-                },
-                {
-                  "Text": {
-                    "location": {
-                      "start": 608,
-                      "end": 617
-                    },
-                    "content": "parser()`"
-                  }
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 608,
+                          "end": 617
+                        },
+                        "content": "parser()`"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 622,
-                      "end": 648
-                    },
-                    "content": "Parses individual elements"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 622,
+                          "end": 648
+                        },
+                        "content": "Parses individual elements"
+                      }
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "parameters": {},
-              "content": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 653,
-                      "end": 675
-                    },
-                    "content": "`Result<Vec<Element>>`"
-                  }
+              },
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 653,
+                          "end": 675
+                        },
+                        "content": "`Result<Vec<Element>>`"
+                      }
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         }
       ]
     }

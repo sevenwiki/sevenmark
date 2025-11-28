@@ -138,6 +138,32 @@ fn test_escape_chars() {
     run_parser_test("escape", "escape_chars").expect("escape chars test failed");
 }
 
+// If Tests
+#[test]
+fn test_if_basic_comparison() {
+    run_parser_test("if", "basic_comparison").expect("if basic comparison test failed");
+}
+
+#[test]
+fn test_if_delimiter_and_grouping() {
+    run_parser_test("if", "delimiter_and_grouping").expect("if delimiter and grouping test failed");
+}
+
+#[test]
+fn test_if_functions() {
+    run_parser_test("if", "functions").expect("if functions test failed");
+}
+
+#[test]
+fn test_if_logical_operators() {
+    run_parser_test("if", "logical_operators").expect("if logical operators test failed");
+}
+
+#[test]
+fn test_if_null_and_bool() {
+    run_parser_test("if", "null_and_bool").expect("if null and bool test failed");
+}
+
 // Complex Tests
 #[test]
 fn test_complex_fold_with_rich_content() {

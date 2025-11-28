@@ -1,0 +1,187 @@
+[
+  {
+    "IfElement": {
+      "location": {
+        "start": 0,
+        "end": 42
+      },
+      "condition": {
+        "Comparison": {
+          "left": "Null",
+          "operator": "Equal",
+          "right": "Null"
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 21,
+              "end": 38
+            },
+            "content": "null equals null\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 38,
+              "end": 39
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 42,
+        "end": 43
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 43,
+        "end": 44
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 44,
+        "end": 45
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 45,
+        "end": 46
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "location": {
+        "start": 46,
+        "end": 88
+      },
+      "condition": {
+        "Comparison": {
+          "left": {
+            "BoolLiteral": true
+          },
+          "operator": "Equal",
+          "right": {
+            "BoolLiteral": true
+          }
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 67,
+              "end": 84
+            },
+            "content": "true equals true\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 84,
+              "end": 85
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 88,
+        "end": 89
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 89,
+        "end": 90
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 90,
+        "end": 91
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 91,
+        "end": 92
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "location": {
+        "start": 92,
+        "end": 138
+      },
+      "condition": {
+        "Comparison": {
+          "left": {
+            "BoolLiteral": false
+          },
+          "operator": "Equal",
+          "right": {
+            "BoolLiteral": false
+          }
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 115,
+              "end": 134
+            },
+            "content": "false equals false\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 134,
+              "end": 135
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  }
+]

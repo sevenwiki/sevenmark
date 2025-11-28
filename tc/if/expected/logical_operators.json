@@ -1,0 +1,183 @@
+[
+  {
+    "IfElement": {
+      "location": {
+        "start": 0,
+        "end": 35
+      },
+      "condition": {
+        "And": [
+          {
+            "BoolLiteral": true
+          },
+          {
+            "BoolLiteral": true
+          }
+        ]
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 21,
+              "end": 31
+            },
+            "content": "both true\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 31,
+              "end": 32
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 35,
+        "end": 36
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 36,
+        "end": 37
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 37,
+        "end": 38
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 38,
+        "end": 39
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "location": {
+        "start": 39,
+        "end": 77
+      },
+      "condition": {
+        "Or": [
+          {
+            "BoolLiteral": true
+          },
+          {
+            "BoolLiteral": false
+          }
+        ]
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 61,
+              "end": 73
+            },
+            "content": "either true\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 73,
+              "end": 74
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 77,
+        "end": 78
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 78,
+        "end": 79
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 79,
+        "end": 80
+      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "location": {
+        "start": 80,
+        "end": 81
+      },
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
+      "location": {
+        "start": 81,
+        "end": 110
+      },
+      "condition": {
+        "Not": {
+          "BoolLiteral": false
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "location": {
+              "start": 96,
+              "end": 106
+            },
+            "content": "not false\r"
+          }
+        },
+        {
+          "Text": {
+            "location": {
+              "start": 106,
+              "end": 107
+            },
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  }
+]

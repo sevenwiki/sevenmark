@@ -246,145 +246,153 @@
       },
       "content": [
         {
-          "parameters": {},
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 264,
-                  "end": 272
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 266,
-                        "end": 270
-                      },
-                      "content": "2010"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Bold": {
+                  "location": {
+                    "start": 264,
+                    "end": 272
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 266,
+                          "end": 270
+                        },
+                        "content": "2010"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 272,
+                    "end": 291
+                  },
+                  "content": ": Project announced"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 272,
-                  "end": 291
-                },
-                "content": ": Project announced"
-              }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 296,
-                  "end": 304
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 298,
-                        "end": 302
-                      },
-                      "content": "2012"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Bold": {
+                  "location": {
+                    "start": 296,
+                    "end": 304
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 298,
+                          "end": 302
+                        },
+                        "content": "2012"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 304,
+                    "end": 332
+                  },
+                  "content": ": First public release (0.1)"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 304,
-                  "end": 332
-                },
-                "content": ": First public release (0.1)"
-              }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 337,
-                  "end": 345
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 339,
-                        "end": 343
-                      },
-                      "content": "2015"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Bold": {
+                  "location": {
+                    "start": 337,
+                    "end": 345
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 339,
+                          "end": 343
+                        },
+                        "content": "2015"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 345,
+                    "end": 374
+                  },
+                  "content": ": Rust 1.0 stable release on "
+                }
+              },
+              {
+                "Age": {
+                  "location": {
+                    "start": 374,
+                    "end": 391
+                  },
+                  "content": "2015-05-15"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 345,
-                  "end": 374
-                },
-                "content": ": Rust 1.0 stable release on "
-              }
-            },
-            {
-              "Age": {
-                "location": {
-                  "start": 374,
-                  "end": 391
-                },
-                "content": "2015-05-15"
-              }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 396,
-                  "end": 407
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 398,
-                        "end": 405
-                      },
-                      "content": "Present"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Bold": {
+                  "location": {
+                    "start": 396,
+                    "end": 407
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 398,
+                          "end": 405
+                        },
+                        "content": "Present"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 407,
+                    "end": 437
+                  },
+                  "content": ": Active development continues"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 407,
-                  "end": 437
-                },
-                "content": ": Active development continues"
-              }
-            }
-          ]
+            ]
+          }
         }
       ]
     }
@@ -545,258 +553,290 @@
                 "parameters": {},
                 "content": [
                   {
-                    "parameters": {},
-                    "inner_content": [
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Bold": {
-                              "location": {
-                                "start": 597,
-                                "end": 608
-                              },
-                              "content": [
-                                {
-                                  "Text": {
-                                    "location": {
-                                      "start": 599,
-                                      "end": 606
-                                    },
-                                    "content": "Feature"
-                                  }
+                    "Row": {
+                      "parameters": {},
+                      "inner_content": [
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Bold": {
+                                  "location": {
+                                    "start": 597,
+                                    "end": 608
+                                  },
+                                  "content": [
+                                    {
+                                      "Text": {
+                                        "location": {
+                                          "start": 599,
+                                          "end": 606
+                                        },
+                                        "content": "Feature"
+                                      }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Bold": {
-                              "location": {
-                                "start": 613,
-                                "end": 628
-                              },
-                              "content": [
-                                {
-                                  "Text": {
-                                    "location": {
-                                      "start": 615,
-                                      "end": 626
-                                    },
-                                    "content": "Description"
-                                  }
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Bold": {
+                                  "location": {
+                                    "start": 613,
+                                    "end": 628
+                                  },
+                                  "content": [
+                                    {
+                                      "Text": {
+                                        "location": {
+                                          "start": 615,
+                                          "end": 626
+                                        },
+                                        "content": "Description"
+                                      }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Bold": {
-                              "location": {
-                                "start": 633,
-                                "end": 644
-                              },
-                              "content": [
-                                {
-                                  "Text": {
-                                    "location": {
-                                      "start": 635,
-                                      "end": 642
-                                    },
-                                    "content": "Benefit"
-                                  }
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Bold": {
+                                  "location": {
+                                    "start": 633,
+                                    "end": 644
+                                  },
+                                  "content": [
+                                    {
+                                      "Text": {
+                                        "location": {
+                                          "start": 635,
+                                          "end": 642
+                                        },
+                                        "content": "Benefit"
+                                      }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    ]
+                        }
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "inner_content": [
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 653,
-                                "end": 666
-                              },
-                              "content": "Memory Safety"
-                            }
+                    "Row": {
+                      "parameters": {},
+                      "inner_content": [
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 653,
+                                    "end": 666
+                                  },
+                                  "content": "Memory Safety"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 671,
-                                "end": 687
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 671,
+                                    "end": 687
+                                  },
+                                  "content": "No null pointers"
+                                }
                               },
-                              "content": "No null pointers"
-                            }
-                          },
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 687,
-                                "end": 688
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 687,
+                                    "end": 688
+                                  },
+                                  "content": ","
+                                }
                               },
-                              "content": ","
-                            }
-                          },
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 688,
-                                "end": 705
-                              },
-                              "content": " buffer overflows"
-                            }
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 688,
+                                    "end": 705
+                                  },
+                                  "content": " buffer overflows"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 710,
-                                "end": 726
-                              },
-                              "content": "Prevents crashes"
-                            }
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 710,
+                                    "end": 726
+                                  },
+                                  "content": "Prevents crashes"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    ]
+                        }
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "inner_content": [
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 735,
-                                "end": 757
-                              },
-                              "content": "Zero-cost Abstractions"
-                            }
+                    "Row": {
+                      "parameters": {},
+                      "inner_content": [
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 735,
+                                    "end": 757
+                                  },
+                                  "content": "Zero-cost Abstractions"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 762,
-                                "end": 781
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 762,
+                                    "end": 781
+                                  },
+                                  "content": "High-level features"
+                                }
                               },
-                              "content": "High-level features"
-                            }
-                          },
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 781,
-                                "end": 782
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 781,
+                                    "end": 782
+                                  },
+                                  "content": ","
+                                }
                               },
-                              "content": ","
-                            }
-                          },
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 782,
-                                "end": 804
-                              },
-                              "content": " low-level performance"
-                            }
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 782,
+                                    "end": 804
+                                  },
+                                  "content": " low-level performance"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 809,
-                                "end": 828
-                              },
-                              "content": "Best of both worlds"
-                            }
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 809,
+                                    "end": 828
+                                  },
+                                  "content": "Best of both worlds"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    ]
+                        }
+                      ]
+                    }
                   },
                   {
-                    "parameters": {},
-                    "inner_content": [
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 837,
-                                "end": 848
-                              },
-                              "content": "Concurrency"
-                            }
+                    "Row": {
+                      "parameters": {},
+                      "inner_content": [
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 837,
+                                    "end": 848
+                                  },
+                                  "content": "Concurrency"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 853,
-                                "end": 878
-                              },
-                              "content": "Safe parallel programming"
-                            }
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 853,
+                                    "end": 878
+                                  },
+                                  "content": "Safe parallel programming"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      },
-                      {
-                        "parameters": {},
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 883,
-                                "end": 904
-                              },
-                              "content": "Scalable applications"
-                            }
+                        },
+                        {
+                          "Cell": {
+                            "parameters": {},
+                            "content": [
+                              {
+                                "Text": {
+                                  "location": {
+                                    "start": 883,
+                                    "end": 904
+                                  },
+                                  "content": "Scalable applications"
+                                }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    ]
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -1495,126 +1535,134 @@
       },
       "content": [
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 1655,
-                  "end": 1681
-                },
-                "content": "Official documentation at "
-              }
-            },
-            {
-              "Subscript": {
-                "location": {
-                  "start": 1681,
-                  "end": 1702
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 1683,
-                        "end": 1700
-                      },
-                      "content": "doc.rust-lang.org"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1655,
+                    "end": 1681
+                  },
+                  "content": "Official documentation at "
+                }
+              },
+              {
+                "Subscript": {
+                  "location": {
+                    "start": 1681,
+                    "end": 1702
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 1683,
+                          "end": 1700
+                        },
+                        "content": "doc.rust-lang.org"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
               }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 1707,
-                  "end": 1724
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 1709,
-                        "end": 1722
-                      },
-                      "content": "The Rust Book"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Bold": {
+                  "location": {
+                    "start": 1707,
+                    "end": 1724
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 1709,
+                          "end": 1722
+                        },
+                        "content": "The Rust Book"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1724,
+                    "end": 1746
+                  },
+                  "content": " - comprehensive guide"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1724,
-                  "end": 1746
-                },
-                "content": " - comprehensive guide"
-              }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 1751,
-                  "end": 1772
-                },
-                "content": "Community forums and "
-              }
-            },
-            {
-              "Strikethrough": {
-                "location": {
-                  "start": 1772,
-                  "end": 1779
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 1774,
-                        "end": 1777
-                      },
-                      "content": "IRC"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1751,
+                    "end": 1772
+                  },
+                  "content": "Community forums and "
+                }
+              },
+              {
+                "Strikethrough": {
+                  "location": {
+                    "start": 1772,
+                    "end": 1779
+                  },
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 1774,
+                          "end": 1777
+                        },
+                        "content": "IRC"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "location": {
+                    "start": 1779,
+                    "end": 1787
+                  },
+                  "content": " Discord"
+                }
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 1779,
-                  "end": 1787
-                },
-                "content": " Discord"
-              }
-            }
-          ]
+            ]
+          }
         },
         {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 1792,
-                  "end": 1827
-                },
-                "content": "Rust by Example - hands-on learning"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 1792,
+                    "end": 1827
+                  },
+                  "content": "Rust by Example - hands-on learning"
+                }
               }
-            }
-          ]
+            ]
+          }
         }
       ]
     }
