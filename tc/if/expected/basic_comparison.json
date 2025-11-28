@@ -3,7 +3,7 @@
     "IfElement": {
       "location": {
         "start": 0,
-        "end": 25
+        "end": 23
       },
       "condition": {
         "Comparison": {
@@ -20,17 +20,17 @@
         {
           "Text": {
             "location": {
-              "start": 15,
-              "end": 21
+              "start": 14,
+              "end": 19
             },
-            "content": "equal\r"
+            "content": "equal"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 21,
-              "end": 22
+              "start": 19,
+              "end": 20
             },
             "content": "\n"
           }
@@ -41,17 +41,8 @@
   {
     "Text": {
       "location": {
-        "start": 25,
-        "end": 26
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 26,
-        "end": 27
+        "start": 23,
+        "end": 24
       },
       "content": "\n"
     }
@@ -59,17 +50,8 @@
   {
     "Text": {
       "location": {
-        "start": 27,
-        "end": 28
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 28,
-        "end": 29
+        "start": 24,
+        "end": 25
       },
       "content": "\n"
     }
@@ -77,8 +59,8 @@
   {
     "IfElement": {
       "location": {
-        "start": 29,
-        "end": 58
+        "start": 25,
+        "end": 52
       },
       "condition": {
         "Comparison": {
@@ -95,17 +77,17 @@
         {
           "Text": {
             "location": {
-              "start": 44,
-              "end": 54
+              "start": 39,
+              "end": 48
             },
-            "content": "not equal\r"
+            "content": "not equal"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 54,
-              "end": 55
+              "start": 48,
+              "end": 49
             },
             "content": "\n"
           }
@@ -116,17 +98,8 @@
   {
     "Text": {
       "location": {
-        "start": 58,
-        "end": 59
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 59,
-        "end": 60
+        "start": 52,
+        "end": 53
       },
       "content": "\n"
     }
@@ -134,17 +107,8 @@
   {
     "Text": {
       "location": {
-        "start": 60,
-        "end": 61
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 61,
-        "end": 62
+        "start": 53,
+        "end": 54
       },
       "content": "\n"
     }
@@ -152,8 +116,8 @@
   {
     "IfElement": {
       "location": {
-        "start": 62,
-        "end": 89
+        "start": 54,
+        "end": 79
       },
       "condition": {
         "Comparison": {
@@ -170,17 +134,17 @@
         {
           "Text": {
             "location": {
-              "start": 77,
-              "end": 85
+              "start": 68,
+              "end": 75
             },
-            "content": "greater\r"
+            "content": "greater"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 85,
-              "end": 86
+              "start": 75,
+              "end": 76
             },
             "content": "\n"
           }
@@ -191,17 +155,8 @@
   {
     "Text": {
       "location": {
-        "start": 89,
-        "end": 90
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 90,
-        "end": 91
+        "start": 79,
+        "end": 80
       },
       "content": "\n"
     }
@@ -209,17 +164,8 @@
   {
     "Text": {
       "location": {
-        "start": 91,
-        "end": 92
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 92,
-        "end": 93
+        "start": 80,
+        "end": 81
       },
       "content": "\n"
     }
@@ -227,8 +173,8 @@
   {
     "IfElement": {
       "location": {
-        "start": 93,
-        "end": 116
+        "start": 81,
+        "end": 102
       },
       "condition": {
         "Comparison": {
@@ -245,17 +191,17 @@
         {
           "Text": {
             "location": {
-              "start": 107,
-              "end": 112
+              "start": 94,
+              "end": 98
             },
-            "content": "less\r"
+            "content": "less"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 112,
-              "end": 113
+              "start": 98,
+              "end": 99
             },
             "content": "\n"
           }

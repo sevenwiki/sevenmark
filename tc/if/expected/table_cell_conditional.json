@@ -3,7 +3,7 @@
     "TableElement": {
       "location": {
         "start": 0,
-        "end": 77
+        "end": 75
       },
       "parameters": {},
       "content": [
@@ -18,8 +18,8 @@
                     {
                       "Text": {
                         "location": {
-                          "start": 16,
-                          "end": 27
+                          "start": 15,
+                          "end": 26
                         },
                         "content": "Normal Cell"
                       }
@@ -30,8 +30,8 @@
               {
                 "Conditional": {
                   "location": {
-                    "start": 30,
-                    "end": 70
+                    "start": 29,
+                    "end": 69
                   },
                   "condition": {
                     "BoolLiteral": true
@@ -43,8 +43,8 @@
                         {
                           "Text": {
                             "location": {
-                              "start": 47,
-                              "end": 63
+                              "start": 46,
+                              "end": 62
                             },
                             "content": "Conditional Cell"
                           }

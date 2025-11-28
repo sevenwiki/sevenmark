@@ -12,7 +12,7 @@
     "IfElement": {
       "location": {
         "start": 1,
-        "end": 42
+        "end": 40
       },
       "condition": {
         "Comparison": {
@@ -36,17 +36,17 @@
         {
           "Text": {
             "location": {
-              "start": 23,
-              "end": 38
+              "start": 22,
+              "end": 36
             },
-            "content": "int conversion\r"
+            "content": "int conversion"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 38,
-              "end": 39
+              "start": 36,
+              "end": 37
             },
             "content": "\n"
           }
@@ -57,17 +57,8 @@
   {
     "Text": {
       "location": {
-        "start": 42,
-        "end": 43
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 43,
-        "end": 44
+        "start": 40,
+        "end": 41
       },
       "content": "\n"
     }
@@ -75,17 +66,8 @@
   {
     "Text": {
       "location": {
-        "start": 44,
-        "end": 45
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 45,
-        "end": 46
+        "start": 41,
+        "end": 42
       },
       "content": "\n"
     }
@@ -93,8 +75,8 @@
   {
     "IfElement": {
       "location": {
-        "start": 46,
-        "end": 89
+        "start": 42,
+        "end": 83
       },
       "condition": {
         "Comparison": {
@@ -118,17 +100,17 @@
         {
           "Text": {
             "location": {
-              "start": 72,
-              "end": 85
+              "start": 67,
+              "end": 79
             },
-            "content": "length check\r"
+            "content": "length check"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 85,
-              "end": 86
+              "start": 79,
+              "end": 80
             },
             "content": "\n"
           }
@@ -139,17 +121,8 @@
   {
     "Text": {
       "location": {
-        "start": 89,
-        "end": 90
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 90,
-        "end": 91
+        "start": 83,
+        "end": 84
       },
       "content": "\n"
     }
@@ -157,17 +130,8 @@
   {
     "Text": {
       "location": {
-        "start": 91,
-        "end": 92
-      },
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 92,
-        "end": 93
+        "start": 84,
+        "end": 85
       },
       "content": "\n"
     }
@@ -175,8 +139,8 @@
   {
     "IfElement": {
       "location": {
-        "start": 93,
-        "end": 138
+        "start": 85,
+        "end": 128
       },
       "condition": {
         "Comparison": {
@@ -200,17 +164,17 @@
         {
           "Text": {
             "location": {
-              "start": 119,
-              "end": 134
+              "start": 110,
+              "end": 124
             },
-            "content": "str conversion\r"
+            "content": "str conversion"
           }
         },
         {
           "Text": {
             "location": {
-              "start": 134,
-              "end": 135
+              "start": 124,
+              "end": 125
             },
             "content": "\n"
           }
