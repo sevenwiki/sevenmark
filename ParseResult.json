@@ -1,151 +1,25 @@
 [
   {
     "IfElement": {
-      "location": {
-        "start": 0,
-        "end": 23
-      },
       "condition": {
         "Comparison": {
           "left": {
             "NumberLiteral": 5
-          },
-          "operator": "Equal",
-          "right": {
-            "NumberLiteral": 5
-          }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 14,
-              "end": 19
-            },
-            "content": "equal"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 19,
-              "end": 20
-            },
-            "content": "\n"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 23,
-        "end": 24
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 24,
-        "end": 25
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "IfElement": {
-      "location": {
-        "start": 25,
-        "end": 52
-      },
-      "condition": {
-        "Comparison": {
-          "left": {
-            "NumberLiteral": 5
-          },
-          "operator": "NotEqual",
-          "right": {
-            "NumberLiteral": 3
-          }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 39,
-              "end": 48
-            },
-            "content": "not equal"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 48,
-              "end": 49
-            },
-            "content": "\n"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 52,
-        "end": 53
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 53,
-        "end": 54
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "IfElement": {
-      "location": {
-        "start": 54,
-        "end": 79
-      },
-      "condition": {
-        "Comparison": {
-          "left": {
-            "NumberLiteral": 10
           },
           "operator": "GreaterThan",
           "right": {
-            "NumberLiteral": 5
+            "NumberLiteral": 3
           }
         }
       },
       "content": [
         {
           "Text": {
-            "location": {
-              "start": 68,
-              "end": 75
-            },
-            "content": "greater"
+            "content": "with delimiter\r"
           }
         },
         {
           "Text": {
-            "location": {
-              "start": 75,
-              "end": 76
-            },
             "content": "\n"
           }
         }
@@ -154,55 +28,110 @@
   },
   {
     "Text": {
-      "location": {
-        "start": 79,
-        "end": 80
-      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
       "content": "\n"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 80,
-        "end": 81
-      },
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
       "content": "\n"
     }
   },
   {
     "IfElement": {
-      "location": {
-        "start": 81,
-        "end": 102
+      "condition": {
+        "And": [
+          {
+            "Group": {
+              "Or": [
+                {
+                  "BoolLiteral": true
+                },
+                {
+                  "BoolLiteral": false
+                }
+              ]
+            }
+          },
+          {
+            "BoolLiteral": true
+          }
+        ]
       },
+      "content": [
+        {
+          "Text": {
+            "content": "grouped condition\r"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "IfElement": {
       "condition": {
         "Comparison": {
           "left": {
-            "NumberLiteral": 3
+            "Group": {
+              "Comparison": {
+                "left": {
+                  "NumberLiteral": 5
+                },
+                "operator": "GreaterThan",
+                "right": {
+                  "NumberLiteral": 3
+                }
+              }
+            }
           },
-          "operator": "LessThan",
+          "operator": "Equal",
           "right": {
-            "NumberLiteral": 8
+            "BoolLiteral": true
           }
         }
       },
       "content": [
         {
           "Text": {
-            "location": {
-              "start": 94,
-              "end": 98
-            },
-            "content": "less"
+            "content": "comparison result equals true\r"
           }
         },
         {
           "Text": {
-            "location": {
-              "start": 98,
-              "end": 99
-            },
             "content": "\n"
           }
         }
