@@ -16,9 +16,12 @@ fn main() {
     if let Ok(entries) = fs::read_dir(input_dir) {
         for entry in entries.flatten() {
             let path = entry.path();
-            if path.extension().map_or(false, |ext| ext == "txt") {
+            if path.extension().is_some_and(|ext| ext == "txt") {
                 let file_stem = path.file_stem().unwrap().to_str().unwrap();
-                let input_content = fs::read_to_string(&path).expect("Failed to read input file");
+                // Normalize CRLF to LF for consistent positions across platforms
+                let input_content = fs::read_to_string(&path)
+                    .expect("Failed to read input file")
+                    .replace("\r\n", "\n");
 
                 let result = parse_document(&input_content);
                 let monaco_json = convert_ast_to_line_column_json(&result, &input_content);

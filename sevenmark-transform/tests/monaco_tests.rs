@@ -13,16 +13,21 @@ fn run_monaco_test(test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let input_path = format!("../tc/monaco/input/{}.txt", test_name);
     let expected_path = format!("../tc/monaco/expected/{}.json", test_name);
 
-    let input_content = fs::read_to_string(&input_path)?;
+    // Normalize CRLF to LF for consistent positions across platforms
+    let input_content = fs::read_to_string(&input_path)?.replace("\r\n", "\n");
 
     let actual_output = monaco_parse_file_content(&input_content)?;
 
     let expected_output = fs::read_to_string(&expected_path)
         .map_err(|_| format!("Expected Monaco output file not found: {}", expected_path))?;
 
+    // Normalize line endings for cross-platform compatibility
+    let actual_normalized = actual_output.replace("\r\n", "\n");
+    let expected_normalized = expected_output.replace("\r\n", "\n");
+
     assert_eq!(
-        actual_output.trim(),
-        expected_output.trim(),
+        actual_normalized.trim(),
+        expected_normalized.trim(),
         "Monaco test '{}' failed: output doesn't match expected",
         test_name
     );
