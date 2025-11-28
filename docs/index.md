@@ -89,6 +89,8 @@ Current time: [now] // This is a comment
 - Macros: `[now]`, `[age(1990-01-01)]`, `[var(name)]`, `[br]`, `[fn]`, `[null]`
 - Variables: `{{{#define #name="key" #value="val"}}}` + `[var(key)]`
 - Variable Shadowing: Later definitions override earlier ones
+- Conditionals: `{{{#if [var(x)] == "value" :: content }}}`
+- Operators: `==`, `!=`, `>`, `<`, `>=`, `<=`, `&&`, `||`, `!`, `true`, `false`, `null`
 - Styling: `{{{ #style="css" #color="red" content }}}`
 - Parameters: `#style`, `#color`, `#size`, `#x`, `#y`
 - Escaping: `\*literal\*`, `\{\{\{not-element\}\}\}`
