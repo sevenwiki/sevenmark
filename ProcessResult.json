@@ -1,7 +1,28 @@
 [
   {
-    "Text": {
-      "content": "with delimiter"
+    "DefineElement": {
+      "parameters": {
+        "a": {
+          "key": "a",
+          "value": [
+            {
+              "Text": {
+                "content": "211"
+              }
+            }
+          ]
+        },
+        "b": {
+          "key": "b",
+          "value": [
+            {
+              "Text": {
+                "content": "1"
+              }
+            }
+          ]
+        }
+      }
     }
   },
   {
@@ -16,32 +37,7 @@
   },
   {
     "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "grouped condition"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "comparison result equals true"
+      "content": "deeply nested"
     }
   },
   {

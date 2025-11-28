@@ -1,0 +1,59 @@
+{{{#if (5 > 3) && (10 < 20)
+basic and
+}}}
+
+{{{#if (1 == 1) || (2 == 3)
+basic or
+}}}
+
+{{{#if !false
+not false
+}}}
+
+{{{#if ((5 > 3) && (10 < 20)) || (1 == 2)
+nested groups
+}}}
+
+{{{#if !(false || false)
+not group
+}}}
+
+{{{#if ((a == 1) && (b == 2)) || ((c == 3) && (d == 4))
+double nested
+}}}
+
+{{{#if int("123") > 100
+int function
+}}}
+
+{{{#if len("hello") == 5
+len function
+}}}
+
+{{{#if (int("50") > 10) && (len("test") == 4)
+multiple functions
+}}}
+
+{{{#if ((int("100") >= 100) && (len("ab") < 5)) || (!false && true)
+complex mixed
+}}}
+
+{{{#if (((a > 1) && (b < 2)) || ((c >= 3) && (d <= 4))) && (!(e == 5) || (f != 6))
+deeply nested
+}}}
+
+{{{#if null == null
+null check
+}}}
+
+{{{#if (var != null) && (int(var) > 0)
+null guard pattern
+}}}
+
+{{{#if "hello" == "hello" && 5 == 5 && true == true
+triple and
+}}}
+
+{{{#if (1 > 2) || (2 > 3) || (3 > 4) || (5 > 4)
+chain or
+}}}

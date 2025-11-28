@@ -9,7 +9,7 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-/// Parse a single parameter in the format #key="value"
+/// Parse a single parameter in the format #key="value" (spaces around = allowed)
 /// The value part is optional - if not provided, an empty Vec is used
 fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter)> {
     let start = parser_input.input.current_token_start();
@@ -19,7 +19,7 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
         multispace0,
         preceded(literal('#'), alphanumeric1),
         opt(preceded(
-            literal('='),
+            delimited(multispace0, literal('='), multispace0),
             delimited(literal('"'), parameter_content_parser, literal('"')),
         )),
         multispace0,

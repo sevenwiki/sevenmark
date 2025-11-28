@@ -1,44 +1,33 @@
 [
   {
-    "IfElement": {
-      "condition": {
-        "Comparison": {
-          "left": {
-            "NumberLiteral": 5
-          },
-          "operator": "GreaterThan",
-          "right": {
-            "NumberLiteral": 3
-          }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "content": "with delimiter\r"
-          }
+    "DefineElement": {
+      "parameters": {
+        "a": {
+          "key": "a",
+          "value": [
+            {
+              "Text": {
+                "content": "2"
+              }
+            }
+          ]
         },
-        {
-          "Text": {
-            "content": "\n"
-          }
+        "b": {
+          "key": "b",
+          "value": [
+            {
+              "Text": {
+                "content": "1"
+              }
+            }
+          ]
         }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\r"
+      }
     }
   },
   {
     "Text": {
       "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\r"
     }
   },
   {
@@ -54,80 +43,136 @@
             "Group": {
               "Or": [
                 {
-                  "BoolLiteral": true
+                  "Group": {
+                    "And": [
+                      {
+                        "Group": {
+                          "Comparison": {
+                            "left": {
+                              "Element": {
+                                "Variable": {
+                                  "content": "a"
+                                }
+                              }
+                            },
+                            "operator": "GreaterThan",
+                            "right": {
+                              "NumberLiteral": 1
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Group": {
+                          "Comparison": {
+                            "left": {
+                              "Element": {
+                                "Variable": {
+                                  "content": "b"
+                                }
+                              }
+                            },
+                            "operator": "LessThan",
+                            "right": {
+                              "NumberLiteral": 2
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 },
                 {
-                  "BoolLiteral": false
+                  "Group": {
+                    "And": [
+                      {
+                        "Group": {
+                          "Comparison": {
+                            "left": {
+                              "Element": {
+                                "Variable": {
+                                  "content": "c"
+                                }
+                              }
+                            },
+                            "operator": "GreaterEqual",
+                            "right": {
+                              "NumberLiteral": 3
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Group": {
+                          "Comparison": {
+                            "left": {
+                              "Element": {
+                                "Variable": {
+                                  "content": "d"
+                                }
+                              }
+                            },
+                            "operator": "LessEqual",
+                            "right": {
+                              "NumberLiteral": 4
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             }
           },
           {
-            "BoolLiteral": true
+            "Group": {
+              "Or": [
+                {
+                  "Not": {
+                    "Group": {
+                      "Comparison": {
+                        "left": {
+                          "Element": {
+                            "Variable": {
+                              "content": "e"
+                            }
+                          }
+                        },
+                        "operator": "Equal",
+                        "right": {
+                          "NumberLiteral": 5
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Group": {
+                    "Comparison": {
+                      "left": {
+                        "Element": {
+                          "Variable": {
+                            "content": "f"
+                          }
+                        }
+                      },
+                      "operator": "NotEqual",
+                      "right": {
+                        "NumberLiteral": 6
+                      }
+                    }
+                  }
+                }
+              ]
+            }
           }
         ]
       },
       "content": [
         {
           "Text": {
-            "content": "grouped condition\r"
-          }
-        },
-        {
-          "Text": {
-            "content": "\n"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
-    }
-  },
-  {
-    "IfElement": {
-      "condition": {
-        "Comparison": {
-          "left": {
-            "Group": {
-              "Comparison": {
-                "left": {
-                  "NumberLiteral": 5
-                },
-                "operator": "GreaterThan",
-                "right": {
-                  "NumberLiteral": 3
-                }
-              }
-            }
-          },
-          "operator": "Equal",
-          "right": {
-            "BoolLiteral": true
-          }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "content": "comparison result equals true\r"
+            "content": "deeply nested"
           }
         },
         {

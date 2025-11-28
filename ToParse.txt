@@ -1,11 +1,10 @@
-{{{#if 5 > 3 ::
-with delimiter
+{{{#define
+#a="211"
+#b="1"
 }}}
 
-{{{#if (true || false) && true
-grouped condition
-}}}
-
-{{{#if (5 > 3) == true ::
-comparison result equals true
+{{{#if (((int([var(a)]) > 1) && ([var(b)] < 2)) ||
+(([var(c)] >= 3) && ([var(d)] <= 4))) &&
+(!([var(e)] == 5) || ([var(f)] != 6)) ::
+deeply nested
 }}}
