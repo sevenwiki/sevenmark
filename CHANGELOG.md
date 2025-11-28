@@ -5,6 +5,37 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.4] - 2025-11-28
+
+### Changed
+- **AST Module Refactoring**: Split monolithic `ast.rs` into modular `ast/` folder structure
+  - `mod.rs` - SevenMarkElement enum and re-exports
+  - `location.rs` - Location, Parameter, Parameters types
+  - `expression.rs` - Expression, ComparisonOperator, IfElement
+  - `table.rs` - Table structures (TableElement, TableRowItem, TableCellItem)
+  - `list.rs` - List structures (ListElement, ListContentItem)
+  - `elements.rs` - Basic element structs (TextElement, StyledElement, etc.)
+  - `traversable.rs` - Traversable trait implementation
+
+### Added
+- **Table/List Conditional Support**: Added `{{{#if}}}` support inside tables and lists
+  - `TableRowItem::Conditional` - Conditional table rows with struct variant
+  - `TableCellItem::Conditional` - Conditional table cells with struct variant
+  - `ListContentItem::Conditional` - Conditional list items with struct variant
+  - Syntax: `{{{#if condition :: [[item1]] [[item2]] }}}`
+  - Preprocessor support for evaluating conditionals in table/list contexts
+
+- **Traversable Enhancement**: Added `traverse_children_ref` for immutable AST traversal
+  - Eliminates unnecessary cloning during metadata collection
+  - Reduces O(N²)~O(N³) complexity to O(N) for collect operations
+  - Used by preprocessor's `collect_metadata_recursive` and `collect_includes_recursive`
+
+- **Test Infrastructure**: Added test case generation utilities
+  - `gen_expected` example in sevenmark-parser for parser test expected files
+  - `gen_monaco_expected` example in sevenmark-transform for Monaco position test files
+  - New test cases for if expressions (basic_comparison, functions, logical_operators, etc.)
+  - New test cases for table/list conditionals (table_row_conditional, table_cell_conditional, list_conditional)
+
 ## [2.6.1] - 2025-11-28
 
 ### Added

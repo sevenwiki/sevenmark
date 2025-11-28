@@ -395,7 +395,14 @@ sevenmark/
 ├── Cargo.toml                 # Workspace root
 ├── sevenmark-parser/          # Core parsing library
 │   ├── src/
-│   │   ├── ast.rs             # 50+ AST element definitions
+│   │   ├── ast/               # 50+ AST element definitions
+│   │   │   ├── mod.rs         # SevenMarkElement enum
+│   │   │   ├── elements.rs    # Basic element structs
+│   │   │   ├── expression.rs  # Expression & IfElement
+│   │   │   ├── table.rs       # Table structures
+│   │   │   ├── list.rs        # List structures
+│   │   │   ├── location.rs    # Location & Parameter types
+│   │   │   └── traversable.rs # Traversable trait
 │   │   ├── core.rs            # Main parse_document() entry point
 │   │   ├── context.rs         # Parsing context & recursion management
 │   │   ├── error.rs           # Error types
@@ -412,7 +419,8 @@ sevenmark/
 │   │       ├── parameter/     # Parameter parsing
 │   │       └── token/         # Fallback token parsers
 │   └── examples/
-│       └── parse.rs           # Simple parser example
+│       ├── parse.rs           # Simple parser example
+│       └── gen_expected.rs    # Test case expected generator
 │
 ├── sevenmark-transform/       # AST transformation library
 │   ├── src/
@@ -423,6 +431,7 @@ sevenmark/
 │   │   └── wiki/              # Wiki-specific utilities
 │   └── examples/
 │       ├── monaco.rs          # Monaco format converter
+│       ├── gen_monaco_expected.rs # Monaco test expected generator
 │       ├── debug_conversion.rs
 │       └── debug_line_spans.rs
 │
