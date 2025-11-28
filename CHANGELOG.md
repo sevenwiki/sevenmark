@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Optional `::` delimiter to explicitly separate condition from content
 
 - **Expression Evaluator**: Runtime condition evaluation in `sevenmark-transform`
+  - Short-circuit evaluation: `false && X` and `true || X` skip right-side evaluation
+  - Enables null-guard patterns: `[var(x)] != null && int([var(x)]) > 5`
   - Loose type coercion for wiki-friendly comparisons (e.g., `2 == "2"` is true)
   - Variable references via `[var(name)]` syntax
   - Numeric comparisons with automatic string-to-number conversion
