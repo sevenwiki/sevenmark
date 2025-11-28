@@ -1,0 +1,96 @@
+[
+  {
+    "ListElement": {
+      "location": {
+        "start": 0,
+        "end": 124
+      },
+      "kind": "1",
+      "parameters": {
+        "1": {
+          "location": {
+            "start": 8,
+            "end": 13
+          },
+          "key": "1",
+          "value": []
+        }
+      },
+      "content": [
+        {
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 15,
+                    "end": 26
+                  },
+                  "content": "Normal Item"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Conditional": {
+            "location": {
+              "start": 30,
+              "end": 96
+            },
+            "condition": {
+              "BoolLiteral": true
+            },
+            "items": [
+              {
+                "parameters": {},
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 47,
+                        "end": 65
+                      },
+                      "content": "Conditional Item 1"
+                    }
+                  }
+                ]
+              },
+              {
+                "parameters": {},
+                "content": [
+                  {
+                    "Text": {
+                      "location": {
+                        "start": 70,
+                        "end": 88
+                      },
+                      "content": "Conditional Item 2"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 98,
+                    "end": 117
+                  },
+                  "content": "Another Normal Item"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

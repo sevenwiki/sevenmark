@@ -164,6 +164,21 @@ fn test_if_null_and_bool() {
     run_parser_test("if", "null_and_bool").expect("if null and bool test failed");
 }
 
+#[test]
+fn test_if_table_row_conditional() {
+    run_parser_test("if", "table_row_conditional").expect("if table row conditional test failed");
+}
+
+#[test]
+fn test_if_table_cell_conditional() {
+    run_parser_test("if", "table_cell_conditional").expect("if table cell conditional test failed");
+}
+
+#[test]
+fn test_if_list_conditional() {
+    run_parser_test("if", "list_conditional").expect("if list conditional test failed");
+}
+
 // Complex Tests
 #[test]
 fn test_complex_fold_with_rich_content() {

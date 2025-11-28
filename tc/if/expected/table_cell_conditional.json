@@ -1,0 +1,63 @@
+[
+  {
+    "TableElement": {
+      "location": {
+        "start": 0,
+        "end": 77
+      },
+      "parameters": {},
+      "content": [
+        {
+          "Row": {
+            "parameters": {},
+            "inner_content": [
+              {
+                "Cell": {
+                  "parameters": {},
+                  "content": [
+                    {
+                      "Text": {
+                        "location": {
+                          "start": 16,
+                          "end": 27
+                        },
+                        "content": "Normal Cell"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Conditional": {
+                  "location": {
+                    "start": 30,
+                    "end": 70
+                  },
+                  "condition": {
+                    "BoolLiteral": true
+                  },
+                  "cells": [
+                    {
+                      "parameters": {},
+                      "content": [
+                        {
+                          "Text": {
+                            "location": {
+                              "start": 47,
+                              "end": 63
+                            },
+                            "content": "Conditional Cell"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

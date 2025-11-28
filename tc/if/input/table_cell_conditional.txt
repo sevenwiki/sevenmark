@@ -1,0 +1,3 @@
+{{{#table
+[[ [[Normal Cell]] {{{#if true :: [[Conditional Cell]] }}} ]]
+}}}
