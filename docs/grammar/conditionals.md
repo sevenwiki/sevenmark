@@ -204,7 +204,9 @@ Both values must be convertible to numbers:
 }}}
 ```
 
-### With Tables
+### With Tables (Block Level)
+
+Conditionals can wrap entire table rows as content blocks:
 
 ```sevenmark
 {{{#define #name="showDetails" #value="true"}}}
@@ -218,6 +220,46 @@ Both values must be convertible to numbers:
 [[[[Widget B]] [[$20]]]]
 }}}
 ```
+
+### Table Row Conditionals
+
+For more precise control, use conditionals at the row level inside tables:
+
+```sevenmark
+{{{#table
+[[[[Header 1]] [[Header 2]]]]
+[[[[Normal Row]] [[Data]]]]
+{{{#if [var(condition)] == "true" :: [[[[Conditional Row]] [[More Data]]]] }}}
+[[[[Footer]] [[End]]]]
+}}}
+```
+
+Key difference: Row-level conditionals use `::` delimiter and contain row syntax `[[[[cell]] [[cell]]]]` directly.
+
+### Table Cell Conditionals
+
+Conditionals can also control individual cells within a row:
+
+```sevenmark
+{{{#table
+[[ [[Product]] [[Price]] {{{#if [var(showStock)] == "true" :: [[Stock]] }}} ]]
+[[ [[Widget]] [[$10]] {{{#if [var(showStock)] == "true" :: [[5 units]] }}} ]]
+}}}
+```
+
+### List Item Conditionals
+
+Similar syntax works for list items:
+
+```sevenmark
+{{{#list #1
+[[Always visible item]]
+{{{#if [var(showExtra)] == "true" :: [[Conditional item 1]] [[Conditional item 2]] }}}
+[[Another visible item]]
+}}}
+```
+
+Multiple items can be included in a single conditional block.
 
 ## Processing Order
 

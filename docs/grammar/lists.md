@@ -91,6 +91,79 @@ Lists can be nested within other lists:
 }}}
 ```
 
+## Conditional List Items
+
+Lists support conditional rendering at item level using `{{{#if}}}` syntax.
+
+### Basic Conditional Items
+
+Include or exclude list items based on a condition:
+
+```sevenmark
+{{{#define #name="showAdvanced" #value="true"}}}
+
+{{{#list #1
+[[Basic feature]]
+[[Standard feature]]
+{{{#if [var(showAdvanced)] == "true" :: [[Advanced feature]] }}}
+[[Final feature]]
+}}}
+```
+
+The conditional item `[[Advanced feature]]` is included only when `showAdvanced` is `"true"`.
+
+### Multiple Conditional Items
+
+You can include multiple items in a single conditional:
+
+```sevenmark
+{{{#define #name="isPremium" #value="true"}}}
+
+{{{#list #1
+[[Free feature 1]]
+[[Free feature 2]]
+{{{#if [var(isPremium)] == "true" ::
+[[Premium feature A]]
+[[Premium feature B]]
+[[Premium feature C]]
+}}}
+[[Common feature]]
+}}}
+```
+
+### Conditional with Complex Expressions
+
+```sevenmark
+{{{#define #name="userLevel" #value="3"}}}
+
+{{{#list #1
+[[Level 1 content]]
+{{{#if int([var(userLevel)]) >= 2 :: [[Level 2 content]] }}}
+{{{#if int([var(userLevel)]) >= 3 :: [[Level 3 content]] }}}
+{{{#if int([var(userLevel)]) >= 4 :: [[Level 4 content]] }}}
+}}}
+```
+
+### Practical Example: Feature List
+
+```sevenmark
+{{{#define #name="plan" #value="pro"}}}
+
+{{{#list #1
+[[✓ Basic support]]
+[[✓ 10GB storage]]
+{{{#if [var(plan)] == "pro" || [var(plan)] == "enterprise" ::
+[[✓ Priority support]]
+[[✓ 100GB storage]]
+}}}
+{{{#if [var(plan)] == "enterprise" ::
+[[✓ Dedicated account manager]]
+[[✓ Unlimited storage]]
+[[✓ Custom integrations]]
+}}}
+}}}
+```
+
 ## Lists with Rich Content
 
 List items can contain any SevenMark elements:
