@@ -6,10 +6,8 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 pub fn token_underscore_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
-    if parser_input.state.inside_underline {
-        if parser_input.input.starts_with("__") {
-            return Err(winnow::error::ContextError::new());
-        }
+    if parser_input.state.inside_underline && parser_input.input.starts_with("__") {
+        return Err(winnow::error::ContextError::new());
     }
 
     let start = parser_input.input.current_token_start();

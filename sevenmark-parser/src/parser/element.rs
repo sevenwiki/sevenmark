@@ -27,7 +27,7 @@ use winnow::combinator::repeat;
 use winnow::prelude::*;
 
 pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkElement>> {
-    let result = repeat(
+    repeat(
         1..,
         alt((
             // Escape
@@ -90,6 +90,5 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkEle
             token_backslash_parser,
         )),
     )
-    .parse_next(parser_input);
-    result
+    .parse_next(parser_input)
 }

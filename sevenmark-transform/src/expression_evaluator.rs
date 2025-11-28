@@ -84,18 +84,12 @@ fn compare_values(left: &Value, operator: &ComparisonOperator, right: &Value) ->
         ComparisonOperator::Equal => values_equal(left, right),
         ComparisonOperator::NotEqual => !values_equal(left, right),
         // 숫자 비교는 양쪽 모두 숫자로 변환 가능할 때만 수행
-        ComparisonOperator::GreaterThan => {
-            compare_numeric(left, right).is_some_and(|ord| ord > 0)
-        }
-        ComparisonOperator::LessThan => {
-            compare_numeric(left, right).is_some_and(|ord| ord < 0)
-        }
+        ComparisonOperator::GreaterThan => compare_numeric(left, right).is_some_and(|ord| ord > 0),
+        ComparisonOperator::LessThan => compare_numeric(left, right).is_some_and(|ord| ord < 0),
         ComparisonOperator::GreaterEqual => {
             compare_numeric(left, right).is_some_and(|ord| ord >= 0)
         }
-        ComparisonOperator::LessEqual => {
-            compare_numeric(left, right).is_some_and(|ord| ord <= 0)
-        }
+        ComparisonOperator::LessEqual => compare_numeric(left, right).is_some_and(|ord| ord <= 0),
     }
 }
 
@@ -298,7 +292,7 @@ mod tests {
         // true || X → true (X not evaluated)
         let expr = Expression::Or(
             Box::new(Expression::StringLiteral("truthy".to_string())), // true
-            Box::new(Expression::Null), // not evaluated
+            Box::new(Expression::Null),                                // not evaluated
         );
         assert!(evaluate_condition(&expr, &variables));
     }

@@ -7,16 +7,12 @@ use winnow::token::literal;
 
 pub fn token_asterisk_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
     // Bold context에서 **을 만나면 실패 (delimiter로 사용되어야 함)
-    if parser_input.state.inside_bold {
-        if parser_input.input.starts_with("**") {
-            return Err(winnow::error::ContextError::new());
-        }
+    if parser_input.state.inside_bold && parser_input.input.starts_with("**") {
+        return Err(winnow::error::ContextError::new());
     }
     // Italic context에서 *을 만나면 실패 (delimiter로 사용되어야 함)
-    if parser_input.state.inside_italic {
-        if parser_input.input.starts_with("*") {
-            return Err(winnow::error::ContextError::new());
-        }
+    if parser_input.state.inside_italic && parser_input.input.starts_with("*") {
+        return Err(winnow::error::ContextError::new());
     }
 
     let start = parser_input.input.current_token_start();

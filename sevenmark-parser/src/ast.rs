@@ -77,7 +77,7 @@ pub struct ErrorElement {
 }
 
 /// 공통 스타일 속성들
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Default)]
 pub struct CommonStyleAttributes {
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub style: Vec<SevenMarkElement>,
@@ -387,18 +387,6 @@ pub enum SevenMarkElement {
 
     // Conditional
     IfElement(IfElement),
-}
-
-impl Default for CommonStyleAttributes {
-    fn default() -> Self {
-        Self {
-            style: Vec::new(),
-            size: Vec::new(),
-            color: Vec::new(),
-            bg_color: Vec::new(),
-            opacity: Vec::new(),
-        }
-    }
 }
 
 /// Trait for automatically traversing AST elements

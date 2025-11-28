@@ -14,7 +14,7 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
     context.line_starts = line_starts;
 
     let mut stateful_input = ParserInput {
-        input: InputSource::new(&input),
+        input: InputSource::new(input),
         state: context,
     };
 

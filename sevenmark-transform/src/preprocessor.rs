@@ -1,4 +1,5 @@
 use crate::expression_evaluator::evaluate_condition;
+use crate::utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
@@ -109,14 +110,14 @@ fn substitute_variables_recursive(
         }
     }
 
-    if let SevenMarkElement::Variable(var) = element {
-        if let Some(value) = params.get(&var.content) {
-            *element = SevenMarkElement::Text(TextElement {
-                location: Location::synthesized(),
-                content: value.clone(),
-            });
-            return;
-        }
+    if let SevenMarkElement::Variable(var) = element
+        && let Some(value) = params.get(&var.content)
+    {
+        *element = SevenMarkElement::Text(TextElement {
+            location: Location::synthesized(),
+            content: value.clone(),
+        });
+        return;
     }
 
     element.traverse_children(&mut |child| {
@@ -319,17 +320,6 @@ fn substitute_includes_recursive(
     element.traverse_children(&mut |child| {
         substitute_includes_recursive(child, docs_map, all_media);
     });
-}
-
-fn extract_plain_text(elements: &[SevenMarkElement]) -> String {
-    elements
-        .iter()
-        .filter_map(|element| match element {
-            SevenMarkElement::Text(text_element) => Some(text_element.content.as_str()),
-            SevenMarkElement::Escape(escape_element) => Some(escape_element.content.as_str()),
-            _ => None,
-        })
-        .collect::<String>()
 }
 
 fn parse_namespace(namespace: &str) -> DocumentNamespace {

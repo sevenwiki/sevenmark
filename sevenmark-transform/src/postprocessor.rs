@@ -1,5 +1,6 @@
-use crate::PreProcessedDocument;
+use crate::utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, fetch_documents_batch};
+use crate::PreProcessedDocument;
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
@@ -188,15 +189,4 @@ fn resolve_media_recursive(
     element.traverse_children(&mut |child| {
         resolve_media_recursive(child, resolved_map);
     });
-}
-
-fn extract_plain_text(elements: &[SevenMarkElement]) -> String {
-    elements
-        .iter()
-        .filter_map(|element| match element {
-            SevenMarkElement::Text(text_element) => Some(text_element.content.as_str()),
-            SevenMarkElement::Escape(escape_element) => Some(escape_element.content.as_str()),
-            _ => None,
-        })
-        .collect::<String>()
 }

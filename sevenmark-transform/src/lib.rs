@@ -1,4 +1,8 @@
 pub mod position_converter;
+pub use position_converter::*;
+
+#[cfg(feature = "server")]
+pub mod utils;
 
 #[cfg(feature = "server")]
 pub mod expression_evaluator;
@@ -10,8 +14,6 @@ pub mod preprocessor;
 pub mod processor;
 #[cfg(feature = "server")]
 pub mod wiki;
-
-pub use position_converter::*;
 
 #[cfg(feature = "server")]
 pub use postprocessor::*;

@@ -124,15 +124,14 @@ impl PositionConverter {
         match value {
             serde_json::Value::Object(map) => {
                 // Check for location field and convert it
-                if let Some(location_value) = map.get("location") {
-                    if let Ok(location) = serde_json::from_value::<Location>(location_value.clone())
-                    {
-                        let line_col_location = self.convert_location(&location);
-                        map.insert(
-                            "location".to_string(),
-                            serde_json::to_value(line_col_location).unwrap(),
-                        );
-                    }
+                if let Some(location_value) = map.get("location")
+                    && let Ok(location) = serde_json::from_value::<Location>(location_value.clone())
+                {
+                    let line_col_location = self.convert_location(&location);
+                    map.insert(
+                        "location".to_string(),
+                        serde_json::to_value(line_col_location).unwrap(),
+                    );
                 }
 
                 // Recursively process all other fields
