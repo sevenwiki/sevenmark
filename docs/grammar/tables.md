@@ -92,7 +92,7 @@ Tables support conditional rendering at both row and cell level using `{{{#if}}}
 Include or exclude entire rows based on a condition:
 
 ```sevenmark
-{{{#define #name="showDetails" #value="true"}}}
+{{{#define #showDetails="true"}}}
 
 {{{#table
 [[[[Product]] [[Price]]]]
@@ -109,7 +109,7 @@ The conditional row `[[[[Details]] [[Size: Medium]]]]` is included only when `sh
 Include or exclude specific cells within a row:
 
 ```sevenmark
-{{{#define #name="showStock" #value="true"}}}
+{{{#define #showStock="true"}}}
 
 {{{#table
 [[ [[Product]] [[Price]] {{{#if [var(showStock)] == "true" :: [[Stock]] }}} ]]
@@ -136,8 +136,8 @@ You can include multiple rows or cells in a single conditional:
 ### Conditional with Complex Expressions
 
 ```sevenmark
-{{{#define #name="userRole" #value="admin"}}}
-{{{#define #name="showSensitive" #value="true"}}}
+{{{#define #userRole="admin"}}}
+{{{#define #showSensitive="true"}}}
 
 {{{#table
 [[[[Name]] [[Email]] [[Actions]]]]

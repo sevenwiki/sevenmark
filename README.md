@@ -144,8 +144,8 @@ def hello():
 
 **Definition:**
 ```sevenmark
-{{{#define #name="projectName" #value="SevenMark"}}}
-{{{#define #name="version" #value="2.0"}}}
+{{{#define #projectName="SevenMark"}}}
+{{{#define #version="2.0"}}}
 ```
 
 **Usage:**
@@ -337,8 +337,8 @@ Use 3-9 dashes at line start.
 Programming Languages
 }}}
 
-{{{#define #name="lang" #value="Rust"}}}
-{{{#define #name="year" #value="2015"}}}
+{{{#define #lang="Rust"}}}
+{{{#define #year="2015"}}}
 
 # [var(lang)] Programming Language
 

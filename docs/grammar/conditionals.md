@@ -170,7 +170,7 @@ Both values must be convertible to numbers:
 ### Conditional Navigation
 
 ```sevenmark
-{{{#define #name="role" #value="admin"}}}
+{{{#define #role="admin"}}}
 
 {{{#if [var(role)] == "admin"
 **Admin Menu**
@@ -189,7 +189,7 @@ Both values must be convertible to numbers:
 ### Conditional Formatting
 
 ```sevenmark
-{{{#define #name="score" #value="85"}}}
+{{{#define #score="85"}}}
 
 {{{#if int([var(score)]) >= 90
 {{{ #style="color:green" **Excellent!** Score: [var(score)] }}}
@@ -209,7 +209,7 @@ Both values must be convertible to numbers:
 Conditionals can wrap entire table rows as content blocks:
 
 ```sevenmark
-{{{#define #name="showDetails" #value="true"}}}
+{{{#define #showDetails="true"}}}
 
 {{{#table
 [[[[Product]] [[Price]]]]

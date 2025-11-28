@@ -100,7 +100,7 @@ Lists support conditional rendering at item level using `{{{#if}}}` syntax.
 Include or exclude list items based on a condition:
 
 ```sevenmark
-{{{#define #name="showAdvanced" #value="true"}}}
+{{{#define #showAdvanced="true"}}}
 
 {{{#list #1
 [[Basic feature]]
@@ -117,7 +117,7 @@ The conditional item `[[Advanced feature]]` is included only when `showAdvanced`
 You can include multiple items in a single conditional:
 
 ```sevenmark
-{{{#define #name="isPremium" #value="true"}}}
+{{{#define #isPremium="true"}}}
 
 {{{#list #1
 [[Free feature 1]]
@@ -134,7 +134,7 @@ You can include multiple items in a single conditional:
 ### Conditional with Complex Expressions
 
 ```sevenmark
-{{{#define #name="userLevel" #value="3"}}}
+{{{#define #userLevel="3"}}}
 
 {{{#list #1
 [[Level 1 content]]
@@ -147,7 +147,7 @@ You can include multiple items in a single conditional:
 ### Practical Example: Feature List
 
 ```sevenmark
-{{{#define #name="plan" #value="pro"}}}
+{{{#define #plan="pro"}}}
 
 {{{#list #1
 [[✓ Basic support]]
