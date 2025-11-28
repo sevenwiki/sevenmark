@@ -83,6 +83,71 @@ Use the `#y` parameter:
 }}}
 ```
 
+## Conditional Rows and Cells
+
+Tables support conditional rendering at both row and cell level using `{{{#if}}}` syntax.
+
+### Conditional Rows
+
+Include or exclude entire rows based on a condition:
+
+```sevenmark
+{{{#define #name="showDetails" #value="true"}}}
+
+{{{#table
+[[[[Product]] [[Price]]]]
+[[[[Widget A]] [[$10]]]]
+{{{#if [var(showDetails)] == "true" :: [[[[Details]] [[Size: Medium]]]] }}}
+[[[[Widget B]] [[$20]]]]
+}}}
+```
+
+The conditional row `[[[[Details]] [[Size: Medium]]]]` is included only when `showDetails` is `"true"`.
+
+### Conditional Cells
+
+Include or exclude specific cells within a row:
+
+```sevenmark
+{{{#define #name="showStock" #value="true"}}}
+
+{{{#table
+[[ [[Product]] [[Price]] {{{#if [var(showStock)] == "true" :: [[Stock]] }}} ]]
+[[ [[Widget A]] [[$10]] {{{#if [var(showStock)] == "true" :: [[5 units]] }}} ]]
+[[ [[Widget B]] [[$20]] {{{#if [var(showStock)] == "true" :: [[10 units]] }}} ]]
+}}}
+```
+
+### Multiple Conditional Items
+
+You can include multiple rows or cells in a single conditional:
+
+```sevenmark
+{{{#table
+[[[[Header 1]] [[Header 2]]]]
+{{{#if [var(showBoth)] == "true" ::
+[[[[Row A1]] [[Row A2]]]]
+[[[[Row B1]] [[Row B2]]]]
+}}}
+[[[[Footer 1]] [[Footer 2]]]]
+}}}
+```
+
+### Conditional with Complex Expressions
+
+```sevenmark
+{{{#define #name="userRole" #value="admin"}}}
+{{{#define #name="showSensitive" #value="true"}}}
+
+{{{#table
+[[[[Name]] [[Email]] [[Actions]]]]
+[[[[John]] [[john@example.com]] [[View]]]]
+{{{#if [var(userRole)] == "admin" && [var(showSensitive)] == "true" ::
+[[[[Admin Data]] [[admin@internal]] [[Delete]]]]
+}}}
+}}}
+```
+
 ## Nested Markup
 
 Table cells can contain other SevenMark elements:
