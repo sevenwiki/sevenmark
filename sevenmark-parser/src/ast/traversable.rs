@@ -508,11 +508,11 @@ where
     F: FnMut(&mut SevenMarkElement),
 {
     match expr {
-        Expression::Or(left, right) | Expression::And(left, right) => {
+        Expression::Or { left, right, .. } | Expression::And { left, right, .. } => {
             traverse_expression(left, visitor);
             traverse_expression(right, visitor);
         }
-        Expression::Not(inner) | Expression::Group(inner) => {
+        Expression::Not { inner, .. } | Expression::Group { inner, .. } => {
             traverse_expression(inner, visitor);
         }
         Expression::Comparison { left, right, .. } => {
@@ -527,10 +527,10 @@ where
         Expression::Element(elem) => {
             visitor(elem);
         }
-        Expression::StringLiteral(_)
-        | Expression::NumberLiteral(_)
-        | Expression::BoolLiteral(_)
-        | Expression::Null => {
+        Expression::StringLiteral { .. }
+        | Expression::NumberLiteral { .. }
+        | Expression::BoolLiteral { .. }
+        | Expression::Null { .. } => {
             // 자식 없음
         }
     }
@@ -542,11 +542,11 @@ where
     F: FnMut(&SevenMarkElement),
 {
     match expr {
-        Expression::Or(left, right) | Expression::And(left, right) => {
+        Expression::Or { left, right, .. } | Expression::And { left, right, .. } => {
             traverse_expression_ref(left, visitor);
             traverse_expression_ref(right, visitor);
         }
-        Expression::Not(inner) | Expression::Group(inner) => {
+        Expression::Not { inner, .. } | Expression::Group { inner, .. } => {
             traverse_expression_ref(inner, visitor);
         }
         Expression::Comparison { left, right, .. } => {
@@ -561,10 +561,10 @@ where
         Expression::Element(elem) => {
             visitor(elem);
         }
-        Expression::StringLiteral(_)
-        | Expression::NumberLiteral(_)
-        | Expression::BoolLiteral(_)
-        | Expression::Null => {
+        Expression::StringLiteral { .. }
+        | Expression::NumberLiteral { .. }
+        | Expression::BoolLiteral { .. }
+        | Expression::Null { .. } => {
             // 자식 없음
         }
     }

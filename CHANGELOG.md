@@ -5,6 +5,35 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.7] - 2025-11-29
+
+### Added
+- **Expression Location Tracking**: Added location information to all Expression AST nodes
+  - All Expression variants now include `location: Location` field
+  - `Or`, `And`, `Not`, `Comparison`, `FunctionCall`, `Group` variants converted to struct variants
+  - `StringLiteral`, `NumberLiteral`, `BoolLiteral`, `Null` variants converted to struct variants with `value` field
+  - `Element` variant remains tuple variant (inner SevenMarkElement already has location)
+  - Location serialization controlled by `include_locations` feature flag
+
+- **ComparisonOperator Location Tracking**: Restructured for location support
+  - Renamed `ComparisonOperator` enum to `ComparisonOperatorKind`
+  - New `ComparisonOperator` struct with `location: Location` and `kind: ComparisonOperatorKind` fields
+  - Enables precise error reporting for comparison operators
+
+### Changed
+- **Expression Parser**: All parser functions now capture start/end positions
+  - `or_parser`, `and_parser`, `not_parser`, `comparison_parser` track locations
+  - `operand_parser` variants (`group_parser`, `function_call_parser`, literals) track locations
+  - `comparison_operator_parser` captures operator position
+
+- **Traversable**: Updated pattern matching for new struct variants
+  - `traverse_expression` and `traverse_expression_ref` use `..` to ignore location fields
+
+- **Expression Evaluator**: Updated for new Expression structure
+  - Pattern matching uses struct variant syntax with `..`
+  - `compare_values` accesses `operator.kind` instead of direct enum matching
+  - Test helpers added for cleaner Expression construction
+
 ## [2.6.5] - 2025-11-28
 
 ### Changed

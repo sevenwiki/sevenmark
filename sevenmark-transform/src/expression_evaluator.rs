@@ -1,4 +1,4 @@
-use sevenmark_parser::ast::{ComparisonOperator, Expression, SevenMarkElement};
+use sevenmark_parser::ast::{ComparisonOperator, ComparisonOperatorKind, Expression, Location, SevenMarkElement};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과
@@ -24,20 +24,20 @@ pub fn evaluate_condition(expr: &Expression, variables: &HashMap<String, String>
 fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -> Value {
     match expr {
         // Short-circuit evaluation: true || X → true (X not evaluated)
-        Expression::Or(left, right) => {
+        Expression::Or { left, right, .. } => {
             if evaluate_condition(left, variables) {
                 return Value::Bool(true);
             }
             Value::Bool(evaluate_condition(right, variables))
         }
         // Short-circuit evaluation: false && X → false (X not evaluated)
-        Expression::And(left, right) => {
+        Expression::And { left, right, .. } => {
             if !evaluate_condition(left, variables) {
                 return Value::Bool(false);
             }
             Value::Bool(evaluate_condition(right, variables))
         }
-        Expression::Not(inner) => {
+        Expression::Not { inner, .. } => {
             let inner_val = evaluate_condition(inner, variables);
             Value::Bool(!inner_val)
         }
@@ -45,20 +45,21 @@ fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -
             left,
             operator,
             right,
+            ..
         } => {
             let left_val = evaluate_expression(left, variables);
             let right_val = evaluate_expression(right, variables);
             Value::Bool(compare_values(&left_val, operator, &right_val))
         }
-        Expression::FunctionCall { name, arguments } => {
+        Expression::FunctionCall { name, arguments, .. } => {
             evaluate_function(name, arguments, variables)
         }
-        Expression::StringLiteral(s) => Value::String(s.clone()),
-        Expression::NumberLiteral(n) => Value::Number(*n),
-        Expression::BoolLiteral(b) => Value::Bool(*b),
-        Expression::Null => Value::Null,
+        Expression::StringLiteral { value, .. } => Value::String(value.clone()),
+        Expression::NumberLiteral { value, .. } => Value::Number(*value),
+        Expression::BoolLiteral { value, .. } => Value::Bool(*value),
+        Expression::Null { .. } => Value::Null,
         Expression::Element(elem) => evaluate_element(elem, variables),
-        Expression::Group(inner) => evaluate_expression(inner, variables),
+        Expression::Group { inner, .. } => evaluate_expression(inner, variables),
     }
 }
 
@@ -80,16 +81,16 @@ fn evaluate_element(elem: &SevenMarkElement, variables: &HashMap<String, String>
 
 /// 두 값 비교
 fn compare_values(left: &Value, operator: &ComparisonOperator, right: &Value) -> bool {
-    match operator {
-        ComparisonOperator::Equal => values_equal(left, right),
-        ComparisonOperator::NotEqual => !values_equal(left, right),
+    match &operator.kind {
+        ComparisonOperatorKind::Equal => values_equal(left, right),
+        ComparisonOperatorKind::NotEqual => !values_equal(left, right),
         // 숫자 비교는 양쪽 모두 숫자로 변환 가능할 때만 수행
-        ComparisonOperator::GreaterThan => compare_numeric(left, right).is_some_and(|ord| ord > 0),
-        ComparisonOperator::LessThan => compare_numeric(left, right).is_some_and(|ord| ord < 0),
-        ComparisonOperator::GreaterEqual => {
+        ComparisonOperatorKind::GreaterThan => compare_numeric(left, right).is_some_and(|ord| ord > 0),
+        ComparisonOperatorKind::LessThan => compare_numeric(left, right).is_some_and(|ord| ord < 0),
+        ComparisonOperatorKind::GreaterEqual => {
             compare_numeric(left, right).is_some_and(|ord| ord >= 0)
         }
-        ComparisonOperator::LessEqual => compare_numeric(left, right).is_some_and(|ord| ord <= 0),
+        ComparisonOperatorKind::LessEqual => compare_numeric(left, right).is_some_and(|ord| ord <= 0),
     }
 }
 
@@ -172,15 +173,71 @@ fn evaluate_function(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use sevenmark_parser::ast::Location;
+
+    // 테스트용 헬퍼 함수들
+    fn loc() -> Location {
+        Location::synthesized()
+    }
+
+    fn op(kind: ComparisonOperatorKind) -> ComparisonOperator {
+        ComparisonOperator { location: loc(), kind }
+    }
+
+    fn str_lit(s: &str) -> Expression {
+        Expression::StringLiteral { location: loc(), value: s.to_string() }
+    }
+
+    fn num_lit(n: i64) -> Expression {
+        Expression::NumberLiteral { location: loc(), value: n }
+    }
+
+    fn bool_lit(b: bool) -> Expression {
+        Expression::BoolLiteral { location: loc(), value: b }
+    }
+
+    fn null_lit() -> Expression {
+        Expression::Null { location: loc() }
+    }
+
+    fn var_elem(name: &str) -> Expression {
+        Expression::Element(Box::new(SevenMarkElement::Variable(
+            sevenmark_parser::ast::VariableElement {
+                location: loc(),
+                content: name.to_string(),
+            },
+        )))
+    }
+
+    fn cmp(left: Expression, kind: ComparisonOperatorKind, right: Expression) -> Expression {
+        Expression::Comparison {
+            location: loc(),
+            left: Box::new(left),
+            operator: op(kind),
+            right: Box::new(right),
+        }
+    }
+
+    fn and(left: Expression, right: Expression) -> Expression {
+        Expression::And { location: loc(), left: Box::new(left), right: Box::new(right) }
+    }
+
+    fn or(left: Expression, right: Expression) -> Expression {
+        Expression::Or { location: loc(), left: Box::new(left), right: Box::new(right) }
+    }
+
+    fn not(inner: Expression) -> Expression {
+        Expression::Not { location: loc(), inner: Box::new(inner) }
+    }
+
+    fn func(name: &str, args: Vec<Expression>) -> Expression {
+        Expression::FunctionCall { location: loc(), name: name.to_string(), arguments: args }
+    }
 
     #[test]
     fn test_simple_comparison() {
         let variables = HashMap::new();
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::StringLiteral("hello".to_string())),
-            operator: ComparisonOperator::Equal,
-            right: Box::new(Expression::StringLiteral("hello".to_string())),
-        };
+        let expr = cmp(str_lit("hello"), ComparisonOperatorKind::Equal, str_lit("hello"));
         assert!(evaluate_condition(&expr, &variables));
     }
 
@@ -190,29 +247,11 @@ mod tests {
         variables.insert("name".to_string(), "Alice".to_string());
 
         // [var(name)] != null → true
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::Element(Box::new(SevenMarkElement::Variable(
-                sevenmark_parser::ast::VariableElement {
-                    location: sevenmark_parser::ast::Location::synthesized(),
-                    content: "name".to_string(),
-                },
-            )))),
-            operator: ComparisonOperator::NotEqual,
-            right: Box::new(Expression::Null),
-        };
+        let expr = cmp(var_elem("name"), ComparisonOperatorKind::NotEqual, null_lit());
         assert!(evaluate_condition(&expr, &variables));
 
         // [var(unknown)] != null → false
-        let expr2 = Expression::Comparison {
-            left: Box::new(Expression::Element(Box::new(SevenMarkElement::Variable(
-                sevenmark_parser::ast::VariableElement {
-                    location: sevenmark_parser::ast::Location::synthesized(),
-                    content: "unknown".to_string(),
-                },
-            )))),
-            operator: ComparisonOperator::NotEqual,
-            right: Box::new(Expression::Null),
-        };
+        let expr2 = cmp(var_elem("unknown"), ComparisonOperatorKind::NotEqual, null_lit());
         assert!(!evaluate_condition(&expr2, &variables));
     }
 
@@ -221,17 +260,11 @@ mod tests {
         let variables = HashMap::new();
 
         // true && false → false
-        let expr = Expression::And(
-            Box::new(Expression::StringLiteral("yes".to_string())),
-            Box::new(Expression::Null),
-        );
+        let expr = and(str_lit("yes"), null_lit());
         assert!(!evaluate_condition(&expr, &variables));
 
         // true || false → true
-        let expr2 = Expression::Or(
-            Box::new(Expression::StringLiteral("yes".to_string())),
-            Box::new(Expression::Null),
-        );
+        let expr2 = or(str_lit("yes"), null_lit());
         assert!(evaluate_condition(&expr2, &variables));
     }
 
@@ -239,11 +272,7 @@ mod tests {
     fn test_numeric_comparison() {
         let variables = HashMap::new();
 
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::NumberLiteral(10)),
-            operator: ComparisonOperator::GreaterThan,
-            right: Box::new(Expression::NumberLiteral(5)),
-        };
+        let expr = cmp(num_lit(10), ComparisonOperatorKind::GreaterThan, num_lit(5));
         assert!(evaluate_condition(&expr, &variables));
     }
 
@@ -252,19 +281,11 @@ mod tests {
         let mut variables = HashMap::new();
         variables.insert("age".to_string(), "25".to_string());
 
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::FunctionCall {
-                name: "int".to_string(),
-                arguments: vec![Expression::Element(Box::new(SevenMarkElement::Variable(
-                    sevenmark_parser::ast::VariableElement {
-                        location: sevenmark_parser::ast::Location::synthesized(),
-                        content: "age".to_string(),
-                    },
-                )))],
-            }),
-            operator: ComparisonOperator::GreaterEqual,
-            right: Box::new(Expression::NumberLiteral(18)),
-        };
+        let expr = cmp(
+            func("int", vec![var_elem("age")]),
+            ComparisonOperatorKind::GreaterEqual,
+            num_lit(18),
+        );
         assert!(evaluate_condition(&expr, &variables));
     }
 
@@ -273,15 +294,7 @@ mod tests {
         let variables = HashMap::new();
 
         // false && X → false (X not evaluated)
-        // This pattern: [var(x)] != null && int([var(x)]) > 5
-        // If x is null, int([var(x)]) should NOT be evaluated
-        let expr = Expression::And(
-            Box::new(Expression::Null), // false
-            Box::new(Expression::FunctionCall {
-                name: "int".to_string(),
-                arguments: vec![Expression::Null],
-            }),
-        );
+        let expr = and(null_lit(), func("int", vec![null_lit()]));
         assert!(!evaluate_condition(&expr, &variables));
     }
 
@@ -290,10 +303,7 @@ mod tests {
         let variables = HashMap::new();
 
         // true || X → true (X not evaluated)
-        let expr = Expression::Or(
-            Box::new(Expression::StringLiteral("truthy".to_string())), // true
-            Box::new(Expression::Null),                                // not evaluated
-        );
+        let expr = or(str_lit("truthy"), null_lit());
         assert!(evaluate_condition(&expr, &variables));
     }
 
@@ -303,60 +313,17 @@ mod tests {
         variables.insert("count".to_string(), "10".to_string());
 
         // [var(count)] != null && int([var(count)]) > 5 → true
-        let expr = Expression::And(
-            Box::new(Expression::Comparison {
-                left: Box::new(Expression::Element(Box::new(SevenMarkElement::Variable(
-                    sevenmark_parser::ast::VariableElement {
-                        location: sevenmark_parser::ast::Location::synthesized(),
-                        content: "count".to_string(),
-                    },
-                )))),
-                operator: ComparisonOperator::NotEqual,
-                right: Box::new(Expression::Null),
-            }),
-            Box::new(Expression::Comparison {
-                left: Box::new(Expression::FunctionCall {
-                    name: "int".to_string(),
-                    arguments: vec![Expression::Element(Box::new(SevenMarkElement::Variable(
-                        sevenmark_parser::ast::VariableElement {
-                            location: sevenmark_parser::ast::Location::synthesized(),
-                            content: "count".to_string(),
-                        },
-                    )))],
-                }),
-                operator: ComparisonOperator::GreaterThan,
-                right: Box::new(Expression::NumberLiteral(5)),
-            }),
+        let expr = and(
+            cmp(var_elem("count"), ComparisonOperatorKind::NotEqual, null_lit()),
+            cmp(func("int", vec![var_elem("count")]), ComparisonOperatorKind::GreaterThan, num_lit(5)),
         );
         assert!(evaluate_condition(&expr, &variables));
 
         // For undefined variable, short-circuit prevents int() evaluation
-        let expr_undefined = Expression::And(
-            Box::new(Expression::Comparison {
-                left: Box::new(Expression::Element(Box::new(SevenMarkElement::Variable(
-                    sevenmark_parser::ast::VariableElement {
-                        location: sevenmark_parser::ast::Location::synthesized(),
-                        content: "undefined".to_string(),
-                    },
-                )))),
-                operator: ComparisonOperator::NotEqual,
-                right: Box::new(Expression::Null),
-            }),
-            Box::new(Expression::Comparison {
-                left: Box::new(Expression::FunctionCall {
-                    name: "int".to_string(),
-                    arguments: vec![Expression::Element(Box::new(SevenMarkElement::Variable(
-                        sevenmark_parser::ast::VariableElement {
-                            location: sevenmark_parser::ast::Location::synthesized(),
-                            content: "undefined".to_string(),
-                        },
-                    )))],
-                }),
-                operator: ComparisonOperator::GreaterThan,
-                right: Box::new(Expression::NumberLiteral(5)),
-            }),
+        let expr_undefined = and(
+            cmp(var_elem("undefined"), ComparisonOperatorKind::NotEqual, null_lit()),
+            cmp(func("int", vec![var_elem("undefined")]), ComparisonOperatorKind::GreaterThan, num_lit(5)),
         );
-        // undefined != null is false, so right side not evaluated
         assert!(!evaluate_condition(&expr_undefined, &variables));
     }
 
@@ -365,35 +332,19 @@ mod tests {
         let variables = HashMap::new();
 
         // (5 > 3) == (10 > 8) → true == true → true
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::Comparison {
-                left: Box::new(Expression::NumberLiteral(5)),
-                operator: ComparisonOperator::GreaterThan,
-                right: Box::new(Expression::NumberLiteral(3)),
-            }),
-            operator: ComparisonOperator::Equal,
-            right: Box::new(Expression::Comparison {
-                left: Box::new(Expression::NumberLiteral(10)),
-                operator: ComparisonOperator::GreaterThan,
-                right: Box::new(Expression::NumberLiteral(8)),
-            }),
-        };
+        let expr = cmp(
+            cmp(num_lit(5), ComparisonOperatorKind::GreaterThan, num_lit(3)),
+            ComparisonOperatorKind::Equal,
+            cmp(num_lit(10), ComparisonOperatorKind::GreaterThan, num_lit(8)),
+        );
         assert!(evaluate_condition(&expr, &variables));
 
         // (5 > 3) == (10 < 8) → true == false → false
-        let expr2 = Expression::Comparison {
-            left: Box::new(Expression::Comparison {
-                left: Box::new(Expression::NumberLiteral(5)),
-                operator: ComparisonOperator::GreaterThan,
-                right: Box::new(Expression::NumberLiteral(3)),
-            }),
-            operator: ComparisonOperator::Equal,
-            right: Box::new(Expression::Comparison {
-                left: Box::new(Expression::NumberLiteral(10)),
-                operator: ComparisonOperator::LessThan,
-                right: Box::new(Expression::NumberLiteral(8)),
-            }),
-        };
+        let expr2 = cmp(
+            cmp(num_lit(5), ComparisonOperatorKind::GreaterThan, num_lit(3)),
+            ComparisonOperatorKind::Equal,
+            cmp(num_lit(10), ComparisonOperatorKind::LessThan, num_lit(8)),
+        );
         assert!(!evaluate_condition(&expr2, &variables));
     }
 
@@ -402,35 +353,19 @@ mod tests {
         let variables = HashMap::new();
 
         // "abc" < 5 → false (비교 불가, 0으로 변환하지 않음)
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::StringLiteral("abc".to_string())),
-            operator: ComparisonOperator::LessThan,
-            right: Box::new(Expression::NumberLiteral(5)),
-        };
+        let expr = cmp(str_lit("abc"), ComparisonOperatorKind::LessThan, num_lit(5));
         assert!(!evaluate_condition(&expr, &variables));
 
         // "abc" > 5 → false (비교 불가)
-        let expr2 = Expression::Comparison {
-            left: Box::new(Expression::StringLiteral("abc".to_string())),
-            operator: ComparisonOperator::GreaterThan,
-            right: Box::new(Expression::NumberLiteral(5)),
-        };
+        let expr2 = cmp(str_lit("abc"), ComparisonOperatorKind::GreaterThan, num_lit(5));
         assert!(!evaluate_condition(&expr2, &variables));
 
         // "10" > 5 → true (문자열이 숫자로 파싱 가능)
-        let expr3 = Expression::Comparison {
-            left: Box::new(Expression::StringLiteral("10".to_string())),
-            operator: ComparisonOperator::GreaterThan,
-            right: Box::new(Expression::NumberLiteral(5)),
-        };
+        let expr3 = cmp(str_lit("10"), ComparisonOperatorKind::GreaterThan, num_lit(5));
         assert!(evaluate_condition(&expr3, &variables));
 
         // null > 5 → false (null은 숫자 비교 불가)
-        let expr4 = Expression::Comparison {
-            left: Box::new(Expression::Null),
-            operator: ComparisonOperator::GreaterThan,
-            right: Box::new(Expression::NumberLiteral(5)),
-        };
+        let expr4 = cmp(null_lit(), ComparisonOperatorKind::GreaterThan, num_lit(5));
         assert!(!evaluate_condition(&expr4, &variables));
     }
 
@@ -439,34 +374,23 @@ mod tests {
         let variables = HashMap::new();
 
         // true == true → true
-        let expr = Expression::Comparison {
-            left: Box::new(Expression::BoolLiteral(true)),
-            operator: ComparisonOperator::Equal,
-            right: Box::new(Expression::BoolLiteral(true)),
-        };
+        let expr = cmp(bool_lit(true), ComparisonOperatorKind::Equal, bool_lit(true));
         assert!(evaluate_condition(&expr, &variables));
 
         // (5 > 3) == true → true
-        let expr2 = Expression::Comparison {
-            left: Box::new(Expression::Comparison {
-                left: Box::new(Expression::NumberLiteral(5)),
-                operator: ComparisonOperator::GreaterThan,
-                right: Box::new(Expression::NumberLiteral(3)),
-            }),
-            operator: ComparisonOperator::Equal,
-            right: Box::new(Expression::BoolLiteral(true)),
-        };
+        let expr2 = cmp(
+            cmp(num_lit(5), ComparisonOperatorKind::GreaterThan, num_lit(3)),
+            ComparisonOperatorKind::Equal,
+            bool_lit(true),
+        );
         assert!(evaluate_condition(&expr2, &variables));
 
         // false || true → true
-        let expr3 = Expression::Or(
-            Box::new(Expression::BoolLiteral(false)),
-            Box::new(Expression::BoolLiteral(true)),
-        );
+        let expr3 = or(bool_lit(false), bool_lit(true));
         assert!(evaluate_condition(&expr3, &variables));
 
         // !false → true
-        let expr4 = Expression::Not(Box::new(Expression::BoolLiteral(false)));
+        let expr4 = not(bool_lit(false));
         assert!(evaluate_condition(&expr4, &variables));
     }
 }
