@@ -16,19 +16,45 @@
       },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 8,
+            "end": 21
+          },
           "left": {
             "FunctionCall": {
+              "location": {
+                "start": 8,
+                "end": 17
+              },
               "name": "int",
               "arguments": [
                 {
-                  "StringLiteral": "10"
+                  "StringLiteral": {
+                    "location": {
+                      "start": 12,
+                      "end": 16
+                    },
+                    "value": "10"
+                  }
                 }
               ]
             }
           },
-          "operator": "GreaterThan",
+          "operator": {
+            "location": {
+              "start": 18,
+              "end": 19
+            },
+            "kind": "GreaterThan"
+          },
           "right": {
-            "NumberLiteral": 5
+            "NumberLiteral": {
+              "location": {
+                "start": 20,
+                "end": 21
+              },
+              "value": 5
+            }
           }
         }
       },
@@ -80,19 +106,45 @@
       },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 49,
+            "end": 66
+          },
           "left": {
             "FunctionCall": {
+              "location": {
+                "start": 49,
+                "end": 61
+              },
               "name": "len",
               "arguments": [
                 {
-                  "StringLiteral": "hello"
+                  "StringLiteral": {
+                    "location": {
+                      "start": 53,
+                      "end": 60
+                    },
+                    "value": "hello"
+                  }
                 }
               ]
             }
           },
-          "operator": "Equal",
+          "operator": {
+            "location": {
+              "start": 62,
+              "end": 64
+            },
+            "kind": "Equal"
+          },
           "right": {
-            "NumberLiteral": 5
+            "NumberLiteral": {
+              "location": {
+                "start": 65,
+                "end": 66
+              },
+              "value": 5
+            }
           }
         }
       },
@@ -144,19 +196,45 @@
       },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 92,
+            "end": 109
+          },
           "left": {
             "FunctionCall": {
+              "location": {
+                "start": 92,
+                "end": 100
+              },
               "name": "str",
               "arguments": [
                 {
-                  "NumberLiteral": 123
+                  "NumberLiteral": {
+                    "location": {
+                      "start": 96,
+                      "end": 99
+                    },
+                    "value": 123
+                  }
                 }
               ]
             }
           },
-          "operator": "Equal",
+          "operator": {
+            "location": {
+              "start": 101,
+              "end": 103
+            },
+            "kind": "Equal"
+          },
           "right": {
-            "StringLiteral": "123"
+            "StringLiteral": {
+              "location": {
+                "start": 104,
+                "end": 109
+              },
+              "value": "123"
+            }
           }
         }
       },

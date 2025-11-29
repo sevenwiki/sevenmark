@@ -7,12 +7,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "NumberLiteral": 5
+          "location": {
+            "start": 7,
+            "end": 12
           },
-          "operator": "GreaterThan",
+          "left": {
+            "NumberLiteral": {
+              "location": {
+                "start": 7,
+                "end": 8
+              },
+              "value": 5
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 9,
+              "end": 10
+            },
+            "kind": "GreaterThan"
+          },
           "right": {
-            "NumberLiteral": 3
+            "NumberLiteral": {
+              "location": {
+                "start": 11,
+                "end": 12
+              },
+              "value": 3
+            }
           }
         }
       },
@@ -63,23 +85,55 @@
         "end": 88
       },
       "condition": {
-        "And": [
-          {
+        "And": {
+          "location": {
+            "start": 43,
+            "end": 66
+          },
+          "left": {
             "Group": {
-              "Or": [
-                {
-                  "BoolLiteral": true
-                },
-                {
-                  "BoolLiteral": false
+              "location": {
+                "start": 43,
+                "end": 58
+              },
+              "inner": {
+                "Or": {
+                  "location": {
+                    "start": 44,
+                    "end": 57
+                  },
+                  "left": {
+                    "BoolLiteral": {
+                      "location": {
+                        "start": 44,
+                        "end": 48
+                      },
+                      "value": true
+                    }
+                  },
+                  "right": {
+                    "BoolLiteral": {
+                      "location": {
+                        "start": 52,
+                        "end": 57
+                      },
+                      "value": false
+                    }
+                  }
                 }
-              ]
+              }
             }
           },
-          {
-            "BoolLiteral": true
+          "right": {
+            "BoolLiteral": {
+              "location": {
+                "start": 62,
+                "end": 66
+              },
+              "value": true
+            }
           }
-        ]
+        }
       },
       "content": [
         {
@@ -129,22 +183,66 @@
       },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 97,
+            "end": 112
+          },
           "left": {
             "Group": {
-              "Comparison": {
-                "left": {
-                  "NumberLiteral": 5
-                },
-                "operator": "GreaterThan",
-                "right": {
-                  "NumberLiteral": 3
+              "location": {
+                "start": 97,
+                "end": 104
+              },
+              "inner": {
+                "Comparison": {
+                  "location": {
+                    "start": 98,
+                    "end": 103
+                  },
+                  "left": {
+                    "NumberLiteral": {
+                      "location": {
+                        "start": 98,
+                        "end": 99
+                      },
+                      "value": 5
+                    }
+                  },
+                  "operator": {
+                    "location": {
+                      "start": 100,
+                      "end": 101
+                    },
+                    "kind": "GreaterThan"
+                  },
+                  "right": {
+                    "NumberLiteral": {
+                      "location": {
+                        "start": 102,
+                        "end": 103
+                      },
+                      "value": 3
+                    }
+                  }
                 }
               }
             }
           },
-          "operator": "Equal",
+          "operator": {
+            "location": {
+              "start": 105,
+              "end": 107
+            },
+            "kind": "Equal"
+          },
           "right": {
-            "BoolLiteral": true
+            "BoolLiteral": {
+              "location": {
+                "start": 108,
+                "end": 112
+              },
+              "value": true
+            }
           }
         }
       },

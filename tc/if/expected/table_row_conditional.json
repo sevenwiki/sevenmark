@@ -37,7 +37,13 @@
               "end": 82
             },
             "condition": {
-              "BoolLiteral": true
+              "BoolLiteral": {
+                "location": {
+                  "start": 41,
+                  "end": 45
+                },
+                "value": true
+              }
             },
             "rows": [
               {

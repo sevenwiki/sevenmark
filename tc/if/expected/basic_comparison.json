@@ -7,12 +7,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "NumberLiteral": 5
+          "location": {
+            "start": 7,
+            "end": 13
           },
-          "operator": "Equal",
+          "left": {
+            "NumberLiteral": {
+              "location": {
+                "start": 7,
+                "end": 8
+              },
+              "value": 5
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 9,
+              "end": 11
+            },
+            "kind": "Equal"
+          },
           "right": {
-            "NumberLiteral": 5
+            "NumberLiteral": {
+              "location": {
+                "start": 12,
+                "end": 13
+              },
+              "value": 5
+            }
           }
         }
       },
@@ -64,12 +86,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "NumberLiteral": 5
+          "location": {
+            "start": 32,
+            "end": 38
           },
-          "operator": "NotEqual",
+          "left": {
+            "NumberLiteral": {
+              "location": {
+                "start": 32,
+                "end": 33
+              },
+              "value": 5
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 34,
+              "end": 36
+            },
+            "kind": "NotEqual"
+          },
           "right": {
-            "NumberLiteral": 3
+            "NumberLiteral": {
+              "location": {
+                "start": 37,
+                "end": 38
+              },
+              "value": 3
+            }
           }
         }
       },
@@ -121,12 +165,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "NumberLiteral": 10
+          "location": {
+            "start": 61,
+            "end": 67
           },
-          "operator": "GreaterThan",
+          "left": {
+            "NumberLiteral": {
+              "location": {
+                "start": 61,
+                "end": 63
+              },
+              "value": 10
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 64,
+              "end": 65
+            },
+            "kind": "GreaterThan"
+          },
           "right": {
-            "NumberLiteral": 5
+            "NumberLiteral": {
+              "location": {
+                "start": 66,
+                "end": 67
+              },
+              "value": 5
+            }
           }
         }
       },
@@ -178,12 +244,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "NumberLiteral": 3
+          "location": {
+            "start": 88,
+            "end": 93
           },
-          "operator": "LessThan",
+          "left": {
+            "NumberLiteral": {
+              "location": {
+                "start": 88,
+                "end": 89
+              },
+              "value": 3
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 90,
+              "end": 91
+            },
+            "kind": "LessThan"
+          },
           "right": {
-            "NumberLiteral": 8
+            "NumberLiteral": {
+              "location": {
+                "start": 92,
+                "end": 93
+              },
+              "value": 8
+            }
           }
         }
       },

@@ -7,9 +7,33 @@
       },
       "condition": {
         "Comparison": {
-          "left": "Null",
-          "operator": "Equal",
-          "right": "Null"
+          "location": {
+            "start": 7,
+            "end": 19
+          },
+          "left": {
+            "Null": {
+              "location": {
+                "start": 7,
+                "end": 11
+              }
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 12,
+              "end": 14
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "Null": {
+              "location": {
+                "start": 15,
+                "end": 19
+              }
+            }
+          }
         }
       },
       "content": [
@@ -60,12 +84,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "BoolLiteral": true
+          "location": {
+            "start": 49,
+            "end": 61
           },
-          "operator": "Equal",
+          "left": {
+            "BoolLiteral": {
+              "location": {
+                "start": 49,
+                "end": 53
+              },
+              "value": true
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 54,
+              "end": 56
+            },
+            "kind": "Equal"
+          },
           "right": {
-            "BoolLiteral": true
+            "BoolLiteral": {
+              "location": {
+                "start": 57,
+                "end": 61
+              },
+              "value": true
+            }
           }
         }
       },
@@ -117,12 +163,34 @@
       },
       "condition": {
         "Comparison": {
-          "left": {
-            "BoolLiteral": false
+          "location": {
+            "start": 91,
+            "end": 105
           },
-          "operator": "Equal",
+          "left": {
+            "BoolLiteral": {
+              "location": {
+                "start": 91,
+                "end": 96
+              },
+              "value": false
+            }
+          },
+          "operator": {
+            "location": {
+              "start": 97,
+              "end": 99
+            },
+            "kind": "Equal"
+          },
           "right": {
-            "BoolLiteral": false
+            "BoolLiteral": {
+              "location": {
+                "start": 100,
+                "end": 105
+              },
+              "value": false
+            }
           }
         }
       },
