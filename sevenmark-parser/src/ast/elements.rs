@@ -1,8 +1,6 @@
 use serde::Serialize;
 
-use super::{
-    Location, Parameters, SevenMarkElement,
-};
+use super::{Location, Parameters, SevenMarkElement};
 
 /// 텍스트 요소
 #[derive(Debug, Clone, Serialize)]

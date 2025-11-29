@@ -203,7 +203,13 @@ fn collect_metadata_recursive(
     }
 
     element.traverse_children_ref(&mut |child| {
-        collect_metadata_recursive(child, categories, redirect, media, collect_categories_redirect);
+        collect_metadata_recursive(
+            child,
+            categories,
+            redirect,
+            media,
+            collect_categories_redirect,
+        );
     });
 }
 
@@ -363,10 +369,7 @@ fn process_if_elements(elements: &mut Vec<SevenMarkElement>, variables: &HashMap
 }
 
 /// TableElement 내부의 행/셀 레벨 조건부 처리
-fn process_table_conditionals(
-    rows: &mut Vec<TableRowItem>,
-    variables: &HashMap<String, String>,
-) {
+fn process_table_conditionals(rows: &mut Vec<TableRowItem>, variables: &HashMap<String, String>) {
     let mut i = 0;
     while i < rows.len() {
         match &mut rows[i] {
@@ -375,17 +378,19 @@ fn process_table_conditionals(
                 process_table_cell_conditionals(&mut row.inner_content, variables);
                 i += 1;
             }
-            TableRowItem::Conditional { condition, rows: cond_rows, .. } => {
+            TableRowItem::Conditional {
+                condition,
+                rows: cond_rows,
+                ..
+            } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: rows를 펼침
                     // 먼저 펼쳐질 rows 내부의 셀 조건부도 처리
                     for row in cond_rows.iter_mut() {
                         process_table_cell_conditionals(&mut row.inner_content, variables);
                     }
-                    let expanded: Vec<TableRowItem> = cond_rows
-                        .drain(..)
-                        .map(TableRowItem::Row)
-                        .collect();
+                    let expanded: Vec<TableRowItem> =
+                        cond_rows.drain(..).map(TableRowItem::Row).collect();
                     rows.splice(i..i + 1, expanded);
                     // 다음 반복에서 새로 삽입된 요소 확인
                 } else {
@@ -411,17 +416,19 @@ fn process_table_cell_conditionals(
                 process_if_elements(&mut cell.content, variables);
                 i += 1;
             }
-            TableCellItem::Conditional { condition, cells: cond_cells, .. } => {
+            TableCellItem::Conditional {
+                condition,
+                cells: cond_cells,
+                ..
+            } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: cells를 펼침
                     // 먼저 펼쳐질 cells 내부의 IfElement도 처리
                     for cell in cond_cells.iter_mut() {
                         process_if_elements(&mut cell.content, variables);
                     }
-                    let expanded: Vec<TableCellItem> = cond_cells
-                        .drain(..)
-                        .map(TableCellItem::Cell)
-                        .collect();
+                    let expanded: Vec<TableCellItem> =
+                        cond_cells.drain(..).map(TableCellItem::Cell).collect();
                     cells.splice(i..i + 1, expanded);
                     // 다음 반복에서 새로 삽입된 요소 확인
                 } else {
@@ -447,17 +454,19 @@ fn process_list_conditionals(
                 process_if_elements(&mut item.content, variables);
                 i += 1;
             }
-            ListContentItem::Conditional { condition, items: cond_items, .. } => {
+            ListContentItem::Conditional {
+                condition,
+                items: cond_items,
+                ..
+            } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: items를 펼침
                     // 먼저 펼쳐질 items 내부의 IfElement도 처리
                     for item in cond_items.iter_mut() {
                         process_if_elements(&mut item.content, variables);
                     }
-                    let expanded: Vec<ListContentItem> = cond_items
-                        .drain(..)
-                        .map(ListContentItem::Item)
-                        .collect();
+                    let expanded: Vec<ListContentItem> =
+                        cond_items.drain(..).map(ListContentItem::Item).collect();
                     items.splice(i..i + 1, expanded);
                     // 다음 반복에서 새로 삽입된 요소 확인
                 } else {

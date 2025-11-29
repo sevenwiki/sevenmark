@@ -3,7 +3,9 @@ use std::fs;
 use std::path::Path;
 
 fn main() {
-    let categories = ["brace", "comment", "complex", "escape", "fold", "if", "macro", "markdown"];
+    let categories = [
+        "brace", "comment", "complex", "escape", "fold", "if", "macro", "markdown",
+    ];
 
     for category in categories {
         let input_dir = format!("../tc/{}/input", category);

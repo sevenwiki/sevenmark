@@ -141,7 +141,9 @@ impl Traversable for SevenMarkElement {
                                             visitor(child);
                                         }
                                     }
-                                    TableCellItem::Conditional { condition, cells, .. } => {
+                                    TableCellItem::Conditional {
+                                        condition, cells, ..
+                                    } => {
                                         for cell in cells {
                                             for child in &mut cell.content {
                                                 visitor(child);
@@ -152,7 +154,9 @@ impl Traversable for SevenMarkElement {
                                 }
                             }
                         }
-                        TableRowItem::Conditional { condition, rows, .. } => {
+                        TableRowItem::Conditional {
+                            condition, rows, ..
+                        } => {
                             for row in rows {
                                 for cell_item in &mut row.inner_content {
                                     match cell_item {
@@ -161,7 +165,11 @@ impl Traversable for SevenMarkElement {
                                                 visitor(child);
                                             }
                                         }
-                                        TableCellItem::Conditional { condition: cell_cond, cells, .. } => {
+                                        TableCellItem::Conditional {
+                                            condition: cell_cond,
+                                            cells,
+                                            ..
+                                        } => {
                                             for cell in cells {
                                                 for child in &mut cell.content {
                                                     visitor(child);
@@ -185,7 +193,9 @@ impl Traversable for SevenMarkElement {
                                 visitor(child);
                             }
                         }
-                        ListContentItem::Conditional { condition, items, .. } => {
+                        ListContentItem::Conditional {
+                            condition, items, ..
+                        } => {
                             for list_item in items {
                                 for child in &mut list_item.content {
                                     visitor(child);
@@ -427,7 +437,9 @@ impl Traversable for SevenMarkElement {
                                             visitor(child);
                                         }
                                     }
-                                    TableCellItem::Conditional { condition, cells, .. } => {
+                                    TableCellItem::Conditional {
+                                        condition, cells, ..
+                                    } => {
                                         for cell in cells {
                                             for child in &cell.content {
                                                 visitor(child);
@@ -438,7 +450,9 @@ impl Traversable for SevenMarkElement {
                                 }
                             }
                         }
-                        TableRowItem::Conditional { condition, rows, .. } => {
+                        TableRowItem::Conditional {
+                            condition, rows, ..
+                        } => {
                             for row in rows {
                                 for cell_item in &row.inner_content {
                                     match cell_item {
@@ -447,7 +461,11 @@ impl Traversable for SevenMarkElement {
                                                 visitor(child);
                                             }
                                         }
-                                        TableCellItem::Conditional { condition: cell_cond, cells, .. } => {
+                                        TableCellItem::Conditional {
+                                            condition: cell_cond,
+                                            cells,
+                                            ..
+                                        } => {
                                             for cell in cells {
                                                 for child in &cell.content {
                                                     visitor(child);
@@ -471,7 +489,9 @@ impl Traversable for SevenMarkElement {
                                 visitor(child);
                             }
                         }
-                        ListContentItem::Conditional { condition, items, .. } => {
+                        ListContentItem::Conditional {
+                            condition, items, ..
+                        } => {
                             for list_item in items {
                                 for child in &list_item.content {
                                     visitor(child);

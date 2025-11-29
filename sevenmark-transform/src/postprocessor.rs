@@ -1,6 +1,6 @@
+use crate::PreProcessedDocument;
 use crate::utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, fetch_documents_batch};
-use crate::PreProcessedDocument;
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;

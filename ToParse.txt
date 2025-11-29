@@ -1,9 +1,14 @@
-{{{#define #showDetails="-1"}}}
-
-{{{#table
-[[[[Product]] [[Price]]]]
-{{{#if [var(showDetails)]
-[[[[Widget A Details]] [[Size: Medium, Color: Blue]]]]
+{{{#define
+#a="211"
+#b="1"
 }}}
-[[[[Widget B]] {{{#if [var(showDetails)] == "true" [[$20]]}}} ]]
+
+{{{#if (((int([var(a)] || (((int([var(a)] || (((int([var(a)]) > 1) && ([var(b)] < 2)) ||
+                                             (([var(c)] >= 3) ||  && ([var(d)] <= 4))) &&
+                                             (!([var(e)] == 5) || ([var(f)] != 6))) > 1) && ([var(b)] < 2)) ||
+                          (([var(c)] >= 3) && ([var(d)] <= 4))) &&
+                          (!([var(e)] == 5) || ([var(f)] != 6))) > 1) && ([var(b)] < 2)) ||
+(([var(c)] >= 3) && ([var(d)] <= 4))) &&
+(!([var(e)] == 5) || ([var(f)] != 6)) ::
+deeply nested
 }}}

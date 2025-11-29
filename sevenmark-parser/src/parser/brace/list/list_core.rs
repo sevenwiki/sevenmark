@@ -4,11 +4,11 @@ use crate::parser::element::element_parser;
 use crate::parser::expr::expr_condition::condition_parser;
 use crate::parser::parameter::parameter_core_parser;
 use crate::parser::utils::with_depth;
-use winnow::stream::Location as StreamLocation;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{alt, delimited, opt, repeat};
 use winnow::prelude::*;
+use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 pub fn list_core_parser(parser_input: &mut ParserInput) -> Result<Vec<ListContentItem>> {

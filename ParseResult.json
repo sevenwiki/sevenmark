@@ -1,31 +1,542 @@
 [
   {
-    "IfElement": {
-      "condition": {
-        "Not": {
-          "operator": {
-            "kind": "Not"
-          },
-          "inner": {
-            "FunctionCall": {
-              "name": "int",
-              "arguments": [
-                {
-                  "Element": {
-                    "Variable": {
-                      "content": "x"
-                    }
-                  }
-                }
-              ]
+    "DefineElement": {
+      "parameters": {
+        "a": {
+          "key": "a",
+          "value": [
+            {
+              "Text": {
+                "content": "211"
+              }
             }
-          }
+          ]
+        },
+        "b": {
+          "key": "b",
+          "value": [
+            {
+              "Text": {
+                "content": "1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "StyledElement": {
+      "parameters": {
+        "if": {
+          "key": "if",
+          "value": []
         }
       },
       "content": [
         {
           "Text": {
-            "content": "content"
+            "content": "(((int("
+          }
+        },
+        {
+          "Variable": {
+            "content": "a"
+          }
+        },
+        {
+          "Text": {
+            "content": " || (((int("
+          }
+        },
+        {
+          "Variable": {
+            "content": "a"
+          }
+        },
+        {
+          "Text": {
+            "content": " || (((int("
+          }
+        },
+        {
+          "Variable": {
+            "content": "a"
+          }
+        },
+        {
+          "Text": {
+            "content": ") > 1) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "b"
+          }
+        },
+        {
+          "Text": {
+            "content": " < 2)) ||"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                             (("
+          }
+        },
+        {
+          "Variable": {
+            "content": "c"
+          }
+        },
+        {
+          "Text": {
+            "content": " >= 3) || (((int("
+          }
+        },
+        {
+          "Variable": {
+            "content": "a"
+          }
+        },
+        {
+          "Text": {
+            "content": " || (((int("
+          }
+        },
+        {
+          "Variable": {
+            "content": "a"
+          }
+        },
+        {
+          "Text": {
+            "content": " || (((int("
+          }
+        },
+        {
+          "Variable": {
+            "content": "a"
+          }
+        },
+        {
+          "Text": {
+            "content": ") > 1) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "b"
+          }
+        },
+        {
+          "Text": {
+            "content": " < 2)) ||"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                                                                                              (("
+          }
+        },
+        {
+          "Variable": {
+            "content": "c"
+          }
+        },
+        {
+          "Text": {
+            "content": " >= 3) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "d"
+          }
+        },
+        {
+          "Text": {
+            "content": " <= 4))) &&"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                                                                                              (!("
+          }
+        },
+        {
+          "Variable": {
+            "content": "e"
+          }
+        },
+        {
+          "Text": {
+            "content": " == 5) || ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "f"
+          }
+        },
+        {
+          "Text": {
+            "content": " != 6))) > 1) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "b"
+          }
+        },
+        {
+          "Text": {
+            "content": " < 2)) ||"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                                                                           (("
+          }
+        },
+        {
+          "Variable": {
+            "content": "c"
+          }
+        },
+        {
+          "Text": {
+            "content": " >= 3) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "d"
+          }
+        },
+        {
+          "Text": {
+            "content": " <= 4))) &&"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                                                                           (!("
+          }
+        },
+        {
+          "Variable": {
+            "content": "e"
+          }
+        },
+        {
+          "Text": {
+            "content": " == 5) || ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "f"
+          }
+        },
+        {
+          "Text": {
+            "content": " != 6))) > 1) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "b"
+          }
+        },
+        {
+          "Text": {
+            "content": " < 2)) ||"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                                                 (("
+          }
+        },
+        {
+          "Variable": {
+            "content": "c"
+          }
+        },
+        {
+          "Text": {
+            "content": " >= 3) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "d"
+          }
+        },
+        {
+          "Text": {
+            "content": " <= 4))) &&"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                                                 (!("
+          }
+        },
+        {
+          "Variable": {
+            "content": "e"
+          }
+        },
+        {
+          "Text": {
+            "content": " == 5) || ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "f"
+          }
+        },
+        {
+          "Text": {
+            "content": " != 6)) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "d"
+          }
+        },
+        {
+          "Text": {
+            "content": " <= 4))) &&"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                                             (!("
+          }
+        },
+        {
+          "Variable": {
+            "content": "e"
+          }
+        },
+        {
+          "Text": {
+            "content": " == 5) || ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "f"
+          }
+        },
+        {
+          "Text": {
+            "content": " != 6))) > 1) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "b"
+          }
+        },
+        {
+          "Text": {
+            "content": " < 2)) ||"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                          (("
+          }
+        },
+        {
+          "Variable": {
+            "content": "c"
+          }
+        },
+        {
+          "Text": {
+            "content": " >= 3) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "d"
+          }
+        },
+        {
+          "Text": {
+            "content": " <= 4))) &&"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "                          (!("
+          }
+        },
+        {
+          "Variable": {
+            "content": "e"
+          }
+        },
+        {
+          "Text": {
+            "content": " == 5) || ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "f"
+          }
+        },
+        {
+          "Text": {
+            "content": " != 6))) > 1) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "b"
+          }
+        },
+        {
+          "Text": {
+            "content": " < 2)) ||"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "(("
+          }
+        },
+        {
+          "Variable": {
+            "content": "c"
+          }
+        },
+        {
+          "Text": {
+            "content": " >= 3) && ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "d"
+          }
+        },
+        {
+          "Text": {
+            "content": " <= 4))) &&"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "(!("
+          }
+        },
+        {
+          "Variable": {
+            "content": "e"
+          }
+        },
+        {
+          "Text": {
+            "content": " == 5) || ("
+          }
+        },
+        {
+          "Variable": {
+            "content": "f"
+          }
+        },
+        {
+          "Text": {
+            "content": " != 6)) ::"
+          }
+        },
+        {
+          "Text": {
+            "content": "\n"
+          }
+        },
+        {
+          "Text": {
+            "content": "deeply nested"
           }
         },
         {
@@ -34,6 +545,11 @@
           }
         }
       ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
     }
   }
 ]

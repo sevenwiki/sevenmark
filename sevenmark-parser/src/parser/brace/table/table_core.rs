@@ -56,7 +56,10 @@ fn table_element_parser(parser_input: &mut ParserInput) -> Result<TableInnerElem
         multispace0,
         delimited(
             literal("[["),
-            (opt(parameter_core_parser), repeat(1.., table_cell_item_parser)),
+            (
+                opt(parameter_core_parser),
+                repeat(1.., table_cell_item_parser),
+            ),
             literal("]]"),
         ),
         multispace0,

@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.9] - 2025-11-29
+
+### Fixed
+- **Expression Parser Recursion Protection**: Added depth limiting to prevent stack overflow
+  - `group_parser`: Now applies `with_depth` when parsing `(...)` groups
+  - `function_call_parser`: Now applies `with_depth` when parsing function arguments
+  - Prevents DoS attacks via deeply nested expressions like `((((((x))))))` or `int(int(int(x)))`
+  - Shares depth limit with element parser (default: 16 levels total)
+
 ## [2.6.8] - 2025-11-29
 
 ### Added

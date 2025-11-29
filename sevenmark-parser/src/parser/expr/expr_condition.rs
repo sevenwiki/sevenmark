@@ -4,6 +4,7 @@ use crate::ast::{
 };
 use crate::parser::ParserInput;
 use crate::parser::r#macro::macro_variable_parser;
+use crate::parser::utils::with_depth;
 use winnow::Result;
 use winnow::ascii::{alpha1, digit1, multispace0};
 use winnow::combinator::{alt, delimited, opt, repeat, separated, terminated};
@@ -40,14 +41,14 @@ fn or_parser(input: &mut ParserInput) -> Result<Expression> {
 
     let end = input.input.previous_token_end();
 
-    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
-        Expression::Or {
+    Ok(rest
+        .into_iter()
+        .fold(first, |acc, (op, expr)| Expression::Or {
             location: Location { start, end },
             operator: op,
             left: Box::new(acc),
             right: Box::new(expr),
-        }
-    }))
+        }))
 }
 
 /// || 연산자 파서
@@ -79,14 +80,14 @@ fn and_parser(input: &mut ParserInput) -> Result<Expression> {
 
     let end = input.input.previous_token_end();
 
-    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
-        Expression::And {
+    Ok(rest
+        .into_iter()
+        .fold(first, |acc, (op, expr)| Expression::And {
             location: Location { start, end },
             operator: op,
             left: Box::new(acc),
             right: Box::new(expr),
-        }
-    }))
+        }))
 }
 
 /// && 연산자 파서
@@ -209,7 +210,7 @@ fn group_parser(input: &mut ParserInput) -> Result<Expression> {
     let start = input.input.current_token_start();
     let inner = delimited(
         (literal('('), multispace0),
-        condition_parser,
+        |input: &mut ParserInput| with_depth(input, condition_parser),
         (multispace0, literal(')')),
     )
     .parse_next(input)?;
@@ -235,7 +236,7 @@ fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
         (literal('('), multispace0),
         separated(
             0..,
-            condition_parser,
+            |input: &mut ParserInput| with_depth(input, condition_parser),
             (multispace0, literal(','), multispace0),
         ),
         (multispace0, literal(')')),
@@ -265,7 +266,8 @@ fn null_parser(input: &mut ParserInput) -> Result<Expression> {
 /// bool 리터럴 파서: true, false
 fn bool_literal_parser(input: &mut ParserInput) -> Result<Expression> {
     let start = input.input.current_token_start();
-    let value = alt((literal("true").value(true), literal("false").value(false))).parse_next(input)?;
+    let value =
+        alt((literal("true").value(true), literal("false").value(false))).parse_next(input)?;
     let end = input.input.previous_token_end();
 
     Ok(Expression::BoolLiteral {

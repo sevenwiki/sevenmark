@@ -53,9 +53,9 @@ fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -
             let right_val = evaluate_expression(right, variables);
             Value::Bool(compare_values(&left_val, operator, &right_val))
         }
-        Expression::FunctionCall { name, arguments, .. } => {
-            evaluate_function(name, arguments, variables)
-        }
+        Expression::FunctionCall {
+            name, arguments, ..
+        } => evaluate_function(name, arguments, variables),
         Expression::StringLiteral { value, .. } => Value::String(value.clone()),
         Expression::NumberLiteral { value, .. } => Value::Number(*value),
         Expression::BoolLiteral { value, .. } => Value::Bool(*value),
@@ -87,12 +87,16 @@ fn compare_values(left: &Value, operator: &ComparisonOperator, right: &Value) ->
         ComparisonOperatorKind::Equal => values_equal(left, right),
         ComparisonOperatorKind::NotEqual => !values_equal(left, right),
         // 숫자 비교는 양쪽 모두 숫자로 변환 가능할 때만 수행
-        ComparisonOperatorKind::GreaterThan => compare_numeric(left, right).is_some_and(|ord| ord > 0),
+        ComparisonOperatorKind::GreaterThan => {
+            compare_numeric(left, right).is_some_and(|ord| ord > 0)
+        }
         ComparisonOperatorKind::LessThan => compare_numeric(left, right).is_some_and(|ord| ord < 0),
         ComparisonOperatorKind::GreaterEqual => {
             compare_numeric(left, right).is_some_and(|ord| ord >= 0)
         }
-        ComparisonOperatorKind::LessEqual => compare_numeric(left, right).is_some_and(|ord| ord <= 0),
+        ComparisonOperatorKind::LessEqual => {
+            compare_numeric(left, right).is_some_and(|ord| ord <= 0)
+        }
     }
 }
 
@@ -183,19 +187,31 @@ mod tests {
     }
 
     fn op(kind: ComparisonOperatorKind) -> ComparisonOperator {
-        ComparisonOperator { location: loc(), kind }
+        ComparisonOperator {
+            location: loc(),
+            kind,
+        }
     }
 
     fn str_lit(s: &str) -> Expression {
-        Expression::StringLiteral { location: loc(), value: s.to_string() }
+        Expression::StringLiteral {
+            location: loc(),
+            value: s.to_string(),
+        }
     }
 
     fn num_lit(n: i64) -> Expression {
-        Expression::NumberLiteral { location: loc(), value: n }
+        Expression::NumberLiteral {
+            location: loc(),
+            value: n,
+        }
     }
 
     fn bool_lit(b: bool) -> Expression {
-        Expression::BoolLiteral { location: loc(), value: b }
+        Expression::BoolLiteral {
+            location: loc(),
+            value: b,
+        }
     }
 
     fn null_lit() -> Expression {
@@ -221,7 +237,10 @@ mod tests {
     }
 
     fn logical_op(kind: LogicalOperatorKind) -> LogicalOperator {
-        LogicalOperator { location: loc(), kind }
+        LogicalOperator {
+            location: loc(),
+            kind,
+        }
     }
 
     fn and(left: Expression, right: Expression) -> Expression {
@@ -251,13 +270,21 @@ mod tests {
     }
 
     fn func(name: &str, args: Vec<Expression>) -> Expression {
-        Expression::FunctionCall { location: loc(), name: name.to_string(), arguments: args }
+        Expression::FunctionCall {
+            location: loc(),
+            name: name.to_string(),
+            arguments: args,
+        }
     }
 
     #[test]
     fn test_simple_comparison() {
         let variables = HashMap::new();
-        let expr = cmp(str_lit("hello"), ComparisonOperatorKind::Equal, str_lit("hello"));
+        let expr = cmp(
+            str_lit("hello"),
+            ComparisonOperatorKind::Equal,
+            str_lit("hello"),
+        );
         assert!(evaluate_condition(&expr, &variables));
     }
 
@@ -267,11 +294,19 @@ mod tests {
         variables.insert("name".to_string(), "Alice".to_string());
 
         // [var(name)] != null → true
-        let expr = cmp(var_elem("name"), ComparisonOperatorKind::NotEqual, null_lit());
+        let expr = cmp(
+            var_elem("name"),
+            ComparisonOperatorKind::NotEqual,
+            null_lit(),
+        );
         assert!(evaluate_condition(&expr, &variables));
 
         // [var(unknown)] != null → false
-        let expr2 = cmp(var_elem("unknown"), ComparisonOperatorKind::NotEqual, null_lit());
+        let expr2 = cmp(
+            var_elem("unknown"),
+            ComparisonOperatorKind::NotEqual,
+            null_lit(),
+        );
         assert!(!evaluate_condition(&expr2, &variables));
     }
 
@@ -334,15 +369,31 @@ mod tests {
 
         // [var(count)] != null && int([var(count)]) > 5 → true
         let expr = and(
-            cmp(var_elem("count"), ComparisonOperatorKind::NotEqual, null_lit()),
-            cmp(func("int", vec![var_elem("count")]), ComparisonOperatorKind::GreaterThan, num_lit(5)),
+            cmp(
+                var_elem("count"),
+                ComparisonOperatorKind::NotEqual,
+                null_lit(),
+            ),
+            cmp(
+                func("int", vec![var_elem("count")]),
+                ComparisonOperatorKind::GreaterThan,
+                num_lit(5),
+            ),
         );
         assert!(evaluate_condition(&expr, &variables));
 
         // For undefined variable, short-circuit prevents int() evaluation
         let expr_undefined = and(
-            cmp(var_elem("undefined"), ComparisonOperatorKind::NotEqual, null_lit()),
-            cmp(func("int", vec![var_elem("undefined")]), ComparisonOperatorKind::GreaterThan, num_lit(5)),
+            cmp(
+                var_elem("undefined"),
+                ComparisonOperatorKind::NotEqual,
+                null_lit(),
+            ),
+            cmp(
+                func("int", vec![var_elem("undefined")]),
+                ComparisonOperatorKind::GreaterThan,
+                num_lit(5),
+            ),
         );
         assert!(!evaluate_condition(&expr_undefined, &variables));
     }
@@ -377,11 +428,19 @@ mod tests {
         assert!(!evaluate_condition(&expr, &variables));
 
         // "abc" > 5 → false (비교 불가)
-        let expr2 = cmp(str_lit("abc"), ComparisonOperatorKind::GreaterThan, num_lit(5));
+        let expr2 = cmp(
+            str_lit("abc"),
+            ComparisonOperatorKind::GreaterThan,
+            num_lit(5),
+        );
         assert!(!evaluate_condition(&expr2, &variables));
 
         // "10" > 5 → true (문자열이 숫자로 파싱 가능)
-        let expr3 = cmp(str_lit("10"), ComparisonOperatorKind::GreaterThan, num_lit(5));
+        let expr3 = cmp(
+            str_lit("10"),
+            ComparisonOperatorKind::GreaterThan,
+            num_lit(5),
+        );
         assert!(evaluate_condition(&expr3, &variables));
 
         // null > 5 → false (null은 숫자 비교 불가)
@@ -394,7 +453,11 @@ mod tests {
         let variables = HashMap::new();
 
         // true == true → true
-        let expr = cmp(bool_lit(true), ComparisonOperatorKind::Equal, bool_lit(true));
+        let expr = cmp(
+            bool_lit(true),
+            ComparisonOperatorKind::Equal,
+            bool_lit(true),
+        );
         assert!(evaluate_condition(&expr, &variables));
 
         // (5 > 3) == true → true
