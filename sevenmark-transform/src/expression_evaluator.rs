@@ -1,4 +1,6 @@
-use sevenmark_parser::ast::{ComparisonOperator, ComparisonOperatorKind, Expression, SevenMarkElement};
+use sevenmark_parser::ast::{
+    ComparisonOperator, ComparisonOperatorKind, Expression, SevenMarkElement,
+};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과
@@ -173,7 +175,7 @@ fn evaluate_function(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sevenmark_parser::ast::Location;
+    use sevenmark_parser::ast::{Location, LogicalOperator, LogicalOperatorKind};
 
     // 테스트용 헬퍼 함수들
     fn loc() -> Location {
@@ -218,16 +220,34 @@ mod tests {
         }
     }
 
+    fn logical_op(kind: LogicalOperatorKind) -> LogicalOperator {
+        LogicalOperator { location: loc(), kind }
+    }
+
     fn and(left: Expression, right: Expression) -> Expression {
-        Expression::And { location: loc(), left: Box::new(left), right: Box::new(right) }
+        Expression::And {
+            location: loc(),
+            operator: logical_op(LogicalOperatorKind::And),
+            left: Box::new(left),
+            right: Box::new(right),
+        }
     }
 
     fn or(left: Expression, right: Expression) -> Expression {
-        Expression::Or { location: loc(), left: Box::new(left), right: Box::new(right) }
+        Expression::Or {
+            location: loc(),
+            operator: logical_op(LogicalOperatorKind::Or),
+            left: Box::new(left),
+            right: Box::new(right),
+        }
     }
 
     fn not(inner: Expression) -> Expression {
-        Expression::Not { location: loc(), inner: Box::new(inner) }
+        Expression::Not {
+            location: loc(),
+            operator: logical_op(LogicalOperatorKind::Not),
+            inner: Box::new(inner),
+        }
     }
 
     fn func(name: &str, args: Vec<Expression>) -> Expression {

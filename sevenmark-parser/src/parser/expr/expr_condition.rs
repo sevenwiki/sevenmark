@@ -1,12 +1,15 @@
-use crate::ast::{ComparisonOperator, ComparisonOperatorKind, Expression, Location};
+use crate::ast::{
+    ComparisonOperator, ComparisonOperatorKind, Expression, Location, LogicalOperator,
+    LogicalOperatorKind,
+};
 use crate::parser::ParserInput;
 use crate::parser::r#macro::macro_variable_parser;
 use winnow::Result;
 use winnow::ascii::{alpha1, digit1, multispace0};
-use winnow::combinator::{alt, delimited, opt, preceded, repeat, separated, terminated};
+use winnow::combinator::{alt, delimited, opt, repeat, separated, terminated};
 use winnow::prelude::*;
-use winnow::token::{literal, one_of, take_while};
 use winnow::stream::Location as StreamLocation;
+use winnow::token::{literal, one_of, take_while};
 
 /// 조건식 파서 (최상위)
 /// 우선순위: OR < AND < NOT < Comparison < Operand
@@ -25,21 +28,38 @@ fn or_parser(input: &mut ParserInput) -> Result<Expression> {
     let start = input.input.current_token_start();
     let first = and_parser.parse_next(input)?;
 
-    let rest: Vec<Expression> = repeat(
+    // (operator, expression) 쌍으로 파싱
+    let rest: Vec<(LogicalOperator, Expression)> = repeat(
         0..,
-        preceded((multispace0, literal("||"), multispace0), and_parser),
+        (
+            delimited(multispace0, or_operator_parser, multispace0),
+            and_parser,
+        ),
     )
     .parse_next(input)?;
 
     let end = input.input.previous_token_end();
 
-    Ok(rest.into_iter().fold(first, |acc, expr| {
+    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
         Expression::Or {
             location: Location { start, end },
+            operator: op,
             left: Box::new(acc),
             right: Box::new(expr),
         }
     }))
+}
+
+/// || 연산자 파서
+fn or_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
+    let start = input.input.current_token_start();
+    literal("||").parse_next(input)?;
+    let end = input.input.previous_token_end();
+
+    Ok(LogicalOperator {
+        location: Location { start, end },
+        kind: LogicalOperatorKind::Or,
+    })
 }
 
 /// AND 연산자 파서 (바인딩 파워 7)
@@ -47,41 +67,74 @@ fn and_parser(input: &mut ParserInput) -> Result<Expression> {
     let start = input.input.current_token_start();
     let first = not_parser.parse_next(input)?;
 
-    let rest: Vec<Expression> = repeat(
+    // (operator, expression) 쌍으로 파싱
+    let rest: Vec<(LogicalOperator, Expression)> = repeat(
         0..,
-        preceded((multispace0, literal("&&"), multispace0), not_parser),
+        (
+            delimited(multispace0, and_operator_parser, multispace0),
+            not_parser,
+        ),
     )
     .parse_next(input)?;
 
     let end = input.input.previous_token_end();
 
-    Ok(rest.into_iter().fold(first, |acc, expr| {
+    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
         Expression::And {
             location: Location { start, end },
+            operator: op,
             left: Box::new(acc),
             right: Box::new(expr),
         }
     }))
 }
 
+/// && 연산자 파서
+fn and_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
+    let start = input.input.current_token_start();
+    literal("&&").parse_next(input)?;
+    let end = input.input.previous_token_end();
+
+    Ok(LogicalOperator {
+        location: Location { start, end },
+        kind: LogicalOperatorKind::And,
+    })
+}
+
 /// NOT 연산자 파서 (바인딩 파워 15)
+/// ! 하나만 허용. 이중 부정이 필요하면 !(!x) 형태로 작성
 fn not_parser(input: &mut ParserInput) -> Result<Expression> {
     let start = input.input.current_token_start();
-    let not_ops: Vec<_> = repeat(0.., terminated(literal('!'), multispace0)).parse_next(input)?;
+
+    // ! 연산자 하나만 파싱 시도
+    let not_op: Option<Location> =
+        opt(terminated(not_operator_location_parser, multispace0)).parse_next(input)?;
 
     let inner = comparison_parser.parse_next(input)?;
 
     let end = input.input.previous_token_end();
 
-    // 홀수 개의 !는 NOT, 짝수 개는 원래 값
-    Ok(if not_ops.len() % 2 == 1 {
-        Expression::Not {
+    match not_op {
+        Some(op_loc) => Ok(Expression::Not {
             location: Location { start, end },
+            operator: LogicalOperator {
+                location: op_loc,
+                kind: LogicalOperatorKind::Not,
+            },
             inner: Box::new(inner),
-        }
-    } else {
-        inner
-    })
+        }),
+        None => Ok(inner),
+    }
+}
+
+/// ! 연산자 위치 파서
+fn not_operator_location_parser(input: &mut ParserInput) -> Result<Location> {
+    let start = input.input.current_token_start();
+    // != 연산자와 구분하기 위해 !뒤에 =가 없는지 확인
+    (literal('!'), winnow::combinator::not(literal('='))).parse_next(input)?;
+    let end = input.input.previous_token_end();
+
+    Ok(Location { start, end })
 }
 
 /// 비교 연산자 파서 (바인딩 파워 10)

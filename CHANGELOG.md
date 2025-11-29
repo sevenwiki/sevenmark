@@ -5,6 +5,29 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.8] - 2025-11-29
+
+### Added
+- **Logical Operator Location Tracking**: Added location information to logical operators (`||`, `&&`, `!`)
+  - New `LogicalOperatorKind` enum: `Or`, `And`, `Not`
+  - New `LogicalOperator` struct with `location: Location` and `kind: LogicalOperatorKind` fields
+  - `Or`, `And`, `Not` Expression variants now include `operator: LogicalOperator` field
+  - Enables precise syntax highlighting for all operators in expressions
+
+### Changed
+- **Expression Parser**: Logical operator parsers now capture operator positions
+  - `or_operator_parser` captures `||` symbol location
+  - `and_operator_parser` captures `&&` symbol location
+  - `not_operator_location_parser` captures `!` symbol location
+  - All operators (logical and comparison) now have dedicated location tracking
+
+- **NOT Operator**: Changed to allow only single `!` operator
+  - `!x` → valid
+  - `!!x` → parse error (previously collapsed to just `x`)
+  - `!(!x)` → valid (explicit double negation with parentheses)
+  - Prevents silent consumption of redundant `!` operators
+  - Clearer semantics and better error detection for typos
+
 ## [2.6.7] - 2025-11-29
 
 ### Added

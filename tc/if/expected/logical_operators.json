@@ -11,6 +11,13 @@
             "start": 7,
             "end": 19
           },
+          "operator": {
+            "location": {
+              "start": 12,
+              "end": 14
+            },
+            "kind": "And"
+          },
           "left": {
             "BoolLiteral": {
               "location": {
@@ -83,6 +90,13 @@
             "start": 42,
             "end": 55
           },
+          "operator": {
+            "location": {
+              "start": 47,
+              "end": 49
+            },
+            "kind": "Or"
+          },
           "left": {
             "BoolLiteral": {
               "location": {
@@ -154,6 +168,13 @@
           "location": {
             "start": 80,
             "end": 86
+          },
+          "operator": {
+            "location": {
+              "start": 80,
+              "end": 81
+            },
+            "kind": "Not"
           },
           "inner": {
             "BoolLiteral": {

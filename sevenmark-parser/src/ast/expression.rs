@@ -2,6 +2,22 @@ use serde::Serialize;
 
 use super::{Location, SevenMarkElement};
 
+/// 논리 연산자 종류
+#[derive(Debug, Clone, Serialize, PartialEq)]
+pub enum LogicalOperatorKind {
+    Or,  // ||
+    And, // &&
+    Not, // !
+}
+
+/// 논리 연산자 (위치 정보 포함)
+#[derive(Debug, Clone, Serialize)]
+pub struct LogicalOperator {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub location: Location,
+    pub kind: LogicalOperatorKind,
+}
+
 /// 비교 연산자 종류
 #[derive(Debug, Clone, Serialize, PartialEq)]
 pub enum ComparisonOperatorKind {
@@ -28,6 +44,7 @@ pub enum Expression {
     Or {
         #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
         location: Location,
+        operator: LogicalOperator,
         left: Box<Expression>,
         right: Box<Expression>,
     },
@@ -35,6 +52,7 @@ pub enum Expression {
     And {
         #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
         location: Location,
+        operator: LogicalOperator,
         left: Box<Expression>,
         right: Box<Expression>,
     },
@@ -42,6 +60,7 @@ pub enum Expression {
     Not {
         #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
         location: Location,
+        operator: LogicalOperator,
         inner: Box<Expression>,
     },
 

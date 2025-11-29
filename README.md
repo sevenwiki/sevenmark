@@ -261,16 +261,52 @@ SevenMark is optimized for high performance:
 ### Running Tests
 
 ```bash
-# Test all crates
-cargo test --workspace --all-features
+# Test entire workspace (recommended)
+cargo test --workspace
+
+# Test with location tracking (includes comprehensive parser tests)
+cargo test --workspace --features sevenmark-parser/include_locations
 
 # Test specific crate
 cargo test -p sevenmark-parser
 cargo test -p sevenmark-transform
 cargo test -p sevenmark-server
+```
 
-# Test with location tracking enabled
-cargo test -p sevenmark-parser --features include_locations
+### Test Structure
+
+Tests are organized by category in the `tc/` directory:
+
+```
+tc/
+├── brace/          # {{{#...}}} elements (code, table, list, etc.)
+├── bracket/        # [[...]] media elements
+├── markdown/       # Headers, formatting, hline
+├── macro/          # [var()], [age()], [now()] macros
+├── if/             # Conditional expressions
+├── fold/           # Fold elements
+├── comment/        # Inline and multiline comments
+├── escape/         # Escape sequences
+├── complex/        # Complex integration tests
+└── monaco/         # Monaco position conversion tests
+```
+
+Each category contains:
+- `input/*.txt` - Test input files
+- `expected/*.json` - Expected JSON output
+
+### Regenerating Expected Files
+
+When parser output changes (e.g., AST structure updates), regenerate expected files:
+
+```bash
+# Parser expected files (run from sevenmark-parser/)
+cd sevenmark-parser
+cargo run --example gen_expected --features include_locations
+
+# Monaco expected files (run from sevenmark-transform/)
+cd sevenmark-transform
+cargo run --example gen_monaco_expected --features sevenmark-parser/include_locations
 ```
 
 ### Adding New Elements
