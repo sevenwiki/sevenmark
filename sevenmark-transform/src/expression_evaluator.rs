@@ -1,4 +1,4 @@
-use sevenmark_parser::ast::{ComparisonOperator, ComparisonOperatorKind, Expression, Location, SevenMarkElement};
+use sevenmark_parser::ast::{ComparisonOperator, ComparisonOperatorKind, Expression, SevenMarkElement};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과
