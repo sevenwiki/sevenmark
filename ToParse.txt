@@ -1,3 +1,9 @@
-{{{#if !int([var(x)])
-content
+{{{#define #showDetails="-1"}}}
+
+{{{#table
+[[[[Product]] [[Price]]]]
+{{{#if [var(showDetails)]
+[[[[Widget A Details]] [[Size: Medium, Color: Blue]]]]
+}}}
+[[[[Widget B]] {{{#if [var(showDetails)] == "true" [[$20]]}}} ]]
 }}}

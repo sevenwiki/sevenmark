@@ -6,22 +6,12 @@
     {
       "DefineElement": {
         "parameters": {
-          "a": {
-            "key": "a",
+          "showDetails": {
+            "key": "showDetails",
             "value": [
               {
                 "Text": {
-                  "content": "211"
-                }
-              }
-            ]
-          },
-          "b": {
-            "key": "b",
-            "value": [
-              {
-                "Text": {
-                  "content": "1"
+                  "content": "-1"
                 }
               }
             ]
@@ -40,13 +30,101 @@
       }
     },
     {
-      "Text": {
-        "content": "deeply nested"
-      }
-    },
-    {
-      "Text": {
-        "content": "\n"
+      "TableElement": {
+        "parameters": {},
+        "content": [
+          {
+            "Row": {
+              "parameters": {},
+              "inner_content": [
+                {
+                  "Cell": {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "content": "Product"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Cell": {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "content": "Price"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Row": {
+              "parameters": {},
+              "inner_content": [
+                {
+                  "Cell": {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "content": "Widget A Details"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Cell": {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "content": "Size: Medium"
+                        }
+                      },
+                      {
+                        "Text": {
+                          "content": ","
+                        }
+                      },
+                      {
+                        "Text": {
+                          "content": " Color: Blue"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Row": {
+              "parameters": {},
+              "inner_content": [
+                {
+                  "Cell": {
+                    "parameters": {},
+                    "content": [
+                      {
+                        "Text": {
+                          "content": "Widget B"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
       }
     }
   ]

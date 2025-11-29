@@ -124,6 +124,56 @@ Input Text
   ProcessedDocument
 ```
 
+## Conditional Expressions
+
+SevenMark supports conditional rendering with `{{{#if condition :: content}}}` syntax.
+
+### Operators
+
+| Type | Operators |
+|------|-----------|
+| Comparison | `==`, `!=`, `>`, `<`, `>=`, `<=` |
+| Logical | `&&`, `||`, `!` (single `!` only, use `!(!x)` for double negation) |
+| Literals | `null`, `true`, `false`, numbers, `"strings"` |
+| Functions | `int()`, `len()`, `str()` |
+
+### Truthy/Falsy Evaluation
+
+When an expression is used as a boolean (e.g., `{{{#if [var(x)]`):
+
+| Value | Result |
+|-------|--------|
+| `null` | false |
+| `""` (empty string) | false |
+| `"0"`, `"false"`, any non-empty string | **true** |
+| `0` | false |
+| non-zero numbers | true |
+
+**Note:** String `"0"` is truthy (JavaScript-style). To check numeric zero:
+```
+{{{#if int([var(x)]) != 0
+content
+}}}
+```
+
+### Examples
+
+```
+{{{#define #showDetails="true"}}}
+
+{{{#if [var(showDetails)] == "true"
+This appears when showDetails is "true"
+}}}
+
+{{{#if [var(count)] != null && int([var(count)]) > 5
+Count is greater than 5
+}}}
+
+{{{#if !([var(disabled)] == "true")
+Not disabled
+}}}
+```
+
 ## Build Options
 
 ### Building Individual Crates
