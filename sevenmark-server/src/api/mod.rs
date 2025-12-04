@@ -1,3 +1,6 @@
+pub mod health;
+pub mod openapi;
+pub mod routes;
 pub mod v0;
 
-pub use v0::routes::routes::api_routes;
+pub use routes::api_routes;
