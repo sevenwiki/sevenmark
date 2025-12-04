@@ -47,11 +47,13 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<SevenMar
     let end = parser_input.input.previous_token_end();
     let header_level = header_marks.len();
     let is_folded = is_folded.is_some();
+    let section_index = parser_input.state.next_section_index();
 
     Ok(SevenMarkElement::Header(Header {
         location: Location { start, end },
         level: header_level,
         is_folded,
+        section_index,
         content: parsed_content,
     }))
 }

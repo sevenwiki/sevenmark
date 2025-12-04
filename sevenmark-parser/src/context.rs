@@ -33,6 +33,7 @@ pub struct ParseContext {
     pub inside_media_element: bool,
     pub line_starts: HashSet<usize>,
     pub max_recursion_depth: usize,
+    pub section_counter: usize,
 }
 
 impl ParseContext {
@@ -51,6 +52,7 @@ impl ParseContext {
             inside_media_element: false,
             line_starts: HashSet::new(),
             max_recursion_depth: 16,
+            section_counter: 1,
         }
     }
 
@@ -98,6 +100,13 @@ impl ParseContext {
     pub fn remaining_depth(&self) -> usize {
         self.max_recursion_depth
             .saturating_sub(self.recursion_depth)
+    }
+
+    /// 다음 섹션 인덱스 반환 및 카운터 증가
+    pub fn next_section_index(&mut self) -> usize {
+        let idx = self.section_counter;
+        self.section_counter += 1;
+        idx
     }
 
     context_setters! {

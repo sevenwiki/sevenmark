@@ -1941,9 +1941,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "2.0.0-rc.19"
+version = "2.0.0-rc.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee6dda57d64724c4c3e2b39ce17ca5f4084561656a3518b65b26edc5b36e4607"
+checksum = "880cc0a64f1ee0320d7d6cd2b9290c27e89750669cfc5b6afdce1654755a2983"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -1973,9 +1973,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "2.0.0-rc.19"
+version = "2.0.0-rc.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4e7674a565e093a4bfffbfd6d7fd79a5dc8d75463d442ffb44d0fc3a3dcce5a6"
+checksum = "8aae91cb86cf389da96119df71967ffb1b3caf1687303def77336f8dc9d33e78"
 dependencies = [
  "heck 0.5.0",
  "pluralizer",
@@ -2155,7 +2155,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.6.9"
+version = "2.7.0"
 dependencies = [
  "line-span",
  "paste",
@@ -2166,7 +2166,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.6.9"
+version = "2.7.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -2186,7 +2186,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.6.9"
+version = "2.7.0"
 dependencies = [
  "anyhow",
  "js-sys",

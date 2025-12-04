@@ -172,6 +172,7 @@ pub struct Header {
     pub location: Location,
     pub level: usize,
     pub is_folded: bool,
+    pub section_index: usize,
     pub content: Vec<SevenMarkElement>,
 }
 

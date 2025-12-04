@@ -159,10 +159,10 @@ impl PositionConverter {
 /// * `input` - The original input string used for position mapping
 ///
 /// # Returns
-/// Pretty-formatted JSON string with line/column-based locations
+/// JSON string with line/column-based locations
 pub fn convert_ast_to_line_column_json(elements: &[SevenMarkElement], input: &str) -> String {
     let converter = PositionConverter::new(input);
     let result = converter.convert_elements(elements);
 
-    serde_json::to_string_pretty(&result.elements).unwrap_or_default()
+    serde_json::to_string(&result.elements).unwrap_or_default()
 }

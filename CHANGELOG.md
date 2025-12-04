@@ -5,6 +5,26 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2025-12-04
+
+### Added
+- **Section Editing Support**: Added `section_index` to Header elements for frontend section editing
+  - `Header` struct now includes `section_index: usize` field
+  - Section indices are assigned sequentially (1, 2, 3...) during parsing
+  - `ParseContext` tracks section counter with `next_section_index()` method
+  - Enables MediaWiki-style section editing: frontend can use `section_index` + `location` to extract section text
+
+- **WASM Byte Offset Export**: New `parse_sevenmark()` function for section editing use case
+  - Returns AST with byte offset locations (`start`, `end`)
+  - Separate from `parse_sevenmark_to_monaco()` which returns line/column format
+  - Frontend uses byte offsets for `text.slice(start, end)` operations
+
+### Changed
+- **JSON Output**: Switched to compact JSON for all WASM exports
+  - `convert_ast_to_line_column_json()` now uses `serde_json::to_string()` instead of `to_string_pretty()`
+  - Smaller payload size for better performance
+  - No functional impact (frontend parses JSON anyway)
+
 ## [2.6.9] - 2025-11-29
 
 ### Fixed
