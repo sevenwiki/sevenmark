@@ -5,7 +5,7 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.1] - 2025-12-06
+## [2.7.2] - 2025-12-06
 
 ### Changed
 - **API Route Naming**: Changed health check endpoint from snake_case to kebab-case
