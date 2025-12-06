@@ -4,7 +4,7 @@ use axum::response::IntoResponse;
 
 #[utoipa::path(
     get,
-    path = "/health_check",
+    path = "/health-check",
     responses(
         (status = 204, description = "Service is healthy and running"),
         (status = 500, description = "Internal server error"),
