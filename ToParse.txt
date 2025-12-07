@@ -1,1 +1,10 @@
+{{{#define #showDetails="1"}}}
+
+{{{#table
+[[[[Product]] [[Price]]]]
+[[[[Widget A]] [[$10]]]]
+{{{#if [var(showDetails)]
+[[[[Widget A Details]] [[Size: Medium, Color: Blue]]]]
+}}}
+[[[[Widget B]] {{{#if [var(showDetails)] == "true" [[$20]]}}} ]]
 }}}
