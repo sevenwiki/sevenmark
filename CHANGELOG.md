@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.3] - 2025-12-07
+
+### Changed
+- **Parser Performance**: Refactored `element_parser` from `alt` to `dispatch` pattern
+  - Uses winnow's `dispatch!` macro with `peek(any)` for O(1) first-character branching
+  - Replaces sequential O(n) parser attempts with direct character-based dispatch
+  - Significant performance improvement for plain text parsing (most common case)
+  - Grouped parsers by first character: `\`, `/`, `{`, `}`, `[`, `]`, `#`, `-`, `*`, `_`, `~`, `^`, `,`, `\n`
+  - Fallback `_ => text_parser` for all other characters
+
 ## [2.7.2] - 2025-12-06
 
 ### Changed
