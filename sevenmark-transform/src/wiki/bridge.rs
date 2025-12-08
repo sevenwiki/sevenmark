@@ -2,7 +2,7 @@ use super::entity::{
     DocumentFiles, DocumentFilesColumn, DocumentMetadata, DocumentMetadataColumn,
     DocumentRevisions, DocumentRevisionsColumn,
 };
-use super::types::{DocumentNamespace, DocumentResponse, DocumentRevision};
+use super::types::{DocumentExistence, DocumentNamespace, DocumentResponse, DocumentRevision};
 use anyhow::{Context, Result};
 use sea_orm::{ColumnTrait, Condition, DatabaseConnection, EntityTrait, QueryFilter};
 use std::collections::HashMap;
@@ -21,13 +21,22 @@ pub async fn fetch_documents_batch(
 
     debug!("Fetching {} documents from database", requests.len());
 
-    // Build OR conditions for batch query
-    let mut condition = Condition::any();
+    // Group by namespace for optimized IN clause query
+    let mut by_namespace: HashMap<DocumentNamespace, Vec<String>> = HashMap::new();
     for (namespace, title) in &requests {
+        by_namespace
+            .entry(namespace.clone())
+            .or_default()
+            .push(title.clone());
+    }
+
+    // Build optimized condition: (ns=X AND title IN (...)) OR (ns=Y AND title IN (...))
+    let mut condition = Condition::any();
+    for (namespace, titles) in &by_namespace {
         condition = condition.add(
             Condition::all()
                 .add(DocumentMetadataColumn::Namespace.eq(namespace.clone()))
-                .add(DocumentMetadataColumn::Title.eq(title.clone())),
+                .add(DocumentMetadataColumn::Title.is_in(titles.clone())),
         );
     }
 
@@ -108,4 +117,93 @@ pub async fn fetch_documents_batch(
 
     debug!("Successfully fetched {} documents", documents.len());
     Ok(documents)
+}
+
+/// Check if documents exist without fetching content (lightweight)
+/// Used for link coloring (red/blue links)
+pub async fn check_documents_exist(
+    db: &DatabaseConnection,
+    requests: Vec<(DocumentNamespace, String)>,
+) -> Result<Vec<DocumentExistence>> {
+    if requests.is_empty() {
+        debug!("No documents to check");
+        return Ok(Vec::new());
+    }
+
+    debug!("Checking existence of {} documents", requests.len());
+
+    // Group by namespace for optimized IN clause query
+    let mut by_namespace: HashMap<DocumentNamespace, Vec<String>> = HashMap::new();
+    for (namespace, title) in &requests {
+        by_namespace
+            .entry(namespace.clone())
+            .or_default()
+            .push(title.clone());
+    }
+
+    // Build optimized condition: (ns=X AND title IN (...)) OR (ns=Y AND title IN (...))
+    let mut condition = Condition::any();
+    for (namespace, titles) in &by_namespace {
+        condition = condition.add(
+            Condition::all()
+                .add(DocumentMetadataColumn::Namespace.eq(namespace.clone()))
+                .add(DocumentMetadataColumn::Title.is_in(titles.clone())),
+        );
+    }
+
+    // Query document metadata only (no revisions)
+    let metadata_list = DocumentMetadata::find()
+        .filter(condition)
+        .all(db)
+        .await
+        .context("Failed to check document existence")?;
+
+    // Build set of existing documents
+    let mut existing: HashMap<(DocumentNamespace, String), Uuid> = HashMap::new();
+    for doc in &metadata_list {
+        existing.insert((doc.namespace.clone(), doc.title.clone()), doc.id);
+    }
+
+    // Fetch file URLs only for File namespace documents that exist
+    let file_document_ids: Vec<Uuid> = metadata_list
+        .iter()
+        .filter(|doc| doc.namespace == DocumentNamespace::File)
+        .map(|doc| doc.id)
+        .collect();
+
+    let mut storage_key_map: HashMap<Uuid, String> = HashMap::new();
+    if !file_document_ids.is_empty() {
+        let files = DocumentFiles::find()
+            .filter(DocumentFilesColumn::DocumentId.is_in(file_document_ids))
+            .all(db)
+            .await
+            .context("Failed to fetch document files")?;
+
+        for file in files {
+            storage_key_map.insert(file.document_id, file.storage_key);
+        }
+    }
+
+    // Build response for all requested documents
+    let results: Vec<DocumentExistence> = requests
+        .into_iter()
+        .map(|(namespace, title)| {
+            let doc_id = existing.get(&(namespace.clone(), title.clone()));
+            let file_url = doc_id.and_then(|id| storage_key_map.get(id).cloned());
+
+            DocumentExistence {
+                namespace,
+                title,
+                exists: doc_id.is_some(),
+                file_url,
+            }
+        })
+        .collect();
+
+    debug!(
+        "Checked {} documents, {} exist",
+        results.len(),
+        results.iter().filter(|r| r.exists).count()
+    );
+    Ok(results)
 }

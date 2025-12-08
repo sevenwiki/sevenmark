@@ -1,6 +1,6 @@
 use crate::PreProcessedDocument;
 use crate::utils::extract_plain_text;
-use crate::wiki::{DocumentNamespace, fetch_documents_batch};
+use crate::wiki::{DocumentNamespace, check_documents_exist};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
@@ -43,44 +43,44 @@ pub async fn postprocess_sevenmark(
         .map(|m| (m.namespace, m.title))
         .collect();
 
-    debug!("Fetching {} unique media references", requests.len());
+    debug!("Checking existence of {} unique media references", requests.len());
 
-    // Fetch all documents from database
-    let fetched_docs = fetch_documents_batch(db, requests).await?;
+    // Check document existence (lightweight - no content fetching)
+    let existence_results = check_documents_exist(db, requests).await?;
 
-    // Build resolution map
+    // Build resolution map from existence check results
     let mut resolved_map: HashMap<(DocumentNamespace, String), ResolvedMediaInfo> = HashMap::new();
 
-    for doc in fetched_docs {
-        let key = (doc.namespace.clone(), doc.title.clone());
+    for result in existence_results {
+        let key = (result.namespace.clone(), result.title.clone());
 
-        let resolved = match doc.namespace {
+        let resolved = match result.namespace {
             DocumentNamespace::File => {
-                // For files, use file_url from the response
-                if let Some(file_url) = doc.file_url {
+                // For files, use file_url if exists
+                if let Some(file_url) = result.file_url {
                     ResolvedMediaInfo {
                         resolved_url: file_url,
-                        is_valid: true,
+                        is_valid: Some(true),
                     }
                 } else {
                     ResolvedMediaInfo {
                         resolved_url: String::new(),
-                        is_valid: false,
+                        is_valid: Some(false),
                     }
                 }
             }
             DocumentNamespace::Document => {
                 // For documents, generate /document/{title} URL
                 ResolvedMediaInfo {
-                    resolved_url: format!("/document/{}", doc.title),
-                    is_valid: true,
+                    resolved_url: format!("/document/{}", result.title),
+                    is_valid: Some(result.exists),
                 }
             }
             DocumentNamespace::Category => {
                 // For categories, generate /category/{title} URL
                 ResolvedMediaInfo {
-                    resolved_url: format!("/category/{}", doc.title),
-                    is_valid: true,
+                    resolved_url: format!("/category/{}", result.title),
+                    is_valid: Some(result.exists),
                 }
             }
         };
@@ -127,7 +127,7 @@ fn resolve_media_recursive(
                     // File was in the request but not found in response
                     media.resolved_info = Some(ResolvedMediaInfo {
                         resolved_url: String::new(),
-                        is_valid: false,
+                        is_valid: Some(false),
                     });
                     return;
                 }
@@ -146,7 +146,7 @@ fn resolve_media_recursive(
                     // Document not found
                     media.resolved_info = Some(ResolvedMediaInfo {
                         resolved_url: format!("/document/{}", title),
-                        is_valid: false,
+                        is_valid: Some(false),
                     });
                     return;
                 }
@@ -165,20 +165,20 @@ fn resolve_media_recursive(
                     // Category not found
                     media.resolved_info = Some(ResolvedMediaInfo {
                         resolved_url: format!("/category/{}", title),
-                        is_valid: false,
+                        is_valid: Some(false),
                     });
                     return;
                 }
             }
         }
 
-        // Check #url parameter
+        // Check #url parameter (external link - no is_valid needed)
         if let Some(url_param) = media.parameters.get("url") {
             let url = extract_plain_text(&url_param.value);
             if !url.is_empty() {
                 media.resolved_info = Some(ResolvedMediaInfo {
                     resolved_url: url,
-                    is_valid: true,
+                    is_valid: None, // 외부 링크는 존재 여부 개념 없음
                 });
                 return;
             }

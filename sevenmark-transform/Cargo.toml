@@ -14,7 +14,7 @@ sevenmark-parser = { workspace = true }
 
 # Database & HTTP (optional, server only)
 sea-orm = { workspace = true, optional = true }
-uuid = { version = "1.18.1", optional = true }
+uuid = { version = "1.19.0", optional = true }
 
 # Utilities
 line-span = "0.1.5"

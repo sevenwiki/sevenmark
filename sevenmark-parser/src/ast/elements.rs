@@ -103,7 +103,9 @@ pub struct MediaElement {
 #[derive(Debug, Clone, Serialize)]
 pub struct ResolvedMediaInfo {
     pub resolved_url: String,
-    pub is_valid: bool,
+    /// None = 외부 링크 (존재 여부 개념 없음), Some(true) = 존재, Some(false) = 미존재
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_valid: Option<bool>,
 }
 
 /// 폴드 내부 요소

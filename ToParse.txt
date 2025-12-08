@@ -1,10 +1,7 @@
-{{{#define #showDetails="1"}}}
+[[#document="string"]]
+[[#document="uponnl12ess 1 indeed12" #url="xx"]]
+[[#document="a"]]
 
-{{{#table
-[[[[Product]] [[Price]]]]
-[[[[Widget A]] [[$10]]]]
-{{{#if [var(showDetails)]
-[[[[Widget A Details]] [[Size: Medium, Color: Blue]]]]
-}}}
-[[[[Widget B]] {{{#if [var(showDetails)] == "true" [[$20]]}}} ]]
-}}}
+[[ㅌㅌ]]
+[[#url="x"]]
+[[#url="xxasxasx"]]

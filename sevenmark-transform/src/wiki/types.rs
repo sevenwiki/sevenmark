@@ -32,3 +32,13 @@ pub struct DocumentResponse {
 pub struct DocumentRevision {
     pub content: String,
 }
+
+/// 문서 존재 확인 응답 (경량 - 링크 색상 결정용)
+#[derive(Debug, Clone)]
+pub struct DocumentExistence {
+    pub namespace: DocumentNamespace,
+    pub title: String,
+    pub exists: bool,
+    /// File namespace일 경우 파일 URL
+    pub file_url: Option<String>,
+}

@@ -7,7 +7,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "2.7.3"
+version = "2.7.4"
 authors = ["Levi Lim <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -16,8 +16,8 @@ edition = "2024"
 rust-version = "1.91.1"
 
 [workspace.dependencies]
-sevenmark-parser = { version = "2.7.3", path = "sevenmark-parser" }
-sevenmark-transform = { version = "2.7.3", path = "sevenmark-transform" }
+sevenmark-parser = { version = "2.7.4", path = "sevenmark-parser" }
+sevenmark-transform = { version = "2.7.4", path = "sevenmark-transform" }
 
 # Shared dependencies
 serde = { version = "1.0.228", features = ["derive"] }

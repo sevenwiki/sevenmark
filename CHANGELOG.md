@@ -5,6 +5,26 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.4] - 2025-12-08
+
+### Changed
+- **Link Existence Check Optimization**: Separated content fetching from existence checking
+  - New `check_documents_exist()` function for lightweight link validation (red/blue link coloring)
+  - No longer fetches full document content just to check if a link exists
+  - Memory usage reduced from ~50KB/link to ~0.1KB/link
+  - Query optimization: grouped namespace conditions with `IN` clause instead of individual `OR` conditions
+  - `fetch_documents_batch()` also optimized with same `IN` clause pattern
+
+### Added
+- **DocumentExistence Type**: New lightweight response type for link existence checks
+  - Contains only `namespace`, `title`, `exists`, and `file_url` fields
+  - Used by postprocessor for efficient `is_valid` resolution
+
+- **External Link Distinction**: `is_valid` field changed from `bool` to `Option<bool>`
+  - `Some(true)` = internal document exists (blue link)
+  - `Some(false)` = internal document missing (red link)
+  - `None` = external URL (no existence concept, separate styling)
+
 ## [2.7.3] - 2025-12-07
 
 ### Changed
