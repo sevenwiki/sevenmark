@@ -1,6 +1,6 @@
 use axum::Router;
 use sevenmark_server::database_conn::establish_connection;
-use sevenmark_server::db_config::DbConfig;
+use sevenmark_server::server_config::ServerConfig;
 use sevenmark_server::logger::init_tracing;
 use sevenmark_server::{AppState, api_routes};
 use std::net::SocketAddr;
@@ -11,8 +11,8 @@ pub async fn run_server() -> anyhow::Result<()> {
 
     let server_url = format!(
         "{}:{}",
-        &DbConfig::get().server_host,
-        &DbConfig::get().server_port
+        &ServerConfig::get().server_host,
+        &ServerConfig::get().server_port
     );
 
     let state = AppState { conn };

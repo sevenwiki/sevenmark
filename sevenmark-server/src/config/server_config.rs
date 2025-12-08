@@ -3,7 +3,7 @@ use std::env;
 use std::sync::LazyLock;
 
 #[derive(Debug, Clone)]
-pub struct DbConfig {
+pub struct ServerConfig {
     pub db_user: String,
     pub db_password: String,
     pub db_host: String,
@@ -17,10 +17,10 @@ pub struct DbConfig {
 }
 
 // LazyLock
-static CONFIG: LazyLock<DbConfig> = LazyLock::new(|| {
+static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
     dotenv().ok();
 
-    DbConfig {
+    ServerConfig {
         db_user: env::var("POSTGRES_USER").expect("POSTGRES_USER must be set"),
         db_password: env::var("POSTGRES_PASSWORD").expect("POSTGRES_PASSWORD must be set"),
         db_host: env::var("POSTGRES_HOST").expect("POSTGRES_HOST must be set"),
@@ -40,8 +40,8 @@ static CONFIG: LazyLock<DbConfig> = LazyLock::new(|| {
     }
 });
 
-impl DbConfig {
-    pub fn get() -> &'static DbConfig {
+impl ServerConfig {
+    pub fn get() -> &'static ServerConfig {
         &CONFIG
     }
 }

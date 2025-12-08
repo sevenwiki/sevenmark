@@ -1,4 +1,4 @@
-use crate::config::db_config::DbConfig;
+use crate::config::server_config::ServerConfig;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::time::Duration;
 use tracing::{error, info};
@@ -16,7 +16,7 @@ use tracing::{error, info};
 /// * `DatabaseConnection` - The successfully established database connection object.
 pub async fn establish_connection() -> DatabaseConnection {
     // Retrieve database connection information from the environment and build the URL
-    let db_config = DbConfig::get();
+    let db_config = ServerConfig::get();
     let database_url = format!(
         "postgres://{}:{}@{}:{}/{}",
         &db_config.db_user,
@@ -40,8 +40,8 @@ pub async fn establish_connection() -> DatabaseConnection {
     let mut options = ConnectOptions::new(database_url);
     options
         // Configure connection pool size
-        .max_connections(DbConfig::get().db_max_connection) // Maximum number of connections
-        .min_connections(DbConfig::get().db_min_connection) // Minimum number of connections
+        .max_connections(ServerConfig::get().db_max_connection) // Maximum number of connections
+        .min_connections(ServerConfig::get().db_min_connection) // Minimum number of connections
         // Configure timeouts
         .connect_timeout(Duration::from_secs(8)) // Connection timeout: 8 seconds
         .acquire_timeout(Duration::from_secs(30))
