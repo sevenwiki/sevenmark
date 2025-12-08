@@ -34,6 +34,8 @@ pub async fn run_server() -> anyhow::Result<()> {
 
 #[tokio::main]
 async fn main() {
+    dotenvy::dotenv().ok();
+
     init_tracing();
 
     if let Err(err) = run_server().await {
