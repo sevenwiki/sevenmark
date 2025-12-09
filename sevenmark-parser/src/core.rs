@@ -4,6 +4,7 @@ use crate::parser::document::document_parser;
 use crate::parser::{InputSource, ParserInput};
 use line_span::LineSpanExt;
 use std::collections::HashSet;
+use std::rc::Rc;
 use winnow::stream::Location as StreamLocation;
 
 pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
@@ -11,7 +12,7 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
     let line_starts: HashSet<usize> = input.line_spans().map(|span| span.range().start).collect();
 
     let mut context = ParseContext::new();
-    context.line_starts = line_starts;
+    context.line_starts = Rc::new(line_starts);
 
     let mut stateful_input = ParserInput {
         input: InputSource::new(input),

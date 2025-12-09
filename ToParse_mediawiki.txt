@@ -1,0 +1,828 @@
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}
+== API Reference ==
+
+{| class="mw-collapsible mw-collapsed wikitable"
+|-
+! 📚 '''Quick Reference''' - Click to expand full documentation
+|-
+|
+=== Authentication ===
+
+<syntaxhighlight lang="bash">
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-Type: application/json" \
+     https://api.example.com/data
+</syntaxhighlight>
+
+=== Response Format ===
+
+{| class="wikitable"
+|-
+! Field !! Type !! Description
+|-
+| id || number || Unique identifier
+|-
+| name || string || Resource name
+|-
+| created_at || string || ISO 8601 timestamp
+|}
+
+=== Error Handling ===
+
+Common error codes:
+# '''400 Bad Request''' - Invalid parameters
+# '''401 Unauthorized''' - Missing or invalid token
+# '''404 Not Found''' - Resource doesn't exist
+# '''500 Server Error''' - Internal server issue
+|}

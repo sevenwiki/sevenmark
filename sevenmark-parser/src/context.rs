@@ -1,5 +1,6 @@
 use crate::error::SevenMarkError;
 use std::collections::HashSet;
+use std::rc::Rc;
 
 macro_rules! context_setters {
     ($($name:ident => $field:ident),*) => {
@@ -31,7 +32,7 @@ pub struct ParseContext {
     pub inside_underline: bool,
     pub inside_footnote: bool,
     pub inside_media_element: bool,
-    pub line_starts: HashSet<usize>,
+    pub line_starts: Rc<HashSet<usize>>,
     pub max_recursion_depth: usize,
     pub section_counter: usize,
 }
@@ -50,7 +51,7 @@ impl ParseContext {
             inside_underline: false,
             inside_footnote: false,
             inside_media_element: false,
-            line_starts: HashSet::new(),
+            line_starts: Rc::new(HashSet::new()),
             max_recursion_depth: 16,
             section_counter: 1,
         }
