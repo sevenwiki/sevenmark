@@ -43,7 +43,10 @@ pub async fn postprocess_sevenmark(
         .map(|m| (m.namespace, m.title))
         .collect();
 
-    debug!("Checking existence of {} unique media references", requests.len());
+    debug!(
+        "Checking existence of {} unique media references",
+        requests.len()
+    );
 
     // Check document existence (lightweight - no content fetching)
     let existence_results = check_documents_exist(db, requests).await?;

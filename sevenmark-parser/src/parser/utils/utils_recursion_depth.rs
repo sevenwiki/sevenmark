@@ -6,19 +6,15 @@ pub fn with_depth<T, F>(input: &mut ParserInput, parser: F) -> Result<T>
 where
     F: FnOnce(&mut ParserInput) -> Result<T>,
 {
-    let mut inner_input = input.clone();
-    inner_input
+    input
         .state
         .increase_depth()
         .map_err(|e| e.into_context_error())?;
 
-    let result = parser(&mut inner_input);
+    let result = parser(input);
 
-    inner_input
-        .state
-        .decrease_depth()
-        .map_err(|e| e.into_context_error())?;
+    // increase_depth가 성공했으므로 decrease_depth도 항상 성공
+    let _ = input.state.decrease_depth();
 
-    *input = inner_input;
     result
 }

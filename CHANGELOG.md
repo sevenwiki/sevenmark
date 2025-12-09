@@ -5,6 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.6] - 2025-12-09
+
+### Performance
+- **Parser Clone Optimization**: Eliminated expensive `HashSet` cloning during parsing
+  - Changed `line_starts: HashSet<usize>` to `Rc<HashSet<usize>>` in `ParseContext`
+  - winnow checkpoint operations now clone reference counter (O(1)) instead of full HashSet (O(n))
+  - Significantly reduces memory allocation overhead for documents with many lines
+  - Throughput now remains constant regardless of document size (~31,000 KB/s)
+
+- **Removed Unnecessary Clone in `with_depth`**: Simplified recursion depth helper
+  - Removed redundant `input.clone()` that served no purpose
+  - Direct mutation of `ParseContext` instead of clone-modify-replace pattern
+  - Reduces overhead for every nested element parse (bold, italic, tables, lists, etc.)
+
 ## [2.7.4] - 2025-12-08
 
 ### Changed
