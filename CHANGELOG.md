@@ -5,6 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.7] - 2025-12-10
+
+### Changed
+- **Workspace Structure**: Reorganized crates into `crates/` folder
+  - Moved `sevenmark-parser`, `sevenmark-transform`, `sevenmark-server` into `crates/` directory
+  - Changed `members` from explicit list to glob pattern: `["crates/*"]`
+  - Follows sevenwiki-server project structure convention
+
+- **Dependency Centralization**: Consolidated all dependencies in workspace root
+  - All shared dependencies now defined in root `Cargo.toml` under `[workspace.dependencies]`
+  - Individual crates use `{ workspace = true }` references instead of version numbers
+  - Centralized: `winnow`, `line-span`, `paste`, `axum`, `tokio`, `utoipa`, `utoipa-swagger-ui`, `uuid`, `dotenvy`, `tracing-subscriber`, `tracing-appender`, `wasm-bindgen`, `js-sys`, `web-sys`
+  - Easier version management and consistency across all crates
+
 ## [2.7.6] - 2025-12-09
 
 ### Performance
