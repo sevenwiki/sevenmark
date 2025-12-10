@@ -4,8 +4,8 @@ use std::fs;
 use std::path::Path;
 
 fn main() {
-    let input_dir = "tc/monaco/input";
-    let expected_dir = "tc/monaco/expected";
+    let input_dir = "../tc/monaco/input";
+    let expected_dir = "../tc/monaco/expected";
 
     // Create expected directory if it doesn't exist
     if !Path::new(expected_dir).exists() {

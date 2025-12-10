@@ -8,8 +8,9 @@ fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error
 }
 
 fn run_parser_test(category: &str, test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let input_path = format!("../tc/{}/input/{}.txt", category, test_name);
-    let expected_path = format!("../tc/{}/expected/{}.json", category, test_name);
+    let manifest_dir = env!("CARGO_MANIFEST_DIR");
+    let input_path = format!("{}/../../tc/{}/input/{}.txt", manifest_dir, category, test_name);
+    let expected_path = format!("{}/../../tc/{}/expected/{}.json", manifest_dir, category, test_name);
 
     // 입력 파일 읽기 - Normalize CRLF to LF for consistent byte offsets
     let input_content = fs::read_to_string(&input_path)?.replace("\r\n", "\n");
