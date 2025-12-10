@@ -14,23 +14,23 @@ sevenmark-parser = { workspace = true }
 sevenmark-transform = { workspace = true, features = ["server"] }
 
 # Web framework
-axum = { version = "0.8.7", features = ["multipart", "macros"] }
-tokio = { version = "1.48.0", features = ["full"] }
+axum = { workspace = true }
+tokio = { workspace = true }
 
 # Database
 sea-orm = { workspace = true }
 
 # API documentation
-utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
-utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"] }
+utoipa = { workspace = true }
+utoipa-swagger-ui = { workspace = true }
 
 # Utilities
-dotenvy = "0.15.7"
+dotenvy = { workspace = true }
 
 # Logging
 tracing = { workspace = true }
-tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
-tracing-appender = "0.2.3"
+tracing-subscriber = { workspace = true }
+tracing-appender = { workspace = true }
 
 # Shared
 serde = { workspace = true }
