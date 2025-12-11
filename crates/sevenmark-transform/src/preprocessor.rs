@@ -25,7 +25,7 @@ pub struct PreProcessedDocument {
     pub media: HashSet<MediaReference>,
     pub categories: HashSet<String>,
     pub redirect: Option<String>,
-    pub includes: HashSet<(DocumentNamespace, String)>,
+    pub references: HashSet<(DocumentNamespace, String)>,
     pub ast: Vec<SevenMarkElement>,
 }
 
@@ -48,49 +48,43 @@ pub async fn preprocess_sevenmark(
 
     collect_metadata(&ast, &mut categories, &mut redirect, &mut all_media, true);
 
-    // Collect unique includes (namespace:title)
+    // Collect unique includes for fetching (only Include elements need content fetching)
     let mut includes_to_fetch = HashSet::new();
     collect_includes(&ast, &mut includes_to_fetch);
 
-    if includes_to_fetch.is_empty() {
-        return Ok(PreProcessedDocument {
-            ast,
-            media: all_media,
-            categories,
-            redirect,
-            includes: HashSet::new(),
-        });
+    if !includes_to_fetch.is_empty() {
+        // Prepare batch fetch requests
+        let requests: Vec<_> = includes_to_fetch.into_iter().collect();
+
+        debug!("Fetching {} unique documents", requests.len());
+
+        // Fetch all documents
+        let fetched_docs = fetch_documents_batch(db, requests).await?;
+
+        // Parse fetched documents and store in map
+        let mut docs_map: HashMap<String, Vec<SevenMarkElement>> = HashMap::new();
+
+        for doc in fetched_docs {
+            let doc_key = format!("{}:{}", namespace_to_string(&doc.namespace), doc.title);
+            let parsed_ast = parse_document(&doc.current_revision.content);
+            docs_map.insert(doc_key, parsed_ast);
+        }
+
+        // Substitute includes with their content
+        substitute_includes(&mut ast, &docs_map, &mut all_media);
     }
 
-    // Store includes for result
-    let collected_includes = includes_to_fetch.clone();
-
-    // Prepare batch fetch requests
-    let requests: Vec<_> = includes_to_fetch.into_iter().collect();
-
-    debug!("Fetching {} unique documents", requests.len());
-
-    // Fetch all documents
-    let fetched_docs = fetch_documents_batch(db, requests).await?;
-
-    // Parse fetched documents and store in map
-    let mut docs_map: HashMap<String, Vec<SevenMarkElement>> = HashMap::new();
-
-    for doc in fetched_docs {
-        let doc_key = format!("{}:{}", namespace_to_string(&doc.namespace), doc.title);
-        let parsed_ast = parse_document(&doc.current_revision.content);
-        docs_map.insert(doc_key, parsed_ast);
-    }
-
-    // Substitute includes with their content
-    substitute_includes(&mut ast, &docs_map, &mut all_media);
+    // Collect all references from final AST (after include substitution)
+    // This captures references from both main document and included documents
+    let mut all_references = HashSet::new();
+    collect_references(&ast, &mut all_references);
 
     Ok(PreProcessedDocument {
         ast,
         media: all_media,
         categories,
         redirect,
-        includes: collected_includes,
+        references: all_references,
     })
 }
 
@@ -242,6 +236,72 @@ fn collect_includes_recursive(
 
     element.traverse_children_ref(&mut |child| {
         collect_includes_recursive(child, includes);
+    });
+}
+
+/// Collect all document references from AST
+/// This should be called after substitute_includes() to capture references from included documents
+fn collect_references(
+    elements: &[SevenMarkElement],
+    references: &mut HashSet<(DocumentNamespace, String)>,
+) {
+    for element in elements {
+        collect_references_recursive(element, references);
+    }
+}
+
+fn collect_references_recursive(
+    element: &SevenMarkElement,
+    references: &mut HashSet<(DocumentNamespace, String)>,
+) {
+    match element {
+        // {{{#include}}} 요소
+        SevenMarkElement::Include(inc) => {
+            let title = extract_plain_text(&inc.content);
+            if !title.is_empty() {
+                let namespace_str = inc
+                    .parameters
+                    .get("namespace")
+                    .map(|param| extract_plain_text(&param.value))
+                    .filter(|s| !s.is_empty())
+                    .unwrap_or_else(|| "Document".to_string());
+                let namespace = parse_namespace(&namespace_str);
+                references.insert((namespace, title));
+            }
+        }
+        // {{{#category}}} 요소
+        SevenMarkElement::Category(cat) => {
+            let name = extract_plain_text(&cat.content);
+            if !name.is_empty() {
+                references.insert((DocumentNamespace::Category, name));
+            }
+        }
+        // MediaElement의 file/document/category 파라미터
+        SevenMarkElement::MediaElement(m) => {
+            if let Some(file_param) = m.parameters.get("file") {
+                let title = extract_plain_text(&file_param.value);
+                if !title.is_empty() {
+                    references.insert((DocumentNamespace::File, title));
+                }
+            }
+            if let Some(doc_param) = m.parameters.get("document") {
+                let title = extract_plain_text(&doc_param.value);
+                if !title.is_empty() {
+                    references.insert((DocumentNamespace::Document, title));
+                }
+            }
+            if let Some(cat_param) = m.parameters.get("category") {
+                let title = extract_plain_text(&cat_param.value);
+                if !title.is_empty() {
+                    references.insert((DocumentNamespace::Category, title));
+                }
+            }
+        }
+        _ => {}
+    }
+
+    element.traverse_children_ref(&mut |child| {
+        collect_references_recursive(child, references);
     });
 }
 
