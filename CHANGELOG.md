@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.11] - 2025-12-11
+
+### Fixed
+- **References Collection Bug**: Fixed missing direct include references after substitution
+  - After `substitute_includes()`, Include nodes' `content` is overwritten with included AST
+  - `collect_references()` couldn't extract original document titles from substituted Include nodes
+  - Now merges `includes_to_fetch` (collected before substitution) into `all_references`
+  - 1-depth includes (A→B): from `includes_to_fetch`
+  - 2+ depth includes (B→C): from `collect_references()` (unsubstituted Include nodes)
+
 ## [2.7.10] - 2025-12-11
 
 ### Changed
