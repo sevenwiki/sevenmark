@@ -49,12 +49,13 @@ pub async fn preprocess_sevenmark(
     collect_metadata(&ast, &mut categories, &mut redirect, &mut all_media, true);
 
     // Collect unique includes for fetching (only Include elements need content fetching)
+    // This also serves as references from the main document (before substitution overwrites content)
     let mut includes_to_fetch = HashSet::new();
     collect_includes(&ast, &mut includes_to_fetch);
 
     if !includes_to_fetch.is_empty() {
         // Prepare batch fetch requests
-        let requests: Vec<_> = includes_to_fetch.into_iter().collect();
+        let requests: Vec<_> = includes_to_fetch.iter().cloned().collect();
 
         debug!("Fetching {} unique documents", requests.len());
 
@@ -75,8 +76,9 @@ pub async fn preprocess_sevenmark(
     }
 
     // Collect all references from final AST (after include substitution)
-    // This captures references from both main document and included documents
-    let mut all_references = HashSet::new();
+    // Start with includes_to_fetch (main document's direct includes, collected before substitution)
+    // Then add references from included content (2+ depth includes, categories, media from included docs)
+    let mut all_references = includes_to_fetch;
     collect_references(&ast, &mut all_references);
 
     Ok(PreProcessedDocument {
