@@ -257,20 +257,6 @@ fn collect_references_recursive(
     references: &mut HashSet<(DocumentNamespace, String)>,
 ) {
     match element {
-        // {{{#include}}} 요소
-        SevenMarkElement::Include(inc) => {
-            let title = extract_plain_text(&inc.content);
-            if !title.is_empty() {
-                let namespace_str = inc
-                    .parameters
-                    .get("namespace")
-                    .map(|param| extract_plain_text(&param.value))
-                    .filter(|s| !s.is_empty())
-                    .unwrap_or_else(|| "Document".to_string());
-                let namespace = parse_namespace(&namespace_str);
-                references.insert((namespace, title));
-            }
-        }
         // {{{#category}}} 요소
         SevenMarkElement::Category(cat) => {
             let name = extract_plain_text(&cat.content);
