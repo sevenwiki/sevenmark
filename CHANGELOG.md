@@ -5,6 +5,22 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.13] - 2025-12-11
+
+### Added
+- **Redirect Namespace Support**: Added namespace parameter support for redirect elements
+  - `RedirectElement` now has `parameters: Parameters` field (same as `IncludeElement`)
+  - New syntax: `{{{#redirect #namespace="File" image.png}}}` for file redirects
+  - New syntax: `{{{#redirect #namespace="Category" category_name}}}` for category redirects
+  - Default namespace is `Document` for backward compatibility
+  - New `RedirectReference` struct with `namespace` and `title` fields
+
+### Changed
+- **Redirect Output Structure**: Changed from `Option<String>` to `Option<RedirectReference>`
+  - `PreProcessedDocument.redirect` now contains namespace info
+  - `ProcessedDocument.redirect` now contains namespace info
+  - **Breaking Change**: Frontend needs to access `redirect.namespace` and `redirect.title` instead of plain string
+
 ## [2.7.12] - 2025-12-11
 
 ### Changed

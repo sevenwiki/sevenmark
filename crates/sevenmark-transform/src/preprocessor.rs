@@ -19,12 +19,20 @@ pub struct MediaReference {
     pub title: String,
 }
 
+/// Redirect reference with namespace and title
+#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
+#[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
+pub struct RedirectReference {
+    pub namespace: DocumentNamespace,
+    pub title: String,
+}
+
 /// Final result after include resolution
 #[derive(Debug, Clone, Serialize)]
 pub struct PreProcessedDocument {
     pub media: HashSet<MediaReference>,
     pub categories: HashSet<String>,
-    pub redirect: Option<String>,
+    pub redirect: Option<RedirectReference>,
     pub references: HashSet<(DocumentNamespace, String)>,
     pub ast: Vec<SevenMarkElement>,
 }
@@ -127,7 +135,7 @@ fn substitute_variables_recursive(
 fn collect_metadata(
     elements: &[SevenMarkElement],
     categories: &mut HashSet<String>,
-    redirect: &mut Option<String>,
+    redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
     collect_categories_redirect: bool,
 ) {
@@ -145,7 +153,7 @@ fn collect_metadata(
 fn collect_metadata_recursive(
     element: &SevenMarkElement,
     categories: &mut HashSet<String>,
-    redirect: &mut Option<String>,
+    redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
     collect_categories_redirect: bool,
 ) {
@@ -190,9 +198,17 @@ fn collect_metadata_recursive(
             }
         }
         SevenMarkElement::Redirect(redir) if collect_categories_redirect => {
-            let target = extract_plain_text(&redir.content);
-            if !target.is_empty() && redirect.is_none() {
-                *redirect = Some(target);
+            let title = extract_plain_text(&redir.content);
+            if !title.is_empty() && redirect.is_none() {
+                // Read namespace from parameters (same as Include)
+                let namespace_str = redir
+                    .parameters
+                    .get("namespace")
+                    .map(|param| extract_plain_text(&param.value))
+                    .filter(|s| !s.is_empty())
+                    .unwrap_or_else(|| "Document".to_string());
+                let namespace = parse_namespace(&namespace_str);
+                *redirect = Some(RedirectReference { namespace, title });
             }
         }
         _ => {}

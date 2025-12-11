@@ -208,5 +208,6 @@ pub struct CategoryElement {
 pub struct RedirectElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub location: Location,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }

@@ -1,3 +1,4 @@
+use crate::preprocessor::RedirectReference;
 use crate::PreProcessedDocument;
 use crate::utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, check_documents_exist};
@@ -13,7 +14,7 @@ use utoipa::ToSchema;
 #[derive(Debug, Clone, Serialize, ToSchema)]
 pub struct ProcessedDocument {
     pub categories: HashSet<String>,
-    pub redirect: Option<String>,
+    pub redirect: Option<RedirectReference>,
     pub references: HashSet<(DocumentNamespace, String)>,
     #[schema(value_type = Vec<Object>)]
     pub ast: Vec<SevenMarkElement>,

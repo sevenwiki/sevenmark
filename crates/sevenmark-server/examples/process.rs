@@ -42,7 +42,7 @@ async fn main() {
             }
 
             if let Some(redirect) = &processed.redirect {
-                println!("\nRedirect to: {}", redirect);
+                println!("\nRedirect to: {:?}:{}", redirect.namespace, redirect.title);
             }
 
             // Save AST
