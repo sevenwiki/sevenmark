@@ -5,6 +5,26 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.8] - 2025-12-11
+
+### Changed
+- **References Field**: Renamed `includes` to `references` in `PreProcessedDocument` and `ProcessedDocument`
+  - `references` now contains all document references (includes, categories, media) for backlink tracking
+  - Collected after `substitute_includes()` to capture references from included documents (MediaWiki-style)
+  - Types affected: `PreProcessedDocument.references`, `ProcessedDocument.references`
+
+### Added
+- **Comprehensive Reference Collection**: New `collect_references()` function in preprocessor
+  - Collects `{{{#include}}}` elements → `(namespace, title)`
+  - Collects `{{{#category}}}` elements → `(Category, name)`
+  - Collects `MediaElement` parameters: `#file` → `(File, title)`, `#document` → `(Document, title)`, `#category` → `(Category, title)`
+  - Enables complete backlink tracking for all referenced documents
+
+### Removed
+- **Legacy Code Cleanup**: Removed unused `sevenmark-server/src/sevenmark/` directory
+  - Was a duplicate of `sevenmark-transform` code with `#[cfg(feature = "transform")]` guards
+  - Server already uses `sevenmark-transform` as dependency
+
 ## [2.7.7] - 2025-12-10
 
 ### Changed
