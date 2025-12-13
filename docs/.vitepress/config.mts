@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   base: "/",
   title: "SevenMark",
-  description: "A DSL designed for SevenWiki",
+  description: "High-performance wiki markup language powering SevenWiki",
 
   themeConfig: {
     nav: [
