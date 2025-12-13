@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  base: "/sevenmark/",
+  base: "/",
   title: "SevenMark",
   description: "A DSL designed for SevenWiki",
 
