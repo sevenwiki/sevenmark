@@ -1,5 +1,5 @@
-use crate::preprocessor::RedirectReference;
 use crate::PreProcessedDocument;
+use crate::preprocessor::RedirectReference;
 use crate::utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, check_documents_exist};
 use anyhow::Result;
