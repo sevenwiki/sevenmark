@@ -7,7 +7,7 @@ use sevenmark_parser::ast::FoldElement;
 
 /// Render fold element as details/summary
 /// content is a tuple: (summary, content)
-pub fn render_fold(elem: &FoldElement, ctx: &mut RenderContext) -> Markup {
+pub fn render_brace_fold(elem: &FoldElement, ctx: &mut RenderContext) -> Markup {
     let (summary, content) = &elem.content;
 
     html! {

@@ -7,7 +7,7 @@ use maud::{Markup, html};
 use sevenmark_parser::ast::CodeElement;
 
 /// Render code block element
-pub fn render_code(elem: &CodeElement, ctx: &mut RenderContext) -> Markup {
+pub fn render_brace_code(elem: &CodeElement, ctx: &mut RenderContext) -> Markup {
     let lang = get_param_string(&elem.parameters, "lang");
     let content = render_elements(&elem.content, ctx);
 

@@ -6,6 +6,7 @@ pub mod r#macro;
 pub mod markdown;
 pub mod text;
 pub mod utils;
+mod escape;
 
 use crate::context::RenderContext;
 use maud::{Markup, html};
@@ -16,13 +17,12 @@ pub fn render_element(elem: &SevenMarkElement, ctx: &mut RenderContext) -> Marku
     match elem {
         // Text elements
         SevenMarkElement::Text(t) => text::render_text(t),
-        SevenMarkElement::Escape(e) => text::render_escape(e),
-        SevenMarkElement::LiteralElement(l) => text::render_literal(l, ctx),
+        SevenMarkElement::Escape(e) => escape::render_escape(e),
+        SevenMarkElement::LiteralElement(l) => brace::render_brace_literal(l, ctx),
 
         // Markdown inline styles
         SevenMarkElement::Bold(s) => markdown::render_bold(s, ctx),
         SevenMarkElement::Italic(s) => markdown::render_italic(s, ctx),
-        SevenMarkElement::BoldItalic(s) => markdown::render_bold_italic(s, ctx),
         SevenMarkElement::Strikethrough(s) => markdown::render_strikethrough(s, ctx),
         SevenMarkElement::Underline(s) => markdown::render_underline(s, ctx),
         SevenMarkElement::Superscript(s) => markdown::render_superscript(s, ctx),
@@ -35,14 +35,14 @@ pub fn render_element(elem: &SevenMarkElement, ctx: &mut RenderContext) -> Marku
 
         // Brace elements {{{...}}}
         SevenMarkElement::StyledElement(s) => brace::render_styled(s, ctx),
-        SevenMarkElement::BlockQuoteElement(b) => brace::render_blockquote(b, ctx),
-        SevenMarkElement::CodeElement(c) => brace::render_code(c, ctx),
-        SevenMarkElement::FoldElement(f) => brace::render_fold(f, ctx),
+        SevenMarkElement::BlockQuoteElement(b) => brace::render_brace_blockquote(b, ctx),
+        SevenMarkElement::CodeElement(c) => brace::render_brace_code(c, ctx),
+        SevenMarkElement::FoldElement(f) => brace::render_brace_fold(f, ctx),
         SevenMarkElement::TableElement(t) => brace::render_table(t, ctx),
         SevenMarkElement::ListElement(l) => brace::render_list(l, ctx),
         SevenMarkElement::RubyElement(r) => brace::render_ruby(r, ctx),
         SevenMarkElement::TeXElement(t) => brace::render_tex(t),
-        SevenMarkElement::FootnoteElement(f) => brace::render_footnote(f, ctx),
+        SevenMarkElement::FootnoteElement(f) => brace::render_brace_footnote(f, ctx),
 
         // Bracket elements [[...]]
         SevenMarkElement::MediaElement(m) => bracket::render_media(m, ctx),

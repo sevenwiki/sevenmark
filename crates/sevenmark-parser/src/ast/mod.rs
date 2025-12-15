@@ -64,7 +64,6 @@ pub enum SevenMarkElement {
     Variable(VariableElement),
 
     // Markdown text styles
-    BoldItalic(TextStyle),
     Bold(TextStyle),
     Italic(TextStyle),
     Strikethrough(TextStyle),

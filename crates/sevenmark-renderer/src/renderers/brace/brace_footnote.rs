@@ -7,7 +7,7 @@ use sevenmark_parser::ast::FootnoteElement;
 
 /// Render footnote element
 /// Adds footnote to context and returns a reference marker
-pub fn render_footnote(elem: &FootnoteElement, ctx: &mut RenderContext) -> Markup {
+pub fn render_brace_footnote(elem: &FootnoteElement, ctx: &mut RenderContext) -> Markup {
     let index = ctx.add_footnote(elem.content.clone());
 
     html! {

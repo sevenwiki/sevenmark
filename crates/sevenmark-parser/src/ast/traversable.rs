@@ -119,8 +119,8 @@ impl Traversable for SevenMarkElement {
             }
 
             // TextStyle 계열
-            SevenMarkElement::BoldItalic(e)
-            | SevenMarkElement::Bold(e)
+
+             SevenMarkElement::Bold(e)
             | SevenMarkElement::Italic(e)
             | SevenMarkElement::Strikethrough(e)
             | SevenMarkElement::Underline(e)
@@ -261,8 +261,8 @@ impl Traversable for SevenMarkElement {
             SevenMarkElement::IfElement(e) => f(&mut e.content),
 
             // TextStyle 계열
-            SevenMarkElement::BoldItalic(e)
-            | SevenMarkElement::Bold(e)
+
+             SevenMarkElement::Bold(e)
             | SevenMarkElement::Italic(e)
             | SevenMarkElement::Strikethrough(e)
             | SevenMarkElement::Underline(e)
@@ -415,8 +415,8 @@ impl Traversable for SevenMarkElement {
             }
 
             // TextStyle 계열
-            SevenMarkElement::BoldItalic(e)
-            | SevenMarkElement::Bold(e)
+
+             SevenMarkElement::Bold(e)
             | SevenMarkElement::Italic(e)
             | SevenMarkElement::Strikethrough(e)
             | SevenMarkElement::Underline(e)
