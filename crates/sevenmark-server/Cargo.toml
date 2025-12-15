@@ -12,6 +12,7 @@ description = "sevenmark/server"
 # Internal
 sevenmark-parser = { workspace = true }
 sevenmark-transform = { workspace = true, features = ["server"] }
+sevenmark-renderer = { workspace = true }
 
 # Web framework
 axum = { workspace = true }

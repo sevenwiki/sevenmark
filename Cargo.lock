@@ -337,8 +337,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "145052bdd345b87320e369255277e3fb5152762ad123a901ef5c262dd38fe8d2"
 dependencies = [
  "iana-time-zone",
+ "js-sys",
  "num-traits",
  "serde",
+ "wasm-bindgen",
  "windows-link",
 ]
 
@@ -1234,6 +1236,28 @@ name = "matchit"
 version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47e1ffaa40ddd1f3ed91f717a33c8c0ee23fff369e3aa8772b9605cc1d22f4c3"
+
+[[package]]
+name = "maud"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8156733e27020ea5c684db5beac5d1d611e1272ab17901a49466294b84fc217e"
+dependencies = [
+ "itoa",
+ "maud_macros",
+]
+
+[[package]]
+name = "maud_macros"
+version = "0.27.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7261b00f3952f617899bc012e3dbd56e4f0110a038175929fa5d18e5a19913ca"
+dependencies = [
+ "proc-macro2",
+ "proc-macro2-diagnostics",
+ "quote",
+ "syn 2.0.111",
+]
 
 [[package]]
 name = "md-5"
@@ -2171,7 +2195,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.7.13"
+version = "2.7.15"
 dependencies = [
  "line-span",
  "paste",
@@ -2181,8 +2205,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sevenmark-renderer"
+version = "2.7.15"
+dependencies = [
+ "chrono",
+ "maud",
+ "sevenmark-parser",
+]
+
+[[package]]
 name = "sevenmark-server"
-version = "2.7.13"
+version = "2.7.15"
 dependencies = [
  "anyhow",
  "axum",
@@ -2191,6 +2224,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sevenmark-parser",
+ "sevenmark-renderer",
  "sevenmark-transform",
  "tokio",
  "tracing",
@@ -2202,7 +2236,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.7.13"
+version = "2.7.15"
 dependencies = [
  "anyhow",
  "js-sys",

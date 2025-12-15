@@ -1,0 +1,325 @@
+
+
+
+
+
+
+
+
+
+
+
+<span class="sm-styled" style="display: block; float: right; width: 320px; margin: 0 0 1rem 1.5rem; border: 2px solid #f97316; background: #1e293b"><span class="sm-styled" style="display: block; padding: 0.75rem; text-align: center; color: white; background-color: #f97316"><span class="sm-styled" style="font-weight: 700; font-size: 1.3em">SevenMark
+</span>
+<span class="sm-styled" style="font-size: 0.9em">セブンマーク | 세븐마크
+</span>
+</span>
+<span class="sm-styled" style="display: block; padding: 0"><img class="sm-media sm-image" src="https://raw.githubusercontent.com/user/repo/main/sevenmark-logo.png" alt="" width="100%" style="width: 100%" loading="lazy">
+<span class="sm-styled" style="display: block; text-align: center; padding: 0.5rem; font-size: 0.85em; color: #94a3b8">[ロゴ]
+</span>
+</span>
+<table><tbody><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">開発</span></td><td><span class="sm-styled" style="padding: 0.5rem">SevenWiki Project</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">言語</span></td><td><span class="sm-styled" style="padding: 0.5rem">Rust</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">バージョン</span></td><td><span class="sm-styled" style="padding: 0.5rem">2.7.13</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">ライセンス</span></td><td><span class="sm-styled" style="padding: 0.5rem">Apache 2.0</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">速度</span></td><td><span class="sm-styled" style="padding: 0.5rem">100MB/s+</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">WASM</span></td><td><span class="sm-styled" style="padding: 0.5rem"><span class="sm-styled" style="color: #22c55e">対応</span> </span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; font-weight: 600; text-align: center; color: #f97316; background-color: #1e293b">SSR</span></td><td><span class="sm-styled" style="padding: 0.5rem"><span class="sm-styled" style="color: #22c55e">対応</span> </span></td></tr><tr><td><span class="sm-styled" style="padding: 0.5rem; text-align: center"><img class="sm-media sm-image" src="https://github.com/sevenwiki/sevenmark" alt="" loading="lazy"> | <img class="sm-media sm-image" src="https://docs.sevenmark.dev" alt="" loading="lazy"></span></td></tr></tbody></table>
+</span>
+
+<h1 id="s-1">SevenMark</h1>
+<strong>SevenMark</strong>（セブンマーク）は、<img class="sm-media sm-image" src="/document/Rust" alt="" loading="lazy">で開発された高性能ウィキマークアップパーサーである。<img class="sm-media sm-image" src="/document/SevenWiki" alt="" loading="lazy">プロジェクトの一環として開発され、独自のDSL（ドメイン固有言語）を採用している。
+
+<h2 id="s-2">1. 概要</h2>
+SevenMarkは、従来のウィキマークアップ言語の限界を超えるために設計された次世代マークアップエンジンである。SIMDによる最適化、完全なスタイリング対応、そしてWebAssemblyサポートにより、ブラウザ上でもネイティブに近い性能を発揮する[*SevenMarkはRust製のため、WASMへのコンパイルが容易である。]。
+
+<span class="sm-styled" style="display: block; clear: both"></span>
+
+<h3 id="s-3">1.1. 主な特徴</h3>
+<ul><li><strong>高速パース</strong> - winnowパーサーコンビネータによる効率的な構文解析</li><li><strong>完全なスタイリング</strong> - CSSプロパティをインラインで適用可能</li><li><strong>変数システム</strong> - `#define`による変数定義と``による参照</li><li><strong>条件分岐</strong> - `#if`構文による動的コンテンツ生成</li><li><strong>WASM対応</strong> - ブラウザ上での直接実行</li></ul>
+
+<hr>
+<h2 id="s-4">2. 文法</h2>
+<h3 id="s-5">2.1. テキストスタイリング</h3>
+<table><tbody><tr><td><span class="sm-styled" style="padding: 0.75rem; color: white; background-color: #7777ff">入力</span></td><td><span class="sm-styled" style="padding: 0.75rem; color: white; background-color: #7777ff">出力</span></td><td><span class="sm-styled" style="padding: 0.75rem; color: white; background-color: #7777ff">説明</span></td></tr><tr><td>**太字**</td><td><strong>太字</strong></td><td>アスタリスク2つ</td></tr><tr><td>*斜体*</td><td><em>斜体</em></td><td>アスタリスク1つ</td></tr><tr><td>***太字斜体***</td><td><strong><em>太字斜体</em></strong></td><td>アスタリスク3つ</td></tr><tr><td>__下線__</td><td><u>下線</u></td><td>アンダースコア2つ</td></tr><tr><td>~~取消線~~</td><td><del>取消線</del></td><td>チルダ2つ</td></tr><tr><td>E=mc^^2^^</td><td>E=mc<sup>2</sup></td><td>上付き文字</td></tr><tr><td>H,,2,,O</td><td>H<sub>2</sub>O</td><td>下付き文字</td></tr></tbody></table>
+
+<h3 id="s-6">2.2. カラーとスタイル</h3>
+<span class="sm-styled" style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0"><span class="sm-styled" style="padding: 0.75rem 1.5rem; border-radius: 0.5rem; color: white; background-color: #7777ff">ブランドカラー
+</span>
+<span class="sm-styled" style="padding: 0.75rem 1.5rem; border-radius: 0.5rem; color: white; background-color: #ec4899">アクセント
+</span>
+<span class="sm-styled" style="padding: 0.75rem 1.5rem; border-radius: 0.5rem; color: white; background-color: #22c55e">成功
+</span>
+<span class="sm-styled" style="padding: 0.75rem 1.5rem; border-radius: 0.5rem; color: white; background-color: #f59e0b">警告
+</span>
+</span>
+
+<strong>スタイルパラメータ:</strong> #color, #bgcolor, #size, #style, #width, #height, #align, #opacity
+
+<hr>
+<h2 id="s-7">3. 高度なレイアウト</h2>
+<h3 id="s-8">3.1. ダッシュボードUI</h3>
+<span class="sm-styled" style="display: block; padding: 2rem; border-radius: 1rem; margin: 1rem 0; background-color: #0f172a"><span class="sm-styled" style="display: block; font-weight: 700; margin-bottom: 1.5rem; color: white; font-size: 1.3em">📊 SevenMark 統計ダッシュボード
+</span>
+<span class="sm-styled" style="display: block; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem"><span class="sm-styled" style="display: block; padding: 1.25rem; border-radius: 0.75rem; text-align: center; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 700; color: #7777ff; font-size: 2em">50+
+</span>
+<span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">AST要素
+</span>
+</span>
+<span class="sm-styled" style="display: block; padding: 1.25rem; border-radius: 0.75rem; text-align: center; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 700; color: #22c55e; font-size: 2em">100MB/s
+</span>
+<span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">パース速度
+</span>
+</span>
+<span class="sm-styled" style="display: block; padding: 1.25rem; border-radius: 0.75rem; text-align: center; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 700; color: #f59e0b; font-size: 2em">3
+</span>
+<span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">クレート
+</span>
+</span>
+<span class="sm-styled" style="display: block; padding: 1.25rem; border-radius: 0.75rem; text-align: center; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 700; color: #ec4899; font-size: 2em">∞
+</span>
+<span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">可能性
+</span>
+</span>
+</span>
+</span>
+
+<h3 id="s-9">3.2. ネストされたテーブル</h3>
+<table><tbody><tr><td><span class="sm-styled" style="padding: 1rem; font-weight: 600; color: white; background-color: #0f172a">コンポーネント</span></td><td><span class="sm-styled" style="padding: 1rem; font-weight: 600; color: white; background-color: #0f172a">詳細情報</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.75rem; color: white; background-color: #7777ff">パーサー</span></td><td><table><tbody><tr><td>機能</td><td>状態</td></tr><tr><td>字句解析</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr><tr><td>構文解析</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr><tr><td>位置追跡</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr></tbody></table>
+</td></tr><tr><td><span class="sm-styled" style="padding: 0.75rem; color: white; background-color: #ec4899">トランスフォーム</span></td><td><table><tbody><tr><td>機能</td><td>状態</td></tr><tr><td>変数展開</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr><tr><td>条件</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr><tr><td>インクルード</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr></tbody></table>
+</td></tr><tr><td><span class="sm-styled" style="padding: 0.75rem; color: white; background-color: #22c55e">レンダラー</span></td><td><table><tbody><tr><td>機能</td><td>状態</td></tr><tr><td>HTML生成</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr><tr><td>KaTeX</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr><tr><td>Prism.js</td><td><span class="sm-styled" style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; color: #22c55e; background-color: #064e3b">完了</span></td></tr></tbody></table>
+</td></tr></tbody></table>
+
+<hr>
+<h2 id="s-10">4. 数式</h2>
+<h3 id="s-11">4.1. インライン数式</h3>
+エネルギー方程式 <span class="sm-tex sm-tex-inline">E = mc^2</span>、ピタゴラスの定理 <span class="sm-tex sm-tex-inline">a^2 + b^2 = c^2</span>
+
+<h3 id="s-12">4.2. ブロック数式</h3>
+<span class="sm-styled" style="display: block; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0"><span class="sm-styled" style="display: block; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #334155; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 600; margin-bottom: 0.75rem; color: #7777ff">オイラーの等式
+</span>
+<div class="sm-tex sm-tex-block">e^{i\pi} + 1 = 0
+</div>
+</span>
+<span class="sm-styled" style="display: block; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #334155; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 600; margin-bottom: 0.75rem; color: #7777ff">シュレーディンガー方程式
+</span>
+<div class="sm-tex sm-tex-block">i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi
+</div>
+</span>
+</span>
+
+<h3 id="s-13">4.3. 行列</h3>
+<div class="sm-tex sm-tex-block">A = \begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+</div>
+
+<hr>
+<h2 id="s-14">5. コード</h2>
+<span class="sm-styled" style="display: block; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0"><span class="sm-styled" style="display: block; border-radius: 0.75rem; overflow: hidden; border: 1px solid #334155"><span class="sm-styled" style="display: block; padding: 0.75rem 1rem; font-weight: 500; color: white; background-color: #0f172a">Rust
+</span>
+<pre><code class="language-rust">pub fn parse(input: &amp;str) -&gt; Vec&lt;Element&gt; {
+    let mut ctx = Context::new(input);
+    parse_elements(&amp;mut ctx)
+}
+</code></pre>
+</span>
+<span class="sm-styled" style="display: block; border-radius: 0.75rem; overflow: hidden; border: 1px solid #334155"><span class="sm-styled" style="display: block; padding: 0.75rem 1rem; font-weight: 500; color: white; background-color: #0f172a">TypeScript
+</span>
+<pre><code class="language-typescript">async function parse(input: string) {
+  const wasm = await init();
+  return JSON.parse(wasm.parse(input));
+}
+</code></pre>
+</span>
+</span>
+
+<hr>
+<h2 id="s-15">6. ルビ（振り仮名）</h2>
+<span class="sm-styled" style="display: block; line-height: 2.5; margin: 1rem 0; font-size: 1.3em"><ruby class="sm-ruby">七
+<rp>(</rp><rt></rt><rp>)</rp></ruby><ruby class="sm-ruby">mark
+<rp>(</rp><rt></rt><rp>)</rp></ruby>は<ruby class="sm-ruby">高性能
+<rp>(</rp><rt></rt><rp>)</rp></ruby>な<ruby class="sm-ruby">wiki
+<rp>(</rp><rt></rt><rp>)</rp></ruby>マークアップ<ruby class="sm-ruby">parser
+<rp>(</rp><rt></rt><rp>)</rp></ruby>です。
+</span>
+
+<hr>
+<h2 id="s-16">7. 折りたたみ</h2>
+<details class="sm-fold"><summary>アーキテクチャ詳細を表示</summary><div class="sm-fold-content"><span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.5rem; background-color: #1e293b">SevenMarkは3つの主要コンポーネントで構成：
+
+<ol><li><strong>sevenmark-parser</strong> - コアパースエンジン</li><li><strong>sevenmark-transform</strong> - AST変換・前処理</li><li><strong>sevenmark-renderer</strong> - HTML生成（SSR）</li></ol>
+
+<details class="sm-fold"><summary>パーサー内部構造</summary><div class="sm-fold-content"><span class="sm-styled">sevenmark-parser/
+├── src/
+│   ├── ast.rs        # 50+ AST要素
+│   ├── core.rs       # エントリポイント
+│   └── parser/       # パーサー実装
+│       ├── brace/    # #...
+│       ├── bracket/  # <img class="sm-media sm-image" src="" alt="" loading="lazy">
+│       └── markdown/ # <strong>bold</strong>, etc.
+</span>
+</div></details>
+</span>
+</div></details>
+
+<hr>
+<h2 id="s-17">8. グラデーションとアニメーション</h2>
+<span class="sm-styled" style="display: block; text-align: center; padding: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ec4899 100%); border-radius: 1rem; margin: 1rem 0"><span class="sm-styled" style="display: block; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); color: white; font-size: 2.5em">SevenMark
+</span>
+<span class="sm-styled" style="display: block; margin-top: 0.5rem; color: rgba(255,255,255,0.9); font-size: 1.1em">次世代ウィキマークアップエンジン
+</span>
+<span class="sm-styled" style="display: block; margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap"><span class="sm-styled" style="display: block; background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white">Rust製
+</span>
+<span class="sm-styled" style="display: block; background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white">WASM対応
+</span>
+<span class="sm-styled" style="display: block; background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white">オープンソース
+</span>
+</span>
+</span>
+
+<hr>
+<h2 id="s-18">9. 比較表</h2>
+<table><tbody><tr><td>#style #bgcolor=&quot;transparent&quot;</td><td><span class="sm-styled" style="padding: 0.75rem; text-align: center; font-weight: 600; color: white; background-color: #7777ff">SevenMark</span></td><td><span class="sm-styled" style="padding: 0.75rem; text-align: center; font-weight: 600; color: white; background-color: #334155">Markdown</span></td><td><span class="sm-styled" style="padding: 0.75rem; text-align: center; font-weight: 600; color: white; background-color: #334155">MediaWiki</span></td></tr><tr><td>パース速度</td><td><span class="sm-styled" style="font-weight: 600; color: #22c55e">100MB/s</span></td><td>50MB/s</td><td>10MB/s</td></tr><tr><td>スタイリング</td><td><span class="sm-styled" style="color: #22c55e">ネイティブ</span></td><td>制限的</td><td>制限的</td></tr><tr><td>変数</td><td><span class="sm-styled" style="color: #22c55e">組み込み</span></td><td>なし</td><td>テンプレート</td></tr><tr><td>条件分岐</td><td><span class="sm-styled" style="color: #22c55e">構文</span></td><td>なし</td><td>パーサー関数</td></tr><tr><td>WASM</td><td><span class="sm-styled" style="color: #22c55e">完全対応</span></td><td>部分的</td><td>なし</td></tr></tbody></table>
+
+<hr>
+<h2 id="s-19">10. 極限テスト：ネスト地獄</h2>
+<h3 id="s-20">10.1. テーブル in テーブル in テーブル in テーブル</h3>
+<table><tbody><tr><td><span class="sm-styled" style="padding: 1rem; font-weight: 700; color: white; background-color: #7777ff">レベル1</span></td><td><span class="sm-styled" style="padding: 1rem; font-weight: 700; color: white; background-color: #7777ff">コンテンツ</span></td></tr><tr><td><span class="sm-styled" style="padding: 0.75rem; color: #ec4899; background-color: #1e293b">カテゴリA</span></td><td><table><tbody><tr><td><span class="sm-styled" style="padding: 0.5rem; color: #f59e0b; background-color: #0f172a">レベル2</span></td><td><span class="sm-styled" style="padding: 0.5rem; color: white; background-color: #0f172a">詳細</span></td></tr><tr><td>数式</td><td><table><tbody><tr><td><span class="sm-styled" style="padding: 0.25rem; background-color: #334155">レベル3</span></td><td><span class="sm-styled" style="padding: 0.25rem; background-color: #334155">数式内容</span></td></tr><tr><td>オイラー</td><td><span class="sm-tex sm-tex-inline">e^{i\pi} + 1 = 0 </span></td></tr><tr><td>ガウス</td><td><span class="sm-tex sm-tex-inline">\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} </span></td></tr><tr><td>行列</td><td><span class="sm-tex sm-tex-inline">\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix} </span></td></tr></tbody></table>
+					</td></tr><tr><td>コード</td><td><table><tbody><tr><td><span class="sm-styled" style="padding: 0.25rem; background-color: #334155">言語</span></td><td><span class="sm-styled" style="padding: 0.25rem; background-color: #334155">スニペット</span></td></tr><tr><td>Rust</td><td><pre><code class="language-rust">fn main() { println!(&quot;nested!&quot;); }
+</code></pre></td></tr><tr><td>Python</td><td><pre><code class="language-python">print(&quot;deep nesting&quot;)
+</code></pre></td></tr></tbody></table>
+					</td></tr></tbody></table>
+		</td></tr><tr><td><span class="sm-styled" style="padding: 0.75rem; color: #22c55e; background-color: #1e293b">カテゴリB</span></td><td><table><tbody><tr><td><span class="sm-styled" style="padding: 0.5rem; color: #ec4899; background-color: #0f172a">スタイル</span></td><td><span class="sm-styled" style="padding: 0.5rem; color: white; background-color: #0f172a">適用例</span></td></tr><tr><td>グラデ</td><td><span class="sm-styled" style="background: linear-gradient(90deg, #7777ff, #ec4899); padding: 0.5rem; border-radius: 0.25rem; color: white">虹色テキスト
+</span></td></tr><tr><td>ネスト</td><td><span class="sm-styled" style="display: block; padding: 0.5rem; border-radius: 0.25rem; background-color: #1e293b"><span class="sm-styled" style="display: block; padding: 0.5rem; border-radius: 0.25rem; background-color: #0f172a"><span class="sm-styled" style="display: block; padding: 0.5rem; border-radius: 0.25rem; background-color: #334155"><span class="sm-styled" style="color: #7777ff">4層ネスト!
+									</span>
+								</span>
+							</span>
+						</span>
+					</td></tr></tbody></table>
+		</td></tr></tbody></table>
+
+<h3 id="s-21">10.2. 全要素混合セル</h3>
+<table><tbody><tr><td><span class="sm-styled" style="padding: 1rem; color: white; background-color: #0f172a">要素タイプ</span></td><td><span class="sm-styled" style="padding: 1rem; color: white; background-color: #0f172a">複合コンテンツ</span></td></tr><tr><td>数式+スタイル+ルビ</td><td><span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.5rem; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 600; color: #7777ff; font-size: 1.2em"><ruby class="sm-ruby">数式
+<rp>(</rp><rt></rt><rp>)</rp></ruby>の美しさ
+</span>
+<br>
+<div class="sm-tex sm-tex-block">\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+</div>
+<br>
+<span class="sm-styled" style="color: #94a3b8; font-size: 0.9em">— バーゼル問題の解
+</span>
+</span>
+</td></tr><tr><td>コード+引用+リスト</td><td><span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.5rem; background-color: #1e293b"><pre><code class="language-rust">// SevenMark Parser
+let ast = parse_document(input);
+</code></pre>
+<blockquote>「シンプルさは究極の洗練である」
+— レオナルド・ダ・ヴィンチ
+</blockquote>
+<ul><li><strong>パース</strong> → AST生成</li><li><strong>変換</strong> → 前処理</li><li><strong>レンダ</strong> → HTML出力</li></ul>
+</span>
+</td></tr><tr><td>折りたたみ+テーブル+数式</td><td><details class="sm-fold"><summary>セル内折りたたみを開く</summary><div class="sm-fold-content"><span class="sm-styled" style="display: block; padding: 0.75rem; border-radius: 0.5rem; background-color: #1e293b"><table><tbody><tr><td>x</td><td>f(x)</td></tr><tr><td>0</td><td><span class="sm-tex sm-tex-inline">1</span></td></tr><tr><td><span class="sm-tex sm-tex-inline">\pi</span></td><td><span class="sm-tex sm-tex-inline">-1</span></td></tr><tr><td><span class="sm-tex sm-tex-inline">2\pi</span></td><td><span class="sm-tex sm-tex-inline">1</span></td></tr></tbody></table>
+<div class="sm-tex sm-tex-block">f(x) = \cos(x)
+</div>
+</span>
+</div></details>
+</td></tr><tr><td>条件分岐+変数</td><td>
+
+<span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.5rem; background-color: #1e293b"><span class="sm-styled" style="display: block; color: #94a3b8">変数: testVar = &quot;active&quot;, count = &quot;42&quot;
+</span>
+<br>
+<span class="sm-styled" style="padding: 0.5rem; border-radius: 0.25rem; display: inline-block; color: #22c55e; background-color: #064e3b">✓ アクティブ状態
+</span>
+
+<br>
+<span class="sm-styled" style="padding: 0.5rem; border-radius: 0.25rem; display: inline-block; color: #f59e0b; background-color: #422006">⚠ カウント高: 42
+</span>
+
+</span>
+</td></tr></tbody></table>
+
+<h3 id="s-22">10.3. 究極のダッシュボード</h3>
+<span class="sm-styled" style="display: block; padding: 2rem; border-radius: 1rem; margin: 1rem 0; background-color: #0f172a"><span class="sm-styled" style="display: block; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem"><span class="sm-styled" style="display: block; font-weight: 700; color: white; font-size: 1.5em">🔬 極限ネストダッシュボード
+</span>
+<span class="sm-styled" style="display: block; display: flex; gap: 0.5rem"><span class="sm-styled" style="display: block; padding: 0.5rem 1rem; border-radius: 0.5rem; color: white; background-color: #7777ff">ライブ
+</span>
+<span class="sm-styled" style="display: block; padding: 0.5rem 1rem; border-radius: 0.5rem; color: #94a3b8; background-color: #1e293b">履歴
+</span>
+</span>
+</span>
+
+<span class="sm-styled" style="display: block; display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem"><span class="sm-styled" style="display: block; padding: 1.5rem; border-radius: 0.75rem; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 600; margin-bottom: 1rem; color: white">パフォーマンス指標
+</span>
+<table><tbody><tr><td><span class="sm-styled" style="color: #94a3b8">指標</span></td><td><span class="sm-styled" style="color: #94a3b8">値</span></td><td><span class="sm-styled" style="color: #94a3b8">グラフ</span></td></tr><tr><td>パース速度</td><td><span class="sm-styled" style="font-weight: 600; color: #22c55e">100MB/s</span></td><td><span class="sm-styled" style="display: block; display: flex; align-items: center; gap: 0.5rem">#style #block #bgcolor=&quot;[var(success)]&quot; #style=&quot;width: 80%; height: 8px; border-radius: 4px;&quot;
+80%
+</span></td></tr><tr><td>メモリ使用</td><td><span class="sm-styled" style="font-weight: 600; color: #f59e0b">256MB</span></td><td><span class="sm-styled" style="display: block; display: flex; align-items: center; gap: 0.5rem">#style #block #bgcolor=&quot;[var(warning)]&quot; #style=&quot;width: 45%; height: 8px; border-radius: 4px;&quot;
+45%
+</span></td></tr><tr><td>CPU負荷</td><td><span class="sm-styled" style="font-weight: 600; color: #7777ff">23%</span></td><td><span class="sm-styled" style="display: block; display: flex; align-items: center; gap: 0.5rem">#style #block #bgcolor=&quot;[var(primary)]&quot; #style=&quot;width: 23%; height: 8px; border-radius: 4px;&quot;
+23%
+</span></td></tr></tbody></table>
+</span>
+
+<span class="sm-styled" style="display: block; padding: 1.5rem; border-radius: 0.75rem; background-color: #1e293b"><span class="sm-styled" style="display: block; font-weight: 600; margin-bottom: 1rem; color: white">数式ウィジェット
+</span>
+<span class="sm-styled" style="display: block; text-align: center; margin-bottom: 1rem"><div class="sm-tex sm-tex-block">E = mc^2
+</div>
+</span>
+<span class="sm-styled" style="display: block; text-align: center; color: #94a3b8; font-size: 0.85rem">質量エネルギー等価性
+</span>
+<span class="sm-styled" style="display: block; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #334155"><span class="sm-styled" style="display: block; display: flex; justify-content: space-around; text-align: center"><span class="sm-styled"><span class="sm-styled" style="font-weight: 700; color: #7777ff; font-size: 1.5em"><span class="sm-tex sm-tex-inline">c</span>
+</span>
+<span class="sm-styled" style="color: #94a3b8; font-size: 0.75rem">光速
+</span>
+</span>
+<span class="sm-styled"><span class="sm-styled" style="font-weight: 700; color: #ec4899; font-size: 1.5em"><span class="sm-tex sm-tex-inline">m</span>
+</span>
+<span class="sm-styled" style="color: #94a3b8; font-size: 0.75rem">質量
+</span>
+</span>
+<span class="sm-styled"><span class="sm-styled" style="font-weight: 700; color: #22c55e; font-size: 1.5em"><span class="sm-tex sm-tex-inline">E</span>
+</span>
+<span class="sm-styled" style="color: #94a3b8; font-size: 0.75rem">エネルギー
+</span>
+</span>
+</span>
+</span>
+</span>
+</span>
+
+<span class="sm-styled" style="display: block; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem"><span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.75rem; background-color: #1e293b"><span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">ネスト深度
+</span>
+<span class="sm-styled" style="display: block; font-weight: 700; color: white; font-size: 2em">4層
+</span>
+<span class="sm-styled" style="display: block; margin-top: 0.5rem">#style #block #bgcolor=&quot;[var(primary)]&quot; #style=&quot;height: 4px; width: 100%; border-radius: 2px; opacity: 0.3;&quot;
+#style #block #bgcolor=&quot;[var(primary)]&quot; #style=&quot;height: 4px; width: 80%; border-radius: 2px; margin-top: -4px;&quot;
+</span>
+</span>
+<span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.75rem; background-color: #1e293b"><span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">要素タイプ
+</span>
+<span class="sm-styled" style="display: block; font-weight: 700; color: white; font-size: 2em">12種
+</span>
+<span class="sm-styled" style="color: #22c55e; font-size: 0.85rem">+3 新規
+</span>
+</span>
+<span class="sm-styled" style="display: block; padding: 1rem; border-radius: 0.75rem; background-color: #1e293b"><span class="sm-styled" style="display: block; color: #94a3b8; font-size: 0.85rem">レンダリング
+</span>
+<span class="sm-styled" style="display: block; font-weight: 700; color: white; font-size: 2em">&lt; 1ms
+</span>
+<span class="sm-styled" style="color: #ec4899; font-size: 0.85rem">高速処理
+</span>
+</span>
+</span>
+</span>
+
+<hr>
+<h2 id="s-23">11. 関連項目</h2>
+<ul><li><img class="sm-media sm-image" src="/document/SevenWiki" alt="" loading="lazy"> - SevenMarkを使用するウィキエンジン</li><li><img class="sm-media sm-image" src="/document/Rust" alt="" loading="lazy"> - SevenMarkの実装言語</li><li><img class="sm-media sm-image" src="/document/WebAssembly" alt="" loading="lazy"> - ブラウザ実行環境</li><li><img class="sm-media sm-image" src="/document/KaTeX" alt="" loading="lazy"> - 数式レンダリング</li></ul>
+
+<hr>
+<span class="sm-styled" style="display: block; background: linear-gradient(135deg, #7777ff 0%, #ec4899 100%); padding: 2rem; border-radius: 1rem; text-align: center; margin: 2rem 0"><span class="sm-styled" style="display: block; font-weight: 700; color: white; font-size: 1.5em">SevenMark
+</span>
+<span class="sm-styled" style="display: block; margin: 0.5rem 0; color: rgba(255,255,255,0.9)">高性能ウィキマークアップパーサー
+</span>
+<span class="sm-styled" style="display: block; margin-top: 1rem"><img class="sm-media sm-image" src="https://github.com/sevenwiki/sevenmark" alt="" loading="lazy">
+</span>
+</span>
+
+
+
+

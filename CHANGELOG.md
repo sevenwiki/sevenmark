@@ -5,6 +5,29 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.15] - 2025-12-15
+
+### Added
+- **New `sevenmark-renderer` Crate**: Server-side HTML rendering engine
+  - Maud-based HTML generation from AST
+  - Full element support: headers, lists, tables, code blocks, TeX, fold, ruby, styled elements, etc.
+  - CSS utilities with parameter-to-style mapping (`#color`, `#bgcolor`, `#size`, `#width`, etc.)
+  - Dark mode support via CSS variables (`--sm-text`, `--sm-bg`, etc.)
+  - KaTeX integration for math rendering
+  - Prism.js integration for syntax highlighting
+
+- **Explicit Display Mode Control**: `#block` and `#inline` parameters for styled elements
+  - `#block` → adds `display: block` to CSS
+  - `#inline` → adds `display: inline` to CSS
+  - Allows user override via more specific `#style` values
+  - Simplified renderer: always uses `<span>`, display controlled by CSS
+
+### Changed
+- **Styled Element Rendering**: Removed auto-detection of block vs inline
+  - Previously auto-detected based on CSS properties (padding, margin, float, etc.)
+  - Now requires explicit `#block` parameter for block-level layout
+  - More predictable and user-controlled behavior
+
 ## [2.7.13] - 2025-12-11
 
 ### Added

@@ -1,0 +1,30 @@
+/* SevenMark Footnotes */
+.sm-footnote-ref {
+  font-size: 0.75em;
+  vertical-align: super;
+  line-height: 0;
+}
+.sm-footnote-ref a {
+  color: var(--sm-primary);
+  text-decoration: none;
+}
+.sm-footnote-ref a:hover { text-decoration: underline; }
+.sm-footnotes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--sm-text-muted);
+}
+.sm-footnotes hr {
+  border: none;
+  border-top: 1px solid var(--sm-border);
+  margin-bottom: 1rem;
+}
+.sm-footnotes ol { padding-left: 1.5rem; margin: 0; }
+.sm-footnotes li { margin: 0.5rem 0; }
+.sm-footnote-backref {
+  margin-left: 0.25rem;
+  color: var(--sm-primary);
+  text-decoration: none;
+}
+.sm-footnote-backref:hover { text-decoration: underline; }

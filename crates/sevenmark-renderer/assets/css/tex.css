@@ -1,0 +1,12 @@
+/* SevenMark TeX */
+.sm-tex { font-family: "KaTeX_Main", "Times New Roman", serif; }
+.sm-tex-inline { display: inline; padding: 0 0.1em; }
+.sm-tex-block {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+.sm-tex .katex { font-size: 1.1em; }
+.sm-tex-block .katex-display { margin: 0; }

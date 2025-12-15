@@ -1,0 +1,4 @@
+/* SevenMark Ruby */
+.sm-ruby { ruby-align: center; }
+.sm-ruby rt { font-size: 0.5em; color: var(--sm-text-muted); }
+.sm-ruby rp { display: none; }

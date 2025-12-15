@@ -3,7 +3,7 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.package]
-version = "2.7.13"
+version = "2.7.15"
 authors = ["Levi Lim <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -13,8 +13,9 @@ rust-version = "1.92.0"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { version = "2.7.13", path = "crates/sevenmark-parser" }
-sevenmark-transform = { version = "2.7.13", path = "crates/sevenmark-transform" }
+sevenmark-parser = { version = "2.7.15", path = "crates/sevenmark-parser" }
+sevenmark-transform = { version = "2.7.15", path = "crates/sevenmark-transform" }
+sevenmark-renderer = { version = "2.7.15", path = "crates/sevenmark-renderer" }
 
 winnow = { version = "0.7.14", features = ["simd"] }
 line-span = "0.1.5"
@@ -35,6 +36,8 @@ tracing-appender = "0.2.4"
 wasm-bindgen = "0.2.106"
 js-sys = "0.3.83"
 web-sys = "0.3.83"
+maud = "0.27.0"
+chrono = "0.4.42"
 
 [profile.dev]
 opt-level = 1

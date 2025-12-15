@@ -1,0 +1,7 @@
+/* SevenMark Media */
+.sm-media { max-width: 100%; height: auto; }
+.sm-image { border-radius: var(--sm-radius); }
+.sm-video { border-radius: var(--sm-radius); background: #000; }
+.sm-audio { width: 100%; max-width: 400px; }
+.sm-link { color: var(--sm-primary); text-decoration: none; }
+.sm-link:hover { text-decoration: underline; color: var(--sm-primary-hover); }

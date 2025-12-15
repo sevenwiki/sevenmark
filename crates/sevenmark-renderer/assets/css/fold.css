@@ -1,0 +1,25 @@
+/* SevenMark Fold */
+.sm-fold {
+  border: 1px solid var(--sm-border);
+  border-radius: var(--sm-radius);
+  margin: 1rem 0;
+}
+.sm-fold > summary {
+  padding: 0.75rem 1rem;
+  background: var(--sm-bg-muted);
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+}
+.sm-fold > summary::-webkit-details-marker { display: none; }
+.sm-fold > summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.sm-fold[open] > summary::before { transform: rotate(90deg); }
+.sm-fold-content {
+  padding: 1rem;
+  border-top: 1px solid var(--sm-border);
+}
