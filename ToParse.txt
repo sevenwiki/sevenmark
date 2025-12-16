@@ -1,12 +1,654 @@
-***ss***
-{{{#fn something}}}
+{{{#define #primary="#7777ff"}}}
+{{{#define #accent="#ec4899"}}}
+{{{#define #success="#22c55e"}}}
+{{{#define #warning="#f59e0b"}}}
+{{{#define #dark="#0f172a"}}}
+{{{#define #darker="#1e293b"}}}
+{{{#define #orange="#f97316"}}}
+{{{#define #border="#334155"}}}
+{{{#define #muted="#94a3b8"}}}
+{{{#define #card="padding: 1.5rem; border-radius: 1rem; margin: 0.5rem 0;"}}}
 
-{{{#list
-[[dddd]]
-[[awefawefawefawef]]
+// 인포박스 (오른쪽 플로팅)
+{{{#style #block #style="float: right; width: 320px; margin: 0 0 1rem 1.5rem; border: 2px solid [var(orange)]; background: [var(darker)];"
+{{{#style #block #bgcolor="[var(orange)]" #color="white" #style="padding: 0.75rem; text-align: center;"
+{{{#style #size="1.3em" #style="font-weight: 700;"
+SevenMark
+}}}
+{{{#style #size="0.9em"
+セブンマーク | 세븐마크
+}}}
+}}}
+{{{#style #block #style="padding: 0;"
+[[#url="https://raw.githubusercontent.com/user/repo/main/sevenmark-logo.png" #width="100%"]]
+{{{#style #block #style="text-align: center; padding: 0.5rem; font-size: 0.85em;" #color="[var(muted)]"
+[ロゴ]
+}}}
+}}}
+{{{#table
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" 開発}}}]] [[{{{#style #style="padding: 0.5rem;" SevenWiki Project}}}]]]]
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" 言語}}}]] [[{{{#style #style="padding: 0.5rem;" Rust}}}]]]]
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" バージョン}}}]] [[{{{#style #style="padding: 0.5rem;" 2.7.13}}}]]]]
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" ライセンス}}}]] [[{{{#style #style="padding: 0.5rem;" Apache 2.0}}}]]]]
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" 速度}}}]] [[{{{#style #style="padding: 0.5rem;" 100MB/s+}}}]]]]
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" WASM}}}]] [[{{{#style #style="padding: 0.5rem;" {{{#style #color="[var(success)]" 対応}}} }}}]]]]
+[[[[{{{#style #bgcolor="[var(darker)]" #color="[var(orange)]" #style="padding: 0.5rem; font-weight: 600; text-align: center;" SSR}}}]] [[{{{#style #style="padding: 0.5rem;" {{{#style #color="[var(success)]" 対応}}} }}}]]]]
+[[[[{{{#style #style="padding: 0.5rem; text-align: center;" [[#url="https://github.com/sevenwiki/sevenmark" GitHub]] | [[#url="https://docs.sevenmark.dev" Docs]]}}}]]]]
+}}}
 }}}
 
+# SevenMark
+
+**SevenMark**（セブンマーク）は、[[#document="Rust" Rust]]で開発された高性能ウィキマークアップパーサーである。[[#document="SevenWiki" SevenWiki]]プロジェクトの一環として開発され、独自のDSL（ドメイン固有言語）を採用している。
+
+## 概要
+
+SevenMarkは、従来のウィキマークアップ言語の限界を超えるために設計された次世代マークアップエンジンである。SIMDによる最適化、完全なスタイリング対応、そしてWebAssemblyサポートにより、ブラウザ上でもネイティブに近い性能を発揮する[*SevenMarkはRust製のため、WASMへのコンパイルが容易である。]。
+
+{{{#style #block #style="clear: both;" [null]}}}
+
+### 主な特徴
+
 {{{#list
-[[dddd]]
-[[awefawefawefawef]]
+[[**高速パース** - winnowパーサーコンビネータによる効率的な構文解析]]
+[[**完全なスタイリング** - CSSプロパティをインラインで適用可能]]
+[[**変数システム** - `#define`による変数定義と`[var()]`による参照]]
+[[**条件分岐** - `#if`構文による動的コンテンツ生成]]
+[[**WASM対応** - ブラウザ上での直接実行]]
 }}}
+
+---
+
+## 文法
+
+### テキストスタイリング
+
+{{{#table
+[[[[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 0.75rem;" 入力}}}]] [[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 0.75rem;" 出力}}}]] [[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 0.75rem;" 説明}}}]]]]
+[[[[{{{**太字**}}}]] [[**太字**]] [[アスタリスク2つ]]]]
+[[[[{{{\*斜体\*}}}]] [[*斜体*]] [[アスタリスク1つ]]]]
+[[[[{{{\*\*\*太字斜体\*\*\*}}}]] [[***太字斜体***]] [[アスタリスク3つ]]]]
+[[[[{{{\_\_下線\_\_}}}]] [[__下線__]] [[アンダースコア2つ]]]]
+[[[[{{{~~取消線~~}}}]] [[~~取消線~~]] [[チルダ2つ]]]]
+[[[[{{{E=mc^^2^^}}}]] [[E=mc^^2^^]] [[上付き文字]]]]
+[[[[{{{H,,2,,O}}}]] [[H,,2,,O]] [[下付き文字]]]]
+}}}
+
+### カラーとスタイル
+
+{{{#style #style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0;"
+{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 0.75rem 1.5rem; border-radius: 0.5rem;"
+ブランドカラー
+}}}
+{{{#style #bgcolor="[var(accent)]" #color="white" #style="padding: 0.75rem 1.5rem; border-radius: 0.5rem;"
+アクセント
+}}}
+{{{#style #bgcolor="[var(success)]" #color="white" #style="padding: 0.75rem 1.5rem; border-radius: 0.5rem;"
+成功
+}}}
+{{{#style #bgcolor="[var(warning)]" #color="white" #style="padding: 0.75rem 1.5rem; border-radius: 0.5rem;"
+警告
+}}}
+}}}
+
+**スタイルパラメータ:** #color, #bgcolor, #size, #style, #width, #height, #align, #opacity
+
+---
+
+## 高度なレイアウト
+
+### ダッシュボードUI
+
+{{{#style #block #bgcolor="[var(dark)]" #style="padding: 2rem; border-radius: 1rem; margin: 1rem 0;"
+{{{#style #block #color="white" #size="1.3em" #style="font-weight: 700; margin-bottom: 1.5rem;"
+📊 SevenMark 統計ダッシュボード
+}}}
+{{{#style #block #style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;"
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.25rem; border-radius: 0.75rem; text-align: center;"
+{{{#style #block #color="[var(primary)]" #size="2em" #style="font-weight: 700;"
+50+
+}}}
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+AST要素
+}}}
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.25rem; border-radius: 0.75rem; text-align: center;"
+{{{#style #block #color="[var(success)]" #size="2em" #style="font-weight: 700;"
+100MB/s
+}}}
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+パース速度
+}}}
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.25rem; border-radius: 0.75rem; text-align: center;"
+{{{#style #block #color="[var(warning)]" #size="2em" #style="font-weight: 700;"
+3
+}}}
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+クレート
+}}}
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.25rem; border-radius: 0.75rem; text-align: center;"
+{{{#style #block #color="[var(accent)]" #size="2em" #style="font-weight: 700;"
+∞
+}}}
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+可能性
+}}}
+}}}
+}}}
+}}}
+
+### ネストされたテーブル
+
+{{{#table
+[[[[{{{#style #bgcolor="[var(dark)]" #color="white" #style="padding: 1rem; font-weight: 600;" コンポーネント}}}]] [[{{{#style #bgcolor="[var(dark)]" #color="white" #style="padding: 1rem; font-weight: 600;" 詳細情報}}}]]]]
+[[[[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 0.75rem;" パーサー}}}]] [[
+{{{#table
+[[[[機能]] [[状態]]]]
+[[[[字句解析]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+[[[[構文解析]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+[[[[位置追跡]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+}}}
+]]]]
+[[[[{{{#style #bgcolor="[var(accent)]" #color="white" #style="padding: 0.75rem;" トランスフォーム}}}]] [[
+{{{#table
+[[[[機能]] [[状態]]]]
+[[[[変数展開]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+[[[[#if条件]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+[[[[インクルード]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+}}}
+]]]]
+[[[[{{{#style #bgcolor="[var(success)]" #color="white" #style="padding: 0.75rem;" レンダラー}}}]] [[
+{{{#table
+[[[[機能]] [[状態]]]]
+[[[[HTML生成]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+[[[[KaTeX]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+[[[[Prism.js]] [[{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.25rem 0.5rem; border-radius: 0.25rem;" 完了}}}]]]]
+}}}
+]]]]
+}}}
+
+---
+
+## 数式
+
+### インライン数式
+
+エネルギー方程式 {{{#tex E = mc^2}}}、ピタゴラスの定理 {{{#tex a^2 + b^2 = c^2}}}
+
+### ブロック数式
+
+{{{#style #block #style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0;"
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.5rem; border-radius: 0.75rem; border: 1px solid [var(border)];"
+{{{#style #block #color="[var(primary)]" #style="font-weight: 600; margin-bottom: 0.75rem;"
+オイラーの等式
+}}}
+{{{#tex #block
+e^{i\pi} + 1 = 0
+}}}
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.5rem; border-radius: 0.75rem; border: 1px solid [var(border)];"
+{{{#style #block #color="[var(primary)]" #style="font-weight: 600; margin-bottom: 0.75rem;"
+シュレーディンガー方程式
+}}}
+{{{#tex #block
+i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi
+}}}
+}}}
+}}}
+
+### 行列
+
+{{{#tex #block
+A = \begin{pmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{pmatrix}
+}}}
+
+---
+
+## コード
+
+{{{#style #block #style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0;"
+{{{#style #block #style="border-radius: 0.75rem; overflow: hidden; border: 1px solid [var(border)];"
+{{{#style #block #bgcolor="[var(dark)]" #color="white" #style="padding: 0.75rem 1rem; font-weight: 500;"
+Rust
+}}}
+{{{#code #lang="rust"
+pub fn parse(input: &str) -> Vec<Element> {
+    let mut ctx = Context::new(input);
+    parse_elements(&mut ctx)
+}
+}}}
+}}}
+{{{#style #block #style="border-radius: 0.75rem; overflow: hidden; border: 1px solid [var(border)];"
+{{{#style #block #bgcolor="[var(dark)]" #color="white" #style="padding: 0.75rem 1rem; font-weight: 500;"
+TypeScript
+}}}
+{{{#code #lang="typescript"
+async function parse(input: string) {
+  const wasm = await init();
+  return JSON.parse(wasm.parse(input));
+}
+}}}
+}}}
+}}}
+
+---
+
+## ルビ（振り仮名）
+
+{{{#style #block #size="1.3em" #style="line-height: 2.5; margin: 1rem 0;"
+{{{#ruby #text="セブン"
+七
+}}}{{{#ruby #text="マーク"
+mark
+}}}は{{{#ruby #text="こうせいのう"
+高性能
+}}}な{{{#ruby #text="ウィキ"
+wiki
+}}}マークアップ{{{#ruby #text="パーサー"
+parser
+}}}です。
+}}}
+
+---
+
+## 折りたたみ
+
+{{{#fold
+[[アーキテクチャ詳細を表示]]
+[[
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.5rem;"
+SevenMarkは3つの主要コンポーネントで構成：
+
+{{{#list #1
+[[**sevenmark-parser** - コアパースエンジン]]
+[[**sevenmark-transform** - AST変換・前処理]]
+[[**sevenmark-renderer** - HTML生成（SSR）]]
+}}}
+
+{{{#fold
+[[パーサー内部構造]]
+[[
+{{{#code #lang="text"
+sevenmark-parser/
+├── src/
+│   ├── ast.rs        # 50+ AST要素
+│   ├── core.rs       # エントリポイント
+│   └── parser/       # パーサー実装
+│       ├── brace/    # {{{#...}}}
+│       ├── bracket/  # [[...]]
+│       └── markdown/ # **bold**, etc.
+}}}
+]]
+}}}
+}}}
+]]
+}}}
+
+---
+
+## グラデーションとアニメーション
+
+{{{#style #block #style="text-align: center; padding: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ec4899 100%); border-radius: 1rem; margin: 1rem 0;"
+{{{#style #block #color="white" #size="2.5em" #style="font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"
+SevenMark
+}}}
+{{{#style #block #color="rgba(255,255,255,0.9)" #size="1.1em" #style="margin-top: 0.5rem;"
+次世代ウィキマークアップエンジン
+}}}
+{{{#style #block #style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;"
+{{{#style #block #style="background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white;"
+Rust製
+}}}
+{{{#style #block #style="background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white;"
+WASM対応
+}}}
+{{{#style #block #style="background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white;"
+オープンソース
+}}}
+}}}
+}}}
+
+---
+
+## 比較表
+
+{{{#table
+[[[[{{{#style #bgcolor="transparent"}}}]] [[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 0.75rem; text-align: center; font-weight: 600;" SevenMark}}}]] [[{{{#style #bgcolor="[var(border)]" #color="white" #style="padding: 0.75rem; text-align: center; font-weight: 600;" Markdown}}}]] [[{{{#style #bgcolor="[var(border)]" #color="white" #style="padding: 0.75rem; text-align: center; font-weight: 600;" MediaWiki}}}]]]]
+[[[[パース速度]] [[{{{#style #color="[var(success)]" #style="font-weight: 600;" 100MB/s}}}]] [[50MB/s]] [[10MB/s]]]]
+[[[[スタイリング]] [[{{{#style #color="[var(success)]" ネイティブ}}}]] [[制限的]] [[制限的]]]]
+[[[[変数]] [[{{{#style #color="[var(success)]" 組み込み}}}]] [[なし]] [[テンプレート]]]]
+[[[[条件分岐]] [[{{{#style #color="[var(success)]" #if構文}}}]] [[なし]] [[パーサー関数]]]]
+[[[[WASM]] [[{{{#style #color="[var(success)]" 完全対応}}}]] [[部分的]] [[なし]]]]
+}}}
+
+---
+
+## 極限テスト：ネスト地獄
+
+### テーブル in テーブル in テーブル in テーブル
+
+{{{#table
+	[[
+		[[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 1rem; font-weight: 700;" レベル1}}}]]
+		[[{{{#style #bgcolor="[var(primary)]" #color="white" #style="padding: 1rem; font-weight: 700;" コンテンツ}}}]]
+	]]
+
+	[[
+		[[{{{#style #bgcolor="[var(darker)]" #color="[var(accent)]" #style="padding: 0.75rem;" カテゴリA}}}]]
+		[[
+			{{{#table
+				[[
+					[[{{{#style #bgcolor="[var(dark)]" #color="[var(warning)]" #style="padding: 0.5rem;" レベル2}}}]]
+					[[{{{#style #bgcolor="[var(dark)]" #color="white" #style="padding: 0.5rem;" 詳細}}}]]
+				]]
+
+				[[
+					[[数式]]
+					[[
+						{{{#table
+
+							[[
+								[[{{{#style #bgcolor="[var(border)]" #style="padding: 0.25rem;" レベル3}}}]]
+								[[{{{#style #bgcolor="[var(border)]" #style="padding: 0.25rem;" 数式内容}}}]]
+							]]
+
+							[[[[オイラー]] [[{{{#tex e^{i\pi} + 1 = 0 }}}]]]]
+							[[[[ガウス]] [[{{{#tex \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} }}}]]]]
+							[[[[行列]] [[{{{#tex \begin{pmatrix} a & b \\ c & d \end{pmatrix} }}}]]]]
+						}}}
+					]]
+				]]
+				[[
+					[[コード]]
+					[[
+						{{{#table
+
+							[[
+								[[{{{#style #bgcolor="[var(border)]" #style="padding: 0.25rem;" 言語}}}]]
+								[[{{{#style #bgcolor="[var(border)]" #style="padding: 0.25rem;" スニペット}}}]]
+							]]
+
+							[[
+								[[Rust]]
+								[[{{{#code #lang="rust"
+fn main() { println!("nested!"); }
+}}}]]
+							]]
+							[[
+								[[Python]]
+								[[{{{#code #lang="python"
+print("deep nesting")
+}}}]]
+							]]
+						}}}
+					]]
+				]]
+			}}}
+		]]
+	]]
+	[[
+		[[{{{#style #bgcolor="[var(darker)]" #color="[var(success)]" #style="padding: 0.75rem;" カテゴリB}}}]]
+		[[
+			{{{#table
+				[[
+					[[{{{#style #bgcolor="[var(dark)]" #color="[var(accent)]" #style="padding: 0.5rem;" スタイル}}}]]
+					[[{{{#style #bgcolor="[var(dark)]" #color="white" #style="padding: 0.5rem;" 適用例}}}]]
+				]]
+				[[
+					[[グラデ]]
+					[[{{{#style #style="background: linear-gradient(90deg, [var(primary)], [var(accent)]); padding: 0.5rem; border-radius: 0.25rem; color: white;"
+虹色テキスト
+}}}]]
+				]]
+				[[
+					[[ネスト]]
+					[[
+						{{{#style #block #bgcolor="[var(darker)]" #style="padding: 0.5rem; border-radius: 0.25rem;"
+							{{{#style #block #bgcolor="[var(dark)]" #style="padding: 0.5rem; border-radius: 0.25rem;"
+								{{{#style #block #bgcolor="[var(border)]" #style="padding: 0.5rem; border-radius: 0.25rem;"
+									{{{#style #color="[var(primary)]"
+										4層ネスト!
+									}}}
+								}}}
+							}}}
+						}}}
+					]]
+				]]
+			}}}
+		]]
+	]]
+}}}
+
+### 全要素混合セル
+
+{{{#table
+[[[[{{{#style #bgcolor="[var(dark)]" #color="white" #style="padding: 1rem;" 要素タイプ}}}]] [[{{{#style #bgcolor="[var(dark)]" #color="white" #style="padding: 1rem;" 複合コンテンツ}}}]]]]
+[[[[数式+スタイル+ルビ]] [[
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.5rem;"
+{{{#style #block #color="[var(primary)]" #size="1.2em" #style="font-weight: 600;"
+{{{#ruby #text="すうしき"
+数式
+}}}の美しさ
+}}}
+[br]
+{{{#tex #block
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+}}}
+[br]
+{{{#style #color="[var(muted)]" #size="0.9em"
+— バーゼル問題の解
+}}}
+}}}
+]]]]
+[[[[コード+引用+リスト]] [[
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.5rem;"
+{{{#code #lang="rust"
+// SevenMark Parser
+let ast = parse_document(input);
+}}}
+{{{#quote
+「シンプルさは究極の洗練である」
+— レオナルド・ダ・ヴィンチ
+}}}
+{{{#list
+[[**パース** → AST生成]]
+[[**変換** → 前処理]]
+[[**レンダ** → HTML出力]]
+}}}
+}}}
+]]]]
+[[[[折りたたみ+テーブル+数式]] [[
+{{{#fold
+[[セル内折りたたみを開く]]
+[[
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 0.75rem; border-radius: 0.5rem;"
+{{{#table
+[[[[x]] [[f(x)]]]]
+[[[[0]] [[{{{#tex 1}}}]]]]
+[[[[{{{#tex \pi}}}]] [[{{{#tex -1}}}]]]]
+[[[[{{{#tex 2\pi}}}]] [[{{{#tex 1}}}]]]]
+}}}
+{{{#tex #block
+f(x) = \cos(x)
+}}}
+}}}
+]]
+}}}
+]]]]
+[[[[条件分岐+変数]] [[
+{{{#define #testVar="active"}}}
+{{{#define #count="42"}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.5rem;"
+{{{#style #block #color="[var(muted)]"
+変数: testVar = "[var(testVar)]", count = "[var(count)]"
+}}}
+[br]
+{{{#if [var(testVar)] == "active" ::
+{{{#style #bgcolor="#064e3b" #color="[var(success)]" #style="padding: 0.5rem; border-radius: 0.25rem; display: inline-block;"
+✓ アクティブ状態
+}}}
+}}}
+[br]
+{{{#if int([var(count)]) > 40 ::
+{{{#style #bgcolor="#422006" #color="[var(warning)]" #style="padding: 0.5rem; border-radius: 0.25rem; display: inline-block;"
+⚠ カウント高: [var(count)]
+}}}
+}}}
+}}}
+]]]]
+}}}
+
+### 究極のダッシュボード
+
+{{{#style #block #bgcolor="[var(dark)]" #style="padding: 2rem; border-radius: 1rem; margin: 1rem 0;"
+{{{#style #block #style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;"
+{{{#style #block #color="white" #size="1.5em" #style="font-weight: 700;"
+🔬 極限ネストダッシュボード
+}}}
+{{{#style #block #style="display: flex; gap: 0.5rem;"
+{{{#style #block #bgcolor="[var(primary)]" #color="white" #style="padding: 0.5rem 1rem; border-radius: 0.5rem;"
+ライブ
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #color="[var(muted)]" #style="padding: 0.5rem 1rem; border-radius: 0.5rem;"
+履歴
+}}}
+}}}
+}}}
+
+{{{#style #block #style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;"
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.5rem; border-radius: 0.75rem;"
+{{{#style #block #color="white" #style="font-weight: 600; margin-bottom: 1rem;"
+パフォーマンス指標
+}}}
+{{{#table
+[[[[{{{#style #color="[var(muted)]" 指標}}}]] [[{{{#style #color="[var(muted)]" 値}}}]] [[{{{#style #color="[var(muted)]" グラフ}}}]]]]
+[[[[パース速度]] [[{{{#style #color="[var(success)]" #style="font-weight: 600;" 100MB/s}}}]] [[{{{#style #block #style="display: flex; align-items: center; gap: 0.5rem;"
+{{{#style #block #bgcolor="[var(success)]" #style="width: 80%; height: 8px; border-radius: 4px;"}}}
+80%
+}}}]]]]
+[[[[メモリ使用]] [[{{{#style #color="[var(warning)]" #style="font-weight: 600;" 256MB}}}]] [[{{{#style #block #style="display: flex; align-items: center; gap: 0.5rem;"
+{{{#style #block #bgcolor="[var(warning)]" #style="width: 45%; height: 8px; border-radius: 4px;"}}}
+45%
+}}}]]]]
+[[[[CPU負荷]] [[{{{#style #color="[var(primary)]" #style="font-weight: 600;" 23%}}}]] [[{{{#style #block #style="display: flex; align-items: center; gap: 0.5rem;"
+{{{#style #block #bgcolor="[var(primary)]" #style="width: 23%; height: 8px; border-radius: 4px;"}}}
+23%
+}}}]]]]
+}}}
+}}}
+
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1.5rem; border-radius: 0.75rem;"
+{{{#style #block #color="white" #style="font-weight: 600; margin-bottom: 1rem;"
+数式ウィジェット
+}}}
+{{{#style #block #style="text-align: center; margin-bottom: 1rem;"
+{{{#tex #block
+E = mc^2
+}}}
+}}}
+{{{#style #block #color="[var(muted)]" #size="0.85rem" #style="text-align: center;"
+質量エネルギー等価性
+}}}
+{{{#style #block #style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid [var(border)];"
+{{{#style #block #style="display: flex; justify-content: space-around; text-align: center;"
+{{{#style
+{{{#style #color="[var(primary)]" #size="1.5em" #style="font-weight: 700;"
+{{{#tex c}}}
+}}}
+{{{#style #color="[var(muted)]" #size="0.75rem"
+光速
+}}}
+}}}
+{{{#style
+{{{#style #color="[var(accent)]" #size="1.5em" #style="font-weight: 700;"
+{{{#tex m}}}
+}}}
+{{{#style #color="[var(muted)]" #size="0.75rem"
+質量
+}}}
+}}}
+{{{#style
+{{{#style #color="[var(success)]" #size="1.5em" #style="font-weight: 700;"
+{{{#tex E}}}
+}}}
+{{{#style #color="[var(muted)]" #size="0.75rem"
+エネルギー
+}}}
+}}}
+}}}
+}}}
+}}}
+}}}
+
+{{{#style #block #style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;"
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.75rem;"
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+ネスト深度
+}}}
+{{{#style #block #color="white" #size="2em" #style="font-weight: 700;"
+4層
+}}}
+{{{#style #block #style="margin-top: 0.5rem;"
+{{{#style #block #bgcolor="[var(primary)]" #style="height: 4px; width: 100%; border-radius: 2px; opacity: 0.3;" [null]}}}
+{{{#style #block #bgcolor="[var(primary)]" #style="height: 4px; width: 80%; border-radius: 2px; margin-top: -4px;" [null]}}}
+}}}
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.75rem;"
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+要素タイプ
+}}}
+{{{#style #block #color="white" #size="2em" #style="font-weight: 700;"
+12種
+}}}
+{{{#style #color="[var(success)]" #size="0.85rem"
++3 新規
+}}}
+}}}
+{{{#style #block #bgcolor="[var(darker)]" #style="padding: 1rem; border-radius: 0.75rem;"
+{{{#style #block #color="[var(muted)]" #size="0.85rem"
+レンダリング
+}}}
+{{{#style #block #color="white" #size="2em" #style="font-weight: 700;"
+< 1ms
+}}}
+{{{#style #color="[var(accent)]" #size="0.85rem"
+高速処理
+}}}
+}}}
+}}}
+}}}
+
+---
+
+## 関連項目
+
+{{{#list
+[[[[#document="SevenWiki" SevenWiki]] - SevenMarkを使用するウィキエンジン]]
+[[[[#document="Rust" Rust]] - SevenMarkの実装言語]]
+[[[[#document="WebAssembly" WebAssembly]] - ブラウザ実行環境]]
+[[[[#document="KaTeX" KaTeX]] - 数式レンダリング]]
+}}}
+
+---
+
+{{{#style #block #style="background: linear-gradient(135deg, [var(primary)] 0%, [var(accent)] 100%); padding: 2rem; border-radius: 1rem; text-align: center; margin: 2rem 0;"
+{{{#style #block #color="white" #size="1.5em" #style="font-weight: 700;"
+SevenMark
+}}}
+{{{#style #block #color="rgba(255,255,255,0.9)" #style="margin: 0.5rem 0;"
+高性能ウィキマークアップパーサー
+}}}
+{{{#style #block #style="margin-top: 1rem;"
+[[#url="https://github.com/sevenwiki/sevenmark" {{{#style #color="white" GitHub →}}}]]
+}}}
+}}}
+
+{{{#category SevenMark}}}
+{{{#category ウィキエンジン}}}
+{{{#category Rust}}}

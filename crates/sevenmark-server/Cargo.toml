@@ -10,7 +10,7 @@ description = "sevenmark/server"
 
 [dependencies]
 # Internal
-sevenmark-parser = { workspace = true }
+sevenmark-parser = { workspace = true, features = ["include_locations"] }
 sevenmark-transform = { workspace = true, features = ["server"] }
 
 # Web framework

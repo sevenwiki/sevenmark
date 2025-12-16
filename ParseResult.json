@@ -1,45 +1,19 @@
 [
   {
-    "FootnoteElement": {
-      "parameters": {
-        "display": {
-          "key": "display",
-          "value": [
-            {
-              "Text": {
-                "content": "*"
-              }
-            }
-          ]
-        },
-        "id": {
-          "key": "id",
-          "value": [
-            {
-              "Text": {
-                "content": "note1"
-              }
-            }
-          ]
-        }
-      },
+    "Bold": {
       "content": [
         {
-          "Text": {
-            "content": "This is a footnote with parameters"
+          "Italic": {
+            "content": [
+              {
+                "Text": {
+                  "content": "ss"
+                }
+              }
+            ]
           }
         }
       ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\r"
-    }
-  },
-  {
-    "Text": {
-      "content": "\n"
     }
   },
   {
@@ -58,7 +32,7 @@
       "content": [
         {
           "Text": {
-            "content": "No parameters footnote"
+            "content": "something"
           }
         }
       ]
@@ -85,23 +59,84 @@
     }
   },
   {
-    "FootnoteElement": {
-      "parameters": {
-        "display": {
-          "key": "display",
-          "value": [
-            {
-              "Text": {
-                "content": "†"
-              }
-            }
-          ]
-        }
-      },
+    "ListElement": {
+      "kind": "",
+      "parameters": {},
       "content": [
         {
-          "Text": {
-            "content": "Another one"
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "content": "dddd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "content": "awefawefawefawef"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "ListElement": {
+      "kind": "",
+      "parameters": {},
+      "content": [
+        {
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "content": "dddd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "parameters": {},
+            "content": [
+              {
+                "Text": {
+                  "content": "awefawefawefawef"
+                }
+              }
+            ]
           }
         }
       ]
