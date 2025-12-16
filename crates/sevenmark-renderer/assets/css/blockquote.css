@@ -1,9 +1,0 @@
-/* SevenMark Blockquote */
-blockquote {
-  border-left: 4px solid var(--sm-primary);
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
-  background: var(--sm-bg-muted);
-  color: var(--sm-text-muted);
-}
-blockquote p { margin: 0; }

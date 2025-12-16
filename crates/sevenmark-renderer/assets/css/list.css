@@ -1,9 +1,0 @@
-/* SevenMark Lists */
-.sm-list {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-}
-.sm-list li { margin: 0.25rem 0; }
-.sm-list-ordered { list-style-type: decimal; }
-.sm-list-unordered { list-style-type: disc; }
-.sm-list .sm-list { margin: 0.25rem 0; }

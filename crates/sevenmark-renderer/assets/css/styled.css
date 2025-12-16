@@ -1,4 +1,0 @@
-/* SevenMark Styled Elements */
-/* sm-styled uses <div> - display is controlled by inline style or defaults to block */
-.sm-styled-block { display: block; margin: 1rem 0; }
-.sm-clearfix::after { content: ""; display: table; clear: both; }

@@ -5,6 +5,21 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.16] - 2025-12-16
+
+### Added
+- **Footnote Parameters Support**: `FootnoteElement` now supports parameters
+  - New syntax: `{{{#fn #display="*" #id="note1" content}}}`
+  - `FootnoteElement` now has `parameters: Parameters` field
+  - Enables custom display text, IDs, and other metadata for footnotes
+  - Frontend can control footnote rendering based on parameters
+
+### Removed
+- **sevenmark-renderer Crate**: Removed from workspace
+  - Renderer functionality moved to separate repository/branch
+  - Focus on parser and transform layers for AST generation
+  - Frontend handles HTML rendering directly from AST
+
 ## [2.7.15] - 2025-12-15
 
 ### Added
