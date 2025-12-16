@@ -19,10 +19,32 @@ pub struct MediaReference {
     pub title: String,
 }
 
+/// Section range information for frontend consumption
+#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
+#[derive(Debug, Clone, Serialize)]
+pub struct SectionInfo {
+    /// Section index (same as Header's section_index)
+    pub section_index: usize,
+    /// Header level (1-6)
+    pub level: usize,
+    /// Section start byte offset (header start position)
+    pub start: usize,
+    /// Section end byte offset (next same/higher level header or document end)
+    pub end: usize,
+}
+
 /// Redirect reference with namespace and title
 #[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
 #[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
 pub struct RedirectReference {
+    pub namespace: DocumentNamespace,
+    pub title: String,
+}
+
+/// Document reference with namespace and title
+#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
+#[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
+pub struct DocumentReference {
     pub namespace: DocumentNamespace,
     pub title: String,
 }
@@ -33,8 +55,9 @@ pub struct PreProcessedDocument {
     pub media: HashSet<MediaReference>,
     pub categories: HashSet<String>,
     pub redirect: Option<RedirectReference>,
-    pub references: HashSet<(DocumentNamespace, String)>,
+    pub references: HashSet<DocumentReference>,
     pub ast: Vec<SevenMarkElement>,
+    pub sections: Vec<SectionInfo>,
 }
 
 /// Processes document with 1-depth include resolution
@@ -53,8 +76,16 @@ pub async fn preprocess_sevenmark(
     let mut categories = HashSet::new();
     let mut redirect = None;
     let mut all_media = HashSet::new();
+    let mut sections = Vec::new();
 
-    collect_metadata(&ast, &mut categories, &mut redirect, &mut all_media, true);
+    collect_metadata(
+        &ast,
+        &mut categories,
+        &mut redirect,
+        &mut all_media,
+        &mut sections,
+        true,
+    );
 
     // Collect unique includes for fetching (only Include elements need content fetching)
     // This also serves as references from the main document (before substitution overwrites content)
@@ -62,8 +93,11 @@ pub async fn preprocess_sevenmark(
     collect_includes(&ast, &mut includes_to_fetch);
 
     if !includes_to_fetch.is_empty() {
-        // Prepare batch fetch requests
-        let requests: Vec<_> = includes_to_fetch.iter().cloned().collect();
+        // Prepare batch fetch requests (convert DocumentReference to tuple for API)
+        let requests: Vec<_> = includes_to_fetch
+            .iter()
+            .map(|r| (r.namespace.clone(), r.title.clone()))
+            .collect();
 
         debug!("Fetching {} unique documents", requests.len());
 
@@ -95,6 +129,7 @@ pub async fn preprocess_sevenmark(
         categories,
         redirect,
         references: all_references,
+        sections,
     })
 }
 
@@ -137,16 +172,29 @@ fn collect_metadata(
     categories: &mut HashSet<String>,
     redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
+    sections: &mut Vec<SectionInfo>,
     collect_categories_redirect: bool,
 ) {
+    let mut section_stack: Vec<SectionInfo> = Vec::new();
+    let mut max_end: usize = 0;
+
     for element in elements {
         collect_metadata_recursive(
             element,
             categories,
             redirect,
             media,
+            sections,
+            &mut section_stack,
+            &mut max_end,
             collect_categories_redirect,
         );
+    }
+
+    // Remaining headers in stack end at document end
+    for mut section in section_stack {
+        section.end = max_end;
+        sections.push(section);
     }
 }
 
@@ -155,9 +203,41 @@ fn collect_metadata_recursive(
     categories: &mut HashSet<String>,
     redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
+    sections: &mut Vec<SectionInfo>,
+    section_stack: &mut Vec<SectionInfo>,
+    max_end: &mut usize,
     collect_categories_redirect: bool,
 ) {
+    // Track max location.end for document length
+    if let Some(loc) = element.location() {
+        if loc.end > *max_end {
+            *max_end = loc.end;
+        }
+    }
+
     match element {
+        SevenMarkElement::Header(header) => {
+            let start = header.location.start;
+            let level = header.level;
+
+            // Pop headers with level >= current (same or lower priority)
+            while let Some(mut section) = section_stack.pop() {
+                if section.level >= level {
+                    section.end = start;
+                    sections.push(section);
+                } else {
+                    section_stack.push(section);
+                    break;
+                }
+            }
+
+            section_stack.push(SectionInfo {
+                section_index: header.section_index,
+                level,
+                start,
+                end: 0,
+            });
+        }
         SevenMarkElement::MediaElement(m) => {
             // Collect #file parameter
             if let Some(file_param) = m.parameters.get("file") {
@@ -220,6 +300,9 @@ fn collect_metadata_recursive(
             categories,
             redirect,
             media,
+            sections,
+            section_stack,
+            max_end,
             collect_categories_redirect,
         );
     });
@@ -227,7 +310,7 @@ fn collect_metadata_recursive(
 
 fn collect_includes(
     elements: &[SevenMarkElement],
-    includes: &mut HashSet<(DocumentNamespace, String)>,
+    includes: &mut HashSet<DocumentReference>,
 ) {
     for element in elements {
         collect_includes_recursive(element, includes);
@@ -236,7 +319,7 @@ fn collect_includes(
 
 fn collect_includes_recursive(
     element: &SevenMarkElement,
-    includes: &mut HashSet<(DocumentNamespace, String)>,
+    includes: &mut HashSet<DocumentReference>,
 ) {
     if let SevenMarkElement::Include(inc) = element {
         let title = extract_plain_text(&inc.content);
@@ -248,7 +331,7 @@ fn collect_includes_recursive(
                 .filter(|s| !s.is_empty())
                 .unwrap_or_else(|| "Document".to_string());
             let namespace = parse_namespace(&namespace_str);
-            includes.insert((namespace, title));
+            includes.insert(DocumentReference { namespace, title });
         }
     }
 
@@ -261,7 +344,7 @@ fn collect_includes_recursive(
 /// This should be called after substitute_includes() to capture references from included documents
 fn collect_references(
     elements: &[SevenMarkElement],
-    references: &mut HashSet<(DocumentNamespace, String)>,
+    references: &mut HashSet<DocumentReference>,
 ) {
     for element in elements {
         collect_references_recursive(element, references);
@@ -270,14 +353,17 @@ fn collect_references(
 
 fn collect_references_recursive(
     element: &SevenMarkElement,
-    references: &mut HashSet<(DocumentNamespace, String)>,
+    references: &mut HashSet<DocumentReference>,
 ) {
     match element {
         // {{{#category}}} 요소
         SevenMarkElement::Category(cat) => {
             let name = extract_plain_text(&cat.content);
             if !name.is_empty() {
-                references.insert((DocumentNamespace::Category, name));
+                references.insert(DocumentReference {
+                    namespace: DocumentNamespace::Category,
+                    title: name,
+                });
             }
         }
         // MediaElement의 file/document/category 파라미터
@@ -285,19 +371,28 @@ fn collect_references_recursive(
             if let Some(file_param) = m.parameters.get("file") {
                 let title = extract_plain_text(&file_param.value);
                 if !title.is_empty() {
-                    references.insert((DocumentNamespace::File, title));
+                    references.insert(DocumentReference {
+                        namespace: DocumentNamespace::File,
+                        title,
+                    });
                 }
             }
             if let Some(doc_param) = m.parameters.get("document") {
                 let title = extract_plain_text(&doc_param.value);
                 if !title.is_empty() {
-                    references.insert((DocumentNamespace::Document, title));
+                    references.insert(DocumentReference {
+                        namespace: DocumentNamespace::Document,
+                        title,
+                    });
                 }
             }
             if let Some(cat_param) = m.parameters.get("category") {
                 let title = extract_plain_text(&cat_param.value);
                 if !title.is_empty() {
-                    references.insert((DocumentNamespace::Category, title));
+                    references.insert(DocumentReference {
+                        namespace: DocumentNamespace::Category,
+                        title,
+                    });
                 }
             }
         }
@@ -351,14 +446,16 @@ fn substitute_includes_recursive(
                 // Substitute variables (include parameters have priority)
                 substitute_variables(&mut included_ast, &mut params_map);
 
-                // Collect media from included document
+                // Collect media from included document (sections ignored for includes)
                 let mut categories = HashSet::new();
                 let mut redirect = None;
+                let mut ignored_sections = Vec::new();
                 collect_metadata(
                     &included_ast,
                     &mut categories,
                     &mut redirect,
                     all_media,
+                    &mut ignored_sections,
                     false,
                 );
 

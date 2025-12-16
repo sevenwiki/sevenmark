@@ -5,6 +5,28 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.18] - 2025-12-17
+
+### Added
+- **Section Range Information**: `PreProcessedDocument` and `ProcessedDocument` now include `sections` field
+  - `SectionInfo` struct with `section_index`, `level`, `start`, `end` (byte offsets)
+  - Calculated during `collect_metadata` traversal (O(n) stack-based algorithm)
+  - Frontend can directly use section ranges without AST traversal
+  - Useful for section editing, TOC generation, scroll sync
+
+- **`SevenMarkElement::location()` Method**: Added location accessor to enum
+  - Returns `Option<&Location>` for elements with location data
+  - `None` for location-less elements (Null, FootNote, TimeNow, NewLine, HLine)
+
+- **`DocumentReference` Struct**: New struct for document references
+  - Replaces `(DocumentNamespace, String)` tuple in `references` field
+  - Consistent with `MediaReference`, `RedirectReference` pattern
+  - Fields: `namespace: DocumentNamespace`, `title: String`
+
+### Changed
+- **`references` Field Type**: `HashSet<(DocumentNamespace, String)>` → `HashSet<DocumentReference>`
+  - Improved type consistency across document/media/redirect references
+
 ## [2.7.16] - 2025-12-16
 
 ### Added

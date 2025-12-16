@@ -1,5 +1,5 @@
 use crate::PreProcessedDocument;
-use crate::preprocessor::RedirectReference;
+use crate::preprocessor::{DocumentReference, RedirectReference, SectionInfo};
 use crate::utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, check_documents_exist};
 use anyhow::Result;
@@ -15,9 +15,10 @@ use utoipa::ToSchema;
 pub struct ProcessedDocument {
     pub categories: HashSet<String>,
     pub redirect: Option<RedirectReference>,
-    pub references: HashSet<(DocumentNamespace, String)>,
+    pub references: HashSet<DocumentReference>,
     #[schema(value_type = Vec<Object>)]
     pub ast: Vec<SevenMarkElement>,
+    pub sections: Vec<SectionInfo>,
 }
 
 /// Processes document with media resolution
@@ -34,6 +35,7 @@ pub async fn postprocess_sevenmark(
             redirect: preprocessed.redirect,
             references: preprocessed.references,
             ast,
+            sections: preprocessed.sections,
         });
     }
 
@@ -100,6 +102,7 @@ pub async fn postprocess_sevenmark(
         redirect: preprocessed.redirect,
         references: preprocessed.references,
         ast,
+        sections: preprocessed.sections,
     })
 }
 

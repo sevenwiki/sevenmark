@@ -78,3 +78,42 @@ pub enum SevenMarkElement {
     // Conditional
     IfElement(IfElement),
 }
+
+impl SevenMarkElement {
+    /// Returns the location of the element, if available
+    pub fn location(&self) -> Option<&Location> {
+        match self {
+            Self::Text(e) => Some(&e.location),
+            Self::Comment(e) => Some(&e.location),
+            Self::Escape(e) => Some(&e.location),
+            Self::Error(e) => Some(&e.location),
+            Self::LiteralElement(e) => Some(&e.location),
+            Self::DefineElement(e) => Some(&e.location),
+            Self::StyledElement(e) => Some(&e.location),
+            Self::TableElement(e) => Some(&e.location),
+            Self::ListElement(e) => Some(&e.location),
+            Self::FoldElement(e) => Some(&e.location),
+            Self::BlockQuoteElement(e) => Some(&e.location),
+            Self::RubyElement(e) => Some(&e.location),
+            Self::FootnoteElement(e) => Some(&e.location),
+            Self::CodeElement(e) => Some(&e.location),
+            Self::TeXElement(e) => Some(&e.location),
+            Self::Include(e) => Some(&e.location),
+            Self::Category(e) => Some(&e.location),
+            Self::Redirect(e) => Some(&e.location),
+            Self::MediaElement(e) => Some(&e.location),
+            Self::Age(e) => Some(&e.location),
+            Self::Variable(e) => Some(&e.location),
+            Self::Bold(e) => Some(&e.location),
+            Self::Italic(e) => Some(&e.location),
+            Self::Strikethrough(e) => Some(&e.location),
+            Self::Underline(e) => Some(&e.location),
+            Self::Superscript(e) => Some(&e.location),
+            Self::Subscript(e) => Some(&e.location),
+            Self::Header(e) => Some(&e.location),
+            Self::IfElement(e) => Some(&e.location),
+            // Elements without location
+            Self::Null | Self::FootNote | Self::TimeNow | Self::NewLine | Self::HLine => None,
+        }
+    }
+}
