@@ -164,6 +164,7 @@ pub struct TeXElement {
 pub struct FootnoteElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub location: Location,
+    pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }
 

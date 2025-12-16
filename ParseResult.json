@@ -1,16 +1,107 @@
 [
   {
-    "Bold": {
+    "FootnoteElement": {
+      "parameters": {
+        "display": {
+          "key": "display",
+          "value": [
+            {
+              "Text": {
+                "content": "*"
+              }
+            }
+          ]
+        },
+        "id": {
+          "key": "id",
+          "value": [
+            {
+              "Text": {
+                "content": "note1"
+              }
+            }
+          ]
+        }
+      },
       "content": [
         {
-          "Italic": {
-            "content": [
-              {
-                "Text": {
-                  "content": "ss"
-                }
+          "Text": {
+            "content": "This is a footnote with parameters"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "FootnoteElement": {
+      "parameters": {},
+      "content": [
+        {
+          "Text": {
+            "content": "No parameters footnote"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "FootnoteElement": {
+      "parameters": {
+        "display": {
+          "key": "display",
+          "value": [
+            {
+              "Text": {
+                "content": "†"
               }
-            ]
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "Text": {
+            "content": "Another one"
           }
         }
       ]
