@@ -1,7 +1,8 @@
+use crate::config::server_config::ServerConfig;
 use crate::errors::errors::Errors;
 use crate::state::AppState;
-use axum::extract::State;
 use axum::Json;
+use axum::extract::State;
 use serde::{Deserialize, Serialize};
 use sevenmark_html::render_document;
 use sevenmark_parser::core::parse_document;
@@ -14,8 +15,8 @@ use utoipa::ToSchema;
 pub struct RenderDocumentRequest {
     /// Raw SevenMark content to render
     pub content: String,
-    /// Edit URL prefix for section edit links (e.g., "/edit/DocumentTitle")
-    pub edit_url: String,
+    /// Document title for generating edit links
+    pub document_title: String,
 }
 
 #[derive(Debug, Clone, Serialize, ToSchema)]
@@ -57,8 +58,15 @@ pub async fn render_endpoint(
         .await
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
 
+    // Construct edit URL from frontend URL and document title
+    let edit_url = format!(
+        "{}/edit/{}",
+        ServerConfig::get().frontend_url,
+        payload.document_title
+    );
+
     // Render to HTML
-    let html = render_document(&processed.ast, &payload.edit_url);
+    let html = render_document(&processed.ast, &edit_url);
 
     Ok(Json(RenderedDocument {
         html,
