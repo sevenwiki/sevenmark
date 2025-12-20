@@ -14,7 +14,6 @@ pub mod brace_style;
 pub mod brace_table;
 pub mod brace_tex;
 mod category;
-mod code;
 mod fold;
 mod include;
 mod list;

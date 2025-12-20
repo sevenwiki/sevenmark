@@ -8,8 +8,8 @@ fn main() {
     ];
 
     for category in categories {
-        let input_dir = format!("../tc/{}/input", category);
-        let expected_dir = format!("../tc/{}/expected", category);
+        let input_dir = format!("tc/{}/input", category);
+        let expected_dir = format!("tc/{}/expected", category);
 
         // Create expected directory if it doesn't exist
         if !Path::new(&expected_dir).exists() {

@@ -4,154 +4,34 @@
   "references": [],
   "ast": [
     {
-      "Header": {
+      "CodeElement": {
         "location": {
           "start": 0,
-          "end": 8
+          "end": 70
         },
-        "level": 1,
-        "is_folded": false,
-        "section_index": 1,
-        "content": [
-          {
-            "Text": {
-              "location": {
-                "start": 2,
-                "end": 7
-              },
-              "content": "some\r"
-            }
+        "parameters": {
+          "lang": {
+            "location": {
+              "start": 8,
+              "end": 22
+            },
+            "key": "lang",
+            "value": [
+              {
+                "Text": {
+                  "location": {
+                    "start": 16,
+                    "end": 20
+                  },
+                  "content": "rust"
+                }
+              }
+            ]
           }
-        ]
-      }
-    },
-    {
-      "Text": {
-        "location": {
-          "start": 8,
-          "end": 13
         },
-        "content": "what\r"
-      }
-    },
-    {
-      "Text": {
-        "location": {
-          "start": 13,
-          "end": 14
-        },
-        "content": "\n"
-      }
-    },
-    {
-      "Header": {
-        "location": {
-          "start": 14,
-          "end": 25
-        },
-        "level": 2,
-        "is_folded": false,
-        "section_index": 2,
-        "content": [
-          {
-            "Text": {
-              "location": {
-                "start": 17,
-                "end": 24
-              },
-              "content": "some 2\r"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "Text": {
-        "location": {
-          "start": 25,
-          "end": 30
-        },
-        "content": "what\r"
-      }
-    },
-    {
-      "Text": {
-        "location": {
-          "start": 30,
-          "end": 31
-        },
-        "content": "\n"
-      }
-    },
-    {
-      "Header": {
-        "location": {
-          "start": 31,
-          "end": 44
-        },
-        "level": 2,
-        "is_folded": false,
-        "section_index": 3,
-        "content": [
-          {
-            "Text": {
-              "location": {
-                "start": 34,
-                "end": 43
-              },
-              "content": "some 2.1\r"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "Header": {
-        "location": {
-          "start": 44,
-          "end": 54
-        },
-        "level": 3,
-        "is_folded": false,
-        "section_index": 4,
-        "content": [
-          {
-            "Text": {
-              "location": {
-                "start": 48,
-                "end": 54
-              },
-              "content": "some 3"
-            }
-          }
-        ]
+        "content": "fn main() {\n    println!(\"Hello, world!\");\n}\n"
       }
     }
   ],
-  "sections": [
-    {
-      "section_index": 2,
-      "level": 2,
-      "start": 14,
-      "end": 31
-    },
-    {
-      "section_index": 1,
-      "level": 1,
-      "start": 0,
-      "end": 54
-    },
-    {
-      "section_index": 3,
-      "level": 2,
-      "start": 31,
-      "end": 54
-    },
-    {
-      "section_index": 4,
-      "level": 3,
-      "start": 44,
-      "end": 54
-    }
-  ]
+  "sections": []
 }

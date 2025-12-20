@@ -35,6 +35,7 @@ pub struct ParseContext {
     pub line_starts: Rc<HashSet<usize>>,
     pub max_recursion_depth: usize,
     pub section_counter: usize,
+    pub footnote_counter: usize,
 }
 
 impl ParseContext {
@@ -54,6 +55,7 @@ impl ParseContext {
             line_starts: Rc::new(HashSet::new()),
             max_recursion_depth: 16,
             section_counter: 1,
+            footnote_counter: 1,
         }
     }
 
@@ -107,6 +109,13 @@ impl ParseContext {
     pub fn next_section_index(&mut self) -> usize {
         let idx = self.section_counter;
         self.section_counter += 1;
+        idx
+    }
+
+    /// 다음 각주 인덱스 반환 및 카운터 증가
+    pub fn next_footnote_index(&mut self) -> usize {
+        let idx = self.footnote_counter;
+        self.footnote_counter += 1;
         idx
     }
 

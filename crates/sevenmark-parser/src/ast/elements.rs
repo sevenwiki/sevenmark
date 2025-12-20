@@ -148,7 +148,7 @@ pub struct CodeElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub location: Location,
     pub parameters: Parameters,
-    pub content: Vec<SevenMarkElement>,
+    pub content: String,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -164,6 +164,8 @@ pub struct TeXElement {
 pub struct FootnoteElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub location: Location,
+    /// Footnote index (1-based, assigned during parsing)
+    pub footnote_index: usize,
     pub parameters: Parameters,
     pub content: Vec<SevenMarkElement>,
 }

@@ -79,9 +79,6 @@ impl Traversable for SevenMarkElement {
                 }
             }
             SevenMarkElement::CodeElement(e) => {
-                for child in &mut e.content {
-                    visitor(child);
-                }
                 for param in e.parameters.values_mut() {
                     for child in &mut param.value {
                         visitor(child);
@@ -238,6 +235,7 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Age(_)
             | SevenMarkElement::Variable(_)
             | SevenMarkElement::TeXElement(_)
+            | SevenMarkElement::CodeElement(_)
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote
             | SevenMarkElement::TimeNow
@@ -254,7 +252,6 @@ impl Traversable for SevenMarkElement {
             SevenMarkElement::StyledElement(e) => f(&mut e.content),
             SevenMarkElement::BlockQuoteElement(e) => f(&mut e.content),
             SevenMarkElement::RubyElement(e) => f(&mut e.content),
-            SevenMarkElement::CodeElement(e) => f(&mut e.content),
             SevenMarkElement::Include(e) => f(&mut e.content),
             SevenMarkElement::MediaElement(e) => f(&mut e.content),
             SevenMarkElement::IfElement(e) => f(&mut e.content),
@@ -373,9 +370,6 @@ impl Traversable for SevenMarkElement {
                 }
             }
             SevenMarkElement::CodeElement(e) => {
-                for child in &e.content {
-                    visitor(child);
-                }
                 for param in e.parameters.values() {
                     for child in &param.value {
                         visitor(child);

@@ -25,53 +25,7 @@
           ]
         }
       },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 22,
-              "end": 32
-            },
-            "content": "fn main() "
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 32,
-              "end": 33
-            },
-            "content": "{"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 33,
-              "end": 65
-            },
-            "content": "\n    println!(\"Hello, world!\");\n"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 65,
-              "end": 66
-            },
-            "content": "}"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 66,
-              "end": 67
-            },
-            "content": "\n"
-          }
-        }
-      ]
+      "content": "fn main() {\n    println!(\"Hello, world!\");\n}\n"
     }
   }
 ]

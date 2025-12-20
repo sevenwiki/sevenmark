@@ -5,6 +5,52 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-12-20
+
+### Added
+- **New `sevenmark-html` Crate**: Server-side semantic HTML renderer using maud
+  - Transforms SevenMark AST to nested HTML structure for SEO and SSR
+  - Section tree building with O(N) algorithm for hierarchical document structure
+  - Nested `<section>` elements enable cascading fold behavior (child sections hidden when parent folds)
+  - Section path calculation (1, 1.1, 1.1.1, 1.2, 2...) for hierarchical navigation
+  - Edit links with section index for section-based editing (`/edit/doc?section=3`)
+  - CSS class constants (`sm-*` prefix) for frontend styling
+  - Footnote collection and rendering with hover tooltips
+
+- **Section Tree Structure**: Hierarchical document organization
+  - `Section` struct: header, section_path, content, children
+  - `SectionTree` struct: preamble (content before first header), sections
+  - `build_section_tree()` converts flat AST to nested tree in single pass
+  - Headers with higher level numbers become children (H2 is child of H1)
+
+- **Header Rendering**: Enhanced header output structure
+  - `<span class="sm-section-path">1.1.</span>` - Section number
+  - `<span class="sm-header-content">Title</span>` - Header text
+  - `<a class="sm-edit-link" href="/edit/doc?section=N">[Edit]</a>` - Edit link
+  - `id="s-1.1"` uses section_path, `data-section="N"` uses section_index
+
+- **Module Structure**: Organized render modules
+  - `render/document.rs` - Document-level rendering with section tree
+  - `render/element.rs` - Element dispatch and rendering
+  - `render/markdown/` - Text formatting (bold, italic, header, etc.)
+  - `render/brace/` - Brace elements (code, table, list, footnote, etc.)
+  - `render/bracket/` - Media elements
+  - `render/macro/` - Macros (newline, hline, timenow, age, footnote list)
+  - `section.rs` - Section tree data structures and builder
+
+## [2.7.19] - 2025-12-20
+
+### Changed
+- **`CodeElement.content` Type**: `Vec<SevenMarkElement>` → `String`
+  - Code block content is now stored as raw string, similar to `TeXElement`
+  - Simplified parsing using `take_until("}}}")` instead of complex token-based parsing
+  - Removed escape sequence processing inside code blocks
+  - Deleted `parser/brace/code/` directory (code_content.rs, code_text.rs)
+
+### Fixed
+- **Test Expected File Generation**: Fixed path in `gen_expected.rs` and `gen_monaco_expected.rs`
+  - Changed `../tc/` to `tc/` for correct path resolution from project root
+
 ## [2.7.18] - 2025-12-17
 
 ### Added

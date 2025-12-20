@@ -1,0 +1,43 @@
+//! Header rendering
+
+use maud::{Markup, html};
+use sevenmark_parser::ast::Header;
+
+use crate::classes;
+use crate::context::RenderContext;
+use crate::render::render_elements;
+
+/// Render header with section path and edit link
+pub fn render_with_path(
+    h: &Header,
+    section_path: &str,
+    edit_url: &str,
+    ctx: &mut RenderContext,
+) -> Markup {
+    let content = render_elements(&h.content, ctx);
+    let id = format!("{}{}", classes::SECTION_ID_PREFIX, section_path);
+    let edit_href = format!("{}?section={}", edit_url, h.section_index);
+    let class = match h.level {
+        1 => classes::HEADER_1,
+        2 => classes::HEADER_2,
+        3 => classes::HEADER_3,
+        4 => classes::HEADER_4,
+        5 => classes::HEADER_5,
+        _ => classes::HEADER_6,
+    };
+
+    let inner = html! {
+        span class=(classes::SECTION_PATH) { (section_path) "." }
+        span class=(classes::HEADER_CONTENT) { (content) }
+        a href=(edit_href) class=(classes::EDIT_LINK) { "[Edit]" }
+    };
+
+    match h.level {
+        1 => html! { h1 id=(id) class=(class) { (inner) } },
+        2 => html! { h2 id=(id) class=(class) { (inner) } },
+        3 => html! { h3 id=(id) class=(class) { (inner) } },
+        4 => html! { h4 id=(id) class=(class) { (inner) } },
+        5 => html! { h5 id=(id) class=(class) { (inner) } },
+        _ => html! { h6 id=(id) class=(class) { (inner) } },
+    }
+}

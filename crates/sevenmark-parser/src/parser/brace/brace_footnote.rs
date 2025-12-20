@@ -33,8 +33,11 @@ pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<SevenMark
     .parse_next(parser_input)?;
     let end = parser_input.input.previous_token_end();
 
+    let footnote_index = parser_input.state.next_footnote_index();
+
     Ok(SevenMarkElement::FootnoteElement(FootnoteElement {
         location: Location { start, end },
+        footnote_index,
         parameters: parameters.unwrap_or_default(),
         content: parsed_content,
     }))

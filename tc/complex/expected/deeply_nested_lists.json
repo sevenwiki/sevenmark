@@ -276,53 +276,7 @@
                                 ]
                               }
                             },
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 261,
-                                    "end": 271
-                                  },
-                                  "content": "fn main() "
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 271,
-                                    "end": 272
-                                  },
-                                  "content": "{"
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 272,
-                                    "end": 292
-                                  },
-                                  "content": " println!(\"Deep!\"); "
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 292,
-                                    "end": 293
-                                  },
-                                  "content": "}"
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 293,
-                                    "end": 294
-                                  },
-                                  "content": " "
-                                }
-                              }
-                            ]
+                            "content": "fn main() { println!(\"Deep!\"); } "
                           }
                         }
                       ]

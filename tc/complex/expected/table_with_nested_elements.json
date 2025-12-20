@@ -161,17 +161,7 @@
                             ]
                           }
                         },
-                        "content": [
-                          {
-                            "Text": {
-                              "location": {
-                                "start": 141,
-                                "end": 162
-                              },
-                              "content": "print(\"nested code\") "
-                            }
-                          }
-                        ]
+                        "content": "print(\"nested code\") "
                       }
                     }
                   ]

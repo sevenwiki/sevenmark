@@ -386,53 +386,7 @@
           ]
         }
       },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 451,
-              "end": 501
-            },
-            "content": "console.log(\"Styled code block\");\nfunction test() "
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 501,
-              "end": 502
-            },
-            "content": "{"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 502,
-              "end": 514
-            },
-            "content": " return 42; "
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 514,
-              "end": 515
-            },
-            "content": "}"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 515,
-              "end": 516
-            },
-            "content": "\n"
-          }
-        }
-      ]
+      "content": "console.log(\"Styled code block\");\nfunction test() { return 42; }\n"
     }
   }
 ]

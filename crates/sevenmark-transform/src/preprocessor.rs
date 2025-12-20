@@ -308,10 +308,7 @@ fn collect_metadata_recursive(
     });
 }
 
-fn collect_includes(
-    elements: &[SevenMarkElement],
-    includes: &mut HashSet<DocumentReference>,
-) {
+fn collect_includes(elements: &[SevenMarkElement], includes: &mut HashSet<DocumentReference>) {
     for element in elements {
         collect_includes_recursive(element, includes);
     }
@@ -342,10 +339,7 @@ fn collect_includes_recursive(
 
 /// Collect all document references from AST
 /// This should be called after substitute_includes() to capture references from included documents
-fn collect_references(
-    elements: &[SevenMarkElement],
-    references: &mut HashSet<DocumentReference>,
-) {
+fn collect_references(elements: &[SevenMarkElement], references: &mut HashSet<DocumentReference>) {
     for element in elements {
         collect_references_recursive(element, references);
     }

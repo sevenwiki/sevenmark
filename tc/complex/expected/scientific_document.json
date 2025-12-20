@@ -1238,53 +1238,7 @@
           ]
         }
       },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1462,
-              "end": 1710
-            },
-            "content": "# Simple energy calculation\ndef mass_energy_equiv(mass_kg):\n    \"\"\"Calculate energy from mass using E=mc²\"\"\"\n    c = 299792458  # m/s\n    energy_joules = mass_kg * c**2\n    return energy_joules\n\n# Example: 1 gram of matter\nprint(f\"Energy from 1g: "
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1710,
-              "end": 1711
-            },
-            "content": "{"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1711,
-              "end": 1739
-            },
-            "content": "mass_energy_equiv(0.001):.2e"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1739,
-              "end": 1740
-            },
-            "content": "}"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1740,
-              "end": 1750
-            },
-            "content": " Joules\")\n"
-          }
-        }
-      ]
+      "content": "# Simple energy calculation\ndef mass_energy_equiv(mass_kg):\n    \"\"\"Calculate energy from mass using E=mc²\"\"\"\n    c = 299792458  # m/s\n    energy_joules = mass_kg * c**2\n    return energy_joules\n\n# Example: 1 gram of matter\nprint(f\"Energy from 1g: {mass_energy_equiv(0.001):.2e} Joules\")\n"
     }
   },
   {
