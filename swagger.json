@@ -11,10 +11,10 @@
       "name": "Apache-2.0",
       "identifier": "Apache-2.0"
     },
-    "version": "2.5.7"
+    "version": "2.8.1"
   },
   "paths": {
-    "/v0/health_check": {
+    "/health-check": {
       "get": {
         "tags": [
           "Health"
@@ -30,17 +30,17 @@
         }
       }
     },
-    "/v0/parse": {
+    "/v0/render": {
       "post": {
         "tags": [
-          "Parse"
+          "Render"
         ],
-        "operationId": "parse_endpoint",
+        "operationId": "render_endpoint",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ParseDocumentRequest"
+                "$ref": "#/components/schemas/RenderDocumentRequest"
               }
             }
           },
@@ -48,11 +48,11 @@
         },
         "responses": {
           "200": {
-            "description": "Document parsed successfully",
+            "description": "Document rendered successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProcessedDocument"
+                  "$ref": "#/components/schemas/RenderedDocument"
                 }
               }
             }
@@ -92,66 +92,96 @@
           }
         }
       },
-      "ParseDocumentRequest": {
+      "RenderDocumentRequest": {
         "type": "object",
         "required": [
-          "content"
+          "content",
+          "edit_url"
         ],
         "properties": {
           "content": {
-            "type": "string"
+            "type": "string",
+            "description": "Raw SevenMark content to render"
+          },
+          "edit_url": {
+            "type": "string",
+            "description": "Edit URL prefix for section edit links (e.g., \"/edit/DocumentTitle\")"
           }
         }
       },
-      "ProcessedDocument": {
+      "RenderedDocument": {
         "type": "object",
-        "description": "Final result after media resolution",
         "required": [
+          "html",
           "categories",
-          "includes",
-          "ast"
+          "references",
+          "sections"
         ],
         "properties": {
-          "ast": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
           "categories": {
             "type": "array",
             "items": {
               "type": "string"
             },
+            "description": "Document categories",
             "uniqueItems": true
           },
-          "includes": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": false,
-              "prefixItems": [
-                {
-                  "type": "string",
-                  "description": "문서 namespace (백엔드 API 스펙 & DB enum)",
-                  "enum": [
-                    "Document",
-                    "File",
-                    "Category"
-                  ]
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "uniqueItems": true
+          "html": {
+            "type": "string",
+            "description": "Rendered HTML content"
           },
           "redirect": {
             "type": [
-              "string",
+              "object",
               "null"
-            ]
+            ],
+            "description": "Redirect target if this is a redirect page"
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Referenced documents (for backlinks)"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SectionInfo"
+            },
+            "description": "Section information with byte offsets for section editing"
+          }
+        }
+      },
+      "SectionInfo": {
+        "type": "object",
+        "description": "Section range information for frontend consumption",
+        "required": [
+          "section_index",
+          "level",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "end": {
+            "type": "integer",
+            "description": "Section end byte offset (next same/higher level header or document end)",
+            "minimum": 0
+          },
+          "level": {
+            "type": "integer",
+            "description": "Header level (1-6)",
+            "minimum": 0
+          },
+          "section_index": {
+            "type": "integer",
+            "description": "Section index (same as Header's section_index)",
+            "minimum": 0
+          },
+          "start": {
+            "type": "integer",
+            "description": "Section start byte offset (header start position)",
+            "minimum": 0
           }
         }
       }
@@ -163,8 +193,8 @@
       "description": "Health endpoints"
     },
     {
-      "name": "Parse",
-      "description": "Document parsing endpoints"
+      "name": "Render",
+      "description": "Document rendering endpoints"
     }
   ]
 }

@@ -5,6 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2025-12-20
+
+### Changed
+- **Server API Endpoint**: Renamed `/v0/parse` to `/v0/render`
+  - Now returns rendered HTML instead of raw AST
+  - `RenderDocumentRequest`: `content` (SevenMark source) + `edit_url` (edit link prefix)
+  - `RenderedDocument`: `html`, `categories`, `redirect`, `references`, `sections`
+  - `sections` field contains `SectionInfo` with byte offsets for section editing
+
+### Added
+- **sevenmark-html Integration**: Server now uses sevenmark-html for rendering
+  - Added `sevenmark-html` dependency to `sevenmark-server`
+  - Full pipeline: parse → preprocess → postprocess → render to HTML
+
 ## [2.8.0] - 2025-12-20
 
 ### Added
