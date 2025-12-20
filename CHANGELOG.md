@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2] - 2025-12-20
+
+### Changed
+- **sevenmark-html Optimization**: Reduced unnecessary allocations
+  - `RenderContext::add_footnote()` returns `&str` instead of `String` (avoids clone)
+  - `render_document()` defers footnote list rendering until needed
+
+### Fixed
+- **sevenmark-transform**: Collapsed nested if statement per clippy suggestion
+
 ## [2.8.1] - 2025-12-20
 
 ### Changed

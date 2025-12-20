@@ -17,12 +17,11 @@ pub fn render_document(ast: &[SevenMarkElement], edit_url: &str) -> String {
     let tree = build_section_tree(ast);
     let mut ctx = RenderContext::new();
     let content = render_section_tree(&tree, edit_url, &mut ctx);
-    let footnotes = brace::footnote::render_list(&ctx);
 
     let markup = html! {
         (content)
         @if !ctx.footnotes.is_empty() {
-            (footnotes)
+            (brace::footnote::render_list(&ctx))
         }
     };
 

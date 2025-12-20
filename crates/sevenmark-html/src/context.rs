@@ -30,22 +30,23 @@ impl RenderContext {
         }
     }
 
-    /// Adds a footnote entry
+    /// Adds a footnote entry and returns reference to the display text
     pub fn add_footnote(
         &mut self,
         index: usize,
         display: Option<String>,
         content: Vec<SevenMarkElement>,
-    ) -> String {
+    ) -> &str {
         let display = display.unwrap_or_else(|| index.to_string());
 
         self.footnotes.push(FootnoteEntry {
             index,
-            display: display.clone(),
+            display,
             content,
         });
 
-        display
+        // Return reference to the display we just pushed
+        &self.footnotes.last().unwrap().display
     }
 }
 

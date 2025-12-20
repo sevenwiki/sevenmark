@@ -209,10 +209,10 @@ fn collect_metadata_recursive(
     collect_categories_redirect: bool,
 ) {
     // Track max location.end for document length
-    if let Some(loc) = element.location() {
-        if loc.end > *max_end {
-            *max_end = loc.end;
-        }
+    if let Some(loc) = element.location()
+        && loc.end > *max_end
+    {
+        *max_end = loc.end;
     }
 
     match element {

@@ -20,3 +20,12 @@ fn main() {
     println!("Hello, world!");
 }
 }}}
+
+{{{#tex
+\det(\mathbf{M}) = \begin{vmatrix}
+\int_{-\infty}^{\infty} e^{-x^2} dx & \frac{\partial^2 \Omega}{\partial x \partial y} & \sum_{n=0}^{\infty} \frac{x^n}{n!} & \sqrt[3]{ \frac{\alpha + \beta}{\gamma} } \\
+\lim_{h \to 0} \frac{f(x+h)-f(x)}{h} & \oint_{C} \vec{F} \cdot d\vec{r} & \prod_{i=1}^{k} (z - \lambda_i) & \frac{-b \pm \sqrt{b^2-4ac}}{2a} \\
+\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0} & \mathbb{E}[X|Y] & \binom{n}{k} p^k q^{n-k} & e^{i\pi} + 1 \\
+\mathcal{L}^{-1}\{ F(s) \} & \frac{\hbar^2}{2m} \nabla^2 \Psi & \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} & \zeta(s)
+\end{vmatrix}
+}}}
