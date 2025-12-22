@@ -64,9 +64,7 @@ impl ByteToLineMapper {
         // Monaco Editor uses UTF-16 code units for column positions
         // See: https://github.com/microsoft/monaco-editor/issues/3134
         let line_start = self.line_starts[line];
-        let column = self.input[line_start..clamped_pos]
-            .encode_utf16()
-            .count();
+        let column = self.input[line_start..clamped_pos].encode_utf16().count();
 
         // Convert to 1-based (line is already 0-based, column is now 0-based count)
         (line + 1, column + 1)
