@@ -60,11 +60,15 @@ impl ByteToLineMapper {
                 }
             });
 
-        // Calculate column by subtracting line start from position
+        // Calculate column as UTF-16 code units count (not bytes)
+        // Monaco Editor uses UTF-16 code units for column positions
+        // See: https://github.com/microsoft/monaco-editor/issues/3134
         let line_start = self.line_starts[line];
-        let column = clamped_pos - line_start;
+        let column = self.input[line_start..clamped_pos]
+            .encode_utf16()
+            .count();
 
-        // Convert to 1-based
+        // Convert to 1-based (line is already 0-based, column is now 0-based count)
         (line + 1, column + 1)
     }
 }
