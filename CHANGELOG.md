@@ -5,6 +5,18 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.8] - 2025-12-23
+
+### Changed
+- **sevenmark-server**: `RenderDocumentRequest` now accepts `edit_url` directly instead of `document_title`
+  - Client provides complete edit URL (e.g., `/edit/Document/대문`)
+  - Server no longer constructs edit URL internally
+  - Removed `FRONTEND_URL` environment variable requirement
+
+### Removed
+- **sevenmark-server**: Removed `frontend_url` from `ServerConfig`
+  - No longer needed as client provides complete edit URL
+
 ## [2.8.6] - 2025-12-23
 
 ### Fixed

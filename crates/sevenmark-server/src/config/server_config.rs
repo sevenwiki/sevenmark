@@ -14,8 +14,6 @@ pub struct ServerConfig {
 
     pub server_host: String,
     pub server_port: String,
-
-    pub frontend_url: String,
 }
 
 // LazyLock
@@ -39,8 +37,6 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
 
         server_host: env::var("HOST").expect("HOST must be set in .env file"),
         server_port: env::var("PORT").expect("PORT must be set in .env file"),
-
-        frontend_url: env::var("FRONTEND_URL").expect("FRONTEND_URL must be set in .env file"),
     }
 });
 
