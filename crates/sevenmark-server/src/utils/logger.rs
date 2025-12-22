@@ -20,28 +20,17 @@ static TRACING_GUARD: LazyLock<Option<tracing_appender::non_blocking::WorkerGuar
 
         #[cfg(debug_assertions)]
         {
-            // 개발 환경: 콘솔 + 파일 (human-readable)
-            std::fs::create_dir_all("logs").expect("Failed to create logs directory");
-
-            let file_appender = tracing_appender::rolling::daily("logs", "app.log");
-            let (non_blocking, guard) = tracing_appender::non_blocking(file_appender);
-
+            // 개발 환경: 콘솔만 (human-readable)
             tracing_subscriber::registry()
                 .with(
                     fmt::layer()
                         .with_writer(std::io::stdout)
-                        .with_filter(env_filter.clone()),
-                )
-                .with(
-                    fmt::layer()
-                        .with_writer(non_blocking)
-                        .with_ansi(false)
                         .with_filter(env_filter),
                 )
                 .init();
 
-            info!("Tracing initialized (development mode: console + file)");
-            Some(guard)
+            info!("Tracing initialized (development mode: console only)");
+            None
         }
 
         #[cfg(not(debug_assertions))]
@@ -56,7 +45,7 @@ static TRACING_GUARD: LazyLock<Option<tracing_appender::non_blocking::WorkerGuar
                 .init();
 
             info!("Tracing initialized (production mode: JSON stdout)");
-            None // 파일 appender 없으므로 guard 필요 없음
+            None
         }
     });
 
