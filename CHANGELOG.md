@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.6] - 2025-12-23
+
+### Fixed
+- **sevenmark-transform**: Fixed column calculation for multi-byte Unicode characters
+  - Changed from byte offset difference to UTF-16 code units count
+  - Monaco Editor uses UTF-16 code units for column positions ([microsoft/monaco-editor#3134](https://github.com/microsoft/monaco-editor/issues/3134))
+  - Fixes incorrect column numbers for CJK characters (한글, 日本語, 中文) and emoji
+
 ## [2.8.2] - 2025-12-20
 
 ### Changed
