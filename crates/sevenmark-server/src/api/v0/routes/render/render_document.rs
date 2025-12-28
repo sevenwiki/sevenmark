@@ -16,6 +16,8 @@ pub struct RenderDocumentRequest {
     pub content: String,
     /// Edit URL for section edit links (e.g., "/edit/Document/대문")
     pub edit_url: String,
+    /// Base URL for file/media (e.g., Cloudflare CDN URL)
+    pub file_base_url: String,
     /// Base URL for document links (e.g., "/Document/")
     pub document_base_url: String,
     /// Base URL for category links (e.g., "/Category/")
@@ -66,6 +68,7 @@ pub async fn render_document(
     // Render to HTML
     let config = RenderConfig {
         edit_url: Some(&payload.edit_url),
+        file_base_url: Some(&payload.file_base_url),
         document_base_url: Some(&payload.document_base_url),
         category_base_url: Some(&payload.category_base_url),
     };

@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.13] - 2025-12-29
+
+### Added
+- **sevenmark-html**: Added `file_base_url` to `RenderConfig` for CDN URL prefixes
+  - File/media URLs now support base URL configuration (e.g., Cloudflare CDN)
+  - Image `src` attributes constructed as `format!("{}{}", file_base_url, file_url)`
+  - Updated all examples and server request to include `file_base_url` field
+
 ## [2.8.12] - 2025-12-28
 
 ### Changed

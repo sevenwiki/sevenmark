@@ -5,7 +5,9 @@ use crate::wiki::{DocumentNamespace, check_documents_exist};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
-use sevenmark_parser::ast::{ResolvedDoc, ResolvedFile, ResolvedMediaInfo, SevenMarkElement, Traversable};
+use sevenmark_parser::ast::{
+    ResolvedDoc, ResolvedFile, ResolvedMediaInfo, SevenMarkElement, Traversable,
+};
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
 use utoipa::ToSchema;
@@ -106,10 +108,7 @@ fn resolve_media_recursive(
             let title = extract_plain_text(&file_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::File, title);
-                let (file_url, is_valid) = resolved_map
-                    .get(&key)
-                    .cloned()
-                    .unwrap_or((None, false));
+                let (file_url, is_valid) = resolved_map.get(&key).cloned().unwrap_or((None, false));
                 resolved.file = Some(ResolvedFile {
                     url: file_url.unwrap_or_default(),
                     is_valid,

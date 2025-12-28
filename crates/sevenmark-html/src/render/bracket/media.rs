@@ -11,8 +11,14 @@ pub fn render(e: &MediaElement, ctx: &mut RenderContext) -> Markup {
     let resolved = e.resolved_info.as_ref();
     let style = utils::build_style(&e.parameters);
 
-    // 이미지 URL (file이 있으면)
-    let image_src = resolved.and_then(|r| r.file.as_ref()).map(|f| f.url.as_str());
+    // 이미지 URL (file이 있으면, file_base_url 프리픽스 적용)
+    let image_src: Option<String> = resolved.and_then(|r| r.file.as_ref()).map(|f| {
+        if let Some(base) = ctx.config.file_base_url {
+            format!("{}{}", base, f.url)
+        } else {
+            f.url.clone()
+        }
+    });
     let image_valid = resolved
         .and_then(|r| r.file.as_ref())
         .map(|f| f.is_valid)
@@ -20,7 +26,8 @@ pub fn render(e: &MediaElement, ctx: &mut RenderContext) -> Markup {
 
     // href 우선순위: url > document > category
     let href: Option<String> = resolved.and_then(|r| {
-        r.url.clone()
+        r.url
+            .clone()
             .or_else(|| {
                 r.document.as_ref().and_then(|d| {
                     ctx.config

@@ -54,4 +54,3 @@ impl<'a> RenderContext<'a> {
         &self.footnotes.last().unwrap().display
     }
 }
-

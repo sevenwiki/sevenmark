@@ -9,7 +9,7 @@
 //! use sevenmark_html::{RenderConfig, render_document};
 //!
 //! let ast = parse_document("# Hello\n\nThis is **bold** text.");
-//! let config = RenderConfig { edit_url: Some("/edit/title") };
+//! let config = RenderConfig { edit_url: Some("/edit/title"), ..Default::default() };
 //! let html = render_document(&ast, &config);
 //! ```
 
