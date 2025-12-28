@@ -11,7 +11,7 @@
       "name": "Apache-2.0",
       "identifier": "Apache-2.0"
     },
-    "version": "2.8.12"
+    "version": "2.8.13"
   },
   "paths": {
     "/health-check": {
@@ -131,12 +131,27 @@
       "RenderDiscussionRequest": {
         "type": "object",
         "required": [
-          "content"
+          "content",
+          "file_base_url",
+          "document_base_url",
+          "category_base_url"
         ],
         "properties": {
+          "category_base_url": {
+            "type": "string",
+            "description": "Base URL for category links (e.g., \"/Category/\")"
+          },
           "content": {
             "type": "string",
             "description": "Raw SevenMark content to render"
+          },
+          "document_base_url": {
+            "type": "string",
+            "description": "Base URL for document links (e.g., \"/Document/\")"
+          },
+          "file_base_url": {
+            "type": "string",
+            "description": "Base URL for file/media (e.g., Cloudflare CDN URL)"
           }
         }
       },
@@ -145,6 +160,7 @@
         "required": [
           "content",
           "edit_url",
+          "file_base_url",
           "document_base_url",
           "category_base_url"
         ],
@@ -164,6 +180,10 @@
           "edit_url": {
             "type": "string",
             "description": "Edit URL for section edit links (e.g., \"/edit/Document/대문\")"
+          },
+          "file_base_url": {
+            "type": "string",
+            "description": "Base URL for file/media (e.g., Cloudflare CDN URL)"
           }
         }
       },
