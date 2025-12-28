@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Image `src` attributes constructed as `format!("{}{}", file_base_url, file_url)`
   - Updated all examples and server request to include `file_base_url` field
 
+### Changed
+- **sevenmark-server**: `RenderDiscussionRequest` now accepts base URL configurations
+  - Added `file_base_url`, `document_base_url`, `category_base_url` fields (consistent with `render-document`)
+  - Discussion rendering no longer uses `DISCUSSION_CONFIG` const (creates config from request)
+
 ## [2.8.12] - 2025-12-28
 
 ### Changed

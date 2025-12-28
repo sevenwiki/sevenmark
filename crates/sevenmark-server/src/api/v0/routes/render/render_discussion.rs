@@ -3,7 +3,7 @@ use crate::state::AppState;
 use axum::Json;
 use axum::extract::State;
 use serde::{Deserialize, Serialize};
-use sevenmark_html::{DISCUSSION_CONFIG, render_document as render_html};
+use sevenmark_html::{RenderConfig, render_document as render_html};
 use sevenmark_parser::core::parse_document;
 use sevenmark_transform::process_sevenmark;
 use std::collections::HashSet;
@@ -13,6 +13,12 @@ use utoipa::ToSchema;
 pub struct RenderDiscussionRequest {
     /// Raw SevenMark content to render
     pub content: String,
+    /// Base URL for file/media (e.g., Cloudflare CDN URL)
+    pub file_base_url: String,
+    /// Base URL for document links (e.g., "/Document/")
+    pub document_base_url: String,
+    /// Base URL for category links (e.g., "/Category/")
+    pub category_base_url: String,
 }
 
 #[derive(Debug, Clone, Serialize, ToSchema)]
@@ -47,7 +53,13 @@ pub async fn render_discussion(
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
 
     // Render to HTML (no edit links for discussions)
-    let html = render_html(&processed.ast, &DISCUSSION_CONFIG);
+    let config = RenderConfig {
+        edit_url: None,
+        file_base_url: Some(&payload.file_base_url),
+        document_base_url: Some(&payload.document_base_url),
+        category_base_url: Some(&payload.category_base_url),
+    };
+    let html = render_html(&processed.ast, &config);
 
     Ok(Json(RenderedDiscussion {
         html,

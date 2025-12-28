@@ -14,11 +14,3 @@ pub struct RenderConfig<'a> {
     /// Base URL for category links (e.g., "/Category/")
     pub category_base_url: Option<&'a str>,
 }
-
-/// Config for discussion rendering (no edit links)
-pub const DISCUSSION_CONFIG: RenderConfig<'static> = RenderConfig {
-    edit_url: None,
-    file_base_url: None,
-    document_base_url: None,
-    category_base_url: None,
-};

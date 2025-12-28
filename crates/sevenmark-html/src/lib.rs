@@ -19,5 +19,5 @@ mod context;
 mod render;
 mod section;
 
-pub use config::{DISCUSSION_CONFIG, RenderConfig};
+pub use config::{RenderConfig};
 pub use render::{render_document, render_element, render_elements};
