@@ -118,12 +118,37 @@ pub struct MediaElement {
     pub resolved_info: Option<ResolvedMediaInfo>,
 }
 
-#[derive(Debug, Clone, Serialize)]
+/// 파일 resolve 결과 (DB에서 실제 URL을 가져옴)
+#[derive(Debug, Clone, Serialize, Default)]
+pub struct ResolvedFile {
+    pub url: String,
+    pub is_valid: bool,
+}
+
+/// 문서/카테고리 resolve 결과 (title만 저장, URL은 렌더러에서 조립)
+#[derive(Debug, Clone, Serialize, Default)]
+pub struct ResolvedDoc {
+    pub title: String,
+    pub is_valid: bool,
+}
+
+/// MediaElement resolve 결과
+/// file, document, category, url 각각 독립적으로 처리
+/// href 우선순위: url > document > category
+#[derive(Debug, Clone, Serialize, Default)]
 pub struct ResolvedMediaInfo {
-    pub resolved_url: String,
-    /// None = 외부 링크 (존재 여부 개념 없음), Some(true) = 존재, Some(false) = 미존재
+    /// #file 참조 결과 (이미지 표시용, DB에서 실제 URL)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub is_valid: Option<bool>,
+    pub file: Option<ResolvedFile>,
+    /// #document 참조 결과 (title만, URL은 렌더러에서 조립)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document: Option<ResolvedDoc>,
+    /// #category 참조 결과 (title만, URL은 렌더러에서 조립)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub category: Option<ResolvedDoc>,
+    /// #url 외부 링크
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
 }
 
 /// 폴드 내부 요소

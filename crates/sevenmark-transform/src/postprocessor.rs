@@ -5,7 +5,7 @@ use crate::wiki::{DocumentNamespace, check_documents_exist};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
-use sevenmark_parser::ast::{ResolvedMediaInfo, SevenMarkElement, Traversable};
+use sevenmark_parser::ast::{ResolvedDoc, ResolvedFile, ResolvedMediaInfo, SevenMarkElement, Traversable};
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
 use utoipa::ToSchema;
@@ -30,74 +30,49 @@ pub async fn postprocess_sevenmark(
 ) -> Result<ProcessedDocument> {
     let mut ast = preprocessed.ast;
 
-    // If no media references, return immediately
-    if preprocessed.media.is_empty() {
-        return Ok(ProcessedDocument {
-            categories: preprocessed.categories,
-            redirect: preprocessed.redirect,
-            references: preprocessed.references,
-            user_mentions: preprocessed.user_mentions,
-            ast,
-            sections: preprocessed.sections,
-        });
-    }
+    // Build resolution map from DB (only if there are media references)
+    // Key: (namespace, title), Value: (file_url if File, is_valid)
+    let resolved_map: HashMap<(DocumentNamespace, String), (Option<String>, bool)> =
+        if preprocessed.media.is_empty() {
+            HashMap::new()
+        } else {
+            // Convert MediaReference to (namespace, title) tuples for batch request
+            let requests: Vec<_> = preprocessed
+                .media
+                .into_iter()
+                .map(|m| (m.namespace, m.title))
+                .collect();
 
-    // Convert MediaReference to (namespace, title) tuples for batch request
-    let requests: Vec<_> = preprocessed
-        .media
-        .into_iter()
-        .map(|m| (m.namespace, m.title))
-        .collect();
+            debug!(
+                "Checking existence of {} unique media references",
+                requests.len()
+            );
 
-    debug!(
-        "Checking existence of {} unique media references",
-        requests.len()
-    );
+            // Check document existence (lightweight - no content fetching)
+            let existence_results = check_documents_exist(db, requests).await?;
 
-    // Check document existence (lightweight - no content fetching)
-    let existence_results = check_documents_exist(db, requests).await?;
+            let mut map = HashMap::new();
 
-    // Build resolution map from existence check results
-    let mut resolved_map: HashMap<(DocumentNamespace, String), ResolvedMediaInfo> = HashMap::new();
-
-    for result in existence_results {
-        let key = (result.namespace.clone(), result.title.clone());
-
-        let resolved = match result.namespace {
-            DocumentNamespace::File => {
-                // For files, use file_url if exists
-                if let Some(file_url) = result.file_url {
-                    ResolvedMediaInfo {
-                        resolved_url: file_url,
-                        is_valid: Some(true),
+            for result in existence_results {
+                let key = (result.namespace.clone(), result.title.clone());
+                let value = match result.namespace {
+                    DocumentNamespace::File => {
+                        // File: store file_url and validity
+                        let is_valid = result.file_url.is_some();
+                        (result.file_url, is_valid)
                     }
-                } else {
-                    ResolvedMediaInfo {
-                        resolved_url: String::new(),
-                        is_valid: Some(false),
+                    DocumentNamespace::Document | DocumentNamespace::Category => {
+                        // Document/Category: just store validity (title is in key)
+                        (None, result.exists)
                     }
-                }
+                };
+                map.insert(key, value);
             }
-            DocumentNamespace::Document => {
-                // For documents, generate /document/{title} URL
-                ResolvedMediaInfo {
-                    resolved_url: format!("/document/{}", result.title),
-                    is_valid: Some(result.exists),
-                }
-            }
-            DocumentNamespace::Category => {
-                // For categories, generate /category/{title} URL
-                ResolvedMediaInfo {
-                    resolved_url: format!("/category/{}", result.title),
-                    is_valid: Some(result.exists),
-                }
-            }
+
+            map
         };
 
-        resolved_map.insert(key, resolved);
-    }
-
-    // Traverse AST and resolve MediaElement references
+    // Always traverse AST to resolve MediaElement references (including #url)
     resolve_media_elements(&mut ast, &resolved_map);
 
     Ok(ProcessedDocument {
@@ -112,7 +87,7 @@ pub async fn postprocess_sevenmark(
 
 fn resolve_media_elements(
     elements: &mut [SevenMarkElement],
-    resolved_map: &HashMap<(DocumentNamespace, String), ResolvedMediaInfo>,
+    resolved_map: &HashMap<(DocumentNamespace, String), (Option<String>, bool)>,
 ) {
     for element in elements {
         resolve_media_recursive(element, resolved_map);
@@ -121,78 +96,68 @@ fn resolve_media_elements(
 
 fn resolve_media_recursive(
     element: &mut SevenMarkElement,
-    resolved_map: &HashMap<(DocumentNamespace, String), ResolvedMediaInfo>,
+    resolved_map: &HashMap<(DocumentNamespace, String), (Option<String>, bool)>,
 ) {
     if let SevenMarkElement::MediaElement(media) = element {
-        // Priority: file > document > category > url
+        let mut resolved = ResolvedMediaInfo::default();
 
-        // Check #file parameter
+        // Process #file parameter (이미지 표시용)
         if let Some(file_param) = media.parameters.get("file") {
             let title = extract_plain_text(&file_param.value);
             if !title.is_empty() {
-                let key = (DocumentNamespace::File, title.clone());
-                if let Some(resolved) = resolved_map.get(&key) {
-                    media.resolved_info = Some(resolved.clone());
-                    return;
-                } else {
-                    // File was in the request but not found in response
-                    media.resolved_info = Some(ResolvedMediaInfo {
-                        resolved_url: String::new(),
-                        is_valid: Some(false),
-                    });
-                    return;
-                }
+                let key = (DocumentNamespace::File, title);
+                let (file_url, is_valid) = resolved_map
+                    .get(&key)
+                    .cloned()
+                    .unwrap_or((None, false));
+                resolved.file = Some(ResolvedFile {
+                    url: file_url.unwrap_or_default(),
+                    is_valid,
+                });
             }
         }
 
-        // Check #document parameter
+        // Process #document parameter
         if let Some(doc_param) = media.parameters.get("document") {
             let title = extract_plain_text(&doc_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::Document, title.clone());
-                if let Some(resolved) = resolved_map.get(&key) {
-                    media.resolved_info = Some(resolved.clone());
-                    return;
-                } else {
-                    // Document not found
-                    media.resolved_info = Some(ResolvedMediaInfo {
-                        resolved_url: format!("/document/{}", title),
-                        is_valid: Some(false),
-                    });
-                    return;
-                }
+                let is_valid = resolved_map
+                    .get(&key)
+                    .map(|(_, valid)| *valid)
+                    .unwrap_or(false);
+                resolved.document = Some(ResolvedDoc { title, is_valid });
             }
         }
 
-        // Check #category parameter
+        // Process #category parameter
         if let Some(cat_param) = media.parameters.get("category") {
             let title = extract_plain_text(&cat_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::Category, title.clone());
-                if let Some(resolved) = resolved_map.get(&key) {
-                    media.resolved_info = Some(resolved.clone());
-                    return;
-                } else {
-                    // Category not found
-                    media.resolved_info = Some(ResolvedMediaInfo {
-                        resolved_url: format!("/category/{}", title),
-                        is_valid: Some(false),
-                    });
-                    return;
-                }
+                let is_valid = resolved_map
+                    .get(&key)
+                    .map(|(_, valid)| *valid)
+                    .unwrap_or(false);
+                resolved.category = Some(ResolvedDoc { title, is_valid });
             }
         }
 
-        // Check #url parameter (external link - no is_valid needed)
+        // Process #url parameter (외부 링크)
         if let Some(url_param) = media.parameters.get("url") {
             let url = extract_plain_text(&url_param.value);
             if !url.is_empty() {
-                media.resolved_info = Some(ResolvedMediaInfo {
-                    resolved_url: url,
-                    is_valid: None, // 외부 링크는 존재 여부 개념 없음
-                });
-                return;
+                resolved.url = Some(url);
             }
+        }
+
+        // Set resolved_info if any field is populated
+        if resolved.file.is_some()
+            || resolved.document.is_some()
+            || resolved.category.is_some()
+            || resolved.url.is_some()
+        {
+            media.resolved_info = Some(resolved);
         }
     }
 

@@ -5,6 +5,32 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.12] - 2025-12-28
+
+### Changed
+- **MediaElement**: Restructured `ResolvedMediaInfo` to support multiple parameters
+  - New `ResolvedFile` struct: `url`, `is_valid` (for `#file` parameter)
+  - New `ResolvedDoc` struct: `title`, `is_valid` (for `#document`, `#category` parameters)
+  - `ResolvedMediaInfo` now has separate fields: `file`, `document`, `category`, `url`
+  - Enables combinations like `[[#file="a.png" #url="https://..."]]` (image + external link)
+  - URL generation moved from transform to HTML renderer for consistency with `edit_url`
+
+- **sevenmark-html**: Added base URL configuration for internal links
+  - `RenderConfig` now includes `document_base_url` and `category_base_url` fields
+  - HTML renderer generates URLs using config (e.g., `format!("{}{}", base, title)`)
+  - New CSS classes: `sm-link-invalid`, `sm-image-broken` for invalid links/images
+  - Media rendering now supports image+link combinations
+
+- **sevenmark-server**: Updated API request structure
+  - `RenderDocumentRequest` now requires `document_base_url` and `category_base_url` fields
+  - Client provides complete URL prefixes for document/category links
+  - New render example added to sevenmark-server (with DB connection)
+
+### Fixed
+- **sevenmark-transform**: Fixed `#url` parameter not being resolved
+  - `media.is_empty()` early return removed; now always traverses AST for `#url` processing
+  - External links (`#url`) no longer require DB queries
+
 ## [2.8.11] - 2025-12-28
 
 ### Fixed

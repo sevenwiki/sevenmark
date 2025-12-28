@@ -19,6 +19,8 @@ fn main() {
     let render_start = Instant::now();
     let config = RenderConfig {
         edit_url: Some("/edit/TestDocument"),
+        document_base_url: Some("/Document/"),
+        category_base_url: Some("/Category/"),
     };
     let html = render_document(&ast, &config);
     let render_duration = render_start.elapsed();

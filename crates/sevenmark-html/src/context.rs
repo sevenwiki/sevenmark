@@ -2,6 +2,8 @@
 
 use sevenmark_parser::ast::SevenMarkElement;
 
+use crate::config::RenderConfig;
+
 /// Footnote entry for collection
 #[derive(Debug, Clone)]
 pub struct FootnoteEntry {
@@ -14,19 +16,22 @@ pub struct FootnoteEntry {
 }
 
 /// Simple rendering context - only tracks footnotes
-pub struct RenderContext {
+pub struct RenderContext<'a> {
     /// Collected footnotes (rendered at document end)
     pub footnotes: Vec<FootnoteEntry>,
     /// Track if we are inside a footnote (to prevent nested footnotes)
     pub in_footnote: bool,
+    /// Render configuration
+    pub config: &'a RenderConfig<'a>,
 }
 
-impl RenderContext {
-    /// Creates a new render context
-    pub fn new() -> Self {
+impl<'a> RenderContext<'a> {
+    /// Creates a new render context with config
+    pub fn new(config: &'a RenderConfig<'a>) -> Self {
         Self {
             footnotes: Vec::new(),
             in_footnote: false,
+            config,
         }
     }
 
@@ -50,8 +55,3 @@ impl RenderContext {
     }
 }
 
-impl Default for RenderContext {
-    fn default() -> Self {
-        Self::new()
-    }
-}

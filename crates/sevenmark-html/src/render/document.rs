@@ -16,7 +16,7 @@ use sevenmark_parser::ast::SevenMarkElement;
 /// * `config` - Render configuration
 pub fn render_document(ast: &[SevenMarkElement], config: &RenderConfig) -> String {
     let tree = build_section_tree(ast);
-    let mut ctx = RenderContext::new();
+    let mut ctx = RenderContext::new(config);
     let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {

@@ -34,7 +34,7 @@ pub fn render_list(ctx: &RenderContext) -> Markup {
     }
 
     // Render footnote contents with in_footnote flag set
-    let mut inner_ctx = RenderContext::new();
+    let mut inner_ctx = RenderContext::new(ctx.config);
     inner_ctx.in_footnote = true;
 
     html! {

@@ -48,7 +48,9 @@ pub const TABLE: &str = "sm-table";
 // Media
 pub const MEDIA: &str = "sm-media";
 pub const MEDIA_IMAGE: &str = "sm-image";
+pub const MEDIA_IMAGE_BROKEN: &str = "sm-image-broken";
 pub const MEDIA_LINK: &str = "sm-link";
+pub const MEDIA_LINK_INVALID: &str = "sm-link-invalid";
 
 // Footnotes
 pub const FOOTNOTE: &str = "sm-footnote";

@@ -2,34 +2,38 @@
   "categories": [],
   "redirect": null,
   "references": [],
+  "user_mentions": [],
   "ast": [
     {
-      "CodeElement": {
+      "MediaElement": {
         "location": {
           "start": 0,
-          "end": 70
+          "end": 80
         },
         "parameters": {
-          "lang": {
+          "url": {
             "location": {
-              "start": 8,
-              "end": 22
+              "start": 2,
+              "end": 78
             },
-            "key": "lang",
+            "key": "url",
             "value": [
               {
                 "Text": {
                   "location": {
-                    "start": 16,
-                    "end": 20
+                    "start": 8,
+                    "end": 77
                   },
-                  "content": "rust"
+                  "content": "https://dev.seven.wiki/thread/019b647f-0755-7546-ba9f-081979447f5e#47"
                 }
               }
             ]
           }
         },
-        "content": "fn main() {\n    println!(\"Hello, world!\");\n}\n"
+        "content": [],
+        "resolved_info": {
+          "url": "https://dev.seven.wiki/thread/019b647f-0755-7546-ba9f-081979447f5e#47"
+        }
       }
     }
   ],
