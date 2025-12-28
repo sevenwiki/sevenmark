@@ -2,18 +2,29 @@
   {
     "Mention": {
       "mention_type": "User",
-      "uuid": "019b5e28-e5ed-7583-9f5c-b37950e07879"
+      "uuid": "019b5e15-2146-7c60-a187-edb0feda8c31"
     }
   },
   {
     "Text": {
-      "content": "\n"
+      "content": " "
     }
   },
   {
     "Mention": {
-      "mention_type": "Discussion",
-      "uuid": "019b5e28-e5ed-7583-9f5c-b37950e07879"
+      "mention_type": "User",
+      "uuid": "019b5e15-2146-7c60-a187-edb0feda8c31"
+    }
+  },
+  {
+    "Text": {
+      "content": " "
+    }
+  },
+  {
+    "Mention": {
+      "mention_type": "User",
+      "uuid": "019b5e15-2146-7c60-a187-edb0feda8c31"
     }
   }
 ]
