@@ -34,6 +34,24 @@ pub struct VariableElement {
     pub content: String,
 }
 
+/// 멘션 타입
+#[derive(Debug, Clone, Serialize, PartialEq, Eq)]
+pub enum MentionType {
+    /// 토론/문서 멘션 (<#uuid>)
+    Discussion,
+    /// 사용자 멘션 (<@uuid>)
+    User,
+}
+
+/// 멘션 요소
+#[derive(Debug, Clone, Serialize)]
+pub struct MentionElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub location: Location,
+    pub mention_type: MentionType,
+    pub uuid: String,
+}
+
 /// 주석 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct CommentElement {

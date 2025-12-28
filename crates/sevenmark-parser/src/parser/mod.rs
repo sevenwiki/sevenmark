@@ -9,6 +9,7 @@ pub mod element;
 pub mod escape;
 mod r#macro;
 pub mod markdown;
+mod mention;
 mod parameter;
 
 mod expr;

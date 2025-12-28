@@ -3,7 +3,7 @@
 use maud::{Markup, html};
 use sevenmark_parser::ast::SevenMarkElement;
 
-use super::{brace, bracket, r#macro, markdown, text};
+use super::{brace, bracket, r#macro, markdown, mention, text};
 use crate::context::RenderContext;
 
 /// Render multiple elements
@@ -68,6 +68,9 @@ pub fn render_element(el: &SevenMarkElement, ctx: &mut RenderContext) -> Markup 
         SevenMarkElement::DefineElement(_) => html! {},
         SevenMarkElement::Variable(e) => text::variable::render(e),
         SevenMarkElement::IfElement(_) => html! {},
+
+        // Mentions
+        SevenMarkElement::Mention(e) => mention::mention::render(e),
 
         SevenMarkElement::Null => html! {},
     }

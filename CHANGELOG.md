@@ -5,6 +5,26 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.9] - 2025-12-28
+
+### Added
+- **Mention Elements**: New mention syntax for user and discussion references
+  - `<@uuid>` - User mention with standard UUID format
+  - `<#uuid>` - Discussion/document mention with standard UUID format
+  - `MentionType` enum: `User`, `Discussion`
+  - `MentionElement` struct with `location`, `mention_type`, `uuid` fields
+  - HTML rendering: `<span class="sm-mention-user" data-uuid="..."></span>`
+  - Frontend can hydrate mentions via `data-uuid` attribute
+
+- **Parser Infrastructure**: New `<` character dispatch in element parser
+  - `mention/` parser module with `mention_user.rs`, `mention_discussion.rs`
+  - `token_angle_bracket.rs` fallback for non-mention `<` characters
+  - UUID validation: 8-4-4-4-12 hex format (36 characters)
+
+- **sevenmark-transform**: User mention collection in preprocessor
+  - `PreProcessedDocument.user_mentions: HashSet<String>` - collected user UUIDs
+  - Only user mentions (`<@uuid>`) are collected, discussion mentions are not
+
 ## [2.8.8] - 2025-12-23
 
 ### Changed

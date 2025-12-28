@@ -1,3 +1,4 @@
+pub mod token_angle_bracket;
 pub mod token_asterisk;
 pub mod token_backslash;
 pub mod token_brace_close;
@@ -11,6 +12,7 @@ pub mod token_slash;
 pub mod token_tilde;
 pub mod token_underscore;
 
+pub use token_angle_bracket::*;
 pub use token_asterisk::*;
 pub use token_backslash::*;
 pub use token_brace_close::*;

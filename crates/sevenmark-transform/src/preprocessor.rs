@@ -5,8 +5,8 @@ use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
 use sevenmark_parser::ast::{
-    ListContentItem, Location, SevenMarkElement, TableCellItem, TableRowItem, TextElement,
-    Traversable,
+    ListContentItem, Location, MentionType, SevenMarkElement, TableCellItem, TableRowItem,
+    TextElement, Traversable,
 };
 use sevenmark_parser::core::parse_document;
 use std::collections::{HashMap, HashSet};
@@ -56,6 +56,8 @@ pub struct PreProcessedDocument {
     pub categories: HashSet<String>,
     pub redirect: Option<RedirectReference>,
     pub references: HashSet<DocumentReference>,
+    /// User mention UUIDs collected from the document
+    pub user_mentions: HashSet<String>,
     pub ast: Vec<SevenMarkElement>,
     pub sections: Vec<SectionInfo>,
 }
@@ -77,6 +79,7 @@ pub async fn preprocess_sevenmark(
     let mut redirect = None;
     let mut all_media = HashSet::new();
     let mut sections = Vec::new();
+    let mut user_mentions = HashSet::new();
 
     collect_metadata(
         &ast,
@@ -84,6 +87,7 @@ pub async fn preprocess_sevenmark(
         &mut redirect,
         &mut all_media,
         &mut sections,
+        &mut user_mentions,
         true,
     );
 
@@ -129,6 +133,7 @@ pub async fn preprocess_sevenmark(
         categories,
         redirect,
         references: all_references,
+        user_mentions,
         sections,
     })
 }
@@ -173,6 +178,7 @@ fn collect_metadata(
     redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
     sections: &mut Vec<SectionInfo>,
+    user_mentions: &mut HashSet<String>,
     collect_categories_redirect: bool,
 ) {
     let mut section_stack: Vec<SectionInfo> = Vec::new();
@@ -185,6 +191,7 @@ fn collect_metadata(
             redirect,
             media,
             sections,
+            user_mentions,
             &mut section_stack,
             &mut max_end,
             collect_categories_redirect,
@@ -204,6 +211,7 @@ fn collect_metadata_recursive(
     redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
     sections: &mut Vec<SectionInfo>,
+    user_mentions: &mut HashSet<String>,
     section_stack: &mut Vec<SectionInfo>,
     max_end: &mut usize,
     collect_categories_redirect: bool,
@@ -291,6 +299,9 @@ fn collect_metadata_recursive(
                 *redirect = Some(RedirectReference { namespace, title });
             }
         }
+        SevenMarkElement::Mention(mention) if mention.mention_type == MentionType::User => {
+            user_mentions.insert(mention.uuid.clone());
+        }
         _ => {}
     }
 
@@ -301,6 +312,7 @@ fn collect_metadata_recursive(
             redirect,
             media,
             sections,
+            user_mentions,
             section_stack,
             max_end,
             collect_categories_redirect,
@@ -440,16 +452,18 @@ fn substitute_includes_recursive(
                 // Substitute variables (include parameters have priority)
                 substitute_variables(&mut included_ast, &mut params_map);
 
-                // Collect media from included document (sections ignored for includes)
+                // Collect media from included document (sections and user_mentions ignored for includes)
                 let mut categories = HashSet::new();
                 let mut redirect = None;
                 let mut ignored_sections = Vec::new();
+                let mut ignored_user_mentions = HashSet::new();
                 collect_metadata(
                     &included_ast,
                     &mut categories,
                     &mut redirect,
                     all_media,
                     &mut ignored_sections,
+                    &mut ignored_user_mentions,
                     false,
                 );
 

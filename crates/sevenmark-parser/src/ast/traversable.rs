@@ -31,6 +31,7 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Error(_)
             | SevenMarkElement::Age(_)
             | SevenMarkElement::Variable(_)
+            | SevenMarkElement::Mention(_)
             | SevenMarkElement::TeXElement(_)
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote
@@ -234,6 +235,7 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Error(_)
             | SevenMarkElement::Age(_)
             | SevenMarkElement::Variable(_)
+            | SevenMarkElement::Mention(_)
             | SevenMarkElement::TeXElement(_)
             | SevenMarkElement::CodeElement(_)
             | SevenMarkElement::Null
@@ -322,6 +324,7 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Error(_)
             | SevenMarkElement::Age(_)
             | SevenMarkElement::Variable(_)
+            | SevenMarkElement::Mention(_)
             | SevenMarkElement::TeXElement(_)
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote

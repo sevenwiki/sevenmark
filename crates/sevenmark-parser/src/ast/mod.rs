@@ -62,6 +62,7 @@ pub enum SevenMarkElement {
     NewLine,
     Age(AgeElement),
     Variable(VariableElement),
+    Mention(MentionElement),
 
     // Markdown text styles
     Bold(TextStyle),
@@ -104,6 +105,7 @@ impl SevenMarkElement {
             Self::MediaElement(e) => Some(&e.location),
             Self::Age(e) => Some(&e.location),
             Self::Variable(e) => Some(&e.location),
+            Self::Mention(e) => Some(&e.location),
             Self::Bold(e) => Some(&e.location),
             Self::Italic(e) => Some(&e.location),
             Self::Strikethrough(e) => Some(&e.location),

@@ -1,23 +1,2 @@
-{{{#code #lang="python"
-from __future__ import print_function
-
-import sys
-
-lines = []  # contains the lines of the file.
-tokens = []  # contains all tokens of the source code.
-
-# register eax, ebx,..., ecx
-eax = 1
-ebx = 0
-ecx = 0
-edx = 0
-}}}
-
-{{{#tex
-\det(\mathbf{M}) = \begin{vmatrix}
-\int_{-\infty}^{\infty} e^{-x^2} dx & \frac{\partial^2 \Omega}{\partial x \partial y} & \sum_{n=0}^{\infty} \frac{x^n}{n!} & \sqrt[3]{ \frac{\alpha + \beta}{\gamma} } \\
-\lim_{h \to 0} \frac{f(x+h)-f(x)}{h} & \oint_{C} \vec{F} \cdot d\vec{r} & \prod_{i=1}^{k} (z - \lambda_i) & \frac{-b \pm \sqrt{b^2-4ac}}{2a} \\
-\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0} & \mathbb{E}[X|Y] & \binom{n}{k} p^k q^{n-k} & e^{i\pi} + 1 \\
-\mathcal{L}^{-1}\{ F(s) \} & \frac{\hbar^2}{2m} \nabla^2 \Psi & \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} & \zeta(s)
-\end{vmatrix}
-}}}
+<@019b5e28-e5ed-7583-9f5c-b37950e07879>
+<#019b5e28-e5ed-7583-9f5c-b37950e07879>

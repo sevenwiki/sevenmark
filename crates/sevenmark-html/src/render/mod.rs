@@ -6,6 +6,7 @@ mod document;
 pub mod element;
 mod r#macro;
 pub mod markdown;
+mod mention;
 mod text;
 pub mod utils;
 

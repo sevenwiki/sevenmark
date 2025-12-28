@@ -79,5 +79,9 @@ pub const TIMENOW: &str = "sm-timenow";
 // Variables
 pub const VARIABLE: &str = "sm-variable";
 
+// Mentions
+pub const MENTION_USER: &str = "sm-mention-user";
+pub const MENTION_DISCUSSION: &str = "sm-mention-discussion";
+
 // Errors
 pub const ERROR: &str = "sm-error";

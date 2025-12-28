@@ -4,6 +4,7 @@ use super::markdown::{
     markdown_strikethrough_parser, markdown_subscript_parser, markdown_superscript_parser,
     markdown_underline_parser,
 };
+use super::mention::{mention_discussion_parser, mention_user_parser};
 use super::text::text_parser;
 use super::token::*;
 
@@ -61,6 +62,7 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkEle
                 token_bracket_open_parser,
             )),
             ']' => token_bracket_close_parser,
+            '<' => alt((mention_discussion_parser, mention_user_parser, token_angle_bracket_parser)),
             '#' => alt((markdown_header_parser, text_parser)),
             '-' => alt((markdown_hline_parser, text_parser)),
             '*' => alt((markdown_bold_parser, markdown_italic_parser, token_asterisk_parser)),
