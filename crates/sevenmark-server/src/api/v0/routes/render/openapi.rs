@@ -3,12 +3,15 @@ use utoipa::OpenApi;
 #[derive(OpenApi)]
 #[openapi(
     paths(
-        super::render::render_endpoint,
+        super::render_document::render_document,
+        super::render_discussion::render_discussion,
     ),
     components(
         schemas(
-            super::render::RenderDocumentRequest,
-            super::render::RenderedDocument,
+            super::render_document::RenderDocumentRequest,
+            super::render_document::RenderedDocument,
+            super::render_discussion::RenderDiscussionRequest,
+            super::render_discussion::RenderedDiscussion,
         )
     ),
     tags(

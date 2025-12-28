@@ -5,6 +5,24 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.10] - 2025-12-28
+
+### Added
+- **sevenmark-server**: New `/v0/render-discussion` endpoint for discussion messages
+  - `RenderDiscussionRequest`: `content` only (no `edit_url`)
+  - `RenderedDiscussion`: `html`, `user_mentions` only (no `references`, `sections`, `categories`)
+  - Uses `DISCUSSION_CONFIG` for rendering without edit links
+
+### Changed
+- **sevenmark-html**: `render_document` now takes `RenderConfig<'a>` instead of `&str`
+  - `RenderConfig { edit_url: Option<&'a str> }` - controls edit link rendering
+  - `DISCUSSION_CONFIG: RenderConfig<'static>` - const for discussion rendering (no edit links)
+  - Edit links only rendered when `edit_url` is `Some(...)`
+
+- **sevenmark-server**: Renamed render endpoint
+  - `/v0/render` → `/v0/render-document`
+  - Function renamed: `render_endpoint` → `render_document`
+
 ## [2.8.9] - 2025-12-28
 
 ### Added

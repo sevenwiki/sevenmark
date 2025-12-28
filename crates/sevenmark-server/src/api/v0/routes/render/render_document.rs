@@ -3,7 +3,7 @@ use crate::state::AppState;
 use axum::Json;
 use axum::extract::State;
 use serde::{Deserialize, Serialize};
-use sevenmark_html::render_document;
+use sevenmark_html::{RenderConfig, render_document as render_html};
 use sevenmark_parser::core::parse_document;
 use sevenmark_transform::preprocessor::{DocumentReference, RedirectReference, SectionInfo};
 use sevenmark_transform::process_sevenmark;
@@ -30,13 +30,15 @@ pub struct RenderedDocument {
     /// Referenced documents (for backlinks)
     #[schema(value_type = Vec<Object>)]
     pub references: HashSet<DocumentReference>,
+    /// User mention UUIDs collected from the document
+    pub user_mentions: HashSet<String>,
     /// Section information with byte offsets for section editing
     pub sections: Vec<SectionInfo>,
 }
 
 #[utoipa::path(
     post,
-    path = "/v0/render",
+    path = "/v0/render-document",
     request_body = RenderDocumentRequest,
     responses(
         (status = 200, description = "Document rendered successfully", body = RenderedDocument),
@@ -45,7 +47,7 @@ pub struct RenderedDocument {
     ),
     tag = "Render"
 )]
-pub async fn render_endpoint(
+pub async fn render_document(
     State(state): State<AppState>,
     Json(payload): Json<RenderDocumentRequest>,
 ) -> Result<Json<RenderedDocument>, Errors> {
@@ -58,13 +60,17 @@ pub async fn render_endpoint(
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
 
     // Render to HTML
-    let html = render_document(&processed.ast, &payload.edit_url);
+    let config = RenderConfig {
+        edit_url: Some(&payload.edit_url),
+    };
+    let html = render_html(&processed.ast, &config);
 
     Ok(Json(RenderedDocument {
         html,
         categories: processed.categories,
         redirect: processed.redirect,
         references: processed.references,
+        user_mentions: processed.user_mentions,
         sections: processed.sections,
     }))
 }

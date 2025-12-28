@@ -1,4 +1,4 @@
-use sevenmark_html::render_document;
+use sevenmark_html::{RenderConfig, render_document};
 use sevenmark_parser::core::parse_document;
 use std::fs;
 use std::time::Instant;
@@ -17,7 +17,10 @@ fn main() {
 
     // Render
     let render_start = Instant::now();
-    let html = render_document(&ast, "/edit/TestDocument");
+    let config = RenderConfig {
+        edit_url: Some("/edit/TestDocument"),
+    };
+    let html = render_document(&ast, &config);
     let render_duration = render_start.elapsed();
     println!("Rendered {} bytes in {:?}", html.len(), render_duration);
 

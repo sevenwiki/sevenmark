@@ -4,6 +4,7 @@ use maud::{Markup, html};
 
 use super::{brace, element, markdown};
 use crate::classes;
+use crate::config::RenderConfig;
 use crate::context::RenderContext;
 use crate::section::{Section, SectionTree, build_section_tree};
 use sevenmark_parser::ast::SevenMarkElement;
@@ -12,11 +13,11 @@ use sevenmark_parser::ast::SevenMarkElement;
 ///
 /// # Arguments
 /// * `ast` - The parsed AST elements
-/// * `edit_url` - Base URL for edit links (e.g., "/edit/문서제목")
-pub fn render_document(ast: &[SevenMarkElement], edit_url: &str) -> String {
+/// * `config` - Render configuration
+pub fn render_document(ast: &[SevenMarkElement], config: &RenderConfig) -> String {
     let tree = build_section_tree(ast);
     let mut ctx = RenderContext::new();
-    let content = render_section_tree(&tree, edit_url, &mut ctx);
+    let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {
         (content)
@@ -29,21 +30,25 @@ pub fn render_document(ast: &[SevenMarkElement], edit_url: &str) -> String {
 }
 
 /// Render a section tree
-fn render_section_tree(tree: &SectionTree<'_>, edit_url: &str, ctx: &mut RenderContext) -> Markup {
+fn render_section_tree(
+    tree: &SectionTree<'_>,
+    config: &RenderConfig,
+    ctx: &mut RenderContext,
+) -> Markup {
     html! {
         @for el in &tree.preamble {
             (element::render_element(el, ctx))
         }
         @for section in &tree.sections {
-            (render_section(section, edit_url, ctx))
+            (render_section(section, config, ctx))
         }
     }
 }
 
 /// Render a single section with nested structure
-fn render_section(section: &Section<'_>, edit_url: &str, ctx: &mut RenderContext) -> Markup {
+fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut RenderContext) -> Markup {
     let header_markup =
-        markdown::header::render_with_path(section.header, &section.section_path, edit_url, ctx);
+        markdown::header::render_with_path(section.header, &section.section_path, config, ctx);
 
     html! {
         section class=(classes::SECTION) data-section=(section.header.section_index) {
@@ -53,7 +58,7 @@ fn render_section(section: &Section<'_>, edit_url: &str, ctx: &mut RenderContext
                     (element::render_element(el, ctx))
                 }
                 @for child in &section.children {
-                    (render_section(child, edit_url, ctx))
+                    (render_section(child, config, ctx))
                 }
             }
         }

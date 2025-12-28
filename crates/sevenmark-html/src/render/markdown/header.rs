@@ -4,19 +4,19 @@ use maud::{Markup, html};
 use sevenmark_parser::ast::Header;
 
 use crate::classes;
+use crate::config::RenderConfig;
 use crate::context::RenderContext;
 use crate::render::render_elements;
 
-/// Render header with section path and edit link
+/// Render header with section path and optional edit link
 pub fn render_with_path(
     h: &Header,
     section_path: &str,
-    edit_url: &str,
+    config: &RenderConfig,
     ctx: &mut RenderContext,
 ) -> Markup {
     let content = render_elements(&h.content, ctx);
     let id = format!("{}{}", classes::SECTION_ID_PREFIX, section_path);
-    let edit_href = format!("{}?section={}", edit_url, h.section_index);
     let class = match h.level {
         1 => classes::HEADER_1,
         2 => classes::HEADER_2,
@@ -29,7 +29,9 @@ pub fn render_with_path(
     let inner = html! {
         span class=(classes::SECTION_PATH) { (section_path) "." }
         span class=(classes::HEADER_CONTENT) { (content) }
-        a href=(edit_href) class=(classes::EDIT_LINK) { "[Edit]" }
+        @if let Some(edit_url) = &config.edit_url {
+            a href=(format!("{}?section={}", edit_url, h.section_index)) class=(classes::EDIT_LINK) { "[Edit]" }
+        }
     };
 
     match h.level {

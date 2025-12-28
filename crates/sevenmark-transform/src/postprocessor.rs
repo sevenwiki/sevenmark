@@ -16,6 +16,8 @@ pub struct ProcessedDocument {
     pub categories: HashSet<String>,
     pub redirect: Option<RedirectReference>,
     pub references: HashSet<DocumentReference>,
+    /// User mention UUIDs collected from the document
+    pub user_mentions: HashSet<String>,
     #[schema(value_type = Vec<Object>)]
     pub ast: Vec<SevenMarkElement>,
     pub sections: Vec<SectionInfo>,
@@ -34,6 +36,7 @@ pub async fn postprocess_sevenmark(
             categories: preprocessed.categories,
             redirect: preprocessed.redirect,
             references: preprocessed.references,
+            user_mentions: preprocessed.user_mentions,
             ast,
             sections: preprocessed.sections,
         });
@@ -101,6 +104,7 @@ pub async fn postprocess_sevenmark(
         categories: preprocessed.categories,
         redirect: preprocessed.redirect,
         references: preprocessed.references,
+        user_mentions: preprocessed.user_mentions,
         ast,
         sections: preprocessed.sections,
     })

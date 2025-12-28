@@ -6,15 +6,18 @@
 //!
 //! ```rust
 //! use sevenmark_parser::core::parse_document;
-//! use sevenmark_html::render_document;
+//! use sevenmark_html::{RenderConfig, render_document};
 //!
 //! let ast = parse_document("# Hello\n\nThis is **bold** text.");
-//! let html = render_document(&ast, "/edit/title");
+//! let config = RenderConfig { edit_url: Some("/edit/title") };
+//! let html = render_document(&ast, &config);
 //! ```
 
 pub mod classes;
+mod config;
 mod context;
 mod render;
 mod section;
 
+pub use config::{DISCUSSION_CONFIG, RenderConfig};
 pub use render::{render_document, render_element, render_elements};
