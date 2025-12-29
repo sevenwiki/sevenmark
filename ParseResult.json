@@ -1,19 +1,17 @@
 [
   {
-    "MediaElement": {
-      "parameters": {
-        "url": {
-          "key": "url",
-          "value": [
-            {
-              "Text": {
-                "content": "https://dev.seven.wiki/thread/019b647f-0755-7546-ba9f-081979447f5e#47"
-              }
-            }
-          ]
-        }
-      },
-      "content": []
+    "Text": {
+      "content": "afawe\r"
+    }
+  },
+  {
+    "Text": {
+      "content": "\n"
+    }
+  },
+  {
+    "Text": {
+      "content": "awefwafwaef"
     }
   }
 ]

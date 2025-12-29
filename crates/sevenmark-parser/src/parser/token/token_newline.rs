@@ -1,8 +1,7 @@
-use crate::ast::{Location, SevenMarkElement, TextElement};
+use crate::ast::SevenMarkElement;
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::prelude::*;
-use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
@@ -10,12 +9,7 @@ pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
         return Err(winnow::error::ContextError::new());
     }
 
-    let start = parser_input.input.current_token_start();
     literal("\n").parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::Text(TextElement {
-        location: Location { start, end },
-        content: "\n".to_string(),
-    }))
+    Ok(SevenMarkElement::NewLine)
 }
