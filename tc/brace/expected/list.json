@@ -1,9 +1,17 @@
 [
   {
     "ListElement": {
+      "location": {
+        "start": 0,
+        "end": 48
+      },
       "kind": "1",
       "parameters": {
         "1": {
+          "location": {
+            "start": 8,
+            "end": 12
+          },
           "key": "1",
           "value": []
         }
@@ -15,6 +23,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 14,
+                    "end": 20
+                  },
                   "content": "Item 1"
                 }
               }
@@ -27,6 +39,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 25,
+                    "end": 31
+                  },
                   "content": "Item 2"
                 }
               }
@@ -39,6 +55,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 36,
+                    "end": 42
+                  },
                   "content": "Item 3"
                 }
               }

@@ -1,9 +1,17 @@
 [
   {
     "ListElement": {
+      "location": {
+        "start": 0,
+        "end": 120
+      },
       "kind": "1",
       "parameters": {
         "1": {
+          "location": {
+            "start": 8,
+            "end": 12
+          },
           "key": "1",
           "value": []
         }
@@ -15,6 +23,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 14,
+                    "end": 25
+                  },
                   "content": "Normal Item"
                 }
               }
@@ -23,8 +35,16 @@
         },
         {
           "Conditional": {
+            "location": {
+              "start": 28,
+              "end": 93
+            },
             "condition": {
               "BoolLiteral": {
+                "location": {
+                  "start": 35,
+                  "end": 39
+                },
                 "value": true
               }
             },
@@ -34,6 +54,10 @@
                 "content": [
                   {
                     "Text": {
+                      "location": {
+                        "start": 45,
+                        "end": 63
+                      },
                       "content": "Conditional Item 1"
                     }
                   }
@@ -44,6 +68,10 @@
                 "content": [
                   {
                     "Text": {
+                      "location": {
+                        "start": 68,
+                        "end": 86
+                      },
                       "content": "Conditional Item 2"
                     }
                   }
@@ -58,6 +86,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 95,
+                    "end": 114
+                  },
                   "content": "Another Normal Item"
                 }
               }

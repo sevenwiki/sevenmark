@@ -1,6 +1,10 @@
 [
   {
     "Text": {
+      "location": {
+        "start": 0,
+        "end": 28
+      },
       "content": "Text before horizontal line."
     }
   },
@@ -8,6 +12,10 @@
   "HLine",
   {
     "Text": {
+      "location": {
+        "start": 35,
+        "end": 62
+      },
       "content": "Text after horizontal line."
     }
   }

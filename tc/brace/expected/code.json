@@ -1,12 +1,24 @@
 [
   {
     "CodeElement": {
+      "location": {
+        "start": 0,
+        "end": 70
+      },
       "parameters": {
         "lang": {
+          "location": {
+            "start": 8,
+            "end": 22
+          },
           "key": "lang",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 16,
+                  "end": 20
+                },
                 "content": "rust"
               }
             }

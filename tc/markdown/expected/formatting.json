@@ -1,14 +1,26 @@
 [
   {
     "Text": {
+      "location": {
+        "start": 0,
+        "end": 14
+      },
       "content": "This text has "
     }
   },
   {
     "Bold": {
+      "location": {
+        "start": 14,
+        "end": 22
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 16,
+              "end": 20
+            },
             "content": "bold"
           }
         }
@@ -17,19 +29,35 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 22,
+        "end": 23
+      },
       "content": ","
     }
   },
   {
     "Text": {
+      "location": {
+        "start": 23,
+        "end": 24
+      },
       "content": " "
     }
   },
   {
     "Italic": {
+      "location": {
+        "start": 24,
+        "end": 32
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 25,
+              "end": 31
+            },
             "content": "italic"
           }
         }
@@ -38,19 +66,35 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 32,
+        "end": 33
+      },
       "content": ","
     }
   },
   {
     "Text": {
+      "location": {
+        "start": 33,
+        "end": 34
+      },
       "content": " "
     }
   },
   {
     "Underline": {
+      "location": {
+        "start": 34,
+        "end": 48
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 36,
+              "end": 46
+            },
             "content": "underlined"
           }
         }
@@ -59,19 +103,35 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 48,
+        "end": 49
+      },
       "content": ","
     }
   },
   {
     "Text": {
+      "location": {
+        "start": 49,
+        "end": 50
+      },
       "content": " "
     }
   },
   {
     "Strikethrough": {
+      "location": {
+        "start": 50,
+        "end": 67
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 52,
+              "end": 65
+            },
             "content": "strikethrough"
           }
         }
@@ -80,19 +140,35 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 67,
+        "end": 68
+      },
       "content": ","
     }
   },
   {
     "Text": {
+      "location": {
+        "start": 68,
+        "end": 69
+      },
       "content": " "
     }
   },
   {
     "Superscript": {
+      "location": {
+        "start": 69,
+        "end": 84
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 71,
+              "end": 82
+            },
             "content": "superscript"
           }
         }
@@ -101,19 +177,35 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 84,
+        "end": 85
+      },
       "content": ","
     }
   },
   {
     "Text": {
+      "location": {
+        "start": 85,
+        "end": 90
+      },
       "content": " and "
     }
   },
   {
     "Subscript": {
+      "location": {
+        "start": 90,
+        "end": 103
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 92,
+              "end": 101
+            },
             "content": "subscript"
           }
         }
@@ -122,6 +214,10 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 103,
+        "end": 115
+      },
       "content": " formatting."
     }
   }

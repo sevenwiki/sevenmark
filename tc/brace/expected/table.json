@@ -1,6 +1,10 @@
 [
   {
     "TableElement": {
+      "location": {
+        "start": 0,
+        "end": 73
+      },
       "parameters": {},
       "content": [
         {
@@ -13,16 +17,28 @@
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 14,
+                          "end": 20
+                        },
                         "content": "Cell 1"
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 20,
+                          "end": 21
+                        },
                         "content": ","
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 21,
+                          "end": 22
+                        },
                         "content": "1"
                       }
                     }
@@ -35,16 +51,28 @@
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 27,
+                          "end": 33
+                        },
                         "content": "Cell 1"
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 33,
+                          "end": 34
+                        },
                         "content": ","
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 34,
+                          "end": 35
+                        },
                         "content": "2"
                       }
                     }
@@ -64,16 +92,28 @@
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 44,
+                          "end": 50
+                        },
                         "content": "Cell 2"
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 50,
+                          "end": 51
+                        },
                         "content": ","
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 51,
+                          "end": 52
+                        },
                         "content": "1"
                       }
                     }
@@ -86,16 +126,28 @@
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 57,
+                          "end": 63
+                        },
                         "content": "Cell 2"
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 63,
+                          "end": 64
+                        },
                         "content": ","
                       }
                     },
                     {
                       "Text": {
+                        "location": {
+                          "start": 64,
+                          "end": 65
+                        },
                         "content": "2"
                       }
                     }

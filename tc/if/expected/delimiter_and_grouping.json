@@ -1,18 +1,38 @@
 [
   {
     "IfElement": {
+      "location": {
+        "start": 0,
+        "end": 34
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 7,
+            "end": 12
+          },
           "left": {
             "NumberLiteral": {
+              "location": {
+                "start": 7,
+                "end": 8
+              },
               "value": 5
             }
           },
           "operator": {
+            "location": {
+              "start": 9,
+              "end": 10
+            },
             "kind": "GreaterThan"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 11,
+                "end": 12
+              },
               "value": 3
             }
           }
@@ -21,6 +41,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 16,
+              "end": 30
+            },
             "content": "with delimiter"
           }
         },
@@ -32,25 +56,57 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 36,
+        "end": 88
+      },
       "condition": {
         "And": {
+          "location": {
+            "start": 43,
+            "end": 66
+          },
           "operator": {
+            "location": {
+              "start": 59,
+              "end": 61
+            },
             "kind": "And"
           },
           "left": {
             "Group": {
+              "location": {
+                "start": 43,
+                "end": 58
+              },
               "inner": {
                 "Or": {
+                  "location": {
+                    "start": 44,
+                    "end": 57
+                  },
                   "operator": {
+                    "location": {
+                      "start": 49,
+                      "end": 51
+                    },
                     "kind": "Or"
                   },
                   "left": {
                     "BoolLiteral": {
+                      "location": {
+                        "start": 44,
+                        "end": 48
+                      },
                       "value": true
                     }
                   },
                   "right": {
                     "BoolLiteral": {
+                      "location": {
+                        "start": 52,
+                        "end": 57
+                      },
                       "value": false
                     }
                   }
@@ -60,6 +116,10 @@
           },
           "right": {
             "BoolLiteral": {
+              "location": {
+                "start": 62,
+                "end": 66
+              },
               "value": true
             }
           }
@@ -68,6 +128,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 67,
+              "end": 84
+            },
             "content": "grouped condition"
           }
         },
@@ -79,22 +143,50 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 90,
+        "end": 149
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 97,
+            "end": 112
+          },
           "left": {
             "Group": {
+              "location": {
+                "start": 97,
+                "end": 104
+              },
               "inner": {
                 "Comparison": {
+                  "location": {
+                    "start": 98,
+                    "end": 103
+                  },
                   "left": {
                     "NumberLiteral": {
+                      "location": {
+                        "start": 98,
+                        "end": 99
+                      },
                       "value": 5
                     }
                   },
                   "operator": {
+                    "location": {
+                      "start": 100,
+                      "end": 101
+                    },
                     "kind": "GreaterThan"
                   },
                   "right": {
                     "NumberLiteral": {
+                      "location": {
+                        "start": 102,
+                        "end": 103
+                      },
                       "value": 3
                     }
                   }
@@ -103,10 +195,18 @@
             }
           },
           "operator": {
+            "location": {
+              "start": 105,
+              "end": 107
+            },
             "kind": "Equal"
           },
           "right": {
             "BoolLiteral": {
+              "location": {
+                "start": 108,
+                "end": 112
+              },
               "value": true
             }
           }
@@ -115,6 +215,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 116,
+              "end": 145
+            },
             "content": "comparison result equals true"
           }
         },

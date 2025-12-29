@@ -1,17 +1,33 @@
 [
   {
     "ListElement": {
+      "location": {
+        "start": 0,
+        "end": 354
+      },
       "kind": "1",
       "parameters": {
         "1": {
+          "location": {
+            "start": 8,
+            "end": 12
+          },
           "key": "1",
           "value": []
         },
         "style": {
+          "location": {
+            "start": 12,
+            "end": 38
+          },
           "key": "style",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 20,
+                  "end": 36
+                },
                 "content": "margin-left:20px"
               }
             }
@@ -25,9 +41,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 40,
+                    "end": 53
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 42,
+                          "end": 51
+                        },
                         "content": "Chapter 1"
                       }
                     }
@@ -36,6 +60,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 53,
+                    "end": 67
+                  },
                   "content": ": Introduction"
                 }
               }
@@ -48,14 +76,26 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 72,
+                    "end": 84
+                  },
                   "content": "Subsection: "
                 }
               },
               {
                 "ListElement": {
+                  "location": {
+                    "start": 84,
+                    "end": 150
+                  },
                   "kind": "a",
                   "parameters": {
                     "a": {
+                      "location": {
+                        "start": 92,
+                        "end": 96
+                      },
                       "key": "a",
                       "value": []
                     }
@@ -67,14 +107,26 @@
                         "content": [
                           {
                             "Text": {
+                              "location": {
+                                "start": 98,
+                                "end": 111
+                              },
                               "content": "Point A with "
                             }
                           },
                           {
                             "Italic": {
+                              "location": {
+                                "start": 111,
+                                "end": 121
+                              },
                               "content": [
                                 {
                                   "Text": {
+                                    "location": {
+                                      "start": 112,
+                                      "end": 120
+                                    },
                                     "content": "emphasis"
                                   }
                                 }
@@ -90,6 +142,10 @@
                         "content": [
                           {
                             "Text": {
+                              "location": {
+                                "start": 126,
+                                "end": 139
+                              },
                               "content": "Point B with "
                             }
                           },
@@ -102,6 +158,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 150,
+                    "end": 151
+                  },
                   "content": " "
                 }
               }
@@ -114,9 +174,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 156,
+                    "end": 169
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 158,
+                          "end": 167
+                        },
                         "content": "Chapter 2"
                       }
                     }
@@ -125,6 +193,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 169,
+                    "end": 186
+                  },
                   "content": ": Advanced Topics"
                 }
               }
@@ -137,11 +209,19 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 191,
+                    "end": 205
+                  },
                   "content": "Complex item: "
                 }
               },
               {
                 "FoldElement": {
+                  "location": {
+                    "start": 205,
+                    "end": 303
+                  },
                   "parameters": {},
                   "content": [
                     {
@@ -149,6 +229,10 @@
                       "content": [
                         {
                           "Text": {
+                            "location": {
+                              "start": 216,
+                              "end": 226
+                            },
                             "content": "Click here"
                           }
                         }
@@ -159,17 +243,33 @@
                       "content": [
                         {
                           "Text": {
+                            "location": {
+                              "start": 231,
+                              "end": 239
+                            },
                             "content": "Hidden: "
                           }
                         },
                         {
                           "CodeElement": {
+                            "location": {
+                              "start": 239,
+                              "end": 297
+                            },
                             "parameters": {
                               "lang": {
+                                "location": {
+                                  "start": 247,
+                                  "end": 261
+                                },
                                 "key": "lang",
                                 "value": [
                                   {
                                     "Text": {
+                                      "location": {
+                                        "start": 255,
+                                        "end": 259
+                                      },
                                       "content": "rust"
                                     }
                                   }
@@ -186,6 +286,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 303,
+                    "end": 304
+                  },
                   "content": " "
                 }
               }
@@ -198,14 +302,26 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 309,
+                    "end": 328
+                  },
                   "content": "Final chapter with "
                 }
               },
               {
                 "Superscript": {
+                  "location": {
+                    "start": 328,
+                    "end": 343
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 330,
+                          "end": 341
+                        },
                         "content": "superscript"
                       }
                     }
@@ -214,6 +330,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 343,
+                    "end": 348
+                  },
                   "content": " text"
                 }
               }

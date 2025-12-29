@@ -1,9 +1,17 @@
 [
   {
     "Category": {
+      "location": {
+        "start": 0,
+        "end": 27
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 13,
+              "end": 24
+            },
             "content": "Technology\n"
           }
         }

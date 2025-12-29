@@ -1,12 +1,24 @@
 [
   {
     "StyledElement": {
+      "location": {
+        "start": 0,
+        "end": 87
+      },
       "parameters": {
         "color": {
+          "location": {
+            "start": 31,
+            "end": 46
+          },
           "key": "color",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 39,
+                  "end": 44
+                },
                 "content": "green"
               }
             }
@@ -16,6 +28,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 46,
+              "end": 83
+            },
             "content": "Multiple same parameter - which wins?"
           }
         },
@@ -27,25 +43,49 @@
   "NewLine",
   {
     "ListElement": {
+      "location": {
+        "start": 89,
+        "end": 170
+      },
       "kind": "1",
       "parameters": {
         "1": {
+          "location": {
+            "start": 97,
+            "end": 101
+          },
           "key": "1",
           "value": []
         },
         "A": {
+          "location": {
+            "start": 104,
+            "end": 107
+          },
           "key": "A",
           "value": []
         },
         "I": {
+          "location": {
+            "start": 110,
+            "end": 113
+          },
           "key": "I",
           "value": []
         },
         "a": {
+          "location": {
+            "start": 101,
+            "end": 104
+          },
           "key": "a",
           "value": []
         },
         "i": {
+          "location": {
+            "start": 107,
+            "end": 110
+          },
           "key": "i",
           "value": []
         }
@@ -57,6 +97,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 115,
+                    "end": 147
+                  },
                   "content": "Item with conflicting list types"
                 }
               }
@@ -69,6 +113,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 152,
+                    "end": 164
+                  },
                   "content": "Another item"
                 }
               }
@@ -82,6 +130,10 @@
   "NewLine",
   {
     "TeXElement": {
+      "location": {
+        "start": 172,
+        "end": 214
+      },
       "is_block": true,
       "content": "E = mc^2\n"
     }

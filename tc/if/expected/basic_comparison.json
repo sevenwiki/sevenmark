@@ -1,18 +1,38 @@
 [
   {
     "IfElement": {
+      "location": {
+        "start": 0,
+        "end": 23
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 7,
+            "end": 13
+          },
           "left": {
             "NumberLiteral": {
+              "location": {
+                "start": 7,
+                "end": 8
+              },
               "value": 5
             }
           },
           "operator": {
+            "location": {
+              "start": 9,
+              "end": 11
+            },
             "kind": "Equal"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 12,
+                "end": 13
+              },
               "value": 5
             }
           }
@@ -21,6 +41,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 14,
+              "end": 19
+            },
             "content": "equal"
           }
         },
@@ -32,18 +56,38 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 25,
+        "end": 52
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 32,
+            "end": 38
+          },
           "left": {
             "NumberLiteral": {
+              "location": {
+                "start": 32,
+                "end": 33
+              },
               "value": 5
             }
           },
           "operator": {
+            "location": {
+              "start": 34,
+              "end": 36
+            },
             "kind": "NotEqual"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 37,
+                "end": 38
+              },
               "value": 3
             }
           }
@@ -52,6 +96,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 39,
+              "end": 48
+            },
             "content": "not equal"
           }
         },
@@ -63,18 +111,38 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 54,
+        "end": 79
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 61,
+            "end": 67
+          },
           "left": {
             "NumberLiteral": {
+              "location": {
+                "start": 61,
+                "end": 63
+              },
               "value": 10
             }
           },
           "operator": {
+            "location": {
+              "start": 64,
+              "end": 65
+            },
             "kind": "GreaterThan"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 66,
+                "end": 67
+              },
               "value": 5
             }
           }
@@ -83,6 +151,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 68,
+              "end": 75
+            },
             "content": "greater"
           }
         },
@@ -94,18 +166,38 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 81,
+        "end": 102
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 88,
+            "end": 93
+          },
           "left": {
             "NumberLiteral": {
+              "location": {
+                "start": 88,
+                "end": 89
+              },
               "value": 3
             }
           },
           "operator": {
+            "location": {
+              "start": 90,
+              "end": 91
+            },
             "kind": "LessThan"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 92,
+                "end": 93
+              },
               "value": 8
             }
           }
@@ -114,6 +206,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 94,
+              "end": 98
+            },
             "content": "less"
           }
         },

@@ -1,32 +1,60 @@
 [
   {
     "StyledElement": {
+      "location": {
+        "start": 0,
+        "end": 95
+      },
       "parameters": {
         "color": {
+          "location": {
+            "start": 25,
+            "end": 63
+          },
           "key": "color",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 33,
+                  "end": 61
+                },
                 "content": "with spaces and symbols!@#$%"
               }
             }
           ]
         },
         "size": {
+          "location": {
+            "start": 15,
+            "end": 25
+          },
           "key": "size",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 22,
+                  "end": 23
+                },
                 "content": " "
               }
             }
           ]
         },
         "style": {
+          "location": {
+            "start": 3,
+            "end": 15
+          },
           "key": "style",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 12,
+                  "end": 13
+                },
                 "content": " "
               }
             }
@@ -36,6 +64,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 63,
+              "end": 91
+            },
             "content": "Empty and special parameters"
           }
         },
@@ -47,12 +79,24 @@
   "NewLine",
   {
     "FoldElement": {
+      "location": {
+        "start": 97,
+        "end": 216
+      },
       "parameters": {
         "empty": {
+          "location": {
+            "start": 105,
+            "end": 113
+          },
           "key": "empty",
           "value": []
         },
         "flag": {
+          "location": {
+            "start": 113,
+            "end": 119
+          },
           "key": "flag",
           "value": []
         }
@@ -61,30 +105,54 @@
         {
           "parameters": {
             "special": {
+              "location": {
+                "start": 121,
+                "end": 153
+              },
               "key": "special",
               "value": [
                 {
                   "Text": {
+                    "location": {
+                      "start": 131,
+                      "end": 137
+                    },
                     "content": "quotes"
                   }
                 },
                 {
                   "Escape": {
+                    "location": {
+                      "start": 137,
+                      "end": 139
+                    },
                     "content": "\""
                   }
                 },
                 {
                   "Text": {
+                    "location": {
+                      "start": 139,
+                      "end": 142
+                    },
                     "content": "and"
                   }
                 },
                 {
                   "Escape": {
+                    "location": {
+                      "start": 142,
+                      "end": 144
+                    },
                     "content": "\\"
                   }
                 },
                 {
                   "Text": {
+                    "location": {
+                      "start": 144,
+                      "end": 151
+                    },
                     "content": "slashes"
                   }
                 }
@@ -94,6 +162,10 @@
           "content": [
             {
               "Text": {
+                "location": {
+                  "start": 156,
+                  "end": 180
+                },
                 "content": "Title with special chars"
               }
             }
@@ -104,6 +176,10 @@
           "content": [
             {
               "Text": {
+                "location": {
+                  "start": 185,
+                  "end": 210
+                },
                 "content": "Content with empty params"
               }
             }
@@ -116,12 +192,24 @@
   "NewLine",
   {
     "CodeElement": {
+      "location": {
+        "start": 218,
+        "end": 290
+      },
       "parameters": {
         "lang": {
+          "location": {
+            "start": 226,
+            "end": 237
+          },
           "key": "lang",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 234,
+                  "end": 235
+                },
                 "content": " "
               }
             }

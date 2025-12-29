@@ -1,9 +1,17 @@
 [
   {
     "Category": {
+      "location": {
+        "start": 0,
+        "end": 38
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 13,
+              "end": 35
+            },
             "content": "Programming Languages\n"
           }
         }
@@ -14,12 +22,20 @@
   "NewLine",
   {
     "Header": {
+      "location": {
+        "start": 40,
+        "end": 68
+      },
       "level": 1,
       "is_folded": false,
       "section_index": 1,
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 42,
+              "end": 67
+            },
             "content": "Rust Programming Language"
           }
         }
@@ -29,12 +45,24 @@
   "NewLine",
   {
     "Include": {
+      "location": {
+        "start": 69,
+        "end": 129
+      },
       "parameters": {
         "page": {
+          "location": {
+            "start": 80,
+            "end": 99
+          },
           "key": "page",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 88,
+                  "end": 97
+                },
                 "content": "RustIntro"
               }
             }
@@ -44,6 +72,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 99,
+              "end": 126
+            },
             "content": "Basic introduction to Rust\n"
           }
         }
@@ -54,12 +86,20 @@
   "NewLine",
   {
     "Header": {
+      "location": {
+        "start": 131,
+        "end": 158
+      },
       "level": 2,
       "is_folded": false,
       "section_index": 2,
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 134,
+              "end": 157
+            },
             "content": "History and Development"
           }
         }
@@ -69,9 +109,17 @@
   "NewLine",
   {
     "Bold": {
+      "location": {
+        "start": 159,
+        "end": 167
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 161,
+              "end": 165
+            },
             "content": "Rust"
           }
         }
@@ -80,14 +128,26 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 167,
+        "end": 196
+      },
       "content": " was originally developed by "
     }
   },
   {
     "Italic": {
+      "location": {
+        "start": 196,
+        "end": 211
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 197,
+              "end": 210
+            },
             "content": "Graydon Hoare"
           }
         }
@@ -96,6 +156,10 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 211,
+        "end": 248
+      },
       "content": " at Mozilla Research. Key milestones:"
     }
   },
@@ -103,9 +167,17 @@
   "NewLine",
   {
     "ListElement": {
+      "location": {
+        "start": 250,
+        "end": 443
+      },
       "kind": "1",
       "parameters": {
         "1": {
+          "location": {
+            "start": 258,
+            "end": 262
+          },
           "key": "1",
           "value": []
         }
@@ -117,9 +189,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 264,
+                    "end": 272
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 266,
+                          "end": 270
+                        },
                         "content": "2010"
                       }
                     }
@@ -128,6 +208,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 272,
+                    "end": 291
+                  },
                   "content": ": Project announced"
                 }
               }
@@ -140,9 +224,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 296,
+                    "end": 304
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 298,
+                          "end": 302
+                        },
                         "content": "2012"
                       }
                     }
@@ -151,6 +243,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 304,
+                    "end": 332
+                  },
                   "content": ": First public release (0.1)"
                 }
               }
@@ -163,9 +259,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 337,
+                    "end": 345
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 339,
+                          "end": 343
+                        },
                         "content": "2015"
                       }
                     }
@@ -174,11 +278,19 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 345,
+                    "end": 374
+                  },
                   "content": ": Rust 1.0 stable release on "
                 }
               },
               {
                 "Age": {
+                  "location": {
+                    "start": 374,
+                    "end": 391
+                  },
                   "content": "2015-05-15"
                 }
               }
@@ -191,9 +303,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 396,
+                    "end": 407
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 398,
+                          "end": 405
+                        },
                         "content": "Present"
                       }
                     }
@@ -202,6 +322,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 407,
+                    "end": 437
+                  },
                   "content": ": Active development continues"
                 }
               }
@@ -215,12 +339,20 @@
   "NewLine",
   {
     "Header": {
+      "location": {
+        "start": 445,
+        "end": 461
+      },
       "level": 2,
       "is_folded": false,
       "section_index": 3,
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 448,
+              "end": 460
+            },
             "content": "Key Features"
           }
         }
@@ -230,12 +362,24 @@
   "NewLine",
   {
     "FoldElement": {
+      "location": {
+        "start": 462,
+        "end": 1101
+      },
       "parameters": {
         "style": {
+          "location": {
+            "start": 470,
+            "end": 525
+          },
           "key": "style",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 479,
+                  "end": 523
+                },
                 "content": "background:#f0f8ff; border:1px solid #4682b4"
               }
             }
@@ -248,14 +392,26 @@
           "content": [
             {
               "Text": {
+                "location": {
+                  "start": 527,
+                  "end": 532
+                },
                 "content": "🔧 "
               }
             },
             {
               "Bold": {
+                "location": {
+                  "start": 532,
+                  "end": 554
+                },
                 "content": [
                   {
                     "Text": {
+                      "location": {
+                        "start": 534,
+                        "end": 552
+                      },
                       "content": "Technical Features"
                     }
                   }
@@ -264,21 +420,37 @@
             },
             {
               "Text": {
+                "location": {
+                  "start": 554,
+                  "end": 555
+                },
                 "content": " "
               }
             },
             {
               "Text": {
+                "location": {
+                  "start": 555,
+                  "end": 556
+                },
                 "content": "_"
               }
             },
             {
               "Text": {
+                "location": {
+                  "start": 556,
+                  "end": 576
+                },
                 "content": "(expand for details)"
               }
             },
             {
               "Text": {
+                "location": {
+                  "start": 576,
+                  "end": 577
+                },
                 "content": "_"
               }
             }
@@ -289,6 +461,10 @@
           "content": [
             {
               "TableElement": {
+                "location": {
+                  "start": 583,
+                  "end": 912
+                },
                 "parameters": {},
                 "content": [
                   {
@@ -301,9 +477,17 @@
                             "content": [
                               {
                                 "Bold": {
+                                  "location": {
+                                    "start": 597,
+                                    "end": 608
+                                  },
                                   "content": [
                                     {
                                       "Text": {
+                                        "location": {
+                                          "start": 599,
+                                          "end": 606
+                                        },
                                         "content": "Feature"
                                       }
                                     }
@@ -319,9 +503,17 @@
                             "content": [
                               {
                                 "Bold": {
+                                  "location": {
+                                    "start": 613,
+                                    "end": 628
+                                  },
                                   "content": [
                                     {
                                       "Text": {
+                                        "location": {
+                                          "start": 615,
+                                          "end": 626
+                                        },
                                         "content": "Description"
                                       }
                                     }
@@ -337,9 +529,17 @@
                             "content": [
                               {
                                 "Bold": {
+                                  "location": {
+                                    "start": 633,
+                                    "end": 644
+                                  },
                                   "content": [
                                     {
                                       "Text": {
+                                        "location": {
+                                          "start": 635,
+                                          "end": 642
+                                        },
                                         "content": "Benefit"
                                       }
                                     }
@@ -362,6 +562,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 653,
+                                    "end": 666
+                                  },
                                   "content": "Memory Safety"
                                 }
                               }
@@ -374,16 +578,28 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 671,
+                                    "end": 687
+                                  },
                                   "content": "No null pointers"
                                 }
                               },
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 687,
+                                    "end": 688
+                                  },
                                   "content": ","
                                 }
                               },
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 688,
+                                    "end": 705
+                                  },
                                   "content": " buffer overflows"
                                 }
                               }
@@ -396,6 +612,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 710,
+                                    "end": 726
+                                  },
                                   "content": "Prevents crashes"
                                 }
                               }
@@ -415,6 +635,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 735,
+                                    "end": 757
+                                  },
                                   "content": "Zero-cost Abstractions"
                                 }
                               }
@@ -427,16 +651,28 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 762,
+                                    "end": 781
+                                  },
                                   "content": "High-level features"
                                 }
                               },
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 781,
+                                    "end": 782
+                                  },
                                   "content": ","
                                 }
                               },
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 782,
+                                    "end": 804
+                                  },
                                   "content": " low-level performance"
                                 }
                               }
@@ -449,6 +685,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 809,
+                                    "end": 828
+                                  },
                                   "content": "Best of both worlds"
                                 }
                               }
@@ -468,6 +708,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 837,
+                                    "end": 848
+                                  },
                                   "content": "Concurrency"
                                 }
                               }
@@ -480,6 +724,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 853,
+                                    "end": 878
+                                  },
                                   "content": "Safe parallel programming"
                                 }
                               }
@@ -492,6 +740,10 @@
                             "content": [
                               {
                                 "Text": {
+                                  "location": {
+                                    "start": 883,
+                                    "end": 904
+                                  },
                                   "content": "Scalable applications"
                                 }
                               }
@@ -508,12 +760,24 @@
             "NewLine",
             {
               "CodeElement": {
+                "location": {
+                  "start": 914,
+                  "end": 1094
+                },
                 "parameters": {
                   "lang": {
+                    "location": {
+                      "start": 922,
+                      "end": 936
+                    },
                     "key": "lang",
                     "value": [
                       {
                         "Text": {
+                          "location": {
+                            "start": 930,
+                            "end": 934
+                          },
                           "content": "rust"
                         }
                       }
@@ -533,12 +797,20 @@
   "NewLine",
   {
     "Header": {
+      "location": {
+        "start": 1103,
+        "end": 1130
+      },
       "level": 2,
       "is_folded": false,
       "section_index": 4,
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1106,
+              "end": 1129
+            },
             "content": "Community and Ecosystem"
           }
         }
@@ -548,14 +820,26 @@
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1131,
+        "end": 1169
+      },
       "content": "The Rust community is known for being "
     }
   },
   {
     "Bold": {
+      "location": {
+        "start": 1169,
+        "end": 1182
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1171,
+              "end": 1180
+            },
             "content": "welcoming"
           }
         }
@@ -564,14 +848,26 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 1182,
+        "end": 1187
+      },
       "content": " and "
     }
   },
   {
     "Underline": {
+      "location": {
+        "start": 1187,
+        "end": 1200
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1189,
+              "end": 1198
+            },
             "content": "inclusive"
           }
         }
@@ -580,6 +876,10 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 1200,
+        "end": 1201
+      },
       "content": "."
     }
   },
@@ -587,12 +887,24 @@
   "NewLine",
   {
     "BlockQuoteElement": {
+      "location": {
+        "start": 1203,
+        "end": 1365
+      },
       "parameters": {
         "style": {
+          "location": {
+            "start": 1212,
+            "end": 1252
+          },
           "key": "style",
           "value": [
             {
               "Text": {
+                "location": {
+                  "start": 1221,
+                  "end": 1250
+                },
                 "content": "font-style:italic; color:#666"
               }
             }
@@ -602,40 +914,72 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1252,
+              "end": 1304
+            },
             "content": "\"Rust is a systems programming language that is fast"
           }
         },
         {
           "Text": {
+            "location": {
+              "start": 1304,
+              "end": 1305
+            },
             "content": ","
           }
         },
         {
           "Text": {
+            "location": {
+              "start": 1305,
+              "end": 1317
+            },
             "content": " memory-safe"
           }
         },
         {
           "Text": {
+            "location": {
+              "start": 1317,
+              "end": 1318
+            },
             "content": ","
           }
         },
         {
           "Text": {
+            "location": {
+              "start": 1318,
+              "end": 1333
+            },
             "content": " and parallel.\""
           }
         },
         "NewLine",
         {
           "Text": {
+            "location": {
+              "start": 1334,
+              "end": 1338
+            },
             "content": "— "
           }
         },
         {
           "Italic": {
+            "location": {
+              "start": 1338,
+              "end": 1361
+            },
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 1339,
+                    "end": 1360
+                  },
                   "content": "Mozilla Research Team"
                 }
               }
@@ -650,12 +994,20 @@
   "NewLine",
   {
     "Header": {
+      "location": {
+        "start": 1367,
+        "end": 1390
+      },
       "level": 3,
       "is_folded": false,
       "section_index": 5,
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1371,
+              "end": 1389
+            },
             "content": "Package Management"
           }
         }
@@ -665,14 +1017,26 @@
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1391,
+        "end": 1401
+      },
       "content": "Rust uses "
     }
   },
   {
     "Bold": {
+      "location": {
+        "start": 1401,
+        "end": 1410
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1403,
+              "end": 1408
+            },
             "content": "Cargo"
           }
         }
@@ -681,20 +1045,36 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 1410,
+        "end": 1415
+      },
       "content": " for:"
     }
   },
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1416,
+        "end": 1418
+      },
       "content": "- "
     }
   },
   {
     "Strikethrough": {
+      "location": {
+        "start": 1418,
+        "end": 1450
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1420,
+              "end": 1448
+            },
             "content": "Manual dependency management"
           }
         }
@@ -703,32 +1083,56 @@
   },
   {
     "Text": {
+      "location": {
+        "start": 1450,
+        "end": 1486
+      },
       "content": " → Automatic dependency resolution"
     }
   },
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1487,
+        "end": 1525
+      },
       "content": "- Building projects with `cargo build`"
     }
   },
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1526,
+        "end": 1559
+      },
       "content": "- Running tests with `cargo test`"
     }
   },
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1560,
+        "end": 1576
+      },
       "content": "- Publishing to "
     }
   },
   {
     "Superscript": {
+      "location": {
+        "start": 1576,
+        "end": 1589
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1578,
+              "end": 1587
+            },
             "content": "crates.io"
           }
         }
@@ -739,12 +1143,20 @@
   "NewLine",
   {
     "Header": {
+      "location": {
+        "start": 1591,
+        "end": 1614
+      },
       "level": 3,
       "is_folded": false,
       "section_index": 6,
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 1595,
+              "end": 1613
+            },
             "content": "Learning Resources"
           }
         }
@@ -754,6 +1166,10 @@
   "NewLine",
   {
     "Text": {
+      "location": {
+        "start": 1615,
+        "end": 1634
+      },
       "content": "Current timestamp: "
     }
   },
@@ -762,9 +1178,17 @@
   "NewLine",
   {
     "ListElement": {
+      "location": {
+        "start": 1641,
+        "end": 1833
+      },
       "kind": "a",
       "parameters": {
         "a": {
+          "location": {
+            "start": 1649,
+            "end": 1653
+          },
           "key": "a",
           "value": []
         }
@@ -776,14 +1200,26 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 1655,
+                    "end": 1681
+                  },
                   "content": "Official documentation at "
                 }
               },
               {
                 "Subscript": {
+                  "location": {
+                    "start": 1681,
+                    "end": 1702
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 1683,
+                          "end": 1700
+                        },
                         "content": "doc.rust-lang.org"
                       }
                     }
@@ -799,9 +1235,17 @@
             "content": [
               {
                 "Bold": {
+                  "location": {
+                    "start": 1707,
+                    "end": 1724
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 1709,
+                          "end": 1722
+                        },
                         "content": "The Rust Book"
                       }
                     }
@@ -810,6 +1254,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 1724,
+                    "end": 1746
+                  },
                   "content": " - comprehensive guide"
                 }
               }
@@ -822,14 +1270,26 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 1751,
+                    "end": 1772
+                  },
                   "content": "Community forums and "
                 }
               },
               {
                 "Strikethrough": {
+                  "location": {
+                    "start": 1772,
+                    "end": 1779
+                  },
                   "content": [
                     {
                       "Text": {
+                        "location": {
+                          "start": 1774,
+                          "end": 1777
+                        },
                         "content": "IRC"
                       }
                     }
@@ -838,6 +1298,10 @@
               },
               {
                 "Text": {
+                  "location": {
+                    "start": 1779,
+                    "end": 1787
+                  },
                   "content": " Discord"
                 }
               }
@@ -850,6 +1314,10 @@
             "content": [
               {
                 "Text": {
+                  "location": {
+                    "start": 1792,
+                    "end": 1827
+                  },
                   "content": "Rust by Example - hands-on learning"
                 }
               }
@@ -863,6 +1331,10 @@
   "NewLine",
   {
     "Comment": {
+      "location": {
+        "start": 1835,
+        "end": 2028
+      },
       "content": " Multi-line comment explaining\n   the structure of this wiki page:\n   - Category classification\n   - Headers with different levels\n   - Mixed formatting styles\n   - Nested complex elements\n"
     }
   },
@@ -872,19 +1344,35 @@
   "NewLine",
   {
     "Italic": {
+      "location": {
+        "start": 2035,
+        "end": 2092
+      },
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 2036,
+              "end": 2064
+            },
             "content": "This page was last modified "
           }
         },
         {
           "Age": {
+            "location": {
+              "start": 2064,
+              "end": 2081
+            },
             "content": "2024-01-01"
           }
         },
         {
           "Text": {
+            "location": {
+              "start": 2081,
+              "end": 2091
+            },
             "content": " days ago."
           }
         }

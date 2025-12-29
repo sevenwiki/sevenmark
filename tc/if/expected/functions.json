@@ -1,19 +1,39 @@
 [
   {
     "Text": {
+      "location": {
+        "start": 0,
+        "end": 1
+      },
       "content": " "
     }
   },
   {
     "IfElement": {
+      "location": {
+        "start": 1,
+        "end": 40
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 8,
+            "end": 21
+          },
           "left": {
             "FunctionCall": {
+              "location": {
+                "start": 8,
+                "end": 17
+              },
               "name": "int",
               "arguments": [
                 {
                   "StringLiteral": {
+                    "location": {
+                      "start": 12,
+                      "end": 16
+                    },
                     "value": "10"
                   }
                 }
@@ -21,10 +41,18 @@
             }
           },
           "operator": {
+            "location": {
+              "start": 18,
+              "end": 19
+            },
             "kind": "GreaterThan"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 20,
+                "end": 21
+              },
               "value": 5
             }
           }
@@ -33,6 +61,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 22,
+              "end": 36
+            },
             "content": "int conversion"
           }
         },
@@ -44,14 +76,30 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 42,
+        "end": 83
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 49,
+            "end": 66
+          },
           "left": {
             "FunctionCall": {
+              "location": {
+                "start": 49,
+                "end": 61
+              },
               "name": "len",
               "arguments": [
                 {
                   "StringLiteral": {
+                    "location": {
+                      "start": 53,
+                      "end": 60
+                    },
                     "value": "hello"
                   }
                 }
@@ -59,10 +107,18 @@
             }
           },
           "operator": {
+            "location": {
+              "start": 62,
+              "end": 64
+            },
             "kind": "Equal"
           },
           "right": {
             "NumberLiteral": {
+              "location": {
+                "start": 65,
+                "end": 66
+              },
               "value": 5
             }
           }
@@ -71,6 +127,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 67,
+              "end": 79
+            },
             "content": "length check"
           }
         },
@@ -82,14 +142,30 @@
   "NewLine",
   {
     "IfElement": {
+      "location": {
+        "start": 85,
+        "end": 128
+      },
       "condition": {
         "Comparison": {
+          "location": {
+            "start": 92,
+            "end": 109
+          },
           "left": {
             "FunctionCall": {
+              "location": {
+                "start": 92,
+                "end": 100
+              },
               "name": "str",
               "arguments": [
                 {
                   "NumberLiteral": {
+                    "location": {
+                      "start": 96,
+                      "end": 99
+                    },
                     "value": 123
                   }
                 }
@@ -97,10 +173,18 @@
             }
           },
           "operator": {
+            "location": {
+              "start": 101,
+              "end": 103
+            },
             "kind": "Equal"
           },
           "right": {
             "StringLiteral": {
+              "location": {
+                "start": 104,
+                "end": 109
+              },
               "value": "123"
             }
           }
@@ -109,6 +193,10 @@
       "content": [
         {
           "Text": {
+            "location": {
+              "start": 110,
+              "end": 124
+            },
             "content": "str conversion"
           }
         },
