@@ -11,18 +11,20 @@ pub fn render(e: &TableElement, ctx: &mut RenderContext) -> Markup {
     let style = utils::build_style(&e.parameters);
 
     html! {
-        table class=(classes::TABLE) style=[style] {
-            tbody {
-                @for row_item in &e.content {
-                    @match row_item {
-                        TableRowItem::Row(row) => {
-                            @let row_style = utils::build_style(&row.parameters);
-                            tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
-                        }
-                        TableRowItem::Conditional { rows, .. } => {
-                            @for row in rows {
+        div class=(classes::TABLE_WRAPPER) {
+            table class=(classes::TABLE) style=[style] {
+                tbody {
+                    @for row_item in &e.content {
+                        @match row_item {
+                            TableRowItem::Row(row) => {
                                 @let row_style = utils::build_style(&row.parameters);
                                 tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
+                            }
+                            TableRowItem::Conditional { rows, .. } => {
+                                @for row in rows {
+                                    @let row_style = utils::build_style(&row.parameters);
+                                    tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
+                                }
                             }
                         }
                     }
