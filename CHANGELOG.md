@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.14] - 2025-12-29
+
+### Fixed
+- **sevenmark-html**: Table row (`<tr>`) now supports `#style` parameter
+  - Previously `[[#style="..." ...]]` (row-level) style was parsed but ignored in rendering
+  - Now `row.parameters` are applied to `<tr style="...">` element
+  - Both `TableRowItem::Row` and `TableRowItem::Conditional` cases handled
+
 ## [2.8.13] - 2025-12-29
 
 ### Added
