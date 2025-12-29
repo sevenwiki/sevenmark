@@ -16,11 +16,13 @@ pub fn render(e: &TableElement, ctx: &mut RenderContext) -> Markup {
                 @for row_item in &e.content {
                     @match row_item {
                         TableRowItem::Row(row) => {
-                            tr { (render_cells(&row.inner_content, ctx)) }
+                            @let row_style = utils::build_style(&row.parameters);
+                            tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
                         }
                         TableRowItem::Conditional { rows, .. } => {
                             @for row in rows {
-                                tr { (render_cells(&row.inner_content, ctx)) }
+                                @let row_style = utils::build_style(&row.parameters);
+                                tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
                             }
                         }
                     }
