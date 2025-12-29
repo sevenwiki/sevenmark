@@ -1,10 +1,6 @@
 [
   {
     "TeXElement": {
-      "location": {
-        "start": 0,
-        "end": 27
-      },
       "is_block": true,
       "content": "E = mc^2\n"
     }

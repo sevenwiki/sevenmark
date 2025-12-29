@@ -1,115 +1,45 @@
 [
   {
     "IfElement": {
-      "location": {
-        "start": 0,
-        "end": 40
-      },
       "condition": {
         "Comparison": {
-          "location": {
-            "start": 7,
-            "end": 19
-          },
           "left": {
-            "Null": {
-              "location": {
-                "start": 7,
-                "end": 11
-              }
-            }
+            "Null": {}
           },
           "operator": {
-            "location": {
-              "start": 12,
-              "end": 14
-            },
             "kind": "Equal"
           },
           "right": {
-            "Null": {
-              "location": {
-                "start": 15,
-                "end": 19
-              }
-            }
+            "Null": {}
           }
         }
       },
       "content": [
         {
           "Text": {
-            "location": {
-              "start": 20,
-              "end": 36
-            },
             "content": "null equals null"
           }
         },
-        {
-          "Text": {
-            "location": {
-              "start": 36,
-              "end": 37
-            },
-            "content": "\n"
-          }
-        }
+        "NewLine"
       ]
     }
   },
-  {
-    "Text": {
-      "location": {
-        "start": 40,
-        "end": 41
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 41,
-        "end": 42
-      },
-      "content": "\n"
-    }
-  },
+  "NewLine",
+  "NewLine",
   {
     "IfElement": {
-      "location": {
-        "start": 42,
-        "end": 82
-      },
       "condition": {
         "Comparison": {
-          "location": {
-            "start": 49,
-            "end": 61
-          },
           "left": {
             "BoolLiteral": {
-              "location": {
-                "start": 49,
-                "end": 53
-              },
               "value": true
             }
           },
           "operator": {
-            "location": {
-              "start": 54,
-              "end": 56
-            },
             "kind": "Equal"
           },
           "right": {
             "BoolLiteral": {
-              "location": {
-                "start": 57,
-                "end": 61
-              },
               "value": true
             }
           }
@@ -118,77 +48,29 @@
       "content": [
         {
           "Text": {
-            "location": {
-              "start": 62,
-              "end": 78
-            },
             "content": "true equals true"
           }
         },
-        {
-          "Text": {
-            "location": {
-              "start": 78,
-              "end": 79
-            },
-            "content": "\n"
-          }
-        }
+        "NewLine"
       ]
     }
   },
-  {
-    "Text": {
-      "location": {
-        "start": 82,
-        "end": 83
-      },
-      "content": "\n"
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 83,
-        "end": 84
-      },
-      "content": "\n"
-    }
-  },
+  "NewLine",
+  "NewLine",
   {
     "IfElement": {
-      "location": {
-        "start": 84,
-        "end": 128
-      },
       "condition": {
         "Comparison": {
-          "location": {
-            "start": 91,
-            "end": 105
-          },
           "left": {
             "BoolLiteral": {
-              "location": {
-                "start": 91,
-                "end": 96
-              },
               "value": false
             }
           },
           "operator": {
-            "location": {
-              "start": 97,
-              "end": 99
-            },
             "kind": "Equal"
           },
           "right": {
             "BoolLiteral": {
-              "location": {
-                "start": 100,
-                "end": 105
-              },
               "value": false
             }
           }
@@ -197,22 +79,10 @@
       "content": [
         {
           "Text": {
-            "location": {
-              "start": 106,
-              "end": 124
-            },
             "content": "false equals false"
           }
         },
-        {
-          "Text": {
-            "location": {
-              "start": 124,
-              "end": 125
-            },
-            "content": "\n"
-          }
-        }
+        "NewLine"
       ]
     }
   }

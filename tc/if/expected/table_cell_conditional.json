@@ -1,10 +1,6 @@
 [
   {
     "TableElement": {
-      "location": {
-        "start": 0,
-        "end": 75
-      },
       "parameters": {},
       "content": [
         {
@@ -17,10 +13,6 @@
                   "content": [
                     {
                       "Text": {
-                        "location": {
-                          "start": 15,
-                          "end": 26
-                        },
                         "content": "Normal Cell"
                       }
                     }
@@ -29,16 +21,8 @@
               },
               {
                 "Conditional": {
-                  "location": {
-                    "start": 29,
-                    "end": 69
-                  },
                   "condition": {
                     "BoolLiteral": {
-                      "location": {
-                        "start": 36,
-                        "end": 40
-                      },
                       "value": true
                     }
                   },
@@ -48,10 +32,6 @@
                       "content": [
                         {
                           "Text": {
-                            "location": {
-                              "start": 46,
-                              "end": 62
-                            },
                             "content": "Conditional Cell"
                           }
                         }

@@ -1,20 +1,12 @@
 [
   {
     "Text": {
-      "location": {
-        "start": 0,
-        "end": 18
-      },
       "content": "Before null macro "
     }
   },
   "Null",
   {
     "Text": {
-      "location": {
-        "start": 24,
-        "end": 42
-      },
       "content": " after null macro."
     }
   }

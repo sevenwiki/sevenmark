@@ -1,181 +1,101 @@
 [
   {
     "Text": {
-      "location": {
-        "start": 0,
-        "end": 20
-      },
       "content": "Escaped characters: "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 20,
-        "end": 22
-      },
       "content": "{"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 22,
-        "end": 23
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 23,
-        "end": 25
-      },
       "content": "}"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 25,
-        "end": 26
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 26,
-        "end": 28
-      },
       "content": "["
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 28,
-        "end": 29
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 29,
-        "end": 31
-      },
       "content": "]"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 31,
-        "end": 32
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 32,
-        "end": 34
-      },
       "content": "*"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 34,
-        "end": 35
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 35,
-        "end": 37
-      },
       "content": "_"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 37,
-        "end": 38
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 38,
-        "end": 40
-      },
       "content": "~"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 40,
-        "end": 41
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 41,
-        "end": 43
-      },
       "content": "^"
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 43,
-        "end": 44
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 44,
-        "end": 46
-      },
       "content": ","
     }
   },
   {
     "Text": {
-      "location": {
-        "start": 46,
-        "end": 47
-      },
       "content": " "
     }
   },
   {
     "Escape": {
-      "location": {
-        "start": 47,
-        "end": 49
-      },
       "content": "\\"
     }
   }
