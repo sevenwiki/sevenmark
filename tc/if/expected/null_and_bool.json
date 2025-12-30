@@ -45,8 +45,7 @@
             },
             "content": "null equals null"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -100,8 +99,7 @@
             },
             "content": "true equals true"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -155,8 +153,7 @@
             },
             "content": "false equals false"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   }

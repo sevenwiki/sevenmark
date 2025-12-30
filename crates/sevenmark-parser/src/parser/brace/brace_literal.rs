@@ -1,7 +1,7 @@
 use crate::ast::{LiteralElement, Location, SevenMarkElement};
 use crate::parser::ParserInput;
 use crate::parser::brace::literal::literal_content_parser;
-use crate::parser::utils::with_depth;
+use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::delimited;
@@ -16,9 +16,9 @@ pub fn brace_literal_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
     let (_, parsed_content) = delimited(
         literal("{{{"),
         (multispace0, |input: &mut ParserInput| {
-            with_depth(input, literal_content_parser)
+            with_depth_and_trim(input, literal_content_parser)
         }),
-        literal("}}}"),
+        (multispace0, literal("}}}")),
     )
     .parse_next(parser_input)?;
 

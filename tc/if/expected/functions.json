@@ -67,8 +67,7 @@
             },
             "content": "int conversion"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -133,8 +132,7 @@
             },
             "content": "length check"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -199,8 +197,7 @@
             },
             "content": "str conversion"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   }

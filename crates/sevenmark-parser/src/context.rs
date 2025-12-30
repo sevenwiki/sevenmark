@@ -23,6 +23,7 @@ macro_rules! context_setters {
 #[derive(Debug, Clone)]
 pub struct ParseContext {
     pub recursion_depth: usize,
+    pub trim_depth: usize,
     pub inside_header: bool,
     pub inside_bold: bool,
     pub inside_italic: bool,
@@ -43,6 +44,7 @@ impl ParseContext {
     pub fn new() -> Self {
         Self {
             recursion_depth: 0,
+            trim_depth: 0,
             inside_header: false,
             inside_bold: false,
             inside_italic: false,
@@ -78,15 +80,8 @@ impl ParseContext {
     }
 
     /// 재귀 깊이 감소 (in-place)
-    pub fn decrease_depth(&mut self) -> Result<(), SevenMarkError> {
-        if self.recursion_depth == 0 {
-            return Err(SevenMarkError::RecursionDepthExceeded {
-                depth: 0,
-                max_depth: self.max_recursion_depth,
-            });
-        }
-        self.recursion_depth -= 1;
-        Ok(())
+    pub fn decrease_depth(&mut self) {
+        self.recursion_depth = self.recursion_depth.saturating_sub(1);
     }
 
     /// 최대 재귀 깊이에 도달했는지 확인
@@ -117,6 +112,21 @@ impl ParseContext {
         let idx = self.footnote_counter;
         self.footnote_counter += 1;
         idx
+    }
+
+    /// trim_depth 증가
+    pub fn increase_trim_depth(&mut self) {
+        self.trim_depth += 1;
+    }
+
+    /// trim_depth 감소
+    pub fn decrease_trim_depth(&mut self) {
+        self.trim_depth = self.trim_depth.saturating_sub(1);
+    }
+
+    /// trim 컨텍스트 안에 있는지 확인
+    pub fn is_trimming(&self) -> bool {
+        self.trim_depth > 0
     }
 
     context_setters! {

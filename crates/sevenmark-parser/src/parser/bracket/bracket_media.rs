@@ -1,8 +1,9 @@
+use winnow::ascii::multispace0;
 use crate::ast::{Location, MediaElement, SevenMarkElement};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth;
+use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;
@@ -23,13 +24,13 @@ pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
         (opt(parameter_core_parser), |input: &mut ParserInput| {
             opt(|inner_input: &mut ParserInput| {
                 inner_input.state.set_media_element_context();
-                let result = with_depth(inner_input, element_parser);
+                let result = with_depth_and_trim(inner_input, element_parser);
                 inner_input.state.unset_media_element_context();
                 result
             })
             .parse_next(input)
         }),
-        literal("]]"),
+        (multispace0, literal("]]")),
     )
     .parse_next(parser_input)?;
 

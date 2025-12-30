@@ -2,8 +2,9 @@ use crate::ast::{IfElement, Location, SevenMarkElement};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::condition_parser;
-use crate::parser::utils::with_depth;
+use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;
+use winnow::ascii::multispace0;
 use winnow::combinator::delimited;
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
@@ -16,9 +17,9 @@ pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElemen
     let (condition, parsed_content) = delimited(
         literal("{{{#if"),
         (condition_parser, |input: &mut ParserInput| {
-            with_depth(input, element_parser)
+            with_depth_and_trim(input, element_parser)
         }),
-        literal("}}}"),
+        (multispace0, literal("}}}")),
     )
     .parse_next(parser_input)?;
 

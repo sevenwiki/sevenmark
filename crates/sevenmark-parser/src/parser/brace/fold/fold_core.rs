@@ -3,7 +3,7 @@ use super::super::super::parameter::parameter_core_parser;
 
 use crate::ast::FoldInnerElement;
 use crate::parser::ParserInput;
-use crate::parser::utils::with_depth;
+use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};
@@ -19,18 +19,18 @@ pub fn fold_core_parser(
             literal("[["),
             (
                 (opt(parameter_core_parser), multispace0),
-                |input: &mut ParserInput| with_depth(input, element_parser),
+                |input: &mut ParserInput| with_depth_and_trim(input, element_parser),
             ),
-            literal("]]"),
+            (multispace0, literal("]]")),
         ),
         multispace0,
         delimited(
             literal("[["),
             (
                 (opt(parameter_core_parser), multispace0),
-                |input: &mut ParserInput| with_depth(input, element_parser),
+                |input: &mut ParserInput| with_depth_and_trim(input, element_parser),
             ),
-            literal("]]"),
+            (multispace0, literal("]]")),
         ),
         multispace0,
     )

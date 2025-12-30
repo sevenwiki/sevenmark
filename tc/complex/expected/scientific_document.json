@@ -432,8 +432,7 @@
                         }
                       ]
                     }
-                  },
-                  "NewLine"
+                  }
                 ]
               }
             },
@@ -445,8 +444,7 @@
                 },
                 "content": "w"
               }
-            },
-            "NewLine"
+            }
           ]
         }
       ]
@@ -1319,8 +1317,7 @@
                 },
                 "content": " Einstein's original paper can be found in \n   Annalen der Physik, vol. 18, 1905 "
               }
-            },
-            "NewLine"
+            }
           ]
         }
       ]

@@ -47,8 +47,7 @@
             },
             "content": "with delimiter"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -134,8 +133,7 @@
             },
             "content": "grouped condition"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -221,8 +219,7 @@
             },
             "content": "comparison result equals true"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   }

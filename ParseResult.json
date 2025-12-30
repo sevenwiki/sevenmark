@@ -1,31 +1,19 @@
 [
   {
-    "Text": {
-      "content": "aa\r"
-    }
-  },
-  "NewLine",
-  {
-    "Include": {
-      "parameters": {},
+    "LiteralElement": {
       "content": [
         {
           "Text": {
-            "content": "대문"
+            "content": "dwefawef"
+          }
+        },
+        "NewLine",
+        {
+          "Text": {
+            "content": "awef"
           }
         }
       ]
-    }
-  },
-  {
-    "Text": {
-      "content": "\r"
-    }
-  },
-  "NewLine",
-  {
-    "Text": {
-      "content": "aa"
     }
   }
 ]

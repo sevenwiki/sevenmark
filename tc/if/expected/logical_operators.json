@@ -47,8 +47,7 @@
             },
             "content": "both true"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -102,8 +101,7 @@
             },
             "content": "either true"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   },
@@ -148,8 +146,7 @@
             },
             "content": "not false"
           }
-        },
-        "NewLine"
+        }
       ]
     }
   }

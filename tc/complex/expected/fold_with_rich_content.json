@@ -326,8 +326,7 @@
                       },
                       "content": " with formatting."
                     }
-                  },
-                  "NewLine"
+                  }
                 ]
               }
             },
@@ -386,8 +385,7 @@
                 },
                 "content": " characters."
               }
-            },
-            "NewLine"
+            }
           ]
         }
       ]

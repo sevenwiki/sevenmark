@@ -3,7 +3,7 @@ use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::expr_condition::condition_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth;
+use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{alt, delimited, opt, repeat};
@@ -58,9 +58,9 @@ fn list_element_parser(parser_input: &mut ParserInput) -> Result<ListInnerElemen
             literal("[["),
             (
                 (opt(parameter_core_parser), multispace0),
-                |input: &mut ParserInput| with_depth(input, element_parser),
+                |input: &mut ParserInput| with_depth_and_trim(input, element_parser),
             ),
-            literal("]]"),
+            (multispace0, literal("]]")),
         ),
         multispace0,
     )

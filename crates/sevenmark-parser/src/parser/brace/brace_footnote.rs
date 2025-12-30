@@ -2,7 +2,7 @@ use crate::ast::{FootnoteElement, Location, SevenMarkElement};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth;
+use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};
@@ -23,12 +23,12 @@ pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<SevenMark
             (opt(parameter_core_parser), multispace0),
             |input: &mut ParserInput| {
                 input.state.set_footnote_context();
-                let result = with_depth(input, element_parser);
+                let result = with_depth_and_trim(input, element_parser);
                 input.state.unset_footnote_context();
                 result
             },
         ),
-        literal("}}}"),
+        (multispace0, literal("}}}")),
     )
     .parse_next(parser_input)?;
     let end = parser_input.input.previous_token_end();
