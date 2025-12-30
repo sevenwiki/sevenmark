@@ -13,9 +13,10 @@ rust-version = "1.92.0"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { version = "2.8.19", path = "crates/sevenmark-parser" }
-sevenmark-transform = { version = "2.8.19", path = "crates/sevenmark-transform" }
-sevenmark-html = {version = "2.8.19", path="crates/sevenmark-html"}
+sevenmark-parser = { path = "crates/sevenmark-parser" }
+sevenmark-transform = {  path = "crates/sevenmark-transform" }
+sevenmark-html = { path="crates/sevenmark-html"}
+sevenmark-semantic = { path = "crates/sevenmark-semantic"}
 
 winnow = { version = "0.7.14", features = ["simd"] }
 line-span = "0.1.5"

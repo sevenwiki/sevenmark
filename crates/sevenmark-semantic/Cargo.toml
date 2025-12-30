@@ -1,0 +1,16 @@
+[package]
+name = "sevenmark-semantic"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Semantic HTML renderer for SevenMark AST"
+
+[dependencies]
+# Internal
+sevenmark-parser = { workspace = true }
+
+# HTML rendering
+maud = { workspace = true }
