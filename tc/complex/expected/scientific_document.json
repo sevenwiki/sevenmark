@@ -21,7 +21,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -44,7 +44,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "TeXElement": {
       "location": {
@@ -55,8 +55,8 @@
       "content": "E = mc^2\n"
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -187,8 +187,8 @@
       "content": " being the speed of light."
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "FoldElement": {
       "location": {
@@ -366,8 +366,8 @@
                 ]
               }
             },
-            "NewLine",
-            "NewLine",
+            "SoftBreak",
+            "SoftBreak",
             {
               "BlockQuoteElement": {
                 "location": {
@@ -404,7 +404,7 @@
                       "content": "\"The most beautiful thing we can experience is the mysterious.\" "
                     }
                   },
-                  "NewLine",
+                  "SoftBreak",
                   {
                     "Text": {
                       "location": {
@@ -450,8 +450,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -474,7 +474,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "TableElement": {
       "location": {
@@ -758,8 +758,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -782,7 +782,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -830,8 +830,8 @@
       "content": ":"
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "ListElement": {
       "location": {
@@ -991,8 +991,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -1015,7 +1015,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "CodeElement": {
       "location": {
@@ -1063,8 +1063,8 @@
       "content": "# Simple energy calculation\ndef mass_energy_equiv(mass_kg):\n    \"\"\"Calculate energy from mass using E=mc²\"\"\"\n    c = 299792458  # m/s\n    energy_joules = mass_kg * c**2\n    return energy_joules\n\n# Example: 1 gram of matter\nprint(f\"Energy from 1g: {mass_energy_equiv(0.001):.2e} Joules\")\n"
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "FoldElement": {
       "location": {
@@ -1174,7 +1174,7 @@
                 "content": " paper."
               }
             },
-            "NewLine",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -1212,8 +1212,8 @@
                 "content": "\""
               }
             },
-            "NewLine",
-            "NewLine",
+            "SoftBreak",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -1269,7 +1269,7 @@
                 "content": " "
               }
             },
-            "NewLine",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -1307,8 +1307,8 @@
                 "content": " effect!"
               }
             },
-            "NewLine",
-            "NewLine",
+            "SoftBreak",
+            "SoftBreak",
             {
               "Comment": {
                 "location": {
@@ -1323,10 +1323,10 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   "HLine",
-  "NewLine",
+  "SoftBreak",
   {
     "Italic": {
       "location": {
@@ -1355,7 +1355,7 @@
       "content": "  "
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Italic": {
       "location": {

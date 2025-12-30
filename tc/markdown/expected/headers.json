@@ -153,7 +153,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Bold": {
       "location": {
@@ -182,7 +182,7 @@
       "content": " # not header"
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "ListElement": {
       "location": {

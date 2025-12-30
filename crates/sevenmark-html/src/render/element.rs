@@ -55,8 +55,11 @@ pub fn render_element(el: &SevenMarkElement, ctx: &mut RenderContext) -> Markup 
         SevenMarkElement::FootnoteElement(e) => brace::footnote::render(e, ctx),
         SevenMarkElement::FootNote => r#macro::footnote::render(ctx),
 
+        // Line breaks
+        SevenMarkElement::SoftBreak => r#macro::newline::render_soft_break(ctx),
+        SevenMarkElement::HardBreak => r#macro::newline::render_hard_break(),
+
         // Macros
-        SevenMarkElement::NewLine => r#macro::newline::render(),
         SevenMarkElement::HLine => r#macro::hline::render(),
         SevenMarkElement::TimeNow => r#macro::timenow::render(),
         SevenMarkElement::Age(e) => r#macro::age::render(e),

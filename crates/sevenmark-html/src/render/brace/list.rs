@@ -8,8 +8,10 @@ use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
 pub fn render(e: &ListElement, ctx: &mut RenderContext) -> Markup {
+    ctx.enter_suppress_soft_breaks();
     let style = utils::build_style(&e.parameters);
     let items = render_items(&e.content, ctx);
+    ctx.exit_suppress_soft_breaks();
     let is_ordered = !e.kind.is_empty();
 
     if is_ordered {

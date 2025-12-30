@@ -18,8 +18,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -42,7 +42,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Include": {
       "location": {
@@ -82,8 +82,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -106,7 +106,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Bold": {
       "location": {
@@ -163,8 +163,8 @@
       "content": " at Mozilla Research. Key milestones:"
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "ListElement": {
       "location": {
@@ -335,8 +335,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -359,7 +359,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "FoldElement": {
       "location": {
@@ -756,8 +756,8 @@
                 ]
               }
             },
-            "NewLine",
-            "NewLine",
+            "SoftBreak",
+            "SoftBreak",
             {
               "CodeElement": {
                 "location": {
@@ -792,8 +792,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -816,7 +816,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -882,8 +882,8 @@
       "content": "."
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "BlockQuoteElement": {
       "location": {
@@ -956,7 +956,7 @@
             "content": " and parallel.\""
           }
         },
-        "NewLine",
+        "SoftBreak",
         {
           "Text": {
             "location": {
@@ -988,8 +988,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -1012,7 +1012,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -1050,7 +1050,7 @@
       "content": " for:"
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -1088,7 +1088,7 @@
       "content": " → Automatic dependency resolution"
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -1098,7 +1098,7 @@
       "content": "- Building projects with `cargo build`"
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -1108,7 +1108,7 @@
       "content": "- Running tests with `cargo test`"
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -1137,8 +1137,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -1161,7 +1161,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -1172,8 +1172,8 @@
     }
   },
   "TimeNow",
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "ListElement": {
       "location": {
@@ -1325,8 +1325,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Comment": {
       "location": {
@@ -1336,10 +1336,10 @@
       "content": " Multi-line comment explaining\n   the structure of this wiki page:\n   - Category classification\n   - Headers with different levels\n   - Mixed formatting styles\n   - Nested complex elements\n"
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   "HLine",
-  "NewLine",
+  "SoftBreak",
   {
     "Italic": {
       "location": {

@@ -110,8 +110,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "FoldElement": {
       "location": {
@@ -281,8 +281,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "CodeElement": {
       "location": {

@@ -21,7 +21,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -44,7 +44,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -82,8 +82,8 @@
       "content": " parsing engine implementation."
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "FoldElement": {
       "location": {
@@ -280,8 +280,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -304,7 +304,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "TableElement": {
       "location": {
@@ -620,8 +620,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -644,7 +644,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "CodeElement": {
       "location": {
@@ -692,8 +692,8 @@
       "content": "use sevenmark::parse_document;\n\nfn main() {\n    let content = \"**Hello** [now]\";\n    let result = parse_document(content);\n    println!(\"Parsed: {:#?}\", result);\n}\n"
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "Header": {
       "location": {
@@ -716,7 +716,7 @@
       ]
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Error": {
       "location": {

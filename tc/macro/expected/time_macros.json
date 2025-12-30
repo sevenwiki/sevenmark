@@ -9,7 +9,7 @@
     }
   },
   "TimeNow",
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -28,7 +28,7 @@
       "content": "1990-01-15"
     }
   },
-  "NewLine",
+  "SoftBreak",
   {
     "Text": {
       "location": {
@@ -38,7 +38,7 @@
       "content": "Line break:"
     }
   },
-  "NewLine",
+  "HardBreak",
   {
     "Text": {
       "location": {

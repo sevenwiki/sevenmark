@@ -36,7 +36,8 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote
             | SevenMarkElement::TimeNow
-            | SevenMarkElement::NewLine
+            | SevenMarkElement::SoftBreak
+            | SevenMarkElement::HardBreak
             | SevenMarkElement::HLine => {
                 // 자식 없음
             }
@@ -241,7 +242,8 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote
             | SevenMarkElement::TimeNow
-            | SevenMarkElement::NewLine
+            | SevenMarkElement::SoftBreak
+            | SevenMarkElement::HardBreak
             | SevenMarkElement::HLine
             | SevenMarkElement::DefineElement(_) => {}
 
@@ -329,7 +331,8 @@ impl Traversable for SevenMarkElement {
             | SevenMarkElement::Null
             | SevenMarkElement::FootNote
             | SevenMarkElement::TimeNow
-            | SevenMarkElement::NewLine
+            | SevenMarkElement::SoftBreak
+            | SevenMarkElement::HardBreak
             | SevenMarkElement::HLine => {
                 // 자식 없음
             }

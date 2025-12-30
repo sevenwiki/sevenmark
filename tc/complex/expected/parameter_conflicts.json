@@ -38,8 +38,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "ListElement": {
       "location": {
@@ -125,8 +125,8 @@
       ]
     }
   },
-  "NewLine",
-  "NewLine",
+  "SoftBreak",
+  "SoftBreak",
   {
     "TeXElement": {
       "location": {

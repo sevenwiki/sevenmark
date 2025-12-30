@@ -1,6 +1,24 @@
-{{{
-dwefawef
-awef
+## グラデーションとアニメーション
 
-
+{{{#style #block #style="text-align: center; padding: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ec4899 100%); border-radius: 1rem; margin: 1rem 0;"
+{{{#style #block #color="white" #size="2.5em" #style="font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"
+SevenMark
 }}}
+{{{#style #block #color="rgba(255,255,255,0.9)" #size="1.1em" #style="margin-top: 0.5rem;"
+次世代ウィキマークアップエンジン
+}}}
+{{{#style #block #style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;"
+{{{#style #block #style="background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white;"
+Rust製
+}}}
+{{{#style #block #style="background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white;"
+WASM対応
+}}}
+{{{#style #block #style="background: rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 2rem; color: white;"
+オープンソース
+}}}
+}}}
+}}}
+
+---
+

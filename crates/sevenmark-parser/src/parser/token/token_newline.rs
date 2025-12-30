@@ -13,11 +13,10 @@ pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
 
     // trim 컨텍스트에서 }}} 또는 ]] 앞 whitespace면 실패 (suffix가 처리하도록)
     if parser_input.state.is_trimming() {
-        not((multispace1, peek(alt((literal("}}}"), literal("]]"))))))
-            .parse_next(parser_input)?;
+        not((multispace1, peek(alt((literal("}}}"), literal("]]")))))).parse_next(parser_input)?;
     }
 
     literal("\n").parse_next(parser_input)?;
 
-    Ok(SevenMarkElement::NewLine)
+    Ok(SevenMarkElement::SoftBreak)
 }

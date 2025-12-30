@@ -8,7 +8,7 @@
       "content": "Text before horizontal line."
     }
   },
-  "NewLine",
+  "SoftBreak",
   "HLine",
   {
     "Text": {

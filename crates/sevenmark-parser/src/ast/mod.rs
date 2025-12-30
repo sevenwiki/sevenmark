@@ -59,8 +59,11 @@ pub enum SevenMarkElement {
     Null,
     FootNote,
     TimeNow,
-    NewLine,
     Age(AgeElement),
+
+    // Line breaks
+    SoftBreak, // from \n - context-dependent rendering
+    HardBreak, // from [br] - always renders as <br>
     Variable(VariableElement),
     Mention(MentionElement),
 
@@ -115,7 +118,12 @@ impl SevenMarkElement {
             Self::Header(e) => Some(&e.location),
             Self::IfElement(e) => Some(&e.location),
             // Elements without location
-            Self::Null | Self::FootNote | Self::TimeNow | Self::NewLine | Self::HLine => None,
+            Self::Null
+            | Self::FootNote
+            | Self::TimeNow
+            | Self::SoftBreak
+            | Self::HardBreak
+            | Self::HLine => None,
         }
     }
 }

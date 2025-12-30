@@ -5,14 +5,29 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.1] - 2025-12-31
+
+### Breaking Changes
+- **sevenmark-parser**: `NewLine` element replaced with `SoftBreak` and `HardBreak`
+  - `SoftBreak`: from regular `\n` - context-dependent rendering
+  - `HardBreak`: from `[br]` macro - always renders as `<br>`
+
+### Changed
+- **sevenmark-html**: `SoftBreak` rendering is context-aware
+  - Inside brace elements (styled, blockquote, table, list, fold, etc.): ignored
+  - Outside brace elements: renders as `<br>`
+  - `HardBreak` always renders as `<br>`
+
+### Added
+- **sevenmark-html**: `suppress_soft_breaks_depth` in `RenderContext`
+  - Helper methods: `enter_suppress_soft_breaks()`, `exit_suppress_soft_breaks()`, `is_soft_break_suppressed()`
+
 ## [2.9.0] - 2025-12-31
 
 ### Changed
 - **sevenmark-parser**: Trailing whitespace before closing delimiters (`}}}`, `]]`) is now trimmed
-  - Regular newlines (`\n`) before `}}}` or `]]` no longer produce `NewLine` elements
-  - Prevents unwanted `<br>` tags at the end of styled/blockquote/if/footnote/etc. elements
+  - Regular newlines (`\n`) before `}}}` or `]]` are consumed by suffix parser
   - Only applies inside brace/bracket elements (top-level newlines are preserved)
-  - `[br]` macro still works explicitly for line breaks
 
 ### Added
 - **sevenmark-parser**: New `trim_depth` context tracking for nested brace elements

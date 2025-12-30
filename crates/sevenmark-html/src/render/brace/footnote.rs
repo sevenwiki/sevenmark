@@ -11,7 +11,10 @@ use crate::render::{render_elements, utils};
 pub fn render(e: &FootnoteElement, ctx: &mut RenderContext) -> Markup {
     if ctx.in_footnote {
         // Prevent nested footnotes - just render content
-        return render_elements(&e.content, ctx);
+        ctx.enter_suppress_soft_breaks();
+        let content = render_elements(&e.content, ctx);
+        ctx.exit_suppress_soft_breaks();
+        return content;
     }
 
     let index = e.footnote_index;
@@ -36,6 +39,7 @@ pub fn render_list(ctx: &RenderContext) -> Markup {
     // Render footnote contents with in_footnote flag set
     let mut inner_ctx = RenderContext::new(ctx.config);
     inner_ctx.in_footnote = true;
+    inner_ctx.enter_suppress_soft_breaks();
 
     html! {
         section class=(classes::FOOTNOTE_LIST) {

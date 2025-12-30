@@ -8,9 +8,9 @@ use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
 pub fn render(e: &TableElement, ctx: &mut RenderContext) -> Markup {
+    ctx.enter_suppress_soft_breaks();
     let style = utils::build_style(&e.parameters);
-
-    html! {
+    let content = html! {
         div class=(classes::TABLE_WRAPPER) {
             table class=(classes::TABLE) style=[style] {
                 tbody {
@@ -31,7 +31,9 @@ pub fn render(e: &TableElement, ctx: &mut RenderContext) -> Markup {
                 }
             }
         }
-    }
+    };
+    ctx.exit_suppress_soft_breaks();
+    content
 }
 
 fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext) -> Markup {

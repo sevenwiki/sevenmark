@@ -126,7 +126,7 @@
                 "content": "This fold contains:"
               }
             },
-            "NewLine",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -183,7 +183,7 @@
                 ]
               }
             },
-            "NewLine",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -193,7 +193,7 @@
                 "content": "- A code snippet: `print(\"hello\")`"
               }
             },
-            "NewLine",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -204,7 +204,7 @@
               }
             },
             "TimeNow",
-            "NewLine",
+            "SoftBreak",
             {
               "Text": {
                 "location": {
@@ -261,8 +261,8 @@
                 ]
               }
             },
-            "NewLine",
-            "NewLine",
+            "SoftBreak",
+            "SoftBreak",
             {
               "BlockQuoteElement": {
                 "location": {
@@ -330,8 +330,8 @@
                 ]
               }
             },
-            "NewLine",
-            "NewLine",
+            "SoftBreak",
+            "SoftBreak",
             {
               "Comment": {
                 "location": {
