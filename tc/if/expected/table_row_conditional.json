@@ -10,7 +10,7 @@
         {
           "Row": {
             "parameters": {},
-            "inner_content": [
+            "content": [
               {
                 "Cell": {
                   "parameters": {},
@@ -48,7 +48,7 @@
             "rows": [
               {
                 "parameters": {},
-                "inner_content": [
+                "content": [
                   {
                     "Cell": {
                       "parameters": {},

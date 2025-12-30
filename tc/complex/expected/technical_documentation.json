@@ -335,7 +335,7 @@
         {
           "Row": {
             "parameters": {},
-            "inner_content": [
+            "content": [
               {
                 "Cell": {
                   "parameters": {},
@@ -420,7 +420,7 @@
         {
           "Row": {
             "parameters": {},
-            "inner_content": [
+            "content": [
               {
                 "Cell": {
                   "parameters": {},
@@ -511,7 +511,7 @@
         {
           "Row": {
             "parameters": {},
-            "inner_content": [
+            "content": [
               {
                 "Cell": {
                   "parameters": {},
