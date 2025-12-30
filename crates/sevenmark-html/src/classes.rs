@@ -86,5 +86,8 @@ pub const VARIABLE: &str = "sm-variable";
 pub const MENTION_USER: &str = "sm-mention-user";
 pub const MENTION_DISCUSSION: &str = "sm-mention-discussion";
 
+// Include
+pub const INCLUDE: &str = "sm-include";
+
 // Errors
 pub const ERROR: &str = "sm-error";

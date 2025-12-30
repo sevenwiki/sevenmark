@@ -1,17 +1,31 @@
 [
   {
     "Text": {
-      "content": "afawe\r"
+      "content": "aa\r"
+    }
+  },
+  "NewLine",
+  {
+    "Include": {
+      "parameters": {},
+      "content": [
+        {
+          "Text": {
+            "content": "대문"
+          }
+        }
+      ]
     }
   },
   {
     "Text": {
-      "content": "\n"
+      "content": "\r"
     }
   },
+  "NewLine",
   {
     "Text": {
-      "content": "awefwafwaef"
+      "content": "aa"
     }
   }
 ]
