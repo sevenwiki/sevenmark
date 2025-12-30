@@ -133,7 +133,7 @@ SevenMark supports conditional rendering with `{{{#if condition :: content}}}` s
 | Type | Operators |
 |------|-----------|
 | Comparison | `==`, `!=`, `>`, `<`, `>=`, `<=` |
-| Logical | `&&`, `||`, `!` (single `!` only, use `!(!x)` for double negation) |
+| Logical | `&&`, `\|\|`, `!` (single `!` only, use `!(!x)` for double negation) |
 | Literals | `null`, `true`, `false`, numbers, `"strings"` |
 | Functions | `int()`, `len()`, `str()` |
 
