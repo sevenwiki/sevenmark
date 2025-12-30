@@ -65,6 +65,7 @@ pub const FOOTNOTE_REF_ID_PREFIX: &str = "rn";
 
 // Section structure
 pub const SECTION: &str = "sm-section";
+pub const SECTION_FOLDED: &str = "sm-folded";
 pub const SECTION_CONTENT: &str = "sm-section-content";
 pub const SECTION_PATH: &str = "sm-section-path";
 pub const HEADER_CONTENT: &str = "sm-header-content";

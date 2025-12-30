@@ -50,16 +50,30 @@ fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut Render
     let header_markup =
         markdown::header::render_with_path(section.header, &section.section_path, config, ctx);
 
-    html! {
-        section class=(classes::SECTION) data-section=(section.header.section_index) {
-            (header_markup)
-            div class=(classes::SECTION_CONTENT) {
-                @for el in &section.content {
-                    (element::render_element(el, ctx))
-                }
-                @for child in &section.children {
-                    (render_section(child, config, ctx))
-                }
+    let section_content = html! {
+        div class=(classes::SECTION_CONTENT) {
+            @for el in &section.content {
+                (element::render_element(el, ctx))
+            }
+            @for child in &section.children {
+                (render_section(child, config, ctx))
+            }
+        }
+    };
+
+    if section.header.is_folded {
+        let class = format!("{} {}", classes::SECTION, classes::SECTION_FOLDED);
+        html! {
+            details class=(class) data-section=(section.header.section_index) {
+                summary { (header_markup) }
+                (section_content)
+            }
+        }
+    } else {
+        html! {
+            section class=(classes::SECTION) data-section=(section.header.section_index) {
+                (header_markup)
+                (section_content)
             }
         }
     }
