@@ -29,7 +29,7 @@ pub enum TableCellItem {
 #[derive(Debug, Clone, Serialize)]
 pub struct TableInnerElement1 {
     pub parameters: Parameters,
-    pub inner_content: Vec<TableCellItem>,
+    pub content: Vec<TableCellItem>,
 }
 
 /// 테이블 행 콘텐츠 아이템 (행 또는 조건부)

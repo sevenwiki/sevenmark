@@ -132,7 +132,7 @@ impl Traversable for SevenMarkElement {
                 for row_item in &mut table.content {
                     match row_item {
                         TableRowItem::Row(row) => {
-                            for cell_item in &mut row.inner_content {
+                            for cell_item in &mut row.content {
                                 match cell_item {
                                     TableCellItem::Cell(cell) => {
                                         for child in &mut cell.content {
@@ -156,7 +156,7 @@ impl Traversable for SevenMarkElement {
                             condition, rows, ..
                         } => {
                             for row in rows {
-                                for cell_item in &mut row.inner_content {
+                                for cell_item in &mut row.content {
                                     match cell_item {
                                         TableCellItem::Cell(cell) => {
                                             for child in &mut cell.content {
@@ -276,7 +276,7 @@ impl Traversable for SevenMarkElement {
                 for row_item in &mut table.content {
                     match row_item {
                         TableRowItem::Row(row) => {
-                            for cell_item in &mut row.inner_content {
+                            for cell_item in &mut row.content {
                                 if let TableCellItem::Cell(cell) = cell_item {
                                     f(&mut cell.content);
                                 }
@@ -285,7 +285,7 @@ impl Traversable for SevenMarkElement {
                         }
                         TableRowItem::Conditional { rows, .. } => {
                             for row in rows {
-                                for cell_item in &mut row.inner_content {
+                                for cell_item in &mut row.content {
                                     if let TableCellItem::Cell(cell) = cell_item {
                                         f(&mut cell.content);
                                     }
@@ -427,7 +427,7 @@ impl Traversable for SevenMarkElement {
                 for row_item in &table.content {
                     match row_item {
                         TableRowItem::Row(row) => {
-                            for cell_item in &row.inner_content {
+                            for cell_item in &row.content {
                                 match cell_item {
                                     TableCellItem::Cell(cell) => {
                                         for child in &cell.content {
@@ -451,7 +451,7 @@ impl Traversable for SevenMarkElement {
                             condition, rows, ..
                         } => {
                             for row in rows {
-                                for cell_item in &row.inner_content {
+                                for cell_item in &row.content {
                                     match cell_item {
                                         TableCellItem::Cell(cell) => {
                                             for child in &cell.content {

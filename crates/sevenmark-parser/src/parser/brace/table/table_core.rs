@@ -68,7 +68,7 @@ fn table_element_parser(parser_input: &mut ParserInput) -> Result<TableInnerElem
 
     Ok(TableInnerElement1 {
         parameters: parameters.unwrap_or_default(),
-        inner_content: parsed_content,
+        content: parsed_content,
     })
 }
 

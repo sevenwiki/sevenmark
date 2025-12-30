@@ -544,7 +544,7 @@ fn process_table_conditionals(rows: &mut Vec<TableRowItem>, variables: &HashMap<
         match &mut rows[i] {
             TableRowItem::Row(row) => {
                 // 행 내부의 셀 레벨 조건부 처리
-                process_table_cell_conditionals(&mut row.inner_content, variables);
+                process_table_cell_conditionals(&mut row.content, variables);
                 i += 1;
             }
             TableRowItem::Conditional {
@@ -556,7 +556,7 @@ fn process_table_conditionals(rows: &mut Vec<TableRowItem>, variables: &HashMap<
                     // 조건이 true: rows를 펼침
                     // 먼저 펼쳐질 rows 내부의 셀 조건부도 처리
                     for row in cond_rows.iter_mut() {
-                        process_table_cell_conditionals(&mut row.inner_content, variables);
+                        process_table_cell_conditionals(&mut row.content, variables);
                     }
                     let expanded: Vec<TableRowItem> =
                         cond_rows.drain(..).map(TableRowItem::Row).collect();

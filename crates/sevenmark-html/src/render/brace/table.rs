@@ -18,12 +18,12 @@ pub fn render(e: &TableElement, ctx: &mut RenderContext) -> Markup {
                         @match row_item {
                             TableRowItem::Row(row) => {
                                 @let row_style = utils::build_style(&row.parameters);
-                                tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
+                                tr style=[row_style] { (render_cells(&row.content, ctx)) }
                             }
                             TableRowItem::Conditional { rows, .. } => {
                                 @for row in rows {
                                     @let row_style = utils::build_style(&row.parameters);
-                                    tr style=[row_style] { (render_cells(&row.inner_content, ctx)) }
+                                    tr style=[row_style] { (render_cells(&row.content, ctx)) }
                                 }
                             }
                         }

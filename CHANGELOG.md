@@ -5,6 +5,13 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.2] - 2025-12-31
+
+### Breaking Changes
+- **sevenmark-parser**: `TableInnerElement1.inner_content` renamed to `content`
+  - Affects AST, parser, HTML renderer, and preprocessor
+  - Consistent naming with other content fields in AST
+
 ## [2.9.1] - 2025-12-31
 
 ### Breaking Changes
