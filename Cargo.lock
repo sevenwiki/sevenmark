@@ -1127,39 +1127,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "92ecc6618181def0457392ccd0ee51198e065e016d1d527a7ac1b6dc7c1f09d2"
 
 [[package]]
-name = "jiff"
-version = "0.2.17"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a87d9b8105c23642f50cbbae03d1f75d8422c5cb98ce7ee9271f7ff7505be6b8"
-dependencies = [
- "jiff-static",
- "portable-atomic",
- "portable-atomic-util",
-]
-
-[[package]]
-name = "jiff-sqlx"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cad0aaf716e798876e02217ae420bd730370a175ffd59870018c4aa4daa1513e"
-dependencies = [
- "jiff",
- "sqlx-core",
- "sqlx-postgres",
-]
-
-[[package]]
-name = "jiff-static"
-version = "0.2.17"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b787bebb543f8969132630c51fd0afab173a86c6abae56ff3b9e5e3e3f9f6e58"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.111",
-]
-
-[[package]]
 name = "js-sys"
 version = "0.3.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1640,21 +1607,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "portable-atomic"
-version = "1.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f89776e4d69bb58bc6993e99ffa1d11f228b839984854c7daeb5d37f87cbe950"
-
-[[package]]
-name = "portable-atomic-util"
-version = "0.2.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8a2f0d8d040d7848a709caf78912debcc3f33ee4b3cac47d73d1e1069e83507"
-dependencies = [
- "portable-atomic",
-]
-
-[[package]]
 name = "potential_utf"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2030,9 +1982,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "2.0.0-rc.24"
+version = "2.0.0-rc.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a1bd7c44e90dc8fe929be79a753d922d2181faf330f0a78bc3f6db7d6299f72"
+checksum = "f977eb3ca333bbd6ae0ca41fef66754da9091e3631036b70b3a287a64ee7ab1a"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -2062,9 +2014,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "2.0.0-rc.24"
+version = "2.0.0-rc.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cd796261d955f987d218482ead00bb8c41e4e537e54b13c6248a8bee5f6f6134"
+checksum = "9cabc272a84785ce361b985e476c8d8ba1325a52e91a983933dacea28b6d3f54"
 dependencies = [
  "heck 0.5.0",
  "pluralizer",
@@ -2077,9 +2029,9 @@ dependencies = [
 
 [[package]]
 name = "sea-query"
-version = "1.0.0-rc.27"
+version = "1.0.0-rc.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e05d5823f08400dcf3f9e310e291b9d8855d1e2cf5e8689d754374287db0fc3d"
+checksum = "93948054fb2d208555a96d03d2c887591deb42ffe3210eedbd8a3234c6fb6d34"
 dependencies = [
  "chrono",
  "inherent",
@@ -2107,12 +2059,11 @@ dependencies = [
 
 [[package]]
 name = "sea-query-sqlx"
-version = "0.8.0-rc.10"
+version = "0.8.0-rc.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3c45d0fefde032a4cb0938901eb702b20430881a6de7f6b3664f46373978f00"
+checksum = "693f3ac3a10a228afaf3512b122cffc07c57b4269d233c7ff60571ebb4f0dd17"
 dependencies = [
  "chrono",
- "jiff-sqlx",
  "rust_decimal",
  "sea-query",
  "serde_json",
@@ -2249,7 +2200,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-html"
-version = "2.8.18"
+version = "2.8.19"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -2257,7 +2208,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.8.18"
+version = "2.8.19"
 dependencies = [
  "line-span",
  "paste",
@@ -2268,7 +2219,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.8.18"
+version = "2.8.19"
 dependencies = [
  "anyhow",
  "axum",
@@ -2289,7 +2240,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.8.18"
+version = "2.8.19"
 dependencies = [
  "anyhow",
  "js-sys",
@@ -3593,9 +3544,9 @@ checksum = "40990edd51aae2c2b6907af74ffb635029d5788228222c4bb811e9351c0caad3"
 
 [[package]]
 name = "zmij"
-version = "1.0.2"
+version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f4a4e8e9dc5c62d159f04fcdbe07f4c3fb710415aab4754bf11505501e3251d"
+checksum = "e9747e91771f56fd7893e1164abd78febd14a670ceec257caad15e051de35f06"
 
 [[package]]
 name = "zopfli"

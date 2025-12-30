@@ -71,8 +71,8 @@ fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut Render
         }
     } else {
         html! {
-            section class=(classes::SECTION) data-section=(section.header.section_index) {
-                (header_markup)
+            details class=(classes::SECTION) data-section=(section.header.section_index) open {
+                summary { (header_markup) }
                 (section_content)
             }
         }

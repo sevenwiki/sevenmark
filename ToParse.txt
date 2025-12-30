@@ -1,1 +1,5 @@
-#! something
+# Normal Header
+content here
+
+#! Folded Header
+hidden content

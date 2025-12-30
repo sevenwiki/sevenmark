@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.19] - 2025-12-30
+
+### Changed
+- **sevenmark-html**: All sections now use `<details>/<summary>` for collapsible headers
+  - Normal header (`#`): `<details class="sm-section" open>` (expanded by default)
+  - Folded header (`#!`): `<details class="sm-section sm-folded">` (collapsed by default)
+  - Both can be toggled by clicking, native browser behavior without JavaScript
+
 ## [2.8.18] - 2025-12-30
 
 ### Added
