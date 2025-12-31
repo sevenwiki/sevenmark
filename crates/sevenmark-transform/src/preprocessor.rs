@@ -67,12 +67,9 @@ pub async fn preprocess_sevenmark(
     mut ast: Vec<SevenMarkElement>,
     db: &DatabaseConnection,
 ) -> Result<PreProcessedDocument> {
-    // Substitute variables in main document
-    let mut main_params = HashMap::new();
-    substitute_variables(&mut ast, &mut main_params);
-
-    // Process if conditionals
-    process_if_elements(&mut ast, &main_params);
+    // Process defines and ifs in document order (single pass)
+    let mut variables = HashMap::new();
+    process_defines_and_ifs(&mut ast, &mut variables);
 
     // Collect metadata from main document
     let mut categories = HashSet::new();
@@ -138,38 +135,74 @@ pub async fn preprocess_sevenmark(
     })
 }
 
-fn substitute_variables(elements: &mut [SevenMarkElement], params: &mut HashMap<String, String>) {
-    for element in elements {
-        substitute_variables_recursive(element, params);
-    }
-}
-
-fn substitute_variables_recursive(
-    element: &mut SevenMarkElement,
-    params: &mut HashMap<String, String>,
+/// Define과 If를 문서 순서대로 처리 (single pass, in-place)
+/// - Define을 만나면 변수 등록
+/// - Variable을 만나면 치환
+/// - If를 만나면 조건 평가 후 전개/제거
+fn process_defines_and_ifs(
+    elements: &mut Vec<SevenMarkElement>,
+    variables: &mut HashMap<String, String>,
 ) {
-    if let SevenMarkElement::DefineElement(def) = element {
-        for (key, param) in &def.parameters {
-            let value = extract_plain_text(&param.value);
-            if !value.is_empty() {
-                params.insert(key.clone(), value);
+    let mut i = 0;
+    while i < elements.len() {
+        // 1. DefineElement: 변수 등록
+        if let SevenMarkElement::DefineElement(def) = &elements[i] {
+            for (key, param) in &def.parameters {
+                let value = extract_plain_text(&param.value);
+                if !value.is_empty() {
+                    variables.insert(key.clone(), value);
+                }
             }
+            i += 1;
+            continue;
         }
-    }
 
-    if let SevenMarkElement::Variable(var) = element
-        && let Some(value) = params.get(&var.content)
-    {
-        *element = SevenMarkElement::Text(TextElement {
-            location: Location::synthesized(),
-            content: value.clone(),
+        // 2. Variable: 치환
+        if let SevenMarkElement::Variable(var) = &elements[i] {
+            if let Some(value) = variables.get(&var.content) {
+                elements[i] = SevenMarkElement::Text(TextElement {
+                    location: Location::synthesized(),
+                    content: value.clone(),
+                });
+            }
+            i += 1;
+            continue;
+        }
+
+        // 3. IfElement: 조건 평가 후 전개/제거
+        if let SevenMarkElement::IfElement(if_elem) = &elements[i] {
+            if evaluate_condition(&if_elem.condition, variables) {
+                // 조건 true: 내용으로 대체 후 같은 위치부터 재처리
+                let content = if_elem.content.clone();
+                elements.splice(i..i + 1, content);
+            } else {
+                // 조건 false: 제거
+                elements.remove(i);
+            }
+            continue;
+        }
+
+        // 4. TableElement: 테이블 내부 조건부 처리
+        if let SevenMarkElement::TableElement(table) = &mut elements[i] {
+            process_table_conditionals(&mut table.content, variables);
+            i += 1;
+            continue;
+        }
+
+        // 5. ListElement: 리스트 내부 조건부 처리
+        if let SevenMarkElement::ListElement(list) = &mut elements[i] {
+            process_list_conditionals(&mut list.content, variables);
+            i += 1;
+            continue;
+        }
+
+        // 6. 기타 요소: 자식 재귀 처리
+        elements[i].for_each_content_vec(&mut |vec| {
+            process_defines_and_ifs(vec, variables);
         });
-        return;
-    }
 
-    element.traverse_children(&mut |child| {
-        substitute_variables_recursive(child, params);
-    });
+        i += 1;
+    }
 }
 
 fn collect_metadata(
@@ -449,8 +482,8 @@ fn substitute_includes_recursive(
                     .map(|(k, v)| (k.clone(), extract_plain_text(&v.value)))
                     .collect();
 
-                // Substitute variables (include parameters have priority)
-                substitute_variables(&mut included_ast, &mut params_map);
+                // Process defines and ifs (include parameters have priority)
+                process_defines_and_ifs(&mut included_ast, &mut params_map);
 
                 // Collect media from included document (sections and user_mentions ignored for includes)
                 let mut categories = HashSet::new();
@@ -499,46 +532,11 @@ fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
     }
 }
 
-/// If 요소를 조건 평가 후 처리 (조건 true: 내용 전개, false: 제거)
-fn process_if_elements(elements: &mut Vec<SevenMarkElement>, variables: &HashMap<String, String>) {
-    let mut i = 0;
-    while i < elements.len() {
-        // 먼저 자식 요소들의 If 처리
-        elements[i].for_each_content_vec(&mut |vec| {
-            process_if_elements(vec, variables);
-        });
-
-        // TableElement 내부의 조건부 처리
-        if let SevenMarkElement::TableElement(table) = &mut elements[i] {
-            process_table_conditionals(&mut table.content, variables);
-        }
-
-        // ListElement 내부의 조건부 처리
-        if let SevenMarkElement::ListElement(list) = &mut elements[i] {
-            process_list_conditionals(&mut list.content, variables);
-        }
-
-        // 현재 요소가 IfElement인 경우 처리
-        if let SevenMarkElement::IfElement(if_elem) = &elements[i] {
-            if evaluate_condition(&if_elem.condition, variables) {
-                // 조건이 true: 내용으로 대체
-                let content = if_elem.content.clone();
-                elements.splice(i..i + 1, content);
-                // splice 후 새로 삽입된 요소들도 재처리 필요 없음 (이미 자식 처리됨)
-                // 다음 요소로 이동하지 않고 같은 인덱스 유지 (새 요소 확인)
-            } else {
-                // 조건이 false: 제거
-                elements.remove(i);
-            }
-            // i를 증가시키지 않음 - splice/remove 후 다음 요소가 현재 위치에 있음
-            continue;
-        }
-        i += 1;
-    }
-}
-
 /// TableElement 내부의 행/셀 레벨 조건부 처리
-fn process_table_conditionals(rows: &mut Vec<TableRowItem>, variables: &HashMap<String, String>) {
+fn process_table_conditionals(
+    rows: &mut Vec<TableRowItem>,
+    variables: &mut HashMap<String, String>,
+) {
     let mut i = 0;
     while i < rows.len() {
         match &mut rows[i] {
@@ -575,14 +573,14 @@ fn process_table_conditionals(rows: &mut Vec<TableRowItem>, variables: &HashMap<
 /// 테이블 셀 레벨 조건부 처리
 fn process_table_cell_conditionals(
     cells: &mut Vec<TableCellItem>,
-    variables: &HashMap<String, String>,
+    variables: &mut HashMap<String, String>,
 ) {
     let mut i = 0;
     while i < cells.len() {
         match &mut cells[i] {
             TableCellItem::Cell(cell) => {
-                // 셀 내부의 일반 IfElement 처리
-                process_if_elements(&mut cell.content, variables);
+                // 셀 내부 처리 (define/if 포함)
+                process_defines_and_ifs(&mut cell.content, variables);
                 i += 1;
             }
             TableCellItem::Conditional {
@@ -592,9 +590,8 @@ fn process_table_cell_conditionals(
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: cells를 펼침
-                    // 먼저 펼쳐질 cells 내부의 IfElement도 처리
                     for cell in cond_cells.iter_mut() {
-                        process_if_elements(&mut cell.content, variables);
+                        process_defines_and_ifs(&mut cell.content, variables);
                     }
                     let expanded: Vec<TableCellItem> =
                         cond_cells.drain(..).map(TableCellItem::Cell).collect();
@@ -613,14 +610,14 @@ fn process_table_cell_conditionals(
 /// ListElement 내부의 아이템 레벨 조건부 처리
 fn process_list_conditionals(
     items: &mut Vec<ListContentItem>,
-    variables: &HashMap<String, String>,
+    variables: &mut HashMap<String, String>,
 ) {
     let mut i = 0;
     while i < items.len() {
         match &mut items[i] {
             ListContentItem::Item(item) => {
-                // 아이템 내부의 일반 IfElement 처리
-                process_if_elements(&mut item.content, variables);
+                // 아이템 내부 처리 (define/if 포함)
+                process_defines_and_ifs(&mut item.content, variables);
                 i += 1;
             }
             ListContentItem::Conditional {
@@ -630,9 +627,8 @@ fn process_list_conditionals(
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: items를 펼침
-                    // 먼저 펼쳐질 items 내부의 IfElement도 처리
                     for item in cond_items.iter_mut() {
-                        process_if_elements(&mut item.content, variables);
+                        process_defines_and_ifs(&mut item.content, variables);
                     }
                     let expanded: Vec<ListContentItem> =
                         cond_items.drain(..).map(ListContentItem::Item).collect();

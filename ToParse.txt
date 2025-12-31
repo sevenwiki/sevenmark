@@ -1,4 +1,15 @@
-{{{#if [var(x)] == 1
-a}}}
+{{{#define #x="1"}}}
 
-bb
+{{{#if true
+{{{#define #x="첫 케이스"}}}
+}}}
+[var(x)]
+{{{#if true
+{{{#define #x="첫 케이스 22222"}}}
+}}}
+
+[var(x)]
+{{{#if false
+{{{#define #x="첫 케이스 333333"}}}
+}}}
+[var(x)]

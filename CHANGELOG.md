@@ -5,6 +5,25 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0] - 2025-12-31
+
+### Breaking Changes
+- **sevenmark-transform**: Define and If are now processed in document order (single pass)
+  - Previously: all defines processed first, then all ifs evaluated
+  - Now: processed sequentially as they appear in the document
+  - **Impact**: `{{{#define}}}` inside `{{{#if false :: ... }}}` is now ignored (previously was processed)
+  - **Benefit**: Enables conditional defines pattern:
+    ```
+    {{{#if [var(mode)] == "dark" ::
+      {{{#define #theme="black"}}}
+    }}}
+    [var(theme)]  ← only defined if mode is "dark"
+    ```
+
+### Changed
+- `process_defines_and_ifs()` replaces `substitute_variables()` + `process_if_elements()`
+- Table/List conditional processors now use mutable variables for scope propagation
+
 ## [2.9.2] - 2025-12-31
 
 ### Breaking Changes
