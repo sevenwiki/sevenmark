@@ -551,20 +551,15 @@ fn process_table_conditionals(
                 ..
             } => {
                 if evaluate_condition(condition, variables) {
-                    // 조건이 true: rows를 펼침
-                    // 먼저 펼쳐질 rows 내부의 셀 조건부도 처리
-                    for row in cond_rows.iter_mut() {
-                        process_table_cell_conditionals(&mut row.content, variables);
-                    }
+                    // 조건이 true: rows를 펼침 (처리는 펼친 후 루프에서)
                     let expanded: Vec<TableRowItem> =
                         cond_rows.drain(..).map(TableRowItem::Row).collect();
                     rows.splice(i..i + 1, expanded);
-                    // 다음 반복에서 새로 삽입된 요소 확인
+                    // i 유지 → 다음 반복에서 Row로 처리됨
                 } else {
                     // 조건이 false: 제거
                     rows.remove(i);
                 }
-                // i를 증가시키지 않음
             }
         }
     }
@@ -589,19 +584,15 @@ fn process_table_cell_conditionals(
                 ..
             } => {
                 if evaluate_condition(condition, variables) {
-                    // 조건이 true: cells를 펼침
-                    for cell in cond_cells.iter_mut() {
-                        process_defines_and_ifs(&mut cell.content, variables);
-                    }
+                    // 조건이 true: cells를 펼침 (처리는 펼친 후 루프에서)
                     let expanded: Vec<TableCellItem> =
                         cond_cells.drain(..).map(TableCellItem::Cell).collect();
                     cells.splice(i..i + 1, expanded);
-                    // 다음 반복에서 새로 삽입된 요소 확인
+                    // i 유지 → 다음 반복에서 Cell로 처리됨
                 } else {
                     // 조건이 false: 제거
                     cells.remove(i);
                 }
-                // i를 증가시키지 않음
             }
         }
     }
@@ -626,19 +617,15 @@ fn process_list_conditionals(
                 ..
             } => {
                 if evaluate_condition(condition, variables) {
-                    // 조건이 true: items를 펼침
-                    for item in cond_items.iter_mut() {
-                        process_defines_and_ifs(&mut item.content, variables);
-                    }
+                    // 조건이 true: items를 펼침 (처리는 펼친 후 루프에서)
                     let expanded: Vec<ListContentItem> =
                         cond_items.drain(..).map(ListContentItem::Item).collect();
                     items.splice(i..i + 1, expanded);
-                    // 다음 반복에서 새로 삽입된 요소 확인
+                    // i 유지 → 다음 반복에서 Item으로 처리됨
                 } else {
                     // 조건이 false: 제거
                     items.remove(i);
                 }
-                // i를 증가시키지 않음
             }
         }
     }

@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `process_defines_and_ifs()` replaces `substitute_variables()` + `process_if_elements()`
 - Table/List conditional processors now use mutable variables for scope propagation
 
+### Fixed
+- Table/List/Cell conditional expansion no longer double-processes content (performance optimization)
+
 ## [2.9.2] - 2025-12-31
 
 ### Breaking Changes
