@@ -5,6 +5,112 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0] - 2026-01-01
+
+### Breaking Changes
+- **AST Structure Overhaul**: Complete refactoring from `SevenMarkElement` enum to `AstNode { location, kind: NodeKind }` pattern
+  - All AST nodes now **guaranteed to have location information**
+  - Previous: `SevenMarkElement::Bold(TextStyleElement { location, content })`
+  - New: `AstNode { location, kind: NodeKind::Bold { children } }`
+  - JSON output format changed significantly (see Migration Guide below)
+
+- **Field Naming Unification**: All child content fields renamed to `children`
+  - `content` → `children` across all node types
+  - Table/List/Fold internal types now unified as NodeKind variants
+
+- **Type Consolidation**: Removed separate struct types
+  - Deleted: `table.rs`, `list.rs`, `fold.rs` from AST module
+  - `TableRow`, `TableCell`, `ListItem`, `FoldInner` → NodeKind variants
+  - `Conditional*` types → NodeKind variants (`ConditionalTableRows`, `ConditionalTableCells`, `ConditionalListItems`)
+
+### Changed
+- **Expression remains unchanged**: `Expression` enum kept separate (already has location in each variant)
+- **Traversable trait**: Completely rewritten for new `AstNode`/`NodeKind` structure
+- **All parsers**: Return `AstNode { location, kind }` instead of element-specific structs
+- **sevenmark-transform**: All processors updated for new AST structure
+- **sevenmark-html**: All renderers updated for `NodeKind` pattern matching
+
+### JSON Output Format
+
+**Before (2.10.x):**
+```json
+{
+  "Bold": {
+    "location": { "start": 0, "end": 10 },
+    "content": [...]
+  }
+}
+```
+
+**After (2.12.0):**
+```json
+{
+  "location": { "start": 0, "end": 10 },
+  "kind": {
+    "Bold": {
+      "children": [...]
+    }
+  }
+}
+```
+
+**Table Example (2.12.0):**
+```json
+{
+  "location": { "start": 0, "end": 100 },
+  "kind": {
+    "Table": {
+      "parameters": {},
+      "children": [
+        {
+          "location": { "start": 5, "end": 50 },
+          "kind": {
+            "TableRow": {
+              "parameters": {},
+              "children": [...]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+### Migration Guide
+
+**Rust Pattern Matching:**
+```rust
+// BEFORE (2.10.x)
+match element {
+    SevenMarkElement::Bold(e) => { /* use e.content */ }
+    SevenMarkElement::Table(e) => { /* use e.content */ }
+}
+
+// AFTER (2.12.0)
+match &node.kind {
+    NodeKind::Bold { children } => { /* use children */ }
+    NodeKind::Table { parameters, children } => { /* use children */ }
+}
+```
+
+**Accessing Location:**
+```rust
+// BEFORE: element.location() - returns Option<&Location>
+// AFTER: node.location - always present, no Option
+let loc = node.location;
+```
+
+**TypeScript/Frontend:**
+```typescript
+// BEFORE
+interface BoldElement { location: Location; content: Element[]; }
+
+// AFTER
+interface AstNode { location: Location; kind: NodeKind; }
+type NodeKind = { Bold: { children: AstNode[] } } | { Table: { ... } } | ...;
+```
+
 ## [2.10.0] - 2025-12-31
 
 ### Breaking Changes

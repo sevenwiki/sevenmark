@@ -6,7 +6,7 @@ use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
 use sevenmark_parser::ast::{
-    ResolvedDoc, ResolvedFile, ResolvedMediaInfo, SevenMarkElement, Traversable,
+    AstNode, NodeKind, ResolvedDoc, ResolvedFile, ResolvedMediaInfo, Traversable,
 };
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
@@ -21,7 +21,7 @@ pub struct ProcessedDocument {
     /// User mention UUIDs collected from the document
     pub user_mentions: HashSet<String>,
     #[schema(value_type = Vec<Object>)]
-    pub ast: Vec<SevenMarkElement>,
+    pub ast: Vec<AstNode>,
     pub sections: Vec<SectionInfo>,
 }
 
@@ -88,7 +88,7 @@ pub async fn postprocess_sevenmark(
 }
 
 fn resolve_media_elements(
-    elements: &mut [SevenMarkElement],
+    elements: &mut [AstNode],
     resolved_map: &HashMap<(DocumentNamespace, String), (Option<String>, bool)>,
 ) {
     for element in elements {
@@ -97,14 +97,19 @@ fn resolve_media_elements(
 }
 
 fn resolve_media_recursive(
-    element: &mut SevenMarkElement,
+    element: &mut AstNode,
     resolved_map: &HashMap<(DocumentNamespace, String), (Option<String>, bool)>,
 ) {
-    if let SevenMarkElement::MediaElement(media) = element {
+    if let NodeKind::Media {
+        parameters,
+        resolved_info,
+        ..
+    } = &mut element.kind
+    {
         let mut resolved = ResolvedMediaInfo::default();
 
         // Process #file parameter (이미지 표시용)
-        if let Some(file_param) = media.parameters.get("file") {
+        if let Some(file_param) = parameters.get("file") {
             let title = extract_plain_text(&file_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::File, title);
@@ -117,7 +122,7 @@ fn resolve_media_recursive(
         }
 
         // Process #document parameter
-        if let Some(doc_param) = media.parameters.get("document") {
+        if let Some(doc_param) = parameters.get("document") {
             let title = extract_plain_text(&doc_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::Document, title.clone());
@@ -130,7 +135,7 @@ fn resolve_media_recursive(
         }
 
         // Process #category parameter
-        if let Some(cat_param) = media.parameters.get("category") {
+        if let Some(cat_param) = parameters.get("category") {
             let title = extract_plain_text(&cat_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::Category, title.clone());
@@ -143,7 +148,7 @@ fn resolve_media_recursive(
         }
 
         // Process #url parameter (외부 링크)
-        if let Some(url_param) = media.parameters.get("url") {
+        if let Some(url_param) = parameters.get("url") {
             let url = extract_plain_text(&url_param.value);
             if !url.is_empty() {
                 resolved.url = Some(url);
@@ -156,7 +161,7 @@ fn resolve_media_recursive(
             || resolved.category.is_some()
             || resolved.url.is_some()
         {
-            media.resolved_info = Some(resolved);
+            *resolved_info = Some(resolved);
         }
     }
 

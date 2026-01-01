@@ -1,15 +1,62 @@
-{{{#define #x="1"}}}
+# MyAwesome Project
 
-{{{#if true
-{{{#define #x="첫 케이스"}}}
-}}}
-[var(x)]
-{{{#if true
-{{{#define #x="첫 케이스 22222"}}}
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px"
+🚀 **A powerful web application built with modern technologies**
 }}}
 
-[var(x)]
-{{{#if false
-{{{#define #x="첫 케이스 333333"}}}
+## Quick Start!
+
+{{{#list #1
+[[Clone the repository: {{{#code git clone https://github.com/user/project.git }}}]]
+[[Install dependencies: {{{#code npm install }}}]]
+[[Set up environment: {{{#code cp .env.example .env }}}]]
+[[Start development server: {{{#code npm run dev }}}]]
 }}}
-[var(x)]
+
+## Features
+
+{{{#table
+[[[[Feature]] [[Status]] [[Version]]]]
+[[[[🔐 Authentication]] [[✅ Complete]] [[v1.0]]]]
+[[[[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]]]
+[[[[🔔 Notifications]] [[📋 Planned]] [[v1.2]]]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+[[📖 **API Endpoints** - Click to view]]
+[[
+### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}
+]]
+}}}
+
+## Contributing
+
+Please read our [[#url="CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote
+"Code is like humor. When you have to explain it, it's bad." - Cory House
+}}}
+
+---
+
+**License:** MIT | **Last Updated:** [now]

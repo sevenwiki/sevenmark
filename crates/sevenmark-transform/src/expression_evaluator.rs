@@ -1,6 +1,4 @@
-use sevenmark_parser::ast::{
-    ComparisonOperator, ComparisonOperatorKind, Expression, SevenMarkElement,
-};
+use sevenmark_parser::ast::{AstNode, ComparisonOperator, ComparisonOperatorKind, Expression, NodeKind};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과
@@ -65,18 +63,18 @@ fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -
     }
 }
 
-/// SevenMarkElement를 Value로 평가
-fn evaluate_element(elem: &SevenMarkElement, variables: &HashMap<String, String>) -> Value {
-    match elem {
-        SevenMarkElement::Variable(var) => {
-            if let Some(value) = variables.get(&var.content) {
+/// AstNode를 Value로 평가
+fn evaluate_element(elem: &AstNode, variables: &HashMap<String, String>) -> Value {
+    match &elem.kind {
+        NodeKind::Variable { name } => {
+            if let Some(value) = variables.get(name) {
                 Value::String(value.clone())
             } else {
                 Value::Null
             }
         }
-        SevenMarkElement::Text(text) => Value::String(text.content.clone()),
-        SevenMarkElement::Null => Value::Null,
+        NodeKind::Text { value } => Value::String(value.clone()),
+        NodeKind::Null => Value::Null,
         _ => Value::Null,
     }
 }
@@ -219,10 +217,10 @@ mod tests {
     }
 
     fn var_elem(name: &str) -> Expression {
-        Expression::Element(Box::new(SevenMarkElement::Variable(
-            sevenmark_parser::ast::VariableElement {
-                location: loc(),
-                content: name.to_string(),
+        Expression::Element(Box::new(AstNode::new(
+            loc(),
+            NodeKind::Variable {
+                name: name.to_string(),
             },
         )))
     }
