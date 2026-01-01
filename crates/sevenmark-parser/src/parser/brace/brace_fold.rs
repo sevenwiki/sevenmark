@@ -24,7 +24,7 @@ pub fn brace_fold_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
         Location { start, end },
         NodeKind::Fold {
             parameters: parameters.unwrap_or_default(),
-            content: parsed_content,
+            content: (Box::new(parsed_content.0), Box::new(parsed_content.1)),
         },
     ))
 }

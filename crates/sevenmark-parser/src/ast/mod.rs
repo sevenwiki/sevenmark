@@ -3,23 +3,17 @@
 //! This module contains all AST element definitions organized into submodules:
 //! - `location`: Location and Parameter types
 //! - `expression`: Expression AST for conditionals
-//! - `table`: Table-related structures (TableRow, TableCell)
-//! - `list`: List-related structures (ListItem)
 //! - `traversable`: Traversable trait and implementation
+//!
+//! All AST nodes use the unified `AstNode { location, kind: NodeKind }` pattern.
 
 mod expression;
-mod fold;
-mod list;
 mod location;
-mod table;
 mod traversable;
 
 // Re-export all public types
 pub use expression::*;
-pub use fold::*;
-pub use list::*;
 pub use location::*;
-pub use table::*;
 pub use traversable::*;
 
 use serde::Serialize;
@@ -117,20 +111,66 @@ pub enum NodeKind {
         children: Vec<AstNode>,
     },
     /// 테이블 {{{#table ...}}}
+    /// children은 TableRow 또는 ConditionalTableRows 노드
     Table {
         parameters: Parameters,
-        children: Vec<TableRowChild>,
+        children: Vec<AstNode>,
+    },
+    /// 테이블 행 (Table의 직접 자식)
+    /// children은 TableCell 또는 ConditionalTableCells 노드
+    TableRow {
+        parameters: Parameters,
+        children: Vec<AstNode>,
+    },
+    /// 테이블 셀 (TableRow의 직접 자식)
+    TableCell {
+        parameters: Parameters,
+        #[serde(skip_serializing_if = "Vec::is_empty")]
+        x: Vec<AstNode>,
+        #[serde(skip_serializing_if = "Vec::is_empty")]
+        y: Vec<AstNode>,
+        children: Vec<AstNode>,
+    },
+    /// 조건부 테이블 행 ({{{#if condition :: [[row]]...}}})
+    /// children은 TableRow 노드
+    ConditionalTableRows {
+        condition: Expression,
+        children: Vec<AstNode>,
+    },
+    /// 조건부 테이블 셀 ({{{#if condition :: [[cell]]...}}})
+    /// children은 TableCell 노드
+    ConditionalTableCells {
+        condition: Expression,
+        children: Vec<AstNode>,
     },
     /// 리스트 {{{#list ...}}}
+    /// children은 ListItem 또는 ConditionalListItems 노드
     List {
         kind: String,
         parameters: Parameters,
-        children: Vec<ListItemChild>,
+        children: Vec<AstNode>,
+    },
+    /// 리스트 아이템 (List의 직접 자식)
+    ListItem {
+        parameters: Parameters,
+        children: Vec<AstNode>,
+    },
+    /// 조건부 리스트 아이템 ({{{#if condition :: [[item]]...}}})
+    /// children은 ListItem 노드
+    ConditionalListItems {
+        condition: Expression,
+        children: Vec<AstNode>,
     },
     /// 폴드/접기 {{{#fold ...}}}
+    /// content는 (AstNode, AstNode) 튜플, 각 kind = FoldInner
     Fold {
         parameters: Parameters,
-        content: (FoldInnerElement, FoldInnerElement),
+        content: (Box<AstNode>, Box<AstNode>),
+    },
+    /// 폴드 내부 요소
+    FoldInner {
+        parameters: Parameters,
+        children: Vec<AstNode>,
     },
     /// 인용 블록 {{{#blockquote ...}}}
     BlockQuote {

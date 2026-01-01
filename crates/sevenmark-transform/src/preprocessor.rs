@@ -4,10 +4,7 @@ use crate::wiki::{DocumentNamespace, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
-use sevenmark_parser::ast::{
-    ListContentItem, Location, MentionType, SevenMarkElement, TableCellItem, TableRowItem,
-    TextElement, Traversable,
-};
+use sevenmark_parser::ast::{AstNode, Location, MentionType, NodeKind, Traversable};
 use sevenmark_parser::core::parse_document;
 use std::collections::{HashMap, HashSet};
 use tracing::{debug, warn};
@@ -58,13 +55,13 @@ pub struct PreProcessedDocument {
     pub references: HashSet<DocumentReference>,
     /// User mention UUIDs collected from the document
     pub user_mentions: HashSet<String>,
-    pub ast: Vec<SevenMarkElement>,
+    pub ast: Vec<AstNode>,
     pub sections: Vec<SectionInfo>,
 }
 
 /// Processes document with 1-depth include resolution
 pub async fn preprocess_sevenmark(
-    mut ast: Vec<SevenMarkElement>,
+    mut ast: Vec<AstNode>,
     db: &DatabaseConnection,
 ) -> Result<PreProcessedDocument> {
     // Process defines and ifs in document order (single pass)
@@ -106,7 +103,7 @@ pub async fn preprocess_sevenmark(
         let fetched_docs = fetch_documents_batch(db, requests).await?;
 
         // Parse fetched documents and store in map
-        let mut docs_map: HashMap<String, Vec<SevenMarkElement>> = HashMap::new();
+        let mut docs_map: HashMap<String, Vec<AstNode>> = HashMap::new();
 
         for doc in fetched_docs {
             let doc_key = format!("{}:{}", namespace_to_string(&doc.namespace), doc.title);
@@ -139,15 +136,12 @@ pub async fn preprocess_sevenmark(
 /// - Define을 만나면 변수 등록
 /// - Variable을 만나면 치환
 /// - If를 만나면 조건 평가 후 전개/제거
-fn process_defines_and_ifs(
-    elements: &mut Vec<SevenMarkElement>,
-    variables: &mut HashMap<String, String>,
-) {
+fn process_defines_and_ifs(elements: &mut Vec<AstNode>, variables: &mut HashMap<String, String>) {
     let mut i = 0;
     while i < elements.len() {
-        // 1. DefineElement: 변수 등록
-        if let SevenMarkElement::DefineElement(def) = &elements[i] {
-            for (key, param) in &def.parameters {
+        // 1. Define: 변수 등록
+        if let NodeKind::Define { parameters } = &elements[i].kind {
+            for (key, param) in parameters {
                 let value = extract_plain_text(&param.value);
                 if !value.is_empty() {
                     variables.insert(key.clone(), value);
@@ -158,22 +152,24 @@ fn process_defines_and_ifs(
         }
 
         // 2. Variable: 치환
-        if let SevenMarkElement::Variable(var) = &elements[i] {
-            if let Some(value) = variables.get(&var.content) {
-                elements[i] = SevenMarkElement::Text(TextElement {
-                    location: Location::synthesized(),
-                    content: value.clone(),
-                });
+        if let NodeKind::Variable { name } = &elements[i].kind {
+            if let Some(value) = variables.get(name) {
+                elements[i] = AstNode::new(
+                    Location::synthesized(),
+                    NodeKind::Text {
+                        value: value.clone(),
+                    },
+                );
             }
             i += 1;
             continue;
         }
 
-        // 3. IfElement: 조건 평가 후 전개/제거
-        if let SevenMarkElement::IfElement(if_elem) = &elements[i] {
-            if evaluate_condition(&if_elem.condition, variables) {
+        // 3. If: 조건 평가 후 전개/제거
+        if let NodeKind::If { condition, children } = &elements[i].kind {
+            if evaluate_condition(condition, variables) {
                 // 조건 true: 내용으로 대체 후 같은 위치부터 재처리
-                let content = if_elem.content.clone();
+                let content = children.clone();
                 elements.splice(i..i + 1, content);
             } else {
                 // 조건 false: 제거
@@ -182,22 +178,22 @@ fn process_defines_and_ifs(
             continue;
         }
 
-        // 4. TableElement: 테이블 내부 조건부 처리
-        if let SevenMarkElement::TableElement(table) = &mut elements[i] {
-            process_table_conditionals(&mut table.content, variables);
+        // 4. Table: 테이블 내부 조건부 처리
+        if let NodeKind::Table { children, .. } = &mut elements[i].kind {
+            process_table_conditionals(children, variables);
             i += 1;
             continue;
         }
 
-        // 5. ListElement: 리스트 내부 조건부 처리
-        if let SevenMarkElement::ListElement(list) = &mut elements[i] {
-            process_list_conditionals(&mut list.content, variables);
+        // 5. List: 리스트 내부 조건부 처리
+        if let NodeKind::List { children, .. } = &mut elements[i].kind {
+            process_list_conditionals(children, variables);
             i += 1;
             continue;
         }
 
         // 6. 기타 요소: 자식 재귀 처리
-        elements[i].for_each_content_vec(&mut |vec| {
+        elements[i].for_each_children_vec(&mut |vec| {
             process_defines_and_ifs(vec, variables);
         });
 
@@ -206,7 +202,7 @@ fn process_defines_and_ifs(
 }
 
 fn collect_metadata(
-    elements: &[SevenMarkElement],
+    elements: &[AstNode],
     categories: &mut HashSet<String>,
     redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
@@ -239,7 +235,7 @@ fn collect_metadata(
 }
 
 fn collect_metadata_recursive(
-    element: &SevenMarkElement,
+    element: &AstNode,
     categories: &mut HashSet<String>,
     redirect: &mut Option<RedirectReference>,
     media: &mut HashSet<MediaReference>,
@@ -250,16 +246,18 @@ fn collect_metadata_recursive(
     collect_categories_redirect: bool,
 ) {
     // Track max location.end for document length
-    if let Some(loc) = element.location()
-        && loc.end > *max_end
-    {
-        *max_end = loc.end;
+    if element.location.end > *max_end {
+        *max_end = element.location.end;
     }
 
-    match element {
-        SevenMarkElement::Header(header) => {
-            let start = header.location.start;
-            let level = header.level;
+    match &element.kind {
+        NodeKind::Header {
+            level,
+            section_index,
+            ..
+        } => {
+            let start = element.location.start;
+            let level = *level;
 
             // Pop headers with level >= current (same or lower priority)
             while let Some(mut section) = section_stack.pop() {
@@ -273,15 +271,15 @@ fn collect_metadata_recursive(
             }
 
             section_stack.push(SectionInfo {
-                section_index: header.section_index,
+                section_index: *section_index,
                 level,
                 start,
                 end: 0,
             });
         }
-        SevenMarkElement::MediaElement(m) => {
+        NodeKind::Media { parameters, .. } => {
             // Collect #file parameter
-            if let Some(file_param) = m.parameters.get("file") {
+            if let Some(file_param) = parameters.get("file") {
                 let title = extract_plain_text(&file_param.value);
                 if !title.is_empty() {
                     media.insert(MediaReference {
@@ -291,7 +289,7 @@ fn collect_metadata_recursive(
                 }
             }
             // Collect #document parameter
-            if let Some(doc_param) = m.parameters.get("document") {
+            if let Some(doc_param) = parameters.get("document") {
                 let title = extract_plain_text(&doc_param.value);
                 if !title.is_empty() {
                     media.insert(MediaReference {
@@ -301,7 +299,7 @@ fn collect_metadata_recursive(
                 }
             }
             // Collect #category parameter
-            if let Some(cat_param) = m.parameters.get("category") {
+            if let Some(cat_param) = parameters.get("category") {
                 let title = extract_plain_text(&cat_param.value);
                 if !title.is_empty() {
                     media.insert(MediaReference {
@@ -312,28 +310,30 @@ fn collect_metadata_recursive(
             }
             // #url parameter is ignored (already a complete URL, no need to fetch)
         }
-        SevenMarkElement::Category(cat) if collect_categories_redirect => {
-            let name = extract_plain_text(&cat.content);
+        NodeKind::Category { children } if collect_categories_redirect => {
+            let name = extract_plain_text(children);
             if !name.is_empty() {
                 categories.insert(name);
             }
         }
-        SevenMarkElement::Redirect(redir) if collect_categories_redirect => {
-            let title = extract_plain_text(&redir.content);
+        NodeKind::Redirect {
+            parameters,
+            children,
+        } if collect_categories_redirect => {
+            let title = extract_plain_text(children);
             if !title.is_empty() && redirect.is_none() {
                 // Read namespace from parameters (same as Include)
-                let namespace_str = redir
-                    .parameters
+                let namespace_str = parameters
                     .get("namespace")
                     .map(|param| extract_plain_text(&param.value))
-                    .filter(|s| !s.is_empty())
+                    .filter(|s: &String| !s.is_empty())
                     .unwrap_or_else(|| "Document".to_string());
                 let namespace = parse_namespace(&namespace_str);
                 *redirect = Some(RedirectReference { namespace, title });
             }
         }
-        SevenMarkElement::Mention(mention) if mention.mention_type == MentionType::User => {
-            user_mentions.insert(mention.uuid.clone());
+        NodeKind::Mention { kind, id } if *kind == MentionType::User => {
+            user_mentions.insert(id.clone());
         }
         _ => {}
     }
@@ -353,24 +353,24 @@ fn collect_metadata_recursive(
     });
 }
 
-fn collect_includes(elements: &[SevenMarkElement], includes: &mut HashSet<DocumentReference>) {
+fn collect_includes(elements: &[AstNode], includes: &mut HashSet<DocumentReference>) {
     for element in elements {
         collect_includes_recursive(element, includes);
     }
 }
 
-fn collect_includes_recursive(
-    element: &SevenMarkElement,
-    includes: &mut HashSet<DocumentReference>,
-) {
-    if let SevenMarkElement::Include(inc) = element {
-        let title = extract_plain_text(&inc.content);
+fn collect_includes_recursive(element: &AstNode, includes: &mut HashSet<DocumentReference>) {
+    if let NodeKind::Include {
+        parameters,
+        children,
+    } = &element.kind
+    {
+        let title = extract_plain_text(children);
         if !title.is_empty() {
-            let namespace_str = inc
-                .parameters
+            let namespace_str = parameters
                 .get("namespace")
                 .map(|param| extract_plain_text(&param.value))
-                .filter(|s| !s.is_empty())
+                .filter(|s: &String| !s.is_empty())
                 .unwrap_or_else(|| "Document".to_string());
             let namespace = parse_namespace(&namespace_str);
             includes.insert(DocumentReference { namespace, title });
@@ -384,20 +384,17 @@ fn collect_includes_recursive(
 
 /// Collect all document references from AST
 /// This should be called after substitute_includes() to capture references from included documents
-fn collect_references(elements: &[SevenMarkElement], references: &mut HashSet<DocumentReference>) {
+fn collect_references(elements: &[AstNode], references: &mut HashSet<DocumentReference>) {
     for element in elements {
         collect_references_recursive(element, references);
     }
 }
 
-fn collect_references_recursive(
-    element: &SevenMarkElement,
-    references: &mut HashSet<DocumentReference>,
-) {
-    match element {
+fn collect_references_recursive(element: &AstNode, references: &mut HashSet<DocumentReference>) {
+    match &element.kind {
         // {{{#category}}} 요소
-        SevenMarkElement::Category(cat) => {
-            let name = extract_plain_text(&cat.content);
+        NodeKind::Category { children } => {
+            let name = extract_plain_text(children);
             if !name.is_empty() {
                 references.insert(DocumentReference {
                     namespace: DocumentNamespace::Category,
@@ -405,9 +402,9 @@ fn collect_references_recursive(
                 });
             }
         }
-        // MediaElement의 file/document/category 파라미터
-        SevenMarkElement::MediaElement(m) => {
-            if let Some(file_param) = m.parameters.get("file") {
+        // Media의 file/document/category 파라미터
+        NodeKind::Media { parameters, .. } => {
+            if let Some(file_param) = parameters.get("file") {
                 let title = extract_plain_text(&file_param.value);
                 if !title.is_empty() {
                     references.insert(DocumentReference {
@@ -416,7 +413,7 @@ fn collect_references_recursive(
                     });
                 }
             }
-            if let Some(doc_param) = m.parameters.get("document") {
+            if let Some(doc_param) = parameters.get("document") {
                 let title = extract_plain_text(&doc_param.value);
                 if !title.is_empty() {
                     references.insert(DocumentReference {
@@ -425,7 +422,7 @@ fn collect_references_recursive(
                     });
                 }
             }
-            if let Some(cat_param) = m.parameters.get("category") {
+            if let Some(cat_param) = parameters.get("category") {
                 let title = extract_plain_text(&cat_param.value);
                 if !title.is_empty() {
                     references.insert(DocumentReference {
@@ -444,8 +441,8 @@ fn collect_references_recursive(
 }
 
 fn substitute_includes(
-    elements: &mut [SevenMarkElement],
-    docs_map: &HashMap<String, Vec<SevenMarkElement>>,
+    elements: &mut [AstNode],
+    docs_map: &HashMap<String, Vec<AstNode>>,
     all_media: &mut HashSet<MediaReference>,
 ) {
     for element in elements {
@@ -454,18 +451,21 @@ fn substitute_includes(
 }
 
 fn substitute_includes_recursive(
-    element: &mut SevenMarkElement,
-    docs_map: &HashMap<String, Vec<SevenMarkElement>>,
+    element: &mut AstNode,
+    docs_map: &HashMap<String, Vec<AstNode>>,
     all_media: &mut HashSet<MediaReference>,
 ) {
-    if let SevenMarkElement::Include(inc) = element {
-        let title = extract_plain_text(&inc.content);
+    if let NodeKind::Include {
+        parameters,
+        children,
+    } = &mut element.kind
+    {
+        let title = extract_plain_text(children);
         if !title.is_empty() {
-            let namespace_str = inc
-                .parameters
+            let namespace_str = parameters
                 .get("namespace")
                 .map(|param| extract_plain_text(&param.value))
-                .filter(|s| !s.is_empty())
+                .filter(|s: &String| !s.is_empty())
                 .unwrap_or_else(|| "Document".to_string());
             let namespace = parse_namespace(&namespace_str);
             let doc_key = format!("{}:{}", namespace_to_string(&namespace), title);
@@ -475,8 +475,7 @@ fn substitute_includes_recursive(
                 let mut included_ast = base_ast.clone();
 
                 // Create parameter map from include parameters (excluding namespace)
-                let mut params_map: HashMap<String, String> = inc
-                    .parameters
+                let mut params_map: HashMap<String, String> = parameters
                     .iter()
                     .filter(|(k, _)| k.as_str() != "namespace")
                     .map(|(k, v)| (k.clone(), extract_plain_text(&v.value)))
@@ -501,7 +500,7 @@ fn substitute_includes_recursive(
                 );
 
                 // Replace include content
-                inc.content = included_ast;
+                *children = included_ast;
                 return;
             } else {
                 warn!("Include target not found: {}", doc_key);
@@ -532,34 +531,32 @@ fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
     }
 }
 
-/// TableElement 내부의 행/셀 레벨 조건부 처리
-fn process_table_conditionals(
-    rows: &mut Vec<TableRowItem>,
-    variables: &mut HashMap<String, String>,
-) {
+/// Table 내부의 행/셀 레벨 조건부 처리
+fn process_table_conditionals(rows: &mut Vec<AstNode>, variables: &mut HashMap<String, String>) {
     let mut i = 0;
     while i < rows.len() {
-        match &mut rows[i] {
-            TableRowItem::Row(row) => {
+        match &mut rows[i].kind {
+            NodeKind::TableRow { children, .. } => {
                 // 행 내부의 셀 레벨 조건부 처리
-                process_table_cell_conditionals(&mut row.content, variables);
+                process_table_cell_conditionals(children, variables);
                 i += 1;
             }
-            TableRowItem::Conditional {
+            NodeKind::ConditionalTableRows {
                 condition,
-                rows: cond_rows,
-                ..
+                children,
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: rows를 펼침 (처리는 펼친 후 루프에서)
-                    let expanded: Vec<TableRowItem> =
-                        cond_rows.drain(..).map(TableRowItem::Row).collect();
+                    let expanded: Vec<AstNode> = children.drain(..).collect();
                     rows.splice(i..i + 1, expanded);
-                    // i 유지 → 다음 반복에서 Row로 처리됨
+                    // i 유지 → 다음 반복에서 TableRow로 처리됨
                 } else {
                     // 조건이 false: 제거
                     rows.remove(i);
                 }
+            }
+            _ => {
+                i += 1;
             }
         }
     }
@@ -567,65 +564,64 @@ fn process_table_conditionals(
 
 /// 테이블 셀 레벨 조건부 처리
 fn process_table_cell_conditionals(
-    cells: &mut Vec<TableCellItem>,
+    cells: &mut Vec<AstNode>,
     variables: &mut HashMap<String, String>,
 ) {
     let mut i = 0;
     while i < cells.len() {
-        match &mut cells[i] {
-            TableCellItem::Cell(cell) => {
+        match &mut cells[i].kind {
+            NodeKind::TableCell { children, .. } => {
                 // 셀 내부 처리 (define/if 포함)
-                process_defines_and_ifs(&mut cell.content, variables);
+                process_defines_and_ifs(children, variables);
                 i += 1;
             }
-            TableCellItem::Conditional {
+            NodeKind::ConditionalTableCells {
                 condition,
-                cells: cond_cells,
-                ..
+                children,
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: cells를 펼침 (처리는 펼친 후 루프에서)
-                    let expanded: Vec<TableCellItem> =
-                        cond_cells.drain(..).map(TableCellItem::Cell).collect();
+                    let expanded: Vec<AstNode> = children.drain(..).collect();
                     cells.splice(i..i + 1, expanded);
-                    // i 유지 → 다음 반복에서 Cell로 처리됨
+                    // i 유지 → 다음 반복에서 TableCell로 처리됨
                 } else {
                     // 조건이 false: 제거
                     cells.remove(i);
                 }
             }
+            _ => {
+                i += 1;
+            }
         }
     }
 }
 
-/// ListElement 내부의 아이템 레벨 조건부 처리
-fn process_list_conditionals(
-    items: &mut Vec<ListContentItem>,
-    variables: &mut HashMap<String, String>,
-) {
+/// List 내부의 아이템 레벨 조건부 처리
+fn process_list_conditionals(items: &mut Vec<AstNode>, variables: &mut HashMap<String, String>) {
     let mut i = 0;
     while i < items.len() {
-        match &mut items[i] {
-            ListContentItem::Item(item) => {
+        match &mut items[i].kind {
+            NodeKind::ListItem { children, .. } => {
                 // 아이템 내부 처리 (define/if 포함)
-                process_defines_and_ifs(&mut item.content, variables);
+                process_defines_and_ifs(children, variables);
                 i += 1;
             }
-            ListContentItem::Conditional {
+            NodeKind::ConditionalListItems {
                 condition,
-                items: cond_items,
-                ..
+                children,
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: items를 펼침 (처리는 펼친 후 루프에서)
-                    let expanded: Vec<ListContentItem> =
-                        cond_items.drain(..).map(ListContentItem::Item).collect();
+                    let expanded: Vec<AstNode> = children.drain(..).collect();
                     items.splice(i..i + 1, expanded);
-                    // i 유지 → 다음 반복에서 Item으로 처리됨
+                    // i 유지 → 다음 반복에서 ListItem으로 처리됨
                 } else {
                     // 조건이 false: 제거
                     items.remove(i);
                 }
+            }
+            _ => {
+                i += 1;
             }
         }
     }

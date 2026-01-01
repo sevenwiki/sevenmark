@@ -1,6 +1,6 @@
 use line_span::LineSpanExt;
 use serde::Serialize;
-use sevenmark_parser::ast::{Location, SevenMarkElement};
+use sevenmark_parser::ast::{AstNode, Location};
 
 /// Text position with 1-based line/column coordinates
 #[derive(Debug, Clone, Serialize)]
@@ -106,7 +106,7 @@ impl PositionConverter {
     /// 2. Recursively finds all "location" fields
     /// 3. Converts byte positions to line/column positions
     /// 4. Returns the transformed JSON
-    pub fn convert_elements(&self, elements: &[SevenMarkElement]) -> ConversionResult {
+    pub fn convert_elements(&self, elements: &[AstNode]) -> ConversionResult {
         // First serialize to regular JSON
         let mut json_value = serde_json::to_value(elements).unwrap_or(serde_json::Value::Null);
 
@@ -162,7 +162,7 @@ impl PositionConverter {
 ///
 /// # Returns
 /// JSON string with line/column-based locations
-pub fn convert_ast_to_line_column_json(elements: &[SevenMarkElement], input: &str) -> String {
+pub fn convert_ast_to_line_column_json(elements: &[AstNode], input: &str) -> String {
     let converter = PositionConverter::new(input);
     let result = converter.convert_elements(elements);
 
