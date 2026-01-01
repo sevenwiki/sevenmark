@@ -8,3 +8,9 @@ CLAUDE.md
 .serena
 mediawiki-master
 nul
+
+ParseResult_Monaco.json
+ParseResult.json
+ProcessResult.json
+ProcessedDocument.json
+RenderResult.html
