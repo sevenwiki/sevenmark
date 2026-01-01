@@ -165,7 +165,7 @@ pub enum NodeKind {
     /// content는 (AstNode, AstNode) 튜플, 각 kind = FoldInner
     Fold {
         parameters: Parameters,
-        content: (Box<AstNode>, Box<AstNode>),
+        children: (Box<AstNode>, Box<AstNode>),
     },
     /// 폴드 내부 요소
     FoldInner {

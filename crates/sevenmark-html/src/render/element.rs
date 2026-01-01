@@ -47,8 +47,8 @@ pub fn render_element(el: &AstNode, ctx: &mut RenderContext) -> Markup {
         } => brace::styled::render(parameters, children, ctx),
         NodeKind::Fold {
             parameters,
-            content,
-        } => brace::fold::render(parameters, content, ctx),
+            children,
+        } => brace::fold::render(parameters, children, ctx),
         NodeKind::Ruby {
             parameters,
             children,

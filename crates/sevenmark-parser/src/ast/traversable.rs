@@ -95,9 +95,9 @@ impl Traversable for AstNode {
             }
 
             // === Fold: content 튜플 ===
-            NodeKind::Fold { content, .. } => {
-                visitor(&mut content.0);
-                visitor(&mut content.1);
+            NodeKind::Fold { children, .. } => {
+                visitor(&mut children.0);
+                visitor(&mut children.1);
             }
         }
     }
@@ -162,11 +162,11 @@ impl Traversable for AstNode {
             }
 
             // === Fold: content 튜플 (FoldInner의 children에 접근) ===
-            NodeKind::Fold { content, .. } => {
-                if let NodeKind::FoldInner { children, .. } = &mut content.0.kind {
+            NodeKind::Fold { children, .. } => {
+                if let NodeKind::FoldInner { children, .. } = &mut children.0.kind {
                     f(children);
                 }
-                if let NodeKind::FoldInner { children, .. } = &mut content.1.kind {
+                if let NodeKind::FoldInner { children, .. } = &mut children.1.kind {
                     f(children);
                 }
             }
@@ -247,9 +247,9 @@ impl Traversable for AstNode {
             }
 
             // === Fold: content 튜플 ===
-            NodeKind::Fold { content, .. } => {
-                visitor(&content.0);
-                visitor(&content.1);
+            NodeKind::Fold { children, .. } => {
+                visitor(&children.0);
+                visitor(&children.1);
             }
         }
     }
