@@ -239,6 +239,7 @@ fn collect_metadata(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn collect_metadata_recursive(
     element: &AstNode,
     categories: &mut HashSet<String>,
