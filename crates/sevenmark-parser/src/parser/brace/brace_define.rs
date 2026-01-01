@@ -1,4 +1,4 @@
-use crate::ast::{DefineElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
 use winnow::Result;
@@ -8,7 +8,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse styled elements enclosed in {{{ }}}
-pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let parameters = delimited(literal("{{{#define"), parameter_core_parser, literal("}}}"))
@@ -16,8 +16,8 @@ pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<SevenMarkEl
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::DefineElement(DefineElement {
-        location: Location { start, end },
-        parameters,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Define { parameters },
+    ))
 }
