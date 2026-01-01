@@ -1,140 +1,114 @@
 [
   {
-    "StyledElement": {
-      "location": {
-        "start": 0,
-        "end": 87
-      },
-      "parameters": {
-        "color": {
-          "location": {
-            "start": 31,
-            "end": 46
-          },
-          "key": "color",
-          "value": [
-            {
+    "kind": {
+      "Styled": {
+        "parameters": {
+          "color": {
+            "key": "color",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "green"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "children": [
+          {
+            "kind": {
               "Text": {
-                "location": {
-                  "start": 39,
-                  "end": 44
-                },
-                "content": "green"
+                "value": "Multiple same parameter - which wins?"
               }
             }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 46,
-              "end": 83
-            },
-            "content": "Multiple same parameter - which wins?"
           }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "ListElement": {
-      "location": {
-        "start": 89,
-        "end": 170
-      },
-      "kind": "1",
-      "parameters": {
-        "1": {
-          "location": {
-            "start": 97,
-            "end": 101
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "List": {
+        "kind": "1",
+        "parameters": {
+          "1": {
+            "key": "1",
+            "value": []
           },
-          "key": "1",
-          "value": []
-        },
-        "A": {
-          "location": {
-            "start": 104,
-            "end": 107
+          "A": {
+            "key": "A",
+            "value": []
           },
-          "key": "A",
-          "value": []
-        },
-        "I": {
-          "location": {
-            "start": 110,
-            "end": 113
+          "I": {
+            "key": "I",
+            "value": []
           },
-          "key": "I",
-          "value": []
-        },
-        "a": {
-          "location": {
-            "start": 101,
-            "end": 104
+          "a": {
+            "key": "a",
+            "value": []
           },
-          "key": "a",
-          "value": []
-        },
-        "i": {
-          "location": {
-            "start": 107,
-            "end": 110
-          },
-          "key": "i",
-          "value": []
-        }
-      },
-      "content": [
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 115,
-                    "end": 147
-                  },
-                  "content": "Item with conflicting list types"
-                }
-              }
-            ]
+          "i": {
+            "key": "i",
+            "value": []
           }
         },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 152,
-                    "end": 164
-                  },
-                  "content": "Another item"
-                }
+        "children": [
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Item with conflicting list types"
+                      }
+                    }
+                  }
+                ]
               }
-            ]
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Another item"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "TeXElement": {
-      "location": {
-        "start": 172,
-        "end": 214
-      },
-      "is_block": true,
-      "content": "E = mc^2\n"
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "TeX": {
+        "is_block": true,
+        "value": "E = mc^2\n"
+      }
     }
   }
 ]

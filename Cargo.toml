@@ -31,6 +31,12 @@ utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"] }
 uuid = { version = "1.19.0", features = ["v7"] }
 dotenvy = "0.15.7"
 anyhow = "1.0.100"
+
+# SeaweedFS (S3 compatible)
+aws-sdk-s3 = "1.119.0"
+aws-config = "1.8.12"
+zstd = "0.13.3"
+
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
 tracing-appender = "0.2.4"

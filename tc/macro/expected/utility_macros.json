@@ -1,21 +1,19 @@
 [
   {
-    "Text": {
-      "location": {
-        "start": 0,
-        "end": 18
-      },
-      "content": "Before null macro "
+    "kind": {
+      "Text": {
+        "value": "Before null macro "
+      }
     }
   },
-  "Null",
   {
-    "Text": {
-      "location": {
-        "start": 24,
-        "end": 42
-      },
-      "content": " after null macro."
+    "kind": "Null"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": " after null macro."
+      }
     }
   }
 ]

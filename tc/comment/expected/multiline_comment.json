@@ -1,29 +1,23 @@
 [
   {
-    "Text": {
-      "location": {
-        "start": 0,
-        "end": 20
-      },
-      "content": "Text before comment "
+    "kind": {
+      "Text": {
+        "value": "Text before comment "
+      }
     }
   },
   {
-    "Comment": {
-      "location": {
-        "start": 20,
-        "end": 79
-      },
-      "content": " This is a\nmultiline comment\nthat spans multiple lines "
+    "kind": {
+      "Comment": {
+        "value": " This is a\nmultiline comment\nthat spans multiple lines "
+      }
     }
   },
   {
-    "Text": {
-      "location": {
-        "start": 79,
-        "end": 99
-      },
-      "content": " text after comment."
+    "kind": {
+      "Text": {
+        "value": " text after comment."
+      }
     }
   }
 ]

@@ -1,216 +1,148 @@
 [
   {
-    "IfElement": {
-      "location": {
-        "start": 0,
-        "end": 23
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 7,
-            "end": 13
-          },
-          "left": {
-            "NumberLiteral": {
-              "location": {
-                "start": 7,
-                "end": 8
-              },
-              "value": 5
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 9,
-              "end": 11
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "NumberLiteral": {
+                "value": 5
+              }
             },
-            "kind": "Equal"
-          },
-          "right": {
-            "NumberLiteral": {
-              "location": {
-                "start": 12,
-                "end": 13
-              },
-              "value": 5
+            "operator": {
+              "kind": "Equal"
+            },
+            "right": {
+              "NumberLiteral": {
+                "value": 5
+              }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 14,
-              "end": 19
-            },
-            "content": "equal"
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "equal"
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "IfElement": {
-      "location": {
-        "start": 25,
-        "end": 52
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 32,
-            "end": 38
-          },
-          "left": {
-            "NumberLiteral": {
-              "location": {
-                "start": 32,
-                "end": 33
-              },
-              "value": 5
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 34,
-              "end": 36
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "NumberLiteral": {
+                "value": 5
+              }
             },
-            "kind": "NotEqual"
-          },
-          "right": {
-            "NumberLiteral": {
-              "location": {
-                "start": 37,
-                "end": 38
-              },
-              "value": 3
+            "operator": {
+              "kind": "NotEqual"
+            },
+            "right": {
+              "NumberLiteral": {
+                "value": 3
+              }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 39,
-              "end": 48
-            },
-            "content": "not equal"
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "not equal"
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "IfElement": {
-      "location": {
-        "start": 54,
-        "end": 79
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 61,
-            "end": 67
-          },
-          "left": {
-            "NumberLiteral": {
-              "location": {
-                "start": 61,
-                "end": 63
-              },
-              "value": 10
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 64,
-              "end": 65
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "NumberLiteral": {
+                "value": 10
+              }
             },
-            "kind": "GreaterThan"
-          },
-          "right": {
-            "NumberLiteral": {
-              "location": {
-                "start": 66,
-                "end": 67
-              },
-              "value": 5
+            "operator": {
+              "kind": "GreaterThan"
+            },
+            "right": {
+              "NumberLiteral": {
+                "value": 5
+              }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 68,
-              "end": 75
-            },
-            "content": "greater"
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "greater"
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "IfElement": {
-      "location": {
-        "start": 81,
-        "end": 102
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 88,
-            "end": 93
-          },
-          "left": {
-            "NumberLiteral": {
-              "location": {
-                "start": 88,
-                "end": 89
-              },
-              "value": 3
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 90,
-              "end": 91
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "NumberLiteral": {
+                "value": 3
+              }
             },
-            "kind": "LessThan"
-          },
-          "right": {
-            "NumberLiteral": {
-              "location": {
-                "start": 92,
-                "end": 93
-              },
-              "value": 8
+            "operator": {
+              "kind": "LessThan"
+            },
+            "right": {
+              "NumberLiteral": {
+                "value": 8
+              }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 94,
-              "end": 98
-            },
-            "content": "less"
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "less"
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

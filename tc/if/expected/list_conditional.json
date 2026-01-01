@@ -1,102 +1,94 @@
 [
   {
-    "ListElement": {
-      "location": {
-        "start": 0,
-        "end": 120
-      },
-      "kind": "1",
-      "parameters": {
-        "1": {
-          "location": {
-            "start": 8,
-            "end": 12
+    "kind": {
+      "List": {
+        "kind": "1",
+        "parameters": {
+          "1": {
+            "key": "1",
+            "value": []
+          }
+        },
+        "children": [
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Normal Item"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           },
-          "key": "1",
-          "value": []
-        }
-      },
-      "content": [
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 14,
-                    "end": 25
-                  },
-                  "content": "Normal Item"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Conditional": {
-            "location": {
-              "start": 28,
-              "end": 93
-            },
-            "condition": {
-              "BoolLiteral": {
-                "location": {
-                  "start": 35,
-                  "end": 39
+          {
+            "kind": {
+              "ConditionalListItems": {
+                "condition": {
+                  "BoolLiteral": {
+                    "value": true
+                  }
                 },
-                "value": true
-              }
-            },
-            "items": [
-              {
-                "parameters": {},
-                "content": [
+                "children": [
                   {
-                    "Text": {
-                      "location": {
-                        "start": 45,
-                        "end": 63
-                      },
-                      "content": "Conditional Item 1"
+                    "kind": {
+                      "ListItem": {
+                        "parameters": {},
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Conditional Item 1"
+                              }
+                            }
+                          }
+                        ]
+                      }
                     }
-                  }
-                ]
-              },
-              {
-                "parameters": {},
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 68,
-                        "end": 86
-                      },
-                      "content": "Conditional Item 2"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 95,
-                    "end": 114
                   },
-                  "content": "Another Normal Item"
-                }
+                  {
+                    "kind": {
+                      "ListItem": {
+                        "parameters": {},
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Conditional Item 2"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
               }
-            ]
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Another Normal Item"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

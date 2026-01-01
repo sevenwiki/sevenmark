@@ -1,79 +1,69 @@
 [
   {
-    "FoldElement": {
-      "location": {
-        "start": 0,
-        "end": 92
-      },
-      "parameters": {
-        "style": {
-          "location": {
-            "start": 8,
-            "end": 28
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 17,
-                  "end": 26
-                },
-                "content": "color:red"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "parameters": {
-            "bgcolor": {
-              "location": {
-                "start": 30,
-                "end": 46
-              },
-              "key": "bgcolor",
-              "value": [
-                {
+    "kind": {
+      "Fold": {
+        "parameters": {
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
                   "Text": {
-                    "location": {
-                      "start": 40,
-                      "end": 44
-                    },
-                    "content": "blue"
+                    "value": "color:red"
                   }
                 }
-              ]
+              }
+            ]
+          }
+        },
+        "content": [
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {
+                  "bgcolor": {
+                    "key": "bgcolor",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "blue"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "content with param"
+                      }
+                    }
+                  }
+                ]
+              }
             }
           },
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 49,
-                  "end": 67
-                },
-                "content": "content with param"
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "normal content"
+                      }
+                    }
+                  }
+                ]
               }
             }
-          ]
-        },
-        {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 72,
-                  "end": 86
-                },
-                "content": "normal content"
-              }
-            }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     }
   }
 ]

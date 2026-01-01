@@ -1,21 +1,17 @@
 [
   {
-    "LiteralElement": {
-      "location": {
-        "start": 0,
-        "end": 61
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 4,
-              "end": 58
-            },
-            "content": "Basic literal content with **bold** and *italic* text "
+    "kind": {
+      "Literal": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Basic literal content with **bold** and *italic* text "
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

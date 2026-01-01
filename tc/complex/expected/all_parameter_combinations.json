@@ -1,351 +1,267 @@
 [
   {
-    "StyledElement": {
-      "location": {
-        "start": 0,
-        "end": 144
-      },
-      "parameters": {
-        "bgcolor": {
-          "location": {
-            "start": 68,
-            "end": 86
-          },
-          "key": "bgcolor",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 78,
-                  "end": 84
-                },
-                "content": "yellow"
+    "kind": {
+      "Styled": {
+        "parameters": {
+          "bgcolor": {
+            "key": "bgcolor",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "yellow"
+                  }
+                }
               }
-            }
-          ]
-        },
-        "color": {
-          "location": {
-            "start": 54,
-            "end": 68
+            ]
           },
-          "key": "color",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 62,
-                  "end": 66
-                },
-                "content": "blue"
+          "color": {
+            "key": "color",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "blue"
+                  }
+                }
               }
-            }
-          ]
-        },
-        "opacity": {
-          "location": {
-            "start": 86,
-            "end": 101
+            ]
           },
-          "key": "opacity",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 96,
-                  "end": 99
-                },
-                "content": "0.8"
+          "opacity": {
+            "key": "opacity",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "0.8"
+                  }
+                }
               }
-            }
-          ]
-        },
-        "size": {
-          "location": {
-            "start": 41,
-            "end": 54
+            ]
           },
-          "key": "size",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 48,
-                  "end": 52
-                },
-                "content": "18px"
+          "size": {
+            "key": "size",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "18px"
+                  }
+                }
               }
-            }
-          ]
-        },
-        "style": {
-          "location": {
-            "start": 3,
-            "end": 41
+            ]
           },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 12,
-                  "end": 39
-                },
-                "content": "color:red; font-weight:bold"
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "color:red; font-weight:bold"
+                  }
+                }
               }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 101,
-              "end": 140
-            },
-            "content": "Maximum styled text with all parameters"
+            ]
           }
-        }
-      ]
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Maximum styled text with all parameters"
+              }
+            }
+          }
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "FoldElement": {
-      "location": {
-        "start": 146,
-        "end": 370
-      },
-      "parameters": {
-        "style": {
-          "location": {
-            "start": 154,
-            "end": 188
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 163,
-                  "end": 186
-                },
-                "content": "border:2px dashed green"
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Fold": {
+        "parameters": {
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "border:2px dashed green"
+                  }
+                }
               }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "parameters": {
-            "color": {
-              "location": {
-                "start": 203,
-                "end": 219
-              },
-              "key": "color",
-              "value": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 211,
-                      "end": 217
-                    },
-                    "content": "purple"
+            ]
+          }
+        },
+        "content": [
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {
+                  "color": {
+                    "key": "color",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "purple"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "size": {
+                    "key": "size",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "14px"
+                          }
+                        }
+                      }
+                    ]
                   }
-                }
-              ]
-            },
-            "size": {
-              "location": {
-                "start": 190,
-                "end": 203
-              },
-              "key": "size",
-              "value": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 197,
-                      "end": 201
-                    },
-                    "content": "14px"
-                  }
-                }
-              ]
-            }
-          },
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 222,
-                  "end": 238
                 },
-                "content": [
+                "children": [
                   {
-                    "Text": {
-                      "location": {
-                        "start": 224,
-                        "end": 236
-                      },
-                      "content": "Styled title"
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Styled title"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " with multiple parameters"
+                      }
                     }
                   }
                 ]
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 238,
-                  "end": 263
-                },
-                "content": " with multiple parameters"
-              }
-            }
-          ]
-        },
-        {
-          "parameters": {
-            "bgcolor": {
-              "location": {
-                "start": 268,
-                "end": 289
-              },
-              "key": "bgcolor",
-              "value": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 278,
-                      "end": 287
-                    },
-                    "content": "lightblue"
-                  }
-                }
-              ]
-            },
-            "opacity": {
-              "location": {
-                "start": 289,
-                "end": 304
-              },
-              "key": "opacity",
-              "value": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 299,
-                      "end": 302
-                    },
-                    "content": "0.9"
-                  }
-                }
-              ]
-            },
-            "style": {
-              "location": {
-                "start": 304,
-                "end": 326
-              },
-              "key": "style",
-              "value": [
-                {
-                  "Text": {
-                    "location": {
-                      "start": 312,
-                      "end": 324
-                    },
-                    "content": "padding:10px"
-                  }
-                }
-              ]
             }
           },
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 329,
-                  "end": 364
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {
+                  "bgcolor": {
+                    "key": "bgcolor",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "lightblue"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "opacity": {
+                    "key": "opacity",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "0.9"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "style": {
+                    "key": "style",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "padding:10px"
+                          }
+                        }
+                      }
+                    ]
+                  }
                 },
-                "content": "Content with background and opacity"
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Content with background and opacity"
+                      }
+                    }
+                  }
+                ]
               }
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "CodeElement": {
-      "location": {
-        "start": 372,
-        "end": 519
-      },
-      "parameters": {
-        "lang": {
-          "location": {
-            "start": 380,
-            "end": 400
-          },
-          "key": "lang",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 388,
-                  "end": 398
-                },
-                "content": "javascript"
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Code": {
+        "parameters": {
+          "lang": {
+            "key": "lang",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "javascript"
+                  }
+                }
               }
-            }
-          ]
+            ]
+          },
+          "size": {
+            "key": "size",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "12px"
+                  }
+                }
+              }
+            ]
+          },
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "background:black; color:lime"
+                  }
+                }
+              }
+            ]
+          }
         },
-        "size": {
-          "location": {
-            "start": 438,
-            "end": 451
-          },
-          "key": "size",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 445,
-                  "end": 449
-                },
-                "content": "12px"
-              }
-            }
-          ]
-        },
-        "style": {
-          "location": {
-            "start": 400,
-            "end": 438
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 408,
-                  "end": 436
-                },
-                "content": "background:black; color:lime"
-              }
-            }
-          ]
-        }
-      },
-      "content": "console.log(\"Styled code block\");\nfunction test() { return 42; }\n"
+        "value": "console.log(\"Styled code block\");\nfunction test() { return 42; }\n"
+      }
     }
   }
 ]

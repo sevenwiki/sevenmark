@@ -26,6 +26,11 @@ serde_json = { workspace = true }
 anyhow = { workspace = true }
 tracing = { workspace = true, optional = true }
 
+# SeaweedFS (optional, server only)
+aws-sdk-s3 = { workspace = true, optional = true }
+aws-config = { workspace = true, optional = true }
+zstd = { workspace = true, optional = true }
+
 # WASM (optional)
 wasm-bindgen = { workspace = true, optional = true }
 js-sys = { workspace = true, optional = true }
@@ -33,7 +38,7 @@ web-sys = { workspace = true, optional = true }
 
 [features]
 default = []
-server = ["sea-orm", "uuid", "utoipa", "tracing"]
+server = ["sea-orm", "uuid", "utoipa", "tracing", "aws-sdk-s3", "aws-config", "zstd"]
 wasm = ["wasm-bindgen", "js-sys", "web-sys", "sevenmark-parser/include_locations"]
 
 [lib]

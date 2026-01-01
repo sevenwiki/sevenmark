@@ -1,29 +1,23 @@
 [
   {
-    "Text": {
-      "location": {
-        "start": 0,
-        "end": 20
-      },
-      "content": "Text before comment "
+    "kind": {
+      "Text": {
+        "value": "Text before comment "
+      }
     }
   },
   {
-    "Comment": {
-      "location": {
-        "start": 20,
-        "end": 49
-      },
-      "content": " This is an inline comment"
+    "kind": {
+      "Comment": {
+        "value": " This is an inline comment"
+      }
     }
   },
   {
-    "Text": {
-      "location": {
-        "start": 49,
-        "end": 68
-      },
-      "content": "Text after comment."
+    "kind": {
+      "Text": {
+        "value": "Text after comment."
+      }
     }
   }
 ]

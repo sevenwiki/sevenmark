@@ -1,394 +1,330 @@
 [
   {
-    "FoldElement": {
-      "location": {
-        "start": 0,
-        "end": 469
-      },
-      "parameters": {
-        "bgcolor": {
-          "location": {
-            "start": 40,
-            "end": 61
-          },
-          "key": "bgcolor",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 50,
-                  "end": 59
-                },
-                "content": "lightgray"
-              }
-            }
-          ]
-        },
-        "style": {
-          "location": {
-            "start": 8,
-            "end": 40
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 17,
-                  "end": 38
-                },
-                "content": "border:1px solid #ccc"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "parameters": {
-            "color": {
-              "location": {
-                "start": 89,
-                "end": 107
-              },
-              "key": "color",
-              "value": [
-                {
+    "kind": {
+      "Fold": {
+        "parameters": {
+          "bgcolor": {
+            "key": "bgcolor",
+            "value": [
+              {
+                "kind": {
                   "Text": {
-                    "location": {
-                      "start": 97,
-                      "end": 105
-                    },
-                    "content": "darkblue"
+                    "value": "lightgray"
                   }
                 }
-              ]
-            },
-            "style": {
-              "location": {
-                "start": 63,
-                "end": 89
-              },
-              "key": "style",
-              "value": [
-                {
+              }
+            ]
+          },
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
                   "Text": {
-                    "location": {
-                      "start": 71,
-                      "end": 87
-                    },
-                    "content": "font-weight:bold"
+                    "value": "border:1px solid #ccc"
                   }
                 }
-              ]
-            }
-          },
-          "content": [
-            {
-              "Bold": {
-                "location": {
-                  "start": 110,
-                  "end": 121
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 112,
-                        "end": 119
-                      },
-                      "content": "Summary"
-                    }
-                  }
-                ]
               }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 121,
-                  "end": 138
-                },
-                "content": ": Click to expand"
-              }
-            }
-          ]
+            ]
+          }
         },
-        {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 144,
-                  "end": 163
-                },
-                "content": "This fold contains:"
-              }
-            },
-            "SoftBreak",
-            {
-              "Text": {
-                "location": {
-                  "start": 164,
-                  "end": 166
-                },
-                "content": "- "
-              }
-            },
-            {
-              "Bold": {
-                "location": {
-                  "start": 166,
-                  "end": 179
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 168,
-                        "end": 177
-                      },
-                      "content": "Bold text"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 179,
-                  "end": 184
-                },
-                "content": " and "
-              }
-            },
-            {
-              "Italic": {
-                "location": {
-                  "start": 184,
-                  "end": 197
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 185,
-                        "end": 196
-                      },
-                      "content": "italic text"
-                    }
-                  }
-                ]
-              }
-            },
-            "SoftBreak",
-            {
-              "Text": {
-                "location": {
-                  "start": 198,
-                  "end": 232
-                },
-                "content": "- A code snippet: `print(\"hello\")`"
-              }
-            },
-            "SoftBreak",
-            {
-              "Text": {
-                "location": {
-                  "start": 233,
-                  "end": 249
-                },
-                "content": "- Current time: "
-              }
-            },
-            "TimeNow",
-            "SoftBreak",
-            {
-              "Text": {
-                "location": {
-                  "start": 255,
-                  "end": 257
-                },
-                "content": "- "
-              }
-            },
-            {
-              "Strikethrough": {
-                "location": {
-                  "start": 257,
-                  "end": 274
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 259,
-                        "end": 272
-                      },
-                      "content": "Strikethrough"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 274,
-                  "end": 279
-                },
-                "content": " and "
-              }
-            },
-            {
-              "Superscript": {
-                "location": {
-                  "start": 279,
-                  "end": 294
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 281,
-                        "end": 292
-                      },
-                      "content": "superscript"
-                    }
-                  }
-                ]
-              }
-            },
-            "SoftBreak",
-            "SoftBreak",
-            {
-              "BlockQuoteElement": {
-                "location": {
-                  "start": 296,
-                  "end": 374
-                },
+        "content": [
+          {
+            "kind": {
+              "FoldInner": {
                 "parameters": {
+                  "color": {
+                    "key": "color",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "darkblue"
+                          }
+                        }
+                      }
+                    ]
+                  },
                   "style": {
-                    "location": {
-                      "start": 305,
-                      "end": 327
-                    },
                     "key": "style",
                     "value": [
                       {
-                        "Text": {
-                          "location": {
-                            "start": 314,
-                            "end": 325
-                          },
-                          "content": "margin:10px"
+                        "kind": {
+                          "Text": {
+                            "value": "font-weight:bold"
+                          }
                         }
                       }
                     ]
                   }
                 },
-                "content": [
+                "children": [
                   {
-                    "Text": {
-                      "location": {
-                        "start": 327,
-                        "end": 337
-                      },
-                      "content": "This is a "
-                    }
-                  },
-                  {
-                    "Bold": {
-                      "location": {
-                        "start": 337,
-                        "end": 353
-                      },
-                      "content": [
-                        {
-                          "Text": {
-                            "location": {
-                              "start": 339,
-                              "end": 351
-                            },
-                            "content": "nested quote"
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Summary"
+                              }
+                            }
                           }
-                        }
-                      ]
+                        ]
+                      }
                     }
                   },
                   {
-                    "Text": {
-                      "location": {
-                        "start": 353,
-                        "end": 370
-                      },
-                      "content": " with formatting."
+                    "kind": {
+                      "Text": {
+                        "value": ": Click to expand"
+                      }
                     }
                   }
                 ]
               }
-            },
-            "SoftBreak",
-            "SoftBreak",
-            {
-              "Comment": {
-                "location": {
-                  "start": 376,
-                  "end": 418
-                },
-                "content": " This comment should be inside the fold"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 418,
-                  "end": 439
-                },
-                "content": "Final paragraph with "
-              }
-            },
-            {
-              "Escape": {
-                "location": {
-                  "start": 439,
-                  "end": 441
-                },
-                "content": "*"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 441,
-                  "end": 448
-                },
-                "content": "escaped"
-              }
-            },
-            {
-              "Escape": {
-                "location": {
-                  "start": 448,
-                  "end": 450
-                },
-                "content": "*"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 450,
-                  "end": 462
-                },
-                "content": " characters."
+            }
+          },
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "This fold contains:"
+                      }
+                    }
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "- "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Bold text"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " and "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Italic": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "italic text"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "- A code snippet: `print(\"hello\")`"
+                      }
+                    }
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "- Current time: "
+                      }
+                    }
+                  },
+                  {
+                    "kind": "TimeNow"
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "- "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Strikethrough": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Strikethrough"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " and "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Superscript": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "superscript"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "BlockQuote": {
+                        "parameters": {
+                          "style": {
+                            "key": "style",
+                            "value": [
+                              {
+                                "kind": {
+                                  "Text": {
+                                    "value": "margin:10px"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "This is a "
+                              }
+                            }
+                          },
+                          {
+                            "kind": {
+                              "Bold": {
+                                "children": [
+                                  {
+                                    "kind": {
+                                      "Text": {
+                                        "value": "nested quote"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": " with formatting."
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "Comment": {
+                        "value": " This comment should be inside the fold"
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Final paragraph with "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Escape": {
+                        "value": "*"
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "escaped"
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Escape": {
+                        "value": "*"
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " characters."
+                      }
+                    }
+                  }
+                ]
               }
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     }
   }
 ]

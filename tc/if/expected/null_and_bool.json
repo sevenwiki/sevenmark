@@ -1,160 +1,106 @@
 [
   {
-    "IfElement": {
-      "location": {
-        "start": 0,
-        "end": 40
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 7,
-            "end": 19
-          },
-          "left": {
-            "Null": {
-              "location": {
-                "start": 7,
-                "end": 11
-              }
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 12,
-              "end": 14
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "Null": {}
             },
-            "kind": "Equal"
-          },
-          "right": {
-            "Null": {
-              "location": {
-                "start": 15,
-                "end": 19
+            "operator": {
+              "kind": "Equal"
+            },
+            "right": {
+              "Null": {}
+            }
+          }
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "null equals null"
               }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 20,
-              "end": 36
-            },
-            "content": "null equals null"
-          }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "IfElement": {
-      "location": {
-        "start": 42,
-        "end": 82
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 49,
-            "end": 61
-          },
-          "left": {
-            "BoolLiteral": {
-              "location": {
-                "start": 49,
-                "end": 53
-              },
-              "value": true
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 54,
-              "end": 56
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "BoolLiteral": {
+                "value": true
+              }
             },
-            "kind": "Equal"
-          },
-          "right": {
-            "BoolLiteral": {
-              "location": {
-                "start": 57,
-                "end": 61
-              },
-              "value": true
+            "operator": {
+              "kind": "Equal"
+            },
+            "right": {
+              "BoolLiteral": {
+                "value": true
+              }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 62,
-              "end": 78
-            },
-            "content": "true equals true"
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "true equals true"
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "IfElement": {
-      "location": {
-        "start": 84,
-        "end": 128
-      },
-      "condition": {
-        "Comparison": {
-          "location": {
-            "start": 91,
-            "end": 105
-          },
-          "left": {
-            "BoolLiteral": {
-              "location": {
-                "start": 91,
-                "end": 96
-              },
-              "value": false
-            }
-          },
-          "operator": {
-            "location": {
-              "start": 97,
-              "end": 99
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "If": {
+        "condition": {
+          "Comparison": {
+            "left": {
+              "BoolLiteral": {
+                "value": false
+              }
             },
-            "kind": "Equal"
-          },
-          "right": {
-            "BoolLiteral": {
-              "location": {
-                "start": 100,
-                "end": 105
-              },
-              "value": false
+            "operator": {
+              "kind": "Equal"
+            },
+            "right": {
+              "BoolLiteral": {
+                "value": false
+              }
             }
           }
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 106,
-              "end": 124
-            },
-            "content": "false equals false"
+        },
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "false equals false"
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

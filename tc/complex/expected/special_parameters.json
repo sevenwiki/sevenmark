@@ -1,221 +1,179 @@
 [
   {
-    "StyledElement": {
-      "location": {
-        "start": 0,
-        "end": 95
-      },
-      "parameters": {
-        "color": {
-          "location": {
-            "start": 25,
-            "end": 63
-          },
-          "key": "color",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 33,
-                  "end": 61
-                },
-                "content": "with spaces and symbols!@#$%"
-              }
-            }
-          ]
-        },
-        "size": {
-          "location": {
-            "start": 15,
-            "end": 25
-          },
-          "key": "size",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 22,
-                  "end": 23
-                },
-                "content": " "
-              }
-            }
-          ]
-        },
-        "style": {
-          "location": {
-            "start": 3,
-            "end": 15
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 12,
-                  "end": 13
-                },
-                "content": " "
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 63,
-              "end": 91
-            },
-            "content": "Empty and special parameters"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "FoldElement": {
-      "location": {
-        "start": 97,
-        "end": 216
-      },
-      "parameters": {
-        "empty": {
-          "location": {
-            "start": 105,
-            "end": 113
-          },
-          "key": "empty",
-          "value": []
-        },
-        "flag": {
-          "location": {
-            "start": 113,
-            "end": 119
-          },
-          "key": "flag",
-          "value": []
-        }
-      },
-      "content": [
-        {
-          "parameters": {
-            "special": {
-              "location": {
-                "start": 121,
-                "end": 153
-              },
-              "key": "special",
-              "value": [
-                {
+    "kind": {
+      "Styled": {
+        "parameters": {
+          "color": {
+            "key": "color",
+            "value": [
+              {
+                "kind": {
                   "Text": {
-                    "location": {
-                      "start": 131,
-                      "end": 137
-                    },
-                    "content": "quotes"
-                  }
-                },
-                {
-                  "Escape": {
-                    "location": {
-                      "start": 137,
-                      "end": 139
-                    },
-                    "content": "\""
-                  }
-                },
-                {
-                  "Text": {
-                    "location": {
-                      "start": 139,
-                      "end": 142
-                    },
-                    "content": "and"
-                  }
-                },
-                {
-                  "Escape": {
-                    "location": {
-                      "start": 142,
-                      "end": 144
-                    },
-                    "content": "\\"
-                  }
-                },
-                {
-                  "Text": {
-                    "location": {
-                      "start": 144,
-                      "end": 151
-                    },
-                    "content": "slashes"
+                    "value": "with spaces and symbols!@#$%"
                   }
                 }
-              ]
-            }
+              }
+            ]
           },
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 156,
-                  "end": 180
-                },
-                "content": "Title with special chars"
+          "size": {
+            "key": "size",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": " "
+                  }
+                }
               }
-            }
-          ]
+            ]
+          },
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": " "
+                  }
+                }
+              }
+            ]
+          }
         },
-        {
-          "parameters": {},
-          "content": [
-            {
+        "children": [
+          {
+            "kind": {
               "Text": {
-                "location": {
-                  "start": 185,
-                  "end": 210
-                },
-                "content": "Content with empty params"
+                "value": "Empty and special parameters"
               }
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "CodeElement": {
-      "location": {
-        "start": 218,
-        "end": 290
-      },
-      "parameters": {
-        "lang": {
-          "location": {
-            "start": 226,
-            "end": 237
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Fold": {
+        "parameters": {
+          "empty": {
+            "key": "empty",
+            "value": []
           },
-          "key": "lang",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 234,
-                  "end": 235
+          "flag": {
+            "key": "flag",
+            "value": []
+          }
+        },
+        "content": [
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {
+                  "special": {
+                    "key": "special",
+                    "value": [
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "quotes"
+                          }
+                        }
+                      },
+                      {
+                        "kind": {
+                          "Escape": {
+                            "value": "\""
+                          }
+                        }
+                      },
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "and"
+                          }
+                        }
+                      },
+                      {
+                        "kind": {
+                          "Escape": {
+                            "value": "\\"
+                          }
+                        }
+                      },
+                      {
+                        "kind": {
+                          "Text": {
+                            "value": "slashes"
+                          }
+                        }
+                      }
+                    ]
+                  }
                 },
-                "content": " "
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Title with special chars"
+                      }
+                    }
+                  }
+                ]
               }
             }
-          ]
-        }
-      },
-      "content": "// Empty language parameter\ncode without language\n"
+          },
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Content with empty params"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Code": {
+        "parameters": {
+          "lang": {
+            "key": "lang",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": " "
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "value": "// Empty language parameter\ncode without language\n"
+      }
     }
   }
 ]

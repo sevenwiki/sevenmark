@@ -1,71 +1,65 @@
 [
   {
-    "ListElement": {
-      "location": {
-        "start": 0,
-        "end": 48
-      },
-      "kind": "1",
-      "parameters": {
-        "1": {
-          "location": {
-            "start": 8,
-            "end": 12
+    "kind": {
+      "List": {
+        "kind": "1",
+        "parameters": {
+          "1": {
+            "key": "1",
+            "value": []
+          }
+        },
+        "children": [
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Item 1"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           },
-          "key": "1",
-          "value": []
-        }
-      },
-      "content": [
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 14,
-                    "end": 20
-                  },
-                  "content": "Item 1"
-                }
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Item 2"
+                      }
+                    }
+                  }
+                ]
               }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 25,
-                    "end": 31
-                  },
-                  "content": "Item 2"
-                }
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Item 3"
+                      }
+                    }
+                  }
+                ]
               }
-            ]
+            }
           }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 36,
-                    "end": 42
-                  },
-                  "content": "Item 3"
-                }
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

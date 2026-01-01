@@ -1,69 +1,65 @@
 [
   {
-    "TableElement": {
-      "location": {
-        "start": 0,
-        "end": 75
-      },
-      "parameters": {},
-      "content": [
-        {
-          "Row": {
-            "parameters": {},
-            "content": [
-              {
-                "Cell": {
-                  "parameters": {},
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 15,
-                          "end": 26
-                        },
-                        "content": "Normal Cell"
+    "kind": {
+      "Table": {
+        "parameters": {},
+        "children": [
+          {
+            "kind": {
+              "TableRow": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "TableCell": {
+                        "parameters": {},
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Normal Cell"
+                              }
+                            }
+                          }
+                        ]
                       }
                     }
-                  ]
-                }
-              },
-              {
-                "Conditional": {
-                  "location": {
-                    "start": 29,
-                    "end": 69
                   },
-                  "condition": {
-                    "BoolLiteral": {
-                      "location": {
-                        "start": 36,
-                        "end": 40
-                      },
-                      "value": true
-                    }
-                  },
-                  "cells": [
-                    {
-                      "parameters": {},
-                      "content": [
-                        {
-                          "Text": {
-                            "location": {
-                              "start": 46,
-                              "end": 62
-                            },
-                            "content": "Conditional Cell"
+                  {
+                    "kind": {
+                      "ConditionalTableCells": {
+                        "condition": {
+                          "BoolLiteral": {
+                            "value": true
                           }
-                        }
-                      ]
+                        },
+                        "children": [
+                          {
+                            "kind": {
+                              "TableCell": {
+                                "parameters": {},
+                                "children": [
+                                  {
+                                    "kind": {
+                                      "Text": {
+                                        "value": "Conditional Cell"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
                     }
-                  ]
-                }
+                  }
+                ]
               }
-            ]
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

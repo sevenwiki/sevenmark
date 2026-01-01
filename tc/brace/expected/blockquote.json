@@ -1,69 +1,53 @@
 [
   {
-    "BlockQuoteElement": {
-      "location": {
-        "start": 0,
-        "end": 96
-      },
-      "parameters": {
-        "style": {
-          "location": {
-            "start": 9,
-            "end": 37
-          },
-          "key": "style",
-          "value": [
-            {
-              "Text": {
-                "location": {
-                  "start": 18,
-                  "end": 35
-                },
-                "content": "font-style:italic"
-              }
-            }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 37,
-              "end": 75
-            },
-            "content": "This is a quoted text block with some "
-          }
-        },
-        {
-          "Bold": {
-            "location": {
-              "start": 75,
-              "end": 83
-            },
-            "content": [
+    "kind": {
+      "BlockQuote": {
+        "parameters": {
+          "style": {
+            "key": "style",
+            "value": [
               {
-                "Text": {
-                  "location": {
-                    "start": 77,
-                    "end": 81
-                  },
-                  "content": "bold"
+                "kind": {
+                  "Text": {
+                    "value": "font-style:italic"
+                  }
                 }
               }
             ]
           }
         },
-        {
-          "Text": {
-            "location": {
-              "start": 83,
-              "end": 92
-            },
-            "content": " content."
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "This is a quoted text block with some "
+              }
+            }
+          },
+          {
+            "kind": {
+              "Bold": {
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "bold"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": " content."
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
 ]

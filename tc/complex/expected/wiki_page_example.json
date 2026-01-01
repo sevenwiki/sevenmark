@@ -1,1380 +1,1256 @@
 [
   {
-    "Category": {
-      "location": {
-        "start": 0,
-        "end": 38
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 13,
-              "end": 35
-            },
-            "content": "Programming Languages\n"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "Header": {
-      "location": {
-        "start": 40,
-        "end": 68
-      },
-      "level": 1,
-      "is_folded": false,
-      "section_index": 1,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 42,
-              "end": 67
-            },
-            "content": "Rust Programming Language"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  {
-    "Include": {
-      "location": {
-        "start": 69,
-        "end": 129
-      },
-      "parameters": {
-        "page": {
-          "location": {
-            "start": 80,
-            "end": 99
-          },
-          "key": "page",
-          "value": [
-            {
+    "kind": {
+      "Category": {
+        "children": [
+          {
+            "kind": {
               "Text": {
-                "location": {
-                  "start": 88,
-                  "end": 97
-                },
-                "content": "RustIntro"
+                "value": "Programming Languages\n"
               }
             }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 99,
-              "end": 126
-            },
-            "content": "Basic introduction to Rust\n"
           }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "Header": {
-      "location": {
-        "start": 131,
-        "end": 158
-      },
-      "level": 2,
-      "is_folded": false,
-      "section_index": 2,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 134,
-              "end": 157
-            },
-            "content": "History and Development"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  {
-    "Bold": {
-      "location": {
-        "start": 159,
-        "end": 167
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 161,
-              "end": 165
-            },
-            "content": "Rust"
-          }
-        }
-      ]
+        ]
+      }
     }
   },
   {
-    "Text": {
-      "location": {
-        "start": 167,
-        "end": 196
-      },
-      "content": " was originally developed by "
-    }
+    "kind": "SoftBreak"
   },
   {
-    "Italic": {
-      "location": {
-        "start": 196,
-        "end": 211
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 197,
-              "end": 210
-            },
-            "content": "Graydon Hoare"
-          }
-        }
-      ]
-    }
+    "kind": "SoftBreak"
   },
   {
-    "Text": {
-      "location": {
-        "start": 211,
-        "end": 248
-      },
-      "content": " at Mozilla Research. Key milestones:"
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "ListElement": {
-      "location": {
-        "start": 250,
-        "end": 443
-      },
-      "kind": "1",
-      "parameters": {
-        "1": {
-          "location": {
-            "start": 258,
-            "end": 262
-          },
-          "key": "1",
-          "value": []
-        }
-      },
-      "content": [
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Bold": {
-                  "location": {
-                    "start": 264,
-                    "end": 272
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 266,
-                          "end": 270
-                        },
-                        "content": "2010"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "Text": {
-                  "location": {
-                    "start": 272,
-                    "end": 291
-                  },
-                  "content": ": Project announced"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Bold": {
-                  "location": {
-                    "start": 296,
-                    "end": 304
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 298,
-                          "end": 302
-                        },
-                        "content": "2012"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "Text": {
-                  "location": {
-                    "start": 304,
-                    "end": 332
-                  },
-                  "content": ": First public release (0.1)"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Bold": {
-                  "location": {
-                    "start": 337,
-                    "end": 345
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 339,
-                          "end": 343
-                        },
-                        "content": "2015"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "Text": {
-                  "location": {
-                    "start": 345,
-                    "end": 374
-                  },
-                  "content": ": Rust 1.0 stable release on "
-                }
-              },
-              {
-                "Age": {
-                  "location": {
-                    "start": 374,
-                    "end": 391
-                  },
-                  "content": "2015-05-15"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Bold": {
-                  "location": {
-                    "start": 396,
-                    "end": 407
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 398,
-                          "end": 405
-                        },
-                        "content": "Present"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "Text": {
-                  "location": {
-                    "start": 407,
-                    "end": 437
-                  },
-                  "content": ": Active development continues"
-                }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "Header": {
-      "location": {
-        "start": 445,
-        "end": 461
-      },
-      "level": 2,
-      "is_folded": false,
-      "section_index": 3,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 448,
-              "end": 460
-            },
-            "content": "Key Features"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  {
-    "FoldElement": {
-      "location": {
-        "start": 462,
-        "end": 1101
-      },
-      "parameters": {
-        "style": {
-          "location": {
-            "start": 470,
-            "end": 525
-          },
-          "key": "style",
-          "value": [
-            {
+    "kind": {
+      "Header": {
+        "level": 1,
+        "is_folded": false,
+        "section_index": 1,
+        "children": [
+          {
+            "kind": {
               "Text": {
-                "location": {
-                  "start": 479,
-                  "end": 523
-                },
-                "content": "background:#f0f8ff; border:1px solid #4682b4"
+                "value": "Rust Programming Language"
               }
             }
-          ]
-        }
-      },
-      "content": [
-        {
-          "parameters": {},
-          "content": [
-            {
-              "Text": {
-                "location": {
-                  "start": 527,
-                  "end": 532
-                },
-                "content": "🔧 "
-              }
-            },
-            {
-              "Bold": {
-                "location": {
-                  "start": 532,
-                  "end": 554
-                },
-                "content": [
-                  {
-                    "Text": {
-                      "location": {
-                        "start": 534,
-                        "end": 552
-                      },
-                      "content": "Technical Features"
-                    }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Include": {
+        "parameters": {
+          "page": {
+            "key": "page",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "RustIntro"
                   }
-                ]
+                }
               }
-            },
-            {
+            ]
+          }
+        },
+        "children": [
+          {
+            "kind": {
               "Text": {
-                "location": {
-                  "start": 554,
-                  "end": 555
-                },
-                "content": " "
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 555,
-                  "end": 556
-                },
-                "content": "_"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 556,
-                  "end": 576
-                },
-                "content": "(expand for details)"
-              }
-            },
-            {
-              "Text": {
-                "location": {
-                  "start": 576,
-                  "end": 577
-                },
-                "content": "_"
+                "value": "Basic introduction to Rust\n"
               }
             }
-          ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Header": {
+        "level": 2,
+        "is_folded": false,
+        "section_index": 2,
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "History and Development"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Bold": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Rust"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": " was originally developed by "
+      }
+    }
+  },
+  {
+    "kind": {
+      "Italic": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Graydon Hoare"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": " at Mozilla Research. Key milestones:"
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "List": {
+        "kind": "1",
+        "parameters": {
+          "1": {
+            "key": "1",
+            "value": []
+          }
         },
-        {
-          "parameters": {},
-          "content": [
-            {
-              "TableElement": {
-                "location": {
-                  "start": 583,
-                  "end": 912
-                },
+        "children": [
+          {
+            "kind": {
+              "ListItem": {
                 "parameters": {},
-                "content": [
+                "children": [
                   {
-                    "Row": {
-                      "parameters": {},
-                      "content": [
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Bold": {
-                                  "location": {
-                                    "start": 597,
-                                    "end": 608
-                                  },
-                                  "content": [
-                                    {
-                                      "Text": {
-                                        "location": {
-                                          "start": 599,
-                                          "end": 606
-                                        },
-                                        "content": "Feature"
-                                      }
-                                    }
-                                  ]
-                                }
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "2010"
                               }
-                            ]
+                            }
                           }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Bold": {
-                                  "location": {
-                                    "start": 613,
-                                    "end": 628
-                                  },
-                                  "content": [
-                                    {
-                                      "Text": {
-                                        "location": {
-                                          "start": 615,
-                                          "end": 626
-                                        },
-                                        "content": "Description"
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Bold": {
-                                  "location": {
-                                    "start": 633,
-                                    "end": 644
-                                  },
-                                  "content": [
-                                    {
-                                      "Text": {
-                                        "location": {
-                                          "start": 635,
-                                          "end": 642
-                                        },
-                                        "content": "Benefit"
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
+                        ]
+                      }
                     }
                   },
                   {
-                    "Row": {
-                      "parameters": {},
-                      "content": [
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 653,
-                                    "end": 666
-                                  },
-                                  "content": "Memory Safety"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 671,
-                                    "end": 687
-                                  },
-                                  "content": "No null pointers"
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 687,
-                                    "end": 688
-                                  },
-                                  "content": ","
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 688,
-                                    "end": 705
-                                  },
-                                  "content": " buffer overflows"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 710,
-                                    "end": 726
-                                  },
-                                  "content": "Prevents crashes"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "Row": {
-                      "parameters": {},
-                      "content": [
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 735,
-                                    "end": 757
-                                  },
-                                  "content": "Zero-cost Abstractions"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 762,
-                                    "end": 781
-                                  },
-                                  "content": "High-level features"
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 781,
-                                    "end": 782
-                                  },
-                                  "content": ","
-                                }
-                              },
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 782,
-                                    "end": 804
-                                  },
-                                  "content": " low-level performance"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 809,
-                                    "end": 828
-                                  },
-                                  "content": "Best of both worlds"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "Row": {
-                      "parameters": {},
-                      "content": [
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 837,
-                                    "end": 848
-                                  },
-                                  "content": "Concurrency"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 853,
-                                    "end": 878
-                                  },
-                                  "content": "Safe parallel programming"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "Cell": {
-                            "parameters": {},
-                            "content": [
-                              {
-                                "Text": {
-                                  "location": {
-                                    "start": 883,
-                                    "end": 904
-                                  },
-                                  "content": "Scalable applications"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
+                    "kind": {
+                      "Text": {
+                        "value": ": Project announced"
+                      }
                     }
                   }
                 ]
               }
-            },
-            "SoftBreak",
-            "SoftBreak",
-            {
-              "CodeElement": {
-                "location": {
-                  "start": 914,
-                  "end": 1094
-                },
-                "parameters": {
-                  "lang": {
-                    "location": {
-                      "start": 922,
-                      "end": 936
-                    },
-                    "key": "lang",
-                    "value": [
-                      {
-                        "Text": {
-                          "location": {
-                            "start": 930,
-                            "end": 934
-                          },
-                          "content": "rust"
-                        }
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "2012"
+                              }
+                            }
+                          }
+                        ]
                       }
-                    ]
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": ": First public release (0.1)"
+                      }
+                    }
                   }
-                },
-                "content": "// Example: Safe memory management\nfn safe_example() {\n    let data = vec![1, 2, 3];\n    println!(\"Data: {:?}\", data);\n    // Memory automatically freed\n}\n"
+                ]
               }
             }
-          ]
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "Header": {
-      "location": {
-        "start": 1103,
-        "end": 1130
-      },
-      "level": 2,
-      "is_folded": false,
-      "section_index": 4,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1106,
-              "end": 1129
-            },
-            "content": "Community and Ecosystem"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1131,
-        "end": 1169
-      },
-      "content": "The Rust community is known for being "
-    }
-  },
-  {
-    "Bold": {
-      "location": {
-        "start": 1169,
-        "end": 1182
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1171,
-              "end": 1180
-            },
-            "content": "welcoming"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 1182,
-        "end": 1187
-      },
-      "content": " and "
-    }
-  },
-  {
-    "Underline": {
-      "location": {
-        "start": 1187,
-        "end": 1200
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1189,
-              "end": 1198
-            },
-            "content": "inclusive"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 1200,
-        "end": 1201
-      },
-      "content": "."
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "BlockQuoteElement": {
-      "location": {
-        "start": 1203,
-        "end": 1365
-      },
-      "parameters": {
-        "style": {
-          "location": {
-            "start": 1212,
-            "end": 1252
           },
-          "key": "style",
-          "value": [
-            {
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "2015"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": ": Rust 1.0 stable release on "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Age": {
+                        "date": "2015-05-15"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Present"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": ": Active development continues"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Header": {
+        "level": 2,
+        "is_folded": false,
+        "section_index": 3,
+        "children": [
+          {
+            "kind": {
               "Text": {
-                "location": {
-                  "start": 1221,
-                  "end": 1250
-                },
-                "content": "font-style:italic; color:#666"
+                "value": "Key Features"
               }
             }
-          ]
-        }
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1252,
-              "end": 1304
-            },
-            "content": "\"Rust is a systems programming language that is fast"
           }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1304,
-              "end": 1305
-            },
-            "content": ","
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1305,
-              "end": 1317
-            },
-            "content": " memory-safe"
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1317,
-              "end": 1318
-            },
-            "content": ","
-          }
-        },
-        {
-          "Text": {
-            "location": {
-              "start": 1318,
-              "end": 1333
-            },
-            "content": " and parallel.\""
-          }
-        },
-        "SoftBreak",
-        {
-          "Text": {
-            "location": {
-              "start": 1334,
-              "end": 1338
-            },
-            "content": "— "
-          }
-        },
-        {
-          "Italic": {
-            "location": {
-              "start": 1338,
-              "end": 1361
-            },
-            "content": [
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Fold": {
+        "parameters": {
+          "style": {
+            "key": "style",
+            "value": [
               {
-                "Text": {
-                  "location": {
-                    "start": 1339,
-                    "end": 1360
-                  },
-                  "content": "Mozilla Research Team"
+                "kind": {
+                  "Text": {
+                    "value": "background:#f0f8ff; border:1px solid #4682b4"
+                  }
                 }
               }
             ]
           }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "Header": {
-      "location": {
-        "start": 1367,
-        "end": 1390
-      },
-      "level": 3,
-      "is_folded": false,
-      "section_index": 5,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1371,
-              "end": 1389
-            },
-            "content": "Package Management"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1391,
-        "end": 1401
-      },
-      "content": "Rust uses "
-    }
-  },
-  {
-    "Bold": {
-      "location": {
-        "start": 1401,
-        "end": 1410
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1403,
-              "end": 1408
-            },
-            "content": "Cargo"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 1410,
-        "end": 1415
-      },
-      "content": " for:"
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1416,
-        "end": 1418
-      },
-      "content": "- "
-    }
-  },
-  {
-    "Strikethrough": {
-      "location": {
-        "start": 1418,
-        "end": 1450
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1420,
-              "end": 1448
-            },
-            "content": "Manual dependency management"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "location": {
-        "start": 1450,
-        "end": 1486
-      },
-      "content": " → Automatic dependency resolution"
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1487,
-        "end": 1525
-      },
-      "content": "- Building projects with `cargo build`"
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1526,
-        "end": 1559
-      },
-      "content": "- Running tests with `cargo test`"
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1560,
-        "end": 1576
-      },
-      "content": "- Publishing to "
-    }
-  },
-  {
-    "Superscript": {
-      "location": {
-        "start": 1576,
-        "end": 1589
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1578,
-              "end": 1587
-            },
-            "content": "crates.io"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "Header": {
-      "location": {
-        "start": 1591,
-        "end": 1614
-      },
-      "level": 3,
-      "is_folded": false,
-      "section_index": 6,
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 1595,
-              "end": 1613
-            },
-            "content": "Learning Resources"
-          }
-        }
-      ]
-    }
-  },
-  "SoftBreak",
-  {
-    "Text": {
-      "location": {
-        "start": 1615,
-        "end": 1634
-      },
-      "content": "Current timestamp: "
-    }
-  },
-  "TimeNow",
-  "SoftBreak",
-  "SoftBreak",
-  {
-    "ListElement": {
-      "location": {
-        "start": 1641,
-        "end": 1833
-      },
-      "kind": "a",
-      "parameters": {
-        "a": {
-          "location": {
-            "start": 1649,
-            "end": 1653
+        },
+        "content": [
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "🔧 "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "Technical Features"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "_"
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "(expand for details)"
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "_"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           },
-          "key": "a",
-          "value": []
-        }
-      },
-      "content": [
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 1655,
-                    "end": 1681
-                  },
-                  "content": "Official documentation at "
-                }
-              },
-              {
-                "Subscript": {
-                  "location": {
-                    "start": 1681,
-                    "end": 1702
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 1683,
-                          "end": 1700
-                        },
-                        "content": "doc.rust-lang.org"
+          {
+            "kind": {
+              "FoldInner": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Table": {
+                        "parameters": {},
+                        "children": [
+                          {
+                            "kind": {
+                              "TableRow": {
+                                "parameters": {},
+                                "children": [
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Bold": {
+                                                "children": [
+                                                  {
+                                                    "kind": {
+                                                      "Text": {
+                                                        "value": "Feature"
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Bold": {
+                                                "children": [
+                                                  {
+                                                    "kind": {
+                                                      "Text": {
+                                                        "value": "Description"
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Bold": {
+                                                "children": [
+                                                  {
+                                                    "kind": {
+                                                      "Text": {
+                                                        "value": "Benefit"
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "kind": {
+                              "TableRow": {
+                                "parameters": {},
+                                "children": [
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Memory Safety"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "No null pointers"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": ","
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": " buffer overflows"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Prevents crashes"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "kind": {
+                              "TableRow": {
+                                "parameters": {},
+                                "children": [
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Zero-cost Abstractions"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "High-level features"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": ","
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": " low-level performance"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Best of both worlds"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "kind": {
+                              "TableRow": {
+                                "parameters": {},
+                                "children": [
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Concurrency"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Safe parallel programming"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "kind": {
+                                      "TableCell": {
+                                        "parameters": {},
+                                        "children": [
+                                          {
+                                            "kind": {
+                                              "Text": {
+                                                "value": "Scalable applications"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
                       }
                     }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Bold": {
-                  "location": {
-                    "start": 1707,
-                    "end": 1724
                   },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 1709,
-                          "end": 1722
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": "SoftBreak"
+                  },
+                  {
+                    "kind": {
+                      "Code": {
+                        "parameters": {
+                          "lang": {
+                            "key": "lang",
+                            "value": [
+                              {
+                                "kind": {
+                                  "Text": {
+                                    "value": "rust"
+                                  }
+                                }
+                              }
+                            ]
+                          }
                         },
-                        "content": "The Rust Book"
+                        "value": "// Example: Safe memory management\nfn safe_example() {\n    let data = vec![1, 2, 3];\n    println!(\"Data: {:?}\", data);\n    // Memory automatically freed\n}\n"
                       }
                     }
-                  ]
-                }
-              },
-              {
-                "Text": {
-                  "location": {
-                    "start": 1724,
-                    "end": 1746
-                  },
-                  "content": " - comprehensive guide"
-                }
+                  }
+                ]
               }
-            ]
+            }
           }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 1751,
-                    "end": 1772
-                  },
-                  "content": "Community forums and "
-                }
-              },
-              {
-                "Strikethrough": {
-                  "location": {
-                    "start": 1772,
-                    "end": 1779
-                  },
-                  "content": [
-                    {
-                      "Text": {
-                        "location": {
-                          "start": 1774,
-                          "end": 1777
-                        },
-                        "content": "IRC"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "Text": {
-                  "location": {
-                    "start": 1779,
-                    "end": 1787
-                  },
-                  "content": " Discord"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "Item": {
-            "parameters": {},
-            "content": [
-              {
-                "Text": {
-                  "location": {
-                    "start": 1792,
-                    "end": 1827
-                  },
-                  "content": "Rust by Example - hands-on learning"
-                }
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
   {
-    "Comment": {
-      "location": {
-        "start": 1835,
-        "end": 2028
-      },
-      "content": " Multi-line comment explaining\n   the structure of this wiki page:\n   - Category classification\n   - Headers with different levels\n   - Mixed formatting styles\n   - Nested complex elements\n"
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Header": {
+        "level": 2,
+        "is_folded": false,
+        "section_index": 4,
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Community and Ecosystem"
+              }
+            }
+          }
+        ]
+      }
     }
   },
-  "SoftBreak",
-  "SoftBreak",
-  "HLine",
-  "SoftBreak",
   {
-    "Italic": {
-      "location": {
-        "start": 2035,
-        "end": 2092
-      },
-      "content": [
-        {
-          "Text": {
-            "location": {
-              "start": 2036,
-              "end": 2064
-            },
-            "content": "This page was last modified "
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "The Rust community is known for being "
+      }
+    }
+  },
+  {
+    "kind": {
+      "Bold": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "welcoming"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": " and "
+      }
+    }
+  },
+  {
+    "kind": {
+      "Underline": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "inclusive"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "."
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "BlockQuote": {
+        "parameters": {
+          "style": {
+            "key": "style",
+            "value": [
+              {
+                "kind": {
+                  "Text": {
+                    "value": "font-style:italic; color:#666"
+                  }
+                }
+              }
+            ]
           }
         },
-        {
-          "Age": {
-            "location": {
-              "start": 2064,
-              "end": 2081
-            },
-            "content": "2024-01-01"
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "\"Rust is a systems programming language that is fast"
+              }
+            }
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": ","
+              }
+            }
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": " memory-safe"
+              }
+            }
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": ","
+              }
+            }
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": " and parallel.\""
+              }
+            }
+          },
+          {
+            "kind": "SoftBreak"
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": "— "
+              }
+            }
+          },
+          {
+            "kind": {
+              "Italic": {
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Mozilla Research Team"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Header": {
+        "level": 3,
+        "is_folded": false,
+        "section_index": 5,
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Package Management"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "Rust uses "
+      }
+    }
+  },
+  {
+    "kind": {
+      "Bold": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Cargo"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": " for:"
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "- "
+      }
+    }
+  },
+  {
+    "kind": {
+      "Strikethrough": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Manual dependency management"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": " → Automatic dependency resolution"
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "- Building projects with `cargo build`"
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "- Running tests with `cargo test`"
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "- Publishing to "
+      }
+    }
+  },
+  {
+    "kind": {
+      "Superscript": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "crates.io"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Header": {
+        "level": 3,
+        "is_folded": false,
+        "section_index": 6,
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Learning Resources"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "Current timestamp: "
+      }
+    }
+  },
+  {
+    "kind": "TimeNow"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "List": {
+        "kind": "a",
+        "parameters": {
+          "a": {
+            "key": "a",
+            "value": []
           }
         },
-        {
-          "Text": {
-            "location": {
-              "start": 2081,
-              "end": 2091
-            },
-            "content": " days ago."
+        "children": [
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Official documentation at "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Subscript": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "doc.rust-lang.org"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Bold": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "The Rust Book"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " - comprehensive guide"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Community forums and "
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Strikethrough": {
+                        "children": [
+                          {
+                            "kind": {
+                              "Text": {
+                                "value": "IRC"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": " Discord"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": {
+              "ListItem": {
+                "parameters": {},
+                "children": [
+                  {
+                    "kind": {
+                      "Text": {
+                        "value": "Rust by Example - hands-on learning"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           }
-        }
-      ]
+        ]
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Comment": {
+        "value": " Multi-line comment explaining\n   the structure of this wiki page:\n   - Category classification\n   - Headers with different levels\n   - Mixed formatting styles\n   - Nested complex elements\n"
+      }
+    }
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": "HLine"
+  },
+  {
+    "kind": "SoftBreak"
+  },
+  {
+    "kind": {
+      "Italic": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "This page was last modified "
+              }
+            }
+          },
+          {
+            "kind": {
+              "Age": {
+                "date": "2024-01-01"
+              }
+            }
+          },
+          {
+            "kind": {
+              "Text": {
+                "value": " days ago."
+              }
+            }
+          }
+        ]
+      }
     }
   }
 ]
