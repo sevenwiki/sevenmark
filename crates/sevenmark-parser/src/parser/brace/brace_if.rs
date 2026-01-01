@@ -1,4 +1,4 @@
-use crate::ast::{IfElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::condition_parser;
@@ -11,7 +11,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse if conditional elements: {{{#if condition :: content}}}
-pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let (condition, parsed_content) = delimited(
@@ -25,9 +25,11 @@ pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElemen
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::IfElement(IfElement {
-        location: Location { start, end },
-        condition,
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::If {
+            condition,
+            children: parsed_content,
+        },
+    ))
 }

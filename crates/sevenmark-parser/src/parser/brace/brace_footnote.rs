@@ -1,4 +1,4 @@
-use crate::ast::{FootnoteElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
@@ -11,7 +11,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse footnote elements enclosed in {{{#fn }}}
-pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     if parser_input.state.inside_footnote {
         return Err(winnow::error::ContextError::new());
     }
@@ -35,10 +35,12 @@ pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<SevenMark
 
     let footnote_index = parser_input.state.next_footnote_index();
 
-    Ok(SevenMarkElement::FootnoteElement(FootnoteElement {
-        location: Location { start, end },
-        footnote_index,
-        parameters: parameters.unwrap_or_default(),
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Footnote {
+            footnote_index,
+            parameters: parameters.unwrap_or_default(),
+            children: parsed_content,
+        },
+    ))
 }

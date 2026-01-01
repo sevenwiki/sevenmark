@@ -8,6 +8,7 @@
 //! - `traversable`: Traversable trait and implementation
 
 mod expression;
+mod fold;
 mod list;
 mod location;
 mod table;
@@ -15,6 +16,7 @@ mod traversable;
 
 // Re-export all public types
 pub use expression::*;
+pub use fold::*;
 pub use list::*;
 pub use location::*;
 pub use table::*;
@@ -64,6 +66,13 @@ pub struct ResolvedMediaInfo {
     /// #url 외부 링크
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
+}
+
+/// Fold 내부 요소 (title 또는 content)
+#[derive(Debug, Clone, Serialize)]
+pub struct FoldInnerElement {
+    pub parameters: Parameters,
+    pub children: Vec<AstNode>,
 }
 
 /// 모든 AST 노드의 기본 구조
@@ -131,8 +140,7 @@ pub enum NodeKind {
     /// 폴드/접기 {{{#fold ...}}}
     Fold {
         parameters: Parameters,
-        title: Vec<AstNode>,
-        children: Vec<AstNode>,
+        content: (FoldInnerElement, FoldInnerElement),
     },
     /// 인용 블록 {{{#blockquote ...}}}
     BlockQuote {
