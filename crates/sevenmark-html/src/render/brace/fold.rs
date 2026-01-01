@@ -1,19 +1,34 @@
 //! Fold element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::FoldElement;
+use sevenmark_parser::ast::{AstNode, NodeKind, Parameters};
 
 use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
-pub fn render(e: &FoldElement, ctx: &mut RenderContext) -> Markup {
+pub fn render(
+    parameters: &Parameters,
+    content: &(Box<AstNode>, Box<AstNode>),
+    ctx: &mut RenderContext,
+) -> Markup {
     ctx.enter_suppress_soft_breaks();
-    let summary = render_elements(&e.content.0.content, ctx);
-    let details = render_elements(&e.content.1.content, ctx);
+
+    // Extract children from FoldInner nodes
+    let summary_children = match &content.0.kind {
+        NodeKind::FoldInner { children, .. } => children,
+        _ => return html! {},
+    };
+    let details_children = match &content.1.kind {
+        NodeKind::FoldInner { children, .. } => children,
+        _ => return html! {},
+    };
+
+    let summary = render_elements(summary_children, ctx);
+    let details = render_elements(details_children, ctx);
     ctx.exit_suppress_soft_breaks();
 
-    let style = utils::build_style(&e.parameters);
+    let style = utils::build_style(parameters);
 
     html! {
         details class=(classes::FOLD) style=[style] {

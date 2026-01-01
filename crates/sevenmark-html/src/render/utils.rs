@@ -1,14 +1,14 @@
 //! Common rendering utilities
 
-use sevenmark_parser::ast::{Parameters, SevenMarkElement};
+use sevenmark_parser::ast::{AstNode, NodeKind, Parameters};
 
 /// Extract plain text from elements
-pub fn extract_text(elements: &[SevenMarkElement]) -> String {
+pub fn extract_text(elements: &[AstNode]) -> String {
     let mut result = String::new();
     for el in elements {
-        match el {
-            SevenMarkElement::Text(e) => result.push_str(&e.content),
-            SevenMarkElement::Escape(e) => result.push_str(&e.content),
+        match &el.kind {
+            NodeKind::Text { value } => result.push_str(value),
+            NodeKind::Escape { value } => result.push_str(value),
             _ => {}
         }
     }

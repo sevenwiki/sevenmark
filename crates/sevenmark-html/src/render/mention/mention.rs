@@ -1,17 +1,17 @@
 //! Mention element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{MentionElement, MentionType};
+use sevenmark_parser::ast::MentionType;
 
 use crate::classes;
 
-pub fn render(e: &MentionElement) -> Markup {
-    let class = match e.mention_type {
+pub fn render(kind: &MentionType, id: &str) -> Markup {
+    let class = match kind {
         MentionType::User => classes::MENTION_USER,
         MentionType::Discussion => classes::MENTION_DISCUSSION,
     };
 
     html! {
-        span class=(class) data-uuid=(&e.uuid) {}
+        span class=(class) data-uuid=(id) {}
     }
 }

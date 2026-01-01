@@ -7,14 +7,14 @@ use crate::classes;
 use crate::config::RenderConfig;
 use crate::context::RenderContext;
 use crate::section::{Section, SectionTree, build_section_tree};
-use sevenmark_parser::ast::SevenMarkElement;
+use sevenmark_parser::ast::AstNode;
 
 /// Render a document to semantic HTML
 ///
 /// # Arguments
 /// * `ast` - The parsed AST elements
 /// * `config` - Render configuration
-pub fn render_document(ast: &[SevenMarkElement], config: &RenderConfig) -> String {
+pub fn render_document(ast: &[AstNode], config: &RenderConfig) -> String {
     let tree = build_section_tree(ast);
     let mut ctx = RenderContext::new(config);
     let content = render_section_tree(&tree, config, &mut ctx);
@@ -47,8 +47,15 @@ fn render_section_tree(
 
 /// Render a single section with nested structure
 fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut RenderContext) -> Markup {
-    let header_markup =
-        markdown::header::render_with_path(section.header, &section.section_path, config, ctx);
+    let header_markup = markdown::header::render_with_path(
+        section.header_level,
+        section.header_is_folded,
+        section.header_section_index,
+        section.header_children,
+        &section.section_path,
+        config,
+        ctx,
+    );
 
     let section_content = html! {
         div class=(classes::SECTION_CONTENT) {
@@ -61,17 +68,17 @@ fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut Render
         }
     };
 
-    if section.header.is_folded {
+    if section.header_is_folded {
         let class = format!("{} {}", classes::SECTION, classes::SECTION_FOLDED);
         html! {
-            details class=(class) data-section=(section.header.section_index) {
+            details class=(class) data-section=(section.header_section_index) {
                 summary { (header_markup) }
                 (section_content)
             }
         }
     } else {
         html! {
-            details class=(classes::SECTION) data-section=(section.header.section_index) open {
+            details class=(classes::SECTION) data-section=(section.header_section_index) open {
                 summary { (header_markup) }
                 (section_content)
             }

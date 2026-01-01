@@ -1,31 +1,35 @@
 //! Media element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::MediaElement;
+use sevenmark_parser::ast::{AstNode, Parameters, ResolvedMediaInfo};
 
 use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
-pub fn render(e: &MediaElement, ctx: &mut RenderContext) -> Markup {
-    let resolved = e.resolved_info.as_ref();
-    let style = utils::build_style(&e.parameters);
+pub fn render(
+    parameters: &Parameters,
+    children: &[AstNode],
+    resolved_info: Option<&ResolvedMediaInfo>,
+    ctx: &mut RenderContext,
+) -> Markup {
+    let style = utils::build_style(parameters);
 
     // 이미지 URL (file이 있으면, file_base_url 프리픽스 적용)
-    let image_src: Option<String> = resolved.and_then(|r| r.file.as_ref()).map(|f| {
+    let image_src: Option<String> = resolved_info.and_then(|r| r.file.as_ref()).map(|f| {
         if let Some(base) = ctx.config.file_base_url {
             format!("{}{}", base, f.url)
         } else {
             f.url.clone()
         }
     });
-    let image_valid = resolved
+    let image_valid = resolved_info
         .and_then(|r| r.file.as_ref())
         .map(|f| f.is_valid)
         .unwrap_or(false);
 
     // href 우선순위: url > document > category
-    let href: Option<String> = resolved.and_then(|r| {
+    let href: Option<String> = resolved_info.and_then(|r| {
         r.url
             .clone()
             .or_else(|| {
@@ -45,7 +49,7 @@ pub fn render(e: &MediaElement, ctx: &mut RenderContext) -> Markup {
     });
 
     // 링크 유효성 (외부 url은 항상 valid 취급)
-    let href_valid = resolved
+    let href_valid = resolved_info
         .map(|r| {
             if r.url.is_some() {
                 true // 외부 링크는 항상 valid
@@ -59,10 +63,10 @@ pub fn render(e: &MediaElement, ctx: &mut RenderContext) -> Markup {
         })
         .unwrap_or(true);
 
-    let caption = if e.content.is_empty() {
+    let caption = if children.is_empty() {
         None
     } else {
-        Some(render_elements(&e.content, ctx))
+        Some(render_elements(children, ctx))
     };
 
     // 이미지가 있는 경우
