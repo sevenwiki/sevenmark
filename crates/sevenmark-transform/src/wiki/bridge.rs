@@ -2,6 +2,7 @@ use super::entity::{
     DocumentFiles, DocumentFilesColumn, DocumentMetadata, DocumentMetadataColumn,
     DocumentRevisions, DocumentRevisionsColumn,
 };
+use super::seaweedfs::SeaweedFsClient;
 use super::types::{DocumentExistence, DocumentNamespace, DocumentResponse, DocumentRevision};
 use anyhow::{Context, Result};
 use sea_orm::{ColumnTrait, Condition, DatabaseConnection, EntityTrait, QueryFilter};
@@ -12,6 +13,7 @@ use uuid::Uuid;
 /// Fetch multiple documents by namespace and title using Sea ORM
 pub async fn fetch_documents_batch(
     db: &DatabaseConnection,
+    seaweedfs: &SeaweedFsClient,
     requests: Vec<(DocumentNamespace, String)>,
 ) -> Result<Vec<DocumentResponse>> {
     if requests.is_empty() {
@@ -58,7 +60,7 @@ pub async fn fetch_documents_batch(
         .filter_map(|doc| doc.current_revision_id)
         .collect();
 
-    // Fetch revisions in batch
+    // Fetch revisions in batch (get storage_keys from DB, content from SeaweedFS)
     let mut revisions_map: HashMap<Uuid, String> = HashMap::new();
     if !revision_ids.is_empty() {
         let revisions = DocumentRevisions::find()
@@ -67,8 +69,20 @@ pub async fn fetch_documents_batch(
             .await
             .context("Failed to fetch document revisions")?;
 
+        // Download content from SeaweedFS for each revision
         for revision in revisions {
-            revisions_map.insert(revision.id, revision.content);
+            match seaweedfs.download_content(&revision.storage_key).await {
+                Ok(content) => {
+                    revisions_map.insert(revision.id, content);
+                }
+                Err(e) => {
+                    debug!(
+                        "Failed to download content for revision {}: {}",
+                        revision.id, e
+                    );
+                    // Skip this revision if download fails
+                }
+            }
         }
     }
 

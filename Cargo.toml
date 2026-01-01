@@ -36,6 +36,7 @@ anyhow = "1.0.100"
 aws-sdk-s3 = "1.119.0"
 aws-config = "1.8.12"
 zstd = "0.13.3"
+futures="0.3.31"
 
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }

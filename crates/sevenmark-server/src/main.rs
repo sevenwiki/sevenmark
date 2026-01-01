@@ -1,5 +1,6 @@
 use axum::Router;
 use sevenmark_server::database_conn::establish_connection;
+use sevenmark_server::seaweedfs_conn::establish_seaweedfs_connection;
 use sevenmark_server::logger::init_tracing;
 use sevenmark_server::server_config::ServerConfig;
 use sevenmark_server::{AppState, api_routes};
@@ -9,13 +10,18 @@ pub async fn run_server() -> anyhow::Result<()> {
     // Establish database connection
     let conn = establish_connection().await;
 
+    // Establish SeaweedFS connection
+    let seaweedfs = establish_seaweedfs_connection()
+        .await
+        .expect("Failed to connect to SeaweedFS");
+
     let server_url = format!(
         "{}:{}",
         &ServerConfig::get().server_host,
         &ServerConfig::get().server_port
     );
 
-    let state = AppState { conn };
+    let state = AppState { conn, seaweedfs };
 
     let app = Router::new()
         .merge(api_routes(state.clone()))

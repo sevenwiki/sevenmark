@@ -14,6 +14,9 @@ pub struct ServerConfig {
 
     pub server_host: String,
     pub server_port: String,
+
+    // SeaweedFS (revision content storage)
+    pub seaweedfs_endpoint: String,
 }
 
 // LazyLock
@@ -37,6 +40,10 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
 
         server_host: env::var("HOST").expect("HOST must be set in .env file"),
         server_port: env::var("PORT").expect("PORT must be set in .env file"),
+
+        // SeaweedFS
+        seaweedfs_endpoint: env::var("SEAWEEDFS_ENDPOINT")
+            .expect("SEAWEEDFS_ENDPOINT must be set"),
     }
 });
 

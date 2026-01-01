@@ -21,6 +21,10 @@ tokio = { workspace = true }
 # Database
 sea-orm = { workspace = true }
 
+# AWS S3 (SeaweedFS)
+aws-sdk-s3 = { workspace = true }
+aws-config = { workspace = true }
+
 # API documentation
 utoipa = { workspace = true }
 utoipa-swagger-ui = { workspace = true }

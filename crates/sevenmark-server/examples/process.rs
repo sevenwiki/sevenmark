@@ -1,5 +1,6 @@
 use sevenmark_parser::core::parse_document;
 use sevenmark_server::connection::database_conn::establish_connection;
+use sevenmark_server::connection::seaweedfs_conn::establish_seaweedfs_connection;
 use sevenmark_transform::process_sevenmark;
 use std::fs;
 use std::time::Instant;
@@ -17,6 +18,11 @@ async fn main() {
     // Establish database connection
     let db = establish_connection().await;
 
+    // Establish SeaweedFS connection
+    let seaweedfs = establish_seaweedfs_connection()
+        .await
+        .expect("Failed to connect to SeaweedFS");
+
     println!("Using database connection\n");
 
     let start_time = Instant::now();
@@ -24,7 +30,7 @@ async fn main() {
     // Parse document first
     let ast = parse_document(&input_content);
 
-    let result = process_sevenmark(ast, &db).await;
+    let result = process_sevenmark(ast, &db, &seaweedfs).await;
     let duration = start_time.elapsed();
 
     match result {
