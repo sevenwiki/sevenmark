@@ -1,7 +1,7 @@
 use crate::config::server_config::ServerConfig;
 use aws_config::{BehaviorVersion, Region};
-use aws_sdk_s3::config::RequestChecksumCalculation;
 use aws_sdk_s3::Client;
+use aws_sdk_s3::config::RequestChecksumCalculation;
 use sevenmark_transform::wiki::SeaweedFsClient;
 use tracing::info;
 

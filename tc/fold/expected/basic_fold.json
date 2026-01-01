@@ -1,15 +1,27 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 49
+    },
     "kind": {
       "Fold": {
         "parameters": {},
         "content": [
           {
+            "location": {
+              "start": 8,
+              "end": 27
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 11,
+                      "end": 24
+                    },
                     "kind": {
                       "Text": {
                         "value": "first content"
@@ -21,11 +33,19 @@
             }
           },
           {
+            "location": {
+              "start": 27,
+              "end": 46
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 29,
+                      "end": 43
+                    },
                     "kind": {
                       "Text": {
                         "value": "second content"

@@ -39,7 +39,7 @@ web-sys = { workspace = true, optional = true }
 
 [features]
 default = []
-server = ["sea-orm", "uuid", "utoipa", "tracing", "aws-sdk-s3", "aws-config", "zstd"]
+server = ["sea-orm", "uuid", "utoipa", "tracing", "aws-sdk-s3", "aws-config", "zstd", "futures"]
 wasm = ["wasm-bindgen", "js-sys", "web-sys", "sevenmark-parser/include_locations"]
 
 [lib]

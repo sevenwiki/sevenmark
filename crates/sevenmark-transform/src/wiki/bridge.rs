@@ -5,6 +5,7 @@ use super::entity::{
 use super::seaweedfs::SeaweedFsClient;
 use super::types::{DocumentExistence, DocumentNamespace, DocumentResponse, DocumentRevision};
 use anyhow::{Context, Result};
+use futures::future::join_all;
 use sea_orm::{ColumnTrait, Condition, DatabaseConnection, EntityTrait, QueryFilter};
 use std::collections::HashMap;
 use tracing::debug;
@@ -69,16 +70,28 @@ pub async fn fetch_documents_batch(
             .await
             .context("Failed to fetch document revisions")?;
 
-        // Download content from SeaweedFS for each revision
-        for revision in revisions {
-            match seaweedfs.download_content(&revision.storage_key).await {
+        // Download content from SeaweedFS in parallel
+        let content_futures: Vec<_> = revisions
+            .iter()
+            .map(|rev| {
+                let seaweedfs = seaweedfs.clone();
+                let storage_key = rev.storage_key.clone();
+                let revision_id = rev.id;
+                async move { (revision_id, seaweedfs.download_content(&storage_key).await) }
+            })
+            .collect();
+        let content_results = join_all(content_futures).await;
+
+        // Collect successful downloads
+        for (revision_id, result) in content_results {
+            match result {
                 Ok(content) => {
-                    revisions_map.insert(revision.id, content);
+                    revisions_map.insert(revision_id, content);
                 }
                 Err(e) => {
                     debug!(
                         "Failed to download content for revision {}: {}",
-                        revision.id, e
+                        revision_id, e
                     );
                     // Skip this revision if download fails
                 }

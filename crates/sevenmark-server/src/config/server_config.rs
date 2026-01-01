@@ -42,8 +42,7 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         server_port: env::var("PORT").expect("PORT must be set in .env file"),
 
         // SeaweedFS
-        seaweedfs_endpoint: env::var("SEAWEEDFS_ENDPOINT")
-            .expect("SEAWEEDFS_ENDPOINT must be set"),
+        seaweedfs_endpoint: env::var("SEAWEEDFS_ENDPOINT").expect("SEAWEEDFS_ENDPOINT must be set"),
     }
 });
 

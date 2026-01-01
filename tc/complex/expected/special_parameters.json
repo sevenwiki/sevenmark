@@ -1,12 +1,24 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 95
+    },
     "kind": {
       "Styled": {
         "parameters": {
           "color": {
+            "location": {
+              "start": 25,
+              "end": 63
+            },
             "key": "color",
             "value": [
               {
+                "location": {
+                  "start": 33,
+                  "end": 61
+                },
                 "kind": {
                   "Text": {
                     "value": "with spaces and symbols!@#$%"
@@ -16,9 +28,17 @@
             ]
           },
           "size": {
+            "location": {
+              "start": 15,
+              "end": 25
+            },
             "key": "size",
             "value": [
               {
+                "location": {
+                  "start": 22,
+                  "end": 23
+                },
                 "kind": {
                   "Text": {
                     "value": " "
@@ -28,9 +48,17 @@
             ]
           },
           "style": {
+            "location": {
+              "start": 3,
+              "end": 15
+            },
             "key": "style",
             "value": [
               {
+                "location": {
+                  "start": 12,
+                  "end": 13
+                },
                 "kind": {
                   "Text": {
                     "value": " "
@@ -42,6 +70,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 63,
+              "end": 91
+            },
             "kind": {
               "Text": {
                 "value": "Empty and special parameters"
@@ -53,33 +85,65 @@
     }
   },
   {
+    "location": {
+      "start": 95,
+      "end": 96
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 96,
+      "end": 97
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 97,
+      "end": 216
+    },
     "kind": {
       "Fold": {
         "parameters": {
           "empty": {
+            "location": {
+              "start": 105,
+              "end": 113
+            },
             "key": "empty",
             "value": []
           },
           "flag": {
+            "location": {
+              "start": 113,
+              "end": 119
+            },
             "key": "flag",
             "value": []
           }
         },
         "content": [
           {
+            "location": {
+              "start": 119,
+              "end": 183
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {
                   "special": {
+                    "location": {
+                      "start": 121,
+                      "end": 153
+                    },
                     "key": "special",
                     "value": [
                       {
+                        "location": {
+                          "start": 131,
+                          "end": 137
+                        },
                         "kind": {
                           "Text": {
                             "value": "quotes"
@@ -87,6 +151,10 @@
                         }
                       },
                       {
+                        "location": {
+                          "start": 137,
+                          "end": 139
+                        },
                         "kind": {
                           "Escape": {
                             "value": "\""
@@ -94,6 +162,10 @@
                         }
                       },
                       {
+                        "location": {
+                          "start": 139,
+                          "end": 142
+                        },
                         "kind": {
                           "Text": {
                             "value": "and"
@@ -101,6 +173,10 @@
                         }
                       },
                       {
+                        "location": {
+                          "start": 142,
+                          "end": 144
+                        },
                         "kind": {
                           "Escape": {
                             "value": "\\"
@@ -108,6 +184,10 @@
                         }
                       },
                       {
+                        "location": {
+                          "start": 144,
+                          "end": 151
+                        },
                         "kind": {
                           "Text": {
                             "value": "slashes"
@@ -119,6 +199,10 @@
                 },
                 "children": [
                   {
+                    "location": {
+                      "start": 156,
+                      "end": 180
+                    },
                     "kind": {
                       "Text": {
                         "value": "Title with special chars"
@@ -130,11 +214,19 @@
             }
           },
           {
+            "location": {
+              "start": 183,
+              "end": 213
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 185,
+                      "end": 210
+                    },
                     "kind": {
                       "Text": {
                         "value": "Content with empty params"
@@ -150,19 +242,39 @@
     }
   },
   {
+    "location": {
+      "start": 216,
+      "end": 217
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 217,
+      "end": 218
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 218,
+      "end": 290
+    },
     "kind": {
       "Code": {
         "parameters": {
           "lang": {
+            "location": {
+              "start": 226,
+              "end": 237
+            },
             "key": "lang",
             "value": [
               {
+                "location": {
+                  "start": 234,
+                  "end": 235
+                },
                 "kind": {
                   "Text": {
                     "value": " "

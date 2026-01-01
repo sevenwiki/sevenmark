@@ -1,5 +1,9 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 14
+    },
     "kind": {
       "Text": {
         "value": "Current time: "
@@ -7,12 +11,24 @@
     }
   },
   {
+    "location": {
+      "start": 14,
+      "end": 19
+    },
     "kind": "TimeNow"
   },
   {
+    "location": {
+      "start": 19,
+      "end": 20
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 20,
+      "end": 37
+    },
     "kind": {
       "Text": {
         "value": "Age calculation: "
@@ -20,6 +36,10 @@
     }
   },
   {
+    "location": {
+      "start": 37,
+      "end": 54
+    },
     "kind": {
       "Age": {
         "date": "1990-01-15"
@@ -27,9 +47,17 @@
     }
   },
   {
+    "location": {
+      "start": 54,
+      "end": 55
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 55,
+      "end": 66
+    },
     "kind": {
       "Text": {
         "value": "Line break:"
@@ -37,9 +65,17 @@
     }
   },
   {
+    "location": {
+      "start": 66,
+      "end": 70
+    },
     "kind": "HardBreak"
   },
   {
+    "location": {
+      "start": 70,
+      "end": 79
+    },
     "kind": {
       "Text": {
         "value": "Next line"

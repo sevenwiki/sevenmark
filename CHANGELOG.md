@@ -5,6 +5,43 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.2] - 2026-01-01
+
+### Changed
+- **Revision Storage**: Migrated from PostgreSQL to SeaweedFS for revision content storage
+  - `document_revisions.content` → `document_revisions.storage_key`
+  - Content now stored in SeaweedFS with zstd compression
+  - Storage key pattern: `revisions/{revision_uuid}`
+  - Parallel content download using `futures::future::join_all`
+
+### Added
+- **SeaweedFS Integration**: New S3-compatible storage client in `sevenmark-transform`
+  - `SeaweedFsClient` struct with `download_content()` method
+  - Automatic zstd decompression on download
+  - Connection established via `establish_seaweedfs_connection()` in server
+
+- **Dependencies**: Added SeaweedFS-related crates
+  - `aws-sdk-s3` - S3-compatible API client
+  - `aws-config` - AWS configuration
+  - `zstd` - Compression/decompression
+  - `futures` - Parallel async operations
+
+- **Configuration**: New environment variable
+  - `SEAWEEDFS_ENDPOINT` - SeaweedFS S3 API endpoint (e.g., `http://seaweedfs:8333`)
+
+### Breaking Changes
+- **Entity Schema**: `document_revisions` table structure changed
+  - Removed: `content: String` (Text field)
+  - Added: `storage_key: String` (reference to SeaweedFS)
+  - Requires database migration
+
+- **Function Signatures**: Added `seaweedfs` parameter
+  - `fetch_documents_batch(db, seaweedfs, requests)`
+  - `preprocess_sevenmark(ast, db, seaweedfs)`
+  - `process_sevenmark(ast, db, seaweedfs)`
+
+- **Bucket Name**: Hardcoded to `v7-content` (shared with V7)
+
 ## [2.12.0] - 2026-01-01
 
 ### Breaking Changes

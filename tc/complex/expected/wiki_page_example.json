@@ -1,9 +1,17 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 38
+    },
     "kind": {
       "Category": {
         "children": [
           {
+            "location": {
+              "start": 13,
+              "end": 35
+            },
             "kind": {
               "Text": {
                 "value": "Programming Languages\n"
@@ -15,12 +23,24 @@
     }
   },
   {
+    "location": {
+      "start": 38,
+      "end": 39
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 39,
+      "end": 40
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 40,
+      "end": 68
+    },
     "kind": {
       "Header": {
         "level": 1,
@@ -28,6 +48,10 @@
         "section_index": 1,
         "children": [
           {
+            "location": {
+              "start": 42,
+              "end": 67
+            },
             "kind": {
               "Text": {
                 "value": "Rust Programming Language"
@@ -39,16 +63,32 @@
     }
   },
   {
+    "location": {
+      "start": 68,
+      "end": 69
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 69,
+      "end": 129
+    },
     "kind": {
       "Include": {
         "parameters": {
           "page": {
+            "location": {
+              "start": 80,
+              "end": 99
+            },
             "key": "page",
             "value": [
               {
+                "location": {
+                  "start": 88,
+                  "end": 97
+                },
                 "kind": {
                   "Text": {
                     "value": "RustIntro"
@@ -60,6 +100,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 99,
+              "end": 126
+            },
             "kind": {
               "Text": {
                 "value": "Basic introduction to Rust\n"
@@ -71,12 +115,24 @@
     }
   },
   {
+    "location": {
+      "start": 129,
+      "end": 130
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 130,
+      "end": 131
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 131,
+      "end": 158
+    },
     "kind": {
       "Header": {
         "level": 2,
@@ -84,6 +140,10 @@
         "section_index": 2,
         "children": [
           {
+            "location": {
+              "start": 134,
+              "end": 157
+            },
             "kind": {
               "Text": {
                 "value": "History and Development"
@@ -95,13 +155,25 @@
     }
   },
   {
+    "location": {
+      "start": 158,
+      "end": 159
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 159,
+      "end": 167
+    },
     "kind": {
       "Bold": {
         "children": [
           {
+            "location": {
+              "start": 161,
+              "end": 165
+            },
             "kind": {
               "Text": {
                 "value": "Rust"
@@ -113,6 +185,10 @@
     }
   },
   {
+    "location": {
+      "start": 167,
+      "end": 196
+    },
     "kind": {
       "Text": {
         "value": " was originally developed by "
@@ -120,10 +196,18 @@
     }
   },
   {
+    "location": {
+      "start": 196,
+      "end": 211
+    },
     "kind": {
       "Italic": {
         "children": [
           {
+            "location": {
+              "start": 197,
+              "end": 210
+            },
             "kind": {
               "Text": {
                 "value": "Graydon Hoare"
@@ -135,6 +219,10 @@
     }
   },
   {
+    "location": {
+      "start": 211,
+      "end": 248
+    },
     "kind": {
       "Text": {
         "value": " at Mozilla Research. Key milestones:"
@@ -142,32 +230,60 @@
     }
   },
   {
+    "location": {
+      "start": 248,
+      "end": 249
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 249,
+      "end": 250
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 250,
+      "end": 443
+    },
     "kind": {
       "List": {
         "kind": "1",
         "parameters": {
           "1": {
+            "location": {
+              "start": 258,
+              "end": 262
+            },
             "key": "1",
             "value": []
           }
         },
         "children": [
           {
+            "location": {
+              "start": 262,
+              "end": 294
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 264,
+                      "end": 272
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 266,
+                              "end": 270
+                            },
                             "kind": {
                               "Text": {
                                 "value": "2010"
@@ -179,6 +295,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 272,
+                      "end": 291
+                    },
                     "kind": {
                       "Text": {
                         "value": ": Project announced"
@@ -190,15 +310,27 @@
             }
           },
           {
+            "location": {
+              "start": 294,
+              "end": 335
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 296,
+                      "end": 304
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 298,
+                              "end": 302
+                            },
                             "kind": {
                               "Text": {
                                 "value": "2012"
@@ -210,6 +342,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 304,
+                      "end": 332
+                    },
                     "kind": {
                       "Text": {
                         "value": ": First public release (0.1)"
@@ -221,15 +357,27 @@
             }
           },
           {
+            "location": {
+              "start": 335,
+              "end": 394
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 337,
+                      "end": 345
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 339,
+                              "end": 343
+                            },
                             "kind": {
                               "Text": {
                                 "value": "2015"
@@ -241,6 +389,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 345,
+                      "end": 374
+                    },
                     "kind": {
                       "Text": {
                         "value": ": Rust 1.0 stable release on "
@@ -248,6 +400,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 374,
+                      "end": 391
+                    },
                     "kind": {
                       "Age": {
                         "date": "2015-05-15"
@@ -259,15 +415,27 @@
             }
           },
           {
+            "location": {
+              "start": 394,
+              "end": 440
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 396,
+                      "end": 407
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 398,
+                              "end": 405
+                            },
                             "kind": {
                               "Text": {
                                 "value": "Present"
@@ -279,6 +447,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 407,
+                      "end": 437
+                    },
                     "kind": {
                       "Text": {
                         "value": ": Active development continues"
@@ -294,12 +466,24 @@
     }
   },
   {
+    "location": {
+      "start": 443,
+      "end": 444
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 444,
+      "end": 445
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 445,
+      "end": 461
+    },
     "kind": {
       "Header": {
         "level": 2,
@@ -307,6 +491,10 @@
         "section_index": 3,
         "children": [
           {
+            "location": {
+              "start": 448,
+              "end": 460
+            },
             "kind": {
               "Text": {
                 "value": "Key Features"
@@ -318,16 +506,32 @@
     }
   },
   {
+    "location": {
+      "start": 461,
+      "end": 462
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 462,
+      "end": 1101
+    },
     "kind": {
       "Fold": {
         "parameters": {
           "style": {
+            "location": {
+              "start": 470,
+              "end": 525
+            },
             "key": "style",
             "value": [
               {
+                "location": {
+                  "start": 479,
+                  "end": 523
+                },
                 "kind": {
                   "Text": {
                     "value": "background:#f0f8ff; border:1px solid #4682b4"
@@ -339,11 +543,19 @@
         },
         "content": [
           {
+            "location": {
+              "start": 525,
+              "end": 580
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 527,
+                      "end": 532
+                    },
                     "kind": {
                       "Text": {
                         "value": "🔧 "
@@ -351,10 +563,18 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 532,
+                      "end": 554
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 534,
+                              "end": 552
+                            },
                             "kind": {
                               "Text": {
                                 "value": "Technical Features"
@@ -366,6 +586,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 554,
+                      "end": 555
+                    },
                     "kind": {
                       "Text": {
                         "value": " "
@@ -373,6 +597,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 555,
+                      "end": 556
+                    },
                     "kind": {
                       "Text": {
                         "value": "_"
@@ -380,6 +608,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 556,
+                      "end": 576
+                    },
                     "kind": {
                       "Text": {
                         "value": "(expand for details)"
@@ -387,6 +619,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 576,
+                      "end": 577
+                    },
                     "kind": {
                       "Text": {
                         "value": "_"
@@ -398,30 +634,54 @@
             }
           },
           {
+            "location": {
+              "start": 580,
+              "end": 1098
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 583,
+                      "end": 912
+                    },
                     "kind": {
                       "Table": {
                         "parameters": {},
                         "children": [
                           {
+                            "location": {
+                              "start": 592,
+                              "end": 649
+                            },
                             "kind": {
                               "TableRow": {
                                 "parameters": {},
                                 "children": [
                                   {
+                                    "location": {
+                                      "start": 595,
+                                      "end": 611
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 597,
+                                              "end": 608
+                                            },
                                             "kind": {
                                               "Bold": {
                                                 "children": [
                                                   {
+                                                    "location": {
+                                                      "start": 599,
+                                                      "end": 606
+                                                    },
                                                     "kind": {
                                                       "Text": {
                                                         "value": "Feature"
@@ -437,15 +697,27 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 611,
+                                      "end": 631
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 613,
+                                              "end": 628
+                                            },
                                             "kind": {
                                               "Bold": {
                                                 "children": [
                                                   {
+                                                    "location": {
+                                                      "start": 615,
+                                                      "end": 626
+                                                    },
                                                     "kind": {
                                                       "Text": {
                                                         "value": "Description"
@@ -461,15 +733,27 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 631,
+                                      "end": 646
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 633,
+                                              "end": 644
+                                            },
                                             "kind": {
                                               "Bold": {
                                                 "children": [
                                                   {
+                                                    "location": {
+                                                      "start": 635,
+                                                      "end": 642
+                                                    },
                                                     "kind": {
                                                       "Text": {
                                                         "value": "Benefit"
@@ -489,16 +773,28 @@
                             }
                           },
                           {
+                            "location": {
+                              "start": 649,
+                              "end": 731
+                            },
                             "kind": {
                               "TableRow": {
                                 "parameters": {},
                                 "children": [
                                   {
+                                    "location": {
+                                      "start": 651,
+                                      "end": 669
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 653,
+                                              "end": 666
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Memory Safety"
@@ -510,11 +806,19 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 669,
+                                      "end": 708
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 671,
+                                              "end": 687
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "No null pointers"
@@ -522,6 +826,10 @@
                                             }
                                           },
                                           {
+                                            "location": {
+                                              "start": 687,
+                                              "end": 688
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": ","
@@ -529,6 +837,10 @@
                                             }
                                           },
                                           {
+                                            "location": {
+                                              "start": 688,
+                                              "end": 705
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": " buffer overflows"
@@ -540,11 +852,19 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 708,
+                                      "end": 728
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 710,
+                                              "end": 726
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Prevents crashes"
@@ -560,16 +880,28 @@
                             }
                           },
                           {
+                            "location": {
+                              "start": 731,
+                              "end": 833
+                            },
                             "kind": {
                               "TableRow": {
                                 "parameters": {},
                                 "children": [
                                   {
+                                    "location": {
+                                      "start": 733,
+                                      "end": 760
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 735,
+                                              "end": 757
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Zero-cost Abstractions"
@@ -581,11 +913,19 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 760,
+                                      "end": 807
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 762,
+                                              "end": 781
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "High-level features"
@@ -593,6 +933,10 @@
                                             }
                                           },
                                           {
+                                            "location": {
+                                              "start": 781,
+                                              "end": 782
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": ","
@@ -600,6 +944,10 @@
                                             }
                                           },
                                           {
+                                            "location": {
+                                              "start": 782,
+                                              "end": 804
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": " low-level performance"
@@ -611,11 +959,19 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 807,
+                                      "end": 830
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 809,
+                                              "end": 828
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Best of both worlds"
@@ -631,16 +987,28 @@
                             }
                           },
                           {
+                            "location": {
+                              "start": 833,
+                              "end": 909
+                            },
                             "kind": {
                               "TableRow": {
                                 "parameters": {},
                                 "children": [
                                   {
+                                    "location": {
+                                      "start": 835,
+                                      "end": 851
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 837,
+                                              "end": 848
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Concurrency"
@@ -652,11 +1020,19 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 851,
+                                      "end": 881
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 853,
+                                              "end": 878
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Safe parallel programming"
@@ -668,11 +1044,19 @@
                                     }
                                   },
                                   {
+                                    "location": {
+                                      "start": 881,
+                                      "end": 906
+                                    },
                                     "kind": {
                                       "TableCell": {
                                         "parameters": {},
                                         "children": [
                                           {
+                                            "location": {
+                                              "start": 883,
+                                              "end": 904
+                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Scalable applications"
@@ -692,19 +1076,39 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 912,
+                      "end": 913
+                    },
                     "kind": "SoftBreak"
                   },
                   {
+                    "location": {
+                      "start": 913,
+                      "end": 914
+                    },
                     "kind": "SoftBreak"
                   },
                   {
+                    "location": {
+                      "start": 914,
+                      "end": 1094
+                    },
                     "kind": {
                       "Code": {
                         "parameters": {
                           "lang": {
+                            "location": {
+                              "start": 922,
+                              "end": 936
+                            },
                             "key": "lang",
                             "value": [
                               {
+                                "location": {
+                                  "start": 930,
+                                  "end": 934
+                                },
                                 "kind": {
                                   "Text": {
                                     "value": "rust"
@@ -727,12 +1131,24 @@
     }
   },
   {
+    "location": {
+      "start": 1101,
+      "end": 1102
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1102,
+      "end": 1103
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1103,
+      "end": 1130
+    },
     "kind": {
       "Header": {
         "level": 2,
@@ -740,6 +1156,10 @@
         "section_index": 4,
         "children": [
           {
+            "location": {
+              "start": 1106,
+              "end": 1129
+            },
             "kind": {
               "Text": {
                 "value": "Community and Ecosystem"
@@ -751,9 +1171,17 @@
     }
   },
   {
+    "location": {
+      "start": 1130,
+      "end": 1131
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1131,
+      "end": 1169
+    },
     "kind": {
       "Text": {
         "value": "The Rust community is known for being "
@@ -761,10 +1189,18 @@
     }
   },
   {
+    "location": {
+      "start": 1169,
+      "end": 1182
+    },
     "kind": {
       "Bold": {
         "children": [
           {
+            "location": {
+              "start": 1171,
+              "end": 1180
+            },
             "kind": {
               "Text": {
                 "value": "welcoming"
@@ -776,6 +1212,10 @@
     }
   },
   {
+    "location": {
+      "start": 1182,
+      "end": 1187
+    },
     "kind": {
       "Text": {
         "value": " and "
@@ -783,10 +1223,18 @@
     }
   },
   {
+    "location": {
+      "start": 1187,
+      "end": 1200
+    },
     "kind": {
       "Underline": {
         "children": [
           {
+            "location": {
+              "start": 1189,
+              "end": 1198
+            },
             "kind": {
               "Text": {
                 "value": "inclusive"
@@ -798,6 +1246,10 @@
     }
   },
   {
+    "location": {
+      "start": 1200,
+      "end": 1201
+    },
     "kind": {
       "Text": {
         "value": "."
@@ -805,19 +1257,39 @@
     }
   },
   {
+    "location": {
+      "start": 1201,
+      "end": 1202
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1202,
+      "end": 1203
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1203,
+      "end": 1365
+    },
     "kind": {
       "BlockQuote": {
         "parameters": {
           "style": {
+            "location": {
+              "start": 1212,
+              "end": 1252
+            },
             "key": "style",
             "value": [
               {
+                "location": {
+                  "start": 1221,
+                  "end": 1250
+                },
                 "kind": {
                   "Text": {
                     "value": "font-style:italic; color:#666"
@@ -829,6 +1301,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 1252,
+              "end": 1304
+            },
             "kind": {
               "Text": {
                 "value": "\"Rust is a systems programming language that is fast"
@@ -836,6 +1312,10 @@
             }
           },
           {
+            "location": {
+              "start": 1304,
+              "end": 1305
+            },
             "kind": {
               "Text": {
                 "value": ","
@@ -843,6 +1323,10 @@
             }
           },
           {
+            "location": {
+              "start": 1305,
+              "end": 1317
+            },
             "kind": {
               "Text": {
                 "value": " memory-safe"
@@ -850,6 +1334,10 @@
             }
           },
           {
+            "location": {
+              "start": 1317,
+              "end": 1318
+            },
             "kind": {
               "Text": {
                 "value": ","
@@ -857,6 +1345,10 @@
             }
           },
           {
+            "location": {
+              "start": 1318,
+              "end": 1333
+            },
             "kind": {
               "Text": {
                 "value": " and parallel.\""
@@ -864,9 +1356,17 @@
             }
           },
           {
+            "location": {
+              "start": 1333,
+              "end": 1334
+            },
             "kind": "SoftBreak"
           },
           {
+            "location": {
+              "start": 1334,
+              "end": 1338
+            },
             "kind": {
               "Text": {
                 "value": "— "
@@ -874,10 +1374,18 @@
             }
           },
           {
+            "location": {
+              "start": 1338,
+              "end": 1361
+            },
             "kind": {
               "Italic": {
                 "children": [
                   {
+                    "location": {
+                      "start": 1339,
+                      "end": 1360
+                    },
                     "kind": {
                       "Text": {
                         "value": "Mozilla Research Team"
@@ -893,12 +1401,24 @@
     }
   },
   {
+    "location": {
+      "start": 1365,
+      "end": 1366
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1366,
+      "end": 1367
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1367,
+      "end": 1390
+    },
     "kind": {
       "Header": {
         "level": 3,
@@ -906,6 +1426,10 @@
         "section_index": 5,
         "children": [
           {
+            "location": {
+              "start": 1371,
+              "end": 1389
+            },
             "kind": {
               "Text": {
                 "value": "Package Management"
@@ -917,9 +1441,17 @@
     }
   },
   {
+    "location": {
+      "start": 1390,
+      "end": 1391
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1391,
+      "end": 1401
+    },
     "kind": {
       "Text": {
         "value": "Rust uses "
@@ -927,10 +1459,18 @@
     }
   },
   {
+    "location": {
+      "start": 1401,
+      "end": 1410
+    },
     "kind": {
       "Bold": {
         "children": [
           {
+            "location": {
+              "start": 1403,
+              "end": 1408
+            },
             "kind": {
               "Text": {
                 "value": "Cargo"
@@ -942,6 +1482,10 @@
     }
   },
   {
+    "location": {
+      "start": 1410,
+      "end": 1415
+    },
     "kind": {
       "Text": {
         "value": " for:"
@@ -949,9 +1493,17 @@
     }
   },
   {
+    "location": {
+      "start": 1415,
+      "end": 1416
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1416,
+      "end": 1418
+    },
     "kind": {
       "Text": {
         "value": "- "
@@ -959,10 +1511,18 @@
     }
   },
   {
+    "location": {
+      "start": 1418,
+      "end": 1450
+    },
     "kind": {
       "Strikethrough": {
         "children": [
           {
+            "location": {
+              "start": 1420,
+              "end": 1448
+            },
             "kind": {
               "Text": {
                 "value": "Manual dependency management"
@@ -974,6 +1534,10 @@
     }
   },
   {
+    "location": {
+      "start": 1450,
+      "end": 1486
+    },
     "kind": {
       "Text": {
         "value": " → Automatic dependency resolution"
@@ -981,9 +1545,17 @@
     }
   },
   {
+    "location": {
+      "start": 1486,
+      "end": 1487
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1487,
+      "end": 1525
+    },
     "kind": {
       "Text": {
         "value": "- Building projects with `cargo build`"
@@ -991,9 +1563,17 @@
     }
   },
   {
+    "location": {
+      "start": 1525,
+      "end": 1526
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1526,
+      "end": 1559
+    },
     "kind": {
       "Text": {
         "value": "- Running tests with `cargo test`"
@@ -1001,9 +1581,17 @@
     }
   },
   {
+    "location": {
+      "start": 1559,
+      "end": 1560
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1560,
+      "end": 1576
+    },
     "kind": {
       "Text": {
         "value": "- Publishing to "
@@ -1011,10 +1599,18 @@
     }
   },
   {
+    "location": {
+      "start": 1576,
+      "end": 1589
+    },
     "kind": {
       "Superscript": {
         "children": [
           {
+            "location": {
+              "start": 1578,
+              "end": 1587
+            },
             "kind": {
               "Text": {
                 "value": "crates.io"
@@ -1026,12 +1622,24 @@
     }
   },
   {
+    "location": {
+      "start": 1589,
+      "end": 1590
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1590,
+      "end": 1591
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1591,
+      "end": 1614
+    },
     "kind": {
       "Header": {
         "level": 3,
@@ -1039,6 +1647,10 @@
         "section_index": 6,
         "children": [
           {
+            "location": {
+              "start": 1595,
+              "end": 1613
+            },
             "kind": {
               "Text": {
                 "value": "Learning Resources"
@@ -1050,9 +1662,17 @@
     }
   },
   {
+    "location": {
+      "start": 1614,
+      "end": 1615
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1615,
+      "end": 1634
+    },
     "kind": {
       "Text": {
         "value": "Current timestamp: "
@@ -1060,31 +1680,59 @@
     }
   },
   {
+    "location": {
+      "start": 1634,
+      "end": 1639
+    },
     "kind": "TimeNow"
   },
   {
+    "location": {
+      "start": 1639,
+      "end": 1640
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1640,
+      "end": 1641
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1641,
+      "end": 1833
+    },
     "kind": {
       "List": {
         "kind": "a",
         "parameters": {
           "a": {
+            "location": {
+              "start": 1649,
+              "end": 1653
+            },
             "key": "a",
             "value": []
           }
         },
         "children": [
           {
+            "location": {
+              "start": 1653,
+              "end": 1705
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 1655,
+                      "end": 1681
+                    },
                     "kind": {
                       "Text": {
                         "value": "Official documentation at "
@@ -1092,10 +1740,18 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 1681,
+                      "end": 1702
+                    },
                     "kind": {
                       "Subscript": {
                         "children": [
                           {
+                            "location": {
+                              "start": 1683,
+                              "end": 1700
+                            },
                             "kind": {
                               "Text": {
                                 "value": "doc.rust-lang.org"
@@ -1111,15 +1767,27 @@
             }
           },
           {
+            "location": {
+              "start": 1705,
+              "end": 1749
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 1707,
+                      "end": 1724
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 1709,
+                              "end": 1722
+                            },
                             "kind": {
                               "Text": {
                                 "value": "The Rust Book"
@@ -1131,6 +1799,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 1724,
+                      "end": 1746
+                    },
                     "kind": {
                       "Text": {
                         "value": " - comprehensive guide"
@@ -1142,11 +1814,19 @@
             }
           },
           {
+            "location": {
+              "start": 1749,
+              "end": 1790
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 1751,
+                      "end": 1772
+                    },
                     "kind": {
                       "Text": {
                         "value": "Community forums and "
@@ -1154,10 +1834,18 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 1772,
+                      "end": 1779
+                    },
                     "kind": {
                       "Strikethrough": {
                         "children": [
                           {
+                            "location": {
+                              "start": 1774,
+                              "end": 1777
+                            },
                             "kind": {
                               "Text": {
                                 "value": "IRC"
@@ -1169,6 +1857,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 1779,
+                      "end": 1787
+                    },
                     "kind": {
                       "Text": {
                         "value": " Discord"
@@ -1180,11 +1872,19 @@
             }
           },
           {
+            "location": {
+              "start": 1790,
+              "end": 1830
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 1792,
+                      "end": 1827
+                    },
                     "kind": {
                       "Text": {
                         "value": "Rust by Example - hands-on learning"
@@ -1200,12 +1900,24 @@
     }
   },
   {
+    "location": {
+      "start": 1833,
+      "end": 1834
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1834,
+      "end": 1835
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 1835,
+      "end": 2028
+    },
     "kind": {
       "Comment": {
         "value": " Multi-line comment explaining\n   the structure of this wiki page:\n   - Category classification\n   - Headers with different levels\n   - Mixed formatting styles\n   - Nested complex elements\n"
@@ -1213,22 +1925,46 @@
     }
   },
   {
+    "location": {
+      "start": 2028,
+      "end": 2029
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 2029,
+      "end": 2030
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 2030,
+      "end": 2034
+    },
     "kind": "HLine"
   },
   {
+    "location": {
+      "start": 2034,
+      "end": 2035
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 2035,
+      "end": 2092
+    },
     "kind": {
       "Italic": {
         "children": [
           {
+            "location": {
+              "start": 2036,
+              "end": 2064
+            },
             "kind": {
               "Text": {
                 "value": "This page was last modified "
@@ -1236,6 +1972,10 @@
             }
           },
           {
+            "location": {
+              "start": 2064,
+              "end": 2081
+            },
             "kind": {
               "Age": {
                 "date": "2024-01-01"
@@ -1243,6 +1983,10 @@
             }
           },
           {
+            "location": {
+              "start": 2081,
+              "end": 2091
+            },
             "kind": {
               "Text": {
                 "value": " days ago."

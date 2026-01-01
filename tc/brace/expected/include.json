@@ -1,12 +1,24 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 58
+    },
     "kind": {
       "Include": {
         "parameters": {
           "page": {
+            "location": {
+              "start": 11,
+              "end": 29
+            },
             "key": "page",
             "value": [
               {
+                "location": {
+                  "start": 19,
+                  "end": 27
+                },
                 "kind": {
                   "Text": {
                     "value": "HomePage"
@@ -18,6 +30,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 29,
+              "end": 55
+            },
             "kind": {
               "Text": {
                 "value": "Include some content here\n"

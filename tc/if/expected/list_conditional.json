@@ -1,21 +1,37 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 120
+    },
     "kind": {
       "List": {
         "kind": "1",
         "parameters": {
           "1": {
+            "location": {
+              "start": 8,
+              "end": 12
+            },
             "key": "1",
             "value": []
           }
         },
         "children": [
           {
+            "location": {
+              "start": 12,
+              "end": 28
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 14,
+                      "end": 25
+                    },
                     "kind": {
                       "Text": {
                         "value": "Normal Item"
@@ -27,20 +43,36 @@
             }
           },
           {
+            "location": {
+              "start": 28,
+              "end": 93
+            },
             "kind": {
               "ConditionalListItems": {
                 "condition": {
                   "BoolLiteral": {
+                    "location": {
+                      "start": 35,
+                      "end": 39
+                    },
                     "value": true
                   }
                 },
                 "children": [
                   {
+                    "location": {
+                      "start": 43,
+                      "end": 66
+                    },
                     "kind": {
                       "ListItem": {
                         "parameters": {},
                         "children": [
                           {
+                            "location": {
+                              "start": 45,
+                              "end": 63
+                            },
                             "kind": {
                               "Text": {
                                 "value": "Conditional Item 1"
@@ -52,11 +84,19 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 66,
+                      "end": 89
+                    },
                     "kind": {
                       "ListItem": {
                         "parameters": {},
                         "children": [
                           {
+                            "location": {
+                              "start": 68,
+                              "end": 86
+                            },
                             "kind": {
                               "Text": {
                                 "value": "Conditional Item 2"
@@ -72,11 +112,19 @@
             }
           },
           {
+            "location": {
+              "start": 93,
+              "end": 117
+            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 95,
+                      "end": 114
+                    },
                     "kind": {
                       "Text": {
                         "value": "Another Normal Item"
