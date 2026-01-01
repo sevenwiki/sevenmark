@@ -68,13 +68,6 @@ pub struct ResolvedMediaInfo {
     pub url: Option<String>,
 }
 
-/// Fold 내부 요소 (title 또는 content)
-#[derive(Debug, Clone, Serialize)]
-pub struct FoldInnerElement {
-    pub parameters: Parameters,
-    pub children: Vec<AstNode>,
-}
-
 /// 모든 AST 노드의 기본 구조
 /// - location: 소스 코드 위치 (항상 존재)
 /// - kind: 노드 종류
