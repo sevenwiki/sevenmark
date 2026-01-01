@@ -1,4 +1,4 @@
-use crate::ast::{CommentElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::ascii::line_ending;
@@ -9,7 +9,7 @@ use winnow::token::{literal, take_till};
 
 /// Parse inline comments starting with "//"
 /// Comments continue until end of line or end of file
-pub fn inline_comment_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn inline_comment_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let (_, content_opt) = (
@@ -24,8 +24,8 @@ pub fn inline_comment_parser(parser_input: &mut ParserInput) -> Result<SevenMark
     let end = parser_input.input.previous_token_end();
     let content = content_opt.unwrap_or("").to_string();
 
-    Ok(SevenMarkElement::Comment(CommentElement {
-        location: Location { start, end },
-        content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Comment { value: content },
+    ))
 }

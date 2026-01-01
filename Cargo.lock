@@ -2200,7 +2200,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-html"
-version = "2.10.1"
+version = "2.11.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -2208,7 +2208,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.10.1"
+version = "2.11.0"
 dependencies = [
  "line-span",
  "paste",
@@ -2219,7 +2219,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-semantic"
-version = "2.10.1"
+version = "2.11.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -2227,7 +2227,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.10.1"
+version = "2.11.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -2248,7 +2248,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.10.1"
+version = "2.11.0"
 dependencies = [
  "anyhow",
  "js-sys",

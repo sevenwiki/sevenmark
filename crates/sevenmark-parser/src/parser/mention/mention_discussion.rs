@@ -1,5 +1,5 @@
 use super::utils::parse_uuid;
-use crate::ast::{Location, MentionElement, MentionType, SevenMarkElement};
+use crate::ast::{AstNode, Location, MentionType, NodeKind};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::combinator::delimited;
@@ -8,16 +8,18 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// 토론/문서 멘션 파서 (<#uuid>)
-pub fn mention_discussion_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn mention_discussion_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let uuid = delimited(literal("<#"), parse_uuid, literal(">")).parse_next(parser_input)?;
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::Mention(MentionElement {
-        location: Location { start, end },
-        mention_type: MentionType::Discussion,
-        uuid,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Mention {
+            kind: MentionType::Discussion,
+            id: uuid,
+        },
+    ))
 }

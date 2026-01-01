@@ -1,4 +1,4 @@
-use crate::ast::{Location, SevenMarkElement, TeXElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
 use winnow::Result;
@@ -9,7 +9,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_until};
 
 /// Parse TeX elements enclosed in {{{#tex }}}
-pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let ((parameters, _), parsed_content) = delimited(
@@ -29,9 +29,11 @@ pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<SevenMarkEleme
         .map(|p| p.contains_key("block"))
         .unwrap_or(false);
 
-    Ok(SevenMarkElement::TeXElement(TeXElement {
-        location: Location { start, end },
-        is_block,
-        content: parsed_content.to_string(),
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::TeX {
+            is_block,
+            value: parsed_content.to_string(),
+        },
+    ))
 }

@@ -1,4 +1,4 @@
-use crate::ast::{Location, TableCellItem, TableInnerElement1, TableInnerElement2, TableRowItem};
+use crate::ast::{Location, TableCell, TableCellChild, TableRow, TableRowChild};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::expr_condition::condition_parser;
@@ -11,14 +11,14 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-pub fn table_core_parser(parser_input: &mut ParserInput) -> Result<Vec<TableRowItem>> {
-    repeat(1.., table_row_item_parser).parse_next(parser_input)
+pub fn table_core_parser(parser_input: &mut ParserInput) -> Result<Vec<TableRowChild>> {
+    repeat(1.., table_row_child_parser).parse_next(parser_input)
 }
 
 /// 테이블 행 아이템 파서 (행 또는 조건부)
-fn table_row_item_parser(parser_input: &mut ParserInput) -> Result<TableRowItem> {
+fn table_row_child_parser(parser_input: &mut ParserInput) -> Result<TableRowChild> {
     alt((
-        table_element_parser.map(TableRowItem::Row),
+        table_row_parser.map(TableRowChild::Row),
         table_row_conditional_parser,
     ))
     .parse_next(parser_input)
@@ -26,7 +26,7 @@ fn table_row_item_parser(parser_input: &mut ParserInput) -> Result<TableRowItem>
 
 /// 테이블 행 레벨 조건부 파서 (전용 파서 - content가 테이블 row임)
 /// {{{#if condition :: [[row1]] [[row2]] ... }}}
-fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<TableRowItem> {
+fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<TableRowChild> {
     let start = parser_input.input.current_token_start();
 
     // {{{#if 시작
@@ -36,29 +36,30 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<TableR
     let condition = condition_parser.parse_next(parser_input)?;
 
     // 테이블 행들 파싱 (0개 이상의 행)
-    let rows: Vec<TableInnerElement1> =
-        repeat(0.., table_element_parser).parse_next(parser_input)?;
+    let rows: Vec<TableRow> = repeat(0.., table_row_parser).parse_next(parser_input)?;
 
     // }}} 종료
     let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(TableRowItem::Conditional {
+    Ok(TableRowChild::Conditional {
         location: Location { start, end },
         condition,
-        rows,
+        children: rows,
     })
 }
 
-fn table_element_parser(parser_input: &mut ParserInput) -> Result<TableInnerElement1> {
+fn table_row_parser(parser_input: &mut ParserInput) -> Result<TableRow> {
+    let start = parser_input.input.current_token_start();
+
     let (_, (parameters, parsed_content), _) = (
         multispace0,
         delimited(
             literal("[["),
             (
                 opt(parameter_core_parser),
-                repeat(1.., table_cell_item_parser),
+                repeat(1.., table_cell_child_parser),
             ),
             literal("]]"),
         ),
@@ -66,16 +67,19 @@ fn table_element_parser(parser_input: &mut ParserInput) -> Result<TableInnerElem
     )
         .parse_next(parser_input)?;
 
-    Ok(TableInnerElement1 {
-        parameters: parameters.unwrap_or_default(),
-        content: parsed_content,
-    })
+    let end = parser_input.input.previous_token_end();
+
+    Ok(TableRow::new(
+        Location { start, end },
+        parameters.unwrap_or_default(),
+        parsed_content,
+    ))
 }
 
 /// 테이블 셀 아이템 파서 (셀 또는 조건부)
-fn table_cell_item_parser(parser_input: &mut ParserInput) -> Result<TableCellItem> {
+fn table_cell_child_parser(parser_input: &mut ParserInput) -> Result<TableCellChild> {
     alt((
-        table_inner_element_parser.map(TableCellItem::Cell),
+        table_cell_parser.map(TableCellChild::Cell),
         table_cell_conditional_parser,
     ))
     .parse_next(parser_input)
@@ -83,7 +87,7 @@ fn table_cell_item_parser(parser_input: &mut ParserInput) -> Result<TableCellIte
 
 /// 테이블 셀 레벨 조건부 파서 (전용 파서 - content가 테이블 cell임)
 /// {{{#if condition :: [[cell1]] [[cell2]] ... }}}
-fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<TableCellItem> {
+fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<TableCellChild> {
     let start = parser_input.input.current_token_start();
 
     // {{{#if 시작
@@ -93,22 +97,23 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Table
     let condition = condition_parser.parse_next(parser_input)?;
 
     // 테이블 셀들 파싱 (0개 이상의 셀)
-    let cells: Vec<TableInnerElement2> =
-        repeat(0.., table_inner_element_parser).parse_next(parser_input)?;
+    let cells: Vec<TableCell> = repeat(0.., table_cell_parser).parse_next(parser_input)?;
 
     // }}} 종료
     let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(TableCellItem::Conditional {
+    Ok(TableCellChild::Conditional {
         location: Location { start, end },
         condition,
-        cells,
+        children: cells,
     })
 }
 
-fn table_inner_element_parser(parser_input: &mut ParserInput) -> Result<TableInnerElement2> {
+fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCell> {
+    let start = parser_input.input.current_token_start();
+
     let (_, ((parameters, _), parsed_content), _) = (
         multispace0,
         delimited(
@@ -123,6 +128,8 @@ fn table_inner_element_parser(parser_input: &mut ParserInput) -> Result<TableInn
     )
         .parse_next(parser_input)?;
 
+    let end = parser_input.input.previous_token_end();
+
     let parameters = parameters.unwrap_or_default();
 
     // x, y
@@ -135,10 +142,11 @@ fn table_inner_element_parser(parser_input: &mut ParserInput) -> Result<TableInn
         .map(|p| p.value.clone())
         .unwrap_or_else(Vec::new);
 
-    Ok(TableInnerElement2 {
+    Ok(TableCell::new(
+        Location { start, end },
         parameters,
         x,
         y,
-        content: parsed_content,
-    })
+        parsed_content,
+    ))
 }

@@ -1,4 +1,4 @@
-use crate::ast::SevenMarkElement;
+use crate::ast::AstNode;
 use crate::parser::ParserInput;
 use crate::parser::escape::escape_parser;
 use crate::parser::r#macro::macro_variable_parser;
@@ -11,7 +11,7 @@ use winnow::prelude::*;
 /// Parse the content within parameter value quotes
 /// Handles both escape sequences and plain text content
 /// The literal syntax prioritizes: escaping and text parsing
-pub fn parameter_content_parser(parser_input: &mut ParserInput) -> Result<Vec<SevenMarkElement>> {
+pub fn parameter_content_parser(parser_input: &mut ParserInput) -> Result<Vec<AstNode>> {
     repeat(
         1..,
         alt((

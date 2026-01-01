@@ -119,13 +119,13 @@ pub enum NodeKind {
     /// 테이블 {{{#table ...}}}
     Table {
         parameters: Parameters,
-        children: Vec<TableRow>,
+        children: Vec<TableRowChild>,
     },
     /// 리스트 {{{#list ...}}}
     List {
         kind: String,
         parameters: Parameters,
-        children: Vec<ListItem>,
+        children: Vec<ListItemChild>,
     },
     /// 폴드/접기 {{{#fold ...}}}
     Fold {
@@ -227,22 +227,5 @@ pub enum NodeKind {
     If {
         condition: Expression,
         children: Vec<AstNode>,
-    },
-
-    // === Conditional groups (for tables/lists) ===
-    /// 조건부 테이블 행
-    ConditionalTableRows {
-        condition: Expression,
-        children: Vec<TableRow>,
-    },
-    /// 조건부 테이블 셀
-    ConditionalTableCells {
-        condition: Expression,
-        children: Vec<TableCell>,
-    },
-    /// 조건부 리스트 아이템
-    ConditionalListItems {
-        condition: Expression,
-        children: Vec<ListItem>,
     },
 }

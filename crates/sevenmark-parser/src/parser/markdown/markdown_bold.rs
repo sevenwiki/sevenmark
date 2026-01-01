@@ -1,4 +1,4 @@
-use crate::ast::{Location, SevenMarkElement, TextStyle};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::utils::with_depth;
@@ -8,7 +8,7 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-pub fn markdown_bold_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn markdown_bold_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     if parser_input.state.inside_bold {
         return Err(winnow::error::ContextError::new());
     }
@@ -27,8 +27,10 @@ pub fn markdown_bold_parser(parser_input: &mut ParserInput) -> Result<SevenMarkE
     .parse_next(parser_input)?;
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::Bold(TextStyle {
-        location: Location { start, end },
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Bold {
+            children: parsed_content,
+        },
+    ))
 }

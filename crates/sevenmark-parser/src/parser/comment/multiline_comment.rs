@@ -1,4 +1,4 @@
-use crate::ast::{CommentElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::combinator::delimited;
@@ -8,7 +8,7 @@ use winnow::token::{literal, take_until};
 
 /// Parse multiline comments delimited by /* and */
 /// Takes all content between the delimiters
-pub fn multiline_comment_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn multiline_comment_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let content =
@@ -16,8 +16,10 @@ pub fn multiline_comment_parser(parser_input: &mut ParserInput) -> Result<SevenM
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::Comment(CommentElement {
-        location: Location { start, end },
-        content: content.to_string(),
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Comment {
+            value: content.to_string(),
+        },
+    ))
 }

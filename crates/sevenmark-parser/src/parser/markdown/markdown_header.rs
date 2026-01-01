@@ -1,4 +1,4 @@
-use crate::ast::{Header, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::utils::with_depth;
@@ -10,8 +10,8 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_while};
 
-/// 헤더 파서 - # Header (1-6개의 # 지원, ! 폴딩 지원)  
-pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+/// 헤더 파서 - # Header (1-6개의 # 지원, ! 폴딩 지원)
+pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     if parser_input.state.current_depth() > 0 {
         return Err(winnow::error::ContextError::new());
     }
@@ -49,11 +49,13 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<SevenMar
     let is_folded = is_folded.is_some();
     let section_index = parser_input.state.next_section_index();
 
-    Ok(SevenMarkElement::Header(Header {
-        location: Location { start, end },
-        level: header_level,
-        is_folded,
-        section_index,
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Header {
+            level: header_level,
+            is_folded,
+            section_index,
+            children: parsed_content,
+        },
+    ))
 }
