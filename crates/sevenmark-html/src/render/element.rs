@@ -112,5 +112,17 @@ pub fn render_element(el: &AstNode, ctx: &mut RenderContext) -> Markup {
         | NodeKind::ListItem { .. }
         | NodeKind::ConditionalListItems { .. }
         | NodeKind::FoldInner { .. } => html! {},
+
+        // Expression nodes (used in conditions, not rendered)
+        NodeKind::ExprOr { .. }
+        | NodeKind::ExprAnd { .. }
+        | NodeKind::ExprNot { .. }
+        | NodeKind::ExprComparison { .. }
+        | NodeKind::ExprFunctionCall { .. }
+        | NodeKind::ExprStringLiteral { .. }
+        | NodeKind::ExprNumberLiteral { .. }
+        | NodeKind::ExprBoolLiteral { .. }
+        | NodeKind::ExprNull
+        | NodeKind::ExprGroup { .. } => html! {},
     }
 }

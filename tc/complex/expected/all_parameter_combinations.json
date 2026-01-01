@@ -167,7 +167,7 @@
             ]
           }
         },
-        "content": [
+        "children": [
           {
             "location": {
               "start": 188,

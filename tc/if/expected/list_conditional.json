@@ -50,12 +50,14 @@
             "kind": {
               "ConditionalListItems": {
                 "condition": {
-                  "BoolLiteral": {
-                    "location": {
-                      "start": 35,
-                      "end": 39
-                    },
-                    "value": true
+                  "location": {
+                    "start": 35,
+                    "end": 39
+                  },
+                  "kind": {
+                    "ExprBoolLiteral": {
+                      "value": true
+                    }
                   }
                 },
                 "children": [

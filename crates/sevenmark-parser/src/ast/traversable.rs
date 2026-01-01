@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Expression, NodeKind};
+use crate::ast::{AstNode, NodeKind};
 
 /// Trait for automatically traversing AST elements
 pub trait Traversable {
@@ -40,7 +40,11 @@ impl Traversable for AstNode {
             | NodeKind::Mention { .. }
             | NodeKind::SoftBreak
             | NodeKind::HardBreak
-            | NodeKind::HLine => {
+            | NodeKind::HLine
+            | NodeKind::ExprStringLiteral { .. }
+            | NodeKind::ExprNumberLiteral { .. }
+            | NodeKind::ExprBoolLiteral { .. }
+            | NodeKind::ExprNull => {
                 // 자식 없음
             }
 
@@ -61,7 +65,6 @@ impl Traversable for AstNode {
             | NodeKind::Superscript { children }
             | NodeKind::Subscript { children }
             | NodeKind::Header { children, .. }
-            | NodeKind::If { children, .. }
             | NodeKind::Table { children, .. }
             | NodeKind::TableRow { children, .. }
             | NodeKind::List { children, .. }
@@ -70,21 +73,18 @@ impl Traversable for AstNode {
                 children.iter_mut().for_each(visitor);
             }
 
-            // === Conditional variants (Expression + children) ===
-            NodeKind::ConditionalTableRows {
-                condition,
-                children,
+            // === If: condition + children ===
+            NodeKind::If { condition, children } => {
+                visitor(condition);
+                children.iter_mut().for_each(visitor);
             }
-            | NodeKind::ConditionalTableCells {
-                condition,
-                children,
-            }
-            | NodeKind::ConditionalListItems {
-                condition,
-                children,
-            } => {
-                children.iter_mut().for_each(&mut *visitor);
-                traverse_expression(condition, visitor);
+
+            // === Conditional variants: condition + children ===
+            NodeKind::ConditionalTableRows { condition, children }
+            | NodeKind::ConditionalTableCells { condition, children }
+            | NodeKind::ConditionalListItems { condition, children } => {
+                visitor(condition);
+                children.iter_mut().for_each(visitor);
             }
 
             // === TableCell: x, y, children ===
@@ -98,6 +98,22 @@ impl Traversable for AstNode {
             NodeKind::Fold { children, .. } => {
                 visitor(&mut children.0);
                 visitor(&mut children.1);
+            }
+
+            // === Expression nodes ===
+            NodeKind::ExprOr { left, right, .. }
+            | NodeKind::ExprAnd { left, right, .. }
+            | NodeKind::ExprComparison { left, right, .. } => {
+                visitor(left);
+                visitor(right);
+            }
+
+            NodeKind::ExprNot { children, .. } | NodeKind::ExprGroup { children } => {
+                visitor(children);
+            }
+
+            NodeKind::ExprFunctionCall { arguments, .. } => {
+                arguments.iter_mut().for_each(visitor);
             }
         }
     }
@@ -123,7 +139,17 @@ impl Traversable for AstNode {
             | NodeKind::Mention { .. }
             | NodeKind::SoftBreak
             | NodeKind::HardBreak
-            | NodeKind::HLine => {}
+            | NodeKind::HLine
+            | NodeKind::ExprStringLiteral { .. }
+            | NodeKind::ExprNumberLiteral { .. }
+            | NodeKind::ExprBoolLiteral { .. }
+            | NodeKind::ExprNull
+            | NodeKind::ExprOr { .. }
+            | NodeKind::ExprAnd { .. }
+            | NodeKind::ExprNot { .. }
+            | NodeKind::ExprComparison { .. }
+            | NodeKind::ExprGroup { .. }
+            | NodeKind::If { .. } => {}
 
             // === children 필드만 있는 노드들 ===
             NodeKind::Literal { children }
@@ -142,7 +168,6 @@ impl Traversable for AstNode {
             | NodeKind::Superscript { children }
             | NodeKind::Subscript { children }
             | NodeKind::Header { children, .. }
-            | NodeKind::If { children, .. }
             | NodeKind::Table { children, .. }
             | NodeKind::TableRow { children, .. }
             | NodeKind::List { children, .. }
@@ -152,6 +177,11 @@ impl Traversable for AstNode {
             | NodeKind::ConditionalTableCells { children, .. }
             | NodeKind::ConditionalListItems { children, .. } => {
                 f(children);
+            }
+
+            // === ExprFunctionCall: arguments Vec ===
+            NodeKind::ExprFunctionCall { arguments, .. } => {
+                f(arguments);
             }
 
             // === TableCell: x, y, children ===
@@ -194,7 +224,11 @@ impl Traversable for AstNode {
             | NodeKind::Mention { .. }
             | NodeKind::SoftBreak
             | NodeKind::HardBreak
-            | NodeKind::HLine => {}
+            | NodeKind::HLine
+            | NodeKind::ExprStringLiteral { .. }
+            | NodeKind::ExprNumberLiteral { .. }
+            | NodeKind::ExprBoolLiteral { .. }
+            | NodeKind::ExprNull => {}
 
             // === children 필드만 있는 노드들 ===
             NodeKind::Literal { children }
@@ -213,7 +247,6 @@ impl Traversable for AstNode {
             | NodeKind::Superscript { children }
             | NodeKind::Subscript { children }
             | NodeKind::Header { children, .. }
-            | NodeKind::If { children, .. }
             | NodeKind::Table { children, .. }
             | NodeKind::TableRow { children, .. }
             | NodeKind::List { children, .. }
@@ -222,21 +255,18 @@ impl Traversable for AstNode {
                 children.iter().for_each(visitor);
             }
 
-            // === Conditional variants (Expression + children) ===
-            NodeKind::ConditionalTableRows {
-                condition,
-                children,
+            // === If: condition + children ===
+            NodeKind::If { condition, children } => {
+                visitor(condition);
+                children.iter().for_each(visitor);
             }
-            | NodeKind::ConditionalTableCells {
-                condition,
-                children,
-            }
-            | NodeKind::ConditionalListItems {
-                condition,
-                children,
-            } => {
-                children.iter().for_each(&mut *visitor);
-                traverse_expression_ref(condition, visitor);
+
+            // === Conditional variants: condition + children ===
+            NodeKind::ConditionalTableRows { condition, children }
+            | NodeKind::ConditionalTableCells { condition, children }
+            | NodeKind::ConditionalListItems { condition, children } => {
+                visitor(condition);
+                children.iter().for_each(visitor);
             }
 
             // === TableCell: x, y, children ===
@@ -251,72 +281,22 @@ impl Traversable for AstNode {
                 visitor(&children.0);
                 visitor(&children.1);
             }
-        }
-    }
-}
 
-// === Expression traversal ===
+            // === Expression nodes ===
+            NodeKind::ExprOr { left, right, .. }
+            | NodeKind::ExprAnd { left, right, .. }
+            | NodeKind::ExprComparison { left, right, .. } => {
+                visitor(left);
+                visitor(right);
+            }
 
-/// Expression 내의 AstNode들을 순회하는 헬퍼 함수 (mutable)
-fn traverse_expression<F>(expr: &mut Expression, visitor: &mut F)
-where
-    F: FnMut(&mut AstNode),
-{
-    match expr {
-        Expression::Or { left, right, .. } | Expression::And { left, right, .. } => {
-            traverse_expression(left, visitor);
-            traverse_expression(right, visitor);
-        }
-        Expression::Not { inner, .. } | Expression::Group { inner, .. } => {
-            traverse_expression(inner, visitor);
-        }
-        Expression::Comparison { left, right, .. } => {
-            traverse_expression(left, visitor);
-            traverse_expression(right, visitor);
-        }
-        Expression::FunctionCall { arguments, .. } => {
-            for arg in arguments {
-                traverse_expression(arg, visitor);
+            NodeKind::ExprNot { children, .. } | NodeKind::ExprGroup { children } => {
+                visitor(children);
+            }
+
+            NodeKind::ExprFunctionCall { arguments, .. } => {
+                arguments.iter().for_each(visitor);
             }
         }
-        Expression::Element(elem) => {
-            visitor(elem);
-        }
-        Expression::StringLiteral { .. }
-        | Expression::NumberLiteral { .. }
-        | Expression::BoolLiteral { .. }
-        | Expression::Null { .. } => {}
-    }
-}
-
-/// Expression 내의 AstNode들을 순회하는 헬퍼 함수 (immutable)
-fn traverse_expression_ref<F>(expr: &Expression, visitor: &mut F)
-where
-    F: FnMut(&AstNode),
-{
-    match expr {
-        Expression::Or { left, right, .. } | Expression::And { left, right, .. } => {
-            traverse_expression_ref(left, visitor);
-            traverse_expression_ref(right, visitor);
-        }
-        Expression::Not { inner, .. } | Expression::Group { inner, .. } => {
-            traverse_expression_ref(inner, visitor);
-        }
-        Expression::Comparison { left, right, .. } => {
-            traverse_expression_ref(left, visitor);
-            traverse_expression_ref(right, visitor);
-        }
-        Expression::FunctionCall { arguments, .. } => {
-            for arg in arguments {
-                traverse_expression_ref(arg, visitor);
-            }
-        }
-        Expression::Element(elem) => {
-            visitor(elem);
-        }
-        Expression::StringLiteral { .. }
-        | Expression::NumberLiteral { .. }
-        | Expression::BoolLiteral { .. }
-        | Expression::Null { .. } => {}
     }
 }

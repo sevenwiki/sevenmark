@@ -28,7 +28,7 @@
             ]
           }
         },
-        "content": [
+        "children": [
           {
             "location": {
               "start": 28,

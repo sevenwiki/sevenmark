@@ -292,7 +292,7 @@
             ]
           }
         },
-        "content": [
+        "children": [
           {
             "location": {
               "start": 301,
@@ -1531,7 +1531,7 @@
     "kind": {
       "Fold": {
         "parameters": {},
-        "content": [
+        "children": [
           {
             "location": {
               "start": 1763,

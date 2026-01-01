@@ -43,7 +43,7 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<AstNod
     Ok(AstNode::new(
         Location { start, end },
         NodeKind::ConditionalTableRows {
-            condition,
+            condition: Box::new(condition),
             children,
         },
     ))
@@ -105,7 +105,7 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<AstNo
     Ok(AstNode::new(
         Location { start, end },
         NodeKind::ConditionalTableCells {
-            condition,
+            condition: Box::new(condition),
             children,
         },
     ))

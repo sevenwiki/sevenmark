@@ -53,12 +53,14 @@
             "kind": {
               "ConditionalTableRows": {
                 "condition": {
-                  "BoolLiteral": {
-                    "location": {
-                      "start": 41,
-                      "end": 45
-                    },
-                    "value": true
+                  "location": {
+                    "start": 41,
+                    "end": 45
+                  },
+                  "kind": {
+                    "ExprBoolLiteral": {
+                      "value": true
+                    }
                   }
                 },
                 "children": [

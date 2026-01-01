@@ -48,7 +48,7 @@
             ]
           }
         },
-        "content": [
+        "children": [
           {
             "location": {
               "start": 61,

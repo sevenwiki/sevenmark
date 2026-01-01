@@ -5,6 +5,55 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.7] - 2026-01-01
+
+### Breaking Changes
+- **Expression Merged into NodeKind**: The `Expression` enum has been removed and all conditional expression nodes are now part of `NodeKind`
+  - Before: `Expression::Or { location, operator, left: Box<Expression>, right: Box<Expression> }`
+  - After: `NodeKind::ExprOr { operator, left: Box<AstNode>, right: Box<AstNode> }`
+  - All expressions are now part of the unified `AstNode` tree
+  - Frontend can process all nodes using a single `{ location, kind }` pattern
+
+### Changed
+- **New NodeKind variants**:
+  - `ExprOr` - OR operation (||)
+  - `ExprAnd` - AND operation (&&)
+  - `ExprNot` - NOT operation (!)
+  - `ExprComparison` - Comparison operations (==, !=, >, <, >=, <=)
+  - `ExprFunctionCall` - Function calls (int, len, str)
+  - `ExprStringLiteral` - String literal
+  - `ExprNumberLiteral` - Number literal
+  - `ExprBoolLiteral` - Boolean literal
+  - `ExprNull` - Null literal
+  - `ExprGroup` - Parenthesized group
+
+- **condition field type changed**: `Expression` → `Box<AstNode>`
+  - `NodeKind::If { condition: Box<AstNode>, children }`
+  - `NodeKind::ConditionalTableRows { condition: Box<AstNode>, children }`
+  - `NodeKind::ConditionalTableCells { condition: Box<AstNode>, children }`
+  - `NodeKind::ConditionalListItems { condition: Box<AstNode>, children }`
+
+- **Traversable simplified**: Removed `traverse_expression` functions, integrated into general traversal logic
+
+### Removed
+- `Expression` enum (sevenmark-parser/src/ast/expression.rs)
+- `Expression::Element(Box<AstNode>)` variant - no longer needed (macro parsers return AstNode directly)
+
+### Migration Guide
+```rust
+// Before
+match expr {
+    Expression::Or { left, right, .. } => { ... }
+    Expression::Element(node) => { ... }
+}
+
+// After
+match &node.kind {
+    NodeKind::ExprOr { left, right, .. } => { ... }
+    NodeKind::Variable { name } => { ... }  // Handled directly as AstNode
+}
+```
+
 ## [2.12.2] - 2026-01-01
 
 ### Changed

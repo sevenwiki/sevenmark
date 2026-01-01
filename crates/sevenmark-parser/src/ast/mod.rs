@@ -134,13 +134,13 @@ pub enum NodeKind {
     /// 조건부 테이블 행 ({{{#if condition :: [[row]]...}}})
     /// children은 TableRow 노드
     ConditionalTableRows {
-        condition: Expression,
+        condition: Box<AstNode>,
         children: Vec<AstNode>,
     },
     /// 조건부 테이블 셀 ({{{#if condition :: [[cell]]...}}})
     /// children은 TableCell 노드
     ConditionalTableCells {
-        condition: Expression,
+        condition: Box<AstNode>,
         children: Vec<AstNode>,
     },
     /// 리스트 {{{#list ...}}}
@@ -158,7 +158,7 @@ pub enum NodeKind {
     /// 조건부 리스트 아이템 ({{{#if condition :: [[item]]...}}})
     /// children은 ListItem 노드
     ConditionalListItems {
-        condition: Expression,
+        condition: Box<AstNode>,
         children: Vec<AstNode>,
     },
     /// 폴드/접기 {{{#fold ...}}}
@@ -265,7 +265,47 @@ pub enum NodeKind {
     // === Conditional ===
     /// If 조건문 {{{#if condition :: content}}}
     If {
-        condition: Expression,
+        condition: Box<AstNode>,
         children: Vec<AstNode>,
     },
+
+    // === Expression (조건식 노드) ===
+    /// OR 연산 (||)
+    ExprOr {
+        operator: LogicalOperator,
+        left: Box<AstNode>,
+        right: Box<AstNode>,
+    },
+    /// AND 연산 (&&)
+    ExprAnd {
+        operator: LogicalOperator,
+        left: Box<AstNode>,
+        right: Box<AstNode>,
+    },
+    /// NOT 연산 (!)
+    ExprNot {
+        operator: LogicalOperator,
+        children: Box<AstNode>,
+    },
+    /// 비교 연산 (==, !=, >, <, >=, <=)
+    ExprComparison {
+        left: Box<AstNode>,
+        operator: ComparisonOperator,
+        right: Box<AstNode>,
+    },
+    /// 함수 호출 (int, len, str)
+    ExprFunctionCall {
+        name: String,
+        arguments: Vec<AstNode>,
+    },
+    /// 문자열 리터럴
+    ExprStringLiteral { value: String },
+    /// 숫자 리터럴
+    ExprNumberLiteral { value: i64 },
+    /// 불리언 리터럴
+    ExprBoolLiteral { value: bool },
+    /// Null 리터럴
+    ExprNull,
+    /// 괄호 그룹
+    ExprGroup { children: Box<AstNode> },
 }

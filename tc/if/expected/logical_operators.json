@@ -7,34 +7,40 @@
     "kind": {
       "If": {
         "condition": {
-          "And": {
-            "location": {
-              "start": 7,
-              "end": 19
-            },
-            "operator": {
-              "location": {
-                "start": 12,
-                "end": 14
+          "location": {
+            "start": 7,
+            "end": 19
+          },
+          "kind": {
+            "ExprAnd": {
+              "operator": {
+                "location": {
+                  "start": 12,
+                  "end": 14
+                },
+                "kind": "And"
               },
-              "kind": "And"
-            },
-            "left": {
-              "BoolLiteral": {
+              "left": {
                 "location": {
                   "start": 7,
                   "end": 11
                 },
-                "value": true
-              }
-            },
-            "right": {
-              "BoolLiteral": {
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": true
+                  }
+                }
+              },
+              "right": {
                 "location": {
                   "start": 15,
                   "end": 19
                 },
-                "value": true
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": true
+                  }
+                }
               }
             }
           }
@@ -77,34 +83,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Or": {
-            "location": {
-              "start": 42,
-              "end": 55
-            },
-            "operator": {
-              "location": {
-                "start": 47,
-                "end": 49
+          "location": {
+            "start": 42,
+            "end": 55
+          },
+          "kind": {
+            "ExprOr": {
+              "operator": {
+                "location": {
+                  "start": 47,
+                  "end": 49
+                },
+                "kind": "Or"
               },
-              "kind": "Or"
-            },
-            "left": {
-              "BoolLiteral": {
+              "left": {
                 "location": {
                   "start": 42,
                   "end": 46
                 },
-                "value": true
-              }
-            },
-            "right": {
-              "BoolLiteral": {
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": true
+                  }
+                }
+              },
+              "right": {
                 "location": {
                   "start": 50,
                   "end": 55
                 },
-                "value": false
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": false
+                  }
+                }
               }
             }
           }
@@ -147,25 +159,29 @@
     "kind": {
       "If": {
         "condition": {
-          "Not": {
-            "location": {
-              "start": 80,
-              "end": 86
-            },
-            "operator": {
-              "location": {
-                "start": 80,
-                "end": 81
+          "location": {
+            "start": 80,
+            "end": 86
+          },
+          "kind": {
+            "ExprNot": {
+              "operator": {
+                "location": {
+                  "start": 80,
+                  "end": 81
+                },
+                "kind": "Not"
               },
-              "kind": "Not"
-            },
-            "inner": {
-              "BoolLiteral": {
+              "children": {
                 "location": {
                   "start": 81,
                   "end": 86
                 },
-                "value": false
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": false
+                  }
+                }
               }
             }
           }

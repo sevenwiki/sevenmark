@@ -7,32 +7,32 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 7,
-              "end": 19
-            },
-            "left": {
-              "Null": {
+          "location": {
+            "start": 7,
+            "end": 19
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 7,
                   "end": 11
-                }
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 12,
-                "end": 14
+                },
+                "kind": "ExprNull"
               },
-              "kind": "Equal"
-            },
-            "right": {
-              "Null": {
+              "operator": {
+                "location": {
+                  "start": 12,
+                  "end": 14
+                },
+                "kind": "Equal"
+              },
+              "right": {
                 "location": {
                   "start": 15,
                   "end": 19
-                }
+                },
+                "kind": "ExprNull"
               }
             }
           }
@@ -75,34 +75,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 49,
-              "end": 61
-            },
-            "left": {
-              "BoolLiteral": {
+          "location": {
+            "start": 49,
+            "end": 61
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 49,
                   "end": 53
                 },
-                "value": true
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 54,
-                "end": 56
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": true
+                  }
+                }
               },
-              "kind": "Equal"
-            },
-            "right": {
-              "BoolLiteral": {
+              "operator": {
+                "location": {
+                  "start": 54,
+                  "end": 56
+                },
+                "kind": "Equal"
+              },
+              "right": {
                 "location": {
                   "start": 57,
                   "end": 61
                 },
-                "value": true
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": true
+                  }
+                }
               }
             }
           }
@@ -145,34 +151,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 91,
-              "end": 105
-            },
-            "left": {
-              "BoolLiteral": {
+          "location": {
+            "start": 91,
+            "end": 105
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 91,
                   "end": 96
                 },
-                "value": false
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 97,
-                "end": 99
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": false
+                  }
+                }
               },
-              "kind": "Equal"
-            },
-            "right": {
-              "BoolLiteral": {
+              "operator": {
+                "location": {
+                  "start": 97,
+                  "end": 99
+                },
+                "kind": "Equal"
+              },
+              "right": {
                 "location": {
                   "start": 100,
                   "end": 105
                 },
-                "value": false
+                "kind": {
+                  "ExprBoolLiteral": {
+                    "value": false
+                  }
+                }
               }
             }
           }

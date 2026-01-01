@@ -7,7 +7,7 @@
     "kind": {
       "Fold": {
         "parameters": {},
-        "content": [
+        "children": [
           {
             "location": {
               "start": 8,

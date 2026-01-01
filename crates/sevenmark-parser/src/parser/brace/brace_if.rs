@@ -28,7 +28,7 @@ pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     Ok(AstNode::new(
         Location { start, end },
         NodeKind::If {
-            condition,
+            condition: Box::new(condition),
             children: parsed_content,
         },
     ))

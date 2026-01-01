@@ -541,7 +541,7 @@
             ]
           }
         },
-        "content": [
+        "children": [
           {
             "location": {
               "start": 525,

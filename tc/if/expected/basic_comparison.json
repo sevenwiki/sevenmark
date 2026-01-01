@@ -7,34 +7,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 7,
-              "end": 13
-            },
-            "left": {
-              "NumberLiteral": {
+          "location": {
+            "start": 7,
+            "end": 13
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 7,
                   "end": 8
                 },
-                "value": 5
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 9,
-                "end": 11
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 5
+                  }
+                }
               },
-              "kind": "Equal"
-            },
-            "right": {
-              "NumberLiteral": {
+              "operator": {
+                "location": {
+                  "start": 9,
+                  "end": 11
+                },
+                "kind": "Equal"
+              },
+              "right": {
                 "location": {
                   "start": 12,
                   "end": 13
                 },
-                "value": 5
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 5
+                  }
+                }
               }
             }
           }
@@ -77,34 +83,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 32,
-              "end": 38
-            },
-            "left": {
-              "NumberLiteral": {
+          "location": {
+            "start": 32,
+            "end": 38
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 32,
                   "end": 33
                 },
-                "value": 5
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 34,
-                "end": 36
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 5
+                  }
+                }
               },
-              "kind": "NotEqual"
-            },
-            "right": {
-              "NumberLiteral": {
+              "operator": {
+                "location": {
+                  "start": 34,
+                  "end": 36
+                },
+                "kind": "NotEqual"
+              },
+              "right": {
                 "location": {
                   "start": 37,
                   "end": 38
                 },
-                "value": 3
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 3
+                  }
+                }
               }
             }
           }
@@ -147,34 +159,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 61,
-              "end": 67
-            },
-            "left": {
-              "NumberLiteral": {
+          "location": {
+            "start": 61,
+            "end": 67
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 61,
                   "end": 63
                 },
-                "value": 10
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 64,
-                "end": 65
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 10
+                  }
+                }
               },
-              "kind": "GreaterThan"
-            },
-            "right": {
-              "NumberLiteral": {
+              "operator": {
+                "location": {
+                  "start": 64,
+                  "end": 65
+                },
+                "kind": "GreaterThan"
+              },
+              "right": {
                 "location": {
                   "start": 66,
                   "end": 67
                 },
-                "value": 5
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 5
+                  }
+                }
               }
             }
           }
@@ -217,34 +235,40 @@
     "kind": {
       "If": {
         "condition": {
-          "Comparison": {
-            "location": {
-              "start": 88,
-              "end": 93
-            },
-            "left": {
-              "NumberLiteral": {
+          "location": {
+            "start": 88,
+            "end": 93
+          },
+          "kind": {
+            "ExprComparison": {
+              "left": {
                 "location": {
                   "start": 88,
                   "end": 89
                 },
-                "value": 3
-              }
-            },
-            "operator": {
-              "location": {
-                "start": 90,
-                "end": 91
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 3
+                  }
+                }
               },
-              "kind": "LessThan"
-            },
-            "right": {
-              "NumberLiteral": {
+              "operator": {
+                "location": {
+                  "start": 90,
+                  "end": 91
+                },
+                "kind": "LessThan"
+              },
+              "right": {
                 "location": {
                   "start": 92,
                   "end": 93
                 },
-                "value": 8
+                "kind": {
+                  "ExprNumberLiteral": {
+                    "value": 8
+                  }
+                }
               }
             }
           }

@@ -1,6 +1,6 @@
 use crate::ast::{
-    ComparisonOperator, ComparisonOperatorKind, Expression, Location, LogicalOperator,
-    LogicalOperatorKind,
+    AstNode, ComparisonOperator, ComparisonOperatorKind, Location, LogicalOperator,
+    LogicalOperatorKind, NodeKind,
 };
 use crate::parser::ParserInput;
 use crate::parser::r#macro::macro_variable_parser;
@@ -15,7 +15,7 @@ use winnow::token::{literal, one_of, take_while};
 /// 조건식 파서 (최상위)
 /// 우선순위: OR < AND < NOT < Comparison < Operand
 /// 선택적 "::" 종결자로 조건식 끝 표시 가능
-pub fn condition_parser(input: &mut ParserInput) -> Result<Expression> {
+pub fn condition_parser(input: &mut ParserInput) -> Result<AstNode> {
     delimited(
         multispace0,
         or_parser,
@@ -25,12 +25,12 @@ pub fn condition_parser(input: &mut ParserInput) -> Result<Expression> {
 }
 
 /// OR 연산자 파서 (최저 우선순위, 바인딩 파워 5)
-fn or_parser(input: &mut ParserInput) -> Result<Expression> {
+fn or_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let first = and_parser.parse_next(input)?;
 
     // (operator, expression) 쌍으로 파싱
-    let rest: Vec<(LogicalOperator, Expression)> = repeat(
+    let rest: Vec<(LogicalOperator, AstNode)> = repeat(
         0..,
         (
             delimited(multispace0, or_operator_parser, multispace0),
@@ -43,11 +43,15 @@ fn or_parser(input: &mut ParserInput) -> Result<Expression> {
 
     Ok(rest
         .into_iter()
-        .fold(first, |acc, (op, expr)| Expression::Or {
-            location: Location { start, end },
-            operator: op,
-            left: Box::new(acc),
-            right: Box::new(expr),
+        .fold(first, |acc, (op, expr)| {
+            AstNode::new(
+                Location { start, end },
+                NodeKind::ExprOr {
+                    operator: op,
+                    left: Box::new(acc),
+                    right: Box::new(expr),
+                },
+            )
         }))
 }
 
@@ -64,12 +68,12 @@ fn or_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
 }
 
 /// AND 연산자 파서 (바인딩 파워 7)
-fn and_parser(input: &mut ParserInput) -> Result<Expression> {
+fn and_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let first = not_parser.parse_next(input)?;
 
     // (operator, expression) 쌍으로 파싱
-    let rest: Vec<(LogicalOperator, Expression)> = repeat(
+    let rest: Vec<(LogicalOperator, AstNode)> = repeat(
         0..,
         (
             delimited(multispace0, and_operator_parser, multispace0),
@@ -82,11 +86,15 @@ fn and_parser(input: &mut ParserInput) -> Result<Expression> {
 
     Ok(rest
         .into_iter()
-        .fold(first, |acc, (op, expr)| Expression::And {
-            location: Location { start, end },
-            operator: op,
-            left: Box::new(acc),
-            right: Box::new(expr),
+        .fold(first, |acc, (op, expr)| {
+            AstNode::new(
+                Location { start, end },
+                NodeKind::ExprAnd {
+                    operator: op,
+                    left: Box::new(acc),
+                    right: Box::new(expr),
+                },
+            )
         }))
 }
 
@@ -104,7 +112,7 @@ fn and_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
 
 /// NOT 연산자 파서 (바인딩 파워 15)
 /// ! 하나만 허용. 이중 부정이 필요하면 !(!x) 형태로 작성
-fn not_parser(input: &mut ParserInput) -> Result<Expression> {
+fn not_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
 
     // ! 연산자 하나만 파싱 시도
@@ -116,14 +124,16 @@ fn not_parser(input: &mut ParserInput) -> Result<Expression> {
     let end = input.input.previous_token_end();
 
     match not_op {
-        Some(op_loc) => Ok(Expression::Not {
-            location: Location { start, end },
-            operator: LogicalOperator {
-                location: op_loc,
-                kind: LogicalOperatorKind::Not,
+        Some(op_loc) => Ok(AstNode::new(
+            Location { start, end },
+            NodeKind::ExprNot {
+                operator: LogicalOperator {
+                    location: op_loc,
+                    kind: LogicalOperatorKind::Not,
+                },
+                children: Box::new(inner),
             },
-            inner: Box::new(inner),
-        }),
+        )),
         None => Ok(inner),
     }
 }
@@ -139,12 +149,12 @@ fn not_operator_location_parser(input: &mut ParserInput) -> Result<Location> {
 }
 
 /// 비교 연산자 파서 (바인딩 파워 10)
-fn comparison_parser(input: &mut ParserInput) -> Result<Expression> {
+fn comparison_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let left = operand_parser.parse_next(input)?;
 
     // 비교 연산자 + 오른쪽 피연산자 파싱 시도
-    let op_and_right: Option<(ComparisonOperator, Expression)> = opt((
+    let op_and_right: Option<(ComparisonOperator, AstNode)> = opt((
         delimited(multispace0, comparison_operator_parser, multispace0),
         operand_parser,
     ))
@@ -153,12 +163,14 @@ fn comparison_parser(input: &mut ParserInput) -> Result<Expression> {
     let end = input.input.previous_token_end();
 
     match op_and_right {
-        Some((op, right)) => Ok(Expression::Comparison {
-            location: Location { start, end },
-            left: Box::new(left),
-            operator: op,
-            right: Box::new(right),
-        }),
+        Some((op, right)) => Ok(AstNode::new(
+            Location { start, end },
+            NodeKind::ExprComparison {
+                left: Box::new(left),
+                operator: op,
+                right: Box::new(right),
+            },
+        )),
         None => Ok(left),
     }
 }
@@ -185,7 +197,7 @@ fn comparison_operator_parser(input: &mut ParserInput) -> Result<ComparisonOpera
 }
 
 /// 피연산자 파서
-fn operand_parser(input: &mut ParserInput) -> Result<Expression> {
+fn operand_parser(input: &mut ParserInput) -> Result<AstNode> {
     alt((
         // 괄호 그룹
         group_parser,
@@ -199,14 +211,14 @@ fn operand_parser(input: &mut ParserInput) -> Result<Expression> {
         string_literal_parser,
         // 숫자 리터럴
         number_literal_parser,
-        // 기존 매크로 파서들 (Element로 감싸기)
-        macro_variable_parser.map(|elem| Expression::Element(Box::new(elem))),
+        // 기존 매크로 파서들 (이미 AstNode 반환)
+        macro_variable_parser,
     ))
     .parse_next(input)
 }
 
 /// 괄호 그룹 파서
-fn group_parser(input: &mut ParserInput) -> Result<Expression> {
+fn group_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let inner = delimited(
         (literal('('), multispace0),
@@ -216,14 +228,16 @@ fn group_parser(input: &mut ParserInput) -> Result<Expression> {
     .parse_next(input)?;
     let end = input.input.previous_token_end();
 
-    Ok(Expression::Group {
-        location: Location { start, end },
-        inner: Box::new(inner),
-    })
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::ExprGroup {
+            children: Box::new(inner),
+        },
+    ))
 }
 
 /// 함수 호출 파서: int(...), len(...), str(...)
-fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
+fn function_call_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let name: &str = alpha1.parse_next(input)?;
 
@@ -245,39 +259,42 @@ fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
 
     let end = input.input.previous_token_end();
 
-    Ok(Expression::FunctionCall {
-        location: Location { start, end },
-        name: name.to_string(),
-        arguments,
-    })
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::ExprFunctionCall {
+            name: name.to_string(),
+            arguments,
+        },
+    ))
 }
 
 /// null 키워드 파서
-fn null_parser(input: &mut ParserInput) -> Result<Expression> {
+fn null_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     literal("null").parse_next(input)?;
     let end = input.input.previous_token_end();
 
-    Ok(Expression::Null {
-        location: Location { start, end },
-    })
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::ExprNull,
+    ))
 }
 
 /// bool 리터럴 파서: true, false
-fn bool_literal_parser(input: &mut ParserInput) -> Result<Expression> {
+fn bool_literal_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let value =
         alt((literal("true").value(true), literal("false").value(false))).parse_next(input)?;
     let end = input.input.previous_token_end();
 
-    Ok(Expression::BoolLiteral {
-        location: Location { start, end },
-        value,
-    })
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::ExprBoolLiteral { value },
+    ))
 }
 
 /// 문자열 리터럴 파서: "..."
-fn string_literal_parser(input: &mut ParserInput) -> Result<Expression> {
+fn string_literal_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let value = delimited(
         literal('"'),
@@ -287,14 +304,14 @@ fn string_literal_parser(input: &mut ParserInput) -> Result<Expression> {
     .parse_next(input)?;
     let end = input.input.previous_token_end();
 
-    Ok(Expression::StringLiteral {
-        location: Location { start, end },
-        value,
-    })
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::ExprStringLiteral { value },
+    ))
 }
 
 /// 숫자 리터럴 파서
-fn number_literal_parser(input: &mut ParserInput) -> Result<Expression> {
+fn number_literal_parser(input: &mut ParserInput) -> Result<AstNode> {
     let start = input.input.current_token_start();
     let sign = opt(one_of(['+', '-'])).parse_next(input)?;
     let digits: &str = digit1.parse_next(input)?;
@@ -308,8 +325,8 @@ fn number_literal_parser(input: &mut ParserInput) -> Result<Expression> {
         _ => value,
     };
 
-    Ok(Expression::NumberLiteral {
-        location: Location { start, end },
-        value: final_value,
-    })
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::ExprNumberLiteral { value: final_value },
+    ))
 }

@@ -43,7 +43,7 @@ fn list_conditional_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     Ok(AstNode::new(
         Location { start, end },
         NodeKind::ConditionalListItems {
-            condition,
+            condition: Box::new(condition),
             children,
         },
     ))
