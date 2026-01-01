@@ -108,10 +108,7 @@ pub enum NodeKind {
 
     // === Block elements ===
     /// 리터럴 {{{ content }}}
-    Literal {
-        parameters: Parameters,
-        children: Vec<AstNode>,
-    },
+    Literal { children: Vec<AstNode> },
     /// 변수 정의 {{{#define #varname="value" ...}}}
     Define { parameters: Parameters },
     /// 스타일 적용 {{{#style="..." content}}}
@@ -143,8 +140,7 @@ pub enum NodeKind {
     /// 루비 텍스트 {{{#ruby ...}}}
     Ruby {
         parameters: Parameters,
-        base: Vec<AstNode>,
-        text: Vec<AstNode>,
+        children: Vec<AstNode>,
     },
     /// 각주 {{{#footnote ...}}}
     Footnote {

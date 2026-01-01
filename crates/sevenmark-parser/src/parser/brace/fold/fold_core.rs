@@ -42,11 +42,11 @@ pub fn fold_core_parser(
     Ok((
         FoldInnerElement {
             parameters: parameters_1,
-            content: parsed_content_1,
+            children: parsed_content_1,
         },
         FoldInnerElement {
             parameters: parameters_2,
-            content: parsed_content_2,
+            children: parsed_content_2,
         },
     ))
 }

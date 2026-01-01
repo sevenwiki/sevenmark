@@ -1,4 +1,4 @@
-use crate::ast::{Location, RubyElement, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
@@ -11,7 +11,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse ruby elements enclosed in {{{#ruby }}}
-pub fn brace_ruby_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_ruby_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let ((parameters, _), parsed_content) = delimited(
@@ -26,9 +26,11 @@ pub fn brace_ruby_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElem
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::RubyElement(RubyElement {
-        location: Location { start, end },
-        parameters: parameters.unwrap_or_default(),
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::Ruby {
+            parameters: parameters.unwrap_or_default(),
+            children: parsed_content,
+        },
+    ))
 }

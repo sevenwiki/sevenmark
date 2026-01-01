@@ -1,4 +1,4 @@
-use crate::ast::{ListElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::brace::list::list_core_parser;
 use crate::parser::parameter::parameter_core_parser;
@@ -8,7 +8,7 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let (parameters, parsed_content) = delimited(
@@ -28,10 +28,12 @@ pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElem
         .map(|&k| k.to_string())
         .unwrap_or_default();
 
-    Ok(SevenMarkElement::ListElement(ListElement {
-        location: Location { start, end },
-        kind,
-        parameters,
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::List {
+            kind,
+            parameters,
+            children: parsed_content,
+        },
+    ))
 }

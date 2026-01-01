@@ -45,7 +45,7 @@ impl Traversable for AstNode {
             }
 
             // === children 필드만 있는 노드들 ===
-            NodeKind::Literal { children, .. }
+            NodeKind::Literal { children }
             | NodeKind::Styled { children, .. }
             | NodeKind::BlockQuote { children, .. }
             | NodeKind::Footnote { children, .. }
@@ -53,6 +53,7 @@ impl Traversable for AstNode {
             | NodeKind::Category { children }
             | NodeKind::Redirect { children, .. }
             | NodeKind::Media { children, .. }
+            | NodeKind::Ruby { children, .. }
             | NodeKind::Bold { children }
             | NodeKind::Italic { children }
             | NodeKind::Strikethrough { children }
@@ -64,18 +65,10 @@ impl Traversable for AstNode {
                 children.iter_mut().for_each(visitor);
             }
 
-            // === Fold: title + children ===
-            NodeKind::Fold {
-                title, children, ..
-            } => {
-                title.iter_mut().for_each(visitor);
-                children.iter_mut().for_each(visitor);
-            }
-
-            // === Ruby: base + text ===
-            NodeKind::Ruby { base, text, .. } => {
-                base.iter_mut().for_each(visitor);
-                text.iter_mut().for_each(visitor);
+            // === Fold: content (two inner elements) ===
+            NodeKind::Fold { content, .. } => {
+                content.0.children.iter_mut().for_each(visitor);
+                content.1.children.iter_mut().for_each(visitor);
             }
 
             // === Table: rows with cells ===
@@ -155,6 +148,7 @@ impl Traversable for AstNode {
             | NodeKind::Category { children }
             | NodeKind::Redirect { children, .. }
             | NodeKind::Media { children, .. }
+            | NodeKind::Ruby { children, .. }
             | NodeKind::Bold { children }
             | NodeKind::Italic { children }
             | NodeKind::Strikethrough { children }
@@ -166,18 +160,10 @@ impl Traversable for AstNode {
                 f(children);
             }
 
-            // === Fold: title + children ===
-            NodeKind::Fold {
-                title, children, ..
-            } => {
-                f(title);
-                f(children);
-            }
-
-            // === Ruby: base + text ===
-            NodeKind::Ruby { base, text, .. } => {
-                f(base);
-                f(text);
+            // === Fold: content (two inner elements) ===
+            NodeKind::Fold { content, .. } => {
+                f(&mut content.0.children);
+                f(&mut content.1.children);
             }
 
             // === Table: rows contain cells ===
@@ -249,6 +235,7 @@ impl Traversable for AstNode {
             | NodeKind::Category { children }
             | NodeKind::Redirect { children, .. }
             | NodeKind::Media { children, .. }
+            | NodeKind::Ruby { children, .. }
             | NodeKind::Bold { children }
             | NodeKind::Italic { children }
             | NodeKind::Strikethrough { children }
@@ -260,18 +247,10 @@ impl Traversable for AstNode {
                 children.iter().for_each(visitor);
             }
 
-            // === Fold: title + children ===
-            NodeKind::Fold {
-                title, children, ..
-            } => {
-                title.iter().for_each(visitor);
-                children.iter().for_each(visitor);
-            }
-
-            // === Ruby: base + text ===
-            NodeKind::Ruby { base, text, .. } => {
-                base.iter().for_each(visitor);
-                text.iter().for_each(visitor);
+            // === Fold: content (two inner elements) ===
+            NodeKind::Fold { content, .. } => {
+                content.0.children.iter().for_each(visitor);
+                content.1.children.iter().for_each(visitor);
             }
 
             // === Table: rows with cells ===
