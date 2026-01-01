@@ -1,528 +1,383 @@
-use crate::ast::{Expression, ListContentItem, SevenMarkElement, TableCellItem, TableRowItem};
+use crate::ast::{AstNode, Expression, ListItem, NodeKind, TableCell, TableRow};
 
 /// Trait for automatically traversing AST elements
 pub trait Traversable {
     /// 각 자식 요소에 대해 visitor 호출 (mutable)
     fn traverse_children<F>(&mut self, visitor: &mut F)
     where
-        F: FnMut(&mut SevenMarkElement);
+        F: FnMut(&mut AstNode);
 
     /// 각 자식 요소에 대해 visitor 호출 (immutable - 읽기 전용 순회)
     fn traverse_children_ref<F>(&self, visitor: &mut F)
     where
-        F: FnMut(&SevenMarkElement);
+        F: FnMut(&AstNode);
 
-    /// 각 content Vec에 대해 f 호출 (Vec 구조 변경이 필요할 때 사용)
-    fn for_each_content_vec<F>(&mut self, f: &mut F)
+    /// 각 children Vec에 대해 f 호출 (Vec 구조 변경이 필요할 때 사용)
+    fn for_each_children_vec<F>(&mut self, f: &mut F)
     where
-        F: FnMut(&mut Vec<SevenMarkElement>);
+        F: FnMut(&mut Vec<AstNode>);
 }
 
-impl Traversable for SevenMarkElement {
+impl Traversable for AstNode {
     fn traverse_children<F>(&mut self, visitor: &mut F)
     where
-        F: FnMut(&mut SevenMarkElement),
+        F: FnMut(&mut AstNode),
     {
-        match self {
-            // 자식이 없는 요소들
-            SevenMarkElement::Text(_)
-            | SevenMarkElement::Comment(_)
-            | SevenMarkElement::Escape(_)
-            | SevenMarkElement::Error(_)
-            | SevenMarkElement::Age(_)
-            | SevenMarkElement::Variable(_)
-            | SevenMarkElement::Mention(_)
-            | SevenMarkElement::TeXElement(_)
-            | SevenMarkElement::Null
-            | SevenMarkElement::FootNote
-            | SevenMarkElement::TimeNow
-            | SevenMarkElement::SoftBreak
-            | SevenMarkElement::HardBreak
-            | SevenMarkElement::HLine => {
+        match &mut self.kind {
+            // === Leaf nodes (자식 없음) ===
+            NodeKind::Text { .. }
+            | NodeKind::Comment { .. }
+            | NodeKind::Escape { .. }
+            | NodeKind::Error { .. }
+            | NodeKind::Code { .. }
+            | NodeKind::TeX { .. }
+            | NodeKind::Define { .. }
+            | NodeKind::Null
+            | NodeKind::FootnoteRef
+            | NodeKind::TimeNow
+            | NodeKind::Age { .. }
+            | NodeKind::Variable { .. }
+            | NodeKind::Mention { .. }
+            | NodeKind::SoftBreak
+            | NodeKind::HardBreak
+            | NodeKind::HLine => {
                 // 자식 없음
             }
 
-            // content 필드 하나만 있는 요소들
-            SevenMarkElement::LiteralElement(e) => e.content.iter_mut().for_each(visitor),
-            SevenMarkElement::Header(e) => e.content.iter_mut().for_each(visitor),
-            SevenMarkElement::Category(e) => e.content.iter_mut().for_each(visitor),
-            SevenMarkElement::Redirect(e) => e.content.iter_mut().for_each(visitor),
-            SevenMarkElement::FootnoteElement(e) => e.content.iter_mut().for_each(visitor),
+            // === children 필드만 있는 노드들 ===
+            NodeKind::Literal { children, .. }
+            | NodeKind::Styled { children, .. }
+            | NodeKind::BlockQuote { children, .. }
+            | NodeKind::Footnote { children, .. }
+            | NodeKind::Include { children, .. }
+            | NodeKind::Category { children }
+            | NodeKind::Redirect { children, .. }
+            | NodeKind::Media { children, .. }
+            | NodeKind::Bold { children }
+            | NodeKind::Italic { children }
+            | NodeKind::Strikethrough { children }
+            | NodeKind::Underline { children }
+            | NodeKind::Superscript { children }
+            | NodeKind::Subscript { children }
+            | NodeKind::Header { children, .. }
+            | NodeKind::If { children, .. } => {
+                children.iter_mut().for_each(visitor);
+            }
 
-            // content + parameters 둘 다 있는 요소들
-            SevenMarkElement::StyledElement(e) => {
-                for child in &mut e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
-                }
+            // === Fold: title + children ===
+            NodeKind::Fold {
+                title, children, ..
+            } => {
+                title.iter_mut().for_each(visitor);
+                children.iter_mut().for_each(visitor);
             }
-            SevenMarkElement::BlockQuoteElement(e) => {
-                for child in &mut e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
-                }
+
+            // === Ruby: base + text ===
+            NodeKind::Ruby { base, text, .. } => {
+                base.iter_mut().for_each(visitor);
+                text.iter_mut().for_each(visitor);
             }
-            SevenMarkElement::RubyElement(e) => {
-                for child in &mut e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::CodeElement(e) => {
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::Include(e) => {
-                for child in &mut e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::MediaElement(e) => {
-                for child in &mut e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
+
+            // === Table: rows with cells ===
+            NodeKind::Table { children, .. } => {
+                for row in children {
+                    traverse_table_row(row, visitor);
                 }
             }
 
-            // parameters만 있는 요소
-            SevenMarkElement::DefineElement(e) => {
-                for param in e.parameters.values_mut() {
-                    for child in &mut param.value {
-                        visitor(child);
-                    }
+            // === List: items ===
+            NodeKind::List { children, .. } => {
+                for item in children {
+                    traverse_list_item(item, visitor);
                 }
             }
 
-            // TextStyle 계열
-            SevenMarkElement::Bold(e)
-            | SevenMarkElement::Italic(e)
-            | SevenMarkElement::Strikethrough(e)
-            | SevenMarkElement::Underline(e)
-            | SevenMarkElement::Superscript(e)
-            | SevenMarkElement::Subscript(e) => {
-                e.content.iter_mut().for_each(visitor);
+            // === Conditional groups ===
+            NodeKind::ConditionalTableRows {
+                condition,
+                children,
+            } => {
+                for row in children {
+                    traverse_table_row(row, visitor);
+                }
+                traverse_expression(condition, visitor);
             }
-
-            // 특수 중첩 구조들
-            SevenMarkElement::TableElement(table) => {
-                for row_item in &mut table.content {
-                    match row_item {
-                        TableRowItem::Row(row) => {
-                            for cell_item in &mut row.content {
-                                match cell_item {
-                                    TableCellItem::Cell(cell) => {
-                                        for child in &mut cell.content {
-                                            visitor(child);
-                                        }
-                                    }
-                                    TableCellItem::Conditional {
-                                        condition, cells, ..
-                                    } => {
-                                        for cell in cells {
-                                            for child in &mut cell.content {
-                                                visitor(child);
-                                            }
-                                        }
-                                        traverse_expression(condition, visitor);
-                                    }
-                                }
-                            }
-                        }
-                        TableRowItem::Conditional {
-                            condition, rows, ..
-                        } => {
-                            for row in rows {
-                                for cell_item in &mut row.content {
-                                    match cell_item {
-                                        TableCellItem::Cell(cell) => {
-                                            for child in &mut cell.content {
-                                                visitor(child);
-                                            }
-                                        }
-                                        TableCellItem::Conditional {
-                                            condition: cell_cond,
-                                            cells,
-                                            ..
-                                        } => {
-                                            for cell in cells {
-                                                for child in &mut cell.content {
-                                                    visitor(child);
-                                                }
-                                            }
-                                            traverse_expression(cell_cond, visitor);
-                                        }
-                                    }
-                                }
-                            }
-                            traverse_expression(condition, visitor);
-                        }
-                    }
+            NodeKind::ConditionalTableCells {
+                condition,
+                children,
+            } => {
+                for cell in children {
+                    traverse_table_cell(cell, visitor);
                 }
+                traverse_expression(condition, visitor);
             }
-            SevenMarkElement::ListElement(list) => {
-                for item in &mut list.content {
-                    match item {
-                        ListContentItem::Item(list_item) => {
-                            for child in &mut list_item.content {
-                                visitor(child);
-                            }
-                        }
-                        ListContentItem::Conditional {
-                            condition, items, ..
-                        } => {
-                            for list_item in items {
-                                for child in &mut list_item.content {
-                                    visitor(child);
-                                }
-                            }
-                            traverse_expression(condition, visitor);
-                        }
-                    }
+            NodeKind::ConditionalListItems {
+                condition,
+                children,
+            } => {
+                for item in children {
+                    traverse_list_item(item, visitor);
                 }
-            }
-            SevenMarkElement::FoldElement(fold) => {
-                for child in &mut fold.content.0.content {
-                    visitor(child);
-                }
-                for child in &mut fold.content.1.content {
-                    visitor(child);
-                }
-            }
-
-            // IfElement - content와 condition 내 Element들 순회
-            SevenMarkElement::IfElement(if_elem) => {
-                for child in &mut if_elem.content {
-                    visitor(child);
-                }
-                // condition 내 Expression::Element들도 순회
-                traverse_expression(&mut if_elem.condition, visitor);
+                traverse_expression(condition, visitor);
             }
         }
     }
 
-    fn for_each_content_vec<F>(&mut self, f: &mut F)
+    fn for_each_children_vec<F>(&mut self, f: &mut F)
     where
-        F: FnMut(&mut Vec<SevenMarkElement>),
+        F: FnMut(&mut Vec<AstNode>),
     {
-        match self {
-            // 자식이 없는 요소들
-            SevenMarkElement::Text(_)
-            | SevenMarkElement::Comment(_)
-            | SevenMarkElement::Escape(_)
-            | SevenMarkElement::Error(_)
-            | SevenMarkElement::Age(_)
-            | SevenMarkElement::Variable(_)
-            | SevenMarkElement::Mention(_)
-            | SevenMarkElement::TeXElement(_)
-            | SevenMarkElement::CodeElement(_)
-            | SevenMarkElement::Null
-            | SevenMarkElement::FootNote
-            | SevenMarkElement::TimeNow
-            | SevenMarkElement::SoftBreak
-            | SevenMarkElement::HardBreak
-            | SevenMarkElement::HLine
-            | SevenMarkElement::DefineElement(_) => {}
+        match &mut self.kind {
+            // === Leaf nodes ===
+            NodeKind::Text { .. }
+            | NodeKind::Comment { .. }
+            | NodeKind::Escape { .. }
+            | NodeKind::Error { .. }
+            | NodeKind::Code { .. }
+            | NodeKind::TeX { .. }
+            | NodeKind::Define { .. }
+            | NodeKind::Null
+            | NodeKind::FootnoteRef
+            | NodeKind::TimeNow
+            | NodeKind::Age { .. }
+            | NodeKind::Variable { .. }
+            | NodeKind::Mention { .. }
+            | NodeKind::SoftBreak
+            | NodeKind::HardBreak
+            | NodeKind::HLine => {}
 
-            // content Vec 하나만 있는 요소들
-            SevenMarkElement::LiteralElement(e) => f(&mut e.content),
-            SevenMarkElement::Header(e) => f(&mut e.content),
-            SevenMarkElement::Category(e) => f(&mut e.content),
-            SevenMarkElement::Redirect(e) => f(&mut e.content),
-            SevenMarkElement::FootnoteElement(e) => f(&mut e.content),
-            SevenMarkElement::StyledElement(e) => f(&mut e.content),
-            SevenMarkElement::BlockQuoteElement(e) => f(&mut e.content),
-            SevenMarkElement::RubyElement(e) => f(&mut e.content),
-            SevenMarkElement::Include(e) => f(&mut e.content),
-            SevenMarkElement::MediaElement(e) => f(&mut e.content),
-            SevenMarkElement::IfElement(e) => f(&mut e.content),
+            // === children 필드만 있는 노드들 ===
+            NodeKind::Literal { children, .. }
+            | NodeKind::Styled { children, .. }
+            | NodeKind::BlockQuote { children, .. }
+            | NodeKind::Footnote { children, .. }
+            | NodeKind::Include { children, .. }
+            | NodeKind::Category { children }
+            | NodeKind::Redirect { children, .. }
+            | NodeKind::Media { children, .. }
+            | NodeKind::Bold { children }
+            | NodeKind::Italic { children }
+            | NodeKind::Strikethrough { children }
+            | NodeKind::Underline { children }
+            | NodeKind::Superscript { children }
+            | NodeKind::Subscript { children }
+            | NodeKind::Header { children, .. }
+            | NodeKind::If { children, .. } => {
+                f(children);
+            }
 
-            // TextStyle 계열
-            SevenMarkElement::Bold(e)
-            | SevenMarkElement::Italic(e)
-            | SevenMarkElement::Strikethrough(e)
-            | SevenMarkElement::Underline(e)
-            | SevenMarkElement::Superscript(e)
-            | SevenMarkElement::Subscript(e) => f(&mut e.content),
+            // === Fold: title + children ===
+            NodeKind::Fold {
+                title, children, ..
+            } => {
+                f(title);
+                f(children);
+            }
 
-            // 특수 중첩 구조들
-            // Note: for_each_content_vec은 Vec<SevenMarkElement>에만 적용됨
-            // Table/List의 Conditional은 typed content (rows/cells/items)를 가지므로
-            // 여기서는 일반 셀의 content만 처리
-            SevenMarkElement::TableElement(table) => {
-                for row_item in &mut table.content {
-                    match row_item {
-                        TableRowItem::Row(row) => {
-                            for cell_item in &mut row.content {
-                                if let TableCellItem::Cell(cell) = cell_item {
-                                    f(&mut cell.content);
-                                }
-                                // TableCellItem::Conditional의 cells는 Vec<TableInnerElement2>이므로 처리하지 않음
-                            }
-                        }
-                        TableRowItem::Conditional { rows, .. } => {
-                            for row in rows {
-                                for cell_item in &mut row.content {
-                                    if let TableCellItem::Cell(cell) = cell_item {
-                                        f(&mut cell.content);
-                                    }
-                                }
-                            }
-                        }
+            // === Ruby: base + text ===
+            NodeKind::Ruby { base, text, .. } => {
+                f(base);
+                f(text);
+            }
+
+            // === Table: rows contain cells ===
+            NodeKind::Table { children, .. } => {
+                for row in children {
+                    for cell in &mut row.children {
+                        f(&mut cell.children);
                     }
                 }
             }
-            SevenMarkElement::ListElement(list) => {
-                for item in &mut list.content {
-                    match item {
-                        ListContentItem::Item(list_item) => f(&mut list_item.content),
-                        ListContentItem::Conditional { items, .. } => {
-                            for list_item in items {
-                                f(&mut list_item.content);
-                            }
-                        }
+
+            // === List: items ===
+            NodeKind::List { children, .. } => {
+                for item in children {
+                    f(&mut item.children);
+                }
+            }
+
+            // === Conditional groups ===
+            NodeKind::ConditionalTableRows { children, .. } => {
+                for row in children {
+                    for cell in &mut row.children {
+                        f(&mut cell.children);
                     }
                 }
             }
-            SevenMarkElement::FoldElement(fold) => {
-                f(&mut fold.content.0.content);
-                f(&mut fold.content.1.content);
+            NodeKind::ConditionalTableCells { children, .. } => {
+                for cell in children {
+                    f(&mut cell.children);
+                }
+            }
+            NodeKind::ConditionalListItems { children, .. } => {
+                for item in children {
+                    f(&mut item.children);
+                }
             }
         }
     }
 
     fn traverse_children_ref<F>(&self, visitor: &mut F)
     where
-        F: FnMut(&SevenMarkElement),
+        F: FnMut(&AstNode),
     {
-        match self {
-            // 자식이 없는 요소들
-            SevenMarkElement::Text(_)
-            | SevenMarkElement::Comment(_)
-            | SevenMarkElement::Escape(_)
-            | SevenMarkElement::Error(_)
-            | SevenMarkElement::Age(_)
-            | SevenMarkElement::Variable(_)
-            | SevenMarkElement::Mention(_)
-            | SevenMarkElement::TeXElement(_)
-            | SevenMarkElement::Null
-            | SevenMarkElement::FootNote
-            | SevenMarkElement::TimeNow
-            | SevenMarkElement::SoftBreak
-            | SevenMarkElement::HardBreak
-            | SevenMarkElement::HLine => {
-                // 자식 없음
+        match &self.kind {
+            // === Leaf nodes ===
+            NodeKind::Text { .. }
+            | NodeKind::Comment { .. }
+            | NodeKind::Escape { .. }
+            | NodeKind::Error { .. }
+            | NodeKind::Code { .. }
+            | NodeKind::TeX { .. }
+            | NodeKind::Define { .. }
+            | NodeKind::Null
+            | NodeKind::FootnoteRef
+            | NodeKind::TimeNow
+            | NodeKind::Age { .. }
+            | NodeKind::Variable { .. }
+            | NodeKind::Mention { .. }
+            | NodeKind::SoftBreak
+            | NodeKind::HardBreak
+            | NodeKind::HLine => {}
+
+            // === children 필드만 있는 노드들 ===
+            NodeKind::Literal { children, .. }
+            | NodeKind::Styled { children, .. }
+            | NodeKind::BlockQuote { children, .. }
+            | NodeKind::Footnote { children, .. }
+            | NodeKind::Include { children, .. }
+            | NodeKind::Category { children }
+            | NodeKind::Redirect { children, .. }
+            | NodeKind::Media { children, .. }
+            | NodeKind::Bold { children }
+            | NodeKind::Italic { children }
+            | NodeKind::Strikethrough { children }
+            | NodeKind::Underline { children }
+            | NodeKind::Superscript { children }
+            | NodeKind::Subscript { children }
+            | NodeKind::Header { children, .. }
+            | NodeKind::If { children, .. } => {
+                children.iter().for_each(visitor);
             }
 
-            // content 필드 하나만 있는 요소들
-            SevenMarkElement::LiteralElement(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Header(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Category(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::Redirect(e) => e.content.iter().for_each(visitor),
-            SevenMarkElement::FootnoteElement(e) => e.content.iter().for_each(visitor),
+            // === Fold: title + children ===
+            NodeKind::Fold {
+                title, children, ..
+            } => {
+                title.iter().for_each(visitor);
+                children.iter().for_each(visitor);
+            }
 
-            // content + parameters 둘 다 있는 요소들
-            SevenMarkElement::StyledElement(e) => {
-                for child in &e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
-                }
+            // === Ruby: base + text ===
+            NodeKind::Ruby { base, text, .. } => {
+                base.iter().for_each(visitor);
+                text.iter().for_each(visitor);
             }
-            SevenMarkElement::BlockQuoteElement(e) => {
-                for child in &e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::RubyElement(e) => {
-                for child in &e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::CodeElement(e) => {
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::Include(e) => {
-                for child in &e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
-                }
-            }
-            SevenMarkElement::MediaElement(e) => {
-                for child in &e.content {
-                    visitor(child);
-                }
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
+
+            // === Table: rows with cells ===
+            NodeKind::Table { children, .. } => {
+                for row in children {
+                    traverse_table_row_ref(row, visitor);
                 }
             }
 
-            // parameters만 있는 요소
-            SevenMarkElement::DefineElement(e) => {
-                for param in e.parameters.values() {
-                    for child in &param.value {
-                        visitor(child);
-                    }
+            // === List: items ===
+            NodeKind::List { children, .. } => {
+                for item in children {
+                    traverse_list_item_ref(item, visitor);
                 }
             }
 
-            // TextStyle 계열
-            SevenMarkElement::Bold(e)
-            | SevenMarkElement::Italic(e)
-            | SevenMarkElement::Strikethrough(e)
-            | SevenMarkElement::Underline(e)
-            | SevenMarkElement::Superscript(e)
-            | SevenMarkElement::Subscript(e) => {
-                e.content.iter().for_each(visitor);
+            // === Conditional groups ===
+            NodeKind::ConditionalTableRows {
+                condition,
+                children,
+            } => {
+                for row in children {
+                    traverse_table_row_ref(row, visitor);
+                }
+                traverse_expression_ref(condition, visitor);
             }
-
-            // 특수 중첩 구조들
-            SevenMarkElement::TableElement(table) => {
-                for row_item in &table.content {
-                    match row_item {
-                        TableRowItem::Row(row) => {
-                            for cell_item in &row.content {
-                                match cell_item {
-                                    TableCellItem::Cell(cell) => {
-                                        for child in &cell.content {
-                                            visitor(child);
-                                        }
-                                    }
-                                    TableCellItem::Conditional {
-                                        condition, cells, ..
-                                    } => {
-                                        for cell in cells {
-                                            for child in &cell.content {
-                                                visitor(child);
-                                            }
-                                        }
-                                        traverse_expression_ref(condition, visitor);
-                                    }
-                                }
-                            }
-                        }
-                        TableRowItem::Conditional {
-                            condition, rows, ..
-                        } => {
-                            for row in rows {
-                                for cell_item in &row.content {
-                                    match cell_item {
-                                        TableCellItem::Cell(cell) => {
-                                            for child in &cell.content {
-                                                visitor(child);
-                                            }
-                                        }
-                                        TableCellItem::Conditional {
-                                            condition: cell_cond,
-                                            cells,
-                                            ..
-                                        } => {
-                                            for cell in cells {
-                                                for child in &cell.content {
-                                                    visitor(child);
-                                                }
-                                            }
-                                            traverse_expression_ref(cell_cond, visitor);
-                                        }
-                                    }
-                                }
-                            }
-                            traverse_expression_ref(condition, visitor);
-                        }
-                    }
+            NodeKind::ConditionalTableCells {
+                condition,
+                children,
+            } => {
+                for cell in children {
+                    traverse_table_cell_ref(cell, visitor);
                 }
+                traverse_expression_ref(condition, visitor);
             }
-            SevenMarkElement::ListElement(list) => {
-                for item in &list.content {
-                    match item {
-                        ListContentItem::Item(list_item) => {
-                            for child in &list_item.content {
-                                visitor(child);
-                            }
-                        }
-                        ListContentItem::Conditional {
-                            condition, items, ..
-                        } => {
-                            for list_item in items {
-                                for child in &list_item.content {
-                                    visitor(child);
-                                }
-                            }
-                            traverse_expression_ref(condition, visitor);
-                        }
-                    }
+            NodeKind::ConditionalListItems {
+                condition,
+                children,
+            } => {
+                for item in children {
+                    traverse_list_item_ref(item, visitor);
                 }
-            }
-            SevenMarkElement::FoldElement(fold) => {
-                for child in &fold.content.0.content {
-                    visitor(child);
-                }
-                for child in &fold.content.1.content {
-                    visitor(child);
-                }
-            }
-
-            // IfElement - content와 condition 내 Element들 순회
-            SevenMarkElement::IfElement(if_elem) => {
-                for child in &if_elem.content {
-                    visitor(child);
-                }
-                traverse_expression_ref(&if_elem.condition, visitor);
+                traverse_expression_ref(condition, visitor);
             }
         }
     }
 }
 
-/// Expression 내의 SevenMarkElement들을 순회하는 헬퍼 함수 (mutable)
+// === Helper functions for nested structures ===
+
+fn traverse_table_row<F>(row: &mut TableRow, visitor: &mut F)
+where
+    F: FnMut(&mut AstNode),
+{
+    for cell in &mut row.children {
+        traverse_table_cell(cell, visitor);
+    }
+}
+
+fn traverse_table_cell<F>(cell: &mut TableCell, visitor: &mut F)
+where
+    F: FnMut(&mut AstNode),
+{
+    cell.x.iter_mut().for_each(visitor);
+    cell.y.iter_mut().for_each(visitor);
+    cell.children.iter_mut().for_each(visitor);
+}
+
+fn traverse_list_item<F>(item: &mut ListItem, visitor: &mut F)
+where
+    F: FnMut(&mut AstNode),
+{
+    item.children.iter_mut().for_each(visitor);
+}
+
+fn traverse_table_row_ref<F>(row: &TableRow, visitor: &mut F)
+where
+    F: FnMut(&AstNode),
+{
+    for cell in &row.children {
+        traverse_table_cell_ref(cell, visitor);
+    }
+}
+
+fn traverse_table_cell_ref<F>(cell: &TableCell, visitor: &mut F)
+where
+    F: FnMut(&AstNode),
+{
+    cell.x.iter().for_each(visitor);
+    cell.y.iter().for_each(visitor);
+    cell.children.iter().for_each(visitor);
+}
+
+fn traverse_list_item_ref<F>(item: &ListItem, visitor: &mut F)
+where
+    F: FnMut(&AstNode),
+{
+    item.children.iter().for_each(visitor);
+}
+
+// === Expression traversal ===
+
+/// Expression 내의 AstNode들을 순회하는 헬퍼 함수 (mutable)
 fn traverse_expression<F>(expr: &mut Expression, visitor: &mut F)
 where
-    F: FnMut(&mut SevenMarkElement),
+    F: FnMut(&mut AstNode),
 {
     match expr {
         Expression::Or { left, right, .. } | Expression::And { left, right, .. } => {
@@ -547,16 +402,14 @@ where
         Expression::StringLiteral { .. }
         | Expression::NumberLiteral { .. }
         | Expression::BoolLiteral { .. }
-        | Expression::Null { .. } => {
-            // 자식 없음
-        }
+        | Expression::Null { .. } => {}
     }
 }
 
-/// Expression 내의 SevenMarkElement들을 순회하는 헬퍼 함수 (immutable)
+/// Expression 내의 AstNode들을 순회하는 헬퍼 함수 (immutable)
 fn traverse_expression_ref<F>(expr: &Expression, visitor: &mut F)
 where
-    F: FnMut(&SevenMarkElement),
+    F: FnMut(&AstNode),
 {
     match expr {
         Expression::Or { left, right, .. } | Expression::And { left, right, .. } => {
@@ -581,8 +434,6 @@ where
         Expression::StringLiteral { .. }
         | Expression::NumberLiteral { .. }
         | Expression::BoolLiteral { .. }
-        | Expression::Null { .. } => {
-            // 자식 없음
-        }
+        | Expression::Null { .. } => {}
     }
 }

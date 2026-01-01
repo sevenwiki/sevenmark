@@ -1,4 +1,4 @@
-use crate::ast::{BlockQuoteElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
@@ -10,7 +10,7 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<SevenMarkElement> {
+pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let ((parameters, _), parsed_content) = delimited(
@@ -25,9 +25,11 @@ pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<SevenMa
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(SevenMarkElement::BlockQuoteElement(BlockQuoteElement {
-        location: Location { start, end },
-        parameters: parameters.unwrap_or_default(),
-        content: parsed_content,
-    }))
+    Ok(AstNode::new(
+        Location { start, end },
+        NodeKind::BlockQuote {
+            parameters: parameters.unwrap_or_default(),
+            children: parsed_content,
+        },
+    ))
 }

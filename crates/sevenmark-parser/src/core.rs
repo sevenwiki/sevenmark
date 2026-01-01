@@ -1,4 +1,4 @@
-use crate::ast::{ErrorElement, Location, SevenMarkElement};
+use crate::ast::{AstNode, Location, NodeKind};
 use crate::context::ParseContext;
 use crate::parser::document::document_parser;
 use crate::parser::{InputSource, ParserInput};
@@ -7,7 +7,7 @@ use std::collections::HashSet;
 use std::rc::Rc;
 use winnow::stream::Location as StreamLocation;
 
-pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
+pub fn parse_document(input: &str) -> Vec<AstNode> {
     // Pre-calculate all line start positions for O(1) lookups
     let line_starts: HashSet<usize> = input.line_spans().map(|span| span.range().start).collect();
 
@@ -27,22 +27,26 @@ pub fn parse_document(input: &str) -> Vec<SevenMarkElement> {
                 let remaining = stateful_input.input.to_string();
                 let end = start + remaining.len();
 
-                elements.push(SevenMarkElement::Error(ErrorElement {
-                    location: Location { start, end },
-                    content: remaining,
-                }));
+                elements.push(AstNode::new(
+                    Location { start, end },
+                    NodeKind::Error {
+                        value: remaining,
+                    },
+                ));
             }
             elements
         }
         Err(_) => {
             // If parser fails, treat entire input as single Error element
-            vec![SevenMarkElement::Error(ErrorElement {
-                location: Location {
+            vec![AstNode::new(
+                Location {
                     start: 0,
                     end: input.len(),
                 },
-                content: input.to_string(),
-            })]
+                NodeKind::Error {
+                    value: input.to_string(),
+                },
+            )]
         }
     }
 }

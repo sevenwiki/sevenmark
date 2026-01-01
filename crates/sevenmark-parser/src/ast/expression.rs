@@ -1,6 +1,6 @@
 use serde::Serialize;
 
-use super::{Location, SevenMarkElement};
+use super::{AstNode, Location};
 
 /// 논리 연산자 종류
 #[derive(Debug, Clone, Serialize, PartialEq)]
@@ -102,8 +102,8 @@ pub enum Expression {
         location: Location,
     },
 
-    /// 기존 SevenMarkElement 그대로 포함 (변환 없음, 자체 location 보유)
-    Element(Box<SevenMarkElement>),
+    /// 기존 AstNode 그대로 포함 (변환 없음, 자체 location 보유)
+    Element(Box<AstNode>),
 
     /// 괄호 그룹
     Group {
@@ -113,11 +113,4 @@ pub enum Expression {
     },
 }
 
-/// If 조건문 요소
-#[derive(Debug, Clone, Serialize)]
-pub struct IfElement {
-    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
-    pub location: Location,
-    pub condition: Expression,
-    pub content: Vec<SevenMarkElement>,
-}
+// IfElement는 이제 NodeKind::If로 통합됨

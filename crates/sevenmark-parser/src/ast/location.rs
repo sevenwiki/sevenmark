@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-use super::SevenMarkElement;
+use super::AstNode;
 
 /// 소스 코드 위치 정보
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +23,7 @@ pub struct Parameter {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub location: Location,
     pub key: String,
-    pub value: Vec<SevenMarkElement>,
+    pub value: Vec<AstNode>,
 }
 
 /// 파라미터 맵: key-value 쌍으로 각 value는 Parameter 구조체 (location 포함)

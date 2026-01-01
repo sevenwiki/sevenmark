@@ -3,7 +3,6 @@ import json
 with open("ToParse.txt", "r", encoding="utf-8") as f:
     content = f.read()
 
-# json.dumps가 자동으로 " → \" 와 줄바꿈 → \n 처리를 해줌
 escaped = json.dumps(content, ensure_ascii=False)
 
 with open("ToParse_escaped.txt", "w", encoding="utf-8") as f:
