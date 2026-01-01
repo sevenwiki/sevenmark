@@ -1,4 +1,6 @@
-use sevenmark_parser::ast::{AstNode, ComparisonOperator, ComparisonOperatorKind, Expression, NodeKind};
+use sevenmark_parser::ast::{
+    AstNode, ComparisonOperator, ComparisonOperatorKind, Expression, NodeKind,
+};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과

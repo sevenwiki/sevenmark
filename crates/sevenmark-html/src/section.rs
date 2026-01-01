@@ -121,8 +121,7 @@ fn build_section(
             // Otherwise, it's a child section
             child_counter += 1;
             let child_path = format!("{}.{}", section.section_path, child_counter);
-            if let Some((child_section, next_index)) =
-                build_section(elements, i, level, child_path)
+            if let Some((child_section, next_index)) = build_section(elements, i, level, child_path)
             {
                 section.children.push(child_section);
                 i = next_index;

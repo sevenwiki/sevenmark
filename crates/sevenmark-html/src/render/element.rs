@@ -36,15 +36,23 @@ pub fn render_element(el: &AstNode, ctx: &mut RenderContext) -> Markup {
         NodeKind::Header { .. } => html! {},
 
         // Block elements
-        NodeKind::BlockQuote { parameters, children } => {
-            brace::blockquote::render(parameters, children, ctx)
-        }
+        NodeKind::BlockQuote {
+            parameters,
+            children,
+        } => brace::blockquote::render(parameters, children, ctx),
         NodeKind::Literal { children } => brace::literal::render(children, ctx),
-        NodeKind::Styled { parameters, children } => {
-            brace::styled::render(parameters, children, ctx)
-        }
-        NodeKind::Fold { parameters, content } => brace::fold::render(parameters, content, ctx),
-        NodeKind::Ruby { parameters, children } => brace::ruby::render(parameters, children, ctx),
+        NodeKind::Styled {
+            parameters,
+            children,
+        } => brace::styled::render(parameters, children, ctx),
+        NodeKind::Fold {
+            parameters,
+            content,
+        } => brace::fold::render(parameters, content, ctx),
+        NodeKind::Ruby {
+            parameters,
+            children,
+        } => brace::ruby::render(parameters, children, ctx),
         NodeKind::Code { parameters, value } => brace::code::render(parameters, value),
         NodeKind::TeX { is_block, value } => brace::tex::render(*is_block, value),
 
@@ -54,9 +62,10 @@ pub fn render_element(el: &AstNode, ctx: &mut RenderContext) -> Markup {
             parameters,
             children,
         } => brace::list::render(kind, parameters, children, ctx),
-        NodeKind::Table { parameters, children } => {
-            brace::table::render(parameters, children, ctx)
-        }
+        NodeKind::Table {
+            parameters,
+            children,
+        } => brace::table::render(parameters, children, ctx),
 
         // Media
         NodeKind::Media {

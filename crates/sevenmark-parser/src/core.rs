@@ -29,9 +29,7 @@ pub fn parse_document(input: &str) -> Vec<AstNode> {
 
                 elements.push(AstNode::new(
                     Location { start, end },
-                    NodeKind::Error {
-                        value: remaining,
-                    },
+                    NodeKind::Error { value: remaining },
                 ));
             }
             elements

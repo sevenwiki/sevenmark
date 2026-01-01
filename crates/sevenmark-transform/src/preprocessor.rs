@@ -166,7 +166,11 @@ fn process_defines_and_ifs(elements: &mut Vec<AstNode>, variables: &mut HashMap<
         }
 
         // 3. If: 조건 평가 후 전개/제거
-        if let NodeKind::If { condition, children } = &elements[i].kind {
+        if let NodeKind::If {
+            condition,
+            children,
+        } = &elements[i].kind
+        {
             if evaluate_condition(condition, variables) {
                 // 조건 true: 내용으로 대체 후 같은 위치부터 재처리
                 let content = children.clone();
@@ -547,7 +551,7 @@ fn process_table_conditionals(rows: &mut Vec<AstNode>, variables: &mut HashMap<S
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: rows를 펼침 (처리는 펼친 후 루프에서)
-                    let expanded: Vec<AstNode> = children.drain(..).collect();
+                    let expanded = std::mem::take(children);
                     rows.splice(i..i + 1, expanded);
                     // i 유지 → 다음 반복에서 TableRow로 처리됨
                 } else {
@@ -581,7 +585,7 @@ fn process_table_cell_conditionals(
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: cells를 펼침 (처리는 펼친 후 루프에서)
-                    let expanded: Vec<AstNode> = children.drain(..).collect();
+                    let expanded = std::mem::take(children);
                     cells.splice(i..i + 1, expanded);
                     // i 유지 → 다음 반복에서 TableCell로 처리됨
                 } else {
@@ -612,7 +616,7 @@ fn process_list_conditionals(items: &mut Vec<AstNode>, variables: &mut HashMap<S
             } => {
                 if evaluate_condition(condition, variables) {
                     // 조건이 true: items를 펼침 (처리는 펼친 후 루프에서)
-                    let expanded: Vec<AstNode> = children.drain(..).collect();
+                    let expanded = std::mem::take(children);
                     items.splice(i..i + 1, expanded);
                     // i 유지 → 다음 반복에서 ListItem으로 처리됨
                 } else {
