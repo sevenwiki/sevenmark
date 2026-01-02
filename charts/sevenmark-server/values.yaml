@@ -1,0 +1,119 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/sevenwiki/sevenmark
+  pullPolicy: IfNotPresent
+  tag: ""  # Defaults to chart appVersion
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+
+service:
+  type: ClusterIP
+  port: 9000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: parser.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+# =============================================================================
+# Environment Configuration (from server_config.rs)
+# =============================================================================
+
+# ConfigMap: Non-sensitive configuration
+config:
+  # Server
+  HOST: "0.0.0.0"
+  PORT: "9000"
+  RUST_LOG: "info"
+
+  # Database pool (optional, defaults: max=100, min=10)
+  POSTGRES_MAX_CONNECTION: "30"
+  POSTGRES_MIN_CONNECTION: "10"
+
+# Secret: Reference existing secret (recommended for production)
+existingSecret: ""
+
+# Secret: Create from values (NOT recommended for production - use existingSecret)
+secret:
+  # Database (required)
+  POSTGRES_USER: ""
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST: ""
+  POSTGRES_PORT: "5432"
+  POSTGRES_NAME: ""
+
+  # SeaweedFS (required)
+  SEAWEEDFS_ENDPOINT: ""
+
+# Probes
+livenessProbe:
+  httpGet:
+    path: /health-check
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /health-check
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3

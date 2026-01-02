@@ -1,0 +1,15 @@
+apiVersion: v2
+name: sevenmark-server
+description: SevenMark wiki markup parser REST API server
+type: application
+version: 0.1.0
+appVersion: "2.12.7"
+keywords:
+  - parser
+  - wiki
+  - api
+  - rust
+  - axum
+home: https://github.com/sevenwiki/sevenmark
+maintainers:
+  - name: SevenWiki Team
