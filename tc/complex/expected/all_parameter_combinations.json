@@ -1,12 +1,24 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 144
+    },
     "kind": {
       "Styled": {
         "parameters": {
           "bgcolor": {
+            "location": {
+              "start": 68,
+              "end": 86
+            },
             "key": "bgcolor",
             "value": [
               {
+                "location": {
+                  "start": 78,
+                  "end": 84
+                },
                 "kind": {
                   "Text": {
                     "value": "yellow"
@@ -16,9 +28,17 @@
             ]
           },
           "color": {
+            "location": {
+              "start": 54,
+              "end": 68
+            },
             "key": "color",
             "value": [
               {
+                "location": {
+                  "start": 62,
+                  "end": 66
+                },
                 "kind": {
                   "Text": {
                     "value": "blue"
@@ -28,9 +48,17 @@
             ]
           },
           "opacity": {
+            "location": {
+              "start": 86,
+              "end": 101
+            },
             "key": "opacity",
             "value": [
               {
+                "location": {
+                  "start": 96,
+                  "end": 99
+                },
                 "kind": {
                   "Text": {
                     "value": "0.8"
@@ -40,9 +68,17 @@
             ]
           },
           "size": {
+            "location": {
+              "start": 41,
+              "end": 54
+            },
             "key": "size",
             "value": [
               {
+                "location": {
+                  "start": 48,
+                  "end": 52
+                },
                 "kind": {
                   "Text": {
                     "value": "18px"
@@ -52,9 +88,17 @@
             ]
           },
           "style": {
+            "location": {
+              "start": 3,
+              "end": 41
+            },
             "key": "style",
             "value": [
               {
+                "location": {
+                  "start": 12,
+                  "end": 39
+                },
                 "kind": {
                   "Text": {
                     "value": "color:red; font-weight:bold"
@@ -66,6 +110,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 101,
+              "end": 140
+            },
             "kind": {
               "Text": {
                 "value": "Maximum styled text with all parameters"
@@ -77,19 +125,39 @@
     }
   },
   {
+    "location": {
+      "start": 144,
+      "end": 145
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 145,
+      "end": 146
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 146,
+      "end": 370
+    },
     "kind": {
       "Fold": {
         "parameters": {
           "style": {
+            "location": {
+              "start": 154,
+              "end": 188
+            },
             "key": "style",
             "value": [
               {
+                "location": {
+                  "start": 163,
+                  "end": 186
+                },
                 "kind": {
                   "Text": {
                     "value": "border:2px dashed green"
@@ -101,13 +169,25 @@
         },
         "children": [
           {
+            "location": {
+              "start": 188,
+              "end": 266
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {
                   "color": {
+                    "location": {
+                      "start": 203,
+                      "end": 219
+                    },
                     "key": "color",
                     "value": [
                       {
+                        "location": {
+                          "start": 211,
+                          "end": 217
+                        },
                         "kind": {
                           "Text": {
                             "value": "purple"
@@ -117,9 +197,17 @@
                     ]
                   },
                   "size": {
+                    "location": {
+                      "start": 190,
+                      "end": 203
+                    },
                     "key": "size",
                     "value": [
                       {
+                        "location": {
+                          "start": 197,
+                          "end": 201
+                        },
                         "kind": {
                           "Text": {
                             "value": "14px"
@@ -131,10 +219,18 @@
                 },
                 "children": [
                   {
+                    "location": {
+                      "start": 222,
+                      "end": 238
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 224,
+                              "end": 236
+                            },
                             "kind": {
                               "Text": {
                                 "value": "Styled title"
@@ -146,6 +242,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 238,
+                      "end": 263
+                    },
                     "kind": {
                       "Text": {
                         "value": " with multiple parameters"
@@ -157,13 +257,25 @@
             }
           },
           {
+            "location": {
+              "start": 266,
+              "end": 367
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {
                   "bgcolor": {
+                    "location": {
+                      "start": 268,
+                      "end": 289
+                    },
                     "key": "bgcolor",
                     "value": [
                       {
+                        "location": {
+                          "start": 278,
+                          "end": 287
+                        },
                         "kind": {
                           "Text": {
                             "value": "lightblue"
@@ -173,9 +285,17 @@
                     ]
                   },
                   "opacity": {
+                    "location": {
+                      "start": 289,
+                      "end": 304
+                    },
                     "key": "opacity",
                     "value": [
                       {
+                        "location": {
+                          "start": 299,
+                          "end": 302
+                        },
                         "kind": {
                           "Text": {
                             "value": "0.9"
@@ -185,9 +305,17 @@
                     ]
                   },
                   "style": {
+                    "location": {
+                      "start": 304,
+                      "end": 326
+                    },
                     "key": "style",
                     "value": [
                       {
+                        "location": {
+                          "start": 312,
+                          "end": 324
+                        },
                         "kind": {
                           "Text": {
                             "value": "padding:10px"
@@ -199,6 +327,10 @@
                 },
                 "children": [
                   {
+                    "location": {
+                      "start": 329,
+                      "end": 364
+                    },
                     "kind": {
                       "Text": {
                         "value": "Content with background and opacity"
@@ -214,19 +346,39 @@
     }
   },
   {
+    "location": {
+      "start": 370,
+      "end": 371
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 371,
+      "end": 372
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 372,
+      "end": 519
+    },
     "kind": {
       "Code": {
         "parameters": {
           "lang": {
+            "location": {
+              "start": 380,
+              "end": 400
+            },
             "key": "lang",
             "value": [
               {
+                "location": {
+                  "start": 388,
+                  "end": 398
+                },
                 "kind": {
                   "Text": {
                     "value": "javascript"
@@ -236,9 +388,17 @@
             ]
           },
           "size": {
+            "location": {
+              "start": 438,
+              "end": 451
+            },
             "key": "size",
             "value": [
               {
+                "location": {
+                  "start": 445,
+                  "end": 449
+                },
                 "kind": {
                   "Text": {
                     "value": "12px"
@@ -248,9 +408,17 @@
             ]
           },
           "style": {
+            "location": {
+              "start": 400,
+              "end": 438
+            },
             "key": "style",
             "value": [
               {
+                "location": {
+                  "start": 408,
+                  "end": 436
+                },
                 "kind": {
                   "Text": {
                     "value": "background:black; color:lime"

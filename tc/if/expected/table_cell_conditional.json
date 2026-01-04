@@ -1,20 +1,36 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 75
+    },
     "kind": {
       "Table": {
         "parameters": {},
         "children": [
           {
+            "location": {
+              "start": 9,
+              "end": 72
+            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 12,
+                      "end": 29
+                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
+                            "location": {
+                              "start": 15,
+                              "end": 26
+                            },
                             "kind": {
                               "Text": {
                                 "value": "Normal Cell"
@@ -26,9 +42,17 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 29,
+                      "end": 69
+                    },
                     "kind": {
                       "ConditionalTableCells": {
                         "condition": {
+                          "location": {
+                            "start": 36,
+                            "end": 40
+                          },
                           "kind": {
                             "ExprBoolLiteral": {
                               "value": true
@@ -37,11 +61,19 @@
                         },
                         "children": [
                           {
+                            "location": {
+                              "start": 44,
+                              "end": 65
+                            },
                             "kind": {
                               "TableCell": {
                                 "parameters": {},
                                 "children": [
                                   {
+                                    "location": {
+                                      "start": 46,
+                                      "end": 62
+                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Conditional Cell"

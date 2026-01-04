@@ -1,5 +1,9 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 20
+    },
     "kind": {
       "Text": {
         "value": "Text before comment "
@@ -7,6 +11,10 @@
     }
   },
   {
+    "location": {
+      "start": 20,
+      "end": 49
+    },
     "kind": {
       "Comment": {
         "value": " This is an inline comment"
@@ -14,6 +22,10 @@
     }
   },
   {
+    "location": {
+      "start": 49,
+      "end": 68
+    },
     "kind": {
       "Text": {
         "value": "Text after comment."

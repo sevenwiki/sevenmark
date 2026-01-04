@@ -1,19 +1,35 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 64
+    },
     "kind": {
       "Fold": {
         "parameters": {},
         "children": [
           {
+            "location": {
+              "start": 8,
+              "end": 38
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 11,
+                      "end": 24
+                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
+                            "location": {
+                              "start": 13,
+                              "end": 22
+                            },
                             "kind": {
                               "Text": {
                                 "value": "bold text"
@@ -25,6 +41,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 24,
+                      "end": 35
+                    },
                     "kind": {
                       "Text": {
                         "value": " and normal"
@@ -36,15 +56,27 @@
             }
           },
           {
+            "location": {
+              "start": 38,
+              "end": 61
+            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
+                    "location": {
+                      "start": 40,
+                      "end": 53
+                    },
                     "kind": {
                       "Italic": {
                         "children": [
                           {
+                            "location": {
+                              "start": 41,
+                              "end": 52
+                            },
                             "kind": {
                               "Text": {
                                 "value": "italic text"
@@ -56,6 +88,10 @@
                     }
                   },
                   {
+                    "location": {
+                      "start": 53,
+                      "end": 58
+                    },
                     "kind": {
                       "Text": {
                         "value": " here"

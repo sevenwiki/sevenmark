@@ -1,17 +1,37 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 40
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 7,
+            "end": 19
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 7,
+                  "end": 11
+                },
                 "kind": "ExprNull"
               },
               "operator": {
+                "location": {
+                  "start": 12,
+                  "end": 14
+                },
                 "kind": "Equal"
               },
               "right": {
+                "location": {
+                  "start": 15,
+                  "end": 19
+                },
                 "kind": "ExprNull"
               }
             }
@@ -19,6 +39,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 20,
+              "end": 36
+            },
             "kind": {
               "Text": {
                 "value": "null equals null"
@@ -30,18 +54,38 @@
     }
   },
   {
+    "location": {
+      "start": 40,
+      "end": 41
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 41,
+      "end": 42
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 42,
+      "end": 82
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 49,
+            "end": 61
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 49,
+                  "end": 53
+                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": true
@@ -49,9 +93,17 @@
                 }
               },
               "operator": {
+                "location": {
+                  "start": 54,
+                  "end": 56
+                },
                 "kind": "Equal"
               },
               "right": {
+                "location": {
+                  "start": 57,
+                  "end": 61
+                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": true
@@ -63,6 +115,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 62,
+              "end": 78
+            },
             "kind": {
               "Text": {
                 "value": "true equals true"
@@ -74,18 +130,38 @@
     }
   },
   {
+    "location": {
+      "start": 82,
+      "end": 83
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 83,
+      "end": 84
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 84,
+      "end": 128
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 91,
+            "end": 105
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 91,
+                  "end": 96
+                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": false
@@ -93,9 +169,17 @@
                 }
               },
               "operator": {
+                "location": {
+                  "start": 97,
+                  "end": 99
+                },
                 "kind": "Equal"
               },
               "right": {
+                "location": {
+                  "start": 100,
+                  "end": 105
+                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": false
@@ -107,6 +191,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 106,
+              "end": 124
+            },
             "kind": {
               "Text": {
                 "value": "false equals false"

@@ -1,11 +1,23 @@
 [
   {
+    "location": {
+      "start": 0,
+      "end": 23
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 7,
+            "end": 13
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 7,
+                  "end": 8
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 5
@@ -13,9 +25,17 @@
                 }
               },
               "operator": {
+                "location": {
+                  "start": 9,
+                  "end": 11
+                },
                 "kind": "Equal"
               },
               "right": {
+                "location": {
+                  "start": 12,
+                  "end": 13
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 5
@@ -27,6 +47,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 14,
+              "end": 19
+            },
             "kind": {
               "Text": {
                 "value": "equal"
@@ -38,18 +62,38 @@
     }
   },
   {
+    "location": {
+      "start": 23,
+      "end": 24
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 24,
+      "end": 25
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 25,
+      "end": 52
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 32,
+            "end": 38
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 32,
+                  "end": 33
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 5
@@ -57,9 +101,17 @@
                 }
               },
               "operator": {
+                "location": {
+                  "start": 34,
+                  "end": 36
+                },
                 "kind": "NotEqual"
               },
               "right": {
+                "location": {
+                  "start": 37,
+                  "end": 38
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 3
@@ -71,6 +123,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 39,
+              "end": 48
+            },
             "kind": {
               "Text": {
                 "value": "not equal"
@@ -82,18 +138,38 @@
     }
   },
   {
+    "location": {
+      "start": 52,
+      "end": 53
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 53,
+      "end": 54
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 54,
+      "end": 79
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 61,
+            "end": 67
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 61,
+                  "end": 63
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 10
@@ -101,9 +177,17 @@
                 }
               },
               "operator": {
+                "location": {
+                  "start": 64,
+                  "end": 65
+                },
                 "kind": "GreaterThan"
               },
               "right": {
+                "location": {
+                  "start": 66,
+                  "end": 67
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 5
@@ -115,6 +199,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 68,
+              "end": 75
+            },
             "kind": {
               "Text": {
                 "value": "greater"
@@ -126,18 +214,38 @@
     }
   },
   {
+    "location": {
+      "start": 79,
+      "end": 80
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 80,
+      "end": 81
+    },
     "kind": "SoftBreak"
   },
   {
+    "location": {
+      "start": 81,
+      "end": 102
+    },
     "kind": {
       "If": {
         "condition": {
+          "location": {
+            "start": 88,
+            "end": 93
+          },
           "kind": {
             "ExprComparison": {
               "left": {
+                "location": {
+                  "start": 88,
+                  "end": 89
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 3
@@ -145,9 +253,17 @@
                 }
               },
               "operator": {
+                "location": {
+                  "start": 90,
+                  "end": 91
+                },
                 "kind": "LessThan"
               },
               "right": {
+                "location": {
+                  "start": 92,
+                  "end": 93
+                },
                 "kind": {
                   "ExprNumberLiteral": {
                     "value": 8
@@ -159,6 +275,10 @@
         },
         "children": [
           {
+            "location": {
+              "start": 94,
+              "end": 98
+            },
             "kind": {
               "Text": {
                 "value": "less"
