@@ -1,9 +1,5 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 27
-    },
     "kind": {
       "TeX": {
         "is_block": true,

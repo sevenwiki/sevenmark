@@ -1,24 +1,12 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 59
-    },
     "kind": {
       "Styled": {
         "parameters": {
           "size": {
-            "location": {
-              "start": 23,
-              "end": 36
-            },
             "key": "size",
             "value": [
               {
-                "location": {
-                  "start": 30,
-                  "end": 34
-                },
                 "kind": {
                   "Text": {
                     "value": "16px"
@@ -28,17 +16,9 @@
             ]
           },
           "style": {
-            "location": {
-              "start": 3,
-              "end": 23
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 12,
-                  "end": 21
-                },
                 "kind": {
                   "Text": {
                     "value": "color:red"
@@ -50,10 +30,6 @@
         },
         "children": [
           {
-            "location": {
-              "start": 36,
-              "end": 56
-            },
             "kind": {
               "Text": {
                 "value": "Styled text content "

@@ -1,24 +1,12 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 92
-    },
     "kind": {
       "Fold": {
         "parameters": {
           "style": {
-            "location": {
-              "start": 8,
-              "end": 28
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 17,
-                  "end": 26
-                },
                 "kind": {
                   "Text": {
                     "value": "color:red"
@@ -30,25 +18,13 @@
         },
         "children": [
           {
-            "location": {
-              "start": 28,
-              "end": 70
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {
                   "bgcolor": {
-                    "location": {
-                      "start": 30,
-                      "end": 46
-                    },
                     "key": "bgcolor",
                     "value": [
                       {
-                        "location": {
-                          "start": 40,
-                          "end": 44
-                        },
                         "kind": {
                           "Text": {
                             "value": "blue"
@@ -60,10 +36,6 @@
                 },
                 "children": [
                   {
-                    "location": {
-                      "start": 49,
-                      "end": 67
-                    },
                     "kind": {
                       "Text": {
                         "value": "content with param"
@@ -75,19 +47,11 @@
             }
           },
           {
-            "location": {
-              "start": 70,
-              "end": 89
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 72,
-                      "end": 86
-                    },
                     "kind": {
                       "Text": {
                         "value": "normal content"

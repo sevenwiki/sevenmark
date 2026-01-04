@@ -1,9 +1,5 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 20
-    },
     "kind": {
       "Text": {
         "value": "Text before comment "
@@ -11,10 +7,6 @@
     }
   },
   {
-    "location": {
-      "start": 20,
-      "end": 79
-    },
     "kind": {
       "Comment": {
         "value": " This is a\nmultiline comment\nthat spans multiple lines "
@@ -22,10 +14,6 @@
     }
   },
   {
-    "location": {
-      "start": 79,
-      "end": 99
-    },
     "kind": {
       "Text": {
         "value": " text after comment."

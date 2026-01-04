@@ -1,24 +1,12 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 308
-    },
     "kind": {
       "Table": {
         "parameters": {
           "style": {
-            "location": {
-              "start": 9,
-              "end": 44
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 18,
-                  "end": 42
-                },
                 "kind": {
                   "Text": {
                     "value": "border-collapse:collapse"
@@ -30,36 +18,20 @@
         },
         "children": [
           {
-            "location": {
-              "start": 44,
-              "end": 97
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 46,
-                      "end": 63
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 48,
-                              "end": 60
-                            },
                             "kind": {
                               "Bold": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 50,
-                                      "end": 58
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Header 1"
@@ -75,27 +47,15 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 63,
-                      "end": 78
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 65,
-                              "end": 75
-                            },
                             "kind": {
                               "Italic": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 66,
-                                      "end": 74
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Header 2"
@@ -111,27 +71,15 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 78,
-                      "end": 94
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 80,
-                              "end": 92
-                            },
                             "kind": {
                               "Strikethrough": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 82,
-                                      "end": 90
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Header 3"
@@ -151,28 +99,16 @@
             }
           },
           {
-            "location": {
-              "start": 97,
-              "end": 218
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 99,
-                      "end": 115
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 101,
-                              "end": 112
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Simple cell"
@@ -184,34 +120,18 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 115,
-                      "end": 168
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 117,
-                              "end": 165
-                            },
                             "kind": {
                               "Code": {
                                 "parameters": {
                                   "lang": {
-                                    "location": {
-                                      "start": 125,
-                                      "end": 141
-                                    },
                                     "key": "lang",
                                     "value": [
                                       {
-                                        "location": {
-                                          "start": 133,
-                                          "end": 139
-                                        },
                                         "kind": {
                                           "Text": {
                                             "value": "python"
@@ -230,19 +150,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 168,
-                      "end": 215
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 170,
-                              "end": 176
-                            },
                             "kind": {
                               "Text": {
                                 "value": "List: "
@@ -250,38 +162,22 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 176,
-                              "end": 213
-                            },
                             "kind": {
                               "List": {
                                 "kind": "a",
                                 "parameters": {
                                   "a": {
-                                    "location": {
-                                      "start": 184,
-                                      "end": 188
-                                    },
                                     "key": "a",
                                     "value": []
                                   }
                                 },
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 188,
-                                      "end": 199
-                                    },
                                     "kind": {
                                       "ListItem": {
                                         "parameters": {},
                                         "children": [
                                           {
-                                            "location": {
-                                              "start": 190,
-                                              "end": 196
-                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Item A"
@@ -293,19 +189,11 @@
                                     }
                                   },
                                   {
-                                    "location": {
-                                      "start": 199,
-                                      "end": 210
-                                    },
                                     "kind": {
                                       "ListItem": {
                                         "parameters": {},
                                         "children": [
                                           {
-                                            "location": {
-                                              "start": 201,
-                                              "end": 207
-                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "Item B"
@@ -329,28 +217,16 @@
             }
           },
           {
-            "location": {
-              "start": 218,
-              "end": 305
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 220,
-                      "end": 247
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 222,
-                              "end": 227
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Age: "
@@ -358,10 +234,6 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 227,
-                              "end": 244
-                            },
                             "kind": {
                               "Age": {
                                 "date": "1995-06-20"
@@ -373,19 +245,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 247,
-                      "end": 266
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 249,
-                              "end": 258
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Current: "
@@ -393,10 +257,6 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 258,
-                              "end": 263
-                            },
                             "kind": "TimeNow"
                           }
                         ]
@@ -404,19 +264,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 266,
-                      "end": 302
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 268,
-                              "end": 275
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Quote: "
@@ -424,19 +276,11 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 275,
-                              "end": 300
-                            },
                             "kind": {
                               "BlockQuote": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 285,
-                                      "end": 297
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Short quote "

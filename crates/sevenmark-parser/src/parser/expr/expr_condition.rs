@@ -41,18 +41,16 @@ fn or_parser(input: &mut ParserInput) -> Result<AstNode> {
 
     let end = input.input.previous_token_end();
 
-    Ok(rest
-        .into_iter()
-        .fold(first, |acc, (op, expr)| {
-            AstNode::new(
-                Location { start, end },
-                NodeKind::ExprOr {
-                    operator: op,
-                    left: Box::new(acc),
-                    right: Box::new(expr),
-                },
-            )
-        }))
+    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
+        AstNode::new(
+            Location { start, end },
+            NodeKind::ExprOr {
+                operator: op,
+                left: Box::new(acc),
+                right: Box::new(expr),
+            },
+        )
+    }))
 }
 
 /// || 연산자 파서
@@ -84,18 +82,16 @@ fn and_parser(input: &mut ParserInput) -> Result<AstNode> {
 
     let end = input.input.previous_token_end();
 
-    Ok(rest
-        .into_iter()
-        .fold(first, |acc, (op, expr)| {
-            AstNode::new(
-                Location { start, end },
-                NodeKind::ExprAnd {
-                    operator: op,
-                    left: Box::new(acc),
-                    right: Box::new(expr),
-                },
-            )
-        }))
+    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
+        AstNode::new(
+            Location { start, end },
+            NodeKind::ExprAnd {
+                operator: op,
+                left: Box::new(acc),
+                right: Box::new(expr),
+            },
+        )
+    }))
 }
 
 /// && 연산자 파서
@@ -274,10 +270,7 @@ fn null_parser(input: &mut ParserInput) -> Result<AstNode> {
     literal("null").parse_next(input)?;
     let end = input.input.previous_token_end();
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::ExprNull,
-    ))
+    Ok(AstNode::new(Location { start, end }, NodeKind::ExprNull))
 }
 
 /// bool 리터럴 파서: true, false

@@ -1,9 +1,5 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 38
-    },
     "kind": {
       "Header": {
         "level": 2,
@@ -11,10 +7,6 @@
         "section_index": 1,
         "children": [
           {
-            "location": {
-              "start": 3,
-              "end": 37
-            },
             "kind": {
               "Text": {
                 "value": "Mathematical Concepts and Formulas"
@@ -26,17 +18,9 @@
     }
   },
   {
-    "location": {
-      "start": 38,
-      "end": 39
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 39,
-      "end": 78
-    },
     "kind": {
       "Header": {
         "level": 3,
@@ -44,10 +28,6 @@
         "section_index": 2,
         "children": [
           {
-            "location": {
-              "start": 43,
-              "end": 77
-            },
             "kind": {
               "Text": {
                 "value": "Einstein's Mass-Energy Equivalence"
@@ -59,17 +39,9 @@
     }
   },
   {
-    "location": {
-      "start": 78,
-      "end": 79
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 79,
-      "end": 146
-    },
     "kind": {
       "TeX": {
         "is_block": true,
@@ -78,24 +50,12 @@
     }
   },
   {
-    "location": {
-      "start": 146,
-      "end": 147
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 147,
-      "end": 148
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 148,
-      "end": 185
-    },
     "kind": {
       "Text": {
         "value": "This famous equation shows that mass "
@@ -103,18 +63,10 @@
     }
   },
   {
-    "location": {
-      "start": 185,
-      "end": 190
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 186,
-              "end": 189
-            },
             "kind": {
               "Text": {
                 "value": "(m)"
@@ -126,10 +78,6 @@
     }
   },
   {
-    "location": {
-      "start": 190,
-      "end": 202
-    },
     "kind": {
       "Text": {
         "value": " and energy "
@@ -137,18 +85,10 @@
     }
   },
   {
-    "location": {
-      "start": 202,
-      "end": 207
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 203,
-              "end": 206
-            },
             "kind": {
               "Text": {
                 "value": "(E)"
@@ -160,10 +100,6 @@
     }
   },
   {
-    "location": {
-      "start": 207,
-      "end": 212
-    },
     "kind": {
       "Text": {
         "value": " are "
@@ -171,18 +107,10 @@
     }
   },
   {
-    "location": {
-      "start": 212,
-      "end": 231
-    },
     "kind": {
       "Bold": {
         "children": [
           {
-            "location": {
-              "start": 214,
-              "end": 229
-            },
             "kind": {
               "Text": {
                 "value": "interchangeable"
@@ -194,10 +122,6 @@
     }
   },
   {
-    "location": {
-      "start": 231,
-      "end": 232
-    },
     "kind": {
       "Text": {
         "value": ","
@@ -205,10 +129,6 @@
     }
   },
   {
-    "location": {
-      "start": 232,
-      "end": 238
-    },
     "kind": {
       "Text": {
         "value": " with "
@@ -216,18 +136,10 @@
     }
   },
   {
-    "location": {
-      "start": 238,
-      "end": 241
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 239,
-              "end": 240
-            },
             "kind": {
               "Text": {
                 "value": "c"
@@ -239,10 +151,6 @@
     }
   },
   {
-    "location": {
-      "start": 241,
-      "end": 267
-    },
     "kind": {
       "Text": {
         "value": " being the speed of light."
@@ -250,39 +158,19 @@
     }
   },
   {
-    "location": {
-      "start": 267,
-      "end": 268
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 268,
-      "end": 269
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 269,
-      "end": 673
-    },
     "kind": {
       "Fold": {
         "parameters": {
           "bgcolor": {
-            "location": {
-              "start": 277,
-              "end": 301
-            },
             "key": "bgcolor",
             "value": [
               {
-                "location": {
-                  "start": 288,
-                  "end": 299
-                },
                 "kind": {
                   "Text": {
                     "value": "lightyellow"
@@ -294,27 +182,15 @@
         },
         "children": [
           {
-            "location": {
-              "start": 301,
-              "end": 331
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 303,
-                      "end": 323
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 305,
-                              "end": 321
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Derivation Steps"
@@ -326,10 +202,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 323,
-                      "end": 328
-                    },
                     "kind": {
                       "Text": {
                         "value": " 📚"
@@ -341,47 +213,27 @@
             }
           },
           {
-            "location": {
-              "start": 331,
-              "end": 670
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 334,
-                      "end": 505
-                    },
                     "kind": {
                       "List": {
                         "kind": "1",
                         "parameters": {
                           "1": {
-                            "location": {
-                              "start": 342,
-                              "end": 346
-                            },
                             "key": "1",
                             "value": []
                           }
                         },
                         "children": [
                           {
-                            "location": {
-                              "start": 346,
-                              "end": 410
-                            },
                             "kind": {
                               "ListItem": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 348,
-                                      "end": 382
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Start with relativistic momentum: "
@@ -389,10 +241,6 @@
                                     }
                                   },
                                   {
-                                    "location": {
-                                      "start": 382,
-                                      "end": 407
-                                    },
                                     "kind": {
                                       "TeX": {
                                         "is_block": false,
@@ -405,19 +253,11 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 410,
-                              "end": 445
-                            },
                             "kind": {
                               "ListItem": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 412,
-                                      "end": 442
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Apply energy-momentum relation"
@@ -429,19 +269,11 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 445,
-                              "end": 477
-                            },
                             "kind": {
                               "ListItem": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 447,
-                                      "end": 474
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Simplify for rest mass case"
@@ -453,19 +285,11 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 477,
-                              "end": 502
-                            },
                             "kind": {
                               "ListItem": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 479,
-                                      "end": 487
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Result: "
@@ -473,18 +297,10 @@
                                     }
                                   },
                                   {
-                                    "location": {
-                                      "start": 487,
-                                      "end": 499
-                                    },
                                     "kind": {
                                       "Bold": {
                                         "children": [
                                           {
-                                            "location": {
-                                              "start": 489,
-                                              "end": 497
-                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "E = mc²"
@@ -504,39 +320,19 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 505,
-                      "end": 506
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 506,
-                      "end": 507
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 507,
-                      "end": 665
-                    },
                     "kind": {
                       "BlockQuote": {
                         "parameters": {
                           "style": {
-                            "location": {
-                              "start": 516,
-                              "end": 575
-                            },
                             "key": "style",
                             "value": [
                               {
-                                "location": {
-                                  "start": 525,
-                                  "end": 573
-                                },
                                 "kind": {
                                   "Text": {
                                     "value": "border-left:3px solid #007acc; padding-left:15px"
@@ -548,10 +344,6 @@
                         },
                         "children": [
                           {
-                            "location": {
-                              "start": 575,
-                              "end": 639
-                            },
                             "kind": {
                               "Text": {
                                 "value": "\"The most beautiful thing we can experience is the mysterious.\" "
@@ -559,17 +351,9 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 639,
-                              "end": 640
-                            },
                             "kind": "SoftBreak"
                           },
                           {
-                            "location": {
-                              "start": 640,
-                              "end": 644
-                            },
                             "kind": {
                               "Text": {
                                 "value": "— "
@@ -577,18 +361,10 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 644,
-                              "end": 661
-                            },
                             "kind": {
                               "Italic": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 645,
-                                      "end": 660
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Albert Einstein"
@@ -604,10 +380,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 665,
-                      "end": 666
-                    },
                     "kind": {
                       "Text": {
                         "value": "w"
@@ -623,24 +395,12 @@
     }
   },
   {
-    "location": {
-      "start": 673,
-      "end": 674
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 674,
-      "end": 675
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 675,
-      "end": 710
-    },
     "kind": {
       "Header": {
         "level": 3,
@@ -648,10 +408,6 @@
         "section_index": 3,
         "children": [
           {
-            "location": {
-              "start": 679,
-              "end": 709
-            },
             "kind": {
               "Text": {
                 "value": "Applications in Modern Physics"
@@ -663,32 +419,16 @@
     }
   },
   {
-    "location": {
-      "start": 710,
-      "end": 711
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 711,
-      "end": 1101
-    },
     "kind": {
       "Table": {
         "parameters": {
           "style": {
-            "location": {
-              "start": 720,
-              "end": 765
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 729,
-                  "end": 763
-                },
                 "kind": {
                   "Text": {
                     "value": "margin:10px; border:1px solid #ccc"
@@ -700,36 +440,20 @@
         },
         "children": [
           {
-            "location": {
-              "start": 765,
-              "end": 819
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 767,
-                      "end": 781
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 769,
-                              "end": 778
-                            },
                             "kind": {
                               "Bold": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 771,
-                                      "end": 776
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Field"
@@ -745,27 +469,15 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 781,
-                      "end": 801
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 783,
-                              "end": 798
-                            },
                             "kind": {
                               "Bold": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 785,
-                                      "end": 796
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Application"
@@ -781,27 +493,15 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 801,
-                      "end": 816
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 803,
-                              "end": 814
-                            },
                             "kind": {
                               "Bold": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 805,
-                                      "end": 812
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Formula"
@@ -821,28 +521,16 @@
             }
           },
           {
-            "location": {
-              "start": 819,
-              "end": 915
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 821,
-                      "end": 841
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 823,
-                              "end": 838
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Nuclear Physics"
@@ -854,19 +542,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 841,
-                      "end": 873
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 843,
-                              "end": 870
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Binding energy calculations"
@@ -878,19 +558,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 873,
-                      "end": 912
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 875,
-                              "end": 910
-                            },
                             "kind": {
                               "TeX": {
                                 "is_block": false,
@@ -907,28 +579,16 @@
             }
           },
           {
-            "location": {
-              "start": 915,
-              "end": 1013
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 917,
-                      "end": 938
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 919,
-                              "end": 935
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Particle Physics"
@@ -940,19 +600,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 938,
-                      "end": 977
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 940,
-                              "end": 974
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Particle-antiparticle annihilation"
@@ -964,19 +616,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 977,
-                      "end": 1010
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 979,
-                              "end": 1008
-                            },
                             "kind": {
                               "TeX": {
                                 "is_block": false,
@@ -993,28 +637,16 @@
             }
           },
           {
-            "location": {
-              "start": 1013,
-              "end": 1098
-            },
             "kind": {
               "TableRow": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 1015,
-                      "end": 1029
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 1017,
-                              "end": 1026
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Cosmology"
@@ -1026,19 +658,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1029,
-                      "end": 1059
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 1031,
-                              "end": 1056
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Stellar energy production"
@@ -1050,19 +674,11 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1059,
-                      "end": 1095
-                    },
                     "kind": {
                       "TableCell": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 1061,
-                              "end": 1093
-                            },
                             "kind": {
                               "TeX": {
                                 "is_block": false,
@@ -1083,24 +699,12 @@
     }
   },
   {
-    "location": {
-      "start": 1101,
-      "end": 1102
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1102,
-      "end": 1103
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1103,
-      "end": 1125
-    },
     "kind": {
       "Header": {
         "level": 3,
@@ -1108,10 +712,6 @@
         "section_index": 4,
         "children": [
           {
-            "location": {
-              "start": 1107,
-              "end": 1124
-            },
             "kind": {
               "Text": {
                 "value": "Related Constants"
@@ -1123,17 +723,9 @@
     }
   },
   {
-    "location": {
-      "start": 1125,
-      "end": 1126
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1126,
-      "end": 1155
-    },
     "kind": {
       "Text": {
         "value": "Important physical constants "
@@ -1141,18 +733,10 @@
     }
   },
   {
-    "location": {
-      "start": 1155,
-      "end": 1179
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 1156,
-              "end": 1172
-            },
             "kind": {
               "Text": {
                 "value": "(measured as of "
@@ -1160,17 +744,9 @@
             }
           },
           {
-            "location": {
-              "start": 1172,
-              "end": 1177
-            },
             "kind": "TimeNow"
           },
           {
-            "location": {
-              "start": 1177,
-              "end": 1178
-            },
             "kind": {
               "Text": {
                 "value": ")"
@@ -1182,10 +758,6 @@
     }
   },
   {
-    "location": {
-      "start": 1179,
-      "end": 1180
-    },
     "kind": {
       "Text": {
         "value": ":"
@@ -1193,48 +765,24 @@
     }
   },
   {
-    "location": {
-      "start": 1180,
-      "end": 1181
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1181,
-      "end": 1182
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1182,
-      "end": 1377
-    },
     "kind": {
       "List": {
         "kind": "i",
         "parameters": {
           "i": {
-            "location": {
-              "start": 1190,
-              "end": 1194
-            },
             "key": "i",
             "value": []
           },
           "style": {
-            "location": {
-              "start": 1194,
-              "end": 1225
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 1202,
-                  "end": 1223
-                },
                 "kind": {
                   "Text": {
                     "value": "font-family:monospace"
@@ -1246,19 +794,11 @@
         },
         "children": [
           {
-            "location": {
-              "start": 1225,
-              "end": 1267
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 1227,
-                      "end": 1251
-                    },
                     "kind": {
                       "Text": {
                         "value": "Speed of light: `c = 299"
@@ -1266,10 +806,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1251,
-                      "end": 1252
-                    },
                     "kind": {
                       "Text": {
                         "value": ","
@@ -1277,10 +813,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1252,
-                      "end": 1255
-                    },
                     "kind": {
                       "Text": {
                         "value": "792"
@@ -1288,10 +820,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1255,
-                      "end": 1256
-                    },
                     "kind": {
                       "Text": {
                         "value": ","
@@ -1299,10 +827,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1256,
-                      "end": 1261
-                    },
                     "kind": {
                       "Text": {
                         "value": "458 m"
@@ -1310,10 +834,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1261,
-                      "end": 1262
-                    },
                     "kind": {
                       "Text": {
                         "value": "/"
@@ -1321,10 +841,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1262,
-                      "end": 1264
-                    },
                     "kind": {
                       "Text": {
                         "value": "s`"
@@ -1336,19 +852,11 @@
             }
           },
           {
-            "location": {
-              "start": 1267,
-              "end": 1320
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 1269,
-                      "end": 1317
-                    },
                     "kind": {
                       "Text": {
                         "value": "Planck constant: `h = 6.626 × 10⁻³⁴ J⋅s`"
@@ -1360,19 +868,11 @@
             }
           },
           {
-            "location": {
-              "start": 1320,
-              "end": 1374
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 1322,
-                      "end": 1341
-                    },
                     "kind": {
                       "Text": {
                         "value": "Avogadro number: `N"
@@ -1380,10 +880,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1341,
-                      "end": 1342
-                    },
                     "kind": {
                       "Text": {
                         "value": "_"
@@ -1391,10 +887,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1342,
-                      "end": 1371
-                    },
                     "kind": {
                       "Text": {
                         "value": "A = 6.022 × 10²³ mol⁻¹`"
@@ -1410,24 +902,12 @@
     }
   },
   {
-    "location": {
-      "start": 1377,
-      "end": 1378
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1378,
-      "end": 1379
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1379,
-      "end": 1409
-    },
     "kind": {
       "Header": {
         "level": 3,
@@ -1435,10 +915,6 @@
         "section_index": 5,
         "children": [
           {
-            "location": {
-              "start": 1383,
-              "end": 1408
-            },
             "kind": {
               "Text": {
                 "value": "Experimental Verification"
@@ -1450,32 +926,16 @@
     }
   },
   {
-    "location": {
-      "start": 1409,
-      "end": 1410
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1410,
-      "end": 1753
-    },
     "kind": {
       "Code": {
         "parameters": {
           "lang": {
-            "location": {
-              "start": 1418,
-              "end": 1434
-            },
             "key": "lang",
             "value": [
               {
-                "location": {
-                  "start": 1426,
-                  "end": 1432
-                },
                 "kind": {
                   "Text": {
                     "value": "python"
@@ -1485,17 +945,9 @@
             ]
           },
           "style": {
-            "location": {
-              "start": 1434,
-              "end": 1462
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 1442,
-                  "end": 1460
-                },
                 "kind": {
                   "Text": {
                     "value": "background:#f5f5f5"
@@ -1510,50 +962,26 @@
     }
   },
   {
-    "location": {
-      "start": 1753,
-      "end": 1754
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1754,
-      "end": 1755
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 1755,
-      "end": 2210
-    },
     "kind": {
       "Fold": {
         "parameters": {},
         "children": [
           {
-            "location": {
-              "start": 1763,
-              "end": 1796
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 1766,
-                      "end": 1785
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 1768,
-                              "end": 1783
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Historical Note"
@@ -1565,10 +993,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1785,
-                      "end": 1793
-                    },
                     "kind": {
                       "Text": {
                         "value": " 🏛️"
@@ -1580,19 +1004,11 @@
             }
           },
           {
-            "location": {
-              "start": 1796,
-              "end": 2207
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 1799,
-                      "end": 1830
-                    },
                     "kind": {
                       "Text": {
                         "value": "This equation was published in "
@@ -1600,18 +1016,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1830,
-                      "end": 1838
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 1832,
-                              "end": 1836
-                            },
                             "kind": {
                               "Text": {
                                 "value": "1905"
@@ -1623,10 +1031,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1838,
-                      "end": 1861
-                    },
                     "kind": {
                       "Text": {
                         "value": " as part of Einstein's "
@@ -1634,18 +1038,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1861,
-                      "end": 1881
-                    },
                     "kind": {
                       "Italic": {
                         "children": [
                           {
-                            "location": {
-                              "start": 1862,
-                              "end": 1880
-                            },
                             "kind": {
                               "Text": {
                                 "value": "special relativity"
@@ -1657,10 +1053,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1881,
-                      "end": 1888
-                    },
                     "kind": {
                       "Text": {
                         "value": " paper."
@@ -1668,17 +1060,9 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1888,
-                      "end": 1889
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 1889,
-                      "end": 1911
-                    },
                     "kind": {
                       "Text": {
                         "value": "The paper was titled \""
@@ -1686,18 +1070,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1911,
-                      "end": 1983
-                    },
                     "kind": {
                       "Underline": {
                         "children": [
                           {
-                            "location": {
-                              "start": 1913,
-                              "end": 1981
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Ist die Trägheit eines Körpers von seinem Energieinhalt abhängig?"
@@ -1709,10 +1085,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1983,
-                      "end": 1984
-                    },
                     "kind": {
                       "Text": {
                         "value": "\""
@@ -1720,24 +1092,12 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 1984,
-                      "end": 1985
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 1985,
-                      "end": 1986
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 1986,
-                      "end": 2005
-                    },
                     "kind": {
                       "Text": {
                         "value": "Fun fact: Einstein "
@@ -1745,18 +1105,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2005,
-                      "end": 2018
-                    },
                     "kind": {
                       "Strikethrough": {
                         "children": [
                           {
-                            "location": {
-                              "start": 2007,
-                              "end": 2016
-                            },
                             "kind": {
                               "Text": {
                                 "value": "initially"
@@ -1768,10 +1120,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2018,
-                      "end": 2064
-                    },
                     "kind": {
                       "Text": {
                         "value": " didn't receive the Nobel Prize for relativity"
@@ -1779,10 +1127,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2064,
-                      "end": 2065
-                    },
                     "kind": {
                       "Text": {
                         "value": ","
@@ -1790,10 +1134,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2065,
-                      "end": 2066
-                    },
                     "kind": {
                       "Text": {
                         "value": " "
@@ -1801,17 +1141,9 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2066,
-                      "end": 2067
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 2067,
-                      "end": 2091
-                    },
                     "kind": {
                       "Text": {
                         "value": "but for his work on the "
@@ -1819,18 +1151,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2091,
-                      "end": 2108
-                    },
                     "kind": {
                       "Superscript": {
                         "children": [
                           {
-                            "location": {
-                              "start": 2093,
-                              "end": 2106
-                            },
                             "kind": {
                               "Text": {
                                 "value": "photoelectric"
@@ -1842,10 +1166,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2108,
-                      "end": 2116
-                    },
                     "kind": {
                       "Text": {
                         "value": " effect!"
@@ -1853,24 +1173,12 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 2116,
-                      "end": 2117
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 2117,
-                      "end": 2118
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 2118,
-                      "end": 2203
-                    },
                     "kind": {
                       "Comment": {
                         "value": " Einstein's original paper can be found in \n   Annalen der Physik, vol. 18, 1905 "
@@ -1886,46 +1194,22 @@
     }
   },
   {
-    "location": {
-      "start": 2210,
-      "end": 2211
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 2211,
-      "end": 2212
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 2212,
-      "end": 2216
-    },
     "kind": "HLine"
   },
   {
-    "location": {
-      "start": 2216,
-      "end": 2217
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 2217,
-      "end": 2272
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 2218,
-              "end": 2271
-            },
             "kind": {
               "Text": {
                 "value": "Mathematical notation powered by SevenMark TeX engine"
@@ -1937,10 +1221,6 @@
     }
   },
   {
-    "location": {
-      "start": 2272,
-      "end": 2274
-    },
     "kind": {
       "Text": {
         "value": "  "
@@ -1948,25 +1228,13 @@
     }
   },
   {
-    "location": {
-      "start": 2274,
-      "end": 2275
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 2275,
-      "end": 2304
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 2276,
-              "end": 2298
-            },
             "kind": {
               "Text": {
                 "value": "Document generated on "
@@ -1974,10 +1242,6 @@
             }
           },
           {
-            "location": {
-              "start": 2298,
-              "end": 2303
-            },
             "kind": "TimeNow"
           }
         ]

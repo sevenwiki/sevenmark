@@ -1,17 +1,9 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 27
-    },
     "kind": {
       "Category": {
         "children": [
           {
-            "location": {
-              "start": 13,
-              "end": 24
-            },
             "kind": {
               "Text": {
                 "value": "Technology\n"

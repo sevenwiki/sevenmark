@@ -1,9 +1,5 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 28
-    },
     "kind": {
       "Text": {
         "value": "Text before horizontal line."
@@ -11,24 +7,12 @@
     }
   },
   {
-    "location": {
-      "start": 28,
-      "end": 29
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 29,
-      "end": 35
-    },
     "kind": "HLine"
   },
   {
-    "location": {
-      "start": 35,
-      "end": 62
-    },
     "kind": {
       "Text": {
         "value": "Text after horizontal line."

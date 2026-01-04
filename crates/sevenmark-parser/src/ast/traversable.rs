@@ -74,15 +74,27 @@ impl Traversable for AstNode {
             }
 
             // === If: condition + children ===
-            NodeKind::If { condition, children } => {
+            NodeKind::If {
+                condition,
+                children,
+            } => {
                 visitor(condition);
                 children.iter_mut().for_each(visitor);
             }
 
             // === Conditional variants: condition + children ===
-            NodeKind::ConditionalTableRows { condition, children }
-            | NodeKind::ConditionalTableCells { condition, children }
-            | NodeKind::ConditionalListItems { condition, children } => {
+            NodeKind::ConditionalTableRows {
+                condition,
+                children,
+            }
+            | NodeKind::ConditionalTableCells {
+                condition,
+                children,
+            }
+            | NodeKind::ConditionalListItems {
+                condition,
+                children,
+            } => {
                 visitor(condition);
                 children.iter_mut().for_each(visitor);
             }
@@ -256,15 +268,27 @@ impl Traversable for AstNode {
             }
 
             // === If: condition + children ===
-            NodeKind::If { condition, children } => {
+            NodeKind::If {
+                condition,
+                children,
+            } => {
                 visitor(condition);
                 children.iter().for_each(visitor);
             }
 
             // === Conditional variants: condition + children ===
-            NodeKind::ConditionalTableRows { condition, children }
-            | NodeKind::ConditionalTableCells { condition, children }
-            | NodeKind::ConditionalListItems { condition, children } => {
+            NodeKind::ConditionalTableRows {
+                condition,
+                children,
+            }
+            | NodeKind::ConditionalTableCells {
+                condition,
+                children,
+            }
+            | NodeKind::ConditionalListItems {
+                condition,
+                children,
+            } => {
                 visitor(condition);
                 children.iter().for_each(visitor);
             }

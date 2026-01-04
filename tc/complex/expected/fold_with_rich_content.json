@@ -1,24 +1,12 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 469
-    },
     "kind": {
       "Fold": {
         "parameters": {
           "bgcolor": {
-            "location": {
-              "start": 40,
-              "end": 61
-            },
             "key": "bgcolor",
             "value": [
               {
-                "location": {
-                  "start": 50,
-                  "end": 59
-                },
                 "kind": {
                   "Text": {
                     "value": "lightgray"
@@ -28,17 +16,9 @@
             ]
           },
           "style": {
-            "location": {
-              "start": 8,
-              "end": 40
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 17,
-                  "end": 38
-                },
                 "kind": {
                   "Text": {
                     "value": "border:1px solid #ccc"
@@ -50,25 +30,13 @@
         },
         "children": [
           {
-            "location": {
-              "start": 61,
-              "end": 141
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {
                   "color": {
-                    "location": {
-                      "start": 89,
-                      "end": 107
-                    },
                     "key": "color",
                     "value": [
                       {
-                        "location": {
-                          "start": 97,
-                          "end": 105
-                        },
                         "kind": {
                           "Text": {
                             "value": "darkblue"
@@ -78,17 +46,9 @@
                     ]
                   },
                   "style": {
-                    "location": {
-                      "start": 63,
-                      "end": 89
-                    },
                     "key": "style",
                     "value": [
                       {
-                        "location": {
-                          "start": 71,
-                          "end": 87
-                        },
                         "kind": {
                           "Text": {
                             "value": "font-weight:bold"
@@ -100,18 +60,10 @@
                 },
                 "children": [
                   {
-                    "location": {
-                      "start": 110,
-                      "end": 121
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 112,
-                              "end": 119
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Summary"
@@ -123,10 +75,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 121,
-                      "end": 138
-                    },
                     "kind": {
                       "Text": {
                         "value": ": Click to expand"
@@ -138,19 +86,11 @@
             }
           },
           {
-            "location": {
-              "start": 141,
-              "end": 466
-            },
             "kind": {
               "FoldInner": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 144,
-                      "end": 163
-                    },
                     "kind": {
                       "Text": {
                         "value": "This fold contains:"
@@ -158,17 +98,9 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 163,
-                      "end": 164
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 164,
-                      "end": 166
-                    },
                     "kind": {
                       "Text": {
                         "value": "- "
@@ -176,18 +108,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 166,
-                      "end": 179
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 168,
-                              "end": 177
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Bold text"
@@ -199,10 +123,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 179,
-                      "end": 184
-                    },
                     "kind": {
                       "Text": {
                         "value": " and "
@@ -210,18 +130,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 184,
-                      "end": 197
-                    },
                     "kind": {
                       "Italic": {
                         "children": [
                           {
-                            "location": {
-                              "start": 185,
-                              "end": 196
-                            },
                             "kind": {
                               "Text": {
                                 "value": "italic text"
@@ -233,17 +145,9 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 197,
-                      "end": 198
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 198,
-                      "end": 232
-                    },
                     "kind": {
                       "Text": {
                         "value": "- A code snippet: `print(\"hello\")`"
@@ -251,17 +155,9 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 232,
-                      "end": 233
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 233,
-                      "end": 249
-                    },
                     "kind": {
                       "Text": {
                         "value": "- Current time: "
@@ -269,24 +165,12 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 249,
-                      "end": 254
-                    },
                     "kind": "TimeNow"
                   },
                   {
-                    "location": {
-                      "start": 254,
-                      "end": 255
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 255,
-                      "end": 257
-                    },
                     "kind": {
                       "Text": {
                         "value": "- "
@@ -294,18 +178,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 257,
-                      "end": 274
-                    },
                     "kind": {
                       "Strikethrough": {
                         "children": [
                           {
-                            "location": {
-                              "start": 259,
-                              "end": 272
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Strikethrough"
@@ -317,10 +193,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 274,
-                      "end": 279
-                    },
                     "kind": {
                       "Text": {
                         "value": " and "
@@ -328,18 +200,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 279,
-                      "end": 294
-                    },
                     "kind": {
                       "Superscript": {
                         "children": [
                           {
-                            "location": {
-                              "start": 281,
-                              "end": 292
-                            },
                             "kind": {
                               "Text": {
                                 "value": "superscript"
@@ -351,39 +215,19 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 294,
-                      "end": 295
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 295,
-                      "end": 296
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 296,
-                      "end": 374
-                    },
                     "kind": {
                       "BlockQuote": {
                         "parameters": {
                           "style": {
-                            "location": {
-                              "start": 305,
-                              "end": 327
-                            },
                             "key": "style",
                             "value": [
                               {
-                                "location": {
-                                  "start": 314,
-                                  "end": 325
-                                },
                                 "kind": {
                                   "Text": {
                                     "value": "margin:10px"
@@ -395,10 +239,6 @@
                         },
                         "children": [
                           {
-                            "location": {
-                              "start": 327,
-                              "end": 337
-                            },
                             "kind": {
                               "Text": {
                                 "value": "This is a "
@@ -406,18 +246,10 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 337,
-                              "end": 353
-                            },
                             "kind": {
                               "Bold": {
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 339,
-                                      "end": 351
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "nested quote"
@@ -429,10 +261,6 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 353,
-                              "end": 370
-                            },
                             "kind": {
                               "Text": {
                                 "value": " with formatting."
@@ -444,24 +272,12 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 374,
-                      "end": 375
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 375,
-                      "end": 376
-                    },
                     "kind": "SoftBreak"
                   },
                   {
-                    "location": {
-                      "start": 376,
-                      "end": 418
-                    },
                     "kind": {
                       "Comment": {
                         "value": " This comment should be inside the fold"
@@ -469,10 +285,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 418,
-                      "end": 439
-                    },
                     "kind": {
                       "Text": {
                         "value": "Final paragraph with "
@@ -480,10 +292,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 439,
-                      "end": 441
-                    },
                     "kind": {
                       "Escape": {
                         "value": "*"
@@ -491,10 +299,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 441,
-                      "end": 448
-                    },
                     "kind": {
                       "Text": {
                         "value": "escaped"
@@ -502,10 +306,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 448,
-                      "end": 450
-                    },
                     "kind": {
                       "Escape": {
                         "value": "*"
@@ -513,10 +313,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 450,
-                      "end": 462
-                    },
                     "kind": {
                       "Text": {
                         "value": " characters."

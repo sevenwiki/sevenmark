@@ -1,33 +1,17 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 354
-    },
     "kind": {
       "List": {
         "kind": "1",
         "parameters": {
           "1": {
-            "location": {
-              "start": 8,
-              "end": 12
-            },
             "key": "1",
             "value": []
           },
           "style": {
-            "location": {
-              "start": 12,
-              "end": 38
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 20,
-                  "end": 36
-                },
                 "kind": {
                   "Text": {
                     "value": "margin-left:20px"
@@ -39,27 +23,15 @@
         },
         "children": [
           {
-            "location": {
-              "start": 38,
-              "end": 70
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 40,
-                      "end": 53
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 42,
-                              "end": 51
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Chapter 1"
@@ -71,10 +43,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 53,
-                      "end": 67
-                    },
                     "kind": {
                       "Text": {
                         "value": ": Introduction"
@@ -86,19 +54,11 @@
             }
           },
           {
-            "location": {
-              "start": 70,
-              "end": 154
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 72,
-                      "end": 84
-                    },
                     "kind": {
                       "Text": {
                         "value": "Subsection: "
@@ -106,38 +66,22 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 84,
-                      "end": 150
-                    },
                     "kind": {
                       "List": {
                         "kind": "a",
                         "parameters": {
                           "a": {
-                            "location": {
-                              "start": 92,
-                              "end": 96
-                            },
                             "key": "a",
                             "value": []
                           }
                         },
                         "children": [
                           {
-                            "location": {
-                              "start": 96,
-                              "end": 124
-                            },
                             "kind": {
                               "ListItem": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 98,
-                                      "end": 111
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Point A with "
@@ -145,18 +89,10 @@
                                     }
                                   },
                                   {
-                                    "location": {
-                                      "start": 111,
-                                      "end": 121
-                                    },
                                     "kind": {
                                       "Italic": {
                                         "children": [
                                           {
-                                            "location": {
-                                              "start": 112,
-                                              "end": 120
-                                            },
                                             "kind": {
                                               "Text": {
                                                 "value": "emphasis"
@@ -172,19 +108,11 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 124,
-                              "end": 147
-                            },
                             "kind": {
                               "ListItem": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 126,
-                                      "end": 139
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Point B with "
@@ -192,10 +120,6 @@
                                     }
                                   },
                                   {
-                                    "location": {
-                                      "start": 139,
-                                      "end": 144
-                                    },
                                     "kind": "TimeNow"
                                   }
                                 ]
@@ -207,10 +131,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 150,
-                      "end": 151
-                    },
                     "kind": {
                       "Text": {
                         "value": " "
@@ -222,27 +142,15 @@
             }
           },
           {
-            "location": {
-              "start": 154,
-              "end": 189
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 156,
-                      "end": 169
-                    },
                     "kind": {
                       "Bold": {
                         "children": [
                           {
-                            "location": {
-                              "start": 158,
-                              "end": 167
-                            },
                             "kind": {
                               "Text": {
                                 "value": "Chapter 2"
@@ -254,10 +162,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 169,
-                      "end": 186
-                    },
                     "kind": {
                       "Text": {
                         "value": ": Advanced Topics"
@@ -269,19 +173,11 @@
             }
           },
           {
-            "location": {
-              "start": 189,
-              "end": 307
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 191,
-                      "end": 205
-                    },
                     "kind": {
                       "Text": {
                         "value": "Complex item: "
@@ -289,28 +185,16 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 205,
-                      "end": 303
-                    },
                     "kind": {
                       "Fold": {
                         "parameters": {},
                         "children": [
                           {
-                            "location": {
-                              "start": 213,
-                              "end": 229
-                            },
                             "kind": {
                               "FoldInner": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 216,
-                                      "end": 226
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Click here"
@@ -322,19 +206,11 @@
                             }
                           },
                           {
-                            "location": {
-                              "start": 229,
-                              "end": 300
-                            },
                             "kind": {
                               "FoldInner": {
                                 "parameters": {},
                                 "children": [
                                   {
-                                    "location": {
-                                      "start": 231,
-                                      "end": 239
-                                    },
                                     "kind": {
                                       "Text": {
                                         "value": "Hidden: "
@@ -342,25 +218,13 @@
                                     }
                                   },
                                   {
-                                    "location": {
-                                      "start": 239,
-                                      "end": 297
-                                    },
                                     "kind": {
                                       "Code": {
                                         "parameters": {
                                           "lang": {
-                                            "location": {
-                                              "start": 247,
-                                              "end": 261
-                                            },
                                             "key": "lang",
                                             "value": [
                                               {
-                                                "location": {
-                                                  "start": 255,
-                                                  "end": 259
-                                                },
                                                 "kind": {
                                                   "Text": {
                                                     "value": "rust"
@@ -383,10 +247,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 303,
-                      "end": 304
-                    },
                     "kind": {
                       "Text": {
                         "value": " "
@@ -398,19 +258,11 @@
             }
           },
           {
-            "location": {
-              "start": 307,
-              "end": 351
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 309,
-                      "end": 328
-                    },
                     "kind": {
                       "Text": {
                         "value": "Final chapter with "
@@ -418,18 +270,10 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 328,
-                      "end": 343
-                    },
                     "kind": {
                       "Superscript": {
                         "children": [
                           {
-                            "location": {
-                              "start": 330,
-                              "end": 341
-                            },
                             "kind": {
                               "Text": {
                                 "value": "superscript"
@@ -441,10 +285,6 @@
                     }
                   },
                   {
-                    "location": {
-                      "start": 343,
-                      "end": 348
-                    },
                     "kind": {
                       "Text": {
                         "value": " text"

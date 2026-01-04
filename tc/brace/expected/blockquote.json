@@ -1,24 +1,12 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 96
-    },
     "kind": {
       "BlockQuote": {
         "parameters": {
           "style": {
-            "location": {
-              "start": 9,
-              "end": 37
-            },
             "key": "style",
             "value": [
               {
-                "location": {
-                  "start": 18,
-                  "end": 35
-                },
                 "kind": {
                   "Text": {
                     "value": "font-style:italic"
@@ -30,10 +18,6 @@
         },
         "children": [
           {
-            "location": {
-              "start": 37,
-              "end": 75
-            },
             "kind": {
               "Text": {
                 "value": "This is a quoted text block with some "
@@ -41,18 +25,10 @@
             }
           },
           {
-            "location": {
-              "start": 75,
-              "end": 83
-            },
             "kind": {
               "Bold": {
                 "children": [
                   {
-                    "location": {
-                      "start": 77,
-                      "end": 81
-                    },
                     "kind": {
                       "Text": {
                         "value": "bold"
@@ -64,10 +40,6 @@
             }
           },
           {
-            "location": {
-              "start": 83,
-              "end": 92
-            },
             "kind": {
               "Text": {
                 "value": " content."

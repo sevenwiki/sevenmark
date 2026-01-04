@@ -1,37 +1,21 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 48
-    },
     "kind": {
       "List": {
         "kind": "1",
         "parameters": {
           "1": {
-            "location": {
-              "start": 8,
-              "end": 12
-            },
             "key": "1",
             "value": []
           }
         },
         "children": [
           {
-            "location": {
-              "start": 12,
-              "end": 23
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 14,
-                      "end": 20
-                    },
                     "kind": {
                       "Text": {
                         "value": "Item 1"
@@ -43,19 +27,11 @@
             }
           },
           {
-            "location": {
-              "start": 23,
-              "end": 34
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 25,
-                      "end": 31
-                    },
                     "kind": {
                       "Text": {
                         "value": "Item 2"
@@ -67,19 +43,11 @@
             }
           },
           {
-            "location": {
-              "start": 34,
-              "end": 45
-            },
             "kind": {
               "ListItem": {
                 "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 36,
-                      "end": 42
-                    },
                     "kind": {
                       "Text": {
                         "value": "Item 3"

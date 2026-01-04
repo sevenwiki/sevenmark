@@ -1,17 +1,9 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 61
-    },
     "kind": {
       "Literal": {
         "children": [
           {
-            "location": {
-              "start": 4,
-              "end": 58
-            },
             "kind": {
               "Text": {
                 "value": "Basic literal content with **bold** and *italic* text "

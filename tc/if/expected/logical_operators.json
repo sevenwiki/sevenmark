@@ -1,30 +1,14 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 33
-    },
     "kind": {
       "If": {
         "condition": {
-          "location": {
-            "start": 7,
-            "end": 19
-          },
           "kind": {
             "ExprAnd": {
               "operator": {
-                "location": {
-                  "start": 12,
-                  "end": 14
-                },
                 "kind": "And"
               },
               "left": {
-                "location": {
-                  "start": 7,
-                  "end": 11
-                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": true
@@ -32,10 +16,6 @@
                 }
               },
               "right": {
-                "location": {
-                  "start": 15,
-                  "end": 19
-                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": true
@@ -47,10 +27,6 @@
         },
         "children": [
           {
-            "location": {
-              "start": 20,
-              "end": 29
-            },
             "kind": {
               "Text": {
                 "value": "both true"
@@ -62,45 +38,21 @@
     }
   },
   {
-    "location": {
-      "start": 33,
-      "end": 34
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 34,
-      "end": 35
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 35,
-      "end": 71
-    },
     "kind": {
       "If": {
         "condition": {
-          "location": {
-            "start": 42,
-            "end": 55
-          },
           "kind": {
             "ExprOr": {
               "operator": {
-                "location": {
-                  "start": 47,
-                  "end": 49
-                },
                 "kind": "Or"
               },
               "left": {
-                "location": {
-                  "start": 42,
-                  "end": 46
-                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": true
@@ -108,10 +60,6 @@
                 }
               },
               "right": {
-                "location": {
-                  "start": 50,
-                  "end": 55
-                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": false
@@ -123,10 +71,6 @@
         },
         "children": [
           {
-            "location": {
-              "start": 56,
-              "end": 67
-            },
             "kind": {
               "Text": {
                 "value": "either true"
@@ -138,45 +82,21 @@
     }
   },
   {
-    "location": {
-      "start": 71,
-      "end": 72
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 72,
-      "end": 73
-    },
     "kind": "SoftBreak"
   },
   {
-    "location": {
-      "start": 73,
-      "end": 100
-    },
     "kind": {
       "If": {
         "condition": {
-          "location": {
-            "start": 80,
-            "end": 86
-          },
           "kind": {
             "ExprNot": {
               "operator": {
-                "location": {
-                  "start": 80,
-                  "end": 81
-                },
                 "kind": "Not"
               },
               "children": {
-                "location": {
-                  "start": 81,
-                  "end": 86
-                },
                 "kind": {
                   "ExprBoolLiteral": {
                     "value": false
@@ -188,10 +108,6 @@
         },
         "children": [
           {
-            "location": {
-              "start": 87,
-              "end": 96
-            },
             "kind": {
               "Text": {
                 "value": "not false"

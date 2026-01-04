@@ -1,9 +1,5 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 14
-    },
     "kind": {
       "Text": {
         "value": "This text has "
@@ -11,18 +7,10 @@
     }
   },
   {
-    "location": {
-      "start": 14,
-      "end": 22
-    },
     "kind": {
       "Bold": {
         "children": [
           {
-            "location": {
-              "start": 16,
-              "end": 20
-            },
             "kind": {
               "Text": {
                 "value": "bold"
@@ -34,10 +22,6 @@
     }
   },
   {
-    "location": {
-      "start": 22,
-      "end": 23
-    },
     "kind": {
       "Text": {
         "value": ","
@@ -45,10 +29,6 @@
     }
   },
   {
-    "location": {
-      "start": 23,
-      "end": 24
-    },
     "kind": {
       "Text": {
         "value": " "
@@ -56,18 +36,10 @@
     }
   },
   {
-    "location": {
-      "start": 24,
-      "end": 32
-    },
     "kind": {
       "Italic": {
         "children": [
           {
-            "location": {
-              "start": 25,
-              "end": 31
-            },
             "kind": {
               "Text": {
                 "value": "italic"
@@ -79,10 +51,6 @@
     }
   },
   {
-    "location": {
-      "start": 32,
-      "end": 33
-    },
     "kind": {
       "Text": {
         "value": ","
@@ -90,10 +58,6 @@
     }
   },
   {
-    "location": {
-      "start": 33,
-      "end": 34
-    },
     "kind": {
       "Text": {
         "value": " "
@@ -101,18 +65,10 @@
     }
   },
   {
-    "location": {
-      "start": 34,
-      "end": 48
-    },
     "kind": {
       "Underline": {
         "children": [
           {
-            "location": {
-              "start": 36,
-              "end": 46
-            },
             "kind": {
               "Text": {
                 "value": "underlined"
@@ -124,10 +80,6 @@
     }
   },
   {
-    "location": {
-      "start": 48,
-      "end": 49
-    },
     "kind": {
       "Text": {
         "value": ","
@@ -135,10 +87,6 @@
     }
   },
   {
-    "location": {
-      "start": 49,
-      "end": 50
-    },
     "kind": {
       "Text": {
         "value": " "
@@ -146,18 +94,10 @@
     }
   },
   {
-    "location": {
-      "start": 50,
-      "end": 67
-    },
     "kind": {
       "Strikethrough": {
         "children": [
           {
-            "location": {
-              "start": 52,
-              "end": 65
-            },
             "kind": {
               "Text": {
                 "value": "strikethrough"
@@ -169,10 +109,6 @@
     }
   },
   {
-    "location": {
-      "start": 67,
-      "end": 68
-    },
     "kind": {
       "Text": {
         "value": ","
@@ -180,10 +116,6 @@
     }
   },
   {
-    "location": {
-      "start": 68,
-      "end": 69
-    },
     "kind": {
       "Text": {
         "value": " "
@@ -191,18 +123,10 @@
     }
   },
   {
-    "location": {
-      "start": 69,
-      "end": 84
-    },
     "kind": {
       "Superscript": {
         "children": [
           {
-            "location": {
-              "start": 71,
-              "end": 82
-            },
             "kind": {
               "Text": {
                 "value": "superscript"
@@ -214,10 +138,6 @@
     }
   },
   {
-    "location": {
-      "start": 84,
-      "end": 85
-    },
     "kind": {
       "Text": {
         "value": ","
@@ -225,10 +145,6 @@
     }
   },
   {
-    "location": {
-      "start": 85,
-      "end": 90
-    },
     "kind": {
       "Text": {
         "value": " and "
@@ -236,18 +152,10 @@
     }
   },
   {
-    "location": {
-      "start": 90,
-      "end": 103
-    },
     "kind": {
       "Subscript": {
         "children": [
           {
-            "location": {
-              "start": 92,
-              "end": 101
-            },
             "kind": {
               "Text": {
                 "value": "subscript"
@@ -259,10 +167,6 @@
     }
   },
   {
-    "location": {
-      "start": 103,
-      "end": 115
-    },
     "kind": {
       "Text": {
         "value": " formatting."

@@ -1,6 +1,4 @@
-use sevenmark_parser::ast::{
-    AstNode, ComparisonOperator, ComparisonOperatorKind, NodeKind,
-};
+use sevenmark_parser::ast::{AstNode, ComparisonOperator, ComparisonOperatorKind, NodeKind};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과
@@ -173,7 +171,9 @@ fn evaluate_function(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sevenmark_parser::ast::{Location, LogicalOperator, LogicalOperatorKind, ComparisonOperator};
+    use sevenmark_parser::ast::{
+        ComparisonOperator, Location, LogicalOperator, LogicalOperatorKind,
+    };
 
     // 테스트용 헬퍼 함수들
     fn loc() -> Location {
@@ -188,7 +188,12 @@ mod tests {
     }
 
     fn str_lit(s: &str) -> AstNode {
-        AstNode::new(loc(), NodeKind::ExprStringLiteral { value: s.to_string() })
+        AstNode::new(
+            loc(),
+            NodeKind::ExprStringLiteral {
+                value: s.to_string(),
+            },
+        )
     }
 
     fn num_lit(n: i64) -> AstNode {
@@ -204,7 +209,12 @@ mod tests {
     }
 
     fn var_elem(name: &str) -> AstNode {
-        AstNode::new(loc(), NodeKind::Variable { name: name.to_string() })
+        AstNode::new(
+            loc(),
+            NodeKind::Variable {
+                name: name.to_string(),
+            },
+        )
     }
 
     fn cmp(left: AstNode, kind: ComparisonOperatorKind, right: AstNode) -> AstNode {

@@ -23,6 +23,9 @@ pub fn brace_include_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     )
     .parse_next(parser_input)?;
 
+    // consume trailing whitespace to prevent unwanted line breaks
+    multispace0.parse_next(parser_input)?;
+
     let end = parser_input.input.previous_token_end();
 
     Ok(AstNode::new(
