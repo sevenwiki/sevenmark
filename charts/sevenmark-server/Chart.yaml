@@ -3,7 +3,7 @@ name: sevenmark-server
 description: SevenMark wiki markup parser REST API server
 type: application
 version: 0.1.0
-appVersion: "2.12.7"
+appVersion: "2.12.9"
 keywords:
   - parser
   - wiki
