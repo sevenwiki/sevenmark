@@ -1,7 +1,5 @@
-//! NicoNico (nicovideo) video rendering (facade pattern)
+//! NicoNico (nicovideo) video rendering (direct iframe embed)
 //!
-//! Renders a thumbnail with play button. Client-side JS converts to iframe on click.
-//! Thumbnail URL: https://nicovideo.cdn.nimg.jp/thumbnails/{numeric_id}/{numeric_id}.L
 //! Embed URL: https://embed.nicovideo.jp/watch/{id}
 //!
 //! Parameters:
@@ -16,9 +14,23 @@ use sevenmark_parser::ast::Parameters;
 use crate::classes;
 use crate::render::utils::get_param;
 
-/// Extract numeric ID from NicoNico video ID (e.g., "sm32921516" -> "32921516")
-fn extract_numeric_id(id: &str) -> &str {
-    id.trim_start_matches(|c: char| c.is_ascii_alphabetic())
+fn build_embed_url(id: &str, parameters: &Parameters) -> String {
+    let mut params = Vec::new();
+
+    if let Some(from) = get_param(parameters, "from") {
+        params.push(format!("from={}", from));
+    }
+    if let Some(autoplay) = get_param(parameters, "autoplay") {
+        if autoplay == "0" || autoplay == "false" {
+            params.push("autoplay=0".to_string());
+        }
+    }
+
+    if params.is_empty() {
+        format!("https://embed.nicovideo.jp/watch/{}", id)
+    } else {
+        format!("https://embed.nicovideo.jp/watch/{}?{}", id, params.join("&"))
+    }
 }
 
 pub fn render(parameters: &Parameters) -> Markup {
@@ -31,35 +43,20 @@ pub fn render(parameters: &Parameters) -> Markup {
         }
     };
 
-    let numeric_id = extract_numeric_id(&id);
-    let thumbnail_url = format!(
-        "https://nicovideo.cdn.nimg.jp/thumbnails/{}/{}.L",
-        numeric_id, numeric_id
-    );
+    let url = build_embed_url(&id, parameters);
     let width = get_param(parameters, "width").unwrap_or_else(|| "640".to_string());
     let height = get_param(parameters, "height").unwrap_or_else(|| "360".to_string());
 
-    let from = get_param(parameters, "from");
-    let autoplay_off = get_param(parameters, "autoplay")
-        .map(|v| v == "0" || v == "false")
-        .unwrap_or(false);
-
     html! {
-        div
+        iframe
             class=(format!("{} {}", classes::VIDEO, classes::VIDEO_NICOVIDEO))
-            data-id=(id)
-            data-width=(width)
-            data-height=(height)
-            data-from=[from]
-            data-autoplay-off[autoplay_off]
-        {
-            img
-                class=(classes::VIDEO_THUMBNAIL)
-                src=(thumbnail_url)
-                alt="NicoNico video thumbnail"
-                loading="lazy"
-            {}
-            button class=(classes::VIDEO_PLAY_BUTTON) type="button" aria-label="Play video" {}
-        }
+            src=(url)
+            width=(width)
+            height=(height)
+            frameborder="0"
+            allow="autoplay"
+            allowfullscreen
+            loading="lazy"
+        {}
     }
 }

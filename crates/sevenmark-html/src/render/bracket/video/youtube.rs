@@ -1,7 +1,5 @@
-//! YouTube video rendering (facade pattern)
+//! YouTube video rendering (direct iframe embed)
 //!
-//! Renders a thumbnail with play button. Client-side JS converts to iframe on click.
-//! Thumbnail URL: https://i.ytimg.com/vi/{id}/hqdefault.jpg
 //! Embed URL: https://www.youtube.com/embed/{id}
 //!
 //! Parameters:
@@ -20,6 +18,38 @@ use sevenmark_parser::ast::Parameters;
 use crate::classes;
 use crate::render::utils::get_param;
 
+fn build_embed_url(id: &str, parameters: &Parameters) -> String {
+    let mut params = Vec::new();
+
+    if let Some(start) = get_param(parameters, "start") {
+        params.push(format!("start={}", start));
+    }
+    if let Some(end) = get_param(parameters, "end") {
+        params.push(format!("end={}", end));
+    }
+    if get_param(parameters, "autoplay").is_some() {
+        params.push("autoplay=1".to_string());
+    }
+    if get_param(parameters, "loop").is_some() {
+        params.push("loop=1".to_string());
+        params.push(format!("playlist={}", id));
+    }
+    if get_param(parameters, "mute").is_some() {
+        params.push("mute=1".to_string());
+    }
+    if let Some(controls) = get_param(parameters, "controls") {
+        if controls == "0" || controls == "false" {
+            params.push("controls=0".to_string());
+        }
+    }
+
+    if params.is_empty() {
+        format!("https://www.youtube.com/embed/{}", id)
+    } else {
+        format!("https://www.youtube.com/embed/{}?{}", id, params.join("&"))
+    }
+}
+
 pub fn render(parameters: &Parameters) -> Markup {
     let id = match get_param(parameters, "id") {
         Some(id) => id,
@@ -30,39 +60,19 @@ pub fn render(parameters: &Parameters) -> Markup {
         }
     };
 
-    let thumbnail_url = format!("https://i.ytimg.com/vi/{}/hqdefault.jpg", id);
+    let url = build_embed_url(&id, parameters);
     let width = get_param(parameters, "width").unwrap_or_else(|| "640".to_string());
     let height = get_param(parameters, "height").unwrap_or_else(|| "360".to_string());
 
-    let start = get_param(parameters, "start");
-    let end = get_param(parameters, "end");
-    let autoplay = get_param(parameters, "autoplay").is_some();
-    let loop_video = get_param(parameters, "loop").is_some();
-    let mute = get_param(parameters, "mute").is_some();
-    let controls_off = get_param(parameters, "controls")
-        .map(|v| v == "0" || v == "false")
-        .unwrap_or(false);
-
     html! {
-        div
+        iframe
             class=(format!("{} {}", classes::VIDEO, classes::VIDEO_YOUTUBE))
-            data-id=(id)
-            data-width=(width)
-            data-height=(height)
-            data-start=[start]
-            data-end=[end]
-            data-autoplay[autoplay]
-            data-loop[loop_video]
-            data-mute[mute]
-            data-controls-off[controls_off]
-        {
-            img
-                class=(classes::VIDEO_THUMBNAIL)
-                src=(thumbnail_url)
-                alt="YouTube video thumbnail"
-                loading="lazy"
-            {}
-            button class=(classes::VIDEO_PLAY_BUTTON) type="button" aria-label="Play video" {}
-        }
+            src=(url)
+            width=(width)
+            height=(height)
+            frameborder="0"
+            allowfullscreen
+            loading="lazy"
+        {}
     }
 }

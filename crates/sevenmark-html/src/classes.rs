@@ -58,8 +58,6 @@ pub const VIDEO: &str = "sm-video";
 pub const VIDEO_YOUTUBE: &str = "sm-video-youtube";
 pub const VIDEO_VIMEO: &str = "sm-video-vimeo";
 pub const VIDEO_NICOVIDEO: &str = "sm-video-nicovideo";
-pub const VIDEO_THUMBNAIL: &str = "sm-video-thumbnail";
-pub const VIDEO_PLAY_BUTTON: &str = "sm-video-play";
 
 // Footnotes
 pub const FOOTNOTE: &str = "sm-footnote";
