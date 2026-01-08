@@ -7,7 +7,7 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-/// Parse external media elements: [[#youtube ...]], [[#vimeo ...]], [[#nicovideo ...]], [[#spotify ...]]
+/// Parse external media elements: [[#youtube ...]], [[#vimeo ...]], [[#nicovideo ...]], [[#spotify ...]], [[#discord ...]]
 pub fn bracket_external_media_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
