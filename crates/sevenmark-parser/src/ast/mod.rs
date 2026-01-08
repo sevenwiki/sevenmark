@@ -218,6 +218,11 @@ pub enum NodeKind {
         #[serde(skip_serializing_if = "Option::is_none")]
         resolved_info: Option<ResolvedMediaInfo>,
     },
+    /// 비디오 [[#youtube #id="..." ...]], [[#vimeo ...]], [[#nicovideo ...]]
+    Video {
+        provider: String,
+        parameters: Parameters,
+    },
 
     // === Macros (leaf nodes) ===
     /// Null 매크로 [null]

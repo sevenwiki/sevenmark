@@ -53,6 +53,14 @@ pub const MEDIA_IMAGE_BROKEN: &str = "sm-image-broken";
 pub const MEDIA_LINK: &str = "sm-link";
 pub const MEDIA_LINK_INVALID: &str = "sm-link-invalid";
 
+// Video
+pub const VIDEO: &str = "sm-video";
+pub const VIDEO_YOUTUBE: &str = "sm-video-youtube";
+pub const VIDEO_VIMEO: &str = "sm-video-vimeo";
+pub const VIDEO_NICOVIDEO: &str = "sm-video-nicovideo";
+pub const VIDEO_THUMBNAIL: &str = "sm-video-thumbnail";
+pub const VIDEO_PLAY_BUTTON: &str = "sm-video-play";
+
 // Footnotes
 pub const FOOTNOTE: &str = "sm-footnote";
 pub const FOOTNOTE_REF: &str = "sm-fn-ref";
