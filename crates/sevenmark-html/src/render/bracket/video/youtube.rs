@@ -10,7 +10,7 @@
 //!   - autoplay: Auto-play on load
 //!   - loop: Loop video
 //!   - mute: Start muted
-//!   - controls: Show controls (default: true)
+//!   - nocontrols: Hide player controls
 
 use maud::{Markup, html};
 use sevenmark_parser::ast::Parameters;
@@ -37,10 +37,8 @@ fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     if get_param(parameters, "mute").is_some() {
         params.push("mute=1".to_string());
     }
-    if let Some(controls) = get_param(parameters, "controls") {
-        if controls == "0" || controls == "false" {
-            params.push("controls=0".to_string());
-        }
+    if get_param(parameters, "nocontrols").is_some() {
+        params.push("controls=0".to_string());
     }
 
     if params.is_empty() {

@@ -6,7 +6,7 @@
 //!   - id: Video ID (required, e.g., "sm9", "so39402840")
 //!   - width, height: Dimensions (default: 640x360)
 //!   - from: Start time in seconds
-//!   - autoplay: Auto-play (set to "0" to disable, default enabled)
+//!   - autoplay: Auto-play (present = enabled)
 
 use maud::{Markup, html};
 use sevenmark_parser::ast::Parameters;
@@ -20,10 +20,8 @@ fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     if let Some(from) = get_param(parameters, "from") {
         params.push(format!("from={}", from));
     }
-    if let Some(autoplay) = get_param(parameters, "autoplay") {
-        if autoplay == "0" || autoplay == "false" {
-            params.push("autoplay=0".to_string());
-        }
+    if get_param(parameters, "autoplay").is_some() {
+        params.push("autoplay=1".to_string());
     }
 
     if params.is_empty() {

@@ -5,11 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.13] - 2026-01-08
+
+### Changed
+- **Video embed parameter simplification**: Boolean parameters now use presence-based logic
+  - `#autoplay` present = enabled, absent = disabled (no more `#autoplay="0"`)
+  - Same for `#loop`, `#mute`, `#dnt`
+  - YouTube: `#controls` replaced with `#nocontrols` for hiding controls
+- **NicoNico iframe**: Added `allow="autoplay"` attribute for browser permission
+
 ## [2.12.12] - 2026-01-08
 
 ### Added
 - **Video embed support**: New bracket syntax for embedding videos
-  - `[[#youtube #id="..." #start #end #autoplay #loop #mute #controls]]`
+  - `[[#youtube #id="..." #start #end #autoplay #loop #mute #nocontrols]]`
   - `[[#vimeo #id="..." #h #autoplay #loop #mute #color #dnt]]`
   - `[[#nicovideo #id="..." #from #autoplay]]`
 - **New NodeKind variant**: `Video { provider: String, parameters: Parameters }`
