@@ -27,7 +27,11 @@ fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     if params.is_empty() {
         format!("https://embed.nicovideo.jp/watch/{}", id)
     } else {
-        format!("https://embed.nicovideo.jp/watch/{}?{}", id, params.join("&"))
+        format!(
+            "https://embed.nicovideo.jp/watch/{}?{}",
+            id,
+            params.join("&")
+        )
     }
 }
 
@@ -37,7 +41,7 @@ pub fn render(parameters: &Parameters) -> Markup {
         None => {
             return html! {
                 span class=(classes::ERROR) { "NicoNico: missing id parameter" }
-            }
+            };
         }
     };
 
@@ -47,7 +51,7 @@ pub fn render(parameters: &Parameters) -> Markup {
 
     html! {
         iframe
-            class=(format!("{} {}", classes::VIDEO, classes::VIDEO_NICOVIDEO))
+            class=(format!("{} {}", classes::EMBED, classes::EMBED_NICOVIDEO))
             src=(url)
             width=(width)
             height=(height)

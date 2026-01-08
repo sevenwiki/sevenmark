@@ -20,7 +20,11 @@ use sevenmark_parser::ast::Parameters;
 use crate::classes;
 use crate::render::utils::get_param;
 
-fn build_embed_url(video_id: Option<&str>, playlist_id: Option<&str>, parameters: &Parameters) -> String {
+fn build_embed_url(
+    video_id: Option<&str>,
+    playlist_id: Option<&str>,
+    parameters: &Parameters,
+) -> String {
     let mut params = Vec::new();
 
     // Playlist parameter
@@ -85,7 +89,7 @@ pub fn render(parameters: &Parameters) -> Markup {
 
     html! {
         iframe
-            class=(format!("{} {}", classes::VIDEO, classes::VIDEO_YOUTUBE))
+            class=(format!("{} {}", classes::EMBED, classes::EMBED_YOUTUBE))
             src=(url)
             width=(width)
             height=(height)

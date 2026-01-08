@@ -32,7 +32,7 @@ impl Traversable for AstNode {
             | NodeKind::Code { .. }
             | NodeKind::TeX { .. }
             | NodeKind::Define { .. }
-            | NodeKind::Video { .. }
+            | NodeKind::ExternalMedia { .. }
             | NodeKind::Null
             | NodeKind::FootnoteRef
             | NodeKind::TimeNow
@@ -144,7 +144,7 @@ impl Traversable for AstNode {
             | NodeKind::Code { .. }
             | NodeKind::TeX { .. }
             | NodeKind::Define { .. }
-            | NodeKind::Video { .. }
+            | NodeKind::ExternalMedia { .. }
             | NodeKind::Null
             | NodeKind::FootnoteRef
             | NodeKind::TimeNow
@@ -230,7 +230,7 @@ impl Traversable for AstNode {
             | NodeKind::Code { .. }
             | NodeKind::TeX { .. }
             | NodeKind::Define { .. }
-            | NodeKind::Video { .. }
+            | NodeKind::ExternalMedia { .. }
             | NodeKind::Null
             | NodeKind::FootnoteRef
             | NodeKind::TimeNow

@@ -74,8 +74,8 @@ pub fn render_element(el: &AstNode, ctx: &mut RenderContext) -> Markup {
             resolved_info,
         } => bracket::media::render(parameters, children, resolved_info.as_ref(), ctx),
 
-        // Video
-        NodeKind::Video {
+        // External Media (YouTube, Vimeo, NicoNico, Spotify)
+        NodeKind::ExternalMedia {
             provider,
             parameters,
         } => bracket::video::render(provider, parameters),

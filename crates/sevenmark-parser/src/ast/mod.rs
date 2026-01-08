@@ -218,8 +218,8 @@ pub enum NodeKind {
         #[serde(skip_serializing_if = "Option::is_none")]
         resolved_info: Option<ResolvedMediaInfo>,
     },
-    /// 비디오 [[#youtube #id="..." ...]], [[#vimeo ...]], [[#nicovideo ...]]
-    Video {
+    /// 외부 미디어 [[#youtube ...]], [[#vimeo ...]], [[#nicovideo ...]], [[#spotify ...]]
+    ExternalMedia {
         provider: String,
         parameters: Parameters,
     },

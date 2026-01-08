@@ -54,7 +54,7 @@ pub fn render(parameters: &Parameters) -> Markup {
         None => {
             return html! {
                 span class=(classes::ERROR) { "Vimeo: missing id parameter" }
-            }
+            };
         }
     };
 
@@ -64,7 +64,7 @@ pub fn render(parameters: &Parameters) -> Markup {
 
     html! {
         iframe
-            class=(format!("{} {}", classes::VIDEO, classes::VIDEO_VIMEO))
+            class=(format!("{} {}", classes::EMBED, classes::EMBED_VIMEO))
             src=(url)
             width=(width)
             height=(height)

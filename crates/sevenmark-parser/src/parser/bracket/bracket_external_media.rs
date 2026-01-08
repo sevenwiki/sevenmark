@@ -7,13 +7,13 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
-/// Parse video elements: [[#youtube ...]], [[#vimeo ...]], [[#nicovideo ...]]
-pub fn bracket_video_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+/// Parse external media elements: [[#youtube ...]], [[#vimeo ...]], [[#nicovideo ...]], [[#spotify ...]]
+pub fn bracket_external_media_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let start = parser_input.input.current_token_start();
 
     let (provider, parameters) = delimited(
         literal("[["),
-        (video_provider_parser, opt(parameter_core_parser)),
+        (external_media_provider_parser, opt(parameter_core_parser)),
         literal("]]"),
     )
     .parse_next(parser_input)?;
@@ -22,19 +22,20 @@ pub fn bracket_video_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
 
     Ok(AstNode::new(
         Location { start, end },
-        NodeKind::Video {
+        NodeKind::ExternalMedia {
             provider: provider.to_string(),
             parameters: parameters.unwrap_or_default(),
         },
     ))
 }
 
-/// Parse video provider tag: #youtube, #vimeo, #nicovideo
-fn video_provider_parser<'a>(input: &mut ParserInput<'a>) -> Result<&'a str> {
+/// Parse external media provider tag: #youtube, #vimeo, #nicovideo, #spotify
+fn external_media_provider_parser<'a>(input: &mut ParserInput<'a>) -> Result<&'a str> {
     alt((
         literal("#youtube").map(|_| "youtube"),
         literal("#vimeo").map(|_| "vimeo"),
         literal("#nicovideo").map(|_| "nicovideo"),
+        literal("#spotify").map(|_| "spotify"),
     ))
     .parse_next(input)
 }

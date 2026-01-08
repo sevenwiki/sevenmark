@@ -5,6 +5,36 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.16] - 2026-01-08
+
+### Fixed
+- **Spotify embed styling**: Added `border-radius: 12px` to `.sm-embed-spotify` to match Spotify's native rounded corners
+- **Embed overflow**: Added `overflow: hidden` to `.sm-embed` to prevent content overflow issues
+
+## [2.12.15] - 2026-01-08
+
+### Added
+- **Spotify embed support**: New `[[#spotify ...]]` syntax for embedding Spotify content
+  - `[[#spotify #track="..."]]` - Single track
+  - `[[#spotify #album="..."]]` - Album
+  - `[[#spotify #playlist="..."]]` - Playlist
+  - `[[#spotify #artist="..."]]` - Artist
+  - `[[#spotify #episode="..."]]` - Podcast episode
+  - `[[#spotify #show="..."]]` - Podcast show
+  - Options: `#dark` (dark theme), `#compact` (cover art view), `#width`, `#height`
+
+### Changed
+- **NodeKind::Video → NodeKind::ExternalMedia**: Renamed to better reflect support for both video and audio embeds
+  - Covers: YouTube, Vimeo, NicoNico, Spotify
+  - Parser file renamed: `bracket_video.rs` → `bracket_external_media.rs`
+  - Function renamed: `bracket_video_parser` → `bracket_external_media_parser`
+- **CSS class rename**: `sm-video-*` → `sm-embed-*`
+  - `sm-video` → `sm-embed`
+  - `sm-video-youtube` → `sm-embed-youtube`
+  - `sm-video-vimeo` → `sm-embed-vimeo`
+  - `sm-video-nicovideo` → `sm-embed-nicovideo`
+  - `sm-video-spotify` → `sm-embed-spotify`
+
 ## [2.12.14] - 2026-01-08
 
 ### Added
