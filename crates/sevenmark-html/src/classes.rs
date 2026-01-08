@@ -59,6 +59,7 @@ pub const EMBED_YOUTUBE: &str = "sm-embed-youtube";
 pub const EMBED_VIMEO: &str = "sm-embed-vimeo";
 pub const EMBED_NICOVIDEO: &str = "sm-embed-nicovideo";
 pub const EMBED_SPOTIFY: &str = "sm-embed-spotify";
+pub const EMBED_DISCORD: &str = "sm-embed-discord";
 
 // Footnotes
 pub const FOOTNOTE: &str = "sm-footnote";

@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.17] - 2026-01-08
+
+### Added
+- **Discord widget embed support**: New `[[#discord ...]]` syntax for embedding Discord server widgets
+  - `[[#discord #id="SERVER_ID"]]` - Server widget (light theme)
+  - `[[#discord #id="SERVER_ID" #dark]]` - Dark theme
+  - Options: `#width`, `#height` (default: 350x500)
+
 ## [2.12.16] - 2026-01-08
 
 ### Fixed

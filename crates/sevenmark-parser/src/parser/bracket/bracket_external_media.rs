@@ -29,13 +29,14 @@ pub fn bracket_external_media_parser(parser_input: &mut ParserInput) -> Result<A
     ))
 }
 
-/// Parse external media provider tag: #youtube, #vimeo, #nicovideo, #spotify
+/// Parse external media provider tag: #youtube, #vimeo, #nicovideo, #spotify, #discord
 fn external_media_provider_parser<'a>(input: &mut ParserInput<'a>) -> Result<&'a str> {
     alt((
         literal("#youtube").map(|_| "youtube"),
         literal("#vimeo").map(|_| "vimeo"),
         literal("#nicovideo").map(|_| "nicovideo"),
         literal("#spotify").map(|_| "spotify"),
+        literal("#discord").map(|_| "discord"),
     ))
     .parse_next(input)
 }
