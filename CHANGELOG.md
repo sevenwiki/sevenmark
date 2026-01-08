@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.18] - 2026-01-08
+
+### Fixed
+- **Non-rendering element location**: `define`, `category`, `include` now exclude trailing whitespace from their location range
+- **Redirect whitespace**: Removed unnecessary trailing whitespace consumption from `redirect` parser (document ends after redirect)
+
 ## [2.12.17] - 2026-01-08
 
 ### Added

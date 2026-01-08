@@ -15,10 +15,10 @@ pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     let parameters = delimited(literal("{{{#define"), parameter_core_parser, literal("}}}"))
         .parse_next(parser_input)?;
 
+    let end = parser_input.input.previous_token_end();
+
     // consume trailing whitespace to prevent unwanted line breaks
     multispace0.parse_next(parser_input)?;
-
-    let end = parser_input.input.previous_token_end();
 
     Ok(AstNode::new(
         Location { start, end },
