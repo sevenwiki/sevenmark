@@ -12,6 +12,9 @@ use std::collections::{HashMap, HashSet};
 use tracing::debug;
 use utoipa::ToSchema;
 
+/// Media resolution map: (namespace, title) -> (file_url, width, height, is_valid)
+type MediaResolutionMap = HashMap<(DocumentNamespace, String), (Option<String>, Option<i32>, Option<i32>, bool)>;
+
 /// Final result after media resolution
 #[derive(Debug, Clone, Serialize, ToSchema)]
 pub struct ProcessedDocument {
@@ -33,46 +36,49 @@ pub async fn postprocess_sevenmark(
     let mut ast = preprocessed.ast;
 
     // Build resolution map from DB (only if there are media references)
-    // Key: (namespace, title), Value: (file_url if File, is_valid)
-    let resolved_map: HashMap<(DocumentNamespace, String), (Option<String>, bool)> =
-        if preprocessed.media.is_empty() {
-            HashMap::new()
-        } else {
-            // Convert MediaReference to (namespace, title) tuples for batch request
-            let requests: Vec<_> = preprocessed
-                .media
-                .into_iter()
-                .map(|m| (m.namespace, m.title))
-                .collect();
+    let resolved_map: MediaResolutionMap = if preprocessed.media.is_empty() {
+        HashMap::new()
+    } else {
+        // Convert MediaReference to (namespace, title) tuples for batch request
+        let requests: Vec<_> = preprocessed
+            .media
+            .into_iter()
+            .map(|m| (m.namespace, m.title))
+            .collect();
 
-            debug!(
-                "Checking existence of {} unique media references",
-                requests.len()
-            );
+        debug!(
+            "Checking existence of {} unique media references",
+            requests.len()
+        );
 
-            // Check document existence (lightweight - no content fetching)
-            let existence_results = check_documents_exist(db, requests).await?;
+        // Check document existence (lightweight - no content fetching)
+        let existence_results = check_documents_exist(db, requests).await?;
 
-            let mut map = HashMap::new();
+        let mut map = HashMap::new();
 
-            for result in existence_results {
-                let key = (result.namespace.clone(), result.title.clone());
-                let value = match result.namespace {
-                    DocumentNamespace::File => {
-                        // File: store file_url and validity
-                        let is_valid = result.file_url.is_some();
-                        (result.file_url, is_valid)
-                    }
-                    DocumentNamespace::Document | DocumentNamespace::Category => {
-                        // Document/Category: just store validity (title is in key)
-                        (None, result.exists)
-                    }
-                };
-                map.insert(key, value);
-            }
+        for result in existence_results {
+            let key = (result.namespace.clone(), result.title.clone());
+            let value = match result.namespace {
+                DocumentNamespace::File => {
+                    // File: store file_url, width, height and validity
+                    let is_valid = result.file_url.is_some();
+                    (
+                        result.file_url,
+                        result.file_width,
+                        result.file_height,
+                        is_valid,
+                    )
+                }
+                DocumentNamespace::Document | DocumentNamespace::Category => {
+                    // Document/Category: just store validity (title is in key)
+                    (None, None, None, result.exists)
+                }
+            };
+            map.insert(key, value);
+        }
 
-            map
-        };
+        map
+    };
 
     // Always traverse AST to resolve MediaElement references (including #url)
     resolve_media_elements(&mut ast, &resolved_map);
@@ -87,19 +93,13 @@ pub async fn postprocess_sevenmark(
     })
 }
 
-fn resolve_media_elements(
-    elements: &mut [AstNode],
-    resolved_map: &HashMap<(DocumentNamespace, String), (Option<String>, bool)>,
-) {
+fn resolve_media_elements(elements: &mut [AstNode], resolved_map: &MediaResolutionMap) {
     for element in elements {
         resolve_media_recursive(element, resolved_map);
     }
 }
 
-fn resolve_media_recursive(
-    element: &mut AstNode,
-    resolved_map: &HashMap<(DocumentNamespace, String), (Option<String>, bool)>,
-) {
+fn resolve_media_recursive(element: &mut AstNode, resolved_map: &MediaResolutionMap) {
     if let NodeKind::Media {
         parameters,
         resolved_info,
@@ -113,10 +113,13 @@ fn resolve_media_recursive(
             let title = extract_plain_text(&file_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::File, title);
-                let (file_url, is_valid) = resolved_map.get(&key).cloned().unwrap_or((None, false));
+                let (file_url, width, height, is_valid) =
+                    resolved_map.get(&key).cloned().unwrap_or((None, None, None, false));
                 resolved.file = Some(ResolvedFile {
                     url: file_url.unwrap_or_default(),
                     is_valid,
+                    width: width.map(|w| w as u32),
+                    height: height.map(|h| h as u32),
                 });
             }
         }
@@ -128,7 +131,7 @@ fn resolve_media_recursive(
                 let key = (DocumentNamespace::Document, title.clone());
                 let is_valid = resolved_map
                     .get(&key)
-                    .map(|(_, valid)| *valid)
+                    .map(|(_, _, _, valid)| *valid)
                     .unwrap_or(false);
                 resolved.document = Some(ResolvedDoc { title, is_valid });
             }
@@ -141,7 +144,7 @@ fn resolve_media_recursive(
                 let key = (DocumentNamespace::Category, title.clone());
                 let is_valid = resolved_map
                     .get(&key)
-                    .map(|(_, valid)| *valid)
+                    .map(|(_, _, _, valid)| *valid)
                     .unwrap_or(false);
                 resolved.category = Some(ResolvedDoc { title, is_valid });
             }

@@ -34,6 +34,12 @@ pub enum MentionType {
 pub struct ResolvedFile {
     pub url: String,
     pub is_valid: bool,
+    /// 이미지 너비 (CLS 개선용)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<u32>,
+    /// 이미지 높이 (CLS 개선용)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<u32>,
 }
 
 /// 문서/카테고리 resolve 결과 (title만 저장, URL은 렌더러에서 조립)

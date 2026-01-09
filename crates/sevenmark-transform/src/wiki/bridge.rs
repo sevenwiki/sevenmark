@@ -198,7 +198,8 @@ pub async fn check_documents_exist(
         .map(|doc| doc.id)
         .collect();
 
-    let mut storage_key_map: HashMap<Uuid, String> = HashMap::new();
+    // Store (storage_key, width, height) for file documents
+    let mut file_info_map: HashMap<Uuid, (String, i32, i32)> = HashMap::new();
     if !file_document_ids.is_empty() {
         let files = DocumentFiles::find()
             .filter(DocumentFilesColumn::DocumentId.is_in(file_document_ids))
@@ -207,7 +208,7 @@ pub async fn check_documents_exist(
             .context("Failed to fetch document files")?;
 
         for file in files {
-            storage_key_map.insert(file.document_id, file.storage_key);
+            file_info_map.insert(file.document_id, (file.storage_key, file.width, file.height));
         }
     }
 
@@ -216,13 +217,24 @@ pub async fn check_documents_exist(
         .into_iter()
         .map(|(namespace, title)| {
             let doc_id = existing.get(&(namespace.clone(), title.clone()));
-            let file_url = doc_id.and_then(|id| storage_key_map.get(id).cloned());
+            let (file_url, file_width, file_height) =
+                if let Some(id) = doc_id {
+                    if let Some((url, w, h)) = file_info_map.get(id) {
+                        (Some(url.clone()), Some(*w), Some(*h))
+                    } else {
+                        (None, None, None)
+                    }
+                } else {
+                    (None, None, None)
+                };
 
             DocumentExistence {
                 namespace,
                 title,
                 exists: doc_id.is_some(),
                 file_url,
+                file_width,
+                file_height,
             }
         })
         .collect();

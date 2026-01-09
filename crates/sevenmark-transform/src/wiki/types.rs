@@ -41,4 +41,8 @@ pub struct DocumentExistence {
     pub exists: bool,
     /// File namespace일 경우 파일 URL
     pub file_url: Option<String>,
+    /// File namespace일 경우 이미지 너비
+    pub file_width: Option<i32>,
+    /// File namespace일 경우 이미지 높이
+    pub file_height: Option<i32>,
 }

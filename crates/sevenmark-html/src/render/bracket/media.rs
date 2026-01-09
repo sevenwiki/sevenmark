@@ -15,18 +15,21 @@ pub fn render(
 ) -> Markup {
     let style = utils::build_style(parameters);
 
-    // 이미지 URL (file이 있으면, file_base_url 프리픽스 적용)
-    let image_src: Option<String> = resolved_info.and_then(|r| r.file.as_ref()).map(|f| {
+    // 파일 정보 추출 (URL, 유효성, 크기)
+    let file_info = resolved_info.and_then(|r| r.file.as_ref());
+    let image_src: Option<String> = file_info.map(|f| {
         if let Some(base) = ctx.config.file_base_url {
             format!("{}{}", base, f.url)
         } else {
             f.url.clone()
         }
     });
-    let image_valid = resolved_info
-        .and_then(|r| r.file.as_ref())
-        .map(|f| f.is_valid)
-        .unwrap_or(false);
+    let image_valid = file_info.is_some_and(|f| f.is_valid);
+    let image_width = file_info.and_then(|f| f.width);
+    let image_height = file_info.and_then(|f| f.height);
+
+    // alt 텍스트: 파일 제목 사용
+    let alt_text = utils::get_param(parameters, "file").unwrap_or_default();
 
     // href 우선순위: url > document > category
     let href: Option<String> = resolved_info.and_then(|r| {
@@ -82,7 +85,7 @@ pub fn render(
                 a class=(link_class) href=(link) style=[style] {
                     figure class=(classes::MEDIA_IMAGE) {
                         @if image_valid {
-                            img src=(src) alt="" loading="lazy";
+                            img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
                         } @else {
                             span class=(classes::MEDIA_IMAGE_BROKEN) {}
                         }
@@ -97,7 +100,7 @@ pub fn render(
             html! {
                 figure class=(classes::MEDIA_IMAGE) style=[style] {
                     @if image_valid {
-                        img src=(src) alt="" loading="lazy";
+                        img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
                     } @else {
                         span class=(classes::MEDIA_IMAGE_BROKEN) {}
                     }
