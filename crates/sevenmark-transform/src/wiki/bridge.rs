@@ -208,7 +208,10 @@ pub async fn check_documents_exist(
             .context("Failed to fetch document files")?;
 
         for file in files {
-            file_info_map.insert(file.document_id, (file.storage_key, file.width, file.height));
+            file_info_map.insert(
+                file.document_id,
+                (file.storage_key, file.width, file.height),
+            );
         }
     }
 
@@ -217,16 +220,15 @@ pub async fn check_documents_exist(
         .into_iter()
         .map(|(namespace, title)| {
             let doc_id = existing.get(&(namespace.clone(), title.clone()));
-            let (file_url, file_width, file_height) =
-                if let Some(id) = doc_id {
-                    if let Some((url, w, h)) = file_info_map.get(id) {
-                        (Some(url.clone()), Some(*w), Some(*h))
-                    } else {
-                        (None, None, None)
-                    }
+            let (file_url, file_width, file_height) = if let Some(id) = doc_id {
+                if let Some((url, w, h)) = file_info_map.get(id) {
+                    (Some(url.clone()), Some(*w), Some(*h))
                 } else {
                     (None, None, None)
-                };
+                }
+            } else {
+                (None, None, None)
+            };
 
             DocumentExistence {
                 namespace,

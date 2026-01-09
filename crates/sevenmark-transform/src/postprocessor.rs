@@ -13,7 +13,8 @@ use tracing::debug;
 use utoipa::ToSchema;
 
 /// Media resolution map: (namespace, title) -> (file_url, width, height, is_valid)
-type MediaResolutionMap = HashMap<(DocumentNamespace, String), (Option<String>, Option<i32>, Option<i32>, bool)>;
+type MediaResolutionMap =
+    HashMap<(DocumentNamespace, String), (Option<String>, Option<i32>, Option<i32>, bool)>;
 
 /// Final result after media resolution
 #[derive(Debug, Clone, Serialize, ToSchema)]
@@ -113,8 +114,10 @@ fn resolve_media_recursive(element: &mut AstNode, resolved_map: &MediaResolution
             let title = extract_plain_text(&file_param.value);
             if !title.is_empty() {
                 let key = (DocumentNamespace::File, title);
-                let (file_url, width, height, is_valid) =
-                    resolved_map.get(&key).cloned().unwrap_or((None, None, None, false));
+                let (file_url, width, height, is_valid) = resolved_map
+                    .get(&key)
+                    .cloned()
+                    .unwrap_or((None, None, None, false));
                 resolved.file = Some(ResolvedFile {
                     url: file_url.unwrap_or_default(),
                     is_valid,
