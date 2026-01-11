@@ -8,15 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.12.21] - 2026-01-09
 
 ### Added
-- **Media element width/height support**: CLS(Cumulative Layout Shift) 개선을 위한 이미지 dimensions 지원
-  - `document_files` 테이블의 width/height를 파서가 DB에서 조회
-  - `<img>` 태그에 `width`, `height` 속성 자동 추가
-- **Media element alt text**: 파일 문서 제목을 `alt` 속성으로 사용
+- **Media element width/height support**: Added support for image dimensions to improve CLS (Cumulative Layout Shift).
+  - The parser now retrieves width/height data from the `document_files` table.
+  - Automatically appends `width` and `height` attributes to `<img>` tags.
+- **Media element alt text**: Uses the file document title as the `alt` attribute.
   - `[[#file="image.png"]]` → `<img alt="image.png" ...>`
 
 ### Changed
-- **Postprocessor refactoring**: `MediaResolutionMap` 타입 alias 추가로 코드 가독성 개선
-- **Media renderer optimization**: `file_info` 변수로 중복 접근 제거
+- **Postprocessor refactoring**: Improved code readability by introducing the `MediaResolutionMap` type alias.
+- **Media renderer optimization**: Eliminated redundant access by utilizing the `file_info` variable.
 
 ## [2.12.18] - 2026-01-08
 
