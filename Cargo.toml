@@ -3,7 +3,7 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.package]
-version = "2.12.21"
+version = "2.12.22"
 authors = ["Levi Laine <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -23,7 +23,7 @@ line-span = "0.1.5"
 paste = "1.0.15"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
-sea-orm = { version = "2.0.0-rc.27", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
+sea-orm = { version = "2.0.0-rc.28", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
 axum = { version = "0.8.8", features = ["multipart", "macros"] }
 tokio = { version = "1.49.0", features = ["full"] }
 utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
