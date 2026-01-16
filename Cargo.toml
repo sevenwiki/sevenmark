@@ -33,7 +33,7 @@ dotenvy = "0.15.7"
 anyhow = "1.0.100"
 
 # SeaweedFS (S3 compatible)
-aws-sdk-s3 = "1.119.0"
+aws-sdk-s3 = "1.120.0"
 aws-config = "1.8.12"
 zstd = "0.13.3"
 futures="0.3.31"
@@ -41,9 +41,9 @@ futures="0.3.31"
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
 tracing-appender = "0.2.4"
-wasm-bindgen = "0.2.106"
-js-sys = "0.3.83"
-web-sys = "0.3.83"
+wasm-bindgen = "0.2.108"
+js-sys = "0.3.85"
+web-sys = "0.3.85"
 maud="0.27.0"
 
 [profile.dev]
