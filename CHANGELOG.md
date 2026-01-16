@@ -5,6 +5,27 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.13.0] - 2026-01-16
+
+### Added
+- **CodeMirror 6 Support**: New UTF-16 offset converter for CodeMirror 6 compatibility
+  - `Utf16OffsetConverter`: O(1) byte-to-UTF-16 offset conversion (vs O(log n + line_length) for Monaco)
+  - `convert_ast_to_utf16_offset_json()`: Converts AST to JSON with 0-based UTF-16 absolute offsets
+  - `parse_sevenmark_to_codemirror()`: New WASM function for CodeMirror 6 integration
+  - Handles multi-byte UTF-8 (Korean, CJK) and surrogate pairs (emoji) correctly
+
+### WASM API
+```javascript
+// Monaco Editor (line/column, 1-based)
+parse_sevenmark_to_monaco(input)
+
+// CodeMirror 6 (absolute UTF-16 offset, 0-based)
+parse_sevenmark_to_codemirror(input)
+
+// Raw byte offset
+parse_sevenmark(input)
+```
+
 ## [2.12.21] - 2026-01-09
 
 ### Added
