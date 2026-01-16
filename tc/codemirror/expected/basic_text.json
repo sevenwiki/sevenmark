@@ -1,0 +1,49 @@
+[
+  {
+    "kind": {
+      "Text": {
+        "value": "Hello"
+      }
+    },
+    "location": {
+      "end": 5,
+      "start": 0
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 6,
+      "start": 5
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "World"
+      }
+    },
+    "location": {
+      "end": 11,
+      "start": 6
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 12,
+      "start": 11
+    }
+  },
+  {
+    "kind": {
+      "Text": {
+        "value": "Test"
+      }
+    },
+    "location": {
+      "end": 16,
+      "start": 12
+    }
+  }
+]

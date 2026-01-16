@@ -1,0 +1,255 @@
+[
+  {
+    "kind": {
+      "Header": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Header 1"
+              }
+            },
+            "location": {
+              "end": 10,
+              "start": 2
+            }
+          }
+        ],
+        "is_folded": false,
+        "level": 1,
+        "section_index": 1
+      }
+    },
+    "location": {
+      "end": 11,
+      "start": 0
+    }
+  },
+  {
+    "kind": {
+      "Header": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Header 2"
+              }
+            },
+            "location": {
+              "end": 22,
+              "start": 14
+            }
+          }
+        ],
+        "is_folded": false,
+        "level": 2,
+        "section_index": 2
+      }
+    },
+    "location": {
+      "end": 23,
+      "start": 11
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 24,
+      "start": 23
+    }
+  },
+  {
+    "kind": {
+      "Bold": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Bold text"
+              }
+            },
+            "location": {
+              "end": 35,
+              "start": 26
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "end": 37,
+      "start": 24
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 38,
+      "start": 37
+    }
+  },
+  {
+    "kind": {
+      "Italic": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Italic text"
+              }
+            },
+            "location": {
+              "end": 50,
+              "start": 39
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "end": 51,
+      "start": 38
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 52,
+      "start": 51
+    }
+  },
+  {
+    "kind": {
+      "Strikethrough": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Strikethrough"
+              }
+            },
+            "location": {
+              "end": 67,
+              "start": 54
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "end": 69,
+      "start": 52
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 70,
+      "start": 69
+    }
+  },
+  {
+    "kind": {
+      "Underline": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Underline"
+              }
+            },
+            "location": {
+              "end": 81,
+              "start": 72
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "end": 83,
+      "start": 70
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 84,
+      "start": 83
+    }
+  },
+  {
+    "kind": {
+      "Superscript": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Superscript"
+              }
+            },
+            "location": {
+              "end": 97,
+              "start": 86
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "end": 99,
+      "start": 84
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 100,
+      "start": 99
+    }
+  },
+  {
+    "kind": {
+      "Underline": {
+        "children": [
+          {
+            "kind": {
+              "Text": {
+                "value": "Subscript"
+              }
+            },
+            "location": {
+              "end": 111,
+              "start": 102
+            }
+          }
+        ]
+      }
+    },
+    "location": {
+      "end": 113,
+      "start": 100
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 114,
+      "start": 113
+    }
+  },
+  {
+    "kind": "SoftBreak",
+    "location": {
+      "end": 115,
+      "start": 114
+    }
+  },
+  {
+    "kind": "HLine",
+    "location": {
+      "end": 119,
+      "start": 115
+    }
+  }
+]

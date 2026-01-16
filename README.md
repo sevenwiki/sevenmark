@@ -69,13 +69,10 @@ sevenmark/
 │   │   ├── preprocessor.rs    # Variable substitution, includes
 │   │   ├── postprocessor.rs   # Media URL resolution
 │   │   ├── processor.rs       # Full pipeline
-│   │   ├── position_converter.rs # Byte → line/column
+│   │   ├── utf16_offset_converter.rs # Byte → UTF-16 offset
 │   │   └── wiki/              # Wiki-specific utilities
 │   └── examples/
-│       ├── monaco.rs          # Monaco format converter
-│       ├── gen_monaco_expected.rs # Monaco test expected generator
-│       ├── debug_conversion.rs
-│       └── debug_line_spans.rs
+│       └── gen_codemirror_expected.rs # CodeMirror test expected generator
 │
 └── sevenmark-server/          # REST API server
     ├── src/
@@ -201,7 +198,7 @@ cargo build -p sevenmark-parser --features include_locations
 
 ### WebAssembly Builds
 
-WASM builds are provided by `sevenmark-transform`, which includes both parsing and Monaco position conversion.
+WASM builds are provided by `sevenmark-transform`, which includes both parsing and CodeMirror position conversion.
 
 **Important:** Run these commands from the `sevenmark-transform/` directory:
 
@@ -224,7 +221,7 @@ Or use `--manifest-path` from workspace root:
 wasm-pack build --target bundler --features wasm --no-default-features --manifest-path sevenmark-transform/Cargo.toml
 ```
 
-**Exported function:** `parse_sevenmark_to_monaco(input: string): string`
+**Exported function:** `parse_sevenmark_to_codemirror(input: string): string`
 
 **Note:** `--no-default-features` is required to exclude server-only dependencies (sea-orm, tokio, etc.) that are incompatible with WASM.
 
@@ -234,8 +231,8 @@ wasm-pack build --target bundler --features wasm --no-default-features --manifes
 # Simple parser (ToParse.txt → ParseResult.json)
 cargo run --example parse -p sevenmark-parser
 
-# Monaco format converter (with line/column positions)
-cargo run --example monaco -p sevenmark-transform
+# CodeMirror test expected generator (with UTF-16 offsets)
+cargo run --example gen_codemirror_expected -p sevenmark-transform --features sevenmark-parser/include_locations
 
 # Full processing pipeline (requires database)
 cargo run --example process -p sevenmark-server
@@ -338,7 +335,7 @@ tc/
 ├── comment/        # Inline and multiline comments
 ├── escape/         # Escape sequences
 ├── complex/        # Complex integration tests
-└── monaco/         # Monaco position conversion tests
+└── codemirror/     # CodeMirror position conversion tests
 ```
 
 Each category contains:
@@ -354,9 +351,9 @@ When parser output changes (e.g., AST structure updates), regenerate expected fi
 cd sevenmark-parser
 cargo run --example gen_expected --features include_locations
 
-# Monaco expected files (run from sevenmark-transform/)
+# CodeMirror expected files (run from sevenmark-transform/)
 cd sevenmark-transform
-cargo run --example gen_monaco_expected --features sevenmark-parser/include_locations
+cargo run --example gen_codemirror_expected --features sevenmark-parser/include_locations
 ```
 
 ### Adding New Elements

@@ -5,6 +5,22 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.13.1] - 2026-01-16
+
+### Removed
+- **Monaco Editor Support**: Removed in favor of CodeMirror 6
+  - Removed `position_converter.rs` (line/column conversion)
+  - Removed `parse_sevenmark_to_monaco()` WASM function
+  - Removed `examples/monaco.rs`, `examples/gen_monaco_expected.rs`
+  - Removed `tc/monaco/` test directory
+
+### Changed
+- **Test Infrastructure**: Renamed monaco tests to codemirror
+  - `tc/monaco/` → `tc/codemirror/`
+  - `monaco_tests.rs` → `codemirror_tests.rs`
+  - `gen_monaco_expected.rs` → `gen_codemirror_expected.rs`
+- **Documentation**: Updated README.md and CLAUDE.md for CodeMirror 6
+
 ## [2.13.0] - 2026-01-16
 
 ### Added
