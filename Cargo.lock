@@ -1950,12 +1950,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "line-span"
-version = "0.1.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "29fc123b2f6600099ca18248f69e3ee02b09c4188c0d98e9a690d90dec3e408a"
-
-[[package]]
 name = "linux-raw-sys"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3141,7 +3135,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-html"
-version = "2.13.1"
+version = "2.14.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -3149,9 +3143,8 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.13.1"
+version = "2.14.0"
 dependencies = [
- "line-span",
  "paste",
  "serde",
  "serde_json",
@@ -3160,7 +3153,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-semantic"
-version = "2.13.1"
+version = "2.14.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -3168,7 +3161,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.13.1"
+version = "2.14.0"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3191,14 +3184,13 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.13.1"
+version = "2.14.0"
 dependencies = [
  "anyhow",
  "aws-config",
  "aws-sdk-s3",
  "futures",
  "js-sys",
- "line-span",
  "sea-orm",
  "serde",
  "serde_json",

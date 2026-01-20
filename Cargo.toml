@@ -3,7 +3,7 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.package]
-version = "2.13.1"
+version = "2.14.0"
 authors = ["Levi Laine <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -19,7 +19,6 @@ sevenmark-html = { path="crates/sevenmark-html"}
 sevenmark-semantic = { path = "crates/sevenmark-semantic"}
 
 winnow = { version = "0.7.14", features = ["simd"] }
-line-span = "0.1.5"
 paste = "1.0.15"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"

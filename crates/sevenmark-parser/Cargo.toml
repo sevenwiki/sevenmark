@@ -10,7 +10,6 @@ description = "sevenmark/parser"
 
 [dependencies]
 winnow = { workspace = true }
-line-span = { workspace = true }
 paste = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

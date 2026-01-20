@@ -17,7 +17,6 @@ sea-orm = { workspace = true, optional = true }
 uuid = { workspace = true, optional = true }
 
 # Utilities
-line-span = { workspace = true }
 utoipa = { workspace = true, optional = true }
 
 # Shared
