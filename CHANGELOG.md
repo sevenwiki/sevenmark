@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.14.0] - 2026-01-20
+
+### Changed
+- **sevenmark-parser**: Optimized line start detection for header parsing
+  - Replaced `Rc<HashSet<usize>>` lookup with direct byte comparison
+  - `ParseContext` now stores `original_input: &'i [u8]` instead of `line_starts`
+  - Initialization cost reduced from O(n) to O(1) (no longer scans entire input)
+  - Removed `line-span` crate dependency
+  - `is_at_line_start()` now checks `input[pos - 1] == '\n'` directly
+
+### Removed
+- **sevenmark-parser**: Removed `Default` impl for `ParseContext` (lifetime required)
+
 ## [2.13.1] - 2026-01-16
 
 ### Removed
