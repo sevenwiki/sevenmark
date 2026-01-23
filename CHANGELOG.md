@@ -5,6 +5,13 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.19.0] - 2026-01-23
+
+### Changed
+- **sevenmark-parser**: Simplified parser input position access
+  - Removed redundant `.input.` accessor from `current_token_start()` and `previous_token_end()` calls
+  - Winnow's `Stateful` delegates `Location` trait methods directly, making `.input.` unnecessary
+
 ## [2.18.0] - 2026-01-23
 
 ### Changed
