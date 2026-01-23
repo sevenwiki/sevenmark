@@ -15,9 +15,9 @@ pub fn token_asterisk_parser(parser_input: &mut ParserInput) -> Result<Element> 
         return Err(winnow::error::ContextError::new());
     }
 
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
     literal("*").parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Text(TextElement {
         span: Span { start, end },

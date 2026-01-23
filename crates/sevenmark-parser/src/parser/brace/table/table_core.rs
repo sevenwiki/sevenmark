@@ -31,7 +31,7 @@ fn table_row_child_parser(parser_input: &mut ParserInput) -> Result<TableRowItem
 /// 테이블 행 레벨 조건부 파서 (전용 파서 - content가 테이블 row임)
 /// {{{#if condition :: [[row1]] [[row2]] ... }}}
 fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<ConditionalTableRows> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     // {{{#if 시작
     let _ = (multispace0, literal("{{{#if")).parse_next(parser_input)?;
@@ -45,7 +45,7 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
     // }}} 종료
     let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(ConditionalTableRows {
         span: Span { start, end },
@@ -56,7 +56,7 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
 
 /// 테이블 행 파서 - TableRowElement 반환
 fn table_row_parser(parser_input: &mut ParserInput) -> Result<TableRowElement> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (_, (parameters, parsed_content), _) = (
         multispace0,
@@ -72,7 +72,7 @@ fn table_row_parser(parser_input: &mut ParserInput) -> Result<TableRowElement> {
     )
         .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(TableRowElement {
         span: Span { start, end },
@@ -93,7 +93,7 @@ fn table_cell_child_parser(parser_input: &mut ParserInput) -> Result<TableCellIt
 /// 테이블 셀 레벨 조건부 파서 (전용 파서 - content가 테이블 cell임)
 /// {{{#if condition :: [[cell1]] [[cell2]] ... }}}
 fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<ConditionalTableCells> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     // {{{#if 시작
     let _ = (multispace0, literal("{{{#if")).parse_next(parser_input)?;
@@ -107,7 +107,7 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
     // }}} 종료
     let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(ConditionalTableCells {
         span: Span { start, end },
@@ -118,7 +118,7 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
 
 /// 테이블 셀 파서 - TableCellElement 반환
 fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (_, ((parameters, _), parsed_content), _) = (
         multispace0,
@@ -134,7 +134,7 @@ fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement>
     )
         .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     let parameters = parameters.unwrap_or_default();
 

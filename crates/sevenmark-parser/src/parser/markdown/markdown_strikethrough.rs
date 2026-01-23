@@ -12,7 +12,7 @@ pub fn markdown_strikethrough_parser(parser_input: &mut ParserInput) -> Result<E
     if parser_input.state.inside_strikethrough {
         return Err(winnow::error::ContextError::new());
     }
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
     let parsed_content = delimited(
         literal("~~"),
         |input: &mut ParserInput| {
@@ -24,7 +24,7 @@ pub fn markdown_strikethrough_parser(parser_input: &mut ParserInput) -> Result<E
         literal("~~"),
     )
     .parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Strikethrough(TextStyleElement {
         span: Span { start, end },

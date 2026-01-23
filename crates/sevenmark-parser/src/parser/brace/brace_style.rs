@@ -12,7 +12,7 @@ use winnow::token::literal;
 
 /// Parse styled elements enclosed in {{{ }}}
 pub fn brace_style_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (parameters, parsed_content) = delimited(
         literal("{{{"),
@@ -23,7 +23,7 @@ pub fn brace_style_parser(parser_input: &mut ParserInput) -> Result<Element> {
     )
     .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Styled(StyledElement {
         span: Span { start, end },

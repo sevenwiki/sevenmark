@@ -16,7 +16,7 @@ pub fn parse_document(input: &str) -> Vec<Element> {
         Ok(mut elements) => {
             // Parse remaining content as Error element if any
             if !stateful_input.input.is_empty() {
-                let start = stateful_input.input.current_token_start();
+                let start = stateful_input.current_token_start();
                 let remaining = stateful_input.input.to_string();
                 let end = start + remaining.len();
 

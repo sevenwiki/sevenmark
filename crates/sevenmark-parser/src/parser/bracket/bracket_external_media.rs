@@ -9,7 +9,7 @@ use winnow::token::literal;
 
 /// Parse external media elements: [[#youtube ...]], [[#vimeo ...]], [[#nicovideo ...]], [[#spotify ...]], [[#discord ...]]
 pub fn bracket_external_media_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (provider, parameters) = delimited(
         literal("[["),
@@ -18,7 +18,7 @@ pub fn bracket_external_media_parser(parser_input: &mut ParserInput) -> Result<E
     )
     .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::ExternalMedia(ExternalMediaElement {
         span: Span { start, end },

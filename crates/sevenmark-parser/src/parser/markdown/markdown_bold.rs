@@ -12,7 +12,7 @@ pub fn markdown_bold_parser(parser_input: &mut ParserInput) -> Result<Element> {
     if parser_input.state.inside_bold {
         return Err(winnow::error::ContextError::new());
     }
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let parsed_content = delimited(
         literal("**"),
@@ -25,7 +25,7 @@ pub fn markdown_bold_parser(parser_input: &mut ParserInput) -> Result<Element> {
         literal("**"),
     )
     .parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Bold(TextStyleElement {
         span: Span { start, end },

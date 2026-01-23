@@ -16,7 +16,7 @@ pub fn fold_core_parser(
     parser_input: &mut ParserInput,
 ) -> Result<(FoldInnerElement, FoldInnerElement)> {
     // 첫 번째 FoldInner
-    let start_1 = parser_input.input.current_token_start();
+    let start_1 = parser_input.current_token_start();
     let (_, ((parameters_1, _), parsed_content_1), _) = (
         multispace0,
         delimited(
@@ -30,10 +30,10 @@ pub fn fold_core_parser(
         multispace0,
     )
         .parse_next(parser_input)?;
-    let end_1 = parser_input.input.previous_token_end();
+    let end_1 = parser_input.previous_token_end();
 
     // 두 번째 FoldInner
-    let start_2 = parser_input.input.current_token_start();
+    let start_2 = parser_input.current_token_start();
     let (_, ((parameters_2, _), parsed_content_2), _) = (
         multispace0,
         delimited(
@@ -47,7 +47,7 @@ pub fn fold_core_parser(
         multispace0,
     )
         .parse_next(parser_input)?;
-    let end_2 = parser_input.input.previous_token_end();
+    let end_2 = parser_input.previous_token_end();
 
     let fold_inner_1 = FoldInnerElement {
         span: Span {

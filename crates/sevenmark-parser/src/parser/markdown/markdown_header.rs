@@ -17,7 +17,7 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<Element>
     }
 
     // Check if current position is at line start
-    let current_pos = parser_input.input.current_token_start();
+    let current_pos = parser_input.current_token_start();
     if !parser_input.state.is_at_line_start(current_pos) {
         return Err(winnow::error::ContextError::new());
     }
@@ -27,7 +27,7 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<Element>
         return Err(winnow::error::ContextError::new());
     }
     */
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
     let (header_marks, is_folded, _, parsed_content) = (
         take_while(1..=6, '#'),
         opt(literal('!')),
@@ -44,7 +44,7 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<Element>
     )
         .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
     let header_level = header_marks.len();
     let is_folded = is_folded.is_some();
     let section_index = parser_input.state.next_section_index();

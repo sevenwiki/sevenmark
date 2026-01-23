@@ -26,7 +26,7 @@ pub fn condition_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// OR 연산자 파서 (최저 우선순위, 바인딩 파워 5)
 fn or_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let first = and_parser.parse_next(input)?;
 
     // (operator, expression) 쌍으로 파싱
@@ -39,7 +39,7 @@ fn or_parser(input: &mut ParserInput) -> Result<Expression> {
     )
     .parse_next(input)?;
 
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
         Expression::Or {
@@ -53,9 +53,9 @@ fn or_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// || 연산자 파서
 fn or_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     literal("||").parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(LogicalOperator {
         span: Span { start, end },
@@ -65,7 +65,7 @@ fn or_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
 
 /// AND 연산자 파서 (바인딩 파워 7)
 fn and_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let first = not_parser.parse_next(input)?;
 
     // (operator, expression) 쌍으로 파싱
@@ -78,7 +78,7 @@ fn and_parser(input: &mut ParserInput) -> Result<Expression> {
     )
     .parse_next(input)?;
 
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
         Expression::And {
@@ -92,9 +92,9 @@ fn and_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// && 연산자 파서
 fn and_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     literal("&&").parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(LogicalOperator {
         span: Span { start, end },
@@ -105,7 +105,7 @@ fn and_operator_parser(input: &mut ParserInput) -> Result<LogicalOperator> {
 /// NOT 연산자 파서 (바인딩 파워 15)
 /// ! 하나만 허용. 이중 부정이 필요하면 !(!x) 형태로 작성
 fn not_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
 
     // ! 연산자 하나만 파싱 시도
     let not_op: Option<Span> =
@@ -113,7 +113,7 @@ fn not_parser(input: &mut ParserInput) -> Result<Expression> {
 
     let inner = comparison_parser.parse_next(input)?;
 
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     match not_op {
         Some(op_span) => Ok(Expression::Not {
@@ -130,17 +130,17 @@ fn not_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// ! 연산자 위치 파서
 fn not_operator_span_parser(input: &mut ParserInput) -> Result<Span> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     // != 연산자와 구분하기 위해 !뒤에 =가 없는지 확인
     (literal('!'), winnow::combinator::not(literal('='))).parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(Span { start, end })
 }
 
 /// 비교 연산자 파서 (바인딩 파워 10)
 fn comparison_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let left = operand_parser.parse_next(input)?;
 
     // 비교 연산자 + 오른쪽 피연산자 파싱 시도
@@ -150,7 +150,7 @@ fn comparison_parser(input: &mut ParserInput) -> Result<Expression> {
     ))
     .parse_next(input)?;
 
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     match op_and_right {
         Some((op, right)) => Ok(Expression::Comparison {
@@ -165,7 +165,7 @@ fn comparison_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// 비교 연산자 파싱
 fn comparison_operator_parser(input: &mut ParserInput) -> Result<ComparisonOperator> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let kind = alt((
         // 2문자 연산자를 먼저 시도 (>= 보다 > 먼저 매칭되는 것 방지)
         literal("==").value(ComparisonOperatorKind::Equal),
@@ -176,7 +176,7 @@ fn comparison_operator_parser(input: &mut ParserInput) -> Result<ComparisonOpera
         literal("<").value(ComparisonOperatorKind::LessThan),
     ))
     .parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(ComparisonOperator {
         span: Span { start, end },
@@ -207,14 +207,14 @@ fn operand_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// 괄호 그룹 파서
 fn group_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let inner = delimited(
         (literal('('), multispace0),
         |input: &mut ParserInput| with_depth(input, condition_parser),
         (multispace0, literal(')')),
     )
     .parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(Expression::Group {
         span: Span { start, end },
@@ -224,7 +224,7 @@ fn group_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// 함수 호출 파서: int(...), len(...), str(...)
 fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let name: &str = alpha1.parse_next(input)?;
 
     // 함수 이름 검증
@@ -243,7 +243,7 @@ fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
     )
     .parse_next(input)?;
 
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(Expression::FunctionCall {
         span: Span { start, end },
@@ -254,9 +254,9 @@ fn function_call_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// null 키워드 파서
 fn null_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     literal("null").parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(Expression::Null {
         span: Span { start, end },
@@ -265,10 +265,10 @@ fn null_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// bool 리터럴 파서: true, false
 fn bool_literal_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let value =
         alt((literal("true").value(true), literal("false").value(false))).parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(Expression::BoolLiteral {
         span: Span { start, end },
@@ -278,14 +278,14 @@ fn bool_literal_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// 문자열 리터럴 파서: "..."
 fn string_literal_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let value = delimited(
         literal('"'),
         take_while(0.., |c| c != '"').map(|s: &str| s.to_string()),
         literal('"'),
     )
     .parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     Ok(Expression::StringLiteral {
         span: Span { start, end },
@@ -295,10 +295,10 @@ fn string_literal_parser(input: &mut ParserInput) -> Result<Expression> {
 
 /// 숫자 리터럴 파서
 fn number_literal_parser(input: &mut ParserInput) -> Result<Expression> {
-    let start = input.input.current_token_start();
+    let start = input.current_token_start();
     let sign = opt(one_of(['+', '-'])).parse_next(input)?;
     let digits: &str = digit1.parse_next(input)?;
-    let end = input.input.previous_token_end();
+    let end = input.previous_token_end();
 
     // digit1이 성공했으면 parse()도 반드시 성공
     let value: i64 = digits.parse().unwrap_or(0);

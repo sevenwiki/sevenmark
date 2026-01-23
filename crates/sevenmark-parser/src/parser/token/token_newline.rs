@@ -17,9 +17,9 @@ pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<Element> {
         not((multispace1, peek(alt((literal("}}}"), literal("]]")))))).parse_next(parser_input)?;
     }
 
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
     literal("\n").parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::SoftBreak(SoftBreakElement {
         span: Span { start, end },

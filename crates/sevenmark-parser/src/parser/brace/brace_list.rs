@@ -9,7 +9,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (parameters, parsed_content) = delimited(
         literal("{{{#list"),
@@ -18,7 +18,7 @@ pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
     )
     .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     let parameters = parameters.unwrap_or_default();
 

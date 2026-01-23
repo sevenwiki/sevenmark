@@ -9,9 +9,9 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::take_while;
 
 pub fn markdown_hline_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
     terminated(take_while(3..=9, '-'), alt((line_ending, eof))).parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::HLine(HLineElement {
         span: Span { start, end },

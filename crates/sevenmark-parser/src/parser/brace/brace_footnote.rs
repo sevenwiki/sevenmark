@@ -15,7 +15,7 @@ pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<Element> 
     if parser_input.state.inside_footnote {
         return Err(winnow::error::ContextError::new());
     }
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let ((parameters, _), parsed_content) = delimited(
         literal("{{{#fn"),
@@ -31,7 +31,7 @@ pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<Element> 
         (multispace0, literal("}}}")),
     )
     .parse_next(parser_input)?;
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     let footnote_index = parser_input.state.next_footnote_index();
 

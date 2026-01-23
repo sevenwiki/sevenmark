@@ -8,12 +8,12 @@ use winnow::token::literal;
 use winnow::token::take_while;
 
 pub fn macro_age_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let date =
         delimited(literal("[age("), utils_parse_date, literal(")]")).parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Age(AgeElement {
         span: Span { start, end },

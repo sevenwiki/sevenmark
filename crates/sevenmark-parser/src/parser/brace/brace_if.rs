@@ -12,7 +12,7 @@ use winnow::token::literal;
 
 /// Parse if conditional elements: {{{#if condition :: content}}}
 pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (condition, parsed_content) = delimited(
         literal("{{{#if"),
@@ -23,7 +23,7 @@ pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<Element> {
     )
     .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::If(IfElement {
         span: Span { start, end },

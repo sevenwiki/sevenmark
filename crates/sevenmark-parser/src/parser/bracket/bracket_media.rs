@@ -17,7 +17,7 @@ pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<Element> {
         return Err(winnow::error::ContextError::new());
     }
 
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (parameters, parsed_content) = delimited(
         literal("[["),
@@ -34,7 +34,7 @@ pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<Element> {
     )
     .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Media(MediaElement {
         span: Span { start, end },

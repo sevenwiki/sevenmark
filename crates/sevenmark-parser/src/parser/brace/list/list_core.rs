@@ -30,7 +30,7 @@ fn list_item_child_parser(parser_input: &mut ParserInput) -> Result<ListContentI
 /// 리스트 아이템 레벨 조건부 파서 (전용 파서 - content가 리스트 item임)
 /// {{{#if condition :: [[item1]] [[item2]] ... }}}
 fn list_conditional_parser(parser_input: &mut ParserInput) -> Result<ConditionalListItems> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     // {{{#if 시작
     let _ = (multispace0, literal("{{{#if")).parse_next(parser_input)?;
@@ -44,7 +44,7 @@ fn list_conditional_parser(parser_input: &mut ParserInput) -> Result<Conditional
     // }}} 종료
     let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(ConditionalListItems {
         span: Span { start, end },
@@ -55,7 +55,7 @@ fn list_conditional_parser(parser_input: &mut ParserInput) -> Result<Conditional
 
 /// 리스트 아이템 파서 - ListItemElement 반환
 fn list_item_parser(parser_input: &mut ParserInput) -> Result<ListItemElement> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let (_, ((parameters, _), parsed_content), _) = (
         multispace0,
@@ -71,7 +71,7 @@ fn list_item_parser(parser_input: &mut ParserInput) -> Result<ListItemElement> {
     )
         .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(ListItemElement {
         span: Span { start, end },

@@ -9,7 +9,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_until};
 
 pub fn brace_code_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let start = parser_input.input.current_token_start();
+    let start = parser_input.current_token_start();
 
     let ((parameters, _), parsed_content) = delimited(
         literal("{{{#code"),
@@ -21,7 +21,7 @@ pub fn brace_code_parser(parser_input: &mut ParserInput) -> Result<Element> {
     )
     .parse_next(parser_input)?;
 
-    let end = parser_input.input.previous_token_end();
+    let end = parser_input.previous_token_end();
 
     Ok(Element::Code(CodeElement {
         span: Span { start, end },
