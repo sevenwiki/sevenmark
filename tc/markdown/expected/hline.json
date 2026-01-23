@@ -1,38 +1,36 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 28
-    },
-    "kind": {
-      "Text": {
-        "value": "Text before horizontal line."
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 28
+      },
+      "value": "Text before horizontal line."
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 28,
+        "end": 29
       }
     }
   },
   {
-    "location": {
-      "start": 28,
-      "end": 29
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 29,
-      "end": 35
-    },
-    "kind": "HLine"
-  },
-  {
-    "location": {
-      "start": 35,
-      "end": 62
-    },
-    "kind": {
-      "Text": {
-        "value": "Text after horizontal line."
+    "HLine": {
+      "span": {
+        "start": 29,
+        "end": 35
       }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 35,
+        "end": 62
+      },
+      "value": "Text after horizontal line."
     }
   }
 ]

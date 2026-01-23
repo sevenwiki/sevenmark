@@ -1,49 +1,45 @@
 [
   {
-    "kind": {
-      "Text": {
-        "value": "Hello"
+    "Text": {
+      "span": {
+        "end": 5,
+        "start": 0
+      },
+      "value": "Hello"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 6,
+        "start": 5
       }
-    },
-    "location": {
-      "end": 5,
-      "start": 0
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 6,
-      "start": 5
+    "Text": {
+      "span": {
+        "end": 11,
+        "start": 6
+      },
+      "value": "World"
     }
   },
   {
-    "kind": {
-      "Text": {
-        "value": "World"
+    "SoftBreak": {
+      "span": {
+        "end": 12,
+        "start": 11
       }
-    },
-    "location": {
-      "end": 11,
-      "start": 6
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 12,
-      "start": 11
-    }
-  },
-  {
-    "kind": {
-      "Text": {
-        "value": "Test"
-      }
-    },
-    "location": {
-      "end": 16,
-      "start": 12
+    "Text": {
+      "span": {
+        "end": 16,
+        "start": 12
+      },
+      "value": "Test"
     }
   }
 ]

@@ -3135,7 +3135,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-html"
-version = "2.14.0"
+version = "2.18.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -3143,7 +3143,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.14.0"
+version = "2.18.0"
 dependencies = [
  "paste",
  "serde",
@@ -3153,7 +3153,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-semantic"
-version = "2.14.0"
+version = "2.18.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -3161,7 +3161,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.14.0"
+version = "2.18.0"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3184,7 +3184,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.14.0"
+version = "2.18.0"
 dependencies = [
  "anyhow",
  "aws-config",

@@ -1,339 +1,295 @@
 [
   {
-    "kind": {
-      "Styled": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Styled element with parameters"
-              }
-            },
-            "location": {
+    "Styled": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 65,
               "start": 35
-            }
-          }
-        ],
-        "parameters": {
-          "size": {
-            "key": "size",
-            "location": {
-              "end": 35,
-              "start": 22
             },
-            "value": [
-              {
-                "kind": {
-                  "Text": {
-                    "value": "14px"
-                  }
-                },
-                "location": {
-                  "end": 33,
-                  "start": 29
-                }
-              }
-            ]
-          },
-          "style": {
-            "key": "style",
-            "location": {
-              "end": 22,
-              "start": 3
-            },
-            "value": [
-              {
-                "kind": {
-                  "Text": {
-                    "value": "color:red"
-                  }
-                },
-                "location": {
-                  "end": 20,
-                  "start": 11
-                }
-              }
-            ]
+            "value": "Styled element with parameters"
           }
         }
-      }
-    },
-    "location": {
-      "end": 69,
-      "start": 0
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 70,
-      "start": 69
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 71,
-      "start": 70
-    }
-  },
-  {
-    "kind": {
-      "Table": {
-        "children": [
-          {
-            "kind": {
-              "TableRow": {
-                "children": [
-                  {
-                    "kind": {
-                      "TableCell": {
-                        "children": [
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "Cell 1"
-                              }
-                            },
-                            "location": {
-                              "end": 91,
-                              "start": 85
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": ","
-                              }
-                            },
-                            "location": {
-                              "end": 92,
-                              "start": 91
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "1"
-                              }
-                            },
-                            "location": {
-                              "end": 93,
-                              "start": 92
-                            }
-                          }
-                        ],
-                        "parameters": {}
-                      }
-                    },
-                    "location": {
-                      "end": 96,
-                      "start": 83
-                    }
-                  },
-                  {
-                    "kind": {
-                      "TableCell": {
-                        "children": [
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "Cell 1"
-                              }
-                            },
-                            "location": {
-                              "end": 104,
-                              "start": 98
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": ","
-                              }
-                            },
-                            "location": {
-                              "end": 105,
-                              "start": 104
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "2"
-                              }
-                            },
-                            "location": {
-                              "end": 106,
-                              "start": 105
-                            }
-                          }
-                        ],
-                        "parameters": {}
-                      }
-                    },
-                    "location": {
-                      "end": 108,
-                      "start": 96
-                    }
-                  }
-                ],
-                "parameters": {}
+      ],
+      "parameters": {
+        "size": {
+          "key": "size",
+          "span": {
+            "end": 35,
+            "start": 22
+          },
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "end": 33,
+                  "start": 29
+                },
+                "value": "14px"
               }
-            },
-            "location": {
+            }
+          ]
+        },
+        "style": {
+          "key": "style",
+          "span": {
+            "end": 22,
+            "start": 3
+          },
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "end": 20,
+                  "start": 11
+                },
+                "value": "color:red"
+              }
+            }
+          ]
+        }
+      },
+      "span": {
+        "end": 69,
+        "start": 0
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 70,
+        "start": 69
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 71,
+        "start": 70
+      }
+    }
+  },
+  {
+    "Table": {
+      "children": [
+        {
+          "Row": {
+            "children": [
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 91,
+                          "start": 85
+                        },
+                        "value": "Cell 1"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 92,
+                          "start": 91
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 93,
+                          "start": 92
+                        },
+                        "value": "1"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 96,
+                    "start": 83
+                  }
+                }
+              },
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 104,
+                          "start": 98
+                        },
+                        "value": "Cell 1"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 105,
+                          "start": 104
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 106,
+                          "start": 105
+                        },
+                        "value": "2"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 108,
+                    "start": 96
+                  }
+                }
+              }
+            ],
+            "parameters": {},
+            "span": {
               "end": 111,
               "start": 80
             }
-          },
-          {
-            "kind": {
-              "TableRow": {
-                "children": [
-                  {
-                    "kind": {
-                      "TableCell": {
-                        "children": [
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "Cell 2"
-                              }
-                            },
-                            "location": {
-                              "end": 121,
-                              "start": 115
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": ","
-                              }
-                            },
-                            "location": {
-                              "end": 122,
-                              "start": 121
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "1"
-                              }
-                            },
-                            "location": {
-                              "end": 123,
-                              "start": 122
-                            }
-                          }
-                        ],
-                        "parameters": {}
+          }
+        },
+        {
+          "Row": {
+            "children": [
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 121,
+                          "start": 115
+                        },
+                        "value": "Cell 2"
                       }
                     },
-                    "location": {
-                      "end": 126,
-                      "start": 113
-                    }
-                  },
-                  {
-                    "kind": {
-                      "TableCell": {
-                        "children": [
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "Cell 2"
-                              }
-                            },
-                            "location": {
-                              "end": 134,
-                              "start": 128
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": ","
-                              }
-                            },
-                            "location": {
-                              "end": 135,
-                              "start": 134
-                            }
-                          },
-                          {
-                            "kind": {
-                              "Text": {
-                                "value": "2"
-                              }
-                            },
-                            "location": {
-                              "end": 136,
-                              "start": 135
-                            }
-                          }
-                        ],
-                        "parameters": {}
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 122,
+                          "start": 121
+                        },
+                        "value": ","
                       }
                     },
-                    "location": {
-                      "end": 138,
-                      "start": 126
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 123,
+                          "start": 122
+                        },
+                        "value": "1"
+                      }
                     }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 126,
+                    "start": 113
                   }
-                ],
-                "parameters": {}
+                }
+              },
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 134,
+                          "start": 128
+                        },
+                        "value": "Cell 2"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 135,
+                          "start": 134
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 136,
+                          "start": 135
+                        },
+                        "value": "2"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 138,
+                    "start": 126
+                  }
+                }
               }
-            },
-            "location": {
+            ],
+            "parameters": {},
+            "span": {
               "end": 141,
               "start": 111
             }
           }
-        ],
-        "parameters": {}
+        }
+      ],
+      "parameters": {},
+      "span": {
+        "end": 144,
+        "start": 71
       }
-    },
-    "location": {
-      "end": 144,
-      "start": 71
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 145,
-      "start": 144
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 146,
-      "start": 145
-    }
-  },
-  {
-    "kind": {
-      "Code": {
-        "parameters": {
-          "lang": {
-            "key": "lang",
-            "location": {
-              "end": 160,
-              "start": 154
-            },
-            "value": []
-          }
-        },
-        "value": "=javascript\nconsole.log(\"Code block\");\nfunction test() { return 42; }\n"
+    "SoftBreak": {
+      "span": {
+        "end": 145,
+        "start": 144
       }
-    },
-    "location": {
-      "end": 233,
-      "start": 146
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 146,
+        "start": 145
+      }
+    }
+  },
+  {
+    "Code": {
+      "parameters": {
+        "lang": {
+          "key": "lang",
+          "span": {
+            "end": 160,
+            "start": 154
+          },
+          "value": []
+        }
+      },
+      "span": {
+        "end": 233,
+        "start": 146
+      },
+      "value": "=javascript\nconsole.log(\"Code block\");\nfunction test() { return 42; }\n"
     }
   }
 ]

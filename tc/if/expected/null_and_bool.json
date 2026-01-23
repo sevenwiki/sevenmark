@@ -1,208 +1,188 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 40
-    },
-    "kind": {
-      "If": {
-        "condition": {
-          "location": {
+    "If": {
+      "span": {
+        "start": 0,
+        "end": 40
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
             "start": 7,
             "end": 19
           },
-          "kind": {
-            "ExprComparison": {
-              "left": {
-                "location": {
-                  "start": 7,
-                  "end": 11
-                },
-                "kind": "ExprNull"
-              },
-              "operator": {
-                "location": {
-                  "start": 12,
-                  "end": 14
-                },
-                "kind": "Equal"
-              },
-              "right": {
-                "location": {
-                  "start": 15,
-                  "end": 19
-                },
-                "kind": "ExprNull"
+          "left": {
+            "Null": {
+              "span": {
+                "start": 7,
+                "end": 11
+              }
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 12,
+              "end": 14
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "Null": {
+              "span": {
+                "start": 15,
+                "end": 19
               }
             }
           }
-        },
-        "children": [
-          {
-            "location": {
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 20,
               "end": 36
             },
-            "kind": {
-              "Text": {
-                "value": "null equals null"
-              }
-            }
+            "value": "null equals null"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 40,
+        "end": 41
       }
     }
   },
   {
-    "location": {
-      "start": 40,
-      "end": 41
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 41,
+        "end": 42
+      }
+    }
   },
   {
-    "location": {
-      "start": 41,
-      "end": 42
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 42,
-      "end": 82
-    },
-    "kind": {
-      "If": {
-        "condition": {
-          "location": {
+    "If": {
+      "span": {
+        "start": 42,
+        "end": 82
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
             "start": 49,
             "end": 61
           },
-          "kind": {
-            "ExprComparison": {
-              "left": {
-                "location": {
-                  "start": 49,
-                  "end": 53
-                },
-                "kind": {
-                  "ExprBoolLiteral": {
-                    "value": true
-                  }
-                }
+          "left": {
+            "BoolLiteral": {
+              "span": {
+                "start": 49,
+                "end": 53
               },
-              "operator": {
-                "location": {
-                  "start": 54,
-                  "end": 56
-                },
-                "kind": "Equal"
+              "value": true
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 54,
+              "end": 56
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 57,
+                "end": 61
               },
-              "right": {
-                "location": {
-                  "start": 57,
-                  "end": 61
-                },
-                "kind": {
-                  "ExprBoolLiteral": {
-                    "value": true
-                  }
-                }
-              }
+              "value": true
             }
           }
-        },
-        "children": [
-          {
-            "location": {
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 62,
               "end": 78
             },
-            "kind": {
-              "Text": {
-                "value": "true equals true"
-              }
-            }
+            "value": "true equals true"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 82,
+        "end": 83
       }
     }
   },
   {
-    "location": {
-      "start": 82,
-      "end": 83
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 83,
+        "end": 84
+      }
+    }
   },
   {
-    "location": {
-      "start": 83,
-      "end": 84
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 84,
-      "end": 128
-    },
-    "kind": {
-      "If": {
-        "condition": {
-          "location": {
+    "If": {
+      "span": {
+        "start": 84,
+        "end": 128
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
             "start": 91,
             "end": 105
           },
-          "kind": {
-            "ExprComparison": {
-              "left": {
-                "location": {
-                  "start": 91,
-                  "end": 96
-                },
-                "kind": {
-                  "ExprBoolLiteral": {
-                    "value": false
-                  }
-                }
+          "left": {
+            "BoolLiteral": {
+              "span": {
+                "start": 91,
+                "end": 96
               },
-              "operator": {
-                "location": {
-                  "start": 97,
-                  "end": 99
-                },
-                "kind": "Equal"
+              "value": false
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 97,
+              "end": 99
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 100,
+                "end": 105
               },
-              "right": {
-                "location": {
-                  "start": 100,
-                  "end": 105
-                },
-                "kind": {
-                  "ExprBoolLiteral": {
-                    "value": false
-                  }
-                }
-              }
+              "value": false
             }
           }
-        },
-        "children": [
-          {
-            "location": {
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 106,
               "end": 124
             },
-            "kind": {
-              "Text": {
-                "value": "false equals false"
-              }
-            }
+            "value": "false equals false"
           }
-        ]
-      }
+        }
+      ]
     }
   }
 ]

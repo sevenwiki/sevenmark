@@ -1,106 +1,103 @@
 [
   {
-    "kind": {
-      "Text": {
-        "value": "A"
+    "Text": {
+      "span": {
+        "end": 1,
+        "start": 0
+      },
+      "value": "A"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 2,
+        "start": 1
       }
-    },
-    "location": {
-      "end": 1,
-      "start": 0
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 2,
-      "start": 1
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 3,
-      "start": 2
-    }
-  },
-  {
-    "kind": {
-      "Text": {
-        "value": "Line with trailing spaces   "
+    "SoftBreak": {
+      "span": {
+        "end": 3,
+        "start": 2
       }
-    },
-    "location": {
-      "end": 31,
-      "start": 3
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 32,
-      "start": 31
+    "Text": {
+      "span": {
+        "end": 31,
+        "start": 3
+      },
+      "value": "Line with trailing spaces   "
     }
   },
   {
-    "kind": {
-      "Text": {
-        "value": "Empty line above"
+    "SoftBreak": {
+      "span": {
+        "end": 32,
+        "start": 31
       }
-    },
-    "location": {
-      "end": 48,
-      "start": 32
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 49,
-      "start": 48
+    "Text": {
+      "span": {
+        "end": 48,
+        "start": 32
+      },
+      "value": "Empty line above"
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 50,
-      "start": 49
-    }
-  },
-  {
-    "kind": {
-      "Text": {
-        "value": "Mixed   whitespace\twith\ttabs"
+    "SoftBreak": {
+      "span": {
+        "end": 49,
+        "start": 48
       }
-    },
-    "location": {
-      "end": 78,
-      "start": 50
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 79,
-      "start": 78
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 80,
-      "start": 79
-    }
-  },
-  {
-    "kind": {
-      "Text": {
-        "value": "End without newline"
+    "SoftBreak": {
+      "span": {
+        "end": 50,
+        "start": 49
       }
-    },
-    "location": {
-      "end": 99,
-      "start": 80
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "end": 78,
+        "start": 50
+      },
+      "value": "Mixed   whitespace\twith\ttabs"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 79,
+        "start": 78
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 80,
+        "start": 79
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "end": 99,
+        "start": 80
+      },
+      "value": "End without newline"
     }
   }
 ]

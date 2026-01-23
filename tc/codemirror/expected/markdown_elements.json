@@ -1,255 +1,232 @@
 [
   {
-    "kind": {
-      "Header": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Header 1"
-              }
-            },
-            "location": {
+    "Header": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 10,
               "start": 2
-            }
+            },
+            "value": "Header 1"
           }
-        ],
-        "is_folded": false,
-        "level": 1,
-        "section_index": 1
+        }
+      ],
+      "is_folded": false,
+      "level": 1,
+      "section_index": 1,
+      "span": {
+        "end": 11,
+        "start": 0
       }
-    },
-    "location": {
-      "end": 11,
-      "start": 0
     }
   },
   {
-    "kind": {
-      "Header": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Header 2"
-              }
-            },
-            "location": {
+    "Header": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 22,
               "start": 14
-            }
-          }
-        ],
-        "is_folded": false,
-        "level": 2,
-        "section_index": 2
-      }
-    },
-    "location": {
-      "end": 23,
-      "start": 11
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 24,
-      "start": 23
-    }
-  },
-  {
-    "kind": {
-      "Bold": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Bold text"
-              }
             },
-            "location": {
+            "value": "Header 2"
+          }
+        }
+      ],
+      "is_folded": false,
+      "level": 2,
+      "section_index": 2,
+      "span": {
+        "end": 23,
+        "start": 11
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 24,
+        "start": 23
+      }
+    }
+  },
+  {
+    "Bold": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 35,
               "start": 26
-            }
-          }
-        ]
-      }
-    },
-    "location": {
-      "end": 37,
-      "start": 24
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 38,
-      "start": 37
-    }
-  },
-  {
-    "kind": {
-      "Italic": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Italic text"
-              }
             },
-            "location": {
+            "value": "Bold text"
+          }
+        }
+      ],
+      "span": {
+        "end": 37,
+        "start": 24
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 38,
+        "start": 37
+      }
+    }
+  },
+  {
+    "Italic": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 50,
               "start": 39
-            }
-          }
-        ]
-      }
-    },
-    "location": {
-      "end": 51,
-      "start": 38
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 52,
-      "start": 51
-    }
-  },
-  {
-    "kind": {
-      "Strikethrough": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Strikethrough"
-              }
             },
-            "location": {
+            "value": "Italic text"
+          }
+        }
+      ],
+      "span": {
+        "end": 51,
+        "start": 38
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 52,
+        "start": 51
+      }
+    }
+  },
+  {
+    "Strikethrough": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 67,
               "start": 54
-            }
-          }
-        ]
-      }
-    },
-    "location": {
-      "end": 69,
-      "start": 52
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 70,
-      "start": 69
-    }
-  },
-  {
-    "kind": {
-      "Underline": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Underline"
-              }
             },
-            "location": {
+            "value": "Strikethrough"
+          }
+        }
+      ],
+      "span": {
+        "end": 69,
+        "start": 52
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 70,
+        "start": 69
+      }
+    }
+  },
+  {
+    "Underline": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 81,
               "start": 72
-            }
-          }
-        ]
-      }
-    },
-    "location": {
-      "end": 83,
-      "start": 70
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 84,
-      "start": 83
-    }
-  },
-  {
-    "kind": {
-      "Superscript": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Superscript"
-              }
             },
-            "location": {
+            "value": "Underline"
+          }
+        }
+      ],
+      "span": {
+        "end": 83,
+        "start": 70
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 84,
+        "start": 83
+      }
+    }
+  },
+  {
+    "Superscript": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 97,
               "start": 86
-            }
-          }
-        ]
-      }
-    },
-    "location": {
-      "end": 99,
-      "start": 84
-    }
-  },
-  {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 100,
-      "start": 99
-    }
-  },
-  {
-    "kind": {
-      "Underline": {
-        "children": [
-          {
-            "kind": {
-              "Text": {
-                "value": "Subscript"
-              }
             },
-            "location": {
+            "value": "Superscript"
+          }
+        }
+      ],
+      "span": {
+        "end": 99,
+        "start": 84
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 100,
+        "start": 99
+      }
+    }
+  },
+  {
+    "Underline": {
+      "children": [
+        {
+          "Text": {
+            "span": {
               "end": 111,
               "start": 102
-            }
+            },
+            "value": "Subscript"
           }
-        ]
+        }
+      ],
+      "span": {
+        "end": 113,
+        "start": 100
       }
-    },
-    "location": {
-      "end": 113,
-      "start": 100
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 114,
-      "start": 113
+    "SoftBreak": {
+      "span": {
+        "end": 114,
+        "start": 113
+      }
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 115,
-      "start": 114
+    "SoftBreak": {
+      "span": {
+        "end": 115,
+        "start": 114
+      }
     }
   },
   {
-    "kind": "HLine",
-    "location": {
-      "end": 119,
-      "start": 115
+    "HLine": {
+      "span": {
+        "end": 119,
+        "start": 115
+      }
     }
   }
 ]

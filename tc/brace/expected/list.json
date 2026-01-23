@@ -1,97 +1,83 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 48
-    },
-    "kind": {
-      "List": {
-        "kind": "1",
-        "parameters": {
-          "1": {
-            "location": {
-              "start": 8,
-              "end": 12
-            },
-            "key": "1",
-            "value": []
-          }
-        },
-        "children": [
-          {
-            "location": {
+    "List": {
+      "span": {
+        "start": 0,
+        "end": 48
+      },
+      "kind": "1",
+      "parameters": {
+        "1": {
+          "span": {
+            "start": 8,
+            "end": 12
+          },
+          "key": "1",
+          "value": []
+        }
+      },
+      "children": [
+        {
+          "Item": {
+            "span": {
               "start": 12,
               "end": 23
             },
-            "kind": {
-              "ListItem": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 14,
-                      "end": 20
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "Item 1"
-                      }
-                    }
-                  }
-                ]
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 14,
+                    "end": 20
+                  },
+                  "value": "Item 1"
+                }
               }
-            }
-          },
-          {
-            "location": {
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
               "start": 23,
               "end": 34
             },
-            "kind": {
-              "ListItem": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 25,
-                      "end": 31
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "Item 2"
-                      }
-                    }
-                  }
-                ]
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 25,
+                    "end": 31
+                  },
+                  "value": "Item 2"
+                }
               }
-            }
-          },
-          {
-            "location": {
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
               "start": 34,
               "end": 45
             },
-            "kind": {
-              "ListItem": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 36,
-                      "end": 42
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "Item 3"
-                      }
-                    }
-                  }
-                ]
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 36,
+                    "end": 42
+                  },
+                  "value": "Item 3"
+                }
               }
-            }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   }
 ]

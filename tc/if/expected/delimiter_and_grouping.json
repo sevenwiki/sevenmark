@@ -1,292 +1,254 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 34
-    },
-    "kind": {
-      "If": {
-        "condition": {
-          "location": {
+    "If": {
+      "span": {
+        "start": 0,
+        "end": 34
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
             "start": 7,
             "end": 12
           },
-          "kind": {
-            "ExprComparison": {
-              "left": {
-                "location": {
-                  "start": 7,
-                  "end": 8
-                },
-                "kind": {
-                  "ExprNumberLiteral": {
-                    "value": 5
-                  }
-                }
+          "left": {
+            "NumberLiteral": {
+              "span": {
+                "start": 7,
+                "end": 8
               },
-              "operator": {
-                "location": {
-                  "start": 9,
-                  "end": 10
-                },
-                "kind": "GreaterThan"
+              "value": 5
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 9,
+              "end": 10
+            },
+            "kind": "GreaterThan"
+          },
+          "right": {
+            "NumberLiteral": {
+              "span": {
+                "start": 11,
+                "end": 12
               },
-              "right": {
-                "location": {
-                  "start": 11,
-                  "end": 12
-                },
-                "kind": {
-                  "ExprNumberLiteral": {
-                    "value": 3
-                  }
-                }
-              }
+              "value": 3
             }
           }
-        },
-        "children": [
-          {
-            "location": {
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 16,
               "end": 30
             },
-            "kind": {
-              "Text": {
-                "value": "with delimiter"
-              }
-            }
+            "value": "with delimiter"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 34,
+        "end": 35
       }
     }
   },
   {
-    "location": {
-      "start": 34,
-      "end": 35
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 35,
+        "end": 36
+      }
+    }
   },
   {
-    "location": {
-      "start": 35,
-      "end": 36
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 36,
-      "end": 88
-    },
-    "kind": {
-      "If": {
-        "condition": {
-          "location": {
+    "If": {
+      "span": {
+        "start": 36,
+        "end": 88
+      },
+      "condition": {
+        "And": {
+          "span": {
             "start": 43,
             "end": 66
           },
-          "kind": {
-            "ExprAnd": {
-              "operator": {
-                "location": {
-                  "start": 59,
-                  "end": 61
-                },
-                "kind": "And"
+          "operator": {
+            "span": {
+              "start": 59,
+              "end": 61
+            },
+            "kind": "And"
+          },
+          "left": {
+            "Group": {
+              "span": {
+                "start": 43,
+                "end": 58
               },
-              "left": {
-                "location": {
-                  "start": 43,
-                  "end": 58
-                },
-                "kind": {
-                  "ExprGroup": {
-                    "children": {
-                      "location": {
+              "inner": {
+                "Or": {
+                  "span": {
+                    "start": 44,
+                    "end": 57
+                  },
+                  "operator": {
+                    "span": {
+                      "start": 49,
+                      "end": 51
+                    },
+                    "kind": "Or"
+                  },
+                  "left": {
+                    "BoolLiteral": {
+                      "span": {
                         "start": 44,
+                        "end": 48
+                      },
+                      "value": true
+                    }
+                  },
+                  "right": {
+                    "BoolLiteral": {
+                      "span": {
+                        "start": 52,
                         "end": 57
                       },
-                      "kind": {
-                        "ExprOr": {
-                          "operator": {
-                            "location": {
-                              "start": 49,
-                              "end": 51
-                            },
-                            "kind": "Or"
-                          },
-                          "left": {
-                            "location": {
-                              "start": 44,
-                              "end": 48
-                            },
-                            "kind": {
-                              "ExprBoolLiteral": {
-                                "value": true
-                              }
-                            }
-                          },
-                          "right": {
-                            "location": {
-                              "start": 52,
-                              "end": 57
-                            },
-                            "kind": {
-                              "ExprBoolLiteral": {
-                                "value": false
-                              }
-                            }
-                          }
-                        }
-                      }
+                      "value": false
                     }
                   }
                 }
-              },
-              "right": {
-                "location": {
-                  "start": 62,
-                  "end": 66
-                },
-                "kind": {
-                  "ExprBoolLiteral": {
-                    "value": true
-                  }
-                }
               }
             }
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 62,
+                "end": 66
+              },
+              "value": true
+            }
           }
-        },
-        "children": [
-          {
-            "location": {
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 67,
               "end": 84
             },
-            "kind": {
-              "Text": {
-                "value": "grouped condition"
-              }
-            }
+            "value": "grouped condition"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 88,
+        "end": 89
       }
     }
   },
   {
-    "location": {
-      "start": 88,
-      "end": 89
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 89,
+        "end": 90
+      }
+    }
   },
   {
-    "location": {
-      "start": 89,
-      "end": 90
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 90,
-      "end": 149
-    },
-    "kind": {
-      "If": {
-        "condition": {
-          "location": {
+    "If": {
+      "span": {
+        "start": 90,
+        "end": 149
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
             "start": 97,
             "end": 112
           },
-          "kind": {
-            "ExprComparison": {
-              "left": {
-                "location": {
-                  "start": 97,
-                  "end": 104
-                },
-                "kind": {
-                  "ExprGroup": {
-                    "children": {
-                      "location": {
+          "left": {
+            "Group": {
+              "span": {
+                "start": 97,
+                "end": 104
+              },
+              "inner": {
+                "Comparison": {
+                  "span": {
+                    "start": 98,
+                    "end": 103
+                  },
+                  "left": {
+                    "NumberLiteral": {
+                      "span": {
                         "start": 98,
+                        "end": 99
+                      },
+                      "value": 5
+                    }
+                  },
+                  "operator": {
+                    "span": {
+                      "start": 100,
+                      "end": 101
+                    },
+                    "kind": "GreaterThan"
+                  },
+                  "right": {
+                    "NumberLiteral": {
+                      "span": {
+                        "start": 102,
                         "end": 103
                       },
-                      "kind": {
-                        "ExprComparison": {
-                          "left": {
-                            "location": {
-                              "start": 98,
-                              "end": 99
-                            },
-                            "kind": {
-                              "ExprNumberLiteral": {
-                                "value": 5
-                              }
-                            }
-                          },
-                          "operator": {
-                            "location": {
-                              "start": 100,
-                              "end": 101
-                            },
-                            "kind": "GreaterThan"
-                          },
-                          "right": {
-                            "location": {
-                              "start": 102,
-                              "end": 103
-                            },
-                            "kind": {
-                              "ExprNumberLiteral": {
-                                "value": 3
-                              }
-                            }
-                          }
-                        }
-                      }
+                      "value": 3
                     }
                   }
                 }
-              },
-              "operator": {
-                "location": {
-                  "start": 105,
-                  "end": 107
-                },
-                "kind": "Equal"
-              },
-              "right": {
-                "location": {
-                  "start": 108,
-                  "end": 112
-                },
-                "kind": {
-                  "ExprBoolLiteral": {
-                    "value": true
-                  }
-                }
               }
             }
+          },
+          "operator": {
+            "span": {
+              "start": 105,
+              "end": 107
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 108,
+                "end": 112
+              },
+              "value": true
+            }
           }
-        },
-        "children": [
-          {
-            "location": {
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 116,
               "end": 145
             },
-            "kind": {
-              "Text": {
-                "value": "comparison result equals true"
-              }
-            }
+            "value": "comparison result equals true"
           }
-        ]
-      }
+        }
+      ]
     }
   }
 ]

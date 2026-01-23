@@ -1,291 +1,255 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 95
-    },
-    "kind": {
-      "Styled": {
-        "parameters": {
-          "color": {
-            "location": {
-              "start": 25,
-              "end": 63
-            },
-            "key": "color",
-            "value": [
-              {
-                "location": {
+    "Styled": {
+      "span": {
+        "start": 0,
+        "end": 95
+      },
+      "parameters": {
+        "color": {
+          "span": {
+            "start": 25,
+            "end": 63
+          },
+          "key": "color",
+          "value": [
+            {
+              "Text": {
+                "span": {
                   "start": 33,
                   "end": 61
                 },
-                "kind": {
-                  "Text": {
-                    "value": "with spaces and symbols!@#$%"
-                  }
-                }
+                "value": "with spaces and symbols!@#$%"
               }
-            ]
+            }
+          ]
+        },
+        "size": {
+          "span": {
+            "start": 15,
+            "end": 25
           },
-          "size": {
-            "location": {
-              "start": 15,
-              "end": 25
-            },
-            "key": "size",
-            "value": [
-              {
-                "location": {
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "span": {
                   "start": 22,
                   "end": 23
                 },
-                "kind": {
-                  "Text": {
-                    "value": " "
-                  }
-                }
+                "value": " "
               }
-            ]
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 3,
+            "end": 15
           },
-          "style": {
-            "location": {
-              "start": 3,
-              "end": 15
-            },
-            "key": "style",
-            "value": [
-              {
-                "location": {
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
                   "start": 12,
                   "end": 13
                 },
-                "kind": {
-                  "Text": {
-                    "value": " "
-                  }
-                }
+                "value": " "
               }
-            ]
-          }
-        },
-        "children": [
-          {
-            "location": {
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 63,
               "end": 91
             },
-            "kind": {
-              "Text": {
-                "value": "Empty and special parameters"
-              }
-            }
+            "value": "Empty and special parameters"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 95,
+        "end": 96
       }
     }
   },
   {
-    "location": {
-      "start": 95,
-      "end": 96
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 96,
+        "end": 97
+      }
+    }
   },
   {
-    "location": {
-      "start": 96,
-      "end": 97
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 97,
-      "end": 216
-    },
-    "kind": {
-      "Fold": {
-        "parameters": {
-          "empty": {
-            "location": {
-              "start": 105,
-              "end": 113
-            },
-            "key": "empty",
-            "value": []
+    "Fold": {
+      "span": {
+        "start": 97,
+        "end": 216
+      },
+      "parameters": {
+        "empty": {
+          "span": {
+            "start": 105,
+            "end": 113
           },
-          "flag": {
-            "location": {
-              "start": 113,
-              "end": 119
-            },
-            "key": "flag",
-            "value": []
-          }
+          "key": "empty",
+          "value": []
         },
-        "children": [
-          {
-            "location": {
-              "start": 119,
-              "end": 183
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {
-                  "special": {
-                    "location": {
-                      "start": 121,
-                      "end": 153
-                    },
-                    "key": "special",
-                    "value": [
-                      {
-                        "location": {
-                          "start": 131,
-                          "end": 137
-                        },
-                        "kind": {
-                          "Text": {
-                            "value": "quotes"
-                          }
-                        }
-                      },
-                      {
-                        "location": {
-                          "start": 137,
-                          "end": 139
-                        },
-                        "kind": {
-                          "Escape": {
-                            "value": "\""
-                          }
-                        }
-                      },
-                      {
-                        "location": {
-                          "start": 139,
-                          "end": 142
-                        },
-                        "kind": {
-                          "Text": {
-                            "value": "and"
-                          }
-                        }
-                      },
-                      {
-                        "location": {
-                          "start": 142,
-                          "end": 144
-                        },
-                        "kind": {
-                          "Escape": {
-                            "value": "\\"
-                          }
-                        }
-                      },
-                      {
-                        "location": {
-                          "start": 144,
-                          "end": 151
-                        },
-                        "kind": {
-                          "Text": {
-                            "value": "slashes"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                },
-                "children": [
-                  {
-                    "location": {
-                      "start": 156,
-                      "end": 180
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "Title with special chars"
-                      }
-                    }
-                  }
-                ]
-              }
-            }
+        "flag": {
+          "span": {
+            "start": 113,
+            "end": 119
           },
-          {
-            "location": {
-              "start": 183,
-              "end": 213
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 185,
-                      "end": 210
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "Content with empty params"
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "location": {
-      "start": 216,
-      "end": 217
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 217,
-      "end": 218
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 218,
-      "end": 290
-    },
-    "kind": {
-      "Code": {
+          "key": "flag",
+          "value": []
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 119,
+          "end": 183
+        },
         "parameters": {
-          "lang": {
-            "location": {
-              "start": 226,
-              "end": 237
+          "special": {
+            "span": {
+              "start": 121,
+              "end": 153
             },
-            "key": "lang",
+            "key": "special",
             "value": [
               {
-                "location": {
-                  "start": 234,
-                  "end": 235
-                },
-                "kind": {
-                  "Text": {
-                    "value": " "
-                  }
+                "Text": {
+                  "span": {
+                    "start": 131,
+                    "end": 137
+                  },
+                  "value": "quotes"
+                }
+              },
+              {
+                "Escape": {
+                  "span": {
+                    "start": 137,
+                    "end": 139
+                  },
+                  "value": "\""
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 139,
+                    "end": 142
+                  },
+                  "value": "and"
+                }
+              },
+              {
+                "Escape": {
+                  "span": {
+                    "start": 142,
+                    "end": 144
+                  },
+                  "value": "\\"
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 144,
+                    "end": 151
+                  },
+                  "value": "slashes"
                 }
               }
             ]
           }
         },
-        "value": "// Empty language parameter\ncode without language\n"
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 156,
+                "end": 180
+              },
+              "value": "Title with special chars"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 183,
+          "end": 213
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 185,
+                "end": 210
+              },
+              "value": "Content with empty params"
+            }
+          }
+        ]
       }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 216,
+        "end": 217
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 217,
+        "end": 218
+      }
+    }
+  },
+  {
+    "Code": {
+      "span": {
+        "start": 218,
+        "end": 290
+      },
+      "parameters": {
+        "lang": {
+          "span": {
+            "start": 226,
+            "end": 237
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 234,
+                  "end": 235
+                },
+                "value": " "
+              }
+            }
+          ]
+        }
+      },
+      "value": "// Empty language parameter\ncode without language\n"
     }
   }
 ]

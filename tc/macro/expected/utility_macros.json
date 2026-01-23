@@ -1,31 +1,28 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 18
-    },
-    "kind": {
-      "Text": {
-        "value": "Before null macro "
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 18
+      },
+      "value": "Before null macro "
+    }
+  },
+  {
+    "Null": {
+      "span": {
+        "start": 18,
+        "end": 24
       }
     }
   },
   {
-    "location": {
-      "start": 18,
-      "end": 24
-    },
-    "kind": "Null"
-  },
-  {
-    "location": {
-      "start": 24,
-      "end": 42
-    },
-    "kind": {
-      "Text": {
-        "value": " after null macro."
-      }
+    "Text": {
+      "span": {
+        "start": 24,
+        "end": 42
+      },
+      "value": " after null macro."
     }
   }
 ]

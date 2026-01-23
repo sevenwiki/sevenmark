@@ -1,67 +1,62 @@
 [
   {
-    "kind": {
-      "Text": {
-        "value": "한국어"
+    "Text": {
+      "span": {
+        "end": 3,
+        "start": 0
+      },
+      "value": "한국어"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 4,
+        "start": 3
       }
-    },
-    "location": {
-      "end": 3,
-      "start": 0
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 4,
-      "start": 3
+    "Text": {
+      "span": {
+        "end": 7,
+        "start": 4
+      },
+      "value": "日本語"
     }
   },
   {
-    "kind": {
-      "Text": {
-        "value": "日本語"
+    "SoftBreak": {
+      "span": {
+        "end": 8,
+        "start": 7
       }
-    },
-    "location": {
-      "end": 7,
-      "start": 4
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 8,
-      "start": 7
+    "Text": {
+      "span": {
+        "end": 21,
+        "start": 8
+      },
+      "value": "Emoji 🚀 test"
     }
   },
   {
-    "kind": {
-      "Text": {
-        "value": "Emoji 🚀 test"
+    "SoftBreak": {
+      "span": {
+        "end": 22,
+        "start": 21
       }
-    },
-    "location": {
-      "end": 21,
-      "start": 8
     }
   },
   {
-    "kind": "SoftBreak",
-    "location": {
-      "end": 22,
-      "start": 21
-    }
-  },
-  {
-    "kind": {
-      "Text": {
-        "value": "Special chars: åäö"
-      }
-    },
-    "location": {
-      "end": 40,
-      "start": 22
+    "Text": {
+      "span": {
+        "end": 40,
+        "start": 22
+      },
+      "value": "Special chars: åäö"
     }
   }
 ]

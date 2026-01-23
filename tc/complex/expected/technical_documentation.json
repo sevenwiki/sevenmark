@@ -1,393 +1,333 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 37
-    },
-    "kind": {
-      "Header": {
-        "level": 1,
-        "is_folded": false,
-        "section_index": 1,
-        "children": [
-          {
-            "location": {
+    "Header": {
+      "span": {
+        "start": 0,
+        "end": 37
+      },
+      "level": 1,
+      "is_folded": false,
+      "section_index": 1,
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 2,
               "end": 36
             },
-            "kind": {
-              "Text": {
-                "value": "SevenMark Parser API Documentation"
-              }
-            }
+            "value": "SevenMark Parser API Documentation"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 37,
+        "end": 38
       }
     }
   },
   {
-    "location": {
-      "start": 37,
-      "end": 38
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 38,
-      "end": 50
-    },
-    "kind": {
-      "Header": {
-        "level": 2,
-        "is_folded": false,
-        "section_index": 2,
-        "children": [
-          {
-            "location": {
+    "Header": {
+      "span": {
+        "start": 38,
+        "end": 50
+      },
+      "level": 2,
+      "is_folded": false,
+      "section_index": 2,
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 41,
               "end": 49
             },
-            "kind": {
-              "Text": {
-                "value": "Overview"
-              }
-            }
+            "value": "Overview"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 50,
+        "end": 51
       }
     }
   },
   {
-    "location": {
-      "start": 50,
-      "end": 51
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 51,
-      "end": 76
-    },
-    "kind": {
-      "Text": {
-        "value": "This document covers the "
-      }
+    "Text": {
+      "span": {
+        "start": 51,
+        "end": 76
+      },
+      "value": "This document covers the "
     }
   },
   {
-    "location": {
-      "start": 76,
-      "end": 89
-    },
-    "kind": {
-      "Bold": {
-        "children": [
-          {
-            "location": {
+    "Bold": {
+      "span": {
+        "start": 76,
+        "end": 89
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 78,
               "end": 87
             },
-            "kind": {
-              "Text": {
-                "value": "SevenMark"
-              }
-            }
+            "value": "SevenMark"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 89,
+        "end": 120
+      },
+      "value": " parsing engine implementation."
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 120,
+        "end": 121
       }
     }
   },
   {
-    "location": {
-      "start": 89,
-      "end": 120
-    },
-    "kind": {
-      "Text": {
-        "value": " parsing engine implementation."
+    "SoftBreak": {
+      "span": {
+        "start": 121,
+        "end": 122
       }
     }
   },
   {
-    "location": {
-      "start": 120,
-      "end": 121
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 121,
-      "end": 122
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 122,
-      "end": 371
-    },
-    "kind": {
-      "Fold": {
-        "parameters": {
-          "style": {
-            "location": {
-              "start": 130,
-              "end": 175
-            },
-            "key": "style",
-            "value": [
-              {
-                "location": {
+    "Fold": {
+      "span": {
+        "start": 122,
+        "end": 371
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 130,
+            "end": 175
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
                   "start": 139,
                   "end": 173
                 },
-                "kind": {
-                  "Text": {
-                    "value": "border:1px solid #ddd; margin:10px"
-                  }
-                }
+                "value": "border:1px solid #ddd; margin:10px"
               }
-            ]
-          }
+            }
+          ]
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 175,
+          "end": 221
         },
+        "parameters": {},
         "children": [
           {
-            "location": {
-              "start": 175,
-              "end": 221
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 177,
-                      "end": 198
+            "Bold": {
+              "span": {
+                "start": 177,
+                "end": 198
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 179,
+                      "end": 196
                     },
-                    "kind": {
-                      "Bold": {
-                        "children": [
-                          {
-                            "location": {
-                              "start": 179,
-                              "end": 196
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "Table of Contents"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 198,
-                      "end": 199
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": " "
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 199,
-                      "end": 200
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "_"
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 200,
-                      "end": 217
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "(click to expand)"
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 217,
-                      "end": 218
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "_"
-                      }
-                    }
+                    "value": "Table of Contents"
                   }
-                ]
-              }
+                }
+              ]
             }
           },
           {
-            "location": {
-              "start": 221,
-              "end": 368
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 224,
-                      "end": 364
+            "Text": {
+              "span": {
+                "start": 198,
+                "end": 199
+              },
+              "value": " "
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 199,
+                "end": 200
+              },
+              "value": "_"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 200,
+                "end": 217
+              },
+              "value": "(click to expand)"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 217,
+                "end": 218
+              },
+              "value": "_"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 221,
+          "end": 368
+        },
+        "parameters": {},
+        "children": [
+          {
+            "List": {
+              "span": {
+                "start": 224,
+                "end": 364
+              },
+              "kind": "1",
+              "parameters": {
+                "1": {
+                  "span": {
+                    "start": 232,
+                    "end": 236
+                  },
+                  "key": "1",
+                  "value": []
+                }
+              },
+              "children": [
+                {
+                  "Item": {
+                    "span": {
+                      "start": 236,
+                      "end": 263
                     },
-                    "kind": {
-                      "List": {
-                        "kind": "1",
-                        "parameters": {
-                          "1": {
-                            "location": {
-                              "start": 232,
-                              "end": 236
-                            },
-                            "key": "1",
-                            "value": []
-                          }
-                        },
-                        "children": [
-                          {
-                            "location": {
-                              "start": 236,
-                              "end": 263
-                            },
-                            "kind": {
-                              "ListItem": {
-                                "parameters": {},
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 238,
-                                      "end": 260
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Introduction and Setup"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 238,
+                            "end": 260
                           },
-                          {
-                            "location": {
-                              "start": 263,
-                              "end": 284
-                            },
-                            "kind": {
-                              "ListItem": {
-                                "parameters": {},
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 265,
-                                      "end": 281
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Core API Methods"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 284,
-                              "end": 303
-                            },
-                            "kind": {
-                              "ListItem": {
-                                "parameters": {},
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 286,
-                                      "end": 300
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Error Handling"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 303,
-                              "end": 334
-                            },
-                            "kind": {
-                              "ListItem": {
-                                "parameters": {},
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 305,
-                                      "end": 331
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Performance Considerations"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 334,
-                              "end": 361
-                            },
-                            "kind": {
-                              "ListItem": {
-                                "parameters": {},
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 336,
-                                      "end": 358
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Examples and Tutorials"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
+                          "value": "Introduction and Setup"
+                        }
                       }
-                    }
+                    ]
                   }
-                ]
-              }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 263,
+                      "end": 284
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 265,
+                            "end": 281
+                          },
+                          "value": "Core API Methods"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 284,
+                      "end": 303
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 286,
+                            "end": 300
+                          },
+                          "value": "Error Handling"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 303,
+                      "end": 334
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 305,
+                            "end": 331
+                          },
+                          "value": "Performance Considerations"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 334,
+                      "end": 361
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 336,
+                            "end": 358
+                          },
+                          "value": "Examples and Tutorials"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           }
         ]
@@ -395,643 +335,560 @@
     }
   },
   {
-    "location": {
-      "start": 371,
-      "end": 372
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 371,
+        "end": 372
+      }
+    }
   },
   {
-    "location": {
-      "start": 372,
-      "end": 373
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 372,
+        "end": 373
+      }
+    }
   },
   {
-    "location": {
-      "start": 373,
-      "end": 389
-    },
-    "kind": {
-      "Header": {
-        "level": 2,
-        "is_folded": false,
-        "section_index": 3,
-        "children": [
-          {
-            "location": {
+    "Header": {
+      "span": {
+        "start": 373,
+        "end": 389
+      },
+      "level": 2,
+      "is_folded": false,
+      "section_index": 3,
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 376,
               "end": 388
             },
-            "kind": {
-              "Text": {
-                "value": "Core Methods"
-              }
-            }
+            "value": "Core Methods"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 389,
+        "end": 390
       }
     }
   },
   {
-    "location": {
-      "start": 389,
-      "end": 390
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 390,
-      "end": 683
-    },
-    "kind": {
-      "Table": {
-        "parameters": {
-          "style": {
-            "location": {
-              "start": 399,
-              "end": 446
-            },
-            "key": "style",
-            "value": [
-              {
-                "location": {
+    "Table": {
+      "span": {
+        "start": 390,
+        "end": 683
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 399,
+            "end": 446
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
                   "start": 408,
                   "end": 444
                 },
-                "kind": {
-                  "Text": {
-                    "value": "border-collapse:collapse; width:100%"
-                  }
-                }
+                "value": "border-collapse:collapse; width:100%"
               }
-            ]
-          }
-        },
-        "children": [
-          {
-            "location": {
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Row": {
+            "span": {
               "start": 446,
               "end": 505
             },
-            "kind": {
-              "TableRow": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 448,
-                      "end": 463
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 450,
-                              "end": 460
-                            },
-                            "kind": {
-                              "Bold": {
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 452,
-                                      "end": 458
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Method"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 463,
-                      "end": 483
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 465,
-                              "end": 480
-                            },
-                            "kind": {
-                              "Bold": {
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 467,
-                                      "end": 478
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Description"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 483,
-                      "end": 502
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 485,
-                              "end": 500
-                            },
-                            "kind": {
-                              "Bold": {
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 487,
-                                      "end": 498
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Return Type"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          {
-            "location": {
-              "start": 505,
-              "end": 595
-            },
-            "kind": {
-              "TableRow": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 507,
-                      "end": 530
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 509,
-                              "end": 515
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "`parse"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 515,
-                              "end": 516
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "_"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 516,
-                              "end": 527
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "document()`"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 530,
-                      "end": 565
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 532,
-                              "end": 562
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "Parses full SevenMark document"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 565,
-                      "end": 592
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 567,
-                              "end": 571
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "`Vec"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 571,
-                              "end": 572
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "<"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 572,
-                              "end": 590
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "SevenMarkElement>`"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          {
-            "location": {
-              "start": 595,
-              "end": 680
-            },
-            "kind": {
-              "TableRow": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 597,
-                      "end": 620
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 599,
-                              "end": 607
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "`element"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 607,
-                              "end": 608
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "_"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 608,
-                              "end": 617
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "parser()`"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 620,
-                      "end": 651
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 622,
-                              "end": 648
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "Parses individual elements"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 651,
-                      "end": 677
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 653,
-                              "end": 660
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "`Result"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 660,
-                              "end": 661
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "<"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 661,
-                              "end": 664
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "Vec"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 664,
-                              "end": 665
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "<"
-                              }
-                            }
-                          },
-                          {
-                            "location": {
-                              "start": 665,
-                              "end": 675
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "Element>>`"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "location": {
-      "start": 683,
-      "end": 684
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 684,
-      "end": 685
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 685,
-      "end": 703
-    },
-    "kind": {
-      "Header": {
-        "level": 3,
-        "is_folded": false,
-        "section_index": 4,
-        "children": [
-          {
-            "location": {
-              "start": 689,
-              "end": 702
-            },
-            "kind": {
-              "Text": {
-                "value": "Example Usage"
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "location": {
-      "start": 703,
-      "end": 704
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 704,
-      "end": 935
-    },
-    "kind": {
-      "Code": {
-        "parameters": {
-          "lang": {
-            "location": {
-              "start": 712,
-              "end": 726
-            },
-            "key": "lang",
-            "value": [
+            "parameters": {},
+            "children": [
               {
-                "location": {
-                  "start": 720,
-                  "end": 724
-                },
-                "kind": {
-                  "Text": {
-                    "value": "rust"
-                  }
+                "Cell": {
+                  "span": {
+                    "start": 448,
+                    "end": 463
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 450,
+                          "end": 460
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 452,
+                                "end": 458
+                              },
+                              "value": "Method"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
-              }
-            ]
-          },
-          "style": {
-            "location": {
-              "start": 726,
-              "end": 768
-            },
-            "key": "style",
-            "value": [
+              },
               {
-                "location": {
-                  "start": 734,
-                  "end": 766
-                },
-                "kind": {
-                  "Text": {
-                    "value": "background:#f8f8f8; padding:10px"
-                  }
+                "Cell": {
+                  "span": {
+                    "start": 463,
+                    "end": 483
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 465,
+                          "end": 480
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 467,
+                                "end": 478
+                              },
+                              "value": "Description"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 483,
+                    "end": 502
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 485,
+                          "end": 500
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 487,
+                                "end": 498
+                              },
+                              "value": "Return Type"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
-        "value": "use sevenmark::parse_document;\n\nfn main() {\n    let content = \"**Hello** [now]\";\n    let result = parse_document(content);\n    println!(\"Parsed: {:#?}\", result);\n}\n"
+        {
+          "Row": {
+            "span": {
+              "start": 505,
+              "end": 595
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 507,
+                    "end": 530
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 509,
+                          "end": 515
+                        },
+                        "value": "`parse"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 515,
+                          "end": 516
+                        },
+                        "value": "_"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 516,
+                          "end": 527
+                        },
+                        "value": "document()`"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 530,
+                    "end": 565
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 532,
+                          "end": 562
+                        },
+                        "value": "Parses full SevenMark document"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 565,
+                    "end": 592
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 567,
+                          "end": 571
+                        },
+                        "value": "`Vec"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 571,
+                          "end": 572
+                        },
+                        "value": "<"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 572,
+                          "end": 590
+                        },
+                        "value": "SevenMarkElement>`"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Row": {
+            "span": {
+              "start": 595,
+              "end": 680
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 597,
+                    "end": 620
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 599,
+                          "end": 607
+                        },
+                        "value": "`element"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 607,
+                          "end": 608
+                        },
+                        "value": "_"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 608,
+                          "end": 617
+                        },
+                        "value": "parser()`"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 620,
+                    "end": 651
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 622,
+                          "end": 648
+                        },
+                        "value": "Parses individual elements"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 651,
+                    "end": 677
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 653,
+                          "end": 660
+                        },
+                        "value": "`Result"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 660,
+                          "end": 661
+                        },
+                        "value": "<"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 661,
+                          "end": 664
+                        },
+                        "value": "Vec"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 664,
+                          "end": 665
+                        },
+                        "value": "<"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 665,
+                          "end": 675
+                        },
+                        "value": "Element>>`"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 683,
+        "end": 684
       }
     }
   },
   {
-    "location": {
-      "start": 935,
-      "end": 936
-    },
-    "kind": "SoftBreak"
+    "SoftBreak": {
+      "span": {
+        "start": 684,
+        "end": 685
+      }
+    }
   },
   {
-    "location": {
-      "start": 936,
-      "end": 937
-    },
-    "kind": "SoftBreak"
+    "Header": {
+      "span": {
+        "start": 685,
+        "end": 703
+      },
+      "level": 3,
+      "is_folded": false,
+      "section_index": 4,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 689,
+              "end": 702
+            },
+            "value": "Example Usage"
+          }
+        }
+      ]
+    }
   },
   {
-    "location": {
-      "start": 937,
-      "end": 953
-    },
-    "kind": {
-      "Header": {
-        "level": 3,
-        "is_folded": false,
-        "section_index": 5,
-        "children": [
-          {
-            "location": {
+    "SoftBreak": {
+      "span": {
+        "start": 703,
+        "end": 704
+      }
+    }
+  },
+  {
+    "Code": {
+      "span": {
+        "start": 704,
+        "end": 935
+      },
+      "parameters": {
+        "lang": {
+          "span": {
+            "start": 712,
+            "end": 726
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 720,
+                  "end": 724
+                },
+                "value": "rust"
+              }
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 726,
+            "end": 768
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 734,
+                  "end": 766
+                },
+                "value": "background:#f8f8f8; padding:10px"
+              }
+            }
+          ]
+        }
+      },
+      "value": "use sevenmark::parse_document;\n\nfn main() {\n    let content = \"**Hello** [now]\";\n    let result = parse_document(content);\n    println!(\"Parsed: {:#?}\", result);\n}\n"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 935,
+        "end": 936
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 936,
+        "end": 937
+      }
+    }
+  },
+  {
+    "Header": {
+      "span": {
+        "start": 937,
+        "end": 953
+      },
+      "level": 3,
+      "is_folded": false,
+      "section_index": 5,
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 941,
               "end": 952
             },
-            "kind": {
-              "Text": {
-                "value": "Error Cases"
-              }
-            }
+            "value": "Error Cases"
           }
-        ]
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 953,
+        "end": 954
       }
     }
   },
   {
-    "location": {
-      "start": 953,
-      "end": 954
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 954,
-      "end": 1359
-    },
-    "kind": {
-      "Error": {
-        "value": "{{{#quote #style=\"background:#fff3cd; border-left:4px solid #ffc107; padding:10px\"\n**Warning**: Always handle parsing errors gracefully. Common issues include:\n- Malformed brace syntax: `{{{unclosed`\n- Invalid macro parameters: `[age(invalid-date)]`\n- Deeply nested elements exceeding recursion limits\n}}}\n\n---\n\n*Documentation last updated: [now]*\n\n// TODO: Add more examples for complex nesting scenarios"
-      }
+    "Error": {
+      "span": {
+        "start": 954,
+        "end": 1359
+      },
+      "value": "{{{#quote #style=\"background:#fff3cd; border-left:4px solid #ffc107; padding:10px\"\n**Warning**: Always handle parsing errors gracefully. Common issues include:\n- Malformed brace syntax: `{{{unclosed`\n- Invalid macro parameters: `[age(invalid-date)]`\n- Deeply nested elements exceeding recursion limits\n}}}\n\n---\n\n*Documentation last updated: [now]*\n\n// TODO: Add more examples for complex nesting scenarios"
     }
   }
 ]

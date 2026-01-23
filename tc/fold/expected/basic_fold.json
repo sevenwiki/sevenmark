@@ -1,59 +1,43 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 49
-    },
-    "kind": {
-      "Fold": {
+    "Fold": {
+      "span": {
+        "start": 0,
+        "end": 49
+      },
+      "parameters": {},
+      "summary": {
+        "span": {
+          "start": 8,
+          "end": 27
+        },
         "parameters": {},
         "children": [
           {
-            "location": {
-              "start": 8,
-              "end": 27
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 11,
-                      "end": 24
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "first content"
-                      }
-                    }
-                  }
-                ]
-              }
+            "Text": {
+              "span": {
+                "start": 11,
+                "end": 24
+              },
+              "value": "first content"
             }
-          },
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 27,
+          "end": 46
+        },
+        "parameters": {},
+        "children": [
           {
-            "location": {
-              "start": 27,
-              "end": 46
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 29,
-                      "end": 43
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": "second content"
-                      }
-                    }
-                  }
-                ]
-              }
+            "Text": {
+              "span": {
+                "start": 29,
+                "end": 43
+              },
+              "value": "second content"
             }
           }
         ]

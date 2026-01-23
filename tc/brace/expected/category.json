@@ -1,25 +1,21 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 27
-    },
-    "kind": {
-      "Category": {
-        "children": [
-          {
-            "location": {
+    "Category": {
+      "span": {
+        "start": 0,
+        "end": 27
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 13,
               "end": 24
             },
-            "kind": {
-              "Text": {
-                "value": "Technology\n"
-              }
-            }
+            "value": "Technology\n"
           }
-        ]
-      }
+        }
+      ]
     }
   }
 ]

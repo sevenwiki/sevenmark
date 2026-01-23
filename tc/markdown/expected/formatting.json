@@ -1,272 +1,224 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 14
-    },
-    "kind": {
-      "Text": {
-        "value": "This text has "
-      }
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 14
+      },
+      "value": "This text has "
     }
   },
   {
-    "location": {
-      "start": 14,
-      "end": 22
-    },
-    "kind": {
-      "Bold": {
-        "children": [
-          {
-            "location": {
+    "Bold": {
+      "span": {
+        "start": 14,
+        "end": 22
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 16,
               "end": 20
             },
-            "kind": {
-              "Text": {
-                "value": "bold"
-              }
-            }
+            "value": "bold"
           }
-        ]
-      }
+        }
+      ]
     }
   },
   {
-    "location": {
-      "start": 22,
-      "end": 23
-    },
-    "kind": {
-      "Text": {
-        "value": ","
-      }
+    "Text": {
+      "span": {
+        "start": 22,
+        "end": 23
+      },
+      "value": ","
     }
   },
   {
-    "location": {
-      "start": 23,
-      "end": 24
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 23,
+        "end": 24
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 24,
-      "end": 32
-    },
-    "kind": {
-      "Italic": {
-        "children": [
-          {
-            "location": {
+    "Italic": {
+      "span": {
+        "start": 24,
+        "end": 32
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 25,
               "end": 31
             },
-            "kind": {
-              "Text": {
-                "value": "italic"
-              }
-            }
+            "value": "italic"
           }
-        ]
-      }
+        }
+      ]
     }
   },
   {
-    "location": {
-      "start": 32,
-      "end": 33
-    },
-    "kind": {
-      "Text": {
-        "value": ","
-      }
+    "Text": {
+      "span": {
+        "start": 32,
+        "end": 33
+      },
+      "value": ","
     }
   },
   {
-    "location": {
-      "start": 33,
-      "end": 34
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 33,
+        "end": 34
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 34,
-      "end": 48
-    },
-    "kind": {
-      "Underline": {
-        "children": [
-          {
-            "location": {
+    "Underline": {
+      "span": {
+        "start": 34,
+        "end": 48
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 36,
               "end": 46
             },
-            "kind": {
-              "Text": {
-                "value": "underlined"
-              }
-            }
+            "value": "underlined"
           }
-        ]
-      }
+        }
+      ]
     }
   },
   {
-    "location": {
-      "start": 48,
-      "end": 49
-    },
-    "kind": {
-      "Text": {
-        "value": ","
-      }
+    "Text": {
+      "span": {
+        "start": 48,
+        "end": 49
+      },
+      "value": ","
     }
   },
   {
-    "location": {
-      "start": 49,
-      "end": 50
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 49,
+        "end": 50
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 50,
-      "end": 67
-    },
-    "kind": {
-      "Strikethrough": {
-        "children": [
-          {
-            "location": {
+    "Strikethrough": {
+      "span": {
+        "start": 50,
+        "end": 67
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 52,
               "end": 65
             },
-            "kind": {
-              "Text": {
-                "value": "strikethrough"
-              }
-            }
+            "value": "strikethrough"
           }
-        ]
-      }
+        }
+      ]
     }
   },
   {
-    "location": {
-      "start": 67,
-      "end": 68
-    },
-    "kind": {
-      "Text": {
-        "value": ","
-      }
+    "Text": {
+      "span": {
+        "start": 67,
+        "end": 68
+      },
+      "value": ","
     }
   },
   {
-    "location": {
-      "start": 68,
-      "end": 69
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 68,
+        "end": 69
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 69,
-      "end": 84
-    },
-    "kind": {
-      "Superscript": {
-        "children": [
-          {
-            "location": {
+    "Superscript": {
+      "span": {
+        "start": 69,
+        "end": 84
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 71,
               "end": 82
             },
-            "kind": {
-              "Text": {
-                "value": "superscript"
-              }
-            }
+            "value": "superscript"
           }
-        ]
-      }
+        }
+      ]
     }
   },
   {
-    "location": {
-      "start": 84,
-      "end": 85
-    },
-    "kind": {
-      "Text": {
-        "value": ","
-      }
+    "Text": {
+      "span": {
+        "start": 84,
+        "end": 85
+      },
+      "value": ","
     }
   },
   {
-    "location": {
-      "start": 85,
-      "end": 90
-    },
-    "kind": {
-      "Text": {
-        "value": " and "
-      }
+    "Text": {
+      "span": {
+        "start": 85,
+        "end": 90
+      },
+      "value": " and "
     }
   },
   {
-    "location": {
-      "start": 90,
-      "end": 103
-    },
-    "kind": {
-      "Subscript": {
-        "children": [
-          {
-            "location": {
+    "Subscript": {
+      "span": {
+        "start": 90,
+        "end": 103
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 92,
               "end": 101
             },
-            "kind": {
-              "Text": {
-                "value": "subscript"
-              }
-            }
+            "value": "subscript"
           }
-        ]
-      }
+        }
+      ]
     }
   },
   {
-    "location": {
-      "start": 103,
-      "end": 115
-    },
-    "kind": {
-      "Text": {
-        "value": " formatting."
-      }
+    "Text": {
+      "span": {
+        "start": 103,
+        "end": 115
+      },
+      "value": " formatting."
     }
   }
 ]

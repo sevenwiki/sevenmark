@@ -1,105 +1,81 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 64
-    },
-    "kind": {
-      "Fold": {
+    "Fold": {
+      "span": {
+        "start": 0,
+        "end": 64
+      },
+      "parameters": {},
+      "summary": {
+        "span": {
+          "start": 8,
+          "end": 38
+        },
         "parameters": {},
         "children": [
           {
-            "location": {
-              "start": 8,
-              "end": 38
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 11,
-                      "end": 24
+            "Bold": {
+              "span": {
+                "start": 11,
+                "end": 24
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 13,
+                      "end": 22
                     },
-                    "kind": {
-                      "Bold": {
-                        "children": [
-                          {
-                            "location": {
-                              "start": 13,
-                              "end": 22
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "bold text"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 24,
-                      "end": 35
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": " and normal"
-                      }
-                    }
+                    "value": "bold text"
                   }
-                ]
-              }
+                }
+              ]
             }
           },
           {
-            "location": {
-              "start": 38,
-              "end": 61
-            },
-            "kind": {
-              "FoldInner": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 40,
-                      "end": 53
+            "Text": {
+              "span": {
+                "start": 24,
+                "end": 35
+              },
+              "value": " and normal"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 38,
+          "end": 61
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Italic": {
+              "span": {
+                "start": 40,
+                "end": 53
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 41,
+                      "end": 52
                     },
-                    "kind": {
-                      "Italic": {
-                        "children": [
-                          {
-                            "location": {
-                              "start": 41,
-                              "end": 52
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "italic text"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "location": {
-                      "start": 53,
-                      "end": 58
-                    },
-                    "kind": {
-                      "Text": {
-                        "value": " here"
-                      }
-                    }
+                    "value": "italic text"
                   }
-                ]
-              }
+                }
+              ]
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 53,
+                "end": 58
+              },
+              "value": " here"
             }
           }
         ]

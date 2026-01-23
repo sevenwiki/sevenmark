@@ -1,85 +1,79 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 14
-    },
-    "kind": {
-      "Text": {
-        "value": "Current time: "
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 14
+      },
+      "value": "Current time: "
+    }
+  },
+  {
+    "TimeNow": {
+      "span": {
+        "start": 14,
+        "end": 19
       }
     }
   },
   {
-    "location": {
-      "start": 14,
-      "end": 19
-    },
-    "kind": "TimeNow"
-  },
-  {
-    "location": {
-      "start": 19,
-      "end": 20
-    },
-    "kind": "SoftBreak"
-  },
-  {
-    "location": {
-      "start": 20,
-      "end": 37
-    },
-    "kind": {
-      "Text": {
-        "value": "Age calculation: "
+    "SoftBreak": {
+      "span": {
+        "start": 19,
+        "end": 20
       }
     }
   },
   {
-    "location": {
-      "start": 37,
-      "end": 54
-    },
-    "kind": {
-      "Age": {
-        "date": "1990-01-15"
+    "Text": {
+      "span": {
+        "start": 20,
+        "end": 37
+      },
+      "value": "Age calculation: "
+    }
+  },
+  {
+    "Age": {
+      "span": {
+        "start": 37,
+        "end": 54
+      },
+      "date": "1990-01-15"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 54,
+        "end": 55
       }
     }
   },
   {
-    "location": {
-      "start": 54,
-      "end": 55
-    },
-    "kind": "SoftBreak"
+    "Text": {
+      "span": {
+        "start": 55,
+        "end": 66
+      },
+      "value": "Line break:"
+    }
   },
   {
-    "location": {
-      "start": 55,
-      "end": 66
-    },
-    "kind": {
-      "Text": {
-        "value": "Line break:"
+    "HardBreak": {
+      "span": {
+        "start": 66,
+        "end": 70
       }
     }
   },
   {
-    "location": {
-      "start": 66,
-      "end": 70
-    },
-    "kind": "HardBreak"
-  },
-  {
-    "location": {
-      "start": 70,
-      "end": 79
-    },
-    "kind": {
-      "Text": {
-        "value": "Next line"
-      }
+    "Text": {
+      "span": {
+        "start": 70,
+        "end": 79
+      },
+      "value": "Next line"
     }
   }
 ]

@@ -1,47 +1,41 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 58
-    },
-    "kind": {
-      "Include": {
-        "parameters": {
-          "page": {
-            "location": {
-              "start": 11,
-              "end": 29
-            },
-            "key": "page",
-            "value": [
-              {
-                "location": {
+    "Include": {
+      "span": {
+        "start": 0,
+        "end": 58
+      },
+      "parameters": {
+        "page": {
+          "span": {
+            "start": 11,
+            "end": 29
+          },
+          "key": "page",
+          "value": [
+            {
+              "Text": {
+                "span": {
                   "start": 19,
                   "end": 27
                 },
-                "kind": {
-                  "Text": {
-                    "value": "HomePage"
-                  }
-                }
+                "value": "HomePage"
               }
-            ]
-          }
-        },
-        "children": [
-          {
-            "location": {
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
               "start": 29,
               "end": 55
             },
-            "kind": {
-              "Text": {
-                "value": "Include some content here\n"
-              }
-            }
+            "value": "Include some content here\n"
           }
-        ]
-      }
+        }
+      ]
     }
   }
 ]

@@ -1,112 +1,92 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 85
-    },
-    "kind": {
-      "Table": {
-        "parameters": {},
-        "children": [
-          {
-            "location": {
+    "Table": {
+      "span": {
+        "start": 0,
+        "end": 85
+      },
+      "parameters": {},
+      "children": [
+        {
+          "Row": {
+            "span": {
               "start": 9,
               "end": 34
             },
-            "kind": {
-              "TableRow": {
-                "parameters": {},
-                "children": [
-                  {
-                    "location": {
-                      "start": 12,
-                      "end": 31
-                    },
-                    "kind": {
-                      "TableCell": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 14,
-                              "end": 29
-                            },
-                            "kind": {
-                              "Text": {
-                                "value": "Normal Row Cell"
-                              }
-                            }
-                          }
-                        ]
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 12,
+                    "end": 31
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 14,
+                          "end": 29
+                        },
+                        "value": "Normal Row Cell"
                       }
                     }
-                  }
-                ]
+                  ]
+                }
               }
-            }
-          },
-          {
-            "location": {
+            ]
+          }
+        },
+        {
+          "Conditional": {
+            "span": {
               "start": 34,
               "end": 82
             },
-            "kind": {
-              "ConditionalTableRows": {
-                "condition": {
-                  "location": {
-                    "start": 41,
-                    "end": 45
-                  },
-                  "kind": {
-                    "ExprBoolLiteral": {
-                      "value": true
-                    }
-                  }
+            "condition": {
+              "BoolLiteral": {
+                "span": {
+                  "start": 41,
+                  "end": 45
                 },
+                "value": true
+              }
+            },
+            "rows": [
+              {
+                "span": {
+                  "start": 49,
+                  "end": 78
+                },
+                "parameters": {},
                 "children": [
                   {
-                    "location": {
-                      "start": 49,
-                      "end": 78
-                    },
-                    "kind": {
-                      "TableRow": {
-                        "parameters": {},
-                        "children": [
-                          {
-                            "location": {
-                              "start": 51,
-                              "end": 75
+                    "Cell": {
+                      "span": {
+                        "start": 51,
+                        "end": 75
+                      },
+                      "parameters": {},
+                      "children": [
+                        {
+                          "Text": {
+                            "span": {
+                              "start": 53,
+                              "end": 73
                             },
-                            "kind": {
-                              "TableCell": {
-                                "parameters": {},
-                                "children": [
-                                  {
-                                    "location": {
-                                      "start": 53,
-                                      "end": 73
-                                    },
-                                    "kind": {
-                                      "Text": {
-                                        "value": "Conditional Row Cell"
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
+                            "value": "Conditional Row Cell"
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   }
                 ]
               }
-            }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   }
 ]

@@ -1,222 +1,182 @@
 [
   {
-    "location": {
-      "start": 0,
-      "end": 20
-    },
-    "kind": {
-      "Text": {
-        "value": "Escaped characters: "
-      }
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 20
+      },
+      "value": "Escaped characters: "
     }
   },
   {
-    "location": {
-      "start": 20,
-      "end": 22
-    },
-    "kind": {
-      "Escape": {
-        "value": "{"
-      }
+    "Escape": {
+      "span": {
+        "start": 20,
+        "end": 22
+      },
+      "value": "{"
     }
   },
   {
-    "location": {
-      "start": 22,
-      "end": 23
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 22,
+        "end": 23
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 23,
-      "end": 25
-    },
-    "kind": {
-      "Escape": {
-        "value": "}"
-      }
+    "Escape": {
+      "span": {
+        "start": 23,
+        "end": 25
+      },
+      "value": "}"
     }
   },
   {
-    "location": {
-      "start": 25,
-      "end": 26
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 25,
+        "end": 26
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 26,
-      "end": 28
-    },
-    "kind": {
-      "Escape": {
-        "value": "["
-      }
+    "Escape": {
+      "span": {
+        "start": 26,
+        "end": 28
+      },
+      "value": "["
     }
   },
   {
-    "location": {
-      "start": 28,
-      "end": 29
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 28,
+        "end": 29
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 29,
-      "end": 31
-    },
-    "kind": {
-      "Escape": {
-        "value": "]"
-      }
+    "Escape": {
+      "span": {
+        "start": 29,
+        "end": 31
+      },
+      "value": "]"
     }
   },
   {
-    "location": {
-      "start": 31,
-      "end": 32
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 31,
+        "end": 32
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 32,
-      "end": 34
-    },
-    "kind": {
-      "Escape": {
-        "value": "*"
-      }
+    "Escape": {
+      "span": {
+        "start": 32,
+        "end": 34
+      },
+      "value": "*"
     }
   },
   {
-    "location": {
-      "start": 34,
-      "end": 35
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 34,
+        "end": 35
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 35,
-      "end": 37
-    },
-    "kind": {
-      "Escape": {
-        "value": "_"
-      }
+    "Escape": {
+      "span": {
+        "start": 35,
+        "end": 37
+      },
+      "value": "_"
     }
   },
   {
-    "location": {
-      "start": 37,
-      "end": 38
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 37,
+        "end": 38
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 38,
-      "end": 40
-    },
-    "kind": {
-      "Escape": {
-        "value": "~"
-      }
+    "Escape": {
+      "span": {
+        "start": 38,
+        "end": 40
+      },
+      "value": "~"
     }
   },
   {
-    "location": {
-      "start": 40,
-      "end": 41
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 40,
+        "end": 41
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 41,
-      "end": 43
-    },
-    "kind": {
-      "Escape": {
-        "value": "^"
-      }
+    "Escape": {
+      "span": {
+        "start": 41,
+        "end": 43
+      },
+      "value": "^"
     }
   },
   {
-    "location": {
-      "start": 43,
-      "end": 44
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 43,
+        "end": 44
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 44,
-      "end": 46
-    },
-    "kind": {
-      "Escape": {
-        "value": ","
-      }
+    "Escape": {
+      "span": {
+        "start": 44,
+        "end": 46
+      },
+      "value": ","
     }
   },
   {
-    "location": {
-      "start": 46,
-      "end": 47
-    },
-    "kind": {
-      "Text": {
-        "value": " "
-      }
+    "Text": {
+      "span": {
+        "start": 46,
+        "end": 47
+      },
+      "value": " "
     }
   },
   {
-    "location": {
-      "start": 47,
-      "end": 49
-    },
-    "kind": {
-      "Escape": {
-        "value": "\\"
-      }
+    "Escape": {
+      "span": {
+        "start": 47,
+        "end": 49
+      },
+      "value": "\\"
     }
   }
 ]
