@@ -5,6 +5,32 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.18.0] - 2026-01-23
+
+### Changed
+- **sevenmark-parser**: Complete AST structure refactoring
+  - Removed unified `AstNode { location, kind: NodeKind }` wrapper
+  - Each element is now an individual struct with its own `span: Span` field
+  - Unified all element types under a top-level `Element` enum
+  - Renamed `Location` to `Span`
+  - Separated Expression into its own enum (`NodeKind::Expr*` → `Expression` enum)
+  - Table children now use typed enums (`Vec<TableRowItem>`, `Vec<TableCellItem>`)
+  - List children now use typed enums (`Vec<ListContentItem>`)
+  - Fold now uses named fields (`summary: FoldInnerElement`, `details: FoldInnerElement`)
+  - JSON serialization format changed (externally-tagged enum, `location` → `span`)
+- **sevenmark-transform**: Full migration to `Element`-based AST
+- **sevenmark-html**: Full migration to `Element`-based AST
+
+### Added
+- `ast/span.rs`: `Span` struct (replaces `location.rs`)
+- `ast/elements.rs`: All individual element struct definitions
+- `ast/table.rs`: Table type hierarchy (`TableRowItem`, `TableCellItem`, `ConditionalTableRows`, etc.)
+- `ast/list.rs`: List type hierarchy (`ListContentItem`, `ConditionalListItems`, etc.)
+
+### Removed
+- `AstNode` and `NodeKind` types
+- `ast/location.rs` (replaced by `ast/span.rs`)
+
 ## [2.14.0] - 2026-01-20
 
 ### Changed
