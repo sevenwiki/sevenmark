@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{Element, Span, TeXElement};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
 use winnow::Result;
@@ -9,7 +9,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_until};
 
 /// Parse TeX elements enclosed in {{{#tex }}}
-pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.input.current_token_start();
 
     let ((parameters, _), parsed_content) = delimited(
@@ -29,11 +29,9 @@ pub fn brace_tex_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
         .map(|p| p.contains_key("block"))
         .unwrap_or(false);
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::TeX {
-            is_block,
-            value: parsed_content.to_string(),
-        },
-    ))
+    Ok(Element::TeX(TeXElement {
+        span: Span { start, end },
+        is_block,
+        value: parsed_content.to_string(),
+    }))
 }

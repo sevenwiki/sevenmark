@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{Element, Span, StyledElement};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
@@ -11,7 +11,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse styled elements enclosed in {{{ }}}
-pub fn brace_style_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn brace_style_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.input.current_token_start();
 
     let (parameters, parsed_content) = delimited(
@@ -25,11 +25,9 @@ pub fn brace_style_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::Styled {
-            parameters,
-            children: parsed_content,
-        },
-    ))
+    Ok(Element::Styled(StyledElement {
+        span: Span { start, end },
+        parameters,
+        children: parsed_content,
+    }))
 }

@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{Element, IfElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::condition_parser;
@@ -11,7 +11,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse if conditional elements: {{{#if condition :: content}}}
-pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.input.current_token_start();
 
     let (condition, parsed_content) = delimited(
@@ -25,11 +25,9 @@ pub fn brace_if_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::If {
-            condition: Box::new(condition),
-            children: parsed_content,
-        },
-    ))
+    Ok(Element::If(IfElement {
+        span: Span { start, end },
+        condition,
+        children: parsed_content,
+    }))
 }

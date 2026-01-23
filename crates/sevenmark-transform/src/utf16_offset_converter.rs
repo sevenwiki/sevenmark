@@ -1,5 +1,5 @@
 use serde::Serialize;
-use sevenmark_parser::ast::{AstNode, Location};
+use sevenmark_parser::ast::{Element, Span};
 
 /// UTF-16 code unit offset position (0-based)
 /// Designed for CodeMirror 6 compatibility
@@ -45,44 +45,44 @@ impl Utf16OffsetConverter {
             .unwrap_or(*self.byte_to_utf16.last().unwrap_or(&0))
     }
 
-    /// Converts a Location to UTF-16 position
-    pub fn convert_location(&self, location: &Location) -> Utf16Position {
+    /// Converts a Span to UTF-16 position
+    pub fn convert_span(&self, span: &Span) -> Utf16Position {
         Utf16Position {
-            start: self.convert(location.start),
-            end: self.convert(location.end),
+            start: self.convert(span.start),
+            end: self.convert(span.end),
         }
     }
 
     /// Converts SevenMark AST elements to JSON with UTF-16 positions
-    pub fn convert_elements(&self, elements: &[AstNode]) -> serde_json::Value {
+    pub fn convert_elements(&self, elements: &[Element]) -> serde_json::Value {
         let mut json = serde_json::to_value(elements).unwrap_or(serde_json::Value::Null);
-        self.convert_locations_in_json(&mut json);
+        self.convert_spans_in_json(&mut json);
         json
     }
 
-    /// Recursively transforms location fields in JSON values
-    fn convert_locations_in_json(&self, value: &mut serde_json::Value) {
+    /// Recursively transforms span fields in JSON values
+    fn convert_spans_in_json(&self, value: &mut serde_json::Value) {
         match value {
             serde_json::Value::Object(map) => {
-                // Check for location field and convert it
-                if let Some(location_value) = map.get("location")
-                    && let Ok(location) = serde_json::from_value::<Location>(location_value.clone())
+                // Check for span field and convert it
+                if let Some(span_value) = map.get("span")
+                    && let Ok(span) = serde_json::from_value::<Span>(span_value.clone())
                 {
-                    let utf16_location = self.convert_location(&location);
+                    let utf16_span = self.convert_span(&span);
                     map.insert(
-                        "location".to_string(),
-                        serde_json::to_value(utf16_location).unwrap(),
+                        "span".to_string(),
+                        serde_json::to_value(utf16_span).unwrap(),
                     );
                 }
 
                 // Recursively process all other fields
                 for (_, v) in map.iter_mut() {
-                    self.convert_locations_in_json(v);
+                    self.convert_spans_in_json(v);
                 }
             }
             serde_json::Value::Array(arr) => {
                 for item in arr.iter_mut() {
-                    self.convert_locations_in_json(item);
+                    self.convert_spans_in_json(item);
                 }
             }
             _ => {}
@@ -101,7 +101,7 @@ impl Utf16OffsetConverter {
 ///
 /// # Returns
 /// JSON string with 0-based UTF-16 code unit offsets
-pub fn convert_ast_to_utf16_offset_json(elements: &[AstNode], input: &str) -> String {
+pub fn convert_ast_to_utf16_offset_json(elements: &[Element], input: &str) -> String {
     let converter = Utf16OffsetConverter::new(input);
     let result = converter.convert_elements(elements);
     serde_json::to_string(&result).unwrap_or_default()

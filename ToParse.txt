@@ -1,5 +1,6 @@
-{{{#style #x="xx"
-# header
+{{{#define #x="3"}}}
 
 
+{{{#if x > 2 ||
+this is
 }}}

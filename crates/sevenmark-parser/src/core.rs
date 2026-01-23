@@ -1,10 +1,10 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{Element, ErrorElement, Span};
 use crate::context::ParseContext;
 use crate::parser::document::document_parser;
 use crate::parser::{InputSource, ParserInput};
 use winnow::stream::Location as StreamLocation;
 
-pub fn parse_document(input: &str) -> Vec<AstNode> {
+pub fn parse_document(input: &str) -> Vec<Element> {
     let context = ParseContext::new(input);
 
     let mut stateful_input = ParserInput {
@@ -20,24 +20,22 @@ pub fn parse_document(input: &str) -> Vec<AstNode> {
                 let remaining = stateful_input.input.to_string();
                 let end = start + remaining.len();
 
-                elements.push(AstNode::new(
-                    Location { start, end },
-                    NodeKind::Error { value: remaining },
-                ));
+                elements.push(Element::Error(ErrorElement {
+                    span: Span { start, end },
+                    value: remaining,
+                }));
             }
             elements
         }
         Err(_) => {
             // If parser fails, treat entire input as single Error element
-            vec![AstNode::new(
-                Location {
+            vec![Element::Error(ErrorElement {
+                span: Span {
                     start: 0,
                     end: input.len(),
                 },
-                NodeKind::Error {
-                    value: input.to_string(),
-                },
-            )]
+                value: input.to_string(),
+            })]
         }
     }
 }

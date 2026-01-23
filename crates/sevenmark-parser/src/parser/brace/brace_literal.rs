@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{Element, LiteralElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::brace::literal::literal_content_parser;
 use crate::parser::utils::with_depth_and_trim;
@@ -10,7 +10,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse literal elements enclosed in {{{ }}}
-pub fn brace_literal_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn brace_literal_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.input.current_token_start();
 
     let (_, parsed_content) = delimited(
@@ -24,10 +24,8 @@ pub fn brace_literal_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::Literal {
-            children: parsed_content,
-        },
-    ))
+    Ok(Element::Literal(LiteralElement {
+        span: Span { start, end },
+        children: parsed_content,
+    }))
 }

@@ -1,4 +1,4 @@
-use crate::ast::{Location, Parameter, Parameters};
+use crate::ast::{Parameter, Parameters, Span};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_content::parameter_content_parser;
 use std::collections::BTreeMap;
@@ -32,7 +32,7 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
     let value = value_opt.unwrap_or_else(Vec::new);
 
     let parameter = Parameter {
-        location: Location { start, end },
+        span: Span { start, end },
         key: key_string.clone(),
         value,
     };

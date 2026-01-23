@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{DefineElement, Element, Span};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
 use winnow::Result;
@@ -9,7 +9,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 /// Parse styled elements enclosed in {{{ }}}
-pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.input.current_token_start();
 
     let parameters = delimited(literal("{{{#define"), parameter_core_parser, literal("}}}"))
@@ -20,8 +20,8 @@ pub fn brace_define_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
     // consume trailing whitespace to prevent unwanted line breaks
     multispace0.parse_next(parser_input)?;
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::Define { parameters },
-    ))
+    Ok(Element::Define(DefineElement {
+        span: Span { start, end },
+        parameters,
+    }))
 }

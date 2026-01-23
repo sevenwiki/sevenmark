@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{AgeElement, Element, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::combinator::delimited;
@@ -7,7 +7,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 use winnow::token::take_while;
 
-pub fn macro_age_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn macro_age_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.input.current_token_start();
 
     let date =
@@ -15,10 +15,10 @@ pub fn macro_age_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
 
     let end = parser_input.input.previous_token_end();
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::Age { date },
-    ))
+    Ok(Element::Age(AgeElement {
+        span: Span { start, end },
+        date,
+    }))
 }
 
 // ISO 8601

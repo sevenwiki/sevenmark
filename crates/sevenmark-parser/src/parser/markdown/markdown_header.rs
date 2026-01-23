@@ -1,4 +1,4 @@
-use crate::ast::{AstNode, Location, NodeKind};
+use crate::ast::{Element, HeaderElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::utils::with_depth;
@@ -11,7 +11,7 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_while};
 
 /// 헤더 파서 - # Header (1-6개의 # 지원, ! 폴딩 지원)
-pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<AstNode> {
+pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<Element> {
     if parser_input.state.current_depth() > 0 {
         return Err(winnow::error::ContextError::new());
     }
@@ -49,13 +49,11 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<AstNode>
     let is_folded = is_folded.is_some();
     let section_index = parser_input.state.next_section_index();
 
-    Ok(AstNode::new(
-        Location { start, end },
-        NodeKind::Header {
-            level: header_level,
-            is_folded,
-            section_index,
-            children: parsed_content,
-        },
-    ))
+    Ok(Element::Header(HeaderElement {
+        span: Span { start, end },
+        level: header_level,
+        is_folded,
+        section_index,
+        children: parsed_content,
+    }))
 }
