@@ -38,13 +38,9 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         Element::Header(_) => html! {},
 
         // Block elements
-        Element::BlockQuote(bq) => {
-            brace::blockquote::render(&bq.parameters, &bq.children, ctx)
-        }
+        Element::BlockQuote(bq) => brace::blockquote::render(&bq.parameters, &bq.children, ctx),
         Element::Literal(lit) => brace::literal::render(&lit.children, ctx),
-        Element::Styled(styled) => {
-            brace::styled::render(&styled.parameters, &styled.children, ctx)
-        }
+        Element::Styled(styled) => brace::styled::render(&styled.parameters, &styled.children, ctx),
         Element::Fold(fold) => brace::fold::render(fold, ctx),
         Element::Ruby(ruby) => brace::ruby::render(&ruby.parameters, &ruby.children, ctx),
         Element::Code(code) => brace::code::render(&code.parameters, &code.value),
@@ -54,14 +50,15 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         Element::List(list) => {
             brace::list::render(&list.kind, &list.parameters, &list.children, ctx)
         }
-        Element::Table(table) => {
-            brace::table::render(&table.parameters, &table.children, ctx)
-        }
+        Element::Table(table) => brace::table::render(&table.parameters, &table.children, ctx),
 
         // Media
-        Element::Media(media) => {
-            bracket::media::render(&media.parameters, &media.children, media.resolved_info.as_ref(), ctx)
-        }
+        Element::Media(media) => bracket::media::render(
+            &media.parameters,
+            &media.children,
+            media.resolved_info.as_ref(),
+            ctx,
+        ),
 
         // External Media (YouTube, Vimeo, NicoNico, Spotify)
         Element::ExternalMedia(ext_media) => {
@@ -69,9 +66,12 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         }
 
         // Footnotes
-        Element::Footnote(footnote) => {
-            brace::footnote::render(footnote.footnote_index, &footnote.parameters, &footnote.children, ctx)
-        }
+        Element::Footnote(footnote) => brace::footnote::render(
+            footnote.footnote_index,
+            &footnote.parameters,
+            &footnote.children,
+            ctx,
+        ),
         Element::FootnoteRef(_) => r#macro::footnote::render(ctx),
 
         // Line breaks

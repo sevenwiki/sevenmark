@@ -1,6 +1,4 @@
-use super::{
-    Element, ListContentItem, TableCellItem, TableRowItem,
-};
+use super::{Element, ListContentItem, TableCellItem, TableRowItem};
 
 /// Trait for traversing AST elements
 pub trait Traversable {

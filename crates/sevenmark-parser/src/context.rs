@@ -139,4 +139,3 @@ impl<'i> ParseContext<'i> {
         media_element => inside_media_element
     }
 }
-

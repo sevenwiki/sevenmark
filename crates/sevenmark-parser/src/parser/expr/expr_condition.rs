@@ -41,14 +41,14 @@ fn or_parser(input: &mut ParserInput) -> Result<Expression> {
 
     let end = input.previous_token_end();
 
-    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
-        Expression::Or {
+    Ok(rest
+        .into_iter()
+        .fold(first, |acc, (op, expr)| Expression::Or {
             span: Span { start, end },
             operator: op,
             left: Box::new(acc),
             right: Box::new(expr),
-        }
-    }))
+        }))
 }
 
 /// || 연산자 파서
@@ -80,14 +80,14 @@ fn and_parser(input: &mut ParserInput) -> Result<Expression> {
 
     let end = input.previous_token_end();
 
-    Ok(rest.into_iter().fold(first, |acc, (op, expr)| {
-        Expression::And {
+    Ok(rest
+        .into_iter()
+        .fold(first, |acc, (op, expr)| Expression::And {
             span: Span { start, end },
             operator: op,
             left: Box::new(acc),
             right: Box::new(expr),
-        }
-    }))
+        }))
 }
 
 /// && 연산자 파서

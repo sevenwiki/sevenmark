@@ -13,7 +13,10 @@ fn codemirror_parse_file_content(content: &str) -> Result<String, Box<dyn std::e
 
 fn run_codemirror_test(test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let manifest_dir = env!("CARGO_MANIFEST_DIR");
-    let input_path = format!("{}/../../tc/codemirror/input/{}.txt", manifest_dir, test_name);
+    let input_path = format!(
+        "{}/../../tc/codemirror/input/{}.txt",
+        manifest_dir, test_name
+    );
     let expected_path = format!(
         "{}/../../tc/codemirror/expected/{}.json",
         manifest_dir, test_name

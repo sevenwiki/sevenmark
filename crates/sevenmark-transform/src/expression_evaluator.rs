@@ -179,9 +179,7 @@ fn evaluate_function(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sevenmark_parser::ast::{
-        ComparisonOperator, LogicalOperator, LogicalOperatorKind, Span,
-    };
+    use sevenmark_parser::ast::{ComparisonOperator, LogicalOperator, LogicalOperatorKind, Span};
 
     // 테스트용 헬퍼 함수들
     fn span() -> Span {
@@ -189,10 +187,7 @@ mod tests {
     }
 
     fn op(kind: ComparisonOperatorKind) -> ComparisonOperator {
-        ComparisonOperator {
-            span: span(),
-            kind,
-        }
+        ComparisonOperator { span: span(), kind }
     }
 
     fn str_lit(s: &str) -> Expression {
@@ -238,10 +233,7 @@ mod tests {
     }
 
     fn logical_op(kind: LogicalOperatorKind) -> LogicalOperator {
-        LogicalOperator {
-            span: span(),
-            kind,
-        }
+        LogicalOperator { span: span(), kind }
     }
 
     fn and(left: Expression, right: Expression) -> Expression {
