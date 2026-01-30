@@ -18,8 +18,17 @@ High-performance wiki markup parser for SevenWiki.
 | Crate | Description |
 |-------|-------------|
 | `sevenmark-parser` | Core parsing engine (standalone) |
+| `sevenmark-html` | HTML renderer |
+| `sevenmark-utils` | Shared utilities |
 | `sevenmark-transform` | AST preprocessing/postprocessing |
 | `sevenmark-server` | REST API server |
+
+## Publishing
+
+```bash
+cargo xtask publish-dry  # Dry run
+cargo xtask publish      # Publish to crates.io
+```
 
 ## License
 
