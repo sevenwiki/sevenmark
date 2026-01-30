@@ -15,13 +15,13 @@ High-performance wiki markup parser for SevenWiki.
 
 ## Crates
 
-| Crate | Description |
-|-------|-------------|
-| `sevenmark-parser` | Core parsing engine (standalone) |
-| `sevenmark-html` | HTML renderer |
-| `sevenmark-utils` | Shared utilities |
+| Crate                 | Description                      |
+|-----------------------|----------------------------------|
+| `sevenmark-parser`    | Core parsing engine (standalone) |
+| `sevenmark-html`      | HTML renderer                    |
+| `sevenmark-utils`     | Shared utilities                 |
 | `sevenmark-transform` | AST preprocessing/postprocessing |
-| `sevenmark-server` | REST API server |
+| `sevenmark-server`    | REST API server                  |
 
 ## Publishing
 
