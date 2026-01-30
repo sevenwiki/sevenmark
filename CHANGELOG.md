@@ -33,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Renderers output `data-start`/`data-end` when converter is present
 
 ### Technical Details
-- Text elements (Text, Escape, Variable) are NOT wrapped with span - frontend finds deepest structural element and creates Range within text nodes
 - maud's `[optional]` syntax used for conditional attribute output
 - O(n) preprocessing + O(1) lookup for offset conversion
 
