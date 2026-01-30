@@ -7,6 +7,7 @@ repository.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 description = "HTML renderer for SevenMark AST"
+readme = "README.md"
 
 [dependencies]
 # Internal
