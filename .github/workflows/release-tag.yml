@@ -38,21 +38,21 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
 
       - name: Build WASM (Web)
-        working-directory: ./crates/sevenmark-transform
+        working-directory: ./crates/sevenmark-wasm
         run: |
-          wasm-pack build --target web --features wasm
+          wasm-pack build --target web
           cp -r pkg ../../pkg-web
 
       - name: Build WASM (Bundler)
-        working-directory: ./crates/sevenmark-transform
+        working-directory: ./crates/sevenmark-wasm
         run: |
-          wasm-pack build --target bundler --features wasm
+          wasm-pack build --target bundler
           cp -r pkg ../../pkg-bundler
 
       - name: Build WASM (Node.js)
-        working-directory: ./crates/sevenmark-transform
+        working-directory: ./crates/sevenmark-wasm
         run: |
-          wasm-pack build --target nodejs --features wasm
+          wasm-pack build --target nodejs
           cp -r pkg ../../pkg-nodejs
 
       - name: Create archives

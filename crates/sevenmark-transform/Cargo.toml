@@ -11,40 +11,21 @@ description = "sevenmark/transform"
 [dependencies]
 # Internal
 sevenmark-parser = { workspace = true }
-sevenmark-utils = { workspace = true }
 
-# Database & HTTP (optional, server only)
-sea-orm = { workspace = true, optional = true }
-uuid = { workspace = true, optional = true }
+# Database
+sea-orm = { workspace = true }
+uuid = { workspace = true }
 
 # Utilities
-utoipa = { workspace = true, optional = true }
+utoipa = { workspace = true }
+tracing = { workspace = true }
 
 # Shared
 serde = { workspace = true }
-serde_json = { workspace = true }
 anyhow = { workspace = true }
-tracing = { workspace = true, optional = true }
 
-# SeaweedFS (optional, server only)
-aws-sdk-s3 = { workspace = true, optional = true }
-aws-config = { workspace = true, optional = true }
-zstd = { workspace = true, optional = true }
-futures = { workspace = true, optional = true }
-
-# WASM (optional)
-wasm-bindgen = { workspace = true, optional = true }
-js-sys = { workspace = true, optional = true }
-web-sys = { workspace = true, optional = true }
-
-[features]
-default = []
-server = ["sea-orm", "uuid", "utoipa", "tracing", "aws-sdk-s3", "aws-config", "zstd", "futures"]
-wasm = ["wasm-bindgen", "js-sys", "web-sys", "sevenmark-parser/include_locations"]
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[[test]]
-name = "codemirror_tests"
-required-features = ["sevenmark-parser/include_locations"]
+# SeaweedFS
+aws-sdk-s3 = { workspace = true }
+aws-config = { workspace = true }
+zstd = { workspace = true }
+futures = { workspace = true }

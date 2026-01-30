@@ -20,7 +20,7 @@ pub struct MediaReference {
 }
 
 /// Section range information for frontend consumption
-#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
+#[derive(utoipa::ToSchema)]
 #[derive(Debug, Clone, Serialize)]
 pub struct SectionInfo {
     /// Section index (same as Header's section_index)
@@ -34,7 +34,7 @@ pub struct SectionInfo {
 }
 
 /// Redirect reference with namespace and title
-#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
+#[derive(utoipa::ToSchema)]
 #[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
 pub struct RedirectReference {
     pub namespace: DocumentNamespace,
@@ -42,7 +42,7 @@ pub struct RedirectReference {
 }
 
 /// Document reference with namespace and title
-#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
+#[derive(utoipa::ToSchema)]
 #[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
 pub struct DocumentReference {
     pub namespace: DocumentNamespace,

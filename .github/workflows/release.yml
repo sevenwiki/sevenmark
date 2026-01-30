@@ -39,8 +39,8 @@ jobs:
       - name: Run Tests (Parser with locations)
         run: cargo test -p sevenmark-parser --features include_locations -- --nocapture
 
-      - name: Run Tests (Transform)
-        run: cargo test -p sevenmark-transform --features sevenmark-parser/include_locations -- --nocapture
+      - name: Run Tests (Wasm)
+        run: cargo test -p sevenmark-wasm -- --nocapture
 
       - name: Run Tests (Server)
         run: cargo test -p sevenmark-server -- --nocapture
@@ -49,13 +49,13 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
 
       - name: Test WASM build (Web)
-        working-directory: ./crates/sevenmark-transform
-        run: wasm-pack build --target web --features wasm
+        working-directory: ./crates/sevenmark-wasm
+        run: wasm-pack build --target web
 
       - name: Test WASM build (Bundler)
-        working-directory: ./crates/sevenmark-transform
-        run: wasm-pack build --target bundler --features wasm
+        working-directory: ./crates/sevenmark-wasm
+        run: wasm-pack build --target bundler
 
       - name: Test WASM build (Node.js)
-        working-directory: ./crates/sevenmark-transform
-        run: wasm-pack build --target nodejs --features wasm
+        working-directory: ./crates/sevenmark-wasm
+        run: wasm-pack build --target nodejs

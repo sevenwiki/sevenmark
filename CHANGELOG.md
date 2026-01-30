@@ -5,6 +5,48 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.20.5] - 2026-01-30
+
+### Added
+- **sevenmark-wasm Crate**: New dedicated crate for WebAssembly bindings
+  - Extracted from sevenmark-transform for cleaner separation of concerns
+  - Exports `parse_sevenmark_to_codemirror(input: string): string` (UTF-16 offsets for CodeMirror 6)
+  - Exports `parse_sevenmark(input: string): string` (byte offsets for section editing)
+  - Includes codemirror tests and `gen_codemirror_expected` example
+  - Build: `cd crates/sevenmark-wasm && wasm-pack build --target web`
+
+### Changed
+- **sevenmark-transform**: Simplified to server-only crate
+  - Removed `server` feature flag (all functionality now included by default)
+  - Removed WASM-related code and dependencies (wasm-bindgen, js-sys, web-sys)
+  - Removed `crate-type = ["cdylib", "rlib"]` (now standard rlib only)
+  - All `#[cfg(feature = "server")]` guards removed from code
+
+### Removed
+- **sevenmark-transform**: WASM support moved to sevenmark-wasm
+  - `parse_sevenmark_to_codemirror()` function
+  - `parse_sevenmark()` function
+  - `wasm` feature flag
+
+### Migration Guide
+```bash
+# WASM builds - BEFORE (2.20.4)
+cd crates/sevenmark-transform
+wasm-pack build --target web --features wasm
+
+# WASM builds - AFTER (2.20.5)
+cd crates/sevenmark-wasm
+wasm-pack build --target web
+```
+
+```rust
+// Server usage - BEFORE (2.20.4)
+sevenmark-transform = { version = "2.20", features = ["server"] }
+
+// Server usage - AFTER (2.20.5)
+sevenmark-transform = { version = "2.20" }
+```
+
 ## [2.20.3] - 2026-01-30
 
 ### Changed
