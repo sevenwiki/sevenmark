@@ -18,8 +18,9 @@ High-performance wiki markup parser for SevenWiki.
 | Crate                 | Description                      |
 |-----------------------|----------------------------------|
 | `sevenmark-parser`    | Core parsing engine (standalone) |
-| `sevenmark-html`      | HTML renderer                    |
 | `sevenmark-utils`     | Shared utilities                 |
+| `sevenmark-wasm`      | WebAssembly bindings             |
+| `sevenmark-html`      | HTML renderer                    |
 | `sevenmark-transform` | AST preprocessing/postprocessing |
 | `sevenmark-server`    | REST API server                  |
 
