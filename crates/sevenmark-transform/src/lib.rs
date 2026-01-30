@@ -1,7 +1,3 @@
-pub mod utf16_offset_converter;
-
-pub use utf16_offset_converter::*;
-
 #[cfg(feature = "server")]
 pub mod utils;
 
@@ -31,6 +27,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub fn parse_sevenmark_to_codemirror(input: &str) -> String {
     use sevenmark_parser::core::parse_document;
+    use sevenmark_utils::convert_ast_to_utf16_offset_json;
 
     let elements = parse_document(input);
     convert_ast_to_utf16_offset_json(&elements, input)

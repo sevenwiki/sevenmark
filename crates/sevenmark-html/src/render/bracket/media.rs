@@ -1,18 +1,21 @@
 //! Media element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{Element, Parameters, ResolvedMediaInfo};
+use sevenmark_parser::ast::{Element, Parameters, ResolvedMediaInfo, Span};
 
 use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
 pub fn render(
+    span: &Span,
     parameters: &Parameters,
     children: &[Element],
     resolved_info: Option<&ResolvedMediaInfo>,
     ctx: &mut RenderContext,
 ) -> Markup {
+    let data_start = ctx.span_start(span);
+    let data_end = ctx.span_end(span);
     let style = utils::build_style(parameters);
 
     // 파일 정보 추출 (URL, 유효성, 크기)
@@ -82,7 +85,13 @@ pub fn render(
                 classes::MEDIA_LINK_INVALID
             };
             html! {
-                a class=(link_class) href=(link) style=[style] {
+                a
+                    class=(link_class)
+                    data-start=[data_start]
+                    data-end=[data_end]
+                    href=(link)
+                    style=[style]
+                {
                     figure class=(classes::MEDIA_IMAGE) {
                         @if image_valid {
                             img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
@@ -98,7 +107,12 @@ pub fn render(
         } else {
             // 이미지만
             html! {
-                figure class=(classes::MEDIA_IMAGE) style=[style] {
+                figure
+                    class=(classes::MEDIA_IMAGE)
+                    data-start=[data_start]
+                    data-end=[data_end]
+                    style=[style]
+                {
                     @if image_valid {
                         img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
                     } @else {
@@ -118,7 +132,13 @@ pub fn render(
             classes::MEDIA_LINK_INVALID
         };
         html! {
-            a class=(link_class) href=(link) style=[style] {
+            a
+                class=(link_class)
+                data-start=[data_start]
+                data-end=[data_end]
+                href=(link)
+                style=[style]
+            {
                 @if let Some(cap) = caption {
                     (cap)
                 } @else {

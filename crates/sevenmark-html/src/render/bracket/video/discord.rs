@@ -26,12 +26,14 @@ fn build_embed_url(server_id: &str, parameters: &Parameters) -> String {
     )
 }
 
-pub fn render(parameters: &Parameters) -> Markup {
+pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
     let server_id = match get_param(parameters, "id") {
         Some(id) => id,
         None => {
             return html! {
-                span class=(classes::ERROR) { "Discord: missing id parameter" }
+                span class=(classes::ERROR) data-start=[data_start] data-end=[data_end] {
+                    "Discord: missing id parameter"
+                }
             };
         }
     };
@@ -43,6 +45,8 @@ pub fn render(parameters: &Parameters) -> Markup {
     html! {
         iframe
             class=(format!("{} {}", classes::EMBED, classes::EMBED_DISCORD))
+            data-start=[data_start]
+            data-end=[data_end]
             src=(url)
             width=(width)
             height=(height)

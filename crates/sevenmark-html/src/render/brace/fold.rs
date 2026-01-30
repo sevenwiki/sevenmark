@@ -17,7 +17,12 @@ pub fn render(fold: &FoldElement, ctx: &mut RenderContext) -> Markup {
     let style = utils::build_style(&fold.parameters);
 
     html! {
-        details class=(classes::FOLD) style=[style] {
+        details
+            class=(classes::FOLD)
+            data-start=[ctx.span_start(&fold.span)]
+            data-end=[ctx.span_end(&fold.span)]
+            style=[style]
+        {
             summary class=(classes::FOLD_SUMMARY) { (summary) }
             (details)
         }

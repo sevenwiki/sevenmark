@@ -1,5 +1,5 @@
 use sevenmark_parser::core::parse_document;
-use sevenmark_transform::convert_ast_to_utf16_offset_json;
+use sevenmark_utils::convert_ast_to_utf16_offset_json;
 use std::fs;
 
 fn codemirror_parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {

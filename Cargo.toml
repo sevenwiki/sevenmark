@@ -3,7 +3,7 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.package]
-version = "2.19.0"
+version = "2.20.0"
 authors = ["Levi Laine <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -17,12 +17,13 @@ sevenmark-parser = { path = "crates/sevenmark-parser" }
 sevenmark-transform = { path = "crates/sevenmark-transform" }
 sevenmark-html = { path="crates/sevenmark-html"}
 sevenmark-semantic = { path = "crates/sevenmark-semantic"}
+sevenmark-utils = {path = "crates/sevenmark-utils"}
 
 winnow = { version = "0.7.14", features = ["simd"] }
 paste = "1.0.15"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
-sea-orm = { version = "2.0.0-rc.29", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
+sea-orm = { version = "2.0.0-rc.30", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
 axum = { version = "0.8.8", features = ["multipart", "macros"] }
 tokio = { version = "1.49.0", features = ["full"] }
 utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
@@ -32,7 +33,7 @@ dotenvy = "0.15.7"
 anyhow = "1.0.100"
 
 # SeaweedFS (S3 compatible)
-aws-sdk-s3 = "1.120.0"
+aws-sdk-s3 = "1.121.0"
 aws-config = "1.8.12"
 zstd = "0.13.3"
 futures="0.3.31"

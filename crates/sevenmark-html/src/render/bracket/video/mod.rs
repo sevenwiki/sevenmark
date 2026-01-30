@@ -9,20 +9,28 @@ mod vimeo;
 mod youtube;
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::Parameters;
+use sevenmark_parser::ast::{Parameters, Span};
 
 use crate::classes;
+use crate::context::RenderContext;
 
 /// Render external media element by dispatching to provider-specific renderer
-pub fn render(provider: &str, parameters: &Parameters) -> Markup {
+pub fn render(span: &Span, provider: &str, parameters: &Parameters, ctx: &RenderContext) -> Markup {
+    let data_start = ctx.span_start(span);
+    let data_end = ctx.span_end(span);
+
     match provider {
-        "youtube" => youtube::render(parameters),
-        "vimeo" => vimeo::render(parameters),
-        "nicovideo" => nicovideo::render(parameters),
-        "spotify" => spotify::render(parameters),
-        "discord" => discord::render(parameters),
+        "youtube" => youtube::render(data_start, data_end, parameters),
+        "vimeo" => vimeo::render(data_start, data_end, parameters),
+        "nicovideo" => nicovideo::render(data_start, data_end, parameters),
+        "spotify" => spotify::render(data_start, data_end, parameters),
+        "discord" => discord::render(data_start, data_end, parameters),
         _ => html! {
-            span class=(classes::ERROR) {
+            span
+                class=(classes::ERROR)
+                data-start=[data_start]
+                data-end=[data_end]
+            {
                 "Unknown external media provider: " (provider)
             }
         },

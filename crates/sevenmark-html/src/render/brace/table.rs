@@ -1,13 +1,14 @@
 //! Table rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{Parameters, TableCellItem, TableRowItem};
+use sevenmark_parser::ast::{Parameters, Span, TableCellItem, TableRowItem};
 
 use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
 pub fn render(
+    span: &Span,
     parameters: &Parameters,
     children: &[TableRowItem],
     ctx: &mut RenderContext,
@@ -15,7 +16,11 @@ pub fn render(
     ctx.enter_suppress_soft_breaks();
     let style = utils::build_style(parameters);
     let content = html! {
-        div class=(classes::TABLE_WRAPPER) {
+        div
+            class=(classes::TABLE_WRAPPER)
+            data-start=[ctx.span_start(span)]
+            data-end=[ctx.span_end(span)]
+        {
             table class=(classes::TABLE) style=[style] {
                 tbody {
                     @for row_item in children {

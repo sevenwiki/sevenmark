@@ -10,5 +10,5 @@ mod mention;
 mod text;
 pub mod utils;
 
-pub use document::render_document;
+pub use document::{render_document, render_document_with_spans};
 pub use element::{render_element, render_elements};

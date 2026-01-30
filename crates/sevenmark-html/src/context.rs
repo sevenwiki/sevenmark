@@ -1,6 +1,7 @@
 //! Rendering context for footnote tracking
 
 use sevenmark_parser::ast::Element;
+use sevenmark_utils::Utf16OffsetConverter;
 
 use crate::config::RenderConfig;
 
@@ -26,6 +27,8 @@ pub struct RenderContext<'a> {
     pub suppress_soft_breaks_depth: usize,
     /// Render configuration
     pub config: &'a RenderConfig<'a>,
+    /// UTF-16 offset converter for span data attributes
+    pub converter: Option<&'a Utf16OffsetConverter>,
 }
 
 impl<'a> RenderContext<'a> {
@@ -36,6 +39,21 @@ impl<'a> RenderContext<'a> {
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
             config,
+            converter: None,
+        }
+    }
+
+    /// Creates a new render context with config and UTF-16 converter
+    pub fn with_converter(
+        config: &'a RenderConfig<'a>,
+        converter: &'a Utf16OffsetConverter,
+    ) -> Self {
+        Self {
+            footnotes: Vec::new(),
+            in_footnote: false,
+            suppress_soft_breaks_depth: 0,
+            config,
+            converter: Some(converter),
         }
     }
 
@@ -52,6 +70,16 @@ impl<'a> RenderContext<'a> {
     /// Check if SoftBreak should be suppressed
     pub fn is_soft_break_suppressed(&self) -> bool {
         self.suppress_soft_breaks_depth > 0
+    }
+
+    /// Get UTF-16 start offset for span data attribute
+    pub fn span_start(&self, span: &sevenmark_parser::ast::Span) -> Option<u32> {
+        self.converter.map(|c| c.convert(span.start))
+    }
+
+    /// Get UTF-16 end offset for span data attribute
+    pub fn span_end(&self, span: &sevenmark_parser::ast::Span) -> Option<u32> {
+        self.converter.map(|c| c.convert(span.end))
     }
 
     /// Adds a footnote entry and returns reference to the display text

@@ -1,13 +1,14 @@
 //! List rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{ListContentItem, Parameters};
+use sevenmark_parser::ast::{ListContentItem, Parameters, Span};
 
 use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
 pub fn render(
+    span: &Span,
     kind: &str,
     parameters: &Parameters,
     children: &[ListContentItem],
@@ -22,9 +23,24 @@ pub fn render(
     if is_ordered {
         // kind: "1", "a", "A", "i", "I"
         let list_type = if kind == "1" { None } else { Some(kind) };
-        html! { ol class=(format!("{} {}", classes::LIST, classes::LIST_ORDERED)) type=[list_type] style=[style] { (items) } }
+        html! {
+            ol
+                class=(format!("{} {}", classes::LIST, classes::LIST_ORDERED))
+                data-start=[ctx.span_start(span)]
+                data-end=[ctx.span_end(span)]
+                type=[list_type]
+                style=[style]
+            { (items) }
+        }
     } else {
-        html! { ul class=(format!("{} {}", classes::LIST, classes::LIST_UNORDERED)) style=[style] { (items) } }
+        html! {
+            ul
+                class=(format!("{} {}", classes::LIST, classes::LIST_UNORDERED))
+                data-start=[ctx.span_start(span)]
+                data-end=[ctx.span_end(span)]
+                style=[style]
+            { (items) }
+        }
     }
 }
 

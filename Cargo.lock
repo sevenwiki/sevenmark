@@ -215,9 +215,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-s3"
-version = "1.120.0"
+version = "1.121.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "06673901e961f20fa8d7da907da48f7ad6c1b383e3726c22bd418900f015abe1"
+checksum = "61948728b681f88a1e49b9500469cf9e36575a424e745e2c5a651a42386e7d9c"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -2890,9 +2890,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "2.0.0-rc.29"
+version = "2.0.0-rc.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7c0bd18a658e2b86d6d4a95972904fce25a7201e177eda4707cd109775c357d6"
+checksum = "f4bb965a287ae073c738851c5d38037ac6da66c9841ac1de7c13c8d08862180a"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -2922,9 +2922,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "2.0.0-rc.29"
+version = "2.0.0-rc.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1a2688c437a2529a06e4e6dad2f11cc500b141da112ff971db6289fd9a2e1961"
+checksum = "b3e208f041129ad7962b6951f0b392e9ff97a8337bd8c7022c61e7b02ab29fe0"
 dependencies = [
  "heck 0.5.0",
  "itertools",
@@ -2938,9 +2938,9 @@ dependencies = [
 
 [[package]]
 name = "sea-query"
-version = "1.0.0-rc.29"
+version = "1.0.0-rc.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93948054fb2d208555a96d03d2c887591deb42ffe3210eedbd8a3234c6fb6d34"
+checksum = "c6a067a2f6f13250f615f0bedb5bc3a6c872fec70776d0b43b43caeaa699e232"
 dependencies = [
  "chrono",
  "inherent",
@@ -2954,9 +2954,9 @@ dependencies = [
 
 [[package]]
 name = "sea-query-derive"
-version = "1.0.0-rc.11"
+version = "1.0.0-rc.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "365d236217f5daa4f40d3c9998ff3921351b53472da50308e384388162353b3a"
+checksum = "8d88ad44b6ad9788c8b9476b6b91f94c7461d1e19d39cd8ea37838b1e6ff5aa8"
 dependencies = [
  "darling",
  "heck 0.4.1",
@@ -2968,17 +2968,12 @@ dependencies = [
 
 [[package]]
 name = "sea-query-sqlx"
-version = "0.8.0-rc.11"
+version = "0.8.0-rc.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "693f3ac3a10a228afaf3512b122cffc07c57b4269d233c7ff60571ebb4f0dd17"
+checksum = "e4377164b09a11bb692dec6966eb0e6908d63d768defef0be689b39e02cf8544"
 dependencies = [
- "chrono",
- "rust_decimal",
  "sea-query",
- "serde_json",
  "sqlx",
- "time",
- "uuid",
 ]
 
 [[package]]
@@ -3136,15 +3131,16 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-html"
-version = "2.19.0"
+version = "2.20.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
+ "sevenmark-utils",
 ]
 
 [[package]]
 name = "sevenmark-parser"
-version = "2.19.0"
+version = "2.20.0"
 dependencies = [
  "paste",
  "serde",
@@ -3154,7 +3150,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-semantic"
-version = "2.19.0"
+version = "2.20.0"
 dependencies = [
  "maud",
  "sevenmark-parser",
@@ -3162,7 +3158,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-server"
-version = "2.19.0"
+version = "2.20.0"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3185,7 +3181,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark-transform"
-version = "2.19.0"
+version = "2.20.0"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3196,12 +3192,22 @@ dependencies = [
  "serde",
  "serde_json",
  "sevenmark-parser",
+ "sevenmark-utils",
  "tracing",
  "utoipa",
  "uuid",
  "wasm-bindgen",
  "web-sys",
  "zstd",
+]
+
+[[package]]
+name = "sevenmark-utils"
+version = "2.20.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sevenmark-parser",
 ]
 
 [[package]]

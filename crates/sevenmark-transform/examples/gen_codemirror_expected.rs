@@ -1,5 +1,5 @@
 use sevenmark_parser::core::parse_document;
-use sevenmark_transform::convert_ast_to_utf16_offset_json;
+use sevenmark_utils::convert_ast_to_utf16_offset_json;
 use std::fs;
 use std::path::Path;
 

@@ -1,6 +1,7 @@
 //! Document-level rendering
 
 use maud::{Markup, html};
+use sevenmark_utils::Utf16OffsetConverter;
 
 use super::{brace, element, markdown};
 use crate::classes;
@@ -17,6 +18,31 @@ use sevenmark_parser::ast::Element;
 pub fn render_document(ast: &[Element], config: &RenderConfig) -> String {
     let tree = build_section_tree(ast);
     let mut ctx = RenderContext::new(config);
+    let content = render_section_tree(&tree, config, &mut ctx);
+
+    let markup = html! {
+        (content)
+        @if !ctx.footnotes.is_empty() {
+            (brace::footnote::render_list(&ctx))
+        }
+    };
+
+    markup.into_string()
+}
+
+/// Render a document to semantic HTML with span data attributes
+///
+/// Each element will have `data-start` and `data-end` attributes with UTF-16 offsets.
+/// This is useful for editor synchronization (e.g., highlighting preview elements based on cursor position).
+///
+/// # Arguments
+/// * `ast` - The parsed AST elements
+/// * `config` - Render configuration (include_spans should be true)
+/// * `input` - Original input text for UTF-16 offset calculation
+pub fn render_document_with_spans(ast: &[Element], config: &RenderConfig, input: &str) -> String {
+    let tree = build_section_tree(ast);
+    let converter = Utf16OffsetConverter::new(input);
+    let mut ctx = RenderContext::with_converter(config, &converter);
     let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {

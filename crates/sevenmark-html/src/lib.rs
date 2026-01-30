@@ -20,4 +20,4 @@ mod render;
 mod section;
 
 pub use config::RenderConfig;
-pub use render::{render_document, render_element, render_elements};
+pub use render::{render_document, render_document_with_spans, render_element, render_elements};

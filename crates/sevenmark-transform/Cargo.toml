@@ -11,6 +11,7 @@ description = "sevenmark/transform"
 [dependencies]
 # Internal
 sevenmark-parser = { workspace = true }
+sevenmark-utils = { workspace = true }
 
 # Database & HTTP (optional, server only)
 sea-orm = { workspace = true, optional = true }

@@ -73,13 +73,15 @@ fn build_embed_url(
     }
 }
 
-pub fn render(parameters: &Parameters) -> Markup {
+pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
     let video_id = get_param(parameters, "id");
     let playlist_id = get_param(parameters, "playlist");
 
     if video_id.is_none() && playlist_id.is_none() {
         return html! {
-            span class=(classes::ERROR) { "YouTube: missing id or playlist parameter" }
+            span class=(classes::ERROR) data-start=[data_start] data-end=[data_end] {
+                "YouTube: missing id or playlist parameter"
+            }
         };
     }
 
@@ -90,6 +92,8 @@ pub fn render(parameters: &Parameters) -> Markup {
     html! {
         iframe
             class=(format!("{} {}", classes::EMBED, classes::EMBED_YOUTUBE))
+            data-start=[data_start]
+            data-end=[data_end]
             src=(url)
             width=(width)
             height=(height)

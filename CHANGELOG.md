@@ -5,6 +5,30 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.20.0] - 2026-01-30
+
+### Added
+- **sevenmark-utils Crate**: New shared utilities crate
+  - Extracted `Utf16OffsetConverter` from sevenmark-transform for shared use
+  - Enables both transform and html crates to use UTF-16 offset conversion
+
+- **Editor Sync Support**: New `data-start`/`data-end` attributes for editor-preview synchronization
+  - `render_document_with_spans(ast, config, input)` function in sevenmark-html
+  - All structural elements now support span data attributes (UTF-16 offsets)
+  - Enables frontend to highlight preview elements based on editor cursor position
+  - Supported elements: bold, italic, strikethrough, underline, superscript, subscript, blockquote, literal, styled, fold, ruby, code, tex, list, table, media, external media (YouTube, Vimeo, NicoNico, Spotify, Discord), footnote, include
+
+### Changed
+- **sevenmark-transform**: Now depends on sevenmark-utils instead of containing Utf16OffsetConverter
+- **sevenmark-html**: Now depends on sevenmark-utils for UTF-16 offset conversion
+  - `RenderContext` optionally holds `Utf16OffsetConverter` reference
+  - Renderers output `data-start`/`data-end` when converter is present
+
+### Technical Details
+- Text elements (Text, Escape, Variable) are NOT wrapped with span - frontend finds deepest structural element and creates Range within text nodes
+- maud's `[optional]` syntax used for conditional attribute output
+- O(n) preprocessing + O(1) lookup for offset conversion
+
 ## [2.19.0] - 2026-01-23
 
 ### Changed

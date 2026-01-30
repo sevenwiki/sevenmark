@@ -1,3 +1,5 @@
+//! UTF-8 to UTF-16 offset conversion utilities
+
 use serde::Serialize;
 use sevenmark_parser::ast::{Element, Span};
 

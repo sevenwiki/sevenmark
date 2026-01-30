@@ -65,12 +65,12 @@ fn build_embed_url(content_type: &str, id: &str, parameters: &Parameters) -> Str
     }
 }
 
-pub fn render(parameters: &Parameters) -> Markup {
+pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
     let (content_type, id) = match get_content_type_and_id(parameters) {
         Some(result) => result,
         None => {
             return html! {
-                span class=(classes::ERROR) {
+                span class=(classes::ERROR) data-start=[data_start] data-end=[data_end] {
                     "Spotify: missing content parameter (track, album, playlist, artist, episode, or show)"
                 }
             };
@@ -84,6 +84,8 @@ pub fn render(parameters: &Parameters) -> Markup {
     html! {
         iframe
             class=(format!("{} {}", classes::EMBED, classes::EMBED_SPOTIFY))
+            data-start=[data_start]
+            data-end=[data_end]
             src=(url)
             width=(width)
             height=(height)
