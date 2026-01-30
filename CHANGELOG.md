@@ -5,6 +5,13 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.20.3] - 2026-01-30
+
+### Changed
+- **sevenmark-server**: `render_document` endpoint now uses `render_document_with_spans`
+  - HTML output includes `data-start`/`data-end` attributes for editor-preview synchronization
+  - Enables frontend cursor position highlighting without XPath
+
 ## [2.20.2] - 2026-01-30
 
 ### Changed

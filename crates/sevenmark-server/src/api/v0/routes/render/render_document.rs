@@ -3,7 +3,7 @@ use crate::state::AppState;
 use axum::Json;
 use axum::extract::State;
 use serde::{Deserialize, Serialize};
-use sevenmark_html::{RenderConfig, render_document as render_html};
+use sevenmark_html::{RenderConfig, render_document_with_spans};
 use sevenmark_parser::core::parse_document;
 use sevenmark_transform::preprocessor::{DocumentReference, RedirectReference, SectionInfo};
 use sevenmark_transform::process_sevenmark;
@@ -65,14 +65,14 @@ pub async fn render_document(
         .await
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
 
-    // Render to HTML
+    // Render to HTML with span data attributes for editor sync
     let config = RenderConfig {
         edit_url: Some(&payload.edit_url),
         file_base_url: Some(&payload.file_base_url),
         document_base_url: Some(&payload.document_base_url),
         category_base_url: Some(&payload.category_base_url),
     };
-    let html = render_html(&processed.ast, &config);
+    let html = render_document_with_spans(&processed.ast, &config, &payload.content);
 
     Ok(Json(RenderedDocument {
         html,
