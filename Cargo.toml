@@ -10,14 +10,17 @@ repository = "https://github.com/sevenwiki/sevenmark"
 description = "High-performance wiki markup language powering SevenWiki"
 edition = "2024"
 rust-version = "1.93.0"
+keywords = ["parser", "wiki", "markup", "ast"]
+categories = ["parsing", "text-processing"]
+readme = "README.md"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { path = "crates/sevenmark-parser" }
-sevenmark-transform = { path = "crates/sevenmark-transform" }
-sevenmark-html = { path="crates/sevenmark-html"}
-sevenmark-semantic = { path = "crates/sevenmark-semantic"}
-sevenmark-utils = {path = "crates/sevenmark-utils"}
+sevenmark-parser = { path = "crates/sevenmark-parser", version = "2.20.3" }
+sevenmark-transform = { path = "crates/sevenmark-transform", version = "2.20.3" }
+sevenmark-html = { path="crates/sevenmark-html", version = "2.20.3"}
+sevenmark-semantic = { path = "crates/sevenmark-semantic", version = "2.20.3"}
+sevenmark-utils = {path = "crates/sevenmark-utils", version = "2.20.3"}
 
 winnow = { version = "0.7.14", features = ["simd"] }
 paste = "1.0.15"
