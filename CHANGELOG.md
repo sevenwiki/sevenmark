@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.20.2] - 2026-01-30
+
+### Changed
+- **sevenmark-html**: Text elements now wrapped in `<span>` with `data-start`/`data-end` attributes
+  - `Text`, `Escape`, `Variable` elements now have span wrappers when using `render_document_with_spans`
+  - Enables direct DOM element lookup for real-time text updates without XPath
+  - Consistent with other structural elements
+
 ## [2.20.0] - 2026-01-30
 
 ### Added

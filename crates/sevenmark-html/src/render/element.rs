@@ -19,8 +19,8 @@ pub fn render_elements(elements: &[Element], ctx: &mut RenderContext) -> Markup 
 pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
     match el {
         // Text elements
-        Element::Text(text_el) => text::text::render(&text_el.value),
-        Element::Escape(escape_el) => text::escape::render(&escape_el.value),
+        Element::Text(text_el) => text::text::render(&text_el.span, &text_el.value, ctx),
+        Element::Escape(escape_el) => text::escape::render(&escape_el.span, &escape_el.value, ctx),
         Element::Comment(_) => html! {},
         Element::Error(error_el) => text::error::render(&error_el.value),
 
@@ -113,7 +113,7 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         Element::Redirect(_) => html! {},
         Element::Include(include) => brace::include::render(&include.span, &include.children, ctx),
         Element::Define(_) => html! {},
-        Element::Variable(var) => text::variable::render(&var.name),
+        Element::Variable(var) => text::variable::render(&var.span, &var.name, ctx),
         Element::If(_) => html! {},
 
         // Mentions
