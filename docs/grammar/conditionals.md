@@ -268,12 +268,92 @@ Multiple items can be included in a single conditional block.
 3. Content is expanded (if true) or removed (if false)
 4. Nested elements inside conditionals are processed normally
 
+## Truthy/Falsy Evaluation
+
+When an expression is used as a boolean (e.g., in logical operators), SevenMark follows JavaScript-style truthy/falsy rules:
+
+### Falsy Values
+
+| Value | Evaluates To |
+|-------|--------------|
+| `null` | `false` |
+| `""` (empty string) | `false` |
+| `0` | `false` |
+| `false` | `false` |
+
+### Truthy Values
+
+| Value | Evaluates To |
+|-------|--------------|
+| `"0"` | `true` (non-empty string) |
+| `"false"` | `true` (non-empty string) |
+| Any non-empty string | `true` |
+| Non-zero numbers | `true` |
+| `true` | `true` |
+
+### Important: String "0" and "false" are Truthy
+
+Unlike some languages, the strings `"0"` and `"false"` evaluate to **true** because they are non-empty strings:
+
+```sevenmark
+{{{#define #value="0"}}}
+
+{{{#if [var(value)]
+This WILL be shown because "0" is a non-empty string (truthy)
+}}}
+```
+
+### Checking String Values Properly
+
+To check if a string represents a falsy concept, use explicit comparison:
+
+```sevenmark
+{{{#define #enabled="false"}}}
+
+// Wrong: "false" is truthy (non-empty string)
+{{{#if [var(enabled)]
+This will be shown!
+}}}
+
+// Correct: Use explicit comparison
+{{{#if [var(enabled)] == "true"
+This will NOT be shown
+}}}
+
+// Also correct: Convert to int for numeric checks
+{{{#define #count="0"}}}
+{{{#if int([var(count)]) != 0
+This will NOT be shown (int("0") == 0)
+}}}
+```
+
+### Logical Operator Evaluation
+
+```sevenmark
+// Truthy evaluation in && and ||
+{{{#if [var(name)] && [var(email)]
+Both name and email are non-empty
+}}}
+
+// NOT operator
+{{{#if ![var(disabled)]
+Disabled is null or empty
+}}}
+
+// Double negation (use !(!x) syntax)
+{{{#if !(!([var(value)]))
+Value is truthy
+}}}
+```
+
 ## Important Notes
 
 - Conditions are resolved during preprocessing phase
 - Supports nested formatting inside conditional blocks
 - Short-circuit evaluation prevents unnecessary computation
 - Undefined variables evaluate to `null`
-- Empty strings are falsy, non-empty strings are truthy
+- Empty strings are falsy, **non-empty strings (including "0" and "false") are truthy**
+- For strict boolean checks, use `== "true"` or `== "false"` comparisons
+- Only single `!` operator is allowed; use `!(!x)` for double negation
 
 </div>

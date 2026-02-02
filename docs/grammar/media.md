@@ -122,6 +122,23 @@ The preprocessing stage resolves media references to actual URLs:
 - **Category namespace**: Generates `/category/{title}` links
 - **URL parameter**: Passes through unchanged
 
+## External Media Embeds
+
+For embedding external media from platforms like YouTube, Vimeo, Spotify, and more, see [External Media Embeds](./external-media.md).
+
+Quick examples:
+
+```sevenmark
+// YouTube video
+[[#youtube #id="dQw4w9WgXcQ"]]
+
+// Spotify track
+[[#spotify #track="4uLU6hMCjMI75M1A2tKUQC"]]
+
+// Discord server widget
+[[#discord #id="123456789012345678"]]
+```
+
 ## Advanced Usage
 
 ### Media with Styling
