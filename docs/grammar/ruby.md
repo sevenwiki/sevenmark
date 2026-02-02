@@ -9,9 +9,9 @@ Ruby text provides pronunciation guides or annotations above base text, commonly
 Use `{{{#ruby}}}` syntax to create ruby annotations:
 
 ```sevenmark
-{{{#ruby "W }}}
-{{{#ruby q� }}}
-{{{#ruby �,� }}}
+{{{#ruby #ruby="かんじ" 漢字}}}
+{{{#ruby #ruby="とうきょう" 東京}}}
+{{{#ruby #ruby="にほんご" 日本語}}}
 ```
 
 ## Ruby in Context
@@ -19,11 +19,11 @@ Use `{{{#ruby}}}` syntax to create ruby annotations:
 Ruby text is typically used inline within sentences:
 
 ```sevenmark
-The capital of Japan is {{{#ruby q� }}} (Tokyo).
+The capital of Japan is {{{#ruby #ruby="とうきょう" 東京}}} (Tokyo).
 
-Reading {{{#ruby "W }}} can be challenging for learners.
+Reading {{{#ruby #ruby="かんじ" 漢字}}} can be challenging for learners.
 
-I'm studying {{{#ruby �,� }}} at university.
+I'm studying {{{#ruby #ruby="にほんご" 日本語}}} at university.
 ```
 
 ## Styled Ruby
@@ -31,9 +31,9 @@ I'm studying {{{#ruby �,� }}} at university.
 Apply styling using parameters:
 
 ```sevenmark
-{{{#ruby #style="color: red" �, }}}
-{{{#ruby #style="font-size: 1.2em" "W }}}
-{{{#ruby #color="blue" q� }}}
+{{{#ruby #style="color: red" #ruby="にほん" 日本}}}
+{{{#ruby #style="font-size: 1.2em" #ruby="かんじ" 漢字}}}
+{{{#ruby #color="blue" #ruby="とうきょう" 東京}}}
 ```
 
 ## Common Japanese Examples
@@ -42,29 +42,29 @@ Apply styling using parameters:
 
 ```sevenmark
 Common words:
-- {{{#ruby f! }}} (gakkou - school)
-- {{{#ruby H }}} (sensei - teacher)
-- {{{#ruby �7 }}} (benkyou - study)
-- {{{#ruby 'f }}} (daigaku - university)
+- {{{#ruby #ruby="がっこう" 学校}}} (gakkou - school)
+- {{{#ruby #ruby="せんせい" 先生}}} (sensei - teacher)
+- {{{#ruby #ruby="べんきょう" 勉強}}} (benkyou - study)
+- {{{#ruby #ruby="だいがく" 大学}}} (daigaku - university)
 ```
 
 ### Place Names
 
 ```sevenmark
 Cities in Japan:
-- {{{#ruby q� }}} (TMkyM)
-- {{{#ruby '* }}} (Lsaka)
-- {{{#ruby �� }}} (KyMto)
-- {{{#ruby wS }}} (HokkaidM)
+- {{{#ruby #ruby="とうきょう" 東京}}} (Tōkyō)
+- {{{#ruby #ruby="おおさか" 大阪}}} (Ōsaka)
+- {{{#ruby #ruby="きょうと" 京都}}} (Kyōto)
+- {{{#ruby #ruby="ほっかいどう" 北海道}}} (Hokkaidō)
 ```
 
 ### Common Phrases
 
 ```sevenmark
 Basic phrases:
-- {{{#ruby S�kao }}} (Hello)
-- {{{#ruby B�LhF }}} (Thank you)
-- {{{#ruby U�Fj� }}} (Goodbye)
+- {{{#ruby #ruby="こんにちは" 今日は}}} (Hello)
+- {{{#ruby #ruby="ありがとう" 有難う}}} (Thank you)
+- {{{#ruby #ruby="さようなら" 左様なら}}} (Goodbye)
 ```
 
 ## Ruby in Complex Structures
@@ -73,9 +73,9 @@ Basic phrases:
 
 ```sevenmark
 {{{#list #1
-[[Learn {{{#ruby r�Lj }}} (Hiragana)]]
-[[Learn {{{#ruby ���� }}} (Katakana)]]
-[[Learn {{{#ruby "W }}} (Kanji)]]
+[[Learn {{{#ruby #ruby="ひらがな" 平仮名}}} (Hiragana)]]
+[[Learn {{{#ruby #ruby="かたかな" 片仮名}}} (Katakana)]]
+[[Learn {{{#ruby #ruby="かんじ" 漢字}}} (Kanji)]]
 }}}
 ```
 
@@ -84,18 +84,18 @@ Basic phrases:
 ```sevenmark
 {{{#table
 [[[[Kanji]] [[Reading]] [[Meaning]]]]
-[[[[{{{#ruby 4 }}}]] [[mizu]] [[water]]]]
-[[[[{{{#ruby k }}}]] [[hi]] [[fire]]]]
-[[[[{{{#ruby ( }}}]] [[ki]] [[tree]]]]
+[[[[{{{#ruby #ruby="みず" 水}}}]] [[mizu]] [[water]]]]
+[[[[{{{#ruby #ruby="ひ" 火}}}]] [[hi]] [[fire]]]]
+[[[[{{{#ruby #ruby="き" 木}}}]] [[ki]] [[tree]]]]
 }}}
 ```
 
 ### Ruby in Headers
 
 ```sevenmark
-# Introduction to {{{#ruby �,� }}}
+# Introduction to {{{#ruby #ruby="にほんご" 日本語}}}
 
-## Learning {{{#ruby "W }}}
+## Learning {{{#ruby #ruby="かんじ" 漢字}}}
 
 Learn the basics of kanji characters.
 ```
@@ -107,19 +107,19 @@ Learn the basics of kanji characters.
 ```sevenmark
 Beginner's lesson:
 
-Today we will learn about {{{#ruby �i }}} (animals).
+Today we will learn about {{{#ruby #ruby="どうぶつ" 動物}}} (animals).
 
-Common {{{#ruby �i }}}:
-- {{{#ruby � }}} (dog)
-- {{{#ruby + }}} (cat)
-- {{{#ruby � }}} (bird)
+Common {{{#ruby #ruby="どうぶつ" 動物}}}:
+- {{{#ruby #ruby="いぬ" 犬}}} (dog)
+- {{{#ruby #ruby="ねこ" 猫}}} (cat)
+- {{{#ruby #ruby="とり" 鳥}}} (bird)
 ```
 
 ### Literary Text
 
 ```sevenmark
 {{{#quote
-{{{#ruby % }}}n{{{#ruby � }}}oU�U�{{{#ruby A }}}�
+{{{#ruby #ruby="はる" 春}}}の{{{#ruby #ruby="おがわ" 小川}}}は静かに{{{#ruby #ruby="なが" 流}}}れる
 
 Spring streams flow gently.
 }}}
@@ -132,9 +132,9 @@ Spring streams flow gently.
 [[Practice Vocabulary]]
 [[
 Read these words:
-1. {{{#ruby , }}} (hon - book)
-2. {{{#ruby B� }}} (jikan - time)
-3. {{{#ruby �T }}} (tomodachi - friend)
+1. {{{#ruby #ruby="ほん" 本}}} (hon - book)
+2. {{{#ruby #ruby="じかん" 時間}}} (jikan - time)
+3. {{{#ruby #ruby="ともだち" 友達}}} (tomodachi - friend)
 ]]
 }}}
 ```
@@ -149,20 +149,20 @@ All standard parameters are supported:
 - `#opacity` - Opacity level
 
 ```sevenmark
-{{{#ruby #style="font-weight: bold; color: darkblue" ́ }}}
+{{{#ruby #style="font-weight: bold; color: darkblue" #ruby="うみ" 海}}}
 ```
 
 ## Best Practices
 
 ### When to Use Ruby
 
- **Good uses:**
+✅ **Good uses:**
 - Educational materials for language learners
 - Difficult or uncommon kanji
 - Names with non-standard readings
 - Literary works targeting beginners
 
-L **Avoid:**
+❌ **Avoid:**
 - Common words that readers likely know
 - Overusing in advanced materials
 - When the base text is already clear
@@ -171,10 +171,10 @@ L **Avoid:**
 
 ```sevenmark
 <!-- Good: Natural inline usage -->
-Learn to read {{{#ruby �^ }}} every day.
+Learn to read {{{#ruby #ruby="しんぶん" 新聞}}} every day.
 
 <!-- Less ideal: Excessive ruby -->
-{{{#ruby I }}} {{{#ruby want }}} {{{#ruby to }}} {{{#ruby learn }}}...
+{{{#ruby #ruby="わたし" 私}}} {{{#ruby #ruby="は" は}}} {{{#ruby #ruby="まなぶ" 学ぶ}}}...
 ```
 
 ## Cultural Context
@@ -189,16 +189,18 @@ Ruby annotations are essential in Japanese typography:
 Example from children's literature:
 
 ```sevenmark
-{{{#ruby �KW�KW }}}B�{{{#ruby @ }}}k{{{#ruby * }}}WD{{{#ruby �� }}}L{{{#ruby O }}}�gD~W_
+{{{#ruby #ruby="むかしむかし" 昔々}}}、{{{#ruby #ruby="ある" 或}}}ところに{{{#ruby #ruby="やさ" 優}}}しい{{{#ruby #ruby="おうさま" 王様}}}が{{{#ruby #ruby="す" 住}}}んでいました。
 
 Once upon a time, in a certain place, there lived a kind king.
 ```
 
 ## Technical Notes
 
-- Ruby text uses the `{{{#ruby}}}` syntax with the annotated text as content
+- Ruby text uses the `{{{#ruby #ruby="reading" base}}}` syntax
+- The `#ruby` parameter contains the annotation text (furigana)
+- The content between tags is the base text (kanji)
 - Parameters can be used to style both the base text and annotations
 - Ruby elements can be nested within other SevenMark elements
-- Empty ruby elements are valid: `{{{#ruby }}}`
+- Empty ruby elements are valid: `{{{#ruby #ruby="" }}}`
 
 </div>
