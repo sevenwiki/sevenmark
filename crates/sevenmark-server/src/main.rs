@@ -1,7 +1,7 @@
 use axum::Router;
 use sevenmark_server::database_conn::establish_connection;
 use sevenmark_server::logger::init_tracing;
-use sevenmark_server::seaweedfs_conn::establish_seaweedfs_connection;
+use sevenmark_server::r2_conn::establish_revision_storage_connection;
 use sevenmark_server::server_config::ServerConfig;
 use sevenmark_server::{AppState, api_routes};
 use std::net::SocketAddr;
@@ -10,10 +10,10 @@ pub async fn run_server() -> anyhow::Result<()> {
     // Establish database connection
     let conn = establish_connection().await;
 
-    // Establish SeaweedFS connection
-    let seaweedfs = establish_seaweedfs_connection()
+    // Establish R2 revision storage connection
+    let revision_storage = establish_revision_storage_connection()
         .await
-        .expect("Failed to connect to SeaweedFS");
+        .expect("Failed to connect to R2 revision storage");
 
     let server_url = format!(
         "{}:{}",
@@ -21,7 +21,10 @@ pub async fn run_server() -> anyhow::Result<()> {
         &ServerConfig::get().server_port
     );
 
-    let state = AppState { conn, seaweedfs };
+    let state = AppState {
+        conn,
+        revision_storage,
+    };
 
     let app = Router::new()
         .merge(api_routes(state.clone()))

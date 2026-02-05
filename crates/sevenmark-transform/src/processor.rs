@@ -1,4 +1,4 @@
-use crate::wiki::SeaweedFsClient;
+use crate::wiki::RevisionStorageClient;
 use crate::{ProcessedDocument, postprocess_sevenmark, preprocess_sevenmark};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
@@ -12,10 +12,10 @@ use sevenmark_parser::ast::Element;
 pub async fn process_sevenmark(
     ast: Vec<Element>,
     db: &DatabaseConnection,
-    seaweedfs: &SeaweedFsClient,
+    revision_storage: &RevisionStorageClient,
 ) -> Result<ProcessedDocument> {
     // Step 1: Preprocess - resolve includes and collect media references
-    let preprocessed = preprocess_sevenmark(ast, db, seaweedfs).await?;
+    let preprocessed = preprocess_sevenmark(ast, db, revision_storage).await?;
 
     // Step 2: Postprocess - resolve media references to URLs
     let processed = postprocess_sevenmark(preprocessed, db).await?;

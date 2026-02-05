@@ -1,6 +1,6 @@
 use crate::expression_evaluator::evaluate_condition;
 use crate::utils::extract_plain_text;
-use crate::wiki::{DocumentNamespace, SeaweedFsClient, fetch_documents_batch};
+use crate::wiki::{DocumentNamespace, RevisionStorageClient, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
@@ -20,8 +20,7 @@ pub struct MediaReference {
 }
 
 /// Section range information for frontend consumption
-#[derive(utoipa::ToSchema)]
-#[derive(Debug, Clone, Serialize)]
+#[derive(utoipa::ToSchema, Debug, Clone, Serialize)]
 pub struct SectionInfo {
     /// Section index (same as Header's section_index)
     pub section_index: usize,
@@ -34,16 +33,14 @@ pub struct SectionInfo {
 }
 
 /// Redirect reference with namespace and title
-#[derive(utoipa::ToSchema)]
-#[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
+#[derive(utoipa::ToSchema, Debug, Clone, Serialize, PartialEq, Eq, Hash)]
 pub struct RedirectReference {
     pub namespace: DocumentNamespace,
     pub title: String,
 }
 
 /// Document reference with namespace and title
-#[derive(utoipa::ToSchema)]
-#[derive(Debug, Clone, Serialize, PartialEq, Eq, Hash)]
+#[derive(utoipa::ToSchema, Debug, Clone, Serialize, PartialEq, Eq, Hash)]
 pub struct DocumentReference {
     pub namespace: DocumentNamespace,
     pub title: String,
@@ -66,7 +63,7 @@ pub struct PreProcessedDocument {
 pub async fn preprocess_sevenmark(
     mut ast: Vec<Element>,
     db: &DatabaseConnection,
-    seaweedfs: &SeaweedFsClient,
+    revision_storage: &RevisionStorageClient,
 ) -> Result<PreProcessedDocument> {
     // Process defines and ifs in document order (single pass)
     let mut variables = HashMap::new();
@@ -103,7 +100,7 @@ pub async fn preprocess_sevenmark(
         debug!("Fetching {} unique documents", requests.len());
 
         // Fetch all documents
-        let fetched_docs = fetch_documents_batch(db, seaweedfs, requests).await?;
+        let fetched_docs = fetch_documents_batch(db, revision_storage, requests).await?;
 
         // Parse fetched documents and store in map
         let mut docs_map: HashMap<String, Vec<Element>> = HashMap::new();

@@ -61,7 +61,7 @@ pub async fn render_document(
     let ast = parse_document(payload.content.as_str());
 
     // Process (resolve includes, media, etc.)
-    let processed = process_sevenmark(ast, &state.conn, &state.seaweedfs)
+    let processed = process_sevenmark(ast, &state.conn, &state.revision_storage)
         .await
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
 

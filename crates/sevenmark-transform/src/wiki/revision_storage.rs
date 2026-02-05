@@ -1,16 +1,16 @@
-//! SeaweedFS S3 호환 클라이언트 타입 정의
+//! R2 revision storage client (S3 compatible)
 
 use aws_sdk_s3::Client;
 use std::sync::Arc;
 
-/// SeaweedFS 클라이언트 (S3 호환 API 사용)
+/// Revision storage client (Cloudflare R2, S3 compatible API)
 #[derive(Clone)]
-pub struct SeaweedFsClient {
+pub struct RevisionStorageClient {
     client: Arc<Client>,
     bucket: String,
 }
 
-impl SeaweedFsClient {
+impl RevisionStorageClient {
     pub fn new(client: Client, bucket: String) -> Self {
         Self {
             client: Arc::new(client),
@@ -18,7 +18,7 @@ impl SeaweedFsClient {
         }
     }
 
-    /// 콘텐츠 다운로드 (zstd 압축 해제)
+    /// Download revision content (zstd decompression)
     pub async fn download_content(
         &self,
         key: &str,

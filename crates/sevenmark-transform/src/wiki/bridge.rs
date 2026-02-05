@@ -2,7 +2,7 @@ use super::entity::{
     DocumentFiles, DocumentFilesColumn, DocumentMetadata, DocumentMetadataColumn,
     DocumentRevisions, DocumentRevisionsColumn,
 };
-use super::seaweedfs::SeaweedFsClient;
+use super::revision_storage::RevisionStorageClient;
 use super::types::{DocumentExistence, DocumentNamespace, DocumentResponse, DocumentRevision};
 use anyhow::{Context, Result};
 use futures::future::join_all;
@@ -14,7 +14,7 @@ use uuid::Uuid;
 /// Fetch multiple documents by namespace and title using Sea ORM
 pub async fn fetch_documents_batch(
     db: &DatabaseConnection,
-    seaweedfs: &SeaweedFsClient,
+    revision_storage: &RevisionStorageClient,
     requests: Vec<(DocumentNamespace, String)>,
 ) -> Result<Vec<DocumentResponse>> {
     if requests.is_empty() {
@@ -74,10 +74,15 @@ pub async fn fetch_documents_batch(
         let content_futures: Vec<_> = revisions
             .iter()
             .map(|rev| {
-                let seaweedfs = seaweedfs.clone();
+                let revision_storage = revision_storage.clone();
                 let storage_key = rev.storage_key.clone();
                 let revision_id = rev.id;
-                async move { (revision_id, seaweedfs.download_content(&storage_key).await) }
+                async move {
+                    (
+                        revision_id,
+                        revision_storage.download_content(&storage_key).await,
+                    )
+                }
             })
             .collect();
         let content_results = join_all(content_futures).await;

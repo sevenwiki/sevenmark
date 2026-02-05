@@ -5,6 +5,31 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.21.0] - 2026-02-05
+
+### Changed
+- **Storage Backend**: Migrated from SeaweedFS to Cloudflare R2
+  - `SeaweedFsClient` renamed to `RevisionStorageClient`
+  - Authenticated R2 credentials instead of anonymous SeaweedFS access
+  - Environment variables changed: `SEAWEEDFS_ENDPOINT` replaced with `R2_ENDPOINT`, `R2_REGION`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_REVISION_BUCKET_NAME`, `R2_ASSETS_BUCKET_NAME`, `R2_ASSETS_PUBLIC_DOMAIN`
+  - Connection module renamed: `seaweedfs_conn` → `r2_conn`
+  - S3 checksum workaround removed (no longer needed)
+
+### Migration Guide
+```bash
+# Environment variables - BEFORE (2.20.x)
+SEAWEEDFS_ENDPOINT=http://seaweedfs:8333
+
+# Environment variables - AFTER (2.21.0)
+R2_ENDPOINT=https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com
+R2_REGION=auto
+R2_ACCESS_KEY_ID=your_key
+R2_SECRET_ACCESS_KEY=your_secret
+R2_ASSETS_BUCKET_NAME=your-assets-bucket
+R2_ASSETS_PUBLIC_DOMAIN=https://your-public-domain.r2.dev
+R2_REVISION_BUCKET_NAME=your-revisions-bucket
+```
+
 ## [2.20.5] - 2026-01-30
 
 ### Added

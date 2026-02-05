@@ -1,8 +1,8 @@
 use sea_orm::DatabaseConnection as PostgresqlClient;
-use sevenmark_transform::wiki::SeaweedFsClient;
+use sevenmark_transform::wiki::RevisionStorageClient;
 
 #[derive(Clone)]
 pub struct AppState {
     pub conn: PostgresqlClient,
-    pub seaweedfs: SeaweedFsClient,
+    pub revision_storage: RevisionStorageClient,
 }
