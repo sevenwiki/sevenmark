@@ -1,7 +1,7 @@
 use sevenmark_html::{RenderConfig, render_document};
 use sevenmark_parser::core::parse_document;
 use sevenmark_server::connection::database_conn::establish_connection;
-use sevenmark_server::connection::seaweedfs_conn::establish_seaweedfs_connection;
+use sevenmark_server::connection::r2_conn::establish_revision_storage_connection;
 use sevenmark_transform::process_sevenmark;
 use std::fs;
 use std::time::Instant;
@@ -16,10 +16,10 @@ async fn main() {
     // Establish database connection
     let db = establish_connection().await;
 
-    // Establish SeaweedFS connection
-    let seaweedfs = establish_seaweedfs_connection()
+    // Establish R2 revision storage connection
+    let revision_storage = establish_revision_storage_connection()
         .await
-        .expect("Failed to connect to SeaweedFS");
+        .expect("Failed to connect to R2 revision storage");
 
     let start_time = Instant::now();
 
@@ -28,7 +28,7 @@ async fn main() {
     println!("Parsed {} elements", ast.len());
 
     // Process (resolve includes, media, etc.)
-    let processed = process_sevenmark(ast, &db, &seaweedfs)
+    let processed = process_sevenmark(ast, &db, &revision_storage)
         .await
         .expect("Failed to process document");
     println!("Processed {} elements", processed.ast.len());
