@@ -5,12 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.21.1] - 2026-02-05
+## [2.21.2] - 2026-02-05
 
 ### Changed
 - **Helm Chart**: Updated `values.yaml` to use R2 configuration
   - Removed `SEAWEEDFS_ENDPOINT` from secret
   - Added R2 environment variables to match server_config.rs
+
+## [2.21.1] - 2026-02-05 [YANKED]
+
+(Skipped - chart not updated before release)
 
 ## [2.21.0] - 2026-02-05
 
