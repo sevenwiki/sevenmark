@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.21.3] - 2026-02-06
+
+### Fixed
+- **expression_evaluator**: Fixed potential integer overflow in `compare_numeric` using `Ord::cmp` instead of subtraction
+- **sevenmark-wasm**: Return JSON error object instead of empty string on serialization failure
+
+### Changed
+- **server_config**: Replaced individual `.expect()` calls with `require!` macro pattern — collects all missing environment variables and reports them at once
+- **preprocessor**: Extracted `"Document"` magic string to `DEFAULT_NAMESPACE` constant
+- **preprocessor**: Refactored `collect_metadata_recursive` from 9 parameters to `MetadataCollector` struct
+- **bridge**: Changed R2 download failure log level from `debug!` to `warn!` with structured fields (V7 style)
+- **Cargo.toml**: Updated stale `SeaweedFS` comment to `Object Storage`
+
 ## [2.21.2] - 2026-02-05
 
 ### Changed

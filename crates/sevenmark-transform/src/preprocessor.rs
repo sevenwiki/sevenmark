@@ -194,6 +194,17 @@ fn process_defines_and_ifs(elements: &mut Vec<Element>, variables: &mut HashMap<
     }
 }
 
+struct MetadataCollector<'a> {
+    categories: &'a mut HashSet<String>,
+    redirect: &'a mut Option<RedirectReference>,
+    media: &'a mut HashSet<MediaReference>,
+    sections: &'a mut Vec<SectionInfo>,
+    user_mentions: &'a mut HashSet<String>,
+    section_stack: Vec<SectionInfo>,
+    max_end: usize,
+    collect_categories_redirect: bool,
+}
+
 fn collect_metadata(
     elements: &[Element],
     categories: &mut HashSet<String>,
@@ -203,46 +214,33 @@ fn collect_metadata(
     user_mentions: &mut HashSet<String>,
     collect_categories_redirect: bool,
 ) {
-    let mut section_stack: Vec<SectionInfo> = Vec::new();
-    let mut max_end: usize = 0;
+    let mut collector = MetadataCollector {
+        categories,
+        redirect,
+        media,
+        sections,
+        user_mentions,
+        section_stack: Vec::new(),
+        max_end: 0,
+        collect_categories_redirect,
+    };
 
     for element in elements {
-        collect_metadata_recursive(
-            element,
-            categories,
-            redirect,
-            media,
-            sections,
-            user_mentions,
-            &mut section_stack,
-            &mut max_end,
-            collect_categories_redirect,
-        );
+        collect_metadata_recursive(element, &mut collector);
     }
 
     // Remaining headers in stack end at document end
-    for mut section in section_stack {
-        section.end = max_end;
-        sections.push(section);
+    for mut section in collector.section_stack {
+        section.end = collector.max_end;
+        collector.sections.push(section);
     }
 }
 
-#[allow(clippy::too_many_arguments)]
-fn collect_metadata_recursive(
-    element: &Element,
-    categories: &mut HashSet<String>,
-    redirect: &mut Option<RedirectReference>,
-    media: &mut HashSet<MediaReference>,
-    sections: &mut Vec<SectionInfo>,
-    user_mentions: &mut HashSet<String>,
-    section_stack: &mut Vec<SectionInfo>,
-    max_end: &mut usize,
-    collect_categories_redirect: bool,
-) {
+fn collect_metadata_recursive(element: &Element, c: &mut MetadataCollector) {
     // Track max span.end for document length
     let span = element.span();
-    if span.end > *max_end {
-        *max_end = span.end;
+    if span.end > c.max_end {
+        c.max_end = span.end;
     }
 
     match element {
@@ -251,17 +249,17 @@ fn collect_metadata_recursive(
             let level = header.level;
 
             // Pop headers with level >= current (same or lower priority)
-            while let Some(mut section) = section_stack.pop() {
+            while let Some(mut section) = c.section_stack.pop() {
                 if section.level >= level {
                     section.end = start;
-                    sections.push(section);
+                    c.sections.push(section);
                 } else {
-                    section_stack.push(section);
+                    c.section_stack.push(section);
                     break;
                 }
             }
 
-            section_stack.push(SectionInfo {
+            c.section_stack.push(SectionInfo {
                 section_index: header.section_index,
                 level,
                 start,
@@ -273,7 +271,7 @@ fn collect_metadata_recursive(
             if let Some(file_param) = media_elem.parameters.get("file") {
                 let title = extract_plain_text(&file_param.value);
                 if !title.is_empty() {
-                    media.insert(MediaReference {
+                    c.media.insert(MediaReference {
                         namespace: DocumentNamespace::File,
                         title,
                     });
@@ -283,7 +281,7 @@ fn collect_metadata_recursive(
             if let Some(doc_param) = media_elem.parameters.get("document") {
                 let title = extract_plain_text(&doc_param.value);
                 if !title.is_empty() {
-                    media.insert(MediaReference {
+                    c.media.insert(MediaReference {
                         namespace: DocumentNamespace::Document,
                         title,
                     });
@@ -293,50 +291,40 @@ fn collect_metadata_recursive(
             if let Some(cat_param) = media_elem.parameters.get("category") {
                 let title = extract_plain_text(&cat_param.value);
                 if !title.is_empty() {
-                    media.insert(MediaReference {
+                    c.media.insert(MediaReference {
                         namespace: DocumentNamespace::Category,
                         title,
                     });
                 }
             }
         }
-        Element::Category(cat_elem) if collect_categories_redirect => {
+        Element::Category(cat_elem) if c.collect_categories_redirect => {
             let name = extract_plain_text(&cat_elem.children);
             if !name.is_empty() {
-                categories.insert(name);
+                c.categories.insert(name);
             }
         }
-        Element::Redirect(redirect_elem) if collect_categories_redirect => {
+        Element::Redirect(redirect_elem) if c.collect_categories_redirect => {
             let title = extract_plain_text(&redirect_elem.children);
-            if !title.is_empty() && redirect.is_none() {
+            if !title.is_empty() && c.redirect.is_none() {
                 let namespace_str = redirect_elem
                     .parameters
                     .get("namespace")
                     .map(|param| extract_plain_text(&param.value))
                     .filter(|s: &String| !s.is_empty())
-                    .unwrap_or_else(|| "Document".to_string());
+                    .unwrap_or_else(|| DEFAULT_NAMESPACE.to_string());
                 let namespace = parse_namespace(&namespace_str);
-                *redirect = Some(RedirectReference { namespace, title });
+                *c.redirect = Some(RedirectReference { namespace, title });
             }
         }
         Element::Mention(mention_elem) if mention_elem.kind == MentionType::User => {
-            user_mentions.insert(mention_elem.id.clone());
+            c.user_mentions.insert(mention_elem.id.clone());
         }
         _ => {}
     }
 
     element.traverse_children_ref(&mut |child| {
-        collect_metadata_recursive(
-            child,
-            categories,
-            redirect,
-            media,
-            sections,
-            user_mentions,
-            section_stack,
-            max_end,
-            collect_categories_redirect,
-        );
+        collect_metadata_recursive(child, c);
     });
 }
 
@@ -355,7 +343,7 @@ fn collect_includes_recursive(element: &Element, includes: &mut HashSet<Document
                 .get("namespace")
                 .map(|param| extract_plain_text(&param.value))
                 .filter(|s: &String| !s.is_empty())
-                .unwrap_or_else(|| "Document".to_string());
+                .unwrap_or_else(|| DEFAULT_NAMESPACE.to_string());
             let namespace = parse_namespace(&namespace_str);
             includes.insert(DocumentReference { namespace, title });
         }
@@ -444,7 +432,7 @@ fn substitute_includes_recursive(
                 .get("namespace")
                 .map(|param| extract_plain_text(&param.value))
                 .filter(|s: &String| !s.is_empty())
-                .unwrap_or_else(|| "Document".to_string());
+                .unwrap_or_else(|| DEFAULT_NAMESPACE.to_string());
             let namespace = parse_namespace(&namespace_str);
             let doc_key = format!("{}:{}", namespace_to_string(&namespace), title);
 
@@ -492,6 +480,8 @@ fn substitute_includes_recursive(
         substitute_includes_recursive(child, docs_map, all_media);
     });
 }
+
+const DEFAULT_NAMESPACE: &str = "Document";
 
 fn parse_namespace(namespace: &str) -> DocumentNamespace {
     match namespace {

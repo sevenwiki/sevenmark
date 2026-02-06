@@ -119,7 +119,7 @@ fn values_equal(left: &Value, right: &Value) -> bool {
 fn compare_numeric(left: &Value, right: &Value) -> Option<i64> {
     let left_num = to_number(left)?;
     let right_num = to_number(right)?;
-    Some((left_num - right_num).signum())
+    Some(left_num.cmp(&right_num) as i64)
 }
 
 /// Value를 숫자로 변환 시도 (실패하면 None)

@@ -27,16 +27,48 @@ pub struct ServerConfig {
     pub r2_revision_bucket_name: String,
 }
 
-// LazyLock
 static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
     dotenv().ok();
 
+    let mut errors: Vec<String> = Vec::new();
+
+    macro_rules! require {
+        ($name:expr) => {
+            env::var($name).unwrap_or_else(|_| {
+                errors.push(format!("  - {} (missing)", $name));
+                String::new()
+            })
+        };
+    }
+
+    let db_user = require!("POSTGRES_USER");
+    let db_password = require!("POSTGRES_PASSWORD");
+    let db_host = require!("POSTGRES_HOST");
+    let db_port = require!("POSTGRES_PORT");
+    let db_name = require!("POSTGRES_NAME");
+    let server_host = require!("HOST");
+    let server_port = require!("PORT");
+    let r2_endpoint = require!("R2_ENDPOINT");
+    let r2_access_key_id = require!("R2_ACCESS_KEY_ID");
+    let r2_secret_access_key = require!("R2_SECRET_ACCESS_KEY");
+    let r2_assets_bucket_name = require!("R2_ASSETS_BUCKET_NAME");
+    let r2_assets_public_domain = require!("R2_ASSETS_PUBLIC_DOMAIN");
+    let r2_revision_bucket_name = require!("R2_REVISION_BUCKET_NAME");
+
+    if !errors.is_empty() {
+        panic!(
+            "\n\nMissing or invalid environment variables ({} errors):\n{}\n",
+            errors.len(),
+            errors.join("\n")
+        );
+    }
+
     ServerConfig {
-        db_user: env::var("POSTGRES_USER").expect("POSTGRES_USER must be set"),
-        db_password: env::var("POSTGRES_PASSWORD").expect("POSTGRES_PASSWORD must be set"),
-        db_host: env::var("POSTGRES_HOST").expect("POSTGRES_HOST must be set"),
-        db_port: env::var("POSTGRES_PORT").expect("POSTGRES_PORT must be set"),
-        db_name: env::var("POSTGRES_NAME").expect("POSTGRES_NAME must be set"),
+        db_user,
+        db_password,
+        db_host,
+        db_port,
+        db_name,
         db_max_connection: env::var("POSTGRES_MAX_CONNECTION")
             .ok()
             .and_then(|v| v.parse().ok())
@@ -46,21 +78,17 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
             .and_then(|v| v.parse().ok())
             .unwrap_or(10),
 
-        server_host: env::var("HOST").expect("HOST must be set in .env file"),
-        server_port: env::var("PORT").expect("PORT must be set in .env file"),
+        server_host,
+        server_port,
 
         // Cloudflare R2
-        r2_endpoint: env::var("R2_ENDPOINT").expect("R2_ENDPOINT must be set"),
+        r2_endpoint,
         r2_region: env::var("R2_REGION").unwrap_or_else(|_| "auto".into()),
-        r2_access_key_id: env::var("R2_ACCESS_KEY_ID").expect("R2_ACCESS_KEY_ID must be set"),
-        r2_secret_access_key: env::var("R2_SECRET_ACCESS_KEY")
-            .expect("R2_SECRET_ACCESS_KEY must be set"),
-        r2_assets_bucket_name: env::var("R2_ASSETS_BUCKET_NAME")
-            .expect("R2_ASSETS_BUCKET_NAME must be set"),
-        r2_assets_public_domain: env::var("R2_ASSETS_PUBLIC_DOMAIN")
-            .expect("R2_ASSETS_PUBLIC_DOMAIN must be set"),
-        r2_revision_bucket_name: env::var("R2_REVISION_BUCKET_NAME")
-            .expect("R2_REVISION_BUCKET_NAME must be set"),
+        r2_access_key_id,
+        r2_secret_access_key,
+        r2_assets_bucket_name,
+        r2_assets_public_domain,
+        r2_revision_bucket_name,
     }
 });
 

@@ -8,7 +8,7 @@ use anyhow::{Context, Result};
 use futures::future::join_all;
 use sea_orm::{ColumnTrait, Condition, DatabaseConnection, EntityTrait, QueryFilter};
 use std::collections::HashMap;
-use tracing::debug;
+use tracing::{debug, warn};
 use uuid::Uuid;
 
 /// Fetch multiple documents by namespace and title using Sea ORM
@@ -94,10 +94,7 @@ pub async fn fetch_documents_batch(
                     revisions_map.insert(revision_id, content);
                 }
                 Err(e) => {
-                    debug!(
-                        "Failed to download content for revision {}: {}",
-                        revision_id, e
-                    );
+                    warn!(revision_id = %revision_id, error = %e, "Failed to download content");
                     // Skip this revision if download fails
                 }
             }
