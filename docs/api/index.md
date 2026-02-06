@@ -103,7 +103,10 @@ Production REST API server built with `axum`:
 
 ## Next Steps
 
-- [Parser API](./parser) — Usage from Rust and JavaScript
-- [AST Structure](./ast) — Element types and JSON format
 
 </div>
+
+## Next Steps
+
+- [Parser API](./parser) — Usage from Rust and JavaScript
+- [AST Structure](./ast) — Element types and JSON format

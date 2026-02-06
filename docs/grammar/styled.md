@@ -231,15 +231,6 @@ new
 - Multiple parameters can be combined
 - Parameters are stored in the AST's `CommonStyleAttributes` structure
 
-::: tip Literal vs. Styled
-The parser distinguishes between literal blocks and styled elements based on the presence of parameters:
-
-```sevenmark
-{{{ This is a literal block (no parameters) }}}
-{{{ #color="red" This is a styled element (has parameters) }}}
-```
-
-If you intend to style content, always include at least one parameter.
-:::
+**Literal vs. Styled:** The parser distinguishes between literal blocks and styled elements based on the presence of parameters. `{{{ content }}}` without parameters becomes a literal block, while `{{{ #param content }}}` with at least one parameter becomes a styled element.
 
 </div>
