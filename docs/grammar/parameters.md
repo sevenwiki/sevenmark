@@ -2,63 +2,62 @@
 
 <div v-pre>
 
-SevenMark uses a parameter system to customize element appearance and behavior.
+SevenMark uses a parameter system to pass key-value data to elements.
+
+## How Parameters Work
+
+Parameters are **generic key-value pairs** — the parser accepts any `#key="value"` without validating the key name. The parser stores all parameters in the AST, and it is up to the **renderer** (or postprocessor) to decide which parameter names are meaningful for each element type.
+
+This means:
+- `#color`, `#style`, `#lang` are not special to the parser — they are conventions used by renderers
+- You can pass any parameter name and the parser will accept it
+- Unknown parameters are silently ignored by the renderer (they don't cause errors)
 
 ## Parameter Syntax
 
-Parameters are specified using `#parameter="value"` or `#parameter` for boolean flags:
+Parameters use `#key="value"` for key-value pairs, or `#flag` for boolean flags (presence means enabled):
 
 ```sevenmark
 {{{ #style="color:red" #size="16px" Red text }}}
-{{{#list #1 #style="margin-left:20px" 
+{{{#list #1 #style="margin-left:20px"
 [[Item 1]]
 [[Item 2]]
 }}}
 ```
 
-## Common Style Parameters
+### Quoted Values
 
-### Color
-
-Set text color:
+Parameter values are enclosed in double quotes. Quotes inside values can be escaped:
 
 ```sevenmark
-{{{ #color="blue" Blue text }}}
-{{{ #color="red" Red text }}}
+{{{ #style="font-family: \"Arial\", sans-serif" Text }}}
 ```
 
-### Background Color
+### Boolean Flags
 
-Set background color:
+Some parameters act as flags — their presence alone enables a feature:
 
 ```sevenmark
-{{{ #bg_color="yellow" Text with yellow background }}}
+{{{#tex #block
+\sum_{i=1}^{n} x_i
+}}}
+
+[[#youtube #id="dQw4w9WgXcQ" #autoplay #mute]]
 ```
 
-### Style
+## Common Renderer Conventions
 
-Apply custom CSS styles:
+The following parameters are commonly recognized by SevenMark renderers. Remember, these are **renderer conventions**, not parser-level features.
 
-```sevenmark
-{{{ #style="font-weight:bold; text-decoration:underline" Styled text }}}
-```
+### Styling Parameters
 
-### Size
-
-Set font size:
-
-```sevenmark
-{{{ #size="20px" Large text }}}
-{{{ #size="12px" Small text }}}
-```
-
-### Opacity
-
-Set opacity level:
-
-```sevenmark
-{{{ #opacity="0.5" Semi-transparent text }}}
-```
+| Parameter | Description | Used By |
+|-----------|-------------|---------|
+| `#style` | Inline CSS styles | Styled elements, tables, lists |
+| `#color` | Text color | Styled elements |
+| `#bg_color` | Background color | Styled elements |
+| `#size` | Font size | Styled elements |
+| `#opacity` | Opacity level | Styled elements |
 
 ## Element-Specific Parameters
 

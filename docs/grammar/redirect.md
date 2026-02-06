@@ -58,14 +58,38 @@ This page redirects to the programming language. For other uses, see [[Python (d
 This article has been renamed to "Modern Web Development" to better reflect current practices.
 ```
 
+## Parameters
+
+Since version 2.7.13, redirects support the `#namespace` parameter to redirect to specific namespaces:
+
+```sevenmark
+{{{#redirect #namespace="File" image.png }}}
+```
+
+### Namespace Examples
+
+```sevenmark
+// Redirect to a file page
+{{{#redirect #namespace="File" logo.png }}}
+
+// Redirect to a category page
+{{{#redirect #namespace="Category" Programming Languages }}}
+```
+
+| Parameter | Description |
+|-----------|-------------|
+| `#namespace` | Target namespace (e.g., `"File"`, `"Category"`) |
+
+When `#namespace` is provided, the redirect target is resolved within the specified namespace.
+
 ## Technical Notes
 
 - Only one redirect per page is allowed
 - Redirects cannot be nested (A → B → C)
 - The redirect target should be a valid page name
 - Content after a redirect may not be processed depending on parser configuration
-- Redirects **do not support parameters**
-- The entire content inside `{{{#redirect}}}` is treated as the target page name and optional message
+- The `#namespace` parameter can be used to redirect across namespaces
+- The entire content inside `{{{#redirect}}}` (excluding parameters) is treated as the target page name and optional message
 
 ## Parser Behavior
 

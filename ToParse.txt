@@ -1,6 +1,7 @@
-{{{#define #x="3"}}}
+{{{#define #x="3"
+#y="3\""
+}}}
 
-
-{{{#if ([var(x)] > 2) || ([var(x)] < 4)
+{{{#if [var(y)] == "3\""
 something
 }}}

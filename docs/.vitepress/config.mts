@@ -46,9 +46,11 @@ export default defineConfig({
           ],
         },
         {
-          text: "Media & Macros",
+          text: "Media & Links",
           items: [
             { text: "Media", link: "/grammar/media" },
+            { text: "External Media", link: "/grammar/external-media" },
+            { text: "Mentions", link: "/grammar/mentions" },
             { text: "Macros", link: "/grammar/macros" },
             { text: "Conditionals", link: "/grammar/conditionals" },
             { text: "Parameters", link: "/grammar/parameters" },
@@ -77,6 +79,7 @@ export default defineConfig({
         {
           text: "API",
           items: [
+            { text: "Overview", link: "/api/" },
             { text: "Parser API", link: "/api/parser" },
             { text: "AST Structure", link: "/api/ast" },
           ],

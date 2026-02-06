@@ -346,6 +346,33 @@ Value is truthy
 }}}
 ```
 
+## String Literals
+
+String literals are enclosed in double quotes. Since version 2.21.4, escape sequences are supported inside string literals:
+
+| Escape Sequence | Result |
+|-----------------|--------|
+| `\"` | Literal double quote |
+| `\\` | Literal backslash |
+
+### Examples
+
+```sevenmark
+{{{#if [var(title)] == "He said \"hello\""
+Match a string containing double quotes
+}}}
+
+{{{#if [var(path)] == "C:\\Users\\docs"
+Match a string containing backslashes
+}}}
+
+{{{#if [var(msg)] == "line1\\line2 and \"quoted\""
+Combined escape sequences
+}}}
+```
+
+Without escape sequences, it is impossible to compare against strings that contain double quotes or backslashes.
+
 ## Important Notes
 
 - Conditions are resolved during preprocessing phase
@@ -355,5 +382,6 @@ Value is truthy
 - Empty strings are falsy, **non-empty strings (including "0" and "false") are truthy**
 - For strict boolean checks, use `== "true"` or `== "false"` comparisons
 - Only single `!` operator is allowed; use `!(!x)` for double negation
+- String literals support `\"` and `\\` escape sequences
 
 </div>

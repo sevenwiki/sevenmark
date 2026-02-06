@@ -224,11 +224,22 @@ new
 ## Technical Notes
 
 - Styled elements use `{{{` without an element identifier (e.g., no `#code`, `#list`, etc.)
-- At least one parameter must be provided
+- **At least one parameter is required** — without any parameter, `{{{ content }}}` is parsed as a [literal block](/grammar/literal) instead of a styled element
 - The `#style` parameter accepts styling property-value pairs
 - Individual parameters (`#color`, `#size`, etc.) are convenience shortcuts
 - Parameters are case-sensitive
 - Multiple parameters can be combined
 - Parameters are stored in the AST's `CommonStyleAttributes` structure
+
+::: tip Literal vs. Styled
+The parser distinguishes between literal blocks and styled elements based on the presence of parameters:
+
+```sevenmark
+{{{ This is a literal block (no parameters) }}}
+{{{ #color="red" This is a styled element (has parameters) }}}
+```
+
+If you intend to style content, always include at least one parameter.
+:::
 
 </div>

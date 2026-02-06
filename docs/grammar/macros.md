@@ -136,11 +136,42 @@ For assistance, contact [var(companyName)] support at [var(supportEmail)].
 }}}
 ```
 
+### Variable References and Document-Order Processing
+
+Since version 2.10.0, variables are processed in **document order** using a single pass. This means a variable defined earlier in the document can be referenced by a later `{{{#define}}}`:
+
+```sevenmark
+{{{#define #name="baseUrl" #value="https://example.com"}}}
+{{{#define #name="apiUrl" #value="[var(baseUrl)]/api/v1"}}}
+
+API endpoint: [var(apiUrl)]
+// Outputs: API endpoint: https://example.com/api/v1
+```
+
+#### Conditional Define Pattern
+
+Combine with conditionals to create dynamic variable chains:
+
+```sevenmark
+{{{#define #name="env" #value="production"}}}
+
+{{{#if [var(env)] == "production"
+{{{#define #name="apiHost" #value="https://api.example.com"}}}
+}}}
+
+{{{#if [var(env)] == "development"
+{{{#define #name="apiHost" #value="http://localhost:3000"}}}
+}}}
+
+Connecting to: [var(apiHost)]
+```
+
 ### Important Notes
 
 - Variable names should be defined using the `#name` parameter
 - Variable values should be defined using the `#value` parameter
-- Variables cannot reference other variables (no nested variable expansion)
-- Undefined variables will remain as `[var(name)]` in the output
+- Variables are resolved in document order — a variable can reference any variable defined **before** it
+- Circular references are not possible because resolution is forward-only (single pass)
+- Undefined variables will produce an error element in the output
 
 </div>
