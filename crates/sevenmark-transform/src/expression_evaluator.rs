@@ -54,7 +54,9 @@ fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -
         Expression::FunctionCall {
             name, arguments, ..
         } => evaluate_function(name, arguments, variables),
-        Expression::StringLiteral { value, .. } => Value::String(value.clone()),
+        Expression::StringLiteral { value, .. } => {
+            Value::String(crate::utils::extract_plain_text(value))
+        }
         Expression::NumberLiteral { value, .. } => Value::Number(*value),
         Expression::BoolLiteral { value, .. } => Value::Bool(*value),
         Expression::Null { .. } => Value::Null,
@@ -191,9 +193,13 @@ mod tests {
     }
 
     fn str_lit(s: &str) -> Expression {
+        use sevenmark_parser::ast::TextElement;
         Expression::StringLiteral {
             span: span(),
-            value: s.to_string(),
+            value: vec![Element::Text(TextElement {
+                span: span(),
+                value: s.to_string(),
+            })],
         }
     }
 

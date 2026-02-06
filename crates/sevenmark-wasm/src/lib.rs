@@ -16,6 +16,5 @@ pub fn parse_sevenmark(input: &str) -> String {
     use sevenmark_parser::core::parse_document;
 
     let elements = parse_document(input);
-    serde_json::to_string(&elements)
-        .unwrap_or_else(|e| format!(r#"{{"error":"{}"}}"#, e))
+    serde_json::to_string(&elements).unwrap_or_else(|e| format!(r#"{{"error":"{}"}}"#, e))
 }

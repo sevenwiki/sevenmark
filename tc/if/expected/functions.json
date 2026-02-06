@@ -34,7 +34,17 @@
                       "start": 12,
                       "end": 16
                     },
-                    "value": "10"
+                    "value": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 13,
+                            "end": 15
+                          },
+                          "value": "10"
+                        }
+                      }
+                    ]
                   }
                 }
               ]
@@ -113,7 +123,17 @@
                       "start": 53,
                       "end": 60
                     },
-                    "value": "hello"
+                    "value": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 54,
+                            "end": 59
+                          },
+                          "value": "hello"
+                        }
+                      }
+                    ]
                   }
                 }
               ]
@@ -211,7 +231,17 @@
                 "start": 104,
                 "end": 109
               },
-              "value": "123"
+              "value": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 105,
+                      "end": 108
+                    },
+                    "value": "123"
+                  }
+                }
+              ]
             }
           }
         }

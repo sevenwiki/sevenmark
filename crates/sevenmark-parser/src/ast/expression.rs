@@ -82,7 +82,7 @@ pub enum Expression {
     StringLiteral {
         #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
         span: Span,
-        value: String,
+        value: Vec<Element>,
     },
     /// 숫자 리터럴
     NumberLiteral {

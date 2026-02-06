@@ -5,6 +5,17 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.21.4] - 2026-02-06
+
+### Changed
+- **expr**: Restructured monolithic `expr_condition.rs` into modular folder structure
+  - `expr_condition.rs` — condition/or/and/not parsers
+  - `expr_comparison.rs` — comparison operator parser
+  - `expr_operand.rs` — operand/group/function call parsers
+  - `expr_literal.rs` — null/bool/string/number literal parsers
+  - `string_literal/` — subfolder with content + text parsers (escape sequence support)
+- **expr**: String literal in expressions now supports escape sequences (`\"`, `\\`) via `string_literal_content_parser`
+
 ## [2.21.3] - 2026-02-06
 
 ### Fixed
