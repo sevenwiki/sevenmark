@@ -1,5 +1,7 @@
 # AST Structure
 
+<div v-pre>
+
 The SevenMark parser produces an Abstract Syntax Tree (AST) composed of `Element` nodes. This page documents the element types, expression system, and supporting types.
 
 ## Element Enum
@@ -277,3 +279,5 @@ The serialized AST (simplified) looks like:
 ```
 
 Each element is serialized as an object with the variant name as key. The `Span` fields only appear when the `include_locations` feature is enabled.
+
+</div>

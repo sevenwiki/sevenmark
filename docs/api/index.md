@@ -1,5 +1,7 @@
 # API Overview
 
+<div v-pre>
+
 SevenMark is organized as a Cargo workspace with specialized crates. Each crate handles a distinct stage of the document processing pipeline.
 
 ## Crate Structure
@@ -103,3 +105,5 @@ Production REST API server built with `axum`:
 
 - [Parser API](./parser) — Usage from Rust and JavaScript
 - [AST Structure](./ast) — Element types and JSON format
+
+</div>

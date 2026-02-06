@@ -1,5 +1,7 @@
 # Parser API
 
+<div v-pre>
+
 ## Rust Usage
 
 ### Installation
@@ -155,3 +157,5 @@ let elements = parse_document("malformed {{{ unclosed");
 ```
 
 This "error recovery" approach ensures partial documents remain useful.
+
+</div>
