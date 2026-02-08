@@ -14,6 +14,8 @@ pub enum DocumentNamespace {
     File,
     #[sea_orm(string_value = "category")]
     Category,
+    #[sea_orm(string_value = "user")]
+    User,
 }
 
 /// 문서 응답

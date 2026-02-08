@@ -34,7 +34,7 @@ pub fn render(
     // alt 텍스트: 파일 제목 사용
     let alt_text = utils::get_param(parameters, "file").unwrap_or_default();
 
-    // href 우선순위: url > document > category
+    // href 우선순위: url > document > category > user
     let href: Option<String> = resolved_info.and_then(|r| {
         r.url
             .clone()
@@ -52,6 +52,13 @@ pub fn render(
                         .map(|base| format!("{}{}", base, c.title))
                 })
             })
+            .or_else(|| {
+                r.user.as_ref().and_then(|u| {
+                    ctx.config
+                        .user_base_url
+                        .map(|base| format!("{}{}", base, u.title))
+                })
+            })
     });
 
     // 링크 유효성 (외부 url은 항상 valid 취급)
@@ -63,6 +70,8 @@ pub fn render(
                 doc.is_valid
             } else if let Some(cat) = &r.category {
                 cat.is_valid
+            } else if let Some(user) = &r.user {
+                user.is_valid
             } else {
                 true
             }

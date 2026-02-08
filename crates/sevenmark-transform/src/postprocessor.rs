@@ -68,8 +68,10 @@ pub async fn postprocess_sevenmark(
                         is_valid,
                     )
                 }
-                DocumentNamespace::Document | DocumentNamespace::Category => {
-                    // Document/Category: just store validity (title is in key)
+                DocumentNamespace::Document
+                | DocumentNamespace::Category
+                | DocumentNamespace::User => {
+                    // Document/Category/User: just store validity (title is in key)
                     (None, None, None, result.exists)
                 }
             };
@@ -146,6 +148,19 @@ fn resolve_media_recursive(element: &mut Element, resolved_map: &MediaResolution
             }
         }
 
+        // Process #user parameter
+        if let Some(user_param) = media_elem.parameters.get("user") {
+            let title = extract_plain_text(&user_param.value);
+            if !title.is_empty() {
+                let key = (DocumentNamespace::User, title.clone());
+                let is_valid = resolved_map
+                    .get(&key)
+                    .map(|(_, _, _, valid)| *valid)
+                    .unwrap_or(false);
+                resolved.user = Some(ResolvedDoc { title, is_valid });
+            }
+        }
+
         // Process #url parameter (외부 링크)
         if let Some(url_param) = media_elem.parameters.get("url") {
             let url = extract_plain_text(&url_param.value);
@@ -158,6 +173,7 @@ fn resolve_media_recursive(element: &mut Element, resolved_map: &MediaResolution
         if resolved.file.is_some()
             || resolved.document.is_some()
             || resolved.category.is_some()
+            || resolved.user.is_some()
             || resolved.url.is_some()
         {
             media_elem.resolved_info = Some(resolved);

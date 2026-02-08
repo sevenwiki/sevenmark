@@ -22,6 +22,7 @@ fn main() {
         file_base_url: Some("https://cdn.example.com/"),
         document_base_url: Some("/Document/"),
         category_base_url: Some("/Category/"),
+        user_base_url: Some("/User/"),
     };
     let html = render_document(&ast, &config);
     let render_duration = render_start.elapsed();

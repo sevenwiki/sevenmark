@@ -297,6 +297,16 @@ fn collect_metadata_recursive(element: &Element, c: &mut MetadataCollector) {
                     });
                 }
             }
+            // Collect #user parameter
+            if let Some(user_param) = media_elem.parameters.get("user") {
+                let title = extract_plain_text(&user_param.value);
+                if !title.is_empty() {
+                    c.media.insert(MediaReference {
+                        namespace: DocumentNamespace::User,
+                        title,
+                    });
+                }
+            }
         }
         Element::Category(cat_elem) if c.collect_categories_redirect => {
             let name = extract_plain_text(&cat_elem.children);
@@ -400,6 +410,15 @@ fn collect_references_recursive(element: &Element, references: &mut HashSet<Docu
                     });
                 }
             }
+            if let Some(user_param) = media_elem.parameters.get("user") {
+                let title = extract_plain_text(&user_param.value);
+                if !title.is_empty() {
+                    references.insert(DocumentReference {
+                        namespace: DocumentNamespace::User,
+                        title,
+                    });
+                }
+            }
         }
         _ => {}
     }
@@ -487,6 +506,7 @@ fn parse_namespace(namespace: &str) -> DocumentNamespace {
     match namespace {
         "Document" => DocumentNamespace::Document,
         "File" => DocumentNamespace::File,
+        "User" => DocumentNamespace::User,
         "Category" => DocumentNamespace::Category,
         _ => DocumentNamespace::Document,
     }
@@ -496,6 +516,7 @@ fn namespace_to_string(namespace: &DocumentNamespace) -> &'static str {
     match namespace {
         DocumentNamespace::Document => "Document",
         DocumentNamespace::File => "File",
+        DocumentNamespace::User => "User",
         DocumentNamespace::Category => "Category",
     }
 }

@@ -3,7 +3,7 @@ members = ["crates/*", "xtask"]
 resolver = "2"
 
 [workspace.package]
-version = "2.21.4"
+version = "2.21.5"
 authors = ["Levi Laine <shiueo.csh@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -16,12 +16,12 @@ readme = "README.md"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { path = "crates/sevenmark-parser", version = "2.21.4" }
-sevenmark-transform = { path = "crates/sevenmark-transform", version = "2.21.4" }
-sevenmark-html = { path="crates/sevenmark-html", version = "2.21.4"}
-sevenmark-semantic = { path = "crates/sevenmark-semantic", version = "2.21.4"}
-sevenmark-utils = {path = "crates/sevenmark-utils", version = "2.21.4"}
-sevenmark-wasm = {path = "crates/sevenmark-wasm", version = "2.21.4"}
+sevenmark-parser = { path = "crates/sevenmark-parser", version = "2.21.5" }
+sevenmark-transform = { path = "crates/sevenmark-transform", version = "2.21.5" }
+sevenmark-html = { path="crates/sevenmark-html", version = "2.21.5"}
+sevenmark-semantic = { path = "crates/sevenmark-semantic", version = "2.21.5"}
+sevenmark-utils = {path = "crates/sevenmark-utils", version = "2.21.5"}
+sevenmark-wasm = {path = "crates/sevenmark-wasm", version = "2.21.5"}
 
 winnow = { version = "0.7.14", features = ["simd"] }
 paste = "1.0.15"
@@ -34,11 +34,11 @@ utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"] }
 uuid = { version = "1.20.0", features = ["v7"] }
 dotenvy = "0.15.7"
-anyhow = "1.0.100"
+anyhow = "1.0.101"
 
 # Object Storage (S3 compatible)
-aws-sdk-s3 = "1.121.0"
-aws-config = "1.8.12"
+aws-sdk-s3 = "1.122.0"
+aws-config = "1.8.13"
 zstd = "0.13.3"
 futures="0.3.31"
 

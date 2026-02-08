@@ -58,7 +58,7 @@ pub struct ResolvedDoc {
 
 /// MediaElement resolve 결과
 /// file, document, category, url 각각 독립적으로 처리
-/// href 우선순위: url > document > category
+/// href 우선순위: url > document > category > user
 #[derive(Debug, Clone, Serialize, Default)]
 pub struct ResolvedMediaInfo {
     /// #file 참조 결과 (이미지 표시용, DB에서 실제 URL)
@@ -70,6 +70,9 @@ pub struct ResolvedMediaInfo {
     /// #category 참조 결과 (title만, URL은 렌더러에서 조립)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub category: Option<ResolvedDoc>,
+    /// #user 참조 결과 (title만, URL은 렌더러에서 조립)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user: Option<ResolvedDoc>,
     /// #url 외부 링크
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,

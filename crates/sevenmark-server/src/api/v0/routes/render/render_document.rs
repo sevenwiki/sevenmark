@@ -22,6 +22,8 @@ pub struct RenderDocumentRequest {
     pub document_base_url: String,
     /// Base URL for category links (e.g., "/Category/")
     pub category_base_url: String,
+    /// Base URL for user document links (e.g., "/User/")
+    pub user_base_url: String,
 }
 
 #[derive(Debug, Clone, Serialize, ToSchema)]
@@ -71,6 +73,7 @@ pub async fn render_document(
         file_base_url: Some(&payload.file_base_url),
         document_base_url: Some(&payload.document_base_url),
         category_base_url: Some(&payload.category_base_url),
+        user_base_url: Some(&payload.user_base_url),
     };
     let html = render_document_with_spans(&processed.ast, &config, &payload.content);
 

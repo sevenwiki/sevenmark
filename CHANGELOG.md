@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.21.5] - 2026-02-08
+
+### Added
+- **User Namespace**: Added `DocumentNamespace::User` for user document references
+  - New `#user` parameter support in media elements (`[[#user="username"]]`)
+  - `ResolvedMediaInfo.user` field for resolved user document references
+  - `user_base_url` config in HTML renderer (`RenderConfig`)
+  - `user_base_url` field in server API requests (`RenderDocumentRequest`, `RenderDiscussionRequest`)
+  - Preprocessor collects `#user` parameters as `MediaReference` and `DocumentReference`
+  - Postprocessor resolves user references with DB existence check
+  - HTML renderer generates user links with validity styling
+  - href priority: `url > document > category > user`
+
 ## [2.21.4] - 2026-02-06
 
 ### Changed

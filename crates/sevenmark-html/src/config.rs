@@ -13,4 +13,6 @@ pub struct RenderConfig<'a> {
     pub document_base_url: Option<&'a str>,
     /// Base URL for category links (e.g., "/Category/")
     pub category_base_url: Option<&'a str>,
+    /// Base URL for user document links (e.g., "/User/")
+    pub user_base_url: Option<&'a str>,
 }
