@@ -12,27 +12,18 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
 
       - name: Install wasm-pack and wasm-opt
         run: |
           which wasm-pack || cargo install wasm-pack
           which wasm-opt || cargo install wasm-opt
-
-      - name: Cache Cargo dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/bin
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-tools
 
       - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
@@ -62,7 +53,7 @@ jobs:
           tar -czf sevenmark-wasm-nodejs-${{ github.ref_name }}.tar.gz -C pkg-nodejs .
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             sevenmark-wasm-web-${{ github.ref_name }}.tar.gz
