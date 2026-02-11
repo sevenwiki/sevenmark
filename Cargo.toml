@@ -27,7 +27,7 @@ winnow = { version = "0.7.14", features = ["simd"] }
 paste = "1.0.15"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
-sea-orm = { version = "2.0.0-rc.31", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
+sea-orm = { version = "2.0.0-rc.32", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
 axum = { version = "0.8.8", features = ["multipart", "macros"] }
 tokio = { version = "1.49.0", features = ["full"] }
 utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
@@ -37,8 +37,8 @@ dotenvy = "0.15.7"
 anyhow = "1.0.101"
 
 # Object Storage (S3 compatible)
-aws-sdk-s3 = "1.122.0"
-aws-config = "1.8.13"
+aws-sdk-s3 = "1.123.0"
+aws-config = "1.8.14"
 zstd = "0.13.3"
 futures="0.3.31"
 
