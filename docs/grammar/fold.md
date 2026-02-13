@@ -42,7 +42,7 @@ Apply styling using parameters:
 [[Hidden content with styling]]
 }}}
 
-{{{#fold #color="blue" #bg_color="#f0f8ff"
+{{{#fold #color="blue" #bgcolor="#f0f8ff"
 [[Colored fold summary]]
 [[Colored detail content]]
 }}}
@@ -184,7 +184,7 @@ All standard parameters are supported:
 
 - `#style` - Custom CSS styling
 - `#color` - Text color
-- `#bg_color` - Background color
+- `#bgcolor` - Background color
 - `#size` - Font size
 - `#opacity` - Opacity level
 

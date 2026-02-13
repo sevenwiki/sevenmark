@@ -43,7 +43,7 @@ All text style variants share the same `TextStyleElement` structure with `span`,
 | `Code` | Code block `{{{#code ...}}}` |
 | `TeX` | Math expression `{{{#tex ...}}}` |
 | `Ruby` | Ruby annotation `{{{#ruby ...}}}` |
-| `Footnote` | Footnote definition `{{{#footnote ...}}}` |
+| `Footnote` | Footnote definition `{{{#fn ...}}}` |
 
 ### Line Elements
 
@@ -68,7 +68,7 @@ All text style variants share the same `TextStyleElement` structure with `span`,
 
 | Variant | Description |
 |---------|-------------|
-| `Media` | Internal media `[[file:...]]` |
+| `Media` | Media element `[[#file="..." ...]]`, `[[#url="..." ...]]` |
 | `ExternalMedia` | External embed `[[#youtube ...]]`, `[[#spotify ...]]`, etc. |
 
 ### Macros
@@ -80,7 +80,7 @@ All text style variants share the same `TextStyleElement` structure with `span`,
 | `TimeNow` | Current time `[now]` |
 | `Age` | Age calculation `[age(date)]` |
 | `Null` | No-op macro `[null]` |
-| `FootnoteRef` | Footnote reference `[footnote(id)]` |
+| `FootnoteRef` | Footnote list macro `[fn]` |
 
 ## Common Element Fields
 

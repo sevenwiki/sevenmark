@@ -17,7 +17,8 @@ Embed images using the `#file` parameter:
 
 ### External URLs
 
-Link to external media using the `#url` parameter:
+Link to external media using the `#url` parameter.  
+`#url` only renders when the value starts with `http://` or `https://`:
 
 ```sevenmark
 [[#url="https://example.com/image.jpg" External image]]
@@ -61,7 +62,7 @@ Create hyperlinks using the `#url` parameter:
 [[#url="https://github.com/rust-lang/rust" Rust GitHub Repository]]
 ```
 
-The first element is the URL (using `#url=`), and the second element is optional display text. If no display text is provided, the URL itself will be displayed.
+The `#url` parameter provides the link target, and the optional content after parameters is used as display text. If no display text is provided, the URL itself is displayed.
 
 ## Media in Complex Structures
 
@@ -70,7 +71,7 @@ The first element is the URL (using `#url=`), and the second element is optional
 ```sevenmark
 {{{#table
 [[[[Name]] [[Image]] [[Link]]]]
-[[[[John]] [[[#file="john.jpg" John's photo]]] [[[#url="john.com" Profile]]]]]
+[[[[John]] [[[#file="john.jpg" John's photo]]] [[[#url="https://john.com" Profile]]]]]
 }}}
 ```
 
@@ -97,30 +98,31 @@ SevenMark media elements can handle various file types:
 [[#file="audio.mp3" Audio File]]
 ```
 
-## Media Parameter Priority
+## Media Resolution and Link Priority
 
-When multiple parameters are specified, they are resolved in this priority order:
+When multiple parameters are specified:
 
-1. `#file` - Highest priority
-2. `#document` - Second priority
-3. `#category` - Third priority
-4. `#url` - Lowest priority (fallback)
+1. `#file` controls image/file rendering
+2. Link target (`href`) priority is: `#url` > `#document` > `#category` > `#user`
 
 Example:
 
 ```sevenmark
-// This will use #file (highest priority)
+// Renders image from #file, links to #url
 [[#file="image.png" #url="https://example.com/image.jpg" My Image]]
 
-// This will use #document (only #document and #url specified)
-[[#document="HomePage" #url="https://example.com" Home Link]]
+// Uses #document when #url is not provided
+[[#document="HomePage" Home Link]]
+
+// Links to a user page
+[[#user="Alice" Alice's page]]
 ```
 
 The preprocessing stage resolves media references to actual URLs:
 - **File namespace**: Resolved to storage URLs via API
 - **Document namespace**: Generates `/document/{title}` links
 - **Category namespace**: Generates `/category/{title}` links
-- **URL parameter**: Passes through unchanged
+- **URL parameter**: Rendered only for `http://` and `https://` schemes
 
 ## External Media Embeds
 

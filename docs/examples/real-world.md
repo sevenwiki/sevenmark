@@ -60,7 +60,7 @@ const response = await fetch('/api/auth/login', {
 
 ## Contributing
 
-Please read our [[#url="CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
 
 {{{#quote
 "Code is like humor. When you have to explain it, it's bad." - Cory House
@@ -343,7 +343,7 @@ telnet database-server 5432
 
 Need help? Contact our support team:
 
-- 📧 Email: [[#url="mailto:support@example.com" support@example.com]]
+- 📧 Contact: [[#url="https://support.example.com/contact" support@example.com]]
 - 💬 Live Chat: Available 9 AM - 5 PM EST  
 - 📚 Knowledge Base: [[#url="https://help.example.com" help.example.com]]
 

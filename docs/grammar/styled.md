@@ -28,9 +28,9 @@ Use `{{{` with parameters but no element identifier:
 ### Background Color
 
 ```sevenmark
-{{{ #bg_color="yellow" Text with yellow background }}}
-{{{ #bg_color="#f0f0f0" Text with light gray background }}}
-{{{ #color="white" #bg_color="black" White text on black background }}}
+{{{ #bgcolor="yellow" Text with yellow background }}}
+{{{ #bgcolor="#f0f0f0" Text with light gray background }}}
+{{{ #color="white" #bgcolor="black" White text on black background }}}
 ```
 
 ### Size
@@ -66,7 +66,7 @@ The `#style` parameter accepts any CSS-like styling:
 Multiple parameters can be used together:
 
 ```sevenmark
-{{{ #color="white" #bg_color="blue" #size="18px" #style="padding: 5px; border-radius: 3px"
+{{{ #color="white" #bgcolor="blue" #size="18px" #style="padding: 5px; border-radius: 3px"
 Styled text with multiple parameters
 }}}
 ```
@@ -80,7 +80,7 @@ Styled elements can contain other SevenMark syntax:
 This text is red and contains **bold** and *italic* formatting.
 }}}
 
-{{{ #bg_color="lightyellow" #style="padding: 10px"
+{{{ #bgcolor="lightyellow" #style="padding: 10px"
 Highlighted box with **important** information.
 }}}
 ```
@@ -90,7 +90,7 @@ Highlighted box with **important** information.
 ### Highlighting Important Text
 
 ```sevenmark
-{{{ #bg_color="yellow" #style="padding: 2px 5px"
+{{{ #bgcolor="yellow" #style="padding: 2px 5px"
 This is a highlighted warning!
 }}}
 ```
@@ -98,15 +98,15 @@ This is a highlighted warning!
 ### Creating Colored Labels
 
 ```sevenmark
-Status: {{{ #color="white" #bg_color="green" #style="padding: 3px 8px; border-radius: 3px" Active }}}
+Status: {{{ #color="white" #bgcolor="green" #style="padding: 3px 8px; border-radius: 3px" Active }}}
 
-Priority: {{{ #color="white" #bg_color="red" #style="padding: 3px 8px; border-radius: 3px" High }}}
+Priority: {{{ #color="white" #bgcolor="red" #style="padding: 3px 8px; border-radius: 3px" High }}}
 ```
 
 ### Emphasis Boxes
 
 ```sevenmark
-{{{ #bg_color="#f0f8ff" #style="border-left: 4px solid blue; padding: 10px; margin: 10px 0"
+{{{ #bgcolor="#f0f8ff" #style="border-left: 4px solid blue; padding: 10px; margin: 10px 0"
 **Note:** This is an informational box with custom styling.
 }}}
 ```
@@ -119,7 +119,7 @@ Priority: {{{ #color="white" #bg_color="red" #style="padding: 3px 8px; border-ra
 {{{#list #1
 [[Normal item]]
 [[{{{ #color="red" Important item }}}]]
-[[{{{ #bg_color="yellow" Highlighted item }}}]]
+[[{{{ #bgcolor="yellow" Highlighted item }}}]]
 }}}
 ```
 
@@ -154,10 +154,10 @@ Content in a styled box with gradient background, border, rounded corners, and s
 ## Nested Styled Elements
 
 ```sevenmark
-{{{ #bg_color="lightgray" #style="padding: 20px"
+{{{ #bgcolor="lightgray" #style="padding: 20px"
 Outer styled container
 
-{{{ #bg_color="white" #style="padding: 10px; margin: 10px 0"
+{{{ #bgcolor="white" #style="padding: 10px; margin: 10px 0"
 Inner styled container with different styling
 }}}
 
@@ -170,15 +170,15 @@ Back to outer styling
 ### Status Messages
 
 ```sevenmark
-{{{ #color="white" #bg_color="green" #style="padding: 10px; border-radius: 5px"
+{{{ #color="white" #bgcolor="green" #style="padding: 10px; border-radius: 5px"
 ✓ Success: Operation completed successfully.
 }}}
 
-{{{ #color="white" #bg_color="red" #style="padding: 10px; border-radius: 5px"
+{{{ #color="white" #bgcolor="red" #style="padding: 10px; border-radius: 5px"
 ✗ Error: Something went wrong.
 }}}
 
-{{{ #color="black" #bg_color="yellow" #style="padding: 10px; border-radius: 5px"
+{{{ #color="black" #bgcolor="yellow" #style="padding: 10px; border-radius: 5px"
 ⚠ Warning: Please review before proceeding.
 }}}
 ```
@@ -186,11 +186,11 @@ Back to outer styling
 ### Callout Boxes
 
 ```sevenmark
-{{{ #bg_color="#e7f3ff" #style="border-left: 4px solid #2196F3; padding: 15px"
+{{{ #bgcolor="#e7f3ff" #style="border-left: 4px solid #2196F3; padding: 15px"
 **Information:** This is an informational callout box.
 }}}
 
-{{{ #bg_color="#fff3e0" #style="border-left: 4px solid #ff9800; padding: 15px"
+{{{ #bgcolor="#fff3e0" #style="border-left: 4px solid #ff9800; padding: 15px"
 **Tip:** Here's a helpful tip for users.
 }}}
 ```
@@ -198,11 +198,11 @@ Back to outer styling
 ### Badges and Tags
 
 ```sevenmark
-{{{ #color="white" #bg_color="#2196F3" #style="padding: 2px 8px; border-radius: 12px; font-size: 12px"
+{{{ #color="white" #bgcolor="#2196F3" #style="padding: 2px 8px; border-radius: 12px; font-size: 12px"
 v2.0
 }}}
 
-{{{ #color="white" #bg_color="#4CAF50" #style="padding: 2px 8px; border-radius: 3px; font-size: 11px; text-transform: uppercase"
+{{{ #color="white" #bgcolor="#4CAF50" #style="padding: 2px 8px; border-radius: 3px; font-size: 11px; text-transform: uppercase"
 new
 }}}
 ```

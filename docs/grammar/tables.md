@@ -68,7 +68,7 @@ Use the `#y` parameter:
 {{{#table
 [[[[Header 1]] [[Header 2]]]]
 [[[[#color="red" Red text]] [[Normal cell]]]]
-[[[[#bg_color="yellow" Yellow background]] [[Normal cell]]]]
+[[[[#bgcolor="yellow" Yellow background]] [[Normal cell]]]]
 }}}
 ```
 

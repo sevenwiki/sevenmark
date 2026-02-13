@@ -75,7 +75,7 @@ Current time: [now] // This is a comment
 - Links: `[[#url="https://example.com" Link text]]`
 - Wiki Pages: `[[#document="PageName" Link text]]`
 - Categories: `[[#category="CategoryName" Link text]]`
-- Files: `[[#file="doc.pdf" #url="backup" Document]]`
+- Files: `[[#file="doc.pdf" #url="https://backup.example.com/doc.pdf" Document]]`
 
 ### Wiki Features
 

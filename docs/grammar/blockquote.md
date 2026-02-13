@@ -88,14 +88,14 @@ All standard parameters are supported:
 
 - `#style` - Custom CSS styling
 - `#color` - Text color
-- `#bg_color` - Background color
+- `#bgcolor` - Background color
 - `#size` - Font size
 - `#opacity` - Opacity level
 
 Example:
 
 ```sevenmark
-{{{#quote #color="blue" #bg_color="#f0f8ff" #style="padding:15px"
+{{{#quote #color="blue" #bgcolor="#f0f8ff" #style="padding:15px"
 A styled blockquote with custom colors and padding.
 }}}
 ```

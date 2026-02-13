@@ -6,11 +6,11 @@ SevenMark uses a parameter system to pass key-value data to elements.
 
 ## How Parameters Work
 
-Parameters are **generic key-value pairs** — the parser accepts any `#key="value"` without validating the key name. The parser stores all parameters in the AST, and it is up to the **renderer** (or postprocessor) to decide which parameter names are meaningful for each element type.
+Parameters are **generic key-value pairs** — the parser accepts `#key="value"` and stores it in AST without semantic validation. The key format itself is constrained to ASCII alphanumeric characters (`[A-Za-z0-9]+`), and meaning is decided by the **renderer** (or postprocessor).
 
 This means:
 - `#color`, `#style`, `#lang` are not special to the parser — they are conventions used by renderers
-- You can pass any parameter name and the parser will accept it
+- You can pass any **alphanumeric** parameter name and the parser will accept it
 - Unknown parameters are silently ignored by the renderer (they don't cause errors)
 
 ## Parameter Syntax
@@ -55,7 +55,7 @@ The following parameters are commonly recognized by SevenMark renderers. Remembe
 |-----------|-------------|---------|
 | `#style` | Inline CSS styles | Styled elements, tables, lists |
 | `#color` | Text color | Styled elements |
-| `#bg_color` | Background color | Styled elements |
+| `#bgcolor` | Background color | Styled elements |
 | `#size` | Font size | Styled elements |
 | `#opacity` | Opacity level | Styled elements |
 
