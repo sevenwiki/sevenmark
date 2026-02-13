@@ -49,7 +49,7 @@ pub fn render_list(ctx: &RenderContext) -> Markup {
     }
 
     // Render footnote contents with in_footnote flag set
-    let mut inner_ctx = RenderContext::new(ctx.config);
+    let mut inner_ctx = ctx.child();
     inner_ctx.in_footnote = true;
     inner_ctx.enter_suppress_soft_breaks();
 

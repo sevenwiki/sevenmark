@@ -57,6 +57,18 @@ impl<'a> RenderContext<'a> {
         }
     }
 
+    /// Create a fresh child context preserving config/converter.
+    /// Useful when re-rendering nested content (e.g., footnote lists).
+    pub fn child(&self) -> Self {
+        Self {
+            footnotes: Vec::new(),
+            in_footnote: false,
+            suppress_soft_breaks_depth: 0,
+            config: self.config,
+            converter: self.converter,
+        }
+    }
+
     /// Enter a context that suppresses SoftBreak rendering
     pub fn enter_suppress_soft_breaks(&mut self) {
         self.suppress_soft_breaks_depth += 1;

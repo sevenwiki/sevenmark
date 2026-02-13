@@ -14,7 +14,7 @@ pub fn render(ctx: &mut RenderContext) -> Markup {
     // Take footnotes and render them
     let footnotes = std::mem::take(&mut ctx.footnotes);
 
-    let mut inner_ctx = RenderContext::new(ctx.config);
+    let mut inner_ctx = ctx.child();
     inner_ctx.in_footnote = true;
 
     html! {

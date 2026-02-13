@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.21.6] - 2026-02-13
+
+### Fixed
+- **media renderer**: Blocked unsafe external link schemes in `#url` by allowing only `http://` and `https://` in rendered `href` values
+- **span mapping**: Preserved UTF-16 converter in footnote child rendering contexts so `render_document_with_spans` keeps source mapping inside footnote content
+- **internal links**: Percent-encoded `#document`, `#category`, and `#user` titles when building URLs to prevent broken links for spaces and reserved characters
+
+### Added
+- **sevenmark-html tests**: Added unit tests for external URL scheme sanitization and internal title URL encoding behavior
+
 ## [2.21.5] - 2026-02-08
 
 ### Added

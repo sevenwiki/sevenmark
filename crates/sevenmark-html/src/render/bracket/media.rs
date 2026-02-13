@@ -1,11 +1,38 @@
 //! Media element rendering
 
 use maud::{Markup, html};
+use percent_encoding::{AsciiSet, NON_ALPHANUMERIC, utf8_percent_encode};
 use sevenmark_parser::ast::{Element, Parameters, ResolvedMediaInfo, Span};
 
 use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
+
+fn sanitize_external_url(raw: &str) -> Option<String> {
+    let trimmed = raw.trim();
+    if trimmed.is_empty() {
+        return None;
+    }
+
+    let lower = trimmed.to_ascii_lowercase();
+    if lower.starts_with("http://") || lower.starts_with("https://") {
+        Some(trimmed.to_string())
+    } else {
+        None
+    }
+}
+
+// Encode path segment with RFC 3986 unreserved characters left as-is.
+const PATH_SEGMENT_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
+    .remove(b'-')
+    .remove(b'.')
+    .remove(b'_')
+    .remove(b'~');
+
+fn build_internal_href(base: &str, title: &str) -> String {
+    let encoded = utf8_percent_encode(title, PATH_SEGMENT_ENCODE_SET).to_string();
+    format!("{}{}", base, encoded)
+}
 
 pub fn render(
     span: &Span,
@@ -36,27 +63,29 @@ pub fn render(
 
     // href 우선순위: url > document > category > user
     let href: Option<String> = resolved_info.and_then(|r| {
-        r.url
-            .clone()
-            .or_else(|| {
-                r.document.as_ref().and_then(|d| {
-                    ctx.config
-                        .document_base_url
-                        .map(|base| format!("{}{}", base, d.title))
-                })
+        if let Some(url) = r.url.as_deref() {
+            return sanitize_external_url(url);
+        }
+
+        r.document
+            .as_ref()
+            .and_then(|d| {
+                ctx.config
+                    .document_base_url
+                    .map(|base| build_internal_href(base, &d.title))
             })
             .or_else(|| {
                 r.category.as_ref().and_then(|c| {
                     ctx.config
                         .category_base_url
-                        .map(|base| format!("{}{}", base, c.title))
+                        .map(|base| build_internal_href(base, &c.title))
                 })
             })
             .or_else(|| {
                 r.user.as_ref().and_then(|u| {
                     ctx.config
                         .user_base_url
-                        .map(|base| format!("{}{}", base, u.title))
+                        .map(|base| build_internal_href(base, &u.title))
                 })
             })
     });
@@ -64,8 +93,8 @@ pub fn render(
     // 링크 유효성 (외부 url은 항상 valid 취급)
     let href_valid = resolved_info
         .map(|r| {
-            if r.url.is_some() {
-                true // 외부 링크는 항상 valid
+            if let Some(url) = r.url.as_deref() {
+                sanitize_external_url(url).is_some()
             } else if let Some(doc) = &r.document {
                 doc.is_valid
             } else if let Some(cat) = &r.category {
@@ -158,5 +187,35 @@ pub fn render(
     } else {
         // 아무것도 없음
         html! {}
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sanitize_external_url_allows_http_https() {
+        assert_eq!(
+            sanitize_external_url("https://example.com/a?b=1"),
+            Some("https://example.com/a?b=1".to_string())
+        );
+        assert_eq!(
+            sanitize_external_url("HTTP://example.com"),
+            Some("HTTP://example.com".to_string())
+        );
+    }
+
+    #[test]
+    fn sanitize_external_url_rejects_unsafe_schemes() {
+        assert_eq!(sanitize_external_url("javascript:alert(1)"), None);
+        assert_eq!(sanitize_external_url("data:text/html,hi"), None);
+        assert_eq!(sanitize_external_url(""), None);
+    }
+
+    #[test]
+    fn build_internal_href_percent_encodes_title() {
+        let href = build_internal_href("/Document/", "A B/#?");
+        assert_eq!(href, "/Document/A%20B%2F%23%3F");
     }
 }

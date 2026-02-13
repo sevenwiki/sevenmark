@@ -16,3 +16,4 @@ sevenmark-utils = { workspace = true }
 
 # HTML rendering
 maud = { workspace = true }
+percent-encoding = { workspace = true }
