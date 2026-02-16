@@ -32,7 +32,7 @@ axum = { version = "0.8.8", features = ["multipart", "macros"] }
 tokio = { version = "1.49.0", features = ["full"] }
 utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "debug-embed"] }
-uuid = { version = "1.20.0", features = ["v7"] }
+uuid = { version = "1.21.0", features = ["v7"] }
 dotenvy = "0.15.7"
 anyhow = "1.0.101"
 
