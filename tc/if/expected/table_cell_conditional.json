@@ -1,0 +1,81 @@
+[
+  {
+    "Table": {
+      "span": {
+        "start": 0,
+        "end": 75
+      },
+      "parameters": {},
+      "children": [
+        {
+          "Row": {
+            "span": {
+              "start": 9,
+              "end": 72
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 12,
+                    "end": 29
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 15,
+                          "end": 26
+                        },
+                        "value": "Normal Cell"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Conditional": {
+                  "span": {
+                    "start": 29,
+                    "end": 69
+                  },
+                  "condition": {
+                    "BoolLiteral": {
+                      "span": {
+                        "start": 36,
+                        "end": 40
+                      },
+                      "value": true
+                    }
+                  },
+                  "cells": [
+                    {
+                      "span": {
+                        "start": 44,
+                        "end": 65
+                      },
+                      "parameters": {},
+                      "children": [
+                        {
+                          "Text": {
+                            "span": {
+                              "start": 46,
+                              "end": 62
+                            },
+                            "value": "Conditional Cell"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

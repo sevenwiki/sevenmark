@@ -1,0 +1,47 @@
+[
+  {
+    "Fold": {
+      "span": {
+        "start": 0,
+        "end": 49
+      },
+      "parameters": {},
+      "summary": {
+        "span": {
+          "start": 8,
+          "end": 27
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 11,
+                "end": 24
+              },
+              "value": "first content"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 27,
+          "end": 46
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 29,
+                "end": 43
+              },
+              "value": "second content"
+            }
+          }
+        ]
+      }
+    }
+  }
+]

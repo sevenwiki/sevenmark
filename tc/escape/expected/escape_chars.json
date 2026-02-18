@@ -1,0 +1,182 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 20
+      },
+      "value": "Escaped characters: "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 20,
+        "end": 22
+      },
+      "value": "{"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 22,
+        "end": 23
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 23,
+        "end": 25
+      },
+      "value": "}"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 25,
+        "end": 26
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 26,
+        "end": 28
+      },
+      "value": "["
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 28,
+        "end": 29
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 29,
+        "end": 31
+      },
+      "value": "]"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 31,
+        "end": 32
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 32,
+        "end": 34
+      },
+      "value": "*"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 34,
+        "end": 35
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 35,
+        "end": 37
+      },
+      "value": "_"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 37,
+        "end": 38
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 38,
+        "end": 40
+      },
+      "value": "~"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 40,
+        "end": 41
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 41,
+        "end": 43
+      },
+      "value": "^"
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 43,
+        "end": 44
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 44,
+        "end": 46
+      },
+      "value": ","
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 46,
+        "end": 47
+      },
+      "value": " "
+    }
+  },
+  {
+    "Escape": {
+      "span": {
+        "start": 47,
+        "end": 49
+      },
+      "value": "\\"
+    }
+  }
+]

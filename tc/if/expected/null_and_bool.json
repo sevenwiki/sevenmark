@@ -1,0 +1,188 @@
+[
+  {
+    "If": {
+      "span": {
+        "start": 0,
+        "end": 40
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
+            "start": 7,
+            "end": 19
+          },
+          "left": {
+            "Null": {
+              "span": {
+                "start": 7,
+                "end": 11
+              }
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 12,
+              "end": 14
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "Null": {
+              "span": {
+                "start": 15,
+                "end": 19
+              }
+            }
+          }
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 20,
+              "end": 36
+            },
+            "value": "null equals null"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 40,
+        "end": 41
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 41,
+        "end": 42
+      }
+    }
+  },
+  {
+    "If": {
+      "span": {
+        "start": 42,
+        "end": 82
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
+            "start": 49,
+            "end": 61
+          },
+          "left": {
+            "BoolLiteral": {
+              "span": {
+                "start": 49,
+                "end": 53
+              },
+              "value": true
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 54,
+              "end": 56
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 57,
+                "end": 61
+              },
+              "value": true
+            }
+          }
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 62,
+              "end": 78
+            },
+            "value": "true equals true"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 82,
+        "end": 83
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 83,
+        "end": 84
+      }
+    }
+  },
+  {
+    "If": {
+      "span": {
+        "start": 84,
+        "end": 128
+      },
+      "condition": {
+        "Comparison": {
+          "span": {
+            "start": 91,
+            "end": 105
+          },
+          "left": {
+            "BoolLiteral": {
+              "span": {
+                "start": 91,
+                "end": 96
+              },
+              "value": false
+            }
+          },
+          "operator": {
+            "span": {
+              "start": 97,
+              "end": 99
+            },
+            "kind": "Equal"
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 100,
+                "end": 105
+              },
+              "value": false
+            }
+          }
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 106,
+              "end": 124
+            },
+            "value": "false equals false"
+          }
+        }
+      ]
+    }
+  }
+]

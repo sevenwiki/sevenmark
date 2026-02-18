@@ -1,0 +1,224 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 14
+      },
+      "value": "This text has "
+    }
+  },
+  {
+    "Bold": {
+      "span": {
+        "start": 14,
+        "end": 22
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 16,
+              "end": 20
+            },
+            "value": "bold"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 22,
+        "end": 23
+      },
+      "value": ","
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 23,
+        "end": 24
+      },
+      "value": " "
+    }
+  },
+  {
+    "Italic": {
+      "span": {
+        "start": 24,
+        "end": 32
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 25,
+              "end": 31
+            },
+            "value": "italic"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 32,
+        "end": 33
+      },
+      "value": ","
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 33,
+        "end": 34
+      },
+      "value": " "
+    }
+  },
+  {
+    "Underline": {
+      "span": {
+        "start": 34,
+        "end": 48
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 36,
+              "end": 46
+            },
+            "value": "underlined"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 48,
+        "end": 49
+      },
+      "value": ","
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 49,
+        "end": 50
+      },
+      "value": " "
+    }
+  },
+  {
+    "Strikethrough": {
+      "span": {
+        "start": 50,
+        "end": 67
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 52,
+              "end": 65
+            },
+            "value": "strikethrough"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 67,
+        "end": 68
+      },
+      "value": ","
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 68,
+        "end": 69
+      },
+      "value": " "
+    }
+  },
+  {
+    "Superscript": {
+      "span": {
+        "start": 69,
+        "end": 84
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 71,
+              "end": 82
+            },
+            "value": "superscript"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 84,
+        "end": 85
+      },
+      "value": ","
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 85,
+        "end": 90
+      },
+      "value": " and "
+    }
+  },
+  {
+    "Subscript": {
+      "span": {
+        "start": 90,
+        "end": 103
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 92,
+              "end": 101
+            },
+            "value": "subscript"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 103,
+        "end": 115
+      },
+      "value": " formatting."
+    }
+  }
+]

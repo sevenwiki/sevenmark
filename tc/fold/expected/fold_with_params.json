@@ -1,0 +1,85 @@
+[
+  {
+    "Fold": {
+      "span": {
+        "start": 0,
+        "end": 92
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 8,
+            "end": 28
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 17,
+                  "end": 26
+                },
+                "value": "color:red"
+              }
+            }
+          ]
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 28,
+          "end": 70
+        },
+        "parameters": {
+          "bgcolor": {
+            "span": {
+              "start": 30,
+              "end": 46
+            },
+            "key": "bgcolor",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 40,
+                    "end": 44
+                  },
+                  "value": "blue"
+                }
+              }
+            ]
+          }
+        },
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 49,
+                "end": 67
+              },
+              "value": "content with param"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 70,
+          "end": 89
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 72,
+                "end": 86
+              },
+              "value": "normal content"
+            }
+          }
+        ]
+      }
+    }
+  }
+]

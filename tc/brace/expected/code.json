@@ -1,0 +1,31 @@
+[
+  {
+    "Code": {
+      "span": {
+        "start": 0,
+        "end": 70
+      },
+      "parameters": {
+        "lang": {
+          "span": {
+            "start": 8,
+            "end": 22
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 16,
+                  "end": 20
+                },
+                "value": "rust"
+              }
+            }
+          ]
+        }
+      },
+      "value": "fn main() {\n    println!(\"Hello, world!\");\n}\n"
+    }
+  }
+]

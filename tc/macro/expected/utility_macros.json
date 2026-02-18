@@ -1,0 +1,28 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 18
+      },
+      "value": "Before null macro "
+    }
+  },
+  {
+    "Null": {
+      "span": {
+        "start": 18,
+        "end": 24
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 24,
+        "end": 42
+      },
+      "value": " after null macro."
+    }
+  }
+]

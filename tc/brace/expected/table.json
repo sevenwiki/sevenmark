@@ -1,0 +1,187 @@
+[
+  {
+    "Table": {
+      "span": {
+        "start": 0,
+        "end": 73
+      },
+      "parameters": {},
+      "children": [
+        {
+          "Row": {
+            "span": {
+              "start": 9,
+              "end": 40
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 12,
+                    "end": 25
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 14,
+                          "end": 20
+                        },
+                        "value": "Cell 1"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 20,
+                          "end": 21
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 21,
+                          "end": 22
+                        },
+                        "value": "1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 25,
+                    "end": 37
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 27,
+                          "end": 33
+                        },
+                        "value": "Cell 1"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 33,
+                          "end": 34
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 34,
+                          "end": 35
+                        },
+                        "value": "2"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Row": {
+            "span": {
+              "start": 40,
+              "end": 70
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 42,
+                    "end": 55
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 44,
+                          "end": 50
+                        },
+                        "value": "Cell 2"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 50,
+                          "end": 51
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 51,
+                          "end": 52
+                        },
+                        "value": "1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 55,
+                    "end": 67
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 57,
+                          "end": 63
+                        },
+                        "value": "Cell 2"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 63,
+                          "end": 64
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 64,
+                          "end": 65
+                        },
+                        "value": "2"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

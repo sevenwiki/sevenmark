@@ -1,0 +1,295 @@
+[
+  {
+    "Styled": {
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "end": 65,
+              "start": 35
+            },
+            "value": "Styled element with parameters"
+          }
+        }
+      ],
+      "parameters": {
+        "size": {
+          "key": "size",
+          "span": {
+            "end": 35,
+            "start": 22
+          },
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "end": 33,
+                  "start": 29
+                },
+                "value": "14px"
+              }
+            }
+          ]
+        },
+        "style": {
+          "key": "style",
+          "span": {
+            "end": 22,
+            "start": 3
+          },
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "end": 20,
+                  "start": 11
+                },
+                "value": "color:red"
+              }
+            }
+          ]
+        }
+      },
+      "span": {
+        "end": 69,
+        "start": 0
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 70,
+        "start": 69
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 71,
+        "start": 70
+      }
+    }
+  },
+  {
+    "Table": {
+      "children": [
+        {
+          "Row": {
+            "children": [
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 91,
+                          "start": 85
+                        },
+                        "value": "Cell 1"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 92,
+                          "start": 91
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 93,
+                          "start": 92
+                        },
+                        "value": "1"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 96,
+                    "start": 83
+                  }
+                }
+              },
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 104,
+                          "start": 98
+                        },
+                        "value": "Cell 1"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 105,
+                          "start": 104
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 106,
+                          "start": 105
+                        },
+                        "value": "2"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 108,
+                    "start": 96
+                  }
+                }
+              }
+            ],
+            "parameters": {},
+            "span": {
+              "end": 111,
+              "start": 80
+            }
+          }
+        },
+        {
+          "Row": {
+            "children": [
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 121,
+                          "start": 115
+                        },
+                        "value": "Cell 2"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 122,
+                          "start": 121
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 123,
+                          "start": 122
+                        },
+                        "value": "1"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 126,
+                    "start": 113
+                  }
+                }
+              },
+              {
+                "Cell": {
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 134,
+                          "start": 128
+                        },
+                        "value": "Cell 2"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 135,
+                          "start": 134
+                        },
+                        "value": ","
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "end": 136,
+                          "start": 135
+                        },
+                        "value": "2"
+                      }
+                    }
+                  ],
+                  "parameters": {},
+                  "span": {
+                    "end": 138,
+                    "start": 126
+                  }
+                }
+              }
+            ],
+            "parameters": {},
+            "span": {
+              "end": 141,
+              "start": 111
+            }
+          }
+        }
+      ],
+      "parameters": {},
+      "span": {
+        "end": 144,
+        "start": 71
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 145,
+        "start": 144
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 146,
+        "start": 145
+      }
+    }
+  },
+  {
+    "Code": {
+      "parameters": {
+        "lang": {
+          "key": "lang",
+          "span": {
+            "end": 160,
+            "start": 154
+          },
+          "value": []
+        }
+      },
+      "span": {
+        "end": 233,
+        "start": 146
+      },
+      "value": "=javascript\nconsole.log(\"Code block\");\nfunction test() { return 42; }\n"
+    }
+  }
+]

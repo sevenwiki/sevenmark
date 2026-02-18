@@ -1,0 +1,5 @@
+[package]
+name = "sevenmark-wasm"
+
+[package.metadata.wasm-pack.profile.release]
+wee-alloc = false

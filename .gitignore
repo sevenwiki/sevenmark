@@ -1,0 +1,16 @@
+/target
+.idea
+pkg/
+logs/
+.env
+CLAUDE.md
+.claude
+.serena
+mediawiki-master
+nul
+
+ParseResult_Monaco.json
+ParseResult.json
+ProcessResult.json
+ProcessedDocument.json
+RenderResult.html

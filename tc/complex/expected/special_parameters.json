@@ -1,0 +1,255 @@
+[
+  {
+    "Styled": {
+      "span": {
+        "start": 0,
+        "end": 95
+      },
+      "parameters": {
+        "color": {
+          "span": {
+            "start": 25,
+            "end": 63
+          },
+          "key": "color",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 33,
+                  "end": 61
+                },
+                "value": "with spaces and symbols!@#$%"
+              }
+            }
+          ]
+        },
+        "size": {
+          "span": {
+            "start": 15,
+            "end": 25
+          },
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 22,
+                  "end": 23
+                },
+                "value": " "
+              }
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 3,
+            "end": 15
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 12,
+                  "end": 13
+                },
+                "value": " "
+              }
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 63,
+              "end": 91
+            },
+            "value": "Empty and special parameters"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 95,
+        "end": 96
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 96,
+        "end": 97
+      }
+    }
+  },
+  {
+    "Fold": {
+      "span": {
+        "start": 97,
+        "end": 216
+      },
+      "parameters": {
+        "empty": {
+          "span": {
+            "start": 105,
+            "end": 113
+          },
+          "key": "empty",
+          "value": []
+        },
+        "flag": {
+          "span": {
+            "start": 113,
+            "end": 119
+          },
+          "key": "flag",
+          "value": []
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 119,
+          "end": 183
+        },
+        "parameters": {
+          "special": {
+            "span": {
+              "start": 121,
+              "end": 153
+            },
+            "key": "special",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 131,
+                    "end": 137
+                  },
+                  "value": "quotes"
+                }
+              },
+              {
+                "Escape": {
+                  "span": {
+                    "start": 137,
+                    "end": 139
+                  },
+                  "value": "\""
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 139,
+                    "end": 142
+                  },
+                  "value": "and"
+                }
+              },
+              {
+                "Escape": {
+                  "span": {
+                    "start": 142,
+                    "end": 144
+                  },
+                  "value": "\\"
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 144,
+                    "end": 151
+                  },
+                  "value": "slashes"
+                }
+              }
+            ]
+          }
+        },
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 156,
+                "end": 180
+              },
+              "value": "Title with special chars"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 183,
+          "end": 213
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 185,
+                "end": 210
+              },
+              "value": "Content with empty params"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 216,
+        "end": 217
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 217,
+        "end": 218
+      }
+    }
+  },
+  {
+    "Code": {
+      "span": {
+        "start": 218,
+        "end": 290
+      },
+      "parameters": {
+        "lang": {
+          "span": {
+            "start": 226,
+            "end": 237
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 234,
+                  "end": 235
+                },
+                "value": " "
+              }
+            }
+          ]
+        }
+      },
+      "value": "// Empty language parameter\ncode without language\n"
+    }
+  }
+]

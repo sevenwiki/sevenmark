@@ -1,0 +1,7 @@
+{{{#define
+#x=""
+}}}
+
+{{{#if [var(x)] == "1" && int([var(y)]) == "2"
+aefwefawef
+}}}

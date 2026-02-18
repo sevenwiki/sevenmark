@@ -1,0 +1,5 @@
+{{{#table #style="border-collapse:collapse"
+[[[[**Header 1**]] [[*Header 2*]] [[~~Header 3~~]]]]
+[[[[Simple cell]] [[{{{#code #lang="python" print("nested code") }}}]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
+[[[[Age: [age(1995-06-20)]]] [[Current: [now]]] [[Quote: {{{#quote Short quote }}}]]]]
+}}}

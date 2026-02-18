@@ -1,0 +1,79 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 14
+      },
+      "value": "Current time: "
+    }
+  },
+  {
+    "TimeNow": {
+      "span": {
+        "start": 14,
+        "end": 19
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 19,
+        "end": 20
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 20,
+        "end": 37
+      },
+      "value": "Age calculation: "
+    }
+  },
+  {
+    "Age": {
+      "span": {
+        "start": 37,
+        "end": 54
+      },
+      "date": "1990-01-15"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 54,
+        "end": 55
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 55,
+        "end": 66
+      },
+      "value": "Line break:"
+    }
+  },
+  {
+    "HardBreak": {
+      "span": {
+        "start": 66,
+        "end": 70
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 70,
+        "end": 79
+      },
+      "value": "Next line"
+    }
+  }
+]

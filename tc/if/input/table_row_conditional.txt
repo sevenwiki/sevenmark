@@ -1,0 +1,4 @@
+{{{#table
+[[[[Normal Row Cell]]]]
+{{{#if true :: [[[[Conditional Row Cell]]]] }}}
+}}}

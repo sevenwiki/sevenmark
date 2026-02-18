@@ -1,0 +1,181 @@
+[
+  {
+    "If": {
+      "span": {
+        "start": 0,
+        "end": 33
+      },
+      "condition": {
+        "And": {
+          "span": {
+            "start": 7,
+            "end": 19
+          },
+          "operator": {
+            "span": {
+              "start": 12,
+              "end": 14
+            },
+            "kind": "And"
+          },
+          "left": {
+            "BoolLiteral": {
+              "span": {
+                "start": 7,
+                "end": 11
+              },
+              "value": true
+            }
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 15,
+                "end": 19
+              },
+              "value": true
+            }
+          }
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 20,
+              "end": 29
+            },
+            "value": "both true"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 33,
+        "end": 34
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 34,
+        "end": 35
+      }
+    }
+  },
+  {
+    "If": {
+      "span": {
+        "start": 35,
+        "end": 71
+      },
+      "condition": {
+        "Or": {
+          "span": {
+            "start": 42,
+            "end": 55
+          },
+          "operator": {
+            "span": {
+              "start": 47,
+              "end": 49
+            },
+            "kind": "Or"
+          },
+          "left": {
+            "BoolLiteral": {
+              "span": {
+                "start": 42,
+                "end": 46
+              },
+              "value": true
+            }
+          },
+          "right": {
+            "BoolLiteral": {
+              "span": {
+                "start": 50,
+                "end": 55
+              },
+              "value": false
+            }
+          }
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 56,
+              "end": 67
+            },
+            "value": "either true"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 71,
+        "end": 72
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 72,
+        "end": 73
+      }
+    }
+  },
+  {
+    "If": {
+      "span": {
+        "start": 73,
+        "end": 100
+      },
+      "condition": {
+        "Not": {
+          "span": {
+            "start": 80,
+            "end": 86
+          },
+          "operator": {
+            "span": {
+              "start": 80,
+              "end": 81
+            },
+            "kind": "Not"
+          },
+          "inner": {
+            "BoolLiteral": {
+              "span": {
+                "start": 81,
+                "end": 86
+              },
+              "value": false
+            }
+          }
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 87,
+              "end": 96
+            },
+            "value": "not false"
+          }
+        }
+      ]
+    }
+  }
+]

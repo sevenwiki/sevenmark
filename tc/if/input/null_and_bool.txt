@@ -1,0 +1,11 @@
+{{{#if null == null
+null equals null
+}}}
+
+{{{#if true == true
+true equals true
+}}}
+
+{{{#if false == false
+false equals false
+}}}

@@ -1,0 +1,385 @@
+[
+  {
+    "Styled": {
+      "span": {
+        "start": 0,
+        "end": 144
+      },
+      "parameters": {
+        "bgcolor": {
+          "span": {
+            "start": 68,
+            "end": 86
+          },
+          "key": "bgcolor",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 78,
+                  "end": 84
+                },
+                "value": "yellow"
+              }
+            }
+          ]
+        },
+        "color": {
+          "span": {
+            "start": 54,
+            "end": 68
+          },
+          "key": "color",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 62,
+                  "end": 66
+                },
+                "value": "blue"
+              }
+            }
+          ]
+        },
+        "opacity": {
+          "span": {
+            "start": 86,
+            "end": 101
+          },
+          "key": "opacity",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 96,
+                  "end": 99
+                },
+                "value": "0.8"
+              }
+            }
+          ]
+        },
+        "size": {
+          "span": {
+            "start": 41,
+            "end": 54
+          },
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 48,
+                  "end": 52
+                },
+                "value": "18px"
+              }
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 3,
+            "end": 41
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 12,
+                  "end": 39
+                },
+                "value": "color:red; font-weight:bold"
+              }
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 101,
+              "end": 140
+            },
+            "value": "Maximum styled text with all parameters"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 144,
+        "end": 145
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 145,
+        "end": 146
+      }
+    }
+  },
+  {
+    "Fold": {
+      "span": {
+        "start": 146,
+        "end": 370
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 154,
+            "end": 188
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 163,
+                  "end": 186
+                },
+                "value": "border:2px dashed green"
+              }
+            }
+          ]
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 188,
+          "end": 266
+        },
+        "parameters": {
+          "color": {
+            "span": {
+              "start": 203,
+              "end": 219
+            },
+            "key": "color",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 211,
+                    "end": 217
+                  },
+                  "value": "purple"
+                }
+              }
+            ]
+          },
+          "size": {
+            "span": {
+              "start": 190,
+              "end": 203
+            },
+            "key": "size",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 197,
+                    "end": 201
+                  },
+                  "value": "14px"
+                }
+              }
+            ]
+          }
+        },
+        "children": [
+          {
+            "Bold": {
+              "span": {
+                "start": 222,
+                "end": 238
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 224,
+                      "end": 236
+                    },
+                    "value": "Styled title"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 238,
+                "end": 263
+              },
+              "value": " with multiple parameters"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 266,
+          "end": 367
+        },
+        "parameters": {
+          "bgcolor": {
+            "span": {
+              "start": 268,
+              "end": 289
+            },
+            "key": "bgcolor",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 278,
+                    "end": 287
+                  },
+                  "value": "lightblue"
+                }
+              }
+            ]
+          },
+          "opacity": {
+            "span": {
+              "start": 289,
+              "end": 304
+            },
+            "key": "opacity",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 299,
+                    "end": 302
+                  },
+                  "value": "0.9"
+                }
+              }
+            ]
+          },
+          "style": {
+            "span": {
+              "start": 304,
+              "end": 326
+            },
+            "key": "style",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 312,
+                    "end": 324
+                  },
+                  "value": "padding:10px"
+                }
+              }
+            ]
+          }
+        },
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 329,
+                "end": 364
+              },
+              "value": "Content with background and opacity"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 370,
+        "end": 371
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 371,
+        "end": 372
+      }
+    }
+  },
+  {
+    "Code": {
+      "span": {
+        "start": 372,
+        "end": 519
+      },
+      "parameters": {
+        "lang": {
+          "span": {
+            "start": 380,
+            "end": 400
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 388,
+                  "end": 398
+                },
+                "value": "javascript"
+              }
+            }
+          ]
+        },
+        "size": {
+          "span": {
+            "start": 438,
+            "end": 451
+          },
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 445,
+                  "end": 449
+                },
+                "value": "12px"
+              }
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 400,
+            "end": 438
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 408,
+                  "end": 436
+                },
+                "value": "background:black; color:lime"
+              }
+            }
+          ]
+        }
+      },
+      "value": "console.log(\"Styled code block\");\nfunction test() { return 42; }\n"
+    }
+  }
+]

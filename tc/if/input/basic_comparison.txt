@@ -1,0 +1,15 @@
+{{{#if 5 == 5
+equal
+}}}
+
+{{{#if 5 != 3
+not equal
+}}}
+
+{{{#if 10 > 5
+greater
+}}}
+
+{{{#if 3 < 8
+less
+}}}

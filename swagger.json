@@ -1,0 +1,308 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "sevenmark-server",
+    "description": "sevenmark/server",
+    "contact": {
+      "name": "Levi Lim",
+      "email": "shiueo.csh@gmail.com"
+    },
+    "license": {
+      "name": "AGPL-3.0-only",
+      "identifier": "AGPL-3.0-only"
+    },
+    "version": "2.8.13"
+  },
+  "paths": {
+    "/health-check": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "operationId": "health_check",
+        "responses": {
+          "204": {
+            "description": "Service is healthy and running"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/v0/render-discussion": {
+      "post": {
+        "tags": [
+          "Render"
+        ],
+        "operationId": "render_discussion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderDiscussionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Discussion rendered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderedDiscussion"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/v0/render-document": {
+      "post": {
+        "tags": [
+          "Render"
+        ],
+        "operationId": "render_document",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderDocumentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Document rendered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderedDocument"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "status",
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "details": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "RenderDiscussionRequest": {
+        "type": "object",
+        "required": [
+          "content",
+          "file_base_url",
+          "document_base_url",
+          "category_base_url"
+        ],
+        "properties": {
+          "category_base_url": {
+            "type": "string",
+            "description": "Base URL for category links (e.g., \"/Category/\")"
+          },
+          "content": {
+            "type": "string",
+            "description": "Raw SevenMark content to render"
+          },
+          "document_base_url": {
+            "type": "string",
+            "description": "Base URL for document links (e.g., \"/Document/\")"
+          },
+          "file_base_url": {
+            "type": "string",
+            "description": "Base URL for file/media (e.g., Cloudflare CDN URL)"
+          }
+        }
+      },
+      "RenderDocumentRequest": {
+        "type": "object",
+        "required": [
+          "content",
+          "edit_url",
+          "file_base_url",
+          "document_base_url",
+          "category_base_url"
+        ],
+        "properties": {
+          "category_base_url": {
+            "type": "string",
+            "description": "Base URL for category links (e.g., \"/Category/\")"
+          },
+          "content": {
+            "type": "string",
+            "description": "Raw SevenMark content to render"
+          },
+          "document_base_url": {
+            "type": "string",
+            "description": "Base URL for document links (e.g., \"/Document/\")"
+          },
+          "edit_url": {
+            "type": "string",
+            "description": "Edit URL for section edit links (e.g., \"/edit/Document/대문\")"
+          },
+          "file_base_url": {
+            "type": "string",
+            "description": "Base URL for file/media (e.g., Cloudflare CDN URL)"
+          }
+        }
+      },
+      "RenderedDiscussion": {
+        "type": "object",
+        "required": [
+          "html",
+          "user_mentions"
+        ],
+        "properties": {
+          "html": {
+            "type": "string",
+            "description": "Rendered HTML content"
+          },
+          "user_mentions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "User mention UUIDs collected from the content",
+            "uniqueItems": true
+          }
+        }
+      },
+      "RenderedDocument": {
+        "type": "object",
+        "required": [
+          "html",
+          "categories",
+          "references",
+          "user_mentions",
+          "sections"
+        ],
+        "properties": {
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Document categories",
+            "uniqueItems": true
+          },
+          "html": {
+            "type": "string",
+            "description": "Rendered HTML content"
+          },
+          "redirect": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "Redirect target if this is a redirect page"
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Referenced documents (for backlinks)"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SectionInfo"
+            },
+            "description": "Section information with byte offsets for section editing"
+          },
+          "user_mentions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "User mention UUIDs collected from the document",
+            "uniqueItems": true
+          }
+        }
+      },
+      "SectionInfo": {
+        "type": "object",
+        "description": "Section range information for frontend consumption",
+        "required": [
+          "section_index",
+          "level",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "end": {
+            "type": "integer",
+            "description": "Section end byte offset (next same/higher level header or document end)",
+            "minimum": 0
+          },
+          "level": {
+            "type": "integer",
+            "description": "Header level (1-6)",
+            "minimum": 0
+          },
+          "section_index": {
+            "type": "integer",
+            "description": "Section index (same as Header's section_index)",
+            "minimum": 0
+          },
+          "start": {
+            "type": "integer",
+            "description": "Section start byte offset (header start position)",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Health endpoints"
+    },
+    {
+      "name": "Render",
+      "description": "Document rendering endpoints"
+    }
+  ]
+}

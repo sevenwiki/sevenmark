@@ -1,0 +1,894 @@
+[
+  {
+    "Header": {
+      "span": {
+        "start": 0,
+        "end": 37
+      },
+      "level": 1,
+      "is_folded": false,
+      "section_index": 1,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 2,
+              "end": 36
+            },
+            "value": "SevenMark Parser API Documentation"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 37,
+        "end": 38
+      }
+    }
+  },
+  {
+    "Header": {
+      "span": {
+        "start": 38,
+        "end": 50
+      },
+      "level": 2,
+      "is_folded": false,
+      "section_index": 2,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 41,
+              "end": 49
+            },
+            "value": "Overview"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 50,
+        "end": 51
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 51,
+        "end": 76
+      },
+      "value": "This document covers the "
+    }
+  },
+  {
+    "Bold": {
+      "span": {
+        "start": 76,
+        "end": 89
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 78,
+              "end": 87
+            },
+            "value": "SevenMark"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 89,
+        "end": 120
+      },
+      "value": " parsing engine implementation."
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 120,
+        "end": 121
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 121,
+        "end": 122
+      }
+    }
+  },
+  {
+    "Fold": {
+      "span": {
+        "start": 122,
+        "end": 371
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 130,
+            "end": 175
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 139,
+                  "end": 173
+                },
+                "value": "border:1px solid #ddd; margin:10px"
+              }
+            }
+          ]
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 175,
+          "end": 221
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Bold": {
+              "span": {
+                "start": 177,
+                "end": 198
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 179,
+                      "end": 196
+                    },
+                    "value": "Table of Contents"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 198,
+                "end": 199
+              },
+              "value": " "
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 199,
+                "end": 200
+              },
+              "value": "_"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 200,
+                "end": 217
+              },
+              "value": "(click to expand)"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 217,
+                "end": 218
+              },
+              "value": "_"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 221,
+          "end": 368
+        },
+        "parameters": {},
+        "children": [
+          {
+            "List": {
+              "span": {
+                "start": 224,
+                "end": 364
+              },
+              "kind": "1",
+              "parameters": {
+                "1": {
+                  "span": {
+                    "start": 232,
+                    "end": 236
+                  },
+                  "key": "1",
+                  "value": []
+                }
+              },
+              "children": [
+                {
+                  "Item": {
+                    "span": {
+                      "start": 236,
+                      "end": 263
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 238,
+                            "end": 260
+                          },
+                          "value": "Introduction and Setup"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 263,
+                      "end": 284
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 265,
+                            "end": 281
+                          },
+                          "value": "Core API Methods"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 284,
+                      "end": 303
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 286,
+                            "end": 300
+                          },
+                          "value": "Error Handling"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 303,
+                      "end": 334
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 305,
+                            "end": 331
+                          },
+                          "value": "Performance Considerations"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Item": {
+                    "span": {
+                      "start": 334,
+                      "end": 361
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 336,
+                            "end": 358
+                          },
+                          "value": "Examples and Tutorials"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 371,
+        "end": 372
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 372,
+        "end": 373
+      }
+    }
+  },
+  {
+    "Header": {
+      "span": {
+        "start": 373,
+        "end": 389
+      },
+      "level": 2,
+      "is_folded": false,
+      "section_index": 3,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 376,
+              "end": 388
+            },
+            "value": "Core Methods"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 389,
+        "end": 390
+      }
+    }
+  },
+  {
+    "Table": {
+      "span": {
+        "start": 390,
+        "end": 683
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 399,
+            "end": 446
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 408,
+                  "end": 444
+                },
+                "value": "border-collapse:collapse; width:100%"
+              }
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Row": {
+            "span": {
+              "start": 446,
+              "end": 505
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 448,
+                    "end": 463
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 450,
+                          "end": 460
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 452,
+                                "end": 458
+                              },
+                              "value": "Method"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 463,
+                    "end": 483
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 465,
+                          "end": 480
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 467,
+                                "end": 478
+                              },
+                              "value": "Description"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 483,
+                    "end": 502
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 485,
+                          "end": 500
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 487,
+                                "end": 498
+                              },
+                              "value": "Return Type"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Row": {
+            "span": {
+              "start": 505,
+              "end": 595
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 507,
+                    "end": 530
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 509,
+                          "end": 515
+                        },
+                        "value": "`parse"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 515,
+                          "end": 516
+                        },
+                        "value": "_"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 516,
+                          "end": 527
+                        },
+                        "value": "document()`"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 530,
+                    "end": 565
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 532,
+                          "end": 562
+                        },
+                        "value": "Parses full SevenMark document"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 565,
+                    "end": 592
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 567,
+                          "end": 571
+                        },
+                        "value": "`Vec"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 571,
+                          "end": 572
+                        },
+                        "value": "<"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 572,
+                          "end": 590
+                        },
+                        "value": "SevenMarkElement>`"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Row": {
+            "span": {
+              "start": 595,
+              "end": 680
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 597,
+                    "end": 620
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 599,
+                          "end": 607
+                        },
+                        "value": "`element"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 607,
+                          "end": 608
+                        },
+                        "value": "_"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 608,
+                          "end": 617
+                        },
+                        "value": "parser()`"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 620,
+                    "end": 651
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 622,
+                          "end": 648
+                        },
+                        "value": "Parses individual elements"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 651,
+                    "end": 677
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 653,
+                          "end": 660
+                        },
+                        "value": "`Result"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 660,
+                          "end": 661
+                        },
+                        "value": "<"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 661,
+                          "end": 664
+                        },
+                        "value": "Vec"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 664,
+                          "end": 665
+                        },
+                        "value": "<"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 665,
+                          "end": 675
+                        },
+                        "value": "Element>>`"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 683,
+        "end": 684
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 684,
+        "end": 685
+      }
+    }
+  },
+  {
+    "Header": {
+      "span": {
+        "start": 685,
+        "end": 703
+      },
+      "level": 3,
+      "is_folded": false,
+      "section_index": 4,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 689,
+              "end": 702
+            },
+            "value": "Example Usage"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 703,
+        "end": 704
+      }
+    }
+  },
+  {
+    "Code": {
+      "span": {
+        "start": 704,
+        "end": 935
+      },
+      "parameters": {
+        "lang": {
+          "span": {
+            "start": 712,
+            "end": 726
+          },
+          "key": "lang",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 720,
+                  "end": 724
+                },
+                "value": "rust"
+              }
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 726,
+            "end": 768
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 734,
+                  "end": 766
+                },
+                "value": "background:#f8f8f8; padding:10px"
+              }
+            }
+          ]
+        }
+      },
+      "value": "use sevenmark::parse_document;\n\nfn main() {\n    let content = \"**Hello** [now]\";\n    let result = parse_document(content);\n    println!(\"Parsed: {:#?}\", result);\n}\n"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 935,
+        "end": 936
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 936,
+        "end": 937
+      }
+    }
+  },
+  {
+    "Header": {
+      "span": {
+        "start": 937,
+        "end": 953
+      },
+      "level": 3,
+      "is_folded": false,
+      "section_index": 5,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 941,
+              "end": 952
+            },
+            "value": "Error Cases"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 953,
+        "end": 954
+      }
+    }
+  },
+  {
+    "Error": {
+      "span": {
+        "start": 954,
+        "end": 1359
+      },
+      "value": "{{{#quote #style=\"background:#fff3cd; border-left:4px solid #ffc107; padding:10px\"\n**Warning**: Always handle parsing errors gracefully. Common issues include:\n- Malformed brace syntax: `{{{unclosed`\n- Invalid macro parameters: `[age(invalid-date)]`\n- Deeply nested elements exceeding recursion limits\n}}}\n\n---\n\n*Documentation last updated: [now]*\n\n// TODO: Add more examples for complex nesting scenarios"
+    }
+  }
+]

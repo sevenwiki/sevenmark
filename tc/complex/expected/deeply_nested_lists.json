@@ -1,0 +1,387 @@
+[
+  {
+    "List": {
+      "span": {
+        "start": 0,
+        "end": 354
+      },
+      "kind": "1",
+      "parameters": {
+        "1": {
+          "span": {
+            "start": 8,
+            "end": 12
+          },
+          "key": "1",
+          "value": []
+        },
+        "style": {
+          "span": {
+            "start": 12,
+            "end": 38
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 20,
+                  "end": 36
+                },
+                "value": "margin-left:20px"
+              }
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 38,
+              "end": 70
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Bold": {
+                  "span": {
+                    "start": 40,
+                    "end": 53
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 42,
+                          "end": 51
+                        },
+                        "value": "Chapter 1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 53,
+                    "end": 67
+                  },
+                  "value": ": Introduction"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 70,
+              "end": 154
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 72,
+                    "end": 84
+                  },
+                  "value": "Subsection: "
+                }
+              },
+              {
+                "List": {
+                  "span": {
+                    "start": 84,
+                    "end": 150
+                  },
+                  "kind": "a",
+                  "parameters": {
+                    "a": {
+                      "span": {
+                        "start": 92,
+                        "end": 96
+                      },
+                      "key": "a",
+                      "value": []
+                    }
+                  },
+                  "children": [
+                    {
+                      "Item": {
+                        "span": {
+                          "start": 96,
+                          "end": 124
+                        },
+                        "parameters": {},
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 98,
+                                "end": 111
+                              },
+                              "value": "Point A with "
+                            }
+                          },
+                          {
+                            "Italic": {
+                              "span": {
+                                "start": 111,
+                                "end": 121
+                              },
+                              "children": [
+                                {
+                                  "Text": {
+                                    "span": {
+                                      "start": 112,
+                                      "end": 120
+                                    },
+                                    "value": "emphasis"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "Item": {
+                        "span": {
+                          "start": 124,
+                          "end": 147
+                        },
+                        "parameters": {},
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 126,
+                                "end": 139
+                              },
+                              "value": "Point B with "
+                            }
+                          },
+                          {
+                            "TimeNow": {
+                              "span": {
+                                "start": 139,
+                                "end": 144
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 150,
+                    "end": 151
+                  },
+                  "value": " "
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 154,
+              "end": 189
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Bold": {
+                  "span": {
+                    "start": 156,
+                    "end": 169
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 158,
+                          "end": 167
+                        },
+                        "value": "Chapter 2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 169,
+                    "end": 186
+                  },
+                  "value": ": Advanced Topics"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 189,
+              "end": 307
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 191,
+                    "end": 205
+                  },
+                  "value": "Complex item: "
+                }
+              },
+              {
+                "Fold": {
+                  "span": {
+                    "start": 205,
+                    "end": 303
+                  },
+                  "parameters": {},
+                  "summary": {
+                    "span": {
+                      "start": 213,
+                      "end": 229
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 216,
+                            "end": 226
+                          },
+                          "value": "Click here"
+                        }
+                      }
+                    ]
+                  },
+                  "details": {
+                    "span": {
+                      "start": 229,
+                      "end": 300
+                    },
+                    "parameters": {},
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 231,
+                            "end": 239
+                          },
+                          "value": "Hidden: "
+                        }
+                      },
+                      {
+                        "Code": {
+                          "span": {
+                            "start": 239,
+                            "end": 297
+                          },
+                          "parameters": {
+                            "lang": {
+                              "span": {
+                                "start": 247,
+                                "end": 261
+                              },
+                              "key": "lang",
+                              "value": [
+                                {
+                                  "Text": {
+                                    "span": {
+                                      "start": 255,
+                                      "end": 259
+                                    },
+                                    "value": "rust"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "value": "fn main() { println!(\"Deep!\"); } "
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 303,
+                    "end": 304
+                  },
+                  "value": " "
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 307,
+              "end": 351
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 309,
+                    "end": 328
+                  },
+                  "value": "Final chapter with "
+                }
+              },
+              {
+                "Superscript": {
+                  "span": {
+                    "start": 328,
+                    "end": 343
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 330,
+                          "end": 341
+                        },
+                        "value": "superscript"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 343,
+                    "end": 348
+                  },
+                  "value": " text"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

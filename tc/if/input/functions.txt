@@ -1,0 +1,11 @@
+ {{{#if int("10") > 5
+int conversion
+}}}
+
+{{{#if len("hello") == 5
+length check
+}}}
+
+{{{#if str(123) == "123"
+str conversion
+}}}

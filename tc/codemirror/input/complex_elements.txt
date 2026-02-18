@@ -1,0 +1,13 @@
+{{{#style="color:red" #size="14px"
+Styled element with parameters
+}}}
+
+{{{#table
+[[[[Cell 1,1]] [[Cell 1,2]]]]
+[[[[Cell 2,1]] [[Cell 2,2]]]]
+}}}
+
+{{{#code #lang=javascript
+console.log("Code block");
+function test() { return 42; }
+}}}

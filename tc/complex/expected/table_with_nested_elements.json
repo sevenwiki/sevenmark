@@ -1,0 +1,393 @@
+[
+  {
+    "Table": {
+      "span": {
+        "start": 0,
+        "end": 308
+      },
+      "parameters": {
+        "style": {
+          "span": {
+            "start": 9,
+            "end": 44
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 18,
+                  "end": 42
+                },
+                "value": "border-collapse:collapse"
+              }
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Row": {
+            "span": {
+              "start": 44,
+              "end": 97
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 46,
+                    "end": 63
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Bold": {
+                        "span": {
+                          "start": 48,
+                          "end": 60
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 50,
+                                "end": 58
+                              },
+                              "value": "Header 1"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 63,
+                    "end": 78
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Italic": {
+                        "span": {
+                          "start": 65,
+                          "end": 75
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 66,
+                                "end": 74
+                              },
+                              "value": "Header 2"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 78,
+                    "end": 94
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Strikethrough": {
+                        "span": {
+                          "start": 80,
+                          "end": 92
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 82,
+                                "end": 90
+                              },
+                              "value": "Header 3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Row": {
+            "span": {
+              "start": 97,
+              "end": 218
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 99,
+                    "end": 115
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 101,
+                          "end": 112
+                        },
+                        "value": "Simple cell"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 115,
+                    "end": 168
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Code": {
+                        "span": {
+                          "start": 117,
+                          "end": 165
+                        },
+                        "parameters": {
+                          "lang": {
+                            "span": {
+                              "start": 125,
+                              "end": 141
+                            },
+                            "key": "lang",
+                            "value": [
+                              {
+                                "Text": {
+                                  "span": {
+                                    "start": 133,
+                                    "end": 139
+                                  },
+                                  "value": "python"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "value": "print(\"nested code\") "
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 168,
+                    "end": 215
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 170,
+                          "end": 176
+                        },
+                        "value": "List: "
+                      }
+                    },
+                    {
+                      "List": {
+                        "span": {
+                          "start": 176,
+                          "end": 213
+                        },
+                        "kind": "a",
+                        "parameters": {
+                          "a": {
+                            "span": {
+                              "start": 184,
+                              "end": 188
+                            },
+                            "key": "a",
+                            "value": []
+                          }
+                        },
+                        "children": [
+                          {
+                            "Item": {
+                              "span": {
+                                "start": 188,
+                                "end": 199
+                              },
+                              "parameters": {},
+                              "children": [
+                                {
+                                  "Text": {
+                                    "span": {
+                                      "start": 190,
+                                      "end": 196
+                                    },
+                                    "value": "Item A"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "Item": {
+                              "span": {
+                                "start": 199,
+                                "end": 210
+                              },
+                              "parameters": {},
+                              "children": [
+                                {
+                                  "Text": {
+                                    "span": {
+                                      "start": 201,
+                                      "end": 207
+                                    },
+                                    "value": "Item B"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Row": {
+            "span": {
+              "start": 218,
+              "end": 305
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Cell": {
+                  "span": {
+                    "start": 220,
+                    "end": 247
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 222,
+                          "end": 227
+                        },
+                        "value": "Age: "
+                      }
+                    },
+                    {
+                      "Age": {
+                        "span": {
+                          "start": 227,
+                          "end": 244
+                        },
+                        "date": "1995-06-20"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 247,
+                    "end": 266
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 249,
+                          "end": 258
+                        },
+                        "value": "Current: "
+                      }
+                    },
+                    {
+                      "TimeNow": {
+                        "span": {
+                          "start": 258,
+                          "end": 263
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Cell": {
+                  "span": {
+                    "start": 266,
+                    "end": 302
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 268,
+                          "end": 275
+                        },
+                        "value": "Quote: "
+                      }
+                    },
+                    {
+                      "BlockQuote": {
+                        "span": {
+                          "start": 275,
+                          "end": 300
+                        },
+                        "parameters": {},
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 285,
+                                "end": 297
+                              },
+                              "value": "Short quote "
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

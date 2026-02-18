@@ -1,0 +1,36 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 28
+      },
+      "value": "Text before horizontal line."
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 28,
+        "end": 29
+      }
+    }
+  },
+  {
+    "HLine": {
+      "span": {
+        "start": 29,
+        "end": 35
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 35,
+        "end": 62
+      },
+      "value": "Text after horizontal line."
+    }
+  }
+]

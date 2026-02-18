@@ -1,0 +1,29 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 20
+      },
+      "value": "Text before comment "
+    }
+  },
+  {
+    "Comment": {
+      "span": {
+        "start": 20,
+        "end": 79
+      },
+      "value": " This is a\nmultiline comment\nthat spans multiple lines "
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 79,
+        "end": 99
+      },
+      "value": " text after comment."
+    }
+  }
+]

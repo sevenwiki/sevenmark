@@ -1,0 +1,11 @@
+# Header 1
+## Header 2
+
+**Bold text**
+*Italic text*
+~~Strikethrough~~
+__Underline__
+^^Superscript^^
+__Subscript__
+
+----

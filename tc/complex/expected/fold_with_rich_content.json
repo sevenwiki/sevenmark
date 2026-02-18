@@ -1,0 +1,463 @@
+[
+  {
+    "Fold": {
+      "span": {
+        "start": 0,
+        "end": 469
+      },
+      "parameters": {
+        "bgcolor": {
+          "span": {
+            "start": 40,
+            "end": 61
+          },
+          "key": "bgcolor",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 50,
+                  "end": 59
+                },
+                "value": "lightgray"
+              }
+            }
+          ]
+        },
+        "style": {
+          "span": {
+            "start": 8,
+            "end": 40
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 17,
+                  "end": 38
+                },
+                "value": "border:1px solid #ccc"
+              }
+            }
+          ]
+        }
+      },
+      "summary": {
+        "span": {
+          "start": 61,
+          "end": 141
+        },
+        "parameters": {
+          "color": {
+            "span": {
+              "start": 89,
+              "end": 107
+            },
+            "key": "color",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 97,
+                    "end": 105
+                  },
+                  "value": "darkblue"
+                }
+              }
+            ]
+          },
+          "style": {
+            "span": {
+              "start": 63,
+              "end": 89
+            },
+            "key": "style",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 71,
+                    "end": 87
+                  },
+                  "value": "font-weight:bold"
+                }
+              }
+            ]
+          }
+        },
+        "children": [
+          {
+            "Bold": {
+              "span": {
+                "start": 110,
+                "end": 121
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 112,
+                      "end": 119
+                    },
+                    "value": "Summary"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 121,
+                "end": 138
+              },
+              "value": ": Click to expand"
+            }
+          }
+        ]
+      },
+      "details": {
+        "span": {
+          "start": 141,
+          "end": 466
+        },
+        "parameters": {},
+        "children": [
+          {
+            "Text": {
+              "span": {
+                "start": 144,
+                "end": 163
+              },
+              "value": "This fold contains:"
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 163,
+                "end": 164
+              }
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 164,
+                "end": 166
+              },
+              "value": "- "
+            }
+          },
+          {
+            "Bold": {
+              "span": {
+                "start": 166,
+                "end": 179
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 168,
+                      "end": 177
+                    },
+                    "value": "Bold text"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 179,
+                "end": 184
+              },
+              "value": " and "
+            }
+          },
+          {
+            "Italic": {
+              "span": {
+                "start": 184,
+                "end": 197
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 185,
+                      "end": 196
+                    },
+                    "value": "italic text"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 197,
+                "end": 198
+              }
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 198,
+                "end": 232
+              },
+              "value": "- A code snippet: `print(\"hello\")`"
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 232,
+                "end": 233
+              }
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 233,
+                "end": 249
+              },
+              "value": "- Current time: "
+            }
+          },
+          {
+            "TimeNow": {
+              "span": {
+                "start": 249,
+                "end": 254
+              }
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 254,
+                "end": 255
+              }
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 255,
+                "end": 257
+              },
+              "value": "- "
+            }
+          },
+          {
+            "Strikethrough": {
+              "span": {
+                "start": 257,
+                "end": 274
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 259,
+                      "end": 272
+                    },
+                    "value": "Strikethrough"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 274,
+                "end": 279
+              },
+              "value": " and "
+            }
+          },
+          {
+            "Superscript": {
+              "span": {
+                "start": 279,
+                "end": 294
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 281,
+                      "end": 292
+                    },
+                    "value": "superscript"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 294,
+                "end": 295
+              }
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 295,
+                "end": 296
+              }
+            }
+          },
+          {
+            "BlockQuote": {
+              "span": {
+                "start": 296,
+                "end": 374
+              },
+              "parameters": {
+                "style": {
+                  "span": {
+                    "start": 305,
+                    "end": 327
+                  },
+                  "key": "style",
+                  "value": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 314,
+                          "end": 325
+                        },
+                        "value": "margin:10px"
+                      }
+                    }
+                  ]
+                }
+              },
+              "children": [
+                {
+                  "Text": {
+                    "span": {
+                      "start": 327,
+                      "end": 337
+                    },
+                    "value": "This is a "
+                  }
+                },
+                {
+                  "Bold": {
+                    "span": {
+                      "start": 337,
+                      "end": 353
+                    },
+                    "children": [
+                      {
+                        "Text": {
+                          "span": {
+                            "start": 339,
+                            "end": 351
+                          },
+                          "value": "nested quote"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Text": {
+                    "span": {
+                      "start": 353,
+                      "end": 370
+                    },
+                    "value": " with formatting."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 374,
+                "end": 375
+              }
+            }
+          },
+          {
+            "SoftBreak": {
+              "span": {
+                "start": 375,
+                "end": 376
+              }
+            }
+          },
+          {
+            "Comment": {
+              "span": {
+                "start": 376,
+                "end": 418
+              },
+              "value": " This comment should be inside the fold"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 418,
+                "end": 439
+              },
+              "value": "Final paragraph with "
+            }
+          },
+          {
+            "Escape": {
+              "span": {
+                "start": 439,
+                "end": 441
+              },
+              "value": "*"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 441,
+                "end": 448
+              },
+              "value": "escaped"
+            }
+          },
+          {
+            "Escape": {
+              "span": {
+                "start": 448,
+                "end": 450
+              },
+              "value": "*"
+            }
+          },
+          {
+            "Text": {
+              "span": {
+                "start": 450,
+                "end": 462
+              },
+              "value": " characters."
+            }
+          }
+        ]
+      }
+    }
+  }
+]

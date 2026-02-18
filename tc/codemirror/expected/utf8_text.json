@@ -1,0 +1,62 @@
+[
+  {
+    "Text": {
+      "span": {
+        "end": 3,
+        "start": 0
+      },
+      "value": "한국어"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 4,
+        "start": 3
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "end": 7,
+        "start": 4
+      },
+      "value": "日本語"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 8,
+        "start": 7
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "end": 21,
+        "start": 8
+      },
+      "value": "Emoji 🚀 test"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "end": 22,
+        "start": 21
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "end": 40,
+        "start": 22
+      },
+      "value": "Special chars: åäö"
+    }
+  }
+]

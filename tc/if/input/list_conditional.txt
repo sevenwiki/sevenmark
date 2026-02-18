@@ -1,0 +1,5 @@
+{{{#list #1
+[[Normal Item]]
+{{{#if true :: [[Conditional Item 1]] [[Conditional Item 2]] }}}
+[[Another Normal Item]]
+}}}

@@ -1,0 +1,109 @@
+# Rust build artifacts
+target/
+**/target/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Documentation
+docs/
+*.md
+!/README.md
+
+# CI/CD
+.github/
+
+# Examples (not needed for binary build)
+**/examples/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files (no need to copy into image)
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# MCP and tool directories
+.serena/
+.claude/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Node.js dependencies (for docs/VitePress)
+node_modules/
+**/node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# WASM build artifacts (wasm-pack output)
+pkg/
+**/pkg/
+
+# Test coverage data
+coverage/
+tarpaulin-report.html
+*.profraw
+*.profdata
+
+# Performance profiling
+flamegraph.svg
+perf.data*
+
+# Build artifacts
+dist/
+
+# Rust backup files
+*.rs.bk
+
+# Cargo local cache/config
+.cargo/
+
+# Test/example output files (temporary results)
+*.json
+!Cargo.lock
+!package.json
+!**/package.json
+
+# Temporary/scratch files
+ToParse.txt
+sketch.txt
+make_request.py
+docker.env
+wasm-pack.toml
+nul
+tc/
+misc/
+
+# MCP config (development only)
+.mcp.json
+
+# NOTE: tests/ is NOT excluded because Cargo.toml references it
+# and cargo chef prepare will fail if tests are missing
