@@ -156,21 +156,74 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
     //    Skip Text — it's the default color, and emitting it would override
     //    parent tokens (bold, header, etc.) due to overlapping.
     if !matches!(element, Element::Text(_)) {
-        let span = element.span();
         let token_type = element_token_type(element);
 
-        if let Some(open_len) = brace_open_len(element) {
-            // Brace elements: emit separate tokens for opening {{{#keyword and closing }}}
-            let open_end = (span.start + open_len).min(span.end);
-            raw.push((span.start, open_end, token_type));
-            if span.end >= 3 {
-                let close_start = span.end - 3;
-                if close_start > open_end {
-                    raw.push((close_start, span.end, token_type));
-                }
+        // For delimited elements, emit separate tokens for opening/closing delimiters
+        // so inner content can have its own colors.
+        match element {
+            Element::Literal(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
             }
-        } else {
-            raw.push((span.start, span.end, token_type));
+            Element::Define(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Styled(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Table(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::List(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            Element::Fold(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            Element::BlockQuote(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Ruby(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            Element::Footnote(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Code(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            Element::TeX(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            Element::Include(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Category(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Redirect(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::Media(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::ExternalMedia(e) => {
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+            }
+            Element::If(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            // Non-delimited elements: emit full span
+            Element::Text(_)
+            | Element::Comment(_)
+            | Element::Escape(_)
+            | Element::Error(_)
+            | Element::Null(_)
+            | Element::FootnoteRef(_)
+            | Element::TimeNow(_)
+            | Element::Age(_)
+            | Element::Variable(_)
+            | Element::Mention(_)
+            | Element::Bold(_)
+            | Element::Italic(_)
+            | Element::Strikethrough(_)
+            | Element::Underline(_)
+            | Element::Superscript(_)
+            | Element::Subscript(_)
+            | Element::SoftBreak(_)
+            | Element::HardBreak(_)
+            | Element::HLine(_)
+            | Element::Header(_) => {
+                let span = element.span();
+                raw.push((span.start, span.end, token_type));
+            }
         }
     }
 
@@ -310,7 +363,7 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
 // ── Table sub-structure walking ─────────────────────────────────────────
 
 fn walk_table_row(row: &TableRowElement, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((row.span.start, row.span.end, 38)); // tableRow
+    emit_delimiter_tokens(&row.open_span, &row.close_span, 38, raw); // tableRow
     walk_parameters(&row.parameters, raw);
     for cell_item in &row.children {
         match cell_item {
@@ -321,7 +374,7 @@ fn walk_table_row(row: &TableRowElement, raw: &mut Vec<(usize, usize, u32)>) {
 }
 
 fn walk_table_cell(cell: &TableCellElement, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((cell.span.start, cell.span.end, 39)); // tableCell
+    emit_delimiter_tokens(&cell.open_span, &cell.close_span, 39, raw); // tableCell
     walk_parameters(&cell.parameters, raw);
     walk_elements(&cell.x, raw);
     walk_elements(&cell.y, raw);
@@ -329,16 +382,7 @@ fn walk_table_cell(cell: &TableCellElement, raw: &mut Vec<(usize, usize, u32)>) 
 }
 
 fn walk_conditional_table_rows(cond: &ConditionalTableRows, raw: &mut Vec<(usize, usize, u32)>) {
-    // Opening: {{{#if (6 bytes)
-    let open_end = (cond.span.start + 6).min(cond.span.end);
-    raw.push((cond.span.start, open_end, 40)); // conditionalTableRows
-    // Closing: }}}
-    if cond.span.end >= 3 {
-        let close_start = cond.span.end - 3;
-        if close_start > open_end {
-            raw.push((close_start, cond.span.end, 40));
-        }
-    }
+    emit_delimiter_tokens(&cond.open_span, &cond.close_span, 40, raw); // conditionalTableRows
     walk_expression(&cond.condition, raw);
     for row in &cond.rows {
         walk_table_row(row, raw);
@@ -346,14 +390,7 @@ fn walk_conditional_table_rows(cond: &ConditionalTableRows, raw: &mut Vec<(usize
 }
 
 fn walk_conditional_table_cells(cond: &ConditionalTableCells, raw: &mut Vec<(usize, usize, u32)>) {
-    let open_end = (cond.span.start + 6).min(cond.span.end);
-    raw.push((cond.span.start, open_end, 41)); // conditionalTableCells
-    if cond.span.end >= 3 {
-        let close_start = cond.span.end - 3;
-        if close_start > open_end {
-            raw.push((close_start, cond.span.end, 41));
-        }
-    }
+    emit_delimiter_tokens(&cond.open_span, &cond.close_span, 41, raw); // conditionalTableCells
     walk_expression(&cond.condition, raw);
     for cell in &cond.cells {
         walk_table_cell(cell, raw);
@@ -363,20 +400,13 @@ fn walk_conditional_table_cells(cond: &ConditionalTableCells, raw: &mut Vec<(usi
 // ── List sub-structure walking ──────────────────────────────────────────
 
 fn walk_list_item(li: &ListItemElement, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((li.span.start, li.span.end, 42)); // listItem
+    emit_delimiter_tokens(&li.open_span, &li.close_span, 42, raw); // listItem
     walk_parameters(&li.parameters, raw);
     walk_elements(&li.children, raw);
 }
 
 fn walk_conditional_list_items(cond: &ConditionalListItems, raw: &mut Vec<(usize, usize, u32)>) {
-    let open_end = (cond.span.start + 6).min(cond.span.end);
-    raw.push((cond.span.start, open_end, 43)); // conditionalListItems
-    if cond.span.end >= 3 {
-        let close_start = cond.span.end - 3;
-        if close_start > open_end {
-            raw.push((close_start, cond.span.end, 43));
-        }
-    }
+    emit_delimiter_tokens(&cond.open_span, &cond.close_span, 43, raw); // conditionalListItems
     walk_expression(&cond.condition, raw);
     for li in &cond.items {
         walk_list_item(li, raw);
@@ -386,7 +416,7 @@ fn walk_conditional_list_items(cond: &ConditionalListItems, raw: &mut Vec<(usize
 // ── Fold sub-structure walking ──────────────────────────────────────────
 
 fn walk_fold_inner(inner: &FoldInnerElement, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((inner.span.start, inner.span.end, 44)); // foldInner
+    emit_delimiter_tokens(&inner.open_span, &inner.close_span, 44, raw); // foldInner
     walk_parameters(&inner.parameters, raw);
     walk_elements(&inner.children, raw);
 }
@@ -468,50 +498,18 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
     }
 }
 
-// ── Brace element keyword length ────────────────────────────────────────
+// ── Delimiter token helper ─────────────────────────────────────────────
 
-/// Returns the opening delimiter length for brace-delimited elements.
-/// `{{{` = 3 bytes for Literal, `{{{#keyword` = 4 + keyword_len for others.
-fn brace_open_len(element: &Element) -> Option<usize> {
-    match element {
-        Element::Literal(_) => Some(3),     // {{{
-        Element::Table(_) => Some(9),       // {{{#table
-        Element::List(_) => Some(8),        // {{{#list
-        Element::Fold(_) => Some(8),        // {{{#fold
-        Element::Styled(_) => Some(9),      // {{{#style
-        Element::Code(_) => Some(8),        // {{{#code
-        Element::Define(_) => Some(10),     // {{{#define
-        Element::If(_) => Some(6),          // {{{#if
-        Element::Include(_) => Some(11),    // {{{#include
-        Element::Category(_) => Some(12),   // {{{#category
-        Element::Redirect(_) => Some(12),   // {{{#redirect
-        Element::BlockQuote(_) => Some(14), // {{{#blockquote
-        Element::Ruby(_) => Some(8),        // {{{#ruby
-        Element::Footnote(_) => Some(6),    // {{{#fn
-        // Non-brace elements
-        Element::Text(_)
-        | Element::Comment(_)
-        | Element::Escape(_)
-        | Element::Error(_)
-        | Element::TeX(_)
-        | Element::ExternalMedia(_)
-        | Element::Media(_)
-        | Element::Null(_)
-        | Element::FootnoteRef(_)
-        | Element::TimeNow(_)
-        | Element::Age(_)
-        | Element::Variable(_)
-        | Element::Mention(_)
-        | Element::Bold(_)
-        | Element::Italic(_)
-        | Element::Strikethrough(_)
-        | Element::Underline(_)
-        | Element::Superscript(_)
-        | Element::Subscript(_)
-        | Element::SoftBreak(_)
-        | Element::HardBreak(_)
-        | Element::HLine(_)
-        | Element::Header(_) => None,
+/// Emits separate tokens for opening and closing delimiters of a delimited element.
+fn emit_delimiter_tokens(
+    open_span: &sevenmark_ast::Span,
+    close_span: &sevenmark_ast::Span,
+    token_type: u32,
+    raw: &mut Vec<(usize, usize, u32)>,
+) {
+    raw.push((open_span.start, open_span.end, token_type));
+    if close_span.start > open_span.end {
+        raw.push((close_span.start, close_span.end, token_type));
     }
 }
 

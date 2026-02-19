@@ -5,6 +5,14 @@
         "start": 0,
         "end": 38
       },
+      "open_span": {
+        "start": 0,
+        "end": 12
+      },
+      "close_span": {
+        "start": 35,
+        "end": 38
+      },
       "children": [
         {
           "Text": {
@@ -52,6 +60,14 @@
     "Include": {
       "span": {
         "start": 69,
+        "end": 129
+      },
+      "open_span": {
+        "start": 69,
+        "end": 80
+      },
+      "close_span": {
+        "start": 126,
         "end": 129
       },
       "parameters": {
@@ -195,6 +211,14 @@
         "start": 250,
         "end": 443
       },
+      "open_span": {
+        "start": 250,
+        "end": 258
+      },
+      "close_span": {
+        "start": 440,
+        "end": 443
+      },
       "kind": "1",
       "parameters": {
         "1": {
@@ -212,6 +236,14 @@
             "span": {
               "start": 262,
               "end": 294
+            },
+            "open_span": {
+              "start": 262,
+              "end": 264
+            },
+            "close_span": {
+              "start": 291,
+              "end": 293
             },
             "parameters": {},
             "children": [
@@ -252,6 +284,14 @@
               "start": 294,
               "end": 335
             },
+            "open_span": {
+              "start": 294,
+              "end": 296
+            },
+            "close_span": {
+              "start": 332,
+              "end": 334
+            },
             "parameters": {},
             "children": [
               {
@@ -290,6 +330,14 @@
             "span": {
               "start": 335,
               "end": 394
+            },
+            "open_span": {
+              "start": 335,
+              "end": 337
+            },
+            "close_span": {
+              "start": 391,
+              "end": 393
             },
             "parameters": {},
             "children": [
@@ -338,6 +386,14 @@
             "span": {
               "start": 394,
               "end": 440
+            },
+            "open_span": {
+              "start": 394,
+              "end": 396
+            },
+            "close_span": {
+              "start": 437,
+              "end": 439
             },
             "parameters": {},
             "children": [
@@ -427,6 +483,14 @@
         "start": 462,
         "end": 1101
       },
+      "open_span": {
+        "start": 462,
+        "end": 470
+      },
+      "close_span": {
+        "start": 1098,
+        "end": 1101
+      },
       "parameters": {
         "style": {
           "span": {
@@ -451,6 +515,14 @@
         "span": {
           "start": 525,
           "end": 580
+        },
+        "open_span": {
+          "start": 525,
+          "end": 527
+        },
+        "close_span": {
+          "start": 577,
+          "end": 579
         },
         "parameters": {},
         "children": [
@@ -525,12 +597,28 @@
           "start": 580,
           "end": 1098
         },
+        "open_span": {
+          "start": 580,
+          "end": 582
+        },
+        "close_span": {
+          "start": 1095,
+          "end": 1097
+        },
         "parameters": {},
         "children": [
           {
             "Table": {
               "span": {
                 "start": 583,
+                "end": 912
+              },
+              "open_span": {
+                "start": 583,
+                "end": 592
+              },
+              "close_span": {
+                "start": 909,
                 "end": 912
               },
               "parameters": {},
@@ -541,6 +629,14 @@
                       "start": 592,
                       "end": 649
                     },
+                    "open_span": {
+                      "start": 592,
+                      "end": 595
+                    },
+                    "close_span": {
+                      "start": 646,
+                      "end": 648
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -548,6 +644,14 @@
                           "span": {
                             "start": 595,
                             "end": 611
+                          },
+                          "open_span": {
+                            "start": 595,
+                            "end": 597
+                          },
+                          "close_span": {
+                            "start": 608,
+                            "end": 610
                           },
                           "parameters": {},
                           "children": [
@@ -579,6 +683,14 @@
                             "start": 611,
                             "end": 631
                           },
+                          "open_span": {
+                            "start": 611,
+                            "end": 613
+                          },
+                          "close_span": {
+                            "start": 628,
+                            "end": 630
+                          },
                           "parameters": {},
                           "children": [
                             {
@@ -607,6 +719,14 @@
                         "Cell": {
                           "span": {
                             "start": 631,
+                            "end": 646
+                          },
+                          "open_span": {
+                            "start": 631,
+                            "end": 633
+                          },
+                          "close_span": {
+                            "start": 644,
                             "end": 646
                           },
                           "parameters": {},
@@ -642,6 +762,14 @@
                       "start": 649,
                       "end": 731
                     },
+                    "open_span": {
+                      "start": 649,
+                      "end": 651
+                    },
+                    "close_span": {
+                      "start": 728,
+                      "end": 730
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -649,6 +777,14 @@
                           "span": {
                             "start": 651,
                             "end": 669
+                          },
+                          "open_span": {
+                            "start": 651,
+                            "end": 653
+                          },
+                          "close_span": {
+                            "start": 666,
+                            "end": 668
                           },
                           "parameters": {},
                           "children": [
@@ -669,6 +805,14 @@
                           "span": {
                             "start": 669,
                             "end": 708
+                          },
+                          "open_span": {
+                            "start": 669,
+                            "end": 671
+                          },
+                          "close_span": {
+                            "start": 705,
+                            "end": 707
                           },
                           "parameters": {},
                           "children": [
@@ -708,6 +852,14 @@
                             "start": 708,
                             "end": 728
                           },
+                          "open_span": {
+                            "start": 708,
+                            "end": 710
+                          },
+                          "close_span": {
+                            "start": 726,
+                            "end": 728
+                          },
                           "parameters": {},
                           "children": [
                             {
@@ -731,6 +883,14 @@
                       "start": 731,
                       "end": 833
                     },
+                    "open_span": {
+                      "start": 731,
+                      "end": 733
+                    },
+                    "close_span": {
+                      "start": 830,
+                      "end": 832
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -738,6 +898,14 @@
                           "span": {
                             "start": 733,
                             "end": 760
+                          },
+                          "open_span": {
+                            "start": 733,
+                            "end": 735
+                          },
+                          "close_span": {
+                            "start": 757,
+                            "end": 759
                           },
                           "parameters": {},
                           "children": [
@@ -758,6 +926,14 @@
                           "span": {
                             "start": 760,
                             "end": 807
+                          },
+                          "open_span": {
+                            "start": 760,
+                            "end": 762
+                          },
+                          "close_span": {
+                            "start": 804,
+                            "end": 806
                           },
                           "parameters": {},
                           "children": [
@@ -797,6 +973,14 @@
                             "start": 807,
                             "end": 830
                           },
+                          "open_span": {
+                            "start": 807,
+                            "end": 809
+                          },
+                          "close_span": {
+                            "start": 828,
+                            "end": 830
+                          },
                           "parameters": {},
                           "children": [
                             {
@@ -820,6 +1004,14 @@
                       "start": 833,
                       "end": 909
                     },
+                    "open_span": {
+                      "start": 833,
+                      "end": 835
+                    },
+                    "close_span": {
+                      "start": 906,
+                      "end": 908
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -827,6 +1019,14 @@
                           "span": {
                             "start": 835,
                             "end": 851
+                          },
+                          "open_span": {
+                            "start": 835,
+                            "end": 837
+                          },
+                          "close_span": {
+                            "start": 848,
+                            "end": 850
                           },
                           "parameters": {},
                           "children": [
@@ -848,6 +1048,14 @@
                             "start": 851,
                             "end": 881
                           },
+                          "open_span": {
+                            "start": 851,
+                            "end": 853
+                          },
+                          "close_span": {
+                            "start": 878,
+                            "end": 880
+                          },
                           "parameters": {},
                           "children": [
                             {
@@ -866,6 +1074,14 @@
                         "Cell": {
                           "span": {
                             "start": 881,
+                            "end": 906
+                          },
+                          "open_span": {
+                            "start": 881,
+                            "end": 883
+                          },
+                          "close_span": {
+                            "start": 904,
                             "end": 906
                           },
                           "parameters": {},
@@ -908,6 +1124,14 @@
             "Code": {
               "span": {
                 "start": 914,
+                "end": 1094
+              },
+              "open_span": {
+                "start": 914,
+                "end": 922
+              },
+              "close_span": {
+                "start": 1091,
                 "end": 1094
               },
               "parameters": {
@@ -1068,6 +1292,14 @@
     "BlockQuote": {
       "span": {
         "start": 1203,
+        "end": 1365
+      },
+      "open_span": {
+        "start": 1203,
+        "end": 1212
+      },
+      "close_span": {
+        "start": 1362,
         "end": 1365
       },
       "parameters": {
@@ -1458,6 +1690,14 @@
         "start": 1641,
         "end": 1833
       },
+      "open_span": {
+        "start": 1641,
+        "end": 1649
+      },
+      "close_span": {
+        "start": 1830,
+        "end": 1833
+      },
       "kind": "a",
       "parameters": {
         "a": {
@@ -1475,6 +1715,14 @@
             "span": {
               "start": 1653,
               "end": 1705
+            },
+            "open_span": {
+              "start": 1653,
+              "end": 1655
+            },
+            "close_span": {
+              "start": 1702,
+              "end": 1704
             },
             "parameters": {},
             "children": [
@@ -1515,6 +1763,14 @@
               "start": 1705,
               "end": 1749
             },
+            "open_span": {
+              "start": 1705,
+              "end": 1707
+            },
+            "close_span": {
+              "start": 1746,
+              "end": 1748
+            },
             "parameters": {},
             "children": [
               {
@@ -1553,6 +1809,14 @@
             "span": {
               "start": 1749,
               "end": 1790
+            },
+            "open_span": {
+              "start": 1749,
+              "end": 1751
+            },
+            "close_span": {
+              "start": 1787,
+              "end": 1789
             },
             "parameters": {},
             "children": [
@@ -1601,6 +1865,14 @@
             "span": {
               "start": 1790,
               "end": 1830
+            },
+            "open_span": {
+              "start": 1790,
+              "end": 1792
+            },
+            "close_span": {
+              "start": 1827,
+              "end": 1829
             },
             "parameters": {},
             "children": [

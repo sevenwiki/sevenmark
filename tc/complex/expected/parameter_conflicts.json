@@ -5,6 +5,14 @@
         "start": 0,
         "end": 87
       },
+      "open_span": {
+        "start": 0,
+        "end": 3
+      },
+      "close_span": {
+        "start": 84,
+        "end": 87
+      },
       "parameters": {
         "color": {
           "span": {
@@ -60,6 +68,14 @@
         "start": 89,
         "end": 170
       },
+      "open_span": {
+        "start": 89,
+        "end": 97
+      },
+      "close_span": {
+        "start": 167,
+        "end": 170
+      },
       "kind": "1",
       "parameters": {
         "1": {
@@ -110,6 +126,14 @@
               "start": 113,
               "end": 150
             },
+            "open_span": {
+              "start": 113,
+              "end": 115
+            },
+            "close_span": {
+              "start": 147,
+              "end": 149
+            },
             "parameters": {},
             "children": [
               {
@@ -129,6 +153,14 @@
             "span": {
               "start": 150,
               "end": 167
+            },
+            "open_span": {
+              "start": 150,
+              "end": 152
+            },
+            "close_span": {
+              "start": 164,
+              "end": 166
             },
             "parameters": {},
             "children": [
@@ -167,6 +199,14 @@
     "TeX": {
       "span": {
         "start": 172,
+        "end": 214
+      },
+      "open_span": {
+        "start": 172,
+        "end": 179
+      },
+      "close_span": {
+        "start": 211,
         "end": 214
       },
       "is_block": true,

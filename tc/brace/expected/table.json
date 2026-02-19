@@ -5,6 +5,14 @@
         "start": 0,
         "end": 73
       },
+      "open_span": {
+        "start": 0,
+        "end": 9
+      },
+      "close_span": {
+        "start": 70,
+        "end": 73
+      },
       "parameters": {},
       "children": [
         {
@@ -13,6 +21,14 @@
               "start": 9,
               "end": 40
             },
+            "open_span": {
+              "start": 9,
+              "end": 12
+            },
+            "close_span": {
+              "start": 37,
+              "end": 39
+            },
             "parameters": {},
             "children": [
               {
@@ -20,6 +36,14 @@
                   "span": {
                     "start": 12,
                     "end": 25
+                  },
+                  "open_span": {
+                    "start": 12,
+                    "end": 14
+                  },
+                  "close_span": {
+                    "start": 22,
+                    "end": 24
                   },
                   "parameters": {},
                   "children": [
@@ -57,6 +81,14 @@
                 "Cell": {
                   "span": {
                     "start": 25,
+                    "end": 37
+                  },
+                  "open_span": {
+                    "start": 25,
+                    "end": 27
+                  },
+                  "close_span": {
+                    "start": 35,
                     "end": 37
                   },
                   "parameters": {},
@@ -100,6 +132,14 @@
               "start": 40,
               "end": 70
             },
+            "open_span": {
+              "start": 40,
+              "end": 42
+            },
+            "close_span": {
+              "start": 67,
+              "end": 69
+            },
             "parameters": {},
             "children": [
               {
@@ -107,6 +147,14 @@
                   "span": {
                     "start": 42,
                     "end": 55
+                  },
+                  "open_span": {
+                    "start": 42,
+                    "end": 44
+                  },
+                  "close_span": {
+                    "start": 52,
+                    "end": 54
                   },
                   "parameters": {},
                   "children": [
@@ -144,6 +192,14 @@
                 "Cell": {
                   "span": {
                     "start": 55,
+                    "end": 67
+                  },
+                  "open_span": {
+                    "start": 55,
+                    "end": 57
+                  },
+                  "close_span": {
+                    "start": 65,
                     "end": 67
                   },
                   "parameters": {},

@@ -118,6 +118,14 @@
         "start": 122,
         "end": 371
       },
+      "open_span": {
+        "start": 122,
+        "end": 130
+      },
+      "close_span": {
+        "start": 368,
+        "end": 371
+      },
       "parameters": {
         "style": {
           "span": {
@@ -142,6 +150,14 @@
         "span": {
           "start": 175,
           "end": 221
+        },
+        "open_span": {
+          "start": 175,
+          "end": 177
+        },
+        "close_span": {
+          "start": 218,
+          "end": 220
         },
         "parameters": {},
         "children": [
@@ -207,12 +223,28 @@
           "start": 221,
           "end": 368
         },
+        "open_span": {
+          "start": 221,
+          "end": 223
+        },
+        "close_span": {
+          "start": 365,
+          "end": 367
+        },
         "parameters": {},
         "children": [
           {
             "List": {
               "span": {
                 "start": 224,
+                "end": 364
+              },
+              "open_span": {
+                "start": 224,
+                "end": 232
+              },
+              "close_span": {
+                "start": 361,
                 "end": 364
               },
               "kind": "1",
@@ -232,6 +264,14 @@
                     "span": {
                       "start": 236,
                       "end": 263
+                    },
+                    "open_span": {
+                      "start": 236,
+                      "end": 238
+                    },
+                    "close_span": {
+                      "start": 260,
+                      "end": 262
                     },
                     "parameters": {},
                     "children": [
@@ -253,6 +293,14 @@
                       "start": 263,
                       "end": 284
                     },
+                    "open_span": {
+                      "start": 263,
+                      "end": 265
+                    },
+                    "close_span": {
+                      "start": 281,
+                      "end": 283
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -272,6 +320,14 @@
                     "span": {
                       "start": 284,
                       "end": 303
+                    },
+                    "open_span": {
+                      "start": 284,
+                      "end": 286
+                    },
+                    "close_span": {
+                      "start": 300,
+                      "end": 302
                     },
                     "parameters": {},
                     "children": [
@@ -293,6 +349,14 @@
                       "start": 303,
                       "end": 334
                     },
+                    "open_span": {
+                      "start": 303,
+                      "end": 305
+                    },
+                    "close_span": {
+                      "start": 331,
+                      "end": 333
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -312,6 +376,14 @@
                     "span": {
                       "start": 334,
                       "end": 361
+                    },
+                    "open_span": {
+                      "start": 334,
+                      "end": 336
+                    },
+                    "close_span": {
+                      "start": 358,
+                      "end": 360
                     },
                     "parameters": {},
                     "children": [
@@ -386,6 +458,14 @@
         "start": 390,
         "end": 683
       },
+      "open_span": {
+        "start": 390,
+        "end": 399
+      },
+      "close_span": {
+        "start": 680,
+        "end": 683
+      },
       "parameters": {
         "style": {
           "span": {
@@ -413,6 +493,14 @@
               "start": 446,
               "end": 505
             },
+            "open_span": {
+              "start": 446,
+              "end": 448
+            },
+            "close_span": {
+              "start": 502,
+              "end": 504
+            },
             "parameters": {},
             "children": [
               {
@@ -420,6 +508,14 @@
                   "span": {
                     "start": 448,
                     "end": 463
+                  },
+                  "open_span": {
+                    "start": 448,
+                    "end": 450
+                  },
+                  "close_span": {
+                    "start": 460,
+                    "end": 462
                   },
                   "parameters": {},
                   "children": [
@@ -451,6 +547,14 @@
                     "start": 463,
                     "end": 483
                   },
+                  "open_span": {
+                    "start": 463,
+                    "end": 465
+                  },
+                  "close_span": {
+                    "start": 480,
+                    "end": 482
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -479,6 +583,14 @@
                 "Cell": {
                   "span": {
                     "start": 483,
+                    "end": 502
+                  },
+                  "open_span": {
+                    "start": 483,
+                    "end": 485
+                  },
+                  "close_span": {
+                    "start": 500,
                     "end": 502
                   },
                   "parameters": {},
@@ -514,6 +626,14 @@
               "start": 505,
               "end": 595
             },
+            "open_span": {
+              "start": 505,
+              "end": 507
+            },
+            "close_span": {
+              "start": 592,
+              "end": 594
+            },
             "parameters": {},
             "children": [
               {
@@ -521,6 +641,14 @@
                   "span": {
                     "start": 507,
                     "end": 530
+                  },
+                  "open_span": {
+                    "start": 507,
+                    "end": 509
+                  },
+                  "close_span": {
+                    "start": 527,
+                    "end": 529
                   },
                   "parameters": {},
                   "children": [
@@ -560,6 +688,14 @@
                     "start": 530,
                     "end": 565
                   },
+                  "open_span": {
+                    "start": 530,
+                    "end": 532
+                  },
+                  "close_span": {
+                    "start": 562,
+                    "end": 564
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -578,6 +714,14 @@
                 "Cell": {
                   "span": {
                     "start": 565,
+                    "end": 592
+                  },
+                  "open_span": {
+                    "start": 565,
+                    "end": 567
+                  },
+                  "close_span": {
+                    "start": 590,
                     "end": 592
                   },
                   "parameters": {},
@@ -621,6 +765,14 @@
               "start": 595,
               "end": 680
             },
+            "open_span": {
+              "start": 595,
+              "end": 597
+            },
+            "close_span": {
+              "start": 677,
+              "end": 679
+            },
             "parameters": {},
             "children": [
               {
@@ -628,6 +780,14 @@
                   "span": {
                     "start": 597,
                     "end": 620
+                  },
+                  "open_span": {
+                    "start": 597,
+                    "end": 599
+                  },
+                  "close_span": {
+                    "start": 617,
+                    "end": 619
                   },
                   "parameters": {},
                   "children": [
@@ -667,6 +827,14 @@
                     "start": 620,
                     "end": 651
                   },
+                  "open_span": {
+                    "start": 620,
+                    "end": 622
+                  },
+                  "close_span": {
+                    "start": 648,
+                    "end": 650
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -685,6 +853,14 @@
                 "Cell": {
                   "span": {
                     "start": 651,
+                    "end": 677
+                  },
+                  "open_span": {
+                    "start": 651,
+                    "end": 653
+                  },
+                  "close_span": {
+                    "start": 675,
                     "end": 677
                   },
                   "parameters": {},
@@ -793,6 +969,14 @@
     "Code": {
       "span": {
         "start": 704,
+        "end": 935
+      },
+      "open_span": {
+        "start": 704,
+        "end": 712
+      },
+      "close_span": {
+        "start": 932,
         "end": 935
       },
       "parameters": {

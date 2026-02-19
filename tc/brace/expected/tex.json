@@ -5,6 +5,14 @@
         "start": 0,
         "end": 27
       },
+      "open_span": {
+        "start": 0,
+        "end": 7
+      },
+      "close_span": {
+        "start": 24,
+        "end": 27
+      },
       "is_block": true,
       "value": "E = mc^2\n"
     }

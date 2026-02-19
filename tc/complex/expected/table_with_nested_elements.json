@@ -5,6 +5,14 @@
         "start": 0,
         "end": 308
       },
+      "open_span": {
+        "start": 0,
+        "end": 9
+      },
+      "close_span": {
+        "start": 305,
+        "end": 308
+      },
       "parameters": {
         "style": {
           "span": {
@@ -32,6 +40,14 @@
               "start": 44,
               "end": 97
             },
+            "open_span": {
+              "start": 44,
+              "end": 46
+            },
+            "close_span": {
+              "start": 94,
+              "end": 96
+            },
             "parameters": {},
             "children": [
               {
@@ -39,6 +55,14 @@
                   "span": {
                     "start": 46,
                     "end": 63
+                  },
+                  "open_span": {
+                    "start": 46,
+                    "end": 48
+                  },
+                  "close_span": {
+                    "start": 60,
+                    "end": 62
                   },
                   "parameters": {},
                   "children": [
@@ -70,6 +94,14 @@
                     "start": 63,
                     "end": 78
                   },
+                  "open_span": {
+                    "start": 63,
+                    "end": 65
+                  },
+                  "close_span": {
+                    "start": 75,
+                    "end": 77
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -98,6 +130,14 @@
                 "Cell": {
                   "span": {
                     "start": 78,
+                    "end": 94
+                  },
+                  "open_span": {
+                    "start": 78,
+                    "end": 80
+                  },
+                  "close_span": {
+                    "start": 92,
                     "end": 94
                   },
                   "parameters": {},
@@ -133,6 +173,14 @@
               "start": 97,
               "end": 218
             },
+            "open_span": {
+              "start": 97,
+              "end": 99
+            },
+            "close_span": {
+              "start": 215,
+              "end": 217
+            },
             "parameters": {},
             "children": [
               {
@@ -140,6 +188,14 @@
                   "span": {
                     "start": 99,
                     "end": 115
+                  },
+                  "open_span": {
+                    "start": 99,
+                    "end": 101
+                  },
+                  "close_span": {
+                    "start": 112,
+                    "end": 114
                   },
                   "parameters": {},
                   "children": [
@@ -161,12 +217,28 @@
                     "start": 115,
                     "end": 168
                   },
+                  "open_span": {
+                    "start": 115,
+                    "end": 117
+                  },
+                  "close_span": {
+                    "start": 165,
+                    "end": 167
+                  },
                   "parameters": {},
                   "children": [
                     {
                       "Code": {
                         "span": {
                           "start": 117,
+                          "end": 165
+                        },
+                        "open_span": {
+                          "start": 117,
+                          "end": 125
+                        },
+                        "close_span": {
+                          "start": 162,
                           "end": 165
                         },
                         "parameters": {
@@ -201,6 +273,14 @@
                     "start": 168,
                     "end": 215
                   },
+                  "open_span": {
+                    "start": 168,
+                    "end": 170
+                  },
+                  "close_span": {
+                    "start": 213,
+                    "end": 215
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -216,6 +296,14 @@
                       "List": {
                         "span": {
                           "start": 176,
+                          "end": 213
+                        },
+                        "open_span": {
+                          "start": 176,
+                          "end": 184
+                        },
+                        "close_span": {
+                          "start": 210,
                           "end": 213
                         },
                         "kind": "a",
@@ -236,6 +324,14 @@
                                 "start": 188,
                                 "end": 199
                               },
+                              "open_span": {
+                                "start": 188,
+                                "end": 190
+                              },
+                              "close_span": {
+                                "start": 196,
+                                "end": 198
+                              },
                               "parameters": {},
                               "children": [
                                 {
@@ -255,6 +351,14 @@
                               "span": {
                                 "start": 199,
                                 "end": 210
+                              },
+                              "open_span": {
+                                "start": 199,
+                                "end": 201
+                              },
+                              "close_span": {
+                                "start": 207,
+                                "end": 209
                               },
                               "parameters": {},
                               "children": [
@@ -285,6 +389,14 @@
               "start": 218,
               "end": 305
             },
+            "open_span": {
+              "start": 218,
+              "end": 220
+            },
+            "close_span": {
+              "start": 302,
+              "end": 304
+            },
             "parameters": {},
             "children": [
               {
@@ -292,6 +404,14 @@
                   "span": {
                     "start": 220,
                     "end": 247
+                  },
+                  "open_span": {
+                    "start": 220,
+                    "end": 222
+                  },
+                  "close_span": {
+                    "start": 244,
+                    "end": 246
                   },
                   "parameters": {},
                   "children": [
@@ -322,6 +442,14 @@
                     "start": 247,
                     "end": 266
                   },
+                  "open_span": {
+                    "start": 247,
+                    "end": 249
+                  },
+                  "close_span": {
+                    "start": 263,
+                    "end": 265
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -350,6 +478,14 @@
                     "start": 266,
                     "end": 302
                   },
+                  "open_span": {
+                    "start": 266,
+                    "end": 268
+                  },
+                  "close_span": {
+                    "start": 300,
+                    "end": 302
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -365,6 +501,14 @@
                       "BlockQuote": {
                         "span": {
                           "start": 275,
+                          "end": 300
+                        },
+                        "open_span": {
+                          "start": 275,
+                          "end": 284
+                        },
+                        "close_span": {
+                          "start": 297,
                           "end": 300
                         },
                         "parameters": {},

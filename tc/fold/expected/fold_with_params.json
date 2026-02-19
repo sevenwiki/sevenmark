@@ -5,6 +5,14 @@
         "start": 0,
         "end": 92
       },
+      "open_span": {
+        "start": 0,
+        "end": 8
+      },
+      "close_span": {
+        "start": 89,
+        "end": 92
+      },
       "parameters": {
         "style": {
           "span": {
@@ -29,6 +37,14 @@
         "span": {
           "start": 28,
           "end": 70
+        },
+        "open_span": {
+          "start": 28,
+          "end": 30
+        },
+        "close_span": {
+          "start": 67,
+          "end": 69
         },
         "parameters": {
           "bgcolor": {
@@ -66,6 +82,14 @@
         "span": {
           "start": 70,
           "end": 89
+        },
+        "open_span": {
+          "start": 70,
+          "end": 72
+        },
+        "close_span": {
+          "start": 86,
+          "end": 88
         },
         "parameters": {},
         "children": [

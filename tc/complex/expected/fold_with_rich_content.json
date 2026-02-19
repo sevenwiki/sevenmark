@@ -5,6 +5,14 @@
         "start": 0,
         "end": 469
       },
+      "open_span": {
+        "start": 0,
+        "end": 8
+      },
+      "close_span": {
+        "start": 466,
+        "end": 469
+      },
       "parameters": {
         "bgcolor": {
           "span": {
@@ -47,6 +55,14 @@
         "span": {
           "start": 61,
           "end": 141
+        },
+        "open_span": {
+          "start": 61,
+          "end": 63
+        },
+        "close_span": {
+          "start": 138,
+          "end": 140
         },
         "parameters": {
           "color": {
@@ -121,6 +137,14 @@
         "span": {
           "start": 141,
           "end": 466
+        },
+        "open_span": {
+          "start": 141,
+          "end": 143
+        },
+        "close_span": {
+          "start": 463,
+          "end": 465
         },
         "parameters": {},
         "children": [
@@ -323,6 +347,14 @@
             "BlockQuote": {
               "span": {
                 "start": 296,
+                "end": 374
+              },
+              "open_span": {
+                "start": 296,
+                "end": 305
+              },
+              "close_span": {
+                "start": 371,
                 "end": 374
               },
               "parameters": {

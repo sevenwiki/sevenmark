@@ -5,6 +5,14 @@
         "start": 0,
         "end": 120
       },
+      "open_span": {
+        "start": 0,
+        "end": 8
+      },
+      "close_span": {
+        "start": 117,
+        "end": 120
+      },
       "kind": "1",
       "parameters": {
         "1": {
@@ -22,6 +30,14 @@
             "span": {
               "start": 12,
               "end": 28
+            },
+            "open_span": {
+              "start": 12,
+              "end": 14
+            },
+            "close_span": {
+              "start": 25,
+              "end": 27
             },
             "parameters": {},
             "children": [
@@ -43,6 +59,14 @@
               "start": 28,
               "end": 93
             },
+            "open_span": {
+              "start": 28,
+              "end": 34
+            },
+            "close_span": {
+              "start": 89,
+              "end": 92
+            },
             "condition": {
               "BoolLiteral": {
                 "span": {
@@ -57,6 +81,14 @@
                 "span": {
                   "start": 43,
                   "end": 66
+                },
+                "open_span": {
+                  "start": 43,
+                  "end": 45
+                },
+                "close_span": {
+                  "start": 63,
+                  "end": 65
                 },
                 "parameters": {},
                 "children": [
@@ -75,6 +107,14 @@
                 "span": {
                   "start": 66,
                   "end": 89
+                },
+                "open_span": {
+                  "start": 66,
+                  "end": 68
+                },
+                "close_span": {
+                  "start": 86,
+                  "end": 88
                 },
                 "parameters": {},
                 "children": [
@@ -97,6 +137,14 @@
             "span": {
               "start": 93,
               "end": 117
+            },
+            "open_span": {
+              "start": 93,
+              "end": 95
+            },
+            "close_span": {
+              "start": 114,
+              "end": 116
             },
             "parameters": {},
             "children": [
