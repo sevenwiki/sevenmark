@@ -74,7 +74,6 @@ fn brace_keyword_completions(_pos: Position) -> Vec<CompletionItem> {
         ("redirect", "redirect $0}}}", "Redirect"),
         ("ruby", "ruby #ruby=\"$1\" $0}}}", "Ruby annotation"),
         ("footnote", "fn $0}}}", "Footnote"),
-        ("literal", "literal\n$0\n}}}", "Literal output"),
     ];
 
     keywords
@@ -171,6 +170,10 @@ mod tests {
         assert!(labels.contains(&"code"), "expected 'code' in {labels:?}");
         assert!(labels.contains(&"table"), "expected 'table' in {labels:?}");
         assert!(labels.contains(&"list"), "expected 'list' in {labels:?}");
+        assert!(
+            !labels.contains(&"literal"),
+            "did not expect invalid 'literal' brace keyword completion in {labels:?}"
+        );
     }
 
     #[test]
