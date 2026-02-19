@@ -41,6 +41,6 @@ fn main() {
         }
     } else {
         println!("No input files found in {}", input_dir);
-        println!("Create .txt files in {} first", input_dir);
+        println!("Create .sm files in {} first", input_dir);
     }
 }

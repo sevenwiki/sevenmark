@@ -48,7 +48,7 @@ def process_text(input_file, output_file):
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("사용법: python process_text.py <입력파일> <출력파일>")
-        print("예시: python process_text.py input.txt output.txt")
+        print("예시: python process_text.py input.sm output.txt")
         sys.exit(1)
 
     input_file = sys.argv[1]

@@ -93,8 +93,8 @@ dist/
 !**/package.json
 
 # Temporary/scratch files
-ToParse.txt
-sketch.txt
+ToParse.sm
+sketch.sm
 make_request.py
 docker.env
 wasm-pack.toml

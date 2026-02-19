@@ -39,7 +39,7 @@ fn benchmark_parse(content: &str, iterations: u32) -> (f64, usize) {
 }
 
 fn main() {
-    let input_content = fs::read_to_string("ToParse.txt").expect("ToParse.txt file not found");
+    let input_content = fs::read_to_string("ToParse.sm").expect("ToParse.sm file not found");
 
     println!("{}", "=".repeat(60));
     println!("SevenMark Parser Benchmark");

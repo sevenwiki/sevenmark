@@ -10,7 +10,7 @@ fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error
 fn run_parser_test(category: &str, test_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let manifest_dir = env!("CARGO_MANIFEST_DIR");
     let input_path = format!(
-        "{}/../../tc/{}/input/{}.txt",
+        "{}/../../tc/{}/input/{}.sm",
         manifest_dir, category, test_name
     );
     let expected_path = format!(

@@ -7,7 +7,7 @@ use std::time::Instant;
 
 #[tokio::main]
 async fn main() {
-    let input_content = fs::read_to_string("ToParse.txt").expect("ToParse.txt file not found");
+    let input_content = fs::read_to_string("ToParse.sm").expect("ToParse.sm file not found");
     let document_len = input_content.len();
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::DEBUG)
