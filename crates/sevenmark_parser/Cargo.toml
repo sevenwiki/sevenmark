@@ -10,7 +10,10 @@ description = "Core parsing engine for SevenMark wiki markup"
 readme = "README.md"
 
 [dependencies]
+# Internal crates
 sevenmark_ast = { workspace = true }
+
+# External dependencies
 winnow = { workspace = true }
 paste = { workspace = true }
 serde_json = { workspace = true }
