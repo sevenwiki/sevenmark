@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use sevenmark_ast::Element;
-use tower_lsp_server::ls_types::{Diagnostic, DiagnosticSeverity, Position, Range};
+use ls_types::{Diagnostic, DiagnosticSeverity, Position, Range};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
@@ -68,7 +68,7 @@ fn truncate(s: &str, max_len: usize) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tower_lsp_server::ls_types::DiagnosticSeverity;
+    use ls_types::DiagnosticSeverity;
 
     fn make_state(text: &str) -> DocumentState {
         DocumentState::new(text.to_string())

@@ -1,5 +1,5 @@
 use sevenmark_ast::{Element, Traversable};
-use tower_lsp_server::ls_types::{FoldingRange, FoldingRangeKind};
+use ls_types::{FoldingRange, FoldingRangeKind};
 
 use crate::document::DocumentState;
 
@@ -61,7 +61,7 @@ fn visit_for_folding(elements: &[Element], state: &DocumentState, ranges: &mut V
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tower_lsp_server::ls_types::FoldingRangeKind;
+    use ls_types::FoldingRangeKind;
 
     fn make_state(text: &str) -> DocumentState {
         DocumentState::new(text.to_string())

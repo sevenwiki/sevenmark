@@ -10,9 +10,9 @@ description = "WebAssembly bindings for SevenMark parser"
 
 [dependencies]
 # Internal crates
-sevenmark_ast = { workspace = true, features = ["include_locations"] }
 sevenmark_parser = { workspace = true, features = ["include_locations"] }
 sevenmark_utils = { workspace = true }
+sevenmark_lsp_core = { workspace = true }
 
 # External dependencies
 serde_json = { workspace = true }

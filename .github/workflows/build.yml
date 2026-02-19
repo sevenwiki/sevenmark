@@ -28,6 +28,9 @@ jobs:
       - name: Run Tests (Parser with locations)
         run: cargo test -p sevenmark_parser --features include_locations -- --nocapture
 
+      - name: Run Tests (LSP Core)
+        run: cargo test -p sevenmark_lsp_core -- --nocapture
+
       - name: Run Tests (Wasm)
         run: cargo test -p sevenmark_wasm -- --nocapture
 

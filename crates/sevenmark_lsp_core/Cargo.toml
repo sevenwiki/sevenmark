@@ -1,0 +1,20 @@
+[package]
+name = "sevenmark_lsp_core"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Transport-agnostic LSP logic for SevenMark (shared by native server and WASM)"
+
+[dependencies]
+# Internal crates
+sevenmark_ast = { workspace = true }
+sevenmark_parser = { workspace = true }
+sevenmark_utils = { workspace = true }
+
+# External dependencies
+ls-types = {workspace = true}
+serde = { workspace = true }
+serde_json = { workspace = true }

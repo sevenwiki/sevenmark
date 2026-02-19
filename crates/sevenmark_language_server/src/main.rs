@@ -1,12 +1,4 @@
-mod ast_walk;
 mod backend;
-mod completion;
-mod definition;
-mod diagnostics;
-mod document;
-mod folding;
-mod hover;
-mod semantic_tokens;
 
 use dashmap::DashMap;
 use tower_lsp_server::{LspService, Server};

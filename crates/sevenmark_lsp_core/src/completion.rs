@@ -1,7 +1,7 @@
 use std::collections::BTreeSet;
 
 use sevenmark_ast::Element;
-use tower_lsp_server::ls_types::{CompletionItem, CompletionItemKind, InsertTextFormat, Position};
+use ls_types::{CompletionItem, CompletionItemKind, InsertTextFormat, Position};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
@@ -141,7 +141,7 @@ fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tower_lsp_server::ls_types::Position;
+    use ls_types::Position;
 
     fn make_state(text: &str) -> DocumentState {
         DocumentState::new(text.to_string())

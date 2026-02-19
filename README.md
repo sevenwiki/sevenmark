@@ -22,10 +22,11 @@ High-performance wiki markup parser for SevenWiki.
 | `sevenmark_semantic`        | Semantic analysis helpers               |
 | `sevenmark_parser`          | Core parsing engine (standalone)        |
 | `sevenmark_utils`           | Shared utilities                        |
-| `sevenmark_wasm`            | WebAssembly bindings                    |
+| `sevenmark_wasm`            | WebAssembly bindings (parser + LSP)     |
 | `sevenmark_html`            | HTML renderer                           |
 | `sevenmark_transform`       | AST preprocessing/postprocessing        |
-| `sevenmark_language_server` | Language Server Protocol implementation |
+| `sevenmark_lsp_core`        | Transport-agnostic LSP logic            |
+| `sevenmark_language_server` | Native LSP server (stdio transport)     |
 | `sevenmark_server`          | REST API server                         |
 
 ## Editor Support
@@ -36,6 +37,10 @@ High-performance wiki markup parser for SevenWiki.
 | JetBrains | `editors/jetbrains/` | Built-in LSP API (`com.intellij.modules.lsp`, 2024.2+) |
 
 Both connect to the same `sevenmark_language_server` binary. Install it via PATH or use the bundled binary in platform-specific release packages.
+
+### Web Editor (WASM)
+
+`sevenmark_wasm` exports `handle_lsp_message(json)` for running the full LSP in a browser Web Worker - no server proxy needed. Diagnostics, semantic tokens, completions, hover, go-to-definition, folding, and document symbols all work locally via JSON-RPC.
 
 ## Publishing
 

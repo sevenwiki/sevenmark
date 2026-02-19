@@ -5,6 +5,22 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.21] - 2026-02-19
+
+### Added
+- **sevenmark_lsp_core**: New transport-agnostic LSP logic crate extracted from `sevenmark_language_server`
+  - Pure synchronous handlers (diagnostics, semantic tokens, completion, hover, definition, folding, document symbols)
+  - `LspState` JSON-RPC dispatcher for serverless environments (WASM Web Worker)
+  - No tokio/async dependencies — fully WASM-compatible
+- **sevenmark_wasm**: `handle_lsp_message(json)` function for running the full LSP in a browser Web Worker via JSON-RPC
+  - Supports all LSP features: diagnostics, semantic tokens, completion, hover, go-to-definition, folding, document symbols
+  - No server proxy needed — runs entirely in the browser
+
+### Changed
+- **sevenmark_language_server**: Handler modules moved to `sevenmark_lsp_core`; `backend.rs` now imports from core crate
+  - Removed direct `sevenmark_ast`, `sevenmark_parser`, `sevenmark_utils` dependencies (provided transitively via core)
+- **CI**: Added `sevenmark_lsp_core` test step to `build.yml`
+
 ## [2.24.18] - 2026-02-19
 
 ### Added

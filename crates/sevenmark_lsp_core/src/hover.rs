@@ -1,5 +1,5 @@
 use sevenmark_ast::Element;
-use tower_lsp_server::ls_types::{
+use ls_types::{
     Hover, HoverContents, MarkupContent, MarkupKind, Position, Range,
 };
 

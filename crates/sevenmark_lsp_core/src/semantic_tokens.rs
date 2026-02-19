@@ -3,7 +3,7 @@ use sevenmark_ast::{
     FoldInnerElement, ListContentItem, ListItemElement, Parameter, TableCellElement, TableCellItem,
     TableRowElement, TableRowItem,
 };
-use tower_lsp_server::ls_types::{
+use ls_types::{
     SemanticToken, SemanticTokenModifier, SemanticTokenType, SemanticTokensLegend,
 };
 

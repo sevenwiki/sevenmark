@@ -11,9 +11,7 @@ readme = "README.md"
 
 [dependencies]
 # Internal crates
-sevenmark_ast = { workspace = true }
-sevenmark_parser = { workspace = true }
-sevenmark_utils = { workspace = true }
+sevenmark_lsp_core = { workspace = true }
 
 # External dependencies
 tower-lsp-server = { workspace = true }

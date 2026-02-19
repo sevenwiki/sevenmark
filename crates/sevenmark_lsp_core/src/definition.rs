@@ -1,5 +1,5 @@
 use sevenmark_ast::Element;
-use tower_lsp_server::ls_types::{Location, Position, Range, Uri};
+use ls_types::{Location, Position, Range, Uri};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
