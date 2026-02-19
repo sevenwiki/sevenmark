@@ -1,5 +1,5 @@
 [package]
-name = "sevenmark-semantic"
+name = "sevenmark_semantic"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
@@ -10,7 +10,7 @@ description = "Semantic HTML renderer for SevenMark AST"
 
 [dependencies]
 # Internal
-sevenmark-parser = { workspace = true }
+sevenmark_parser = { workspace = true }
 
 # HTML rendering
 maud = { workspace = true }

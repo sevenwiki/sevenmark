@@ -1,5 +1,5 @@
 [package]
-name = "sevenmark-html"
+name = "sevenmark_html"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
@@ -11,8 +11,8 @@ readme = "README.md"
 
 [dependencies]
 # Internal
-sevenmark-parser = { workspace = true }
-sevenmark-utils = { workspace = true }
+sevenmark_parser = { workspace = true }
+sevenmark_utils = { workspace = true }
 
 # External dependencies
 maud = { workspace = true }

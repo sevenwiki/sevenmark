@@ -1,5 +1,5 @@
 [package]
-name = "sevenmark-parser"
+name = "sevenmark_parser"
 version.workspace = true
 authors.workspace = true
 license.workspace = true

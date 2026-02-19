@@ -1,5 +1,5 @@
 [package]
-name = "sevenmark-wasm"
+name = "sevenmark_wasm"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
@@ -10,8 +10,8 @@ description = "WebAssembly bindings for SevenMark parser"
 
 [dependencies]
 # Internal crates
-sevenmark-parser = { workspace = true, features = ["include_locations"] }
-sevenmark-utils = { workspace = true }
+sevenmark_parser = { workspace = true, features = ["include_locations"] }
+sevenmark_utils = { workspace = true }
 
 # External dependencies
 serde_json = { workspace = true }

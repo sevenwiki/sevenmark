@@ -16,12 +16,13 @@ readme = "README.md"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark-parser = { path = "crates/sevenmark-parser", version = "2.21.6" }
-sevenmark-transform = { path = "crates/sevenmark-transform", version = "2.21.6" }
-sevenmark-html = { path="crates/sevenmark-html", version = "2.21.6"}
-sevenmark-semantic = { path = "crates/sevenmark-semantic", version = "2.21.6"}
-sevenmark-utils = {path = "crates/sevenmark-utils", version = "2.21.6"}
-sevenmark-wasm = {path = "crates/sevenmark-wasm", version = "2.21.6"}
+sevenmark_parser = { path = "crates/sevenmark_parser", version = "2.21.6" }
+sevenmark_transform = { path = "crates/sevenmark_transform", version = "2.21.6" }
+sevenmark_html = { path="crates/sevenmark_html", version = "2.21.6"}
+sevenmark_semantic = { path = "crates/sevenmark_semantic", version = "2.21.6"}
+sevenmark_utils = {path = "crates/sevenmark_utils", version = "2.21.6"}
+sevenmark_wasm = {path = "crates/sevenmark_wasm", version = "2.21.6"}
+sevenmark_language_server = {path = "crates/sevenmark_language_server", version = "2.21.6"}
 
 # External dependencies
 winnow = { version = "0.7.14", features = ["simd"] }
@@ -44,6 +45,8 @@ futures="0.3.32"
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
 tracing-appender = "0.2.4"
+dashmap = "6.1.0"
+line-span = "0.1.5"
 wasm-bindgen = "0.2.108"
 js-sys = "0.3.85"
 web-sys = "0.3.85"

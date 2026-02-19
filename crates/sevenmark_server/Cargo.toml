@@ -1,5 +1,5 @@
 [package]
-name = "sevenmark-server"
+name = "sevenmark_server"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
@@ -10,9 +10,9 @@ description = "sevenmark/server"
 
 [dependencies]
 # Internal crates
-sevenmark-parser = { workspace = true, features = ["include_locations"] }
-sevenmark-transform = { workspace = true }
-sevenmark-html = { workspace = true }
+sevenmark_parser = { workspace = true, features = ["include_locations"] }
+sevenmark_transform = { workspace = true }
+sevenmark_html = { workspace = true }
 
 # External dependencies
 axum = { workspace = true }
@@ -31,5 +31,5 @@ serde_json = { workspace = true }
 anyhow = { workspace = true }
 
 [[bin]]
-name = "sevenmark-server"
+name = "sevenmark_server"
 path = "src/main.rs"

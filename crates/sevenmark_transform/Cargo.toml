@@ -1,5 +1,5 @@
 [package]
-name = "sevenmark-transform"
+name = "sevenmark_transform"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
@@ -10,7 +10,7 @@ description = "sevenmark/transform"
 
 [dependencies]
 # Internal crates
-sevenmark-parser = { workspace = true }
+sevenmark_parser = { workspace = true }
 
 # External dependencies
 sea-orm = { workspace = true }

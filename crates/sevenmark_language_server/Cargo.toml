@@ -1,0 +1,21 @@
+[package]
+name = "sevenmark_language_server"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Language Server Protocol implementation for SevenMark wiki markup"
+readme = "README.md"
+
+[dependencies]
+# Internal crates
+sevenmark_parser = { workspace = true }
+sevenmark_utils = { workspace = true }
+
+# External dependencies
+tower-lsp-server = { workspace = true }
+tokio = { workspace = true }
+serde_json = { workspace = true }
+dashmap = { workspace = true }
