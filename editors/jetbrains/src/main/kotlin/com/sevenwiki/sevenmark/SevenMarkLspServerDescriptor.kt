@@ -1,10 +1,11 @@
 package com.sevenwiki.sevenmark
 
 import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.ide.plugins.PluginManagerCore
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.lsp.api.ProjectWideLspServerDescriptor
-import java.nio.file.Path
 
 class SevenMarkLspServerDescriptor(project: Project) :
     ProjectWideLspServerDescriptor(project, "SevenMark") {
@@ -20,14 +21,16 @@ class SevenMarkLspServerDescriptor(project: Project) :
     }
 
     private fun findServerBinary(): String {
-        // 1. Look for bundled binary inside the plugin directory
-        val pluginDir = Path.of(javaClass.protectionDomain.codeSource.location.toURI()).parent
         val isWindows = System.getProperty("os.name").lowercase().contains("win")
         val binaryName = if (isWindows) "sevenmark_language_server.exe" else "sevenmark_language_server"
 
-        val bundled = pluginDir.resolve("server").resolve(binaryName)
-        if (bundled.toFile().exists()) {
-            return bundled.toString()
+        // 1. Look for bundled binary inside the plugin directory
+        val plugin = PluginManagerCore.getPlugin(PluginId.getId("com.sevenwiki.sevenmark"))
+        if (plugin != null) {
+            val bundled = plugin.pluginPath.resolve("server").resolve(binaryName)
+            if (bundled.toFile().exists()) {
+                return bundled.toString()
+            }
         }
 
         // 2. Fall back to PATH

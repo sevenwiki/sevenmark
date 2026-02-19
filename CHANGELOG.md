@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.10] - 2026-02-19
+
+### Fixed
+- **JetBrains Plugin**: `NullPointerException` on server startup — `codeSource.location` is null in IntelliJ plugin classloader; replaced with `PluginManagerCore.getPlugin()` for reliable plugin path resolution
+- **CI**: `helm.yml` chart directory path mismatch (`sevenmark-server` → `sevenmark_server`)
+- **CI**: `jetbrains-plugin.yml` missing `chmod +x gradlew` step on Unix runners
+
+### Changed
+- **Helm Chart**: Renamed `charts/sevenmark-server/` directory to `charts/sevenmark_server/` to match `Chart.yaml` name and Rust crate naming convention
+
 ## [2.24.5] - 2026-02-19
 
 ### Added
