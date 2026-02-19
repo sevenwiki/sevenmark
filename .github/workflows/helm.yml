@@ -24,8 +24,8 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
 
-      - name: Lint sevenmark_server chart
-        run: helm lint charts/sevenmark_server
+      - name: Lint sevenmark-server chart
+        run: helm lint charts/sevenmark-server
 
   release:
     runs-on: ubuntu-latest
@@ -52,24 +52,24 @@ jobs:
         run: |
           VERSION=${{ steps.version.outputs.version }}
 
-          # Update sevenmark_server chart
-          sed -i "s/^version:.*/version: $VERSION/" charts/sevenmark_server/Chart.yaml
-          sed -i "s/^appVersion:.*/appVersion: \"$VERSION\"/" charts/sevenmark_server/Chart.yaml
+          # Update sevenmark-server chart
+          sed -i "s/^version:.*/version: $VERSION/" charts/sevenmark-server/Chart.yaml
+          sed -i "s/^appVersion:.*/appVersion: \"$VERSION\"/" charts/sevenmark-server/Chart.yaml
 
       - name: Log in to Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
-      - name: Package and push sevenmark_server chart
+      - name: Package and push sevenmark-server chart
         run: |
-          helm package charts/sevenmark_server
-          helm push sevenmark_server-*.tgz oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/charts
+          helm package charts/sevenmark-server
+          helm push sevenmark-server-*.tgz oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/charts
 
       - name: Summary
         run: |
           VERSION=${{ steps.version.outputs.version }}
           echo "## Helm Chart Published" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### sevenmark_server" >> $GITHUB_STEP_SUMMARY
+          echo "### sevenmark-server" >> $GITHUB_STEP_SUMMARY
           echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo "helm pull oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/charts/sevenmark_server --version $VERSION" >> $GITHUB_STEP_SUMMARY
+          echo "helm pull oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/charts/sevenmark-server --version $VERSION" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
