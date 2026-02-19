@@ -101,25 +101,19 @@ impl LspState {
                 },
             )),
             completion_provider: Some(CompletionOptions {
-                trigger_characters: Some(vec![
-                    "[".to_string(),
-                    "#".to_string(),
-                    "(".to_string(),
-                ]),
+                trigger_characters: Some(vec!["[".to_string(), "#".to_string(), "(".to_string()]),
                 ..Default::default()
             }),
             definition_provider: Some(OneOf::Left(true)),
             hover_provider: Some(HoverProviderCapability::Simple(true)),
             document_symbol_provider: Some(OneOf::Left(true)),
             semantic_tokens_provider: Some(
-                SemanticTokensServerCapabilities::SemanticTokensOptions(
-                    SemanticTokensOptions {
-                        legend: legend(),
-                        full: Some(SemanticTokensFullOptions::Bool(true)),
-                        range: None,
-                        ..Default::default()
-                    },
-                ),
+                SemanticTokensServerCapabilities::SemanticTokensOptions(SemanticTokensOptions {
+                    legend: legend(),
+                    full: Some(SemanticTokensFullOptions::Bool(true)),
+                    range: None,
+                    ..Default::default()
+                }),
             ),
             folding_range_provider: Some(FoldingRangeProviderCapability::Simple(true)),
             ..Default::default()
@@ -146,9 +140,10 @@ impl LspState {
         let Some(state) = self.documents.get(&uri) else {
             return HandleResult::response_only(id, Value::Null);
         };
-        let byte_offset = state
-            .line_index
-            .position_to_byte_offset(&state.text, pos.line, pos.character);
+        let byte_offset =
+            state
+                .line_index
+                .position_to_byte_offset(&state.text, pos.line, pos.character);
         let items = get_completions(state, pos, byte_offset);
         let result = if items.is_empty() {
             Value::Null
@@ -162,14 +157,19 @@ impl LspState {
         let Ok(params) = serde_json::from_value::<HoverParams>(params) else {
             return HandleResult::response_only(id, Value::Null);
         };
-        let uri = params.text_document_position_params.text_document.uri.to_string();
+        let uri = params
+            .text_document_position_params
+            .text_document
+            .uri
+            .to_string();
         let pos = params.text_document_position_params.position;
         let Some(state) = self.documents.get(&uri) else {
             return HandleResult::response_only(id, Value::Null);
         };
-        let byte_offset = state
-            .line_index
-            .position_to_byte_offset(&state.text, pos.line, pos.character);
+        let byte_offset =
+            state
+                .line_index
+                .position_to_byte_offset(&state.text, pos.line, pos.character);
         let result = match get_hover(state, byte_offset) {
             Some(hover) => serde_json::to_value(hover).unwrap(),
             None => Value::Null,
@@ -181,15 +181,20 @@ impl LspState {
         let Ok(params) = serde_json::from_value::<GotoDefinitionParams>(params) else {
             return HandleResult::response_only(id, Value::Null);
         };
-        let uri = params.text_document_position_params.text_document.uri.clone();
+        let uri = params
+            .text_document_position_params
+            .text_document
+            .uri
+            .clone();
         let pos = params.text_document_position_params.position;
         let uri_key = uri.to_string();
         let Some(state) = self.documents.get(&uri_key) else {
             return HandleResult::response_only(id, Value::Null);
         };
-        let byte_offset = state
-            .line_index
-            .position_to_byte_offset(&state.text, pos.line, pos.character);
+        let byte_offset =
+            state
+                .line_index
+                .position_to_byte_offset(&state.text, pos.line, pos.character);
         let result = match find_definition(state, &uri, byte_offset) {
             Some(location) => serde_json::to_value(location).unwrap(),
             None => Value::Null,

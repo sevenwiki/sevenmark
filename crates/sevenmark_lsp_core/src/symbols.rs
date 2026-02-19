@@ -1,5 +1,5 @@
-use sevenmark_ast::{Element, Traversable};
 use ls_types::{DocumentSymbol, Position, Range, SymbolKind};
+use sevenmark_ast::{Element, Traversable};
 use sevenmark_utils::extract_plain_text;
 
 use crate::document::DocumentState;

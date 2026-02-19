@@ -1,7 +1,7 @@
 use std::collections::BTreeSet;
 
-use sevenmark_ast::Element;
 use ls_types::{CompletionItem, CompletionItemKind, InsertTextFormat, Position};
+use sevenmark_ast::Element;
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
@@ -92,7 +92,11 @@ fn brace_keyword_completions(_pos: Position) -> Vec<CompletionItem> {
 /// Bracket element completions after `[[`.
 fn bracket_completions(_pos: Position) -> Vec<CompletionItem> {
     let items = [
-        ("media", "#file=\"$1\" $0]]", "Media (internal file)"),
+        ("file", "#file=\"$1\" $0]]", "File / image media"),
+        ("document", "#document=\"$1\" $0]]", "Document link"),
+        ("category", "#category=\"$1\"]]", "Category link"),
+        ("user", "#user=\"$1\"]]", "User link"),
+        ("url", "#url=\"$1\" $0]]", "External URL link"),
         ("link", "$1]]", "Wiki link"),
         ("youtube", "#youtube #id=\"$1\"]]", "YouTube embed"),
         ("vimeo", "#vimeo #id=\"$1\"]]", "Vimeo embed"),
@@ -200,7 +204,7 @@ mod tests {
     }
 
     #[test]
-    fn double_bracket_suggests_media() {
+    fn double_bracket_suggests_bracket_elements() {
         let text = "hello [[";
         let state = make_state(text);
         let byte_offset = text.len();
@@ -208,12 +212,21 @@ mod tests {
         let completions = get_completions(&state, pos, byte_offset);
         assert!(!completions.is_empty(), "expected bracket completions");
         let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
-        assert!(labels.contains(&"media"), "expected 'media' in {labels:?}");
+        assert!(labels.contains(&"file"), "expected 'file' in {labels:?}");
+        assert!(
+            labels.contains(&"document"),
+            "expected 'document' in {labels:?}"
+        );
+        assert!(
+            labels.contains(&"category"),
+            "expected 'category' in {labels:?}"
+        );
+        assert!(labels.contains(&"url"), "expected 'url' in {labels:?}");
+        assert!(labels.contains(&"link"), "expected 'link' in {labels:?}");
         assert!(
             labels.contains(&"youtube"),
             "expected 'youtube' in {labels:?}"
         );
-        assert!(labels.contains(&"link"), "expected 'link' in {labels:?}");
     }
 
     #[test]

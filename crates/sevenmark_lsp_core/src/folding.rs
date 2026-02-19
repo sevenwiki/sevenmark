@@ -1,5 +1,5 @@
-use sevenmark_ast::{Element, Traversable};
 use ls_types::{FoldingRange, FoldingRangeKind};
+use sevenmark_ast::{Element, Traversable};
 
 use crate::document::DocumentState;
 

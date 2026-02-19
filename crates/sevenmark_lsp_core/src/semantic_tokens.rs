@@ -1,10 +1,8 @@
+use ls_types::{SemanticToken, SemanticTokenModifier, SemanticTokenType, SemanticTokensLegend};
 use sevenmark_ast::{
     ConditionalListItems, ConditionalTableCells, ConditionalTableRows, Element, Expression,
     FoldInnerElement, ListContentItem, ListItemElement, Parameter, TableCellElement, TableCellItem,
     TableRowElement, TableRowItem,
-};
-use ls_types::{
-    SemanticToken, SemanticTokenModifier, SemanticTokenType, SemanticTokensLegend,
 };
 
 use crate::document::DocumentState;

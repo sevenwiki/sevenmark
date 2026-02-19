@@ -1,7 +1,5 @@
+use ls_types::{Hover, HoverContents, MarkupContent, MarkupKind, Position, Range};
 use sevenmark_ast::Element;
-use ls_types::{
-    Hover, HoverContents, MarkupContent, MarkupKind, Position, Range,
-};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;

@@ -1,5 +1,5 @@
-use sevenmark_ast::Element;
 use ls_types::{Location, Position, Range, Uri};
+use sevenmark_ast::Element;
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
