@@ -75,21 +75,21 @@ fn hover_content(element: &Element) -> Option<String> {
             }
         }
         Element::Variable(v) => format!("**Variable**: `{}`", v.name),
-        Element::Define(_) => "**Define** — variable definition".to_string(),
-        Element::Include(_) => "**Include** — document inclusion".to_string(),
+        Element::Define(_) => "**Define** - variable definition".to_string(),
+        Element::Include(_) => "**Include** - document inclusion".to_string(),
         Element::Category(_) => "**Category**".to_string(),
         Element::Redirect(_) => "**Redirect**".to_string(),
         Element::Media(_) => "**Media** `[[...]]`".to_string(),
         Element::ExternalMedia(e) => format!("**External Media**: `{}`", e.provider),
         Element::Table(_) => "**Table**".to_string(),
         Element::List(l) => format!("**List** ({})", l.kind),
-        Element::Fold(_) => "**Fold** — collapsible block".to_string(),
+        Element::Fold(_) => "**Fold** - collapsible block".to_string(),
         Element::BlockQuote(_) => "**Block Quote**".to_string(),
-        Element::Styled(_) => "**Styled** — custom styled block".to_string(),
-        Element::Literal(_) => "**Literal** — raw output".to_string(),
-        Element::Ruby(_) => "**Ruby** — ruby annotation".to_string(),
+        Element::Styled(_) => "**Styled** - custom styled block".to_string(),
+        Element::Literal(_) => "**Literal** - raw output".to_string(),
+        Element::Ruby(_) => "**Ruby** - ruby annotation".to_string(),
         Element::Footnote(_) => "**Footnote**".to_string(),
-        Element::If(_) => "**If** — conditional block".to_string(),
+        Element::If(_) => "**If** - conditional block".to_string(),
         Element::Mention(m) => {
             let kind = match &m.kind {
                 sevenmark_ast::MentionType::User => "user",

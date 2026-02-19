@@ -120,13 +120,13 @@ pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     SemanticTokenType::KEYWORD,  // 36
     // ── Structural sub-elements (37–43) ──
     SemanticTokenType::PARAMETER, // 37
-    SemanticTokenType::PROPERTY,  // 38
-    SemanticTokenType::PROPERTY,  // 39
+    SemanticTokenType::OPERATOR,  // 38
+    SemanticTokenType::OPERATOR,  // 39
     SemanticTokenType::KEYWORD,   // 40
     SemanticTokenType::KEYWORD,   // 41
-    SemanticTokenType::PROPERTY,  // 42
+    SemanticTokenType::OPERATOR,  // 42
     SemanticTokenType::KEYWORD,   // 43
-    SemanticTokenType::STRING,    // 44
+    SemanticTokenType::OPERATOR,  // 44
     // ── Expression nodes (45–54) ──
     SemanticTokenType::OPERATOR, // 45
     SemanticTokenType::OPERATOR, // 46

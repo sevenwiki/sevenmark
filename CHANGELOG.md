@@ -5,6 +5,13 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.14] - 2026-02-19
+
+### Changed
+- **sevenmark_language_server**: Improved JetBrains semantic highlighting contrast for structural delimiters
+  - Remapped `tableRow`, `tableCell`, `listItem`, and `foldInner` semantic token categories from `property` to `operator`
+  - Kept token index ordering stable to preserve semantic token encoding compatibility
+
 ## [2.24.13] - 2026-02-19
 
 ### Changed
