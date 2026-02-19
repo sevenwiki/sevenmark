@@ -47,12 +47,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const run: Executable = {
     command,
-    options: {
-      env: {
-        ...process.env,
-        RUST_LOG: "debug",
-      },
-    },
   };
 
   const serverOptions: ServerOptions = {

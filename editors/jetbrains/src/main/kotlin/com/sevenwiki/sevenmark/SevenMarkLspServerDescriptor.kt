@@ -15,9 +15,7 @@ class SevenMarkLspServerDescriptor(project: Project) :
 
     override fun createCommandLine(): GeneralCommandLine {
         val serverPath = findServerBinary()
-        return GeneralCommandLine(serverPath).apply {
-            withEnvironment("RUST_LOG", "debug")
-        }
+        return GeneralCommandLine(serverPath)
     }
 
     private fun findServerBinary(): String {

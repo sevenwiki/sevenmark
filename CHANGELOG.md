@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.23] - 2026-02-19
+
+### Fixed
+- **VS Code / JetBrains**: Removed hardcoded `RUST_LOG=debug` from both editor plugins — debug logging on every keystroke caused unnecessary I/O overhead, especially on longer documents
+
 ## [2.24.22] - 2026-02-19
 
 ### Added
