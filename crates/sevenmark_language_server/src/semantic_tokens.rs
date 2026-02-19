@@ -81,66 +81,66 @@ impl TokenIdx {
 // Keep indices stable because token emitters use numeric indices.
 pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     // ── Element variants (0–36) ──
-    SemanticTokenType::STRING,               // 0
-    SemanticTokenType::COMMENT,              // 1
-    SemanticTokenType::STRING,               // 2
-    SemanticTokenType::MODIFIER,             // 3
-    SemanticTokenType::STRING,               // 4
-    SemanticTokenType::KEYWORD,              // 5
-    SemanticTokenType::KEYWORD,              // 6
-    SemanticTokenType::KEYWORD,              // 7
-    SemanticTokenType::KEYWORD,              // 8
-    SemanticTokenType::KEYWORD,              // 9
-    SemanticTokenType::KEYWORD,              // 10
-    SemanticTokenType::KEYWORD,              // 11
-    SemanticTokenType::KEYWORD,              // 12
-    SemanticTokenType::KEYWORD,              // 13
-    SemanticTokenType::STRING,               // 14
-    SemanticTokenType::KEYWORD,              // 15
-    SemanticTokenType::KEYWORD,              // 16
-    SemanticTokenType::KEYWORD,              // 17
-    SemanticTokenType::STRING,               // 18
-    SemanticTokenType::STRING,               // 19
-    SemanticTokenType::KEYWORD,              // 20
-    SemanticTokenType::VARIABLE,             // 21
-    SemanticTokenType::FUNCTION,             // 22
-    SemanticTokenType::FUNCTION,             // 23
-    SemanticTokenType::VARIABLE,             // 24
-    SemanticTokenType::VARIABLE,             // 25
-    SemanticTokenType::MODIFIER,             // 26
-    SemanticTokenType::MODIFIER,             // 27
-    SemanticTokenType::MODIFIER,             // 28
-    SemanticTokenType::MODIFIER,             // 29
-    SemanticTokenType::MODIFIER,             // 30
-    SemanticTokenType::MODIFIER,             // 31
-    SemanticTokenType::OPERATOR,             // 32
-    SemanticTokenType::OPERATOR,             // 33
-    SemanticTokenType::OPERATOR,             // 34
-    SemanticTokenType::KEYWORD,              // 35
-    SemanticTokenType::KEYWORD,              // 36
+    SemanticTokenType::STRING,   // 0
+    SemanticTokenType::COMMENT,  // 1
+    SemanticTokenType::STRING,   // 2
+    SemanticTokenType::MODIFIER, // 3
+    SemanticTokenType::STRING,   // 4
+    SemanticTokenType::KEYWORD,  // 5
+    SemanticTokenType::KEYWORD,  // 6
+    SemanticTokenType::KEYWORD,  // 7
+    SemanticTokenType::KEYWORD,  // 8
+    SemanticTokenType::KEYWORD,  // 9
+    SemanticTokenType::KEYWORD,  // 10
+    SemanticTokenType::KEYWORD,  // 11
+    SemanticTokenType::KEYWORD,  // 12
+    SemanticTokenType::KEYWORD,  // 13
+    SemanticTokenType::STRING,   // 14
+    SemanticTokenType::KEYWORD,  // 15
+    SemanticTokenType::KEYWORD,  // 16
+    SemanticTokenType::KEYWORD,  // 17
+    SemanticTokenType::STRING,   // 18
+    SemanticTokenType::STRING,   // 19
+    SemanticTokenType::KEYWORD,  // 20
+    SemanticTokenType::VARIABLE, // 21
+    SemanticTokenType::FUNCTION, // 22
+    SemanticTokenType::FUNCTION, // 23
+    SemanticTokenType::VARIABLE, // 24
+    SemanticTokenType::VARIABLE, // 25
+    SemanticTokenType::MODIFIER, // 26
+    SemanticTokenType::MODIFIER, // 27
+    SemanticTokenType::MODIFIER, // 28
+    SemanticTokenType::MODIFIER, // 29
+    SemanticTokenType::MODIFIER, // 30
+    SemanticTokenType::MODIFIER, // 31
+    SemanticTokenType::OPERATOR, // 32
+    SemanticTokenType::OPERATOR, // 33
+    SemanticTokenType::OPERATOR, // 34
+    SemanticTokenType::KEYWORD,  // 35
+    SemanticTokenType::KEYWORD,  // 36
     // ── Structural sub-elements (37–43) ──
-    SemanticTokenType::PARAMETER,            // 37
-    SemanticTokenType::PROPERTY,             // 38
-    SemanticTokenType::PROPERTY,             // 39
-    SemanticTokenType::KEYWORD,              // 40
-    SemanticTokenType::KEYWORD,              // 41
-    SemanticTokenType::PROPERTY,             // 42
-    SemanticTokenType::KEYWORD,              // 43
-    SemanticTokenType::STRING,               // 44
+    SemanticTokenType::PARAMETER, // 37
+    SemanticTokenType::PROPERTY,  // 38
+    SemanticTokenType::PROPERTY,  // 39
+    SemanticTokenType::KEYWORD,   // 40
+    SemanticTokenType::KEYWORD,   // 41
+    SemanticTokenType::PROPERTY,  // 42
+    SemanticTokenType::KEYWORD,   // 43
+    SemanticTokenType::STRING,    // 44
     // ── Expression nodes (45–54) ──
-    SemanticTokenType::OPERATOR,             // 45
-    SemanticTokenType::OPERATOR,             // 46
-    SemanticTokenType::OPERATOR,             // 47
-    SemanticTokenType::OPERATOR,             // 48
-    SemanticTokenType::FUNCTION,             // 49
-    SemanticTokenType::STRING,               // 50
-    SemanticTokenType::NUMBER,               // 51
-    SemanticTokenType::KEYWORD,              // 52
-    SemanticTokenType::KEYWORD,              // 53
-    SemanticTokenType::OPERATOR,             // 54
+    SemanticTokenType::OPERATOR, // 45
+    SemanticTokenType::OPERATOR, // 46
+    SemanticTokenType::OPERATOR, // 47
+    SemanticTokenType::OPERATOR, // 48
+    SemanticTokenType::FUNCTION, // 49
+    SemanticTokenType::STRING,   // 50
+    SemanticTokenType::NUMBER,   // 51
+    SemanticTokenType::KEYWORD,  // 52
+    SemanticTokenType::KEYWORD,  // 53
+    SemanticTokenType::OPERATOR, // 54
     // ── Operators (55–56) ──
-    SemanticTokenType::OPERATOR,             // 55
-    SemanticTokenType::OPERATOR,             // 56
+    SemanticTokenType::OPERATOR, // 55
+    SemanticTokenType::OPERATOR, // 56
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -435,7 +435,12 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
 // ── Table sub-structure walking ─────────────────────────────────────────
 
 fn walk_table_row(row: &TableRowElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&row.open_span, &row.close_span, TokenIdx::TableRow.as_u32(), raw);
+    emit_delimiter_tokens(
+        &row.open_span,
+        &row.close_span,
+        TokenIdx::TableRow.as_u32(),
+        raw,
+    );
     walk_parameters(&row.parameters, raw);
     for cell_item in &row.children {
         match cell_item {
@@ -446,7 +451,12 @@ fn walk_table_row(row: &TableRowElement, raw: &mut Vec<(usize, usize, u32)>) {
 }
 
 fn walk_table_cell(cell: &TableCellElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&cell.open_span, &cell.close_span, TokenIdx::TableCell.as_u32(), raw);
+    emit_delimiter_tokens(
+        &cell.open_span,
+        &cell.close_span,
+        TokenIdx::TableCell.as_u32(),
+        raw,
+    );
     walk_parameters(&cell.parameters, raw);
     walk_elements(&cell.x, raw);
     walk_elements(&cell.y, raw);
@@ -482,7 +492,12 @@ fn walk_conditional_table_cells(cond: &ConditionalTableCells, raw: &mut Vec<(usi
 // ── List sub-structure walking ──────────────────────────────────────────
 
 fn walk_list_item(li: &ListItemElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&li.open_span, &li.close_span, TokenIdx::ListItem.as_u32(), raw);
+    emit_delimiter_tokens(
+        &li.open_span,
+        &li.close_span,
+        TokenIdx::ListItem.as_u32(),
+        raw,
+    );
     walk_parameters(&li.parameters, raw);
     walk_elements(&li.children, raw);
 }
@@ -503,7 +518,12 @@ fn walk_conditional_list_items(cond: &ConditionalListItems, raw: &mut Vec<(usize
 // ── Fold sub-structure walking ──────────────────────────────────────────
 
 fn walk_fold_inner(inner: &FoldInnerElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&inner.open_span, &inner.close_span, TokenIdx::FoldInner.as_u32(), raw);
+    emit_delimiter_tokens(
+        &inner.open_span,
+        &inner.close_span,
+        TokenIdx::FoldInner.as_u32(),
+        raw,
+    );
     walk_parameters(&inner.parameters, raw);
     walk_elements(&inner.children, raw);
 }
@@ -789,9 +809,7 @@ mod tests {
         let state = make_state("{{{#if true :: content}}}");
         let tokens = collect_semantic_tokens(&state);
         assert!(
-            tokens
-                .iter()
-                .any(|t| t.token_type == TokenIdx::If.as_u32()),
+            tokens.iter().any(|t| t.token_type == TokenIdx::If.as_u32()),
             "expected if token"
         );
         // Should have at least 2 tokens (if, expression; content text is skipped)
