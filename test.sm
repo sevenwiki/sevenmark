@@ -87,8 +87,8 @@ Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidel
 
 ## Features
 
-{{{#table
-[[[[Feature]] [[Status]] [[Version]]]]
+{{{#table 
+[[[[#x="2" #y="3" Feature]] [[Status]] [[Version]]]]
 [[[[🔐 Authentication]] [[✅ Complete]] [[v1.0]]]]
 [[[[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]]]
 [[[[🔔 Notifications]] [[📋 Planned]] [[v1.2]]]]

@@ -3218,14 +3218,14 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_ast"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "sevenmark_html"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "maud",
  "percent-encoding",
@@ -3236,7 +3236,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_language_server"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "dashmap",
  "sevenmark_ast",
@@ -3248,7 +3248,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_parser"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "paste",
  "serde_json",
@@ -3258,7 +3258,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_semantic"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "maud",
  "sevenmark_ast",
@@ -3266,7 +3266,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_server"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3276,7 +3276,6 @@ dependencies = [
  "sea-orm",
  "serde",
  "serde_json",
- "sevenmark_ast",
  "sevenmark_html",
  "sevenmark_parser",
  "sevenmark_transform",
@@ -3290,7 +3289,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_transform"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "anyhow",
  "aws-sdk-s3",
@@ -3308,7 +3307,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_utils"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "line-span",
  "serde",
@@ -3318,7 +3317,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm"
-version = "2.24.3"
+version = "2.24.5"
 dependencies = [
  "serde_json",
  "sevenmark_ast",

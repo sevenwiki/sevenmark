@@ -1,0 +1,116 @@
+name: JetBrains Plugin
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            platform: linux-x64
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            platform: linux-arm64
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            platform: macos-x64
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            platform: macos-arm64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            platform: win-x64
+          - os: windows-latest
+            target: aarch64-pc-windows-msvc
+            platform: win-arm64
+
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Install cross-compilation tools
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
+      - name: Build LSP server
+        run: cargo build --release -p sevenmark_language_server --target ${{ matrix.target }}
+        env:
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
+
+      - name: Copy server binary (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p editors/jetbrains/server
+          cp target/${{ matrix.target }}/release/sevenmark_language_server editors/jetbrains/server/
+          chmod +x editors/jetbrains/server/sevenmark_language_server
+
+      - name: Copy server binary (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path editors/jetbrains/server
+          Copy-Item target/${{ matrix.target }}/release/sevenmark_language_server.exe editors/jetbrains/server/
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build plugin
+        working-directory: ./editors/jetbrains
+        run: ./gradlew buildPlugin
+
+      - name: Rename artifact
+        working-directory: ./editors/jetbrains
+        shell: bash
+        run: |
+          ZIP=$(ls build/distributions/*.zip | head -1)
+          mv "$ZIP" "build/distributions/sevenmark-jetbrains-${{ matrix.platform }}.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jetbrains-${{ matrix.platform }}
+          path: editors/jetbrains/build/distributions/sevenmark-jetbrains-${{ matrix.platform }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: jetbrains-*
+          merge-multiple: true
+
+      - name: Attach to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.zip"

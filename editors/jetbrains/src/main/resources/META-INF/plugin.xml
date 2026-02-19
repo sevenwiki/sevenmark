@@ -1,0 +1,19 @@
+<idea-plugin>
+    <id>com.sevenwiki.sevenmark</id>
+    <name>SevenMark</name>
+    <vendor url="https://github.com/sevenwiki">sevenwiki</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="SevenMark"
+                implementationClass="com.sevenwiki.sevenmark.SevenMarkFileType"
+                fieldName="INSTANCE"
+                language="SevenMark"
+                extensions="sm"/>
+
+        <platform.lsp.serverSupportProvider
+                implementation="com.sevenwiki.sevenmark.SevenMarkLspServerSupportProvider"/>
+    </extensions>
+</idea-plugin>

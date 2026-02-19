@@ -10,7 +10,6 @@ description = "sevenmark/server"
 
 [dependencies]
 # Internal crates
-sevenmark_ast = { workspace = true, features = ["include_locations"] }
 sevenmark_parser = { workspace = true, features = ["include_locations"] }
 sevenmark_transform = { workspace = true }
 sevenmark_html = { workspace = true }
