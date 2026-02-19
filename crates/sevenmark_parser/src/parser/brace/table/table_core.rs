@@ -9,7 +9,7 @@ use sevenmark_ast::{
 };
 use winnow::Result;
 use winnow::ascii::multispace0;
-use winnow::combinator::{alt, delimited, opt, repeat};
+use winnow::combinator::{alt, opt, repeat};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
@@ -34,7 +34,9 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
     let start = parser_input.current_token_start();
 
     // {{{#if 시작
-    let _ = (multispace0, literal("{{{#if")).parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    literal("{{{#if").parse_next(parser_input)?;
+    let open_end = parser_input.previous_token_end();
 
     // 조건식 파싱 (condition_parser는 선택적 :: 종결자를 처리함)
     let condition: Expression = condition_parser.parse_next(parser_input)?;
@@ -43,12 +45,23 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
     let rows: Vec<TableRowElement> = repeat(0.., table_row_parser).parse_next(parser_input)?;
 
     // }}} 종료
-    let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    let close_start = parser_input.current_token_start();
+    literal("}}}").parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
 
     let end = parser_input.previous_token_end();
 
     Ok(ConditionalTableRows {
         span: Span { start, end },
+        open_span: Span {
+            start,
+            end: open_end,
+        },
+        close_span: Span {
+            start: close_start,
+            end: close_start + 3,
+        },
         condition,
         rows,
     })
@@ -58,24 +71,30 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
 fn table_row_parser(parser_input: &mut ParserInput) -> Result<TableRowElement> {
     let start = parser_input.current_token_start();
 
-    let (_, (parameters, parsed_content), _) = (
-        multispace0,
-        delimited(
-            literal("[["),
-            (
-                opt(parameter_core_parser),
-                repeat(1.., table_cell_child_parser),
-            ),
-            literal("]]"),
-        ),
-        multispace0,
-    )
-        .parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    literal("[[").parse_next(parser_input)?;
+    let open_end = parser_input.previous_token_end();
+
+    let parameters = opt(parameter_core_parser).parse_next(parser_input)?;
+    let parsed_content: Vec<TableCellItem> =
+        repeat(1.., table_cell_child_parser).parse_next(parser_input)?;
+
+    let close_start = parser_input.current_token_start();
+    literal("]]").parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
 
     let end = parser_input.previous_token_end();
 
     Ok(TableRowElement {
         span: Span { start, end },
+        open_span: Span {
+            start,
+            end: open_end,
+        },
+        close_span: Span {
+            start: close_start,
+            end: close_start + 2,
+        },
         parameters: parameters.unwrap_or_default(),
         children: parsed_content,
     })
@@ -96,7 +115,9 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
     let start = parser_input.current_token_start();
 
     // {{{#if 시작
-    let _ = (multispace0, literal("{{{#if")).parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    literal("{{{#if").parse_next(parser_input)?;
+    let open_end = parser_input.previous_token_end();
 
     // 조건식 파싱
     let condition: Expression = condition_parser.parse_next(parser_input)?;
@@ -105,12 +126,23 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
     let cells: Vec<TableCellElement> = repeat(0.., table_cell_parser).parse_next(parser_input)?;
 
     // }}} 종료
-    let _ = (multispace0, literal("}}}"), multispace0).parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    let close_start = parser_input.current_token_start();
+    literal("}}}").parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
 
     let end = parser_input.previous_token_end();
 
     Ok(ConditionalTableCells {
         span: Span { start, end },
+        open_span: Span {
+            start,
+            end: open_end,
+        },
+        close_span: Span {
+            start: close_start,
+            end: close_start + 3,
+        },
         condition,
         cells,
     })
@@ -120,19 +152,18 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
 fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement> {
     let start = parser_input.current_token_start();
 
-    let (_, ((parameters, _), parsed_content), _) = (
-        multispace0,
-        delimited(
-            literal("[["),
-            (
-                (opt(parameter_core_parser), multispace0),
-                |input: &mut ParserInput| with_depth_and_trim(input, element_parser),
-            ),
-            (multispace0, literal("]]")),
-        ),
-        multispace0,
-    )
-        .parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    literal("[[").parse_next(parser_input)?;
+    let open_end = parser_input.previous_token_end();
+
+    let parameters = opt(parameter_core_parser).parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
+    let parsed_content = with_depth_and_trim(parser_input, element_parser)?;
+
+    multispace0.parse_next(parser_input)?;
+    let close_start = parser_input.current_token_start();
+    literal("]]").parse_next(parser_input)?;
+    multispace0.parse_next(parser_input)?;
 
     let end = parser_input.previous_token_end();
 
@@ -150,6 +181,14 @@ fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement>
 
     Ok(TableCellElement {
         span: Span { start, end },
+        open_span: Span {
+            start,
+            end: open_end,
+        },
+        close_span: Span {
+            start: close_start,
+            end: close_start + 2,
+        },
         parameters,
         x,
         y,

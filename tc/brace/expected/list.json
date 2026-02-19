@@ -5,6 +5,14 @@
         "start": 0,
         "end": 48
       },
+      "open_span": {
+        "start": 0,
+        "end": 8
+      },
+      "close_span": {
+        "start": 45,
+        "end": 48
+      },
       "kind": "1",
       "parameters": {
         "1": {
@@ -22,6 +30,14 @@
             "span": {
               "start": 12,
               "end": 23
+            },
+            "open_span": {
+              "start": 12,
+              "end": 14
+            },
+            "close_span": {
+              "start": 20,
+              "end": 22
             },
             "parameters": {},
             "children": [
@@ -43,6 +59,14 @@
               "start": 23,
               "end": 34
             },
+            "open_span": {
+              "start": 23,
+              "end": 25
+            },
+            "close_span": {
+              "start": 31,
+              "end": 33
+            },
             "parameters": {},
             "children": [
               {
@@ -62,6 +86,14 @@
             "span": {
               "start": 34,
               "end": 45
+            },
+            "open_span": {
+              "start": 34,
+              "end": 36
+            },
+            "close_span": {
+              "start": 42,
+              "end": 44
             },
             "parameters": {},
             "children": [

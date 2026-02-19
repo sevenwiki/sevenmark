@@ -5,6 +5,14 @@
         "start": 0,
         "end": 40
       },
+      "open_span": {
+        "start": 0,
+        "end": 6
+      },
+      "close_span": {
+        "start": 37,
+        "end": 40
+      },
       "condition": {
         "Comparison": {
           "span": {
@@ -69,6 +77,14 @@
     "If": {
       "span": {
         "start": 42,
+        "end": 82
+      },
+      "open_span": {
+        "start": 42,
+        "end": 48
+      },
+      "close_span": {
+        "start": 79,
         "end": 82
       },
       "condition": {
@@ -137,6 +153,14 @@
     "If": {
       "span": {
         "start": 84,
+        "end": 128
+      },
+      "open_span": {
+        "start": 84,
+        "end": 90
+      },
+      "close_span": {
+        "start": 125,
         "end": 128
       },
       "condition": {

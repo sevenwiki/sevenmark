@@ -65,6 +65,14 @@
         "start": 79,
         "end": 146
       },
+      "open_span": {
+        "start": 79,
+        "end": 86
+      },
+      "close_span": {
+        "start": 143,
+        "end": 146
+      },
       "is_block": true,
       "value": "E = mc^2\n"
     }
@@ -237,6 +245,14 @@
         "start": 269,
         "end": 673
       },
+      "open_span": {
+        "start": 269,
+        "end": 277
+      },
+      "close_span": {
+        "start": 670,
+        "end": 673
+      },
       "parameters": {
         "bgcolor": {
           "span": {
@@ -261,6 +277,14 @@
         "span": {
           "start": 301,
           "end": 331
+        },
+        "open_span": {
+          "start": 301,
+          "end": 303
+        },
+        "close_span": {
+          "start": 328,
+          "end": 330
         },
         "parameters": {},
         "children": [
@@ -299,12 +323,28 @@
           "start": 331,
           "end": 670
         },
+        "open_span": {
+          "start": 331,
+          "end": 333
+        },
+        "close_span": {
+          "start": 667,
+          "end": 669
+        },
         "parameters": {},
         "children": [
           {
             "List": {
               "span": {
                 "start": 334,
+                "end": 505
+              },
+              "open_span": {
+                "start": 334,
+                "end": 342
+              },
+              "close_span": {
+                "start": 502,
                 "end": 505
               },
               "kind": "1",
@@ -325,6 +365,14 @@
                       "start": 346,
                       "end": 410
                     },
+                    "open_span": {
+                      "start": 346,
+                      "end": 348
+                    },
+                    "close_span": {
+                      "start": 407,
+                      "end": 409
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -342,6 +390,14 @@
                             "start": 382,
                             "end": 407
                           },
+                          "open_span": {
+                            "start": 382,
+                            "end": 389
+                          },
+                          "close_span": {
+                            "start": 404,
+                            "end": 407
+                          },
                           "is_block": false,
                           "value": "p = \\gamma mv "
                         }
@@ -354,6 +410,14 @@
                     "span": {
                       "start": 410,
                       "end": 445
+                    },
+                    "open_span": {
+                      "start": 410,
+                      "end": 412
+                    },
+                    "close_span": {
+                      "start": 442,
+                      "end": 444
                     },
                     "parameters": {},
                     "children": [
@@ -375,6 +439,14 @@
                       "start": 445,
                       "end": 477
                     },
+                    "open_span": {
+                      "start": 445,
+                      "end": 447
+                    },
+                    "close_span": {
+                      "start": 474,
+                      "end": 476
+                    },
                     "parameters": {},
                     "children": [
                       {
@@ -394,6 +466,14 @@
                     "span": {
                       "start": 477,
                       "end": 502
+                    },
+                    "open_span": {
+                      "start": 477,
+                      "end": 479
+                    },
+                    "close_span": {
+                      "start": 499,
+                      "end": 501
                     },
                     "parameters": {},
                     "children": [
@@ -451,6 +531,14 @@
             "BlockQuote": {
               "span": {
                 "start": 507,
+                "end": 665
+              },
+              "open_span": {
+                "start": 507,
+                "end": 516
+              },
+              "close_span": {
+                "start": 662,
                 "end": 665
               },
               "parameters": {
@@ -587,6 +675,14 @@
         "start": 711,
         "end": 1101
       },
+      "open_span": {
+        "start": 711,
+        "end": 720
+      },
+      "close_span": {
+        "start": 1098,
+        "end": 1101
+      },
       "parameters": {
         "style": {
           "span": {
@@ -614,6 +710,14 @@
               "start": 765,
               "end": 819
             },
+            "open_span": {
+              "start": 765,
+              "end": 767
+            },
+            "close_span": {
+              "start": 816,
+              "end": 818
+            },
             "parameters": {},
             "children": [
               {
@@ -621,6 +725,14 @@
                   "span": {
                     "start": 767,
                     "end": 781
+                  },
+                  "open_span": {
+                    "start": 767,
+                    "end": 769
+                  },
+                  "close_span": {
+                    "start": 778,
+                    "end": 780
                   },
                   "parameters": {},
                   "children": [
@@ -652,6 +764,14 @@
                     "start": 781,
                     "end": 801
                   },
+                  "open_span": {
+                    "start": 781,
+                    "end": 783
+                  },
+                  "close_span": {
+                    "start": 798,
+                    "end": 800
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -680,6 +800,14 @@
                 "Cell": {
                   "span": {
                     "start": 801,
+                    "end": 816
+                  },
+                  "open_span": {
+                    "start": 801,
+                    "end": 803
+                  },
+                  "close_span": {
+                    "start": 814,
                     "end": 816
                   },
                   "parameters": {},
@@ -715,6 +843,14 @@
               "start": 819,
               "end": 915
             },
+            "open_span": {
+              "start": 819,
+              "end": 821
+            },
+            "close_span": {
+              "start": 912,
+              "end": 914
+            },
             "parameters": {},
             "children": [
               {
@@ -722,6 +858,14 @@
                   "span": {
                     "start": 821,
                     "end": 841
+                  },
+                  "open_span": {
+                    "start": 821,
+                    "end": 823
+                  },
+                  "close_span": {
+                    "start": 838,
+                    "end": 840
                   },
                   "parameters": {},
                   "children": [
@@ -743,6 +887,14 @@
                     "start": 841,
                     "end": 873
                   },
+                  "open_span": {
+                    "start": 841,
+                    "end": 843
+                  },
+                  "close_span": {
+                    "start": 870,
+                    "end": 872
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -763,12 +915,28 @@
                     "start": 873,
                     "end": 912
                   },
+                  "open_span": {
+                    "start": 873,
+                    "end": 875
+                  },
+                  "close_span": {
+                    "start": 910,
+                    "end": 912
+                  },
                   "parameters": {},
                   "children": [
                     {
                       "TeX": {
                         "span": {
                           "start": 875,
+                          "end": 910
+                        },
+                        "open_span": {
+                          "start": 875,
+                          "end": 882
+                        },
+                        "close_span": {
+                          "start": 907,
                           "end": 910
                         },
                         "is_block": false,
@@ -787,6 +955,14 @@
               "start": 915,
               "end": 1013
             },
+            "open_span": {
+              "start": 915,
+              "end": 917
+            },
+            "close_span": {
+              "start": 1010,
+              "end": 1012
+            },
             "parameters": {},
             "children": [
               {
@@ -794,6 +970,14 @@
                   "span": {
                     "start": 917,
                     "end": 938
+                  },
+                  "open_span": {
+                    "start": 917,
+                    "end": 919
+                  },
+                  "close_span": {
+                    "start": 935,
+                    "end": 937
                   },
                   "parameters": {},
                   "children": [
@@ -815,6 +999,14 @@
                     "start": 938,
                     "end": 977
                   },
+                  "open_span": {
+                    "start": 938,
+                    "end": 940
+                  },
+                  "close_span": {
+                    "start": 974,
+                    "end": 976
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -835,12 +1027,28 @@
                     "start": 977,
                     "end": 1010
                   },
+                  "open_span": {
+                    "start": 977,
+                    "end": 979
+                  },
+                  "close_span": {
+                    "start": 1008,
+                    "end": 1010
+                  },
                   "parameters": {},
                   "children": [
                     {
                       "TeX": {
                         "span": {
                           "start": 979,
+                          "end": 1008
+                        },
+                        "open_span": {
+                          "start": 979,
+                          "end": 986
+                        },
+                        "close_span": {
+                          "start": 1005,
                           "end": 1008
                         },
                         "is_block": false,
@@ -859,6 +1067,14 @@
               "start": 1013,
               "end": 1098
             },
+            "open_span": {
+              "start": 1013,
+              "end": 1015
+            },
+            "close_span": {
+              "start": 1095,
+              "end": 1097
+            },
             "parameters": {},
             "children": [
               {
@@ -866,6 +1082,14 @@
                   "span": {
                     "start": 1015,
                     "end": 1029
+                  },
+                  "open_span": {
+                    "start": 1015,
+                    "end": 1017
+                  },
+                  "close_span": {
+                    "start": 1026,
+                    "end": 1028
                   },
                   "parameters": {},
                   "children": [
@@ -887,6 +1111,14 @@
                     "start": 1029,
                     "end": 1059
                   },
+                  "open_span": {
+                    "start": 1029,
+                    "end": 1031
+                  },
+                  "close_span": {
+                    "start": 1056,
+                    "end": 1058
+                  },
                   "parameters": {},
                   "children": [
                     {
@@ -907,12 +1139,28 @@
                     "start": 1059,
                     "end": 1095
                   },
+                  "open_span": {
+                    "start": 1059,
+                    "end": 1061
+                  },
+                  "close_span": {
+                    "start": 1093,
+                    "end": 1095
+                  },
                   "parameters": {},
                   "children": [
                     {
                       "TeX": {
                         "span": {
                           "start": 1061,
+                          "end": 1093
+                        },
+                        "open_span": {
+                          "start": 1061,
+                          "end": 1068
+                        },
+                        "close_span": {
+                          "start": 1090,
                           "end": 1093
                         },
                         "is_block": false,
@@ -1050,6 +1298,14 @@
         "start": 1182,
         "end": 1377
       },
+      "open_span": {
+        "start": 1182,
+        "end": 1190
+      },
+      "close_span": {
+        "start": 1374,
+        "end": 1377
+      },
       "kind": "i",
       "parameters": {
         "i": {
@@ -1085,6 +1341,14 @@
             "span": {
               "start": 1225,
               "end": 1267
+            },
+            "open_span": {
+              "start": 1225,
+              "end": 1227
+            },
+            "close_span": {
+              "start": 1264,
+              "end": 1266
             },
             "parameters": {},
             "children": [
@@ -1160,6 +1424,14 @@
               "start": 1267,
               "end": 1320
             },
+            "open_span": {
+              "start": 1267,
+              "end": 1269
+            },
+            "close_span": {
+              "start": 1317,
+              "end": 1319
+            },
             "parameters": {},
             "children": [
               {
@@ -1179,6 +1451,14 @@
             "span": {
               "start": 1320,
               "end": 1374
+            },
+            "open_span": {
+              "start": 1320,
+              "end": 1322
+            },
+            "close_span": {
+              "start": 1371,
+              "end": 1373
             },
             "parameters": {},
             "children": [
@@ -1267,6 +1547,14 @@
         "start": 1410,
         "end": 1753
       },
+      "open_span": {
+        "start": 1410,
+        "end": 1418
+      },
+      "close_span": {
+        "start": 1750,
+        "end": 1753
+      },
       "parameters": {
         "lang": {
           "span": {
@@ -1330,11 +1618,27 @@
         "start": 1755,
         "end": 2210
       },
+      "open_span": {
+        "start": 1755,
+        "end": 1763
+      },
+      "close_span": {
+        "start": 2207,
+        "end": 2210
+      },
       "parameters": {},
       "summary": {
         "span": {
           "start": 1763,
           "end": 1796
+        },
+        "open_span": {
+          "start": 1763,
+          "end": 1766
+        },
+        "close_span": {
+          "start": 1793,
+          "end": 1795
         },
         "parameters": {},
         "children": [
@@ -1372,6 +1676,14 @@
         "span": {
           "start": 1796,
           "end": 2207
+        },
+        "open_span": {
+          "start": 1796,
+          "end": 1798
+        },
+        "close_span": {
+          "start": 2204,
+          "end": 2206
         },
         "parameters": {},
         "children": [

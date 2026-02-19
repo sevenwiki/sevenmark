@@ -5,6 +5,14 @@
         "start": 0,
         "end": 96
       },
+      "open_span": {
+        "start": 0,
+        "end": 9
+      },
+      "close_span": {
+        "start": 93,
+        "end": 96
+      },
       "parameters": {
         "style": {
           "span": {
