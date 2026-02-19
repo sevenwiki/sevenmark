@@ -22,6 +22,10 @@ serde_json = { workspace = true }
 default = []
 include_locations = ["sevenmark_ast/include_locations"]
 
+[[example]]
+name = "gen_expected"
+required-features = ["include_locations"]
+
 [[test]]
 name = "comprehensive_parser_tests"
 required-features = ["include_locations"]
