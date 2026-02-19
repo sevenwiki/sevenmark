@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.16] - 2026-02-19
+
+### Fixed
+- **sevenmark_parser**: Corrected delimiter `open_span.start` offsets for nested list/table/fold structures when leading whitespace or line breaks appear before delimiters
+  - Captures `open_span.start` immediately before `[[` and `{{{#if` after whitespace consumption
+  - Prevents multi-line delimiter token spans that caused missing delimiter highlighting in editors
+
+### Changed
+- **Tests**: Regenerated parser expected fixtures (`tc/*/expected/*.json`) to match updated span offsets
+
 ## [2.24.15] - 2026-02-19
 
 ### Changed

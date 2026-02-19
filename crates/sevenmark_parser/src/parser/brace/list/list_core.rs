@@ -32,6 +32,7 @@ fn list_conditional_parser(parser_input: &mut ParserInput) -> Result<Conditional
 
     // {{{#if 시작
     multispace0.parse_next(parser_input)?;
+    let open_start = parser_input.current_token_start();
     literal("{{{#if").parse_next(parser_input)?;
     let open_end = parser_input.previous_token_end();
 
@@ -52,7 +53,7 @@ fn list_conditional_parser(parser_input: &mut ParserInput) -> Result<Conditional
     Ok(ConditionalListItems {
         span: Span { start, end },
         open_span: Span {
-            start,
+            start: open_start,
             end: open_end,
         },
         close_span: Span {
@@ -69,6 +70,7 @@ fn list_item_parser(parser_input: &mut ParserInput) -> Result<ListItemElement> {
     let start = parser_input.current_token_start();
 
     multispace0.parse_next(parser_input)?;
+    let open_start = parser_input.current_token_start();
     literal("[[").parse_next(parser_input)?;
     let open_end = parser_input.previous_token_end();
 
@@ -86,7 +88,7 @@ fn list_item_parser(parser_input: &mut ParserInput) -> Result<ListItemElement> {
     Ok(ListItemElement {
         span: Span { start, end },
         open_span: Span {
-            start,
+            start: open_start,
             end: open_end,
         },
         close_span: Span {

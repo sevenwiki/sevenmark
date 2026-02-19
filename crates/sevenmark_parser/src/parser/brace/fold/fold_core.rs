@@ -18,6 +18,7 @@ pub fn fold_core_parser(
     // 첫 번째 FoldInner
     let start_1 = parser_input.current_token_start();
     multispace0.parse_next(parser_input)?;
+    let open_start_1 = parser_input.current_token_start();
     literal("[[").parse_next(parser_input)?;
     let open_end_1 = parser_input.previous_token_end();
 
@@ -34,6 +35,7 @@ pub fn fold_core_parser(
     // 두 번째 FoldInner
     let start_2 = parser_input.current_token_start();
     multispace0.parse_next(parser_input)?;
+    let open_start_2 = parser_input.current_token_start();
     literal("[[").parse_next(parser_input)?;
     let open_end_2 = parser_input.previous_token_end();
 
@@ -53,7 +55,7 @@ pub fn fold_core_parser(
             end: end_1,
         },
         open_span: Span {
-            start: start_1,
+            start: open_start_1,
             end: open_end_1,
         },
         close_span: Span {
@@ -70,7 +72,7 @@ pub fn fold_core_parser(
             end: end_2,
         },
         open_span: Span {
-            start: start_2,
+            start: open_start_2,
             end: open_end_2,
         },
         close_span: Span {

@@ -35,6 +35,7 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
 
     // {{{#if 시작
     multispace0.parse_next(parser_input)?;
+    let open_start = parser_input.current_token_start();
     literal("{{{#if").parse_next(parser_input)?;
     let open_end = parser_input.previous_token_end();
 
@@ -55,7 +56,7 @@ fn table_row_conditional_parser(parser_input: &mut ParserInput) -> Result<Condit
     Ok(ConditionalTableRows {
         span: Span { start, end },
         open_span: Span {
-            start,
+            start: open_start,
             end: open_end,
         },
         close_span: Span {
@@ -72,6 +73,7 @@ fn table_row_parser(parser_input: &mut ParserInput) -> Result<TableRowElement> {
     let start = parser_input.current_token_start();
 
     multispace0.parse_next(parser_input)?;
+    let open_start = parser_input.current_token_start();
     literal("[[").parse_next(parser_input)?;
     let open_end = parser_input.previous_token_end();
 
@@ -88,7 +90,7 @@ fn table_row_parser(parser_input: &mut ParserInput) -> Result<TableRowElement> {
     Ok(TableRowElement {
         span: Span { start, end },
         open_span: Span {
-            start,
+            start: open_start,
             end: open_end,
         },
         close_span: Span {
@@ -116,6 +118,7 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
 
     // {{{#if 시작
     multispace0.parse_next(parser_input)?;
+    let open_start = parser_input.current_token_start();
     literal("{{{#if").parse_next(parser_input)?;
     let open_end = parser_input.previous_token_end();
 
@@ -136,7 +139,7 @@ fn table_cell_conditional_parser(parser_input: &mut ParserInput) -> Result<Condi
     Ok(ConditionalTableCells {
         span: Span { start, end },
         open_span: Span {
-            start,
+            start: open_start,
             end: open_end,
         },
         close_span: Span {
@@ -153,6 +156,7 @@ fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement>
     let start = parser_input.current_token_start();
 
     multispace0.parse_next(parser_input)?;
+    let open_start = parser_input.current_token_start();
     literal("[[").parse_next(parser_input)?;
     let open_end = parser_input.previous_token_end();
 
@@ -182,7 +186,7 @@ fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement>
     Ok(TableCellElement {
         span: Span { start, end },
         open_span: Span {
-            start,
+            start: open_start,
             end: open_end,
         },
         close_span: Span {
