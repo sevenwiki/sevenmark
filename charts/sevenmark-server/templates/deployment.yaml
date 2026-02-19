@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "sevenmark-server.fullname" . }}
+  name: {{ include "sevenmark_server.fullname" . }}
   labels:
-    {{- include "sevenmark-server.labels" . | nindent 4 }}
+    {{- include "sevenmark_server.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "sevenmark-server.selectorLabels" . | nindent 6 }}
+      {{- include "sevenmark_server.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -22,7 +22,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "sevenmark-server.labels" . | nindent 8 }}
+        {{- include "sevenmark_server.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -31,7 +31,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "sevenmark-server.serviceAccountName" . }}
+      serviceAccountName: {{ include "sevenmark_server.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -46,9 +46,9 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: {{ include "sevenmark-server.fullname" . }}
+                name: {{ include "sevenmark_server.fullname" . }}
             - secretRef:
-                name: {{ include "sevenmark-server.secretName" . }}
+                name: {{ include "sevenmark_server.secretName" . }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:

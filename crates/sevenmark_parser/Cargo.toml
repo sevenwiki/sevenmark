@@ -1,0 +1,27 @@
+[package]
+name = "sevenmark_parser"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Core parsing engine for SevenMark wiki markup"
+readme = "README.md"
+
+[dependencies]
+# Internal crates
+sevenmark_ast = { workspace = true }
+
+# External dependencies
+winnow = { workspace = true }
+paste = { workspace = true }
+serde_json = { workspace = true }
+
+[features]
+default = []
+include_locations = ["sevenmark_ast/include_locations"]
+
+[[test]]
+name = "comprehensive_parser_tests"
+required-features = ["include_locations"]

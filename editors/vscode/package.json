@@ -1,0 +1,333 @@
+{
+  "name": "sevenmark",
+  "displayName": "SevenMark",
+  "description": "Language support for SevenMark wiki markup",
+  "version": "0.1.0",
+  "publisher": "sevenwiki",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sevenwiki/sevenmark"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "sevenmark",
+    "wiki",
+    "markup",
+    "language-server"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:sevenmark"
+  ],
+  "scripts": {
+    "postinstall": "cd client && pnpm i",
+    "compile": "npm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.11",
+    "@vscode/vsce": "^3.7.1",
+    "esbuild": "^0.24.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "sevenmark",
+        "aliases": [
+          "SevenMark",
+          "sevenmark"
+        ],
+        "extensions": [
+          ".sm"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/sevenmark.png",
+          "dark": "./icons/sevenmark.png"
+        }
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "SevenMark",
+      "properties": {
+        "sevenmark.server.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the sevenmark_language_server binary. If empty, looks for it on PATH."
+        },
+        "sevenmark.trace.server": {
+          "type": "string",
+          "scope": "window",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "enumDescriptions": [
+            "No traces",
+            "Error only",
+            "Full log"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the language server."
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[sevenmark]": {
+        "editor.semanticHighlighting.enabled": true,
+        "editor.minimap.renderCharacters": false
+      }
+    },
+    "semanticTokenTypes": [
+      { "id": "text", "description": "Plain text content" },
+      { "id": "comment", "description": "Comment" },
+      { "id": "escape", "description": "Escape sequence" },
+      { "id": "error", "description": "Parse error" },
+      { "id": "literal", "description": "Literal block" },
+      { "id": "define", "description": "Variable definition" },
+      { "id": "styled", "description": "Styled block" },
+      { "id": "table", "description": "Table" },
+      { "id": "list", "description": "List" },
+      { "id": "fold", "description": "Foldable block" },
+      { "id": "blockQuote", "description": "Block quote" },
+      { "id": "ruby", "description": "Ruby annotation" },
+      { "id": "footnote", "description": "Footnote" },
+      { "id": "code", "description": "Code block" },
+      { "id": "tex", "description": "TeX expression" },
+      { "id": "include", "description": "Include directive" },
+      { "id": "category", "description": "Category tag" },
+      { "id": "redirect", "description": "Redirect" },
+      { "id": "media", "description": "Media link" },
+      { "id": "externalMedia", "description": "External media link" },
+      { "id": "null", "description": "Null element" },
+      { "id": "footnoteRef", "description": "Footnote reference" },
+      { "id": "timeNow", "description": "Current time macro" },
+      { "id": "age", "description": "Age macro" },
+      { "id": "variable", "description": "Variable reference" },
+      { "id": "mention", "description": "User mention" },
+      { "id": "bold", "description": "Bold text" },
+      { "id": "italic", "description": "Italic text" },
+      { "id": "strikethrough", "description": "Strikethrough text" },
+      { "id": "underline", "description": "Underlined text" },
+      { "id": "superscript", "description": "Superscript text" },
+      { "id": "subscript", "description": "Subscript text" },
+      { "id": "softBreak", "description": "Soft line break" },
+      { "id": "hardBreak", "description": "Hard line break" },
+      { "id": "hLine", "description": "Horizontal line" },
+      { "id": "header", "description": "Section header" },
+      { "id": "if", "description": "Conditional block" },
+      { "id": "parameter", "description": "Parameter" },
+      { "id": "tableRow", "description": "Table row" },
+      { "id": "tableCell", "description": "Table cell" },
+      { "id": "conditionalTableRows", "description": "Conditional table rows" },
+      { "id": "conditionalTableCells", "description": "Conditional table cells" },
+      { "id": "listItem", "description": "List item" },
+      { "id": "conditionalListItems", "description": "Conditional list items" },
+      { "id": "foldInner", "description": "Fold inner content" },
+      { "id": "exprOr", "description": "Logical OR expression" },
+      { "id": "exprAnd", "description": "Logical AND expression" },
+      { "id": "exprNot", "description": "Logical NOT expression" },
+      { "id": "exprComparison", "description": "Comparison expression" },
+      { "id": "exprFunctionCall", "description": "Function call expression" },
+      { "id": "exprStringLiteral", "description": "String literal" },
+      { "id": "exprNumberLiteral", "description": "Number literal" },
+      { "id": "exprBoolLiteral", "description": "Boolean literal" },
+      { "id": "exprNull", "description": "Null literal" },
+      { "id": "exprGroup", "description": "Grouped expression" },
+      { "id": "logicalOperator", "description": "Logical operator" },
+      { "id": "comparisonOperator", "description": "Comparison operator" }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "sevenmark",
+        "scopes": {
+          "text": [
+            "string.unquoted.sevenmark"
+          ],
+          "comment": [
+            "comment.block.sevenmark"
+          ],
+          "escape": [
+            "constant.character.escape.sevenmark"
+          ],
+          "error": [
+            "invalid.illegal.sevenmark"
+          ],
+          "literal": [
+            "string.quoted.sevenmark"
+          ],
+          "define": [
+            "storage.type.sevenmark"
+          ],
+          "styled": [
+            "entity.name.tag.sevenmark"
+          ],
+          "table": [
+            "entity.name.tag.table.sevenmark"
+          ],
+          "list": [
+            "entity.name.tag.list.sevenmark"
+          ],
+          "fold": [
+            "entity.name.tag.fold.sevenmark"
+          ],
+          "blockQuote": [
+            "entity.name.tag.blockquote.sevenmark"
+          ],
+          "ruby": [
+            "entity.name.tag.ruby.sevenmark"
+          ],
+          "footnote": [
+            "entity.name.tag.footnote.sevenmark"
+          ],
+          "code": [
+            "entity.name.tag.code.sevenmark"
+          ],
+          "tex": [
+            "entity.name.tag.tex.sevenmark"
+          ],
+          "include": [
+            "keyword.control.import.sevenmark"
+          ],
+          "category": [
+            "entity.name.section.sevenmark"
+          ],
+          "redirect": [
+            "keyword.control.redirect.sevenmark"
+          ],
+          "media": [
+            "markup.underline.link.sevenmark"
+          ],
+          "externalMedia": [
+            "markup.underline.link.sevenmark"
+          ],
+          "null": [
+            "constant.language.null.sevenmark"
+          ],
+          "footnoteRef": [
+            "entity.other.attribute-name.sevenmark"
+          ],
+          "timeNow": [
+            "constant.other.timestamp.sevenmark"
+          ],
+          "age": [
+            "constant.other.timestamp.sevenmark"
+          ],
+          "variable": [
+            "variable.other.sevenmark"
+          ],
+          "mention": [
+            "entity.name.tag.mention.sevenmark"
+          ],
+          "bold": [
+            "markup.bold.sevenmark"
+          ],
+          "italic": [
+            "markup.italic.sevenmark"
+          ],
+          "strikethrough": [
+            "markup.strikethrough.sevenmark"
+          ],
+          "underline": [
+            "markup.underline.sevenmark"
+          ],
+          "superscript": [
+            "markup.superscript.sevenmark"
+          ],
+          "subscript": [
+            "markup.subscript.sevenmark"
+          ],
+          "softBreak": [
+            "constant.character.sevenmark"
+          ],
+          "hardBreak": [
+            "constant.character.sevenmark"
+          ],
+          "hLine": [
+            "markup.separator.sevenmark"
+          ],
+          "header": [
+            "markup.heading.sevenmark"
+          ],
+          "if": [
+            "keyword.control.conditional.sevenmark"
+          ],
+          "parameter": [
+            "entity.other.attribute-name.sevenmark"
+          ],
+          "tableRow": [
+            "entity.name.tag.table.row.sevenmark"
+          ],
+          "tableCell": [
+            "entity.name.tag.table.cell.sevenmark"
+          ],
+          "conditionalTableRows": [
+            "keyword.control.conditional.sevenmark"
+          ],
+          "conditionalTableCells": [
+            "keyword.control.conditional.sevenmark"
+          ],
+          "listItem": [
+            "entity.name.tag.list.item.sevenmark"
+          ],
+          "conditionalListItems": [
+            "keyword.control.conditional.sevenmark"
+          ],
+          "foldInner": [
+            "entity.name.tag.fold.inner.sevenmark"
+          ],
+          "exprOr": [
+            "keyword.operator.logical.sevenmark"
+          ],
+          "exprAnd": [
+            "keyword.operator.logical.sevenmark"
+          ],
+          "exprNot": [
+            "keyword.operator.logical.sevenmark"
+          ],
+          "exprComparison": [
+            "keyword.operator.comparison.sevenmark"
+          ],
+          "exprFunctionCall": [
+            "entity.name.function.sevenmark"
+          ],
+          "exprStringLiteral": [
+            "string.quoted.double.sevenmark"
+          ],
+          "exprNumberLiteral": [
+            "constant.numeric.sevenmark"
+          ],
+          "exprBoolLiteral": [
+            "constant.language.boolean.sevenmark"
+          ],
+          "exprNull": [
+            "constant.language.null.sevenmark"
+          ],
+          "exprGroup": [
+            "meta.group.sevenmark"
+          ],
+          "logicalOperator": [
+            "keyword.operator.logical.sevenmark"
+          ],
+          "comparisonOperator": [
+            "keyword.operator.comparison.sevenmark"
+          ]
+        }
+      }
+    ]
+  }
+}

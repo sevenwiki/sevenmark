@@ -1,0 +1,16 @@
+use crate::parser::ParserInput;
+use sevenmark_ast::{Element, Span, TimeNowElement};
+use winnow::Result;
+use winnow::prelude::*;
+use winnow::stream::Location as StreamLocation;
+use winnow::token::literal;
+
+pub fn macro_now_parser(parser_input: &mut ParserInput) -> Result<Element> {
+    let start = parser_input.current_token_start();
+    literal("[now]").parse_next(parser_input)?;
+    let end = parser_input.previous_token_end();
+
+    Ok(Element::TimeNow(TimeNowElement {
+        span: Span { start, end },
+    }))
+}

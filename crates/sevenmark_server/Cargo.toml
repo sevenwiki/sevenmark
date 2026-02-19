@@ -1,0 +1,36 @@
+[package]
+name = "sevenmark_server"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "sevenmark/server"
+
+[dependencies]
+# Internal crates
+sevenmark_ast = { workspace = true, features = ["include_locations"] }
+sevenmark_parser = { workspace = true, features = ["include_locations"] }
+sevenmark_transform = { workspace = true }
+sevenmark_html = { workspace = true }
+
+# External dependencies
+axum = { workspace = true }
+tokio = { workspace = true }
+sea-orm = { workspace = true }
+aws-sdk-s3 = { workspace = true }
+aws-config = { workspace = true }
+utoipa = { workspace = true }
+utoipa-swagger-ui = { workspace = true }
+dotenvy = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing-appender = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+
+[[bin]]
+name = "sevenmark_server"
+path = "src/main.rs"

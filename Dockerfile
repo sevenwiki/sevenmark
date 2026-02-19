@@ -22,13 +22,13 @@ RUN apt-get update && apt-get install -y \
 COPY --from=planner /app/recipe.json recipe.json
 
 # Build dependencies (this layer is cached unless dependencies change)
-RUN cargo chef cook --release --recipe-path recipe.json --bin sevenmark-server
+RUN cargo chef cook --release --recipe-path recipe.json --bin sevenmark_server
 
 # Copy source code
 COPY . .
 
 # Build application (dependencies already built, only source compilation)
-RUN cargo build --release --bin sevenmark-server
+RUN cargo build --release --bin sevenmark_server
 
 # Runtime stage
 FROM debian:stable-slim AS runtime
@@ -48,7 +48,7 @@ RUN groupadd -r app && useradd -r -g app app
 WORKDIR /app
 
 # Copy the binary from builder stage
-COPY --from=builder /app/target/release/sevenmark-server .
+COPY --from=builder /app/target/release/sevenmark_server .
 
 # Copy environment file template (optional)
 # If you have an actual .env file, uncomment the line below.
@@ -64,4 +64,4 @@ USER app
 EXPOSE 9000
 
 # Run the application
-CMD ["./sevenmark-server"]
+CMD ["./sevenmark_server"]

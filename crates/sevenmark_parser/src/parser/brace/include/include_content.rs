@@ -1,0 +1,23 @@
+use crate::parser::ParserInput;
+use crate::parser::brace::include::include_text::include_text_parser;
+use crate::parser::escape::escape_parser;
+use crate::parser::token::{token_brace_close_parser, token_brace_open_parser};
+use sevenmark_ast::Element;
+use winnow::Result;
+use winnow::combinator::{alt, repeat};
+use winnow::prelude::*;
+
+pub fn include_content_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
+    repeat(
+        1..,
+        alt((
+            escape_parser,
+            // include text
+            include_text_parser,
+            // Token
+            token_brace_open_parser,
+            token_brace_close_parser,
+        )),
+    )
+    .parse_next(parser_input)
+}

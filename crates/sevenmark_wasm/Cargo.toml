@@ -1,0 +1,22 @@
+[package]
+name = "sevenmark_wasm"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "WebAssembly bindings for SevenMark parser"
+
+[dependencies]
+# Internal crates
+sevenmark_ast = { workspace = true, features = ["include_locations"] }
+sevenmark_parser = { workspace = true, features = ["include_locations"] }
+sevenmark_utils = { workspace = true }
+
+# External dependencies
+serde_json = { workspace = true }
+wasm-bindgen = { workspace = true }
+
+[lib]
+crate-type = ["cdylib", "rlib"]

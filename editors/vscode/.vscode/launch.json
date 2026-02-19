@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "extensionHost",
+      "request": "launch",
+      "name": "Launch SevenMark Extension",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
+      "outFiles": ["${workspaceRoot}/dist/**/*.js"],
+      "env": {
+        "SERVER_PATH": "${workspaceRoot}/../../target/debug/sevenmark_language_server.exe"
+      },
+      "preLaunchTask": "npm: compile"
+    }
+  ]
+}

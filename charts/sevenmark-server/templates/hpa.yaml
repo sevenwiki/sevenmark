@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "sevenmark-server.fullname" . }}
+  name: {{ include "sevenmark_server.fullname" . }}
   labels:
-    {{- include "sevenmark-server.labels" . | nindent 4 }}
+    {{- include "sevenmark_server.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "sevenmark-server.fullname" . }}
+    name: {{ include "sevenmark_server.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

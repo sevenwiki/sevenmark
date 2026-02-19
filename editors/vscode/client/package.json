@@ -1,0 +1,16 @@
+{
+  "name": "sevenmark-client",
+  "version": "0.1.0",
+  "description": "VS Code client for SevenMark Language Server",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/vscode": "^1.85.0"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  }
+}

@@ -5,6 +5,83 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.2] - 2026-02-19
+
+### Added
+- **VS Code Extension**: New `editors/vscode/` extension for SevenMark Language Server
+  - Language registration for `.sm` files with `sevenmark` language ID
+  - Automatic LSP client connection via stdio to `sevenmark_language_server` binary
+  - Server path configuration: `SERVER_PATH` env → `sevenmark.server.path` setting → bundled → PATH
+  - 57 custom semantic token types with TextMate scope mappings for theme compatibility
+  - `configurationDefaults` to force `editor.semanticHighlighting.enabled: true` for sevenmark files
+  - Development support: launch.json, tasks.json for Extension Development Host debugging
+
+- **sevenmark_language_server**: Bracket syntax autocompletion for `[[` trigger
+  - `media` — internal file media (`[[#file="..." caption]]`)
+  - `link` — wiki link (`[[target]]`)
+  - `youtube`, `vimeo`, `nicovideo`, `spotify`, `discord` — external media embeds
+
+### Fixed
+- **sevenmark_language_server**: Semantic tokens not requested by VS Code
+  - Root cause: `editor.semanticHighlighting.enabled` defaults to `"configuredByTheme"` — custom languages must explicitly enable it via `configurationDefaults`
+- **sevenmark_language_server**: Completion items not appearing in VS Code suggestion list
+  - Changed from `textEdit` (range replacement) to `insertText` — VS Code filters by matching typed prefix against `label`, and `{{{#` doesn't match keyword labels like `code`
+- **sevenmark_language_server**: Text tokens overriding parent tokens (bold, header)
+  - Skipped emitting Text element tokens — they use default color and would override parent tokens due to overlapping
+- **sevenmark_language_server**: Multi-line token length calculated as 1 instead of full first-line width
+  - `byte_offset_to_position(text, next_line_start)` returns `(next_line, 0)` — now strips trailing `\n`/`\r` before calculating end-of-line character position
+- **sevenmark_language_server**: `fold`, `code`, `table`, `list`, `blockQuote`, `ruby`, `footnote`, `tex` tokens not colored by VS Code themes
+  - Changed TextMate scope from `markup.other.*` to `entity.name.tag.*` which themes recognize
+- **sevenmark_language_server**: Opening `{{{#keyword` and closing `}}}` delimiters not matching color on multi-line blocks
+  - Split single full-span token into separate opening delimiter and closing `}}}` tokens
+
+### Removed
+- **VS Code Extension**: Removed `syntaxes/sevenmark.tmLanguage.json` TextMate grammar (LSP semantic tokens handle all highlighting)
+
+## [2.24.1] - 2026-02-19
+
+### Fixed
+- **sevenmark_language_server**: Fixed `{{{#define}}}` variable resolution to match actual syntax `{{{#define #var="value"}}}` where parameter keys are variable names, aligning with `sevenmark_transform` preprocessor behavior
+  - Updated `diagnostics.rs`, `definition.rs`, `completion.rs`, and `backend.rs` to iterate parameter keys instead of looking up `#name`/`#value` meta-parameters
+  - Updated define completion snippet to use `#$1="$2"` format
+
+### Added
+- **sevenmark_language_server**: Unit tests for all 6 feature modules (22 tests total)
+  - `diagnostics.rs`: clean document, undefined variable warning, defined variable, parser error
+  - `definition.rs`: go-to-definition with/without define, cursor not on variable
+  - `hover.rs`: bold, code with lang, variable, plain text
+  - `completion.rs`: variable prefix, brace keywords, macro prefix, no trigger
+  - `semantic_tokens.rs`: text, bold, define, if tokens
+  - `folding.rs`: multi-line code block, single-line block, multi-line comment
+
+### Changed
+- **CLAUDE.md**: Corrected `{{{#define}}}` syntax documentation
+
+## [2.24.0] - 2026-02-19
+
+### Added
+- **sevenmark_ast crate**: Extracted AST type definitions into a standalone crate
+  - All AST types (`Element`, `Span`, `Traversable`, etc.) now live in `sevenmark_ast`
+  - Zero non-serde dependencies for minimal footprint
+  - `include_locations` feature flag forwarded from `sevenmark_parser`
+  - Crates that only need AST types (`sevenmark_utils`, `sevenmark_semantic`) no longer depend on the full parser
+- **sevenmark_language_server crate**: New Language Server Protocol implementation for SevenMark
+  - Diagnostics: parse errors (Error) and undefined variable warnings (Warning)
+  - Document symbols: headers (SymbolKind::STRING) and variable definitions (SymbolKind::VARIABLE)
+  - Folding ranges: multi-line block elements (Fold, Code, Table, List, BlockQuote, If, Literal, Include, Styled, Comment)
+  - Built on `tower-lsp-server` v0.23.0 with native async
+- **sevenmark_utils**: `LineIndex` for O(log n) byte-offset ↔ LSP position conversion
+  - `byte_offset_to_position(text, offset)` and `position_to_byte_offset(text, line, character)`
+  - Correct UTF-16 code unit counting for LSP compatibility (Korean, emoji, surrogate pairs)
+  - `span_to_range(text, span)` for direct parser Span to LSP Range conversion
+- **sevenmark_utils**: `extract_plain_text(elements)` shared utility for extracting text from AST elements
+
+### Changed
+- **Workspace structure**: Renamed all crate directories from hyphens to underscores
+  - `crates/sevenmark-parser` → `crates/sevenmark_parser`, etc.
+- **sevenmark_parser**: `ast` module removed; all crates now import AST types directly from `sevenmark_ast`
+- **sevenmark_transform**: `extract_plain_text` moved from `transform::utils` to `sevenmark_utils`
+
 ## [2.21.6] - 2026-02-13
 
 ### Fixed
