@@ -24,6 +24,7 @@ sevenmark_semantic = { path = "crates/sevenmark_semantic", version = "2.24.1"}
 sevenmark_utils = { path = "crates/sevenmark_utils", version = "2.24.1"}
 sevenmark_wasm = { path = "crates/sevenmark_wasm", version = "2.24.1"}
 sevenmark_language_server = { path = "crates/sevenmark_language_server", version = "2.24.1"}
+sevenmark_server = {path = "crates/sevenmark_server", version = "2.24.1"}
 
 # External dependencies
 winnow = { version = "0.7.14", features = ["simd"] }

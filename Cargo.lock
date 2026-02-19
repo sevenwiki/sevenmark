@@ -3239,7 +3239,6 @@ name = "sevenmark_language_server"
 version = "2.24.2"
 dependencies = [
  "dashmap",
- "serde_json",
  "sevenmark_ast",
  "sevenmark_parser",
  "sevenmark_utils",

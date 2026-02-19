@@ -2,12 +2,12 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "sevenmark-server.fullname" . }}
+  name: {{ include "sevenmark_server.fullname" . }}
   labels:
-    {{- include "sevenmark-server.labels" . | nindent 4 }}
+    {{- include "sevenmark_server.labels" . | nindent 4 }}
 spec:
   minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
   selector:
     matchLabels:
-      {{- include "sevenmark-server.selectorLabels" . | nindent 6 }}
+      {{- include "sevenmark_server.selectorLabels" . | nindent 6 }}
 {{- end }}

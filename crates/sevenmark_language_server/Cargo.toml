@@ -18,5 +18,4 @@ sevenmark_utils = { workspace = true }
 # External dependencies
 tower-lsp-server = { workspace = true }
 tokio = { workspace = true }
-serde_json = { workspace = true }
 dashmap = { workspace = true }
