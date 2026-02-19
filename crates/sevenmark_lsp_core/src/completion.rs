@@ -29,6 +29,13 @@ pub fn get_completions(
         return bracket_completions(position);
     }
 
+    // `#` inside bracket/brace element → suggest element-specific parameters
+    if prefix.ends_with('#') {
+        if let Some(items) = parameter_completions(prefix) {
+            return items;
+        }
+    }
+
     // `[` at macro position → suggest macro names
     if prefix.ends_with('[') {
         return macro_completions(position);
@@ -101,7 +108,7 @@ fn bracket_completions(_pos: Position) -> Vec<CompletionItem> {
         ("youtube", "#youtube #id=\"$1\"]]", "YouTube embed"),
         ("vimeo", "#vimeo #id=\"$1\"]]", "Vimeo embed"),
         ("nicovideo", "#nicovideo #id=\"$1\"]]", "NicoVideo embed"),
-        ("spotify", "#spotify #id=\"$1\"]]", "Spotify embed"),
+        ("spotify", "#spotify $0]]", "Spotify embed"),
         ("discord", "#discord #id=\"$1\"]]", "Discord embed"),
     ];
 
@@ -138,6 +145,159 @@ fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
             insert_text_format: Some(InsertTextFormat::SNIPPET),
             insert_text: Some(snippet.to_string()),
             ..Default::default()
+        })
+        .collect()
+}
+// ── Parameter completions ────────────────────────────────────────────
+
+/// Detects bracket element context and returns the element keyword.
+/// Given `...[[#youtube #id="abc" #`, returns `Some("youtube")`.
+fn detect_bracket_element(prefix: &str) -> Option<&str> {
+    let bracket_pos = prefix.rfind("[[")?;
+    let after = &prefix[bracket_pos + 2..];
+    if after.contains("]]") {
+        return None;
+    }
+    let after = after.strip_prefix('#')?;
+    let end = after
+        .find(|c: char| !c.is_ascii_alphanumeric() && c != '_')
+        .unwrap_or(after.len());
+    if end == 0 {
+        return None;
+    }
+    Some(&after[..end])
+}
+
+/// Detects brace element context and returns the element keyword.
+/// Given `...{{{#code #lang="rust" #`, returns `Some("code")`.
+fn detect_brace_element(prefix: &str) -> Option<&str> {
+    let brace_pos = prefix.rfind("{{{#")?;
+    let after = &prefix[brace_pos + 4..];
+    if after.contains("}}}") {
+        return None;
+    }
+    let end = after
+        .find(|c: char| !c.is_ascii_alphanumeric() && c != '_')
+        .unwrap_or(after.len());
+    if end == 0 {
+        return None;
+    }
+    Some(&after[..end])
+}
+
+/// Tries to return parameter completions for the current element context.
+fn parameter_completions(prefix: &str) -> Option<Vec<CompletionItem>> {
+    if let Some(element) = detect_bracket_element(prefix) {
+        let params = bracket_param_defs(element);
+        if !params.is_empty() {
+            return Some(make_param_completions(params));
+        }
+    }
+    if let Some(element) = detect_brace_element(prefix) {
+        let params = brace_param_defs(element);
+        if !params.is_empty() {
+            return Some(make_param_completions(params));
+        }
+    }
+    None
+}
+
+/// Parameter definition: (name, description, is_flag).
+/// Flag parameters insert just the name; value parameters insert `name="$1"`.
+type ParamDef = (&'static str, &'static str, bool);
+
+fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
+    match element {
+        "youtube" => &[
+            ("id", "Video ID", false),
+            ("playlist", "Playlist ID", false),
+            ("width", "Player width", false),
+            ("height", "Player height", false),
+            ("start", "Start time (seconds)", false),
+            ("end", "End time (seconds)", false),
+            ("autoplay", "Auto-play", true),
+            ("loop", "Loop playback", true),
+            ("mute", "Muted", true),
+            ("nocontrols", "Hide controls", true),
+        ],
+        "vimeo" => &[
+            ("id", "Video ID", false),
+            ("h", "Privacy hash", false),
+            ("width", "Player width", false),
+            ("height", "Player height", false),
+            ("autoplay", "Auto-play", true),
+            ("loop", "Loop playback", true),
+            ("mute", "Muted", true),
+            ("color", "Player accent color", false),
+            ("dnt", "Do-not-track", true),
+        ],
+        "nicovideo" => &[
+            ("id", "Video ID", false),
+            ("width", "Player width", false),
+            ("height", "Player height", false),
+            ("from", "Start time (seconds)", false),
+            ("autoplay", "Auto-play", true),
+        ],
+        "spotify" => &[
+            ("track", "Track ID", false),
+            ("album", "Album ID", false),
+            ("playlist", "Playlist ID", false),
+            ("artist", "Artist ID", false),
+            ("episode", "Episode ID", false),
+            ("show", "Show / Podcast ID", false),
+            ("width", "Player width", false),
+            ("height", "Player height", false),
+            ("dark", "Dark theme", true),
+            ("compact", "Compact layout", true),
+        ],
+        "discord" => &[
+            ("id", "Widget / Server ID", false),
+            ("width", "Widget width", false),
+            ("height", "Widget height", false),
+            ("dark", "Dark theme", true),
+        ],
+        "file" => &[
+            ("file", "File path", false),
+            ("style", "Display style", false),
+        ],
+        "document" => &[
+            ("document", "Document path", false),
+            ("style", "Display style", false),
+        ],
+        "url" => &[
+            ("url", "External URL", false),
+            ("style", "Display style", false),
+        ],
+        _ => &[],
+    }
+}
+
+fn brace_param_defs(element: &str) -> &'static [ParamDef] {
+    match element {
+        "code" => &[("lang", "Programming language", false)],
+        "style" => &[("style", "CSS style", false)],
+        "ruby" => &[("ruby", "Ruby text annotation", false)],
+        _ => &[],
+    }
+}
+
+fn make_param_completions(params: &[ParamDef]) -> Vec<CompletionItem> {
+    params
+        .iter()
+        .map(|(name, detail, is_flag)| {
+            let snippet = if *is_flag {
+                name.to_string()
+            } else {
+                format!("{name}=\"$1\"")
+            };
+            CompletionItem {
+                label: name.to_string(),
+                kind: Some(CompletionItemKind::PROPERTY),
+                detail: Some(detail.to_string()),
+                insert_text_format: Some(InsertTextFormat::SNIPPET),
+                insert_text: Some(snippet),
+                ..Default::default()
+            }
         })
         .collect()
 }
@@ -237,5 +397,83 @@ mod tests {
         let pos = Position::new(0, byte_offset as u32);
         let completions = get_completions(&state, pos, byte_offset);
         assert!(completions.is_empty());
+    }
+
+    #[test]
+    fn youtube_param_completions() {
+        let text = "[[#youtube #";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(
+            !completions.is_empty(),
+            "expected youtube param completions"
+        );
+        let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
+        assert!(labels.contains(&"id"), "expected 'id' in {labels:?}");
+        assert!(labels.contains(&"width"), "expected 'width' in {labels:?}");
+        assert!(
+            labels.contains(&"autoplay"),
+            "expected 'autoplay' in {labels:?}"
+        );
+    }
+
+    #[test]
+    fn spotify_param_completions() {
+        let text = "[[#spotify #";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
+        assert!(labels.contains(&"track"), "expected 'track' in {labels:?}");
+        assert!(labels.contains(&"album"), "expected 'album' in {labels:?}");
+        assert!(!labels.contains(&"id"), "spotify should not have 'id'");
+    }
+
+    #[test]
+    fn brace_code_param_completions() {
+        let text = "{{{#code #";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(!completions.is_empty(), "expected code param completions");
+        assert!(completions.iter().any(|c| c.label == "lang"));
+    }
+
+    #[test]
+    fn flag_param_has_no_equals() {
+        let text = "[[#youtube #";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        let autoplay = completions.iter().find(|c| c.label == "autoplay").unwrap();
+        assert_eq!(
+            autoplay.insert_text.as_deref(),
+            Some("autoplay"),
+            "flag params should not include =\"$1\""
+        );
+        let id = completions.iter().find(|c| c.label == "id").unwrap();
+        assert_eq!(
+            id.insert_text.as_deref(),
+            Some("id=\"$1\""),
+            "value params should include =\"$1\""
+        );
+    }
+
+    #[test]
+    fn closed_bracket_no_param_completions() {
+        let text = "[[#youtube #id=\"abc\"]] #";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(
+            completions.is_empty(),
+            "should not suggest params after closed bracket"
+        );
     }
 }

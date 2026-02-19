@@ -5,6 +5,22 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.22] - 2026-02-19
+
+### Added
+- **sevenmark_lsp_core**: Context-aware parameter completions for bracket and brace elements
+  - Bracket elements: `[[#youtube #` suggests `id`, `playlist`, `width`, `height`, `start`, `end`, `autoplay`, `loop`, `mute`, `nocontrols`
+  - Spotify, Vimeo, NicoVideo, Discord each suggest their provider-specific parameters
+  - Media bracket elements (`file`, `document`, `url`) suggest `style` and type-specific parameters
+  - Brace elements (`code`, `style`, `ruby`) suggest their parameters (e.g. `lang` for code blocks)
+  - Boolean flag parameters (e.g. `autoplay`, `dark`, `compact`) insert without `="..."`, value parameters insert with snippet placeholder
+
+### Changed
+- **sevenmark_lsp_core**: Fixed Spotify bracket completion snippet — removed incorrect `#id` parameter (Spotify uses `#track`, `#album`, `#playlist`, `#artist`, `#episode`, `#show`)
+
+### Fixed
+- **VS Code**: Removed `{{{`/`}}}`, `[[`/`]]`, `[`/`]` from `autoClosingPairs` to prevent duplicate closing delimiters when selecting snippet completions; moved to `surroundingPairs` to preserve selection wrapping
+
 ## [2.24.21] - 2026-02-19
 
 ### Added
