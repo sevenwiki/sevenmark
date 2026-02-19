@@ -16,6 +16,7 @@ use crate::semantic_tokens::{collect_semantic_tokens, legend};
 pub struct Backend {
     pub client: Client,
     pub documents: DashMap<String, DocumentState>,
+    pub document_versions: DashMap<String, i32>,
 }
 
 impl LanguageServer for Backend {
@@ -69,19 +70,41 @@ impl LanguageServer for Backend {
 
     async fn did_open(&self, params: DidOpenTextDocumentParams) {
         let uri = params.text_document.uri;
+        let version = params.text_document.version;
         let text = params.text_document.text;
-        self.on_change(uri, text).await;
+        self.on_change(uri, Some(version), text).await;
     }
 
     async fn did_change(&self, params: DidChangeTextDocumentParams) {
-        if let Some(change) = params.content_changes.into_iter().next() {
-            self.on_change(params.text_document.uri, change.text).await;
+        let version = params.text_document.version;
+        let mut changes = params.content_changes;
+        if changes.is_empty() {
+            return;
+        }
+
+        if changes.len() != 1 {
+            self.client
+                .log_message(
+                    MessageType::WARNING,
+                    format!(
+                        "Expected one FULL sync change event, got {}. Using last change.",
+                        changes.len()
+                    ),
+                )
+                .await;
+        }
+
+        if let Some(change) = changes.pop() {
+            self.on_change(params.text_document.uri, Some(version), change.text)
+                .await;
         }
     }
 
     async fn did_close(&self, params: DidCloseTextDocumentParams) {
         let uri = params.text_document.uri;
-        self.documents.remove(&uri.to_string());
+        let uri_key = uri.to_string();
+        self.documents.remove(&uri_key);
+        self.document_versions.remove(&uri_key);
         self.client.publish_diagnostics(uri, Vec::new(), None).await;
     }
 
@@ -182,14 +205,29 @@ impl LanguageServer for Backend {
 
 impl Backend {
     /// Parses the document, publishes diagnostics, and caches state.
-    async fn on_change(&self, uri: Uri, text: String) {
+    async fn on_change(&self, uri: Uri, version: Option<i32>, text: String) {
         let uri_key = uri.to_string();
+
+        if let Some(version) = version {
+            if let Some(prev_version) = self.document_versions.get(&uri_key)
+                && version < *prev_version
+            {
+                return;
+            }
+        }
+
         let state = DocumentState::new(text);
         let diagnostics = collect_diagnostics(&state);
+
+        // Cache first so hover/completion/definition always see latest parse.
+        self.documents.insert(uri_key.clone(), state);
+        if let Some(version) = version {
+            self.document_versions.insert(uri_key.clone(), version);
+        }
+
         self.client
-            .publish_diagnostics(uri, diagnostics, None)
+            .publish_diagnostics(uri, diagnostics, version)
             .await;
-        self.documents.insert(uri_key, state);
     }
 }
 

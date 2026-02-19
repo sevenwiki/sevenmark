@@ -1,0 +1,52 @@
+name: editors
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  vscode:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        working-directory: ./editors/vscode
+        run: pnpm install
+
+      - name: Compile
+        working-directory: ./editors/vscode
+        run: pnpm run compile
+
+  jetbrains:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make gradlew executable
+        run: chmod +x editors/jetbrains/gradlew
+
+      - name: Build plugin
+        working-directory: ./editors/jetbrains
+        run: ./gradlew buildPlugin

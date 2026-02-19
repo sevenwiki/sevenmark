@@ -1,3 +1,5 @@
+use std::collections::BTreeSet;
+
 use sevenmark_ast::Element;
 use tower_lsp_server::ls_types::{CompletionItem, CompletionItemKind, InsertTextFormat, Position};
 
@@ -37,13 +39,11 @@ pub fn get_completions(
 
 /// Collects all defined variable names in the document.
 fn variable_completions(state: &DocumentState) -> Vec<CompletionItem> {
-    let mut names = Vec::new();
+    let mut names = BTreeSet::new();
     visit_elements(&state.elements, &mut |element| {
         if let Element::Define(d) = element {
             for name in d.parameters.keys() {
-                if !names.contains(name) {
-                    names.push(name.clone());
-                }
+                names.insert(name.clone());
             }
         }
     });

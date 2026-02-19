@@ -5,6 +5,25 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.12] - 2026-02-19
+
+### Fixed
+- **sevenmark_language_server**: Prevented stale diagnostics/state from older document versions overriding newer edits
+  - Added per-document version tracking and ignored out-of-order `did_change` payloads
+  - Diagnostics are now published with the document version instead of `None`
+  - Updated cache-before-publish order so hover/completion/definition always read the latest parsed state
+- **sevenmark_language_server**: Improved FULL sync robustness when receiving unexpected multiple content changes
+  - Uses the last change entry and emits an LSP warning log to aid debugging client-side sync issues
+- **sevenmark_language_server**: Fixed semantic token emission for adjacent opening/closing delimiters
+  - `emit_delimiter_tokens()` now emits the close delimiter when spans are adjacent (`close.start == open.end`)
+  - Guards against zero-length close-span tokens
+
+### Changed
+- **sevenmark_language_server**: Variable completion de-duplication now uses an ordered set for deterministic suggestion ordering
+
+### Added
+- **sevenmark_language_server**: Unit test `adjacent_delimiters_emit_both_tokens` for semantic token delimiter edge case coverage
+
 ## [2.24.10] - 2026-02-19
 
 ### Fixed

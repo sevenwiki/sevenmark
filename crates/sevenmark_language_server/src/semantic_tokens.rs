@@ -508,7 +508,7 @@ fn emit_delimiter_tokens(
     raw: &mut Vec<(usize, usize, u32)>,
 ) {
     raw.push((open_span.start, open_span.end, token_type));
-    if close_span.start > open_span.end {
+    if close_span.start >= open_span.end && close_span.end > close_span.start {
         raw.push((close_span.start, close_span.end, token_type));
     }
 }
@@ -670,5 +670,17 @@ mod tests {
             "expected at least 2 tokens, got {}",
             tokens.len()
         );
+    }
+
+    #[test]
+    fn adjacent_delimiters_emit_both_tokens() {
+        let mut raw = Vec::new();
+        let open = sevenmark_ast::Span::new(0, 3);
+        let close = sevenmark_ast::Span::new(3, 6);
+        emit_delimiter_tokens(&open, &close, 7, &mut raw);
+
+        assert_eq!(raw.len(), 2, "expected open+close delimiter tokens");
+        assert_eq!(raw[0], (0, 3, 7));
+        assert_eq!(raw[1], (3, 6, 7));
     }
 }
