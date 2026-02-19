@@ -474,20 +474,20 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
 /// `{{{` = 3 bytes for Literal, `{{{#keyword` = 4 + keyword_len for others.
 fn brace_open_len(element: &Element) -> Option<usize> {
     match element {
-        Element::Literal(_) => Some(3),      // {{{
-        Element::Table(_) => Some(9),        // {{{#table
-        Element::List(_) => Some(8),         // {{{#list
-        Element::Fold(_) => Some(8),         // {{{#fold
-        Element::Styled(_) => Some(9),       // {{{#style
-        Element::Code(_) => Some(8),         // {{{#code
-        Element::Define(_) => Some(10),      // {{{#define
-        Element::If(_) => Some(6),           // {{{#if
-        Element::Include(_) => Some(11),     // {{{#include
-        Element::Category(_) => Some(12),    // {{{#category
-        Element::Redirect(_) => Some(12),    // {{{#redirect
-        Element::BlockQuote(_) => Some(14),  // {{{#blockquote
-        Element::Ruby(_) => Some(8),         // {{{#ruby
-        Element::Footnote(_) => Some(6),     // {{{#fn
+        Element::Literal(_) => Some(3),     // {{{
+        Element::Table(_) => Some(9),       // {{{#table
+        Element::List(_) => Some(8),        // {{{#list
+        Element::Fold(_) => Some(8),        // {{{#fold
+        Element::Styled(_) => Some(9),      // {{{#style
+        Element::Code(_) => Some(8),        // {{{#code
+        Element::Define(_) => Some(10),     // {{{#define
+        Element::If(_) => Some(6),          // {{{#if
+        Element::Include(_) => Some(11),    // {{{#include
+        Element::Category(_) => Some(12),   // {{{#category
+        Element::Redirect(_) => Some(12),   // {{{#redirect
+        Element::BlockQuote(_) => Some(14), // {{{#blockquote
+        Element::Ruby(_) => Some(8),        // {{{#ruby
+        Element::Footnote(_) => Some(6),    // {{{#fn
         // Non-brace elements
         Element::Text(_)
         | Element::Comment(_)
@@ -611,15 +611,24 @@ mod tests {
         let state = make_state("## Hello");
         let tokens = collect_semantic_tokens(&state);
         let h = tokens.iter().find(|t| t.token_type == 35).unwrap();
-        eprintln!("no newline: delta_start={}, length={}", h.delta_start, h.length);
+        eprintln!(
+            "no newline: delta_start={}, length={}",
+            h.delta_start, h.length
+        );
         assert_eq!(h.length, 8, "'## Hello' should be 8 chars");
 
         // With trailing newline (real file scenario)
         let state2 = make_state("## Hello\nsome text");
         let tokens2 = collect_semantic_tokens(&state2);
         let h2 = tokens2.iter().find(|t| t.token_type == 35).unwrap();
-        eprintln!("with newline: delta_start={}, length={}", h2.delta_start, h2.length);
-        assert_eq!(h2.length, 8, "'## Hello' with newline should still be 8 chars");
+        eprintln!(
+            "with newline: delta_start={}, length={}",
+            h2.delta_start, h2.length
+        );
+        assert_eq!(
+            h2.length, 8,
+            "'## Hello' with newline should still be 8 chars"
+        );
     }
 
     #[test]
