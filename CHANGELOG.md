@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.5] - 2026-02-19
+
+### Added
+- **JetBrains Plugin**: New `editors/jetbrains/` plugin for IntelliJ-based IDEs (2024.2+)
+  - LSP integration via built-in `com.intellij.modules.lsp` module — connects to the same `sevenmark_language_server` binary used by the VS Code extension
+  - `.sm` file type registration with custom language and icon
+  - Server binary resolution: bundled plugin path first, then system PATH fallback
+  - Gradle-based build with IntelliJ Platform Plugin SDK 2.11.0, Kotlin 2.3.0, Java 21
+  - Signing and publishing configuration for future JetBrains Marketplace distribution
+- **CI**: `jetbrains-plugin.yml` GitHub Actions workflow for 6-platform matrix builds (linux-x64/arm64, macos-x64/arm64, win-x64/arm64)
+  - Builds `sevenmark_language_server` per platform, bundles into plugin zip
+  - Attaches platform-specific zips to GitHub Releases on tag push
+
 ## [2.24.3] - 2026-02-19
 
 ### Added
