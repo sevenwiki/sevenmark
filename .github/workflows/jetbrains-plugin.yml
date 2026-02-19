@@ -36,6 +36,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Derive release version from tag
+        id: version
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          if [ "$TAG" = "$VERSION" ]; then
+            echo "Release tag must start with 'v' (got: $TAG)" >&2
+            exit 1
+          fi
+          echo "release_version=$VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -86,7 +98,7 @@ jobs:
 
       - name: Build plugin
         working-directory: ./editors/jetbrains
-        run: ./gradlew buildPlugin
+        run: ./gradlew buildPlugin -PpluginVersion=${{ steps.version.outputs.release_version }}
 
       - name: Rename artifact
         working-directory: ./editors/jetbrains
