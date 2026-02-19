@@ -16,17 +16,17 @@ High-performance wiki markup parser for SevenWiki.
 
 ## Crates
 
-| Crate                 | Description                      |
-|-----------------------|----------------------------------|
-| `sevenmark_ast`       | AST types and traversal utilities |
-| `sevenmark_semantic`  | Semantic analysis helpers         |
-| `sevenmark_parser`    | Core parsing engine (standalone) |
-| `sevenmark_utils`     | Shared utilities                 |
-| `sevenmark_wasm`      | WebAssembly bindings             |
-| `sevenmark_html`      | HTML renderer                    |
-| `sevenmark_transform` | AST preprocessing/postprocessing |
+| Crate                       | Description                             |
+|-----------------------------|-----------------------------------------|
+| `sevenmark_ast`             | AST types and traversal utilities       |
+| `sevenmark_semantic`        | Semantic analysis helpers               |
+| `sevenmark_parser`          | Core parsing engine (standalone)        |
+| `sevenmark_utils`           | Shared utilities                        |
+| `sevenmark_wasm`            | WebAssembly bindings                    |
+| `sevenmark_html`            | HTML renderer                           |
+| `sevenmark_transform`       | AST preprocessing/postprocessing        |
 | `sevenmark_language_server` | Language Server Protocol implementation |
-| `sevenmark_server`    | REST API server                  |
+| `sevenmark_server`          | REST API server                         |
 
 ## Editor Support
 
