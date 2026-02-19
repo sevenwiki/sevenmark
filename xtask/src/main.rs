@@ -2,7 +2,7 @@ use std::process::{Command, exit};
 use std::thread::sleep;
 use std::time::Duration;
 
-const CRATES: &[&str] = &["sevenmark_parser", "sevenmark_utils", "sevenmark_html"];
+const CRATES: &[&str] = &["sevenmark_ast", "sevenmark_parser", "sevenmark_utils", "sevenmark_html"];
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
