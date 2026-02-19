@@ -50,7 +50,7 @@ jobs:
 
       - name: Update chart versions
         run: |
-          VERSION=${{ steps.version.outputs.version }}
+          VERSION="${{ steps.version.outputs.version }}"
 
           # Update sevenmark_server chart
           sed -i "s/^version:.*/version: $VERSION/" charts/sevenmark_server/Chart.yaml
@@ -66,7 +66,7 @@ jobs:
 
       - name: Summary
         run: |
-          VERSION=${{ steps.version.outputs.version }}
+          VERSION="${{ steps.version.outputs.version }}"
           echo "## Helm Chart Published" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### sevenmark_server" >> $GITHUB_STEP_SUMMARY

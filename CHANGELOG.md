@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.17] - 2026-02-19
+
+### Changed
+- **CI**: Split monolithic `release.yml` into `check.yml`, `build.yml`, and `editors.yml` workflows
+  - `check.yml`: `cargo check`, `clippy`, `fmt --check`
+  - `build.yml`: workspace build, tests, WASM builds
+  - `editors.yml`: VS Code compile + JetBrains `buildPlugin` (parallel jobs)
+  - All three run on every push and pull request (no branch restriction)
+
+### Fixed
+- **CI**: `jetbrains-plugin.yml` Gradle argument parsing error — unquoted `-PpluginVersion=X.Y.Z` split on dots by shell, causing `.Y.Z` to be interpreted as a Gradle task name
+- **CI**: `helm.yml` version variable similarly unquoted in `sed` commands
+
 ## [2.24.16] - 2026-02-19
 
 ### Fixed

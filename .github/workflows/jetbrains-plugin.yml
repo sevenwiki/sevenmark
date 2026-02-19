@@ -98,7 +98,7 @@ jobs:
 
       - name: Build plugin
         working-directory: ./editors/jetbrains
-        run: ./gradlew buildPlugin -PpluginVersion=${{ steps.version.outputs.release_version }}
+        run: ./gradlew buildPlugin "-PpluginVersion=${{ steps.version.outputs.release_version }}"
 
       - name: Rename artifact
         working-directory: ./editors/jetbrains
