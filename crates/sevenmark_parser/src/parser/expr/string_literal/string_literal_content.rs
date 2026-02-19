@@ -1,7 +1,7 @@
 use super::string_literal_text::string_literal_text_parser;
-use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::escape::escape_parser;
+use sevenmark_ast::Element;
 use winnow::Result;
 use winnow::combinator::{alt, repeat};
 use winnow::prelude::*;

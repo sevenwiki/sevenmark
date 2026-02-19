@@ -1,5 +1,5 @@
-use sevenmark_ast::{Element, HLineElement, Span};
 use crate::parser::ParserInput;
+use sevenmark_ast::{Element, HLineElement, Span};
 use winnow::Result;
 use winnow::ascii::line_ending;
 use winnow::combinator::eof;

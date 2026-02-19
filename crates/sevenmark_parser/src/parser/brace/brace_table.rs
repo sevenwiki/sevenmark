@@ -1,7 +1,7 @@
-use sevenmark_ast::{Element, Span, TableElement};
 use crate::parser::ParserInput;
 use crate::parser::brace::table::table_core_parser;
 use crate::parser::parameter::parameter_core_parser;
+use sevenmark_ast::{Element, Span, TableElement};
 use winnow::Result;
 use winnow::combinator::{delimited, opt};
 use winnow::prelude::*;

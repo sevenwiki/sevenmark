@@ -1,5 +1,4 @@
 use sevenmark_ast::Element;
-use sevenmark_utils::extract_plain_text;
 use tower_lsp_server::ls_types::{
     CompletionItem, CompletionItemKind, CompletionTextEdit, InsertTextFormat, Position, Range,
     TextEdit,
@@ -39,10 +38,9 @@ fn variable_completions(state: &DocumentState) -> Vec<CompletionItem> {
     let mut names = Vec::new();
     visit_elements(&state.elements, &mut |element| {
         if let Element::Define(d) = element {
-            if let Some(name_param) = d.parameters.get("name") {
-                let name = extract_plain_text(&name_param.value);
-                if !name.is_empty() && !names.contains(&name) {
-                    names.push(name);
+            for name in d.parameters.keys() {
+                if !names.contains(name) {
+                    names.push(name.clone());
                 }
             }
         }
@@ -67,7 +65,7 @@ fn brace_keyword_completions(pos: Position) -> Vec<CompletionItem> {
         ("fold", "fold\n$0\n}}}", "Fold (collapsible)"),
         ("style", "style #style=\"$1\"\n$0\n}}}", "Styled block"),
         ("blockquote", "blockquote\n$0\n}}}", "Block quote"),
-        ("define", "define #name=\"$1\" #value=\"$2\"}}}", "Variable definition"),
+        ("define", "define #$1=\"$2\"}}}", "Variable definition"),
         ("if", "if $1 ::\n$0\n}}}", "Conditional block"),
         ("include", "include $0}}}", "Document inclusion"),
         ("category", "category $0}}}", "Category"),
@@ -125,4 +123,62 @@ fn macro_completions(pos: Position) -> Vec<CompletionItem> {
             ..Default::default()
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use tower_lsp_server::ls_types::Position;
+
+    fn make_state(text: &str) -> DocumentState {
+        DocumentState::new(text.to_string())
+    }
+
+    #[test]
+    fn var_prefix_with_define_suggests_variable() {
+        let text = "{{{#define #myvar=\"v\"}}}[var(";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(!completions.is_empty(), "expected variable completions");
+        assert!(completions.iter().any(|c| c.label == "myvar"));
+    }
+
+    #[test]
+    fn brace_prefix_suggests_keywords() {
+        let text = "{{{#";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(!completions.is_empty());
+        let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
+        assert!(labels.contains(&"code"), "expected 'code' in {labels:?}");
+        assert!(labels.contains(&"table"), "expected 'table' in {labels:?}");
+        assert!(labels.contains(&"list"), "expected 'list' in {labels:?}");
+    }
+
+    #[test]
+    fn bracket_prefix_suggests_macros() {
+        let text = "hello [";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(!completions.is_empty(), "expected macro completions");
+        let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
+        assert!(labels.contains(&"var"), "expected 'var' in {labels:?}");
+        assert!(labels.contains(&"br"), "expected 'br' in {labels:?}");
+    }
+
+    #[test]
+    fn no_trigger_empty_completions() {
+        let text = "hello world";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(completions.is_empty());
+    }
 }

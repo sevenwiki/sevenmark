@@ -1,5 +1,5 @@
-use sevenmark_ast::{Element, HardBreakElement, Span};
 use crate::parser::ParserInput;
+use sevenmark_ast::{Element, HardBreakElement, Span};
 use winnow::Result;
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;

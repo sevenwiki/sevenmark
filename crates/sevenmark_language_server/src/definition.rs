@@ -1,5 +1,4 @@
 use sevenmark_ast::Element;
-use sevenmark_utils::extract_plain_text;
 use tower_lsp_server::ls_types::{Location, Position, Range, Uri};
 
 use crate::ast_walk::visit_elements;
@@ -38,19 +37,59 @@ fn find_define_location(state: &DocumentState, uri: &Uri, target: &str) -> Optio
             return;
         }
         if let Element::Define(d) = element {
-            if let Some(name_param) = d.parameters.get("name") {
-                if extract_plain_text(&name_param.value) == target {
-                    let (start, end) = state.line_index.span_to_range(&state.text, &d.span);
-                    result = Some(Location {
-                        uri: uri.clone(),
-                        range: Range::new(
-                            Position::new(start.0, start.1),
-                            Position::new(end.0, end.1),
-                        ),
-                    });
-                }
+            if d.parameters.contains_key(target) {
+                let (start, end) = state.line_index.span_to_range(&state.text, &d.span);
+                result = Some(Location {
+                    uri: uri.clone(),
+                    range: Range::new(Position::new(start.0, start.1), Position::new(end.0, end.1)),
+                });
             }
         }
     });
     result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn make_state(text: &str) -> DocumentState {
+        DocumentState::new(text.to_string())
+    }
+
+    fn test_uri() -> Uri {
+        "file:///test.sm".parse().unwrap()
+    }
+
+    #[test]
+    fn var_with_define_returns_location() {
+        let text = "{{{#define #x=\"v\"}}}[var(x)]";
+        let state = make_state(text);
+        let uri = test_uri();
+        // Byte offset inside [var(x)]
+        let var_start = text.find("[var(x)]").unwrap();
+        let byte_offset = var_start + 5; // points to 'x'
+        let loc = find_definition(&state, &uri, byte_offset);
+        assert!(loc.is_some(), "expected definition location");
+        assert_eq!(loc.unwrap().uri, uri);
+    }
+
+    #[test]
+    fn var_without_define_returns_none() {
+        let text = "[var(x)]";
+        let state = make_state(text);
+        let uri = test_uri();
+        let byte_offset = 5; // inside [var(x)]
+        let loc = find_definition(&state, &uri, byte_offset);
+        assert!(loc.is_none());
+    }
+
+    #[test]
+    fn cursor_not_on_variable_returns_none() {
+        let text = "hello world";
+        let state = make_state(text);
+        let uri = test_uri();
+        let loc = find_definition(&state, &uri, 3);
+        assert!(loc.is_none());
+    }
 }

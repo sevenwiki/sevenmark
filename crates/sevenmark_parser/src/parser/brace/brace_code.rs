@@ -1,6 +1,6 @@
-use sevenmark_ast::{CodeElement, Element, Span};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
+use sevenmark_ast::{CodeElement, Element, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};

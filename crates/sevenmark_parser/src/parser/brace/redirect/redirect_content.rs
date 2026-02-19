@@ -1,4 +1,3 @@
-use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::brace::brace_literal_parser;
 use crate::parser::brace::redirect::redirect_text::redirect_text_parser;
@@ -6,6 +5,7 @@ use crate::parser::escape::escape_parser;
 use crate::parser::token::{
     token_brace_close_parser, token_brace_open_parser, token_newline_parser,
 };
+use sevenmark_ast::Element;
 use winnow::Result;
 use winnow::combinator::{alt, repeat};
 use winnow::prelude::*;

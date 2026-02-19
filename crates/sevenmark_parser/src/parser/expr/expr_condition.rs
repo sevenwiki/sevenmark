@@ -1,6 +1,6 @@
-use sevenmark_ast::{Expression, LogicalOperator, LogicalOperatorKind, Span};
 use crate::parser::ParserInput;
 use crate::parser::expr::expr_comparison::comparison_parser;
+use sevenmark_ast::{Expression, LogicalOperator, LogicalOperatorKind, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt, repeat, terminated};

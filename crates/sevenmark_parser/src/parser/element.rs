@@ -8,7 +8,6 @@ use super::mention::{mention_discussion_parser, mention_user_parser};
 use super::text::text_parser;
 use super::token::*;
 
-use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::brace::{
     brace_blockquote_parser, brace_category_parser, brace_code_parser, brace_define_parser,
@@ -22,6 +21,7 @@ use crate::parser::r#macro::{
     macro_age_parser, macro_footnote_parser, macro_newline_parser, macro_now_parser,
     macro_null_parser, macro_variable_parser,
 };
+use sevenmark_ast::Element;
 use winnow::Result;
 use winnow::combinator::{alt, dispatch, peek, repeat};
 use winnow::prelude::*;

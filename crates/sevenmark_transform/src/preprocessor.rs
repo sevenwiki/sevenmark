@@ -1,5 +1,4 @@
 use crate::expression_evaluator::evaluate_condition;
-use sevenmark_utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, RevisionStorageClient, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
@@ -9,6 +8,7 @@ use sevenmark_ast::{
     Traversable,
 };
 use sevenmark_parser::core::parse_document;
+use sevenmark_utils::extract_plain_text;
 use std::collections::{HashMap, HashSet};
 use tracing::{debug, warn};
 

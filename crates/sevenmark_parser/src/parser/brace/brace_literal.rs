@@ -1,7 +1,7 @@
-use sevenmark_ast::{Element, LiteralElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::brace::literal::literal_content_parser;
 use crate::parser::utils::with_depth_and_trim;
+use sevenmark_ast::{Element, LiteralElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::delimited;

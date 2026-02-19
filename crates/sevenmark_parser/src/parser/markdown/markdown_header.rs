@@ -1,7 +1,7 @@
-use sevenmark_ast::{Element, HeaderElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::utils::with_depth;
+use sevenmark_ast::{Element, HeaderElement, Span};
 use winnow::Result;
 use winnow::ascii::line_ending;
 use winnow::combinator::eof;

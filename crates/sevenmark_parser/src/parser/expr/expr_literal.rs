@@ -1,6 +1,6 @@
 use super::string_literal::string_literal_content::string_literal_content_parser;
-use sevenmark_ast::{Expression, Span};
 use crate::parser::ParserInput;
+use sevenmark_ast::{Expression, Span};
 use winnow::Result;
 use winnow::ascii::digit1;
 use winnow::combinator::{alt, delimited, opt};

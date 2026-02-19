@@ -1,5 +1,5 @@
-use sevenmark_ast::{Element, Span, VariableElement};
 use crate::parser::ParserInput;
+use sevenmark_ast::{Element, Span, VariableElement};
 use winnow::Result;
 use winnow::combinator::delimited;
 use winnow::prelude::*;

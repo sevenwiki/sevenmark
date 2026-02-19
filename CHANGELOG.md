@@ -5,6 +5,25 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.1] - 2026-02-19
+
+### Fixed
+- **sevenmark_language_server**: Fixed `{{{#define}}}` variable resolution to match actual syntax `{{{#define #var="value"}}}` where parameter keys are variable names, aligning with `sevenmark_transform` preprocessor behavior
+  - Updated `diagnostics.rs`, `definition.rs`, `completion.rs`, and `backend.rs` to iterate parameter keys instead of looking up `#name`/`#value` meta-parameters
+  - Updated define completion snippet to use `#$1="$2"` format
+
+### Added
+- **sevenmark_language_server**: Unit tests for all 6 feature modules (22 tests total)
+  - `diagnostics.rs`: clean document, undefined variable warning, defined variable, parser error
+  - `definition.rs`: go-to-definition with/without define, cursor not on variable
+  - `hover.rs`: bold, code with lang, variable, plain text
+  - `completion.rs`: variable prefix, brace keywords, macro prefix, no trigger
+  - `semantic_tokens.rs`: text, bold, define, if tokens
+  - `folding.rs`: multi-line code block, single-line block, multi-line comment
+
+### Changed
+- **CLAUDE.md**: Corrected `{{{#define}}}` syntax documentation
+
 ## [2.24.0] - 2026-02-19
 
 ### Added

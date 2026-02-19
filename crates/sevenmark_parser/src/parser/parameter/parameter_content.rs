@@ -1,9 +1,9 @@
-use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::escape::escape_parser;
 use crate::parser::r#macro::macro_variable_parser;
 use crate::parser::parameter::parameter_text::parameter_text_parser;
 use crate::parser::token::{token_bracket_close_parser, token_bracket_open_parser};
+use sevenmark_ast::Element;
 use winnow::Result;
 use winnow::combinator::{alt, repeat};
 use winnow::prelude::*;

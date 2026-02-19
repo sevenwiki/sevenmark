@@ -1,4 +1,3 @@
-use sevenmark_ast::{Expression, Span};
 use crate::parser::ParserInput;
 use crate::parser::expr::expr_condition::condition_parser;
 use crate::parser::expr::expr_literal::{
@@ -6,6 +5,7 @@ use crate::parser::expr::expr_literal::{
 };
 use crate::parser::r#macro::macro_variable_parser;
 use crate::parser::utils::with_depth;
+use sevenmark_ast::{Expression, Span};
 use winnow::Result;
 use winnow::ascii::{alpha1, multispace0};
 use winnow::combinator::{alt, delimited, separated};

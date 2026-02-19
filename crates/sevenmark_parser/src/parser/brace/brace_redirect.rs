@@ -1,8 +1,8 @@
-use sevenmark_ast::{Element, RedirectElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::brace::redirect::redirect_content_parser;
 use crate::parser::parameter::parameter_core_parser;
 use crate::parser::utils::with_depth;
+use sevenmark_ast::{Element, RedirectElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt};

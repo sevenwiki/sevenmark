@@ -1,7 +1,7 @@
-use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::brace::brace_redirect_parser;
 use crate::parser::element::element_parser;
+use sevenmark_ast::Element;
 use winnow::Result;
 use winnow::combinator::repeat;
 use winnow::prelude::*;

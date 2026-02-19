@@ -82,9 +82,7 @@ impl LanguageServer for Backend {
     async fn did_close(&self, params: DidCloseTextDocumentParams) {
         let uri = params.text_document.uri;
         self.documents.remove(&uri.to_string());
-        self.client
-            .publish_diagnostics(uri, Vec::new(), None)
-            .await;
+        self.client.publish_diagnostics(uri, Vec::new(), None).await;
     }
 
     async fn goto_definition(
@@ -119,10 +117,7 @@ impl LanguageServer for Backend {
         Ok(get_hover(&state, byte_offset))
     }
 
-    async fn completion(
-        &self,
-        params: CompletionParams,
-    ) -> Result<Option<CompletionResponse>> {
+    async fn completion(&self, params: CompletionParams) -> Result<Option<CompletionResponse>> {
         let uri = params.text_document_position.text_document.uri.to_string();
         let pos = params.text_document_position.position;
         let Some(state) = self.documents.get(&uri) else {
@@ -155,10 +150,7 @@ impl LanguageServer for Backend {
         })))
     }
 
-    async fn folding_range(
-        &self,
-        params: FoldingRangeParams,
-    ) -> Result<Option<Vec<FoldingRange>>> {
+    async fn folding_range(&self, params: FoldingRangeParams) -> Result<Option<Vec<FoldingRange>>> {
         let uri = params.text_document.uri.to_string();
         let Some(state) = self.documents.get(&uri) else {
             return Ok(None);
@@ -224,10 +216,8 @@ fn visit_for_symbols(
                     name
                 };
                 let (start, end) = state.line_index.span_to_range(&state.text, &h.span);
-                let range = Range::new(
-                    Position::new(start.0, start.1),
-                    Position::new(end.0, end.1),
-                );
+                let range =
+                    Range::new(Position::new(start.0, start.1), Position::new(end.0, end.1));
 
                 #[allow(deprecated)]
                 symbols.push(DocumentSymbol {
@@ -244,28 +234,22 @@ fn visit_for_symbols(
                 visit_for_symbols(&h.children, state, symbols);
             }
             Element::Define(d) => {
-                if let Some(name_param) = d.parameters.get("name") {
-                    let var_name = extract_plain_text(&name_param.value);
-                    if !var_name.is_empty() {
-                        let (start, end) =
-                            state.line_index.span_to_range(&state.text, &d.span);
-                        let range = Range::new(
-                            Position::new(start.0, start.1),
-                            Position::new(end.0, end.1),
-                        );
+                let (start, end) = state.line_index.span_to_range(&state.text, &d.span);
+                let range =
+                    Range::new(Position::new(start.0, start.1), Position::new(end.0, end.1));
 
-                        #[allow(deprecated)]
-                        symbols.push(DocumentSymbol {
-                            name: var_name,
-                            detail: Some("Define".to_string()),
-                            kind: SymbolKind::VARIABLE,
-                            range,
-                            selection_range: range,
-                            children: None,
-                            tags: None,
-                            deprecated: None,
-                        });
-                    }
+                for var_name in d.parameters.keys() {
+                    #[allow(deprecated)]
+                    symbols.push(DocumentSymbol {
+                        name: var_name.clone(),
+                        detail: Some("Define".to_string()),
+                        kind: SymbolKind::VARIABLE,
+                        range,
+                        selection_range: range,
+                        children: None,
+                        tags: None,
+                        deprecated: None,
+                    });
                 }
             }
             other => {

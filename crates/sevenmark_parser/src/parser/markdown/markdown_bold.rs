@@ -1,7 +1,7 @@
-use sevenmark_ast::{Element, Span, TextStyleElement};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::utils::with_depth;
+use sevenmark_ast::{Element, Span, TextStyleElement};
 use winnow::Result;
 use winnow::combinator::delimited;
 use winnow::prelude::*;

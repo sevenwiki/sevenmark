@@ -1,5 +1,7 @@
 use sevenmark_ast::Element;
-use tower_lsp_server::ls_types::{Hover, HoverContents, MarkupContent, MarkupKind, Position, Range};
+use tower_lsp_server::ls_types::{
+    Hover, HoverContents, MarkupContent, MarkupKind, Position, Range,
+};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
@@ -15,7 +17,10 @@ pub fn get_hover(state: &DocumentState, byte_offset: usize) -> Option<Hover> {
         if span.start <= byte_offset && byte_offset < span.end {
             let len = span.end - span.start;
             if let Some(content) = hover_content(element) {
-                if best.as_ref().is_none_or(|(_, _, _, best_len)| len < *best_len) {
+                if best
+                    .as_ref()
+                    .is_none_or(|(_, _, _, best_len)| len < *best_len)
+                {
                     best = Some((content, span.start, span.end, len));
                 }
             }
@@ -23,8 +28,12 @@ pub fn get_hover(state: &DocumentState, byte_offset: usize) -> Option<Hover> {
     });
 
     let (content, start_offset, end_offset, _) = best?;
-    let start = state.line_index.byte_offset_to_position(&state.text, start_offset);
-    let end = state.line_index.byte_offset_to_position(&state.text, end_offset);
+    let start = state
+        .line_index
+        .byte_offset_to_position(&state.text, start_offset);
+    let end = state
+        .line_index
+        .byte_offset_to_position(&state.text, end_offset);
 
     Some(Hover {
         contents: HoverContents::Markup(MarkupContent {
@@ -105,4 +114,61 @@ fn hover_content(element: &Element) -> Option<String> {
         | Element::HLine(_) => return None,
     };
     Some(text)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn make_state(text: &str) -> DocumentState {
+        DocumentState::new(text.to_string())
+    }
+
+    fn hover_value(state: &DocumentState, byte_offset: usize) -> Option<String> {
+        get_hover(state, byte_offset).map(|h| match h.contents {
+            HoverContents::Markup(m) => m.value,
+            _ => panic!("expected markup hover"),
+        })
+    }
+
+    #[test]
+    fn bold_hover() {
+        let text = "**bold text**";
+        let state = make_state(text);
+        // Offset inside the bold content
+        let val = hover_value(&state, 3);
+        assert_eq!(val.as_deref(), Some("**Bold**"));
+    }
+
+    #[test]
+    fn code_with_lang_hover() {
+        let text = "{{{#code #lang=\"rust\"\nfn main() {}\n}}}";
+        let state = make_state(text);
+        let val = hover_value(&state, 0);
+        assert!(val.is_some());
+        let val = val.unwrap();
+        assert!(val.contains("Code"), "expected Code hover, got: {val}");
+        assert!(val.contains("rust"), "expected lang info, got: {val}");
+    }
+
+    #[test]
+    fn variable_hover() {
+        let text = "[var(myvar)]";
+        let state = make_state(text);
+        let val = hover_value(&state, 5);
+        assert!(val.is_some());
+        assert!(
+            val.as_ref().unwrap().contains("myvar"),
+            "expected variable name, got: {}",
+            val.unwrap()
+        );
+    }
+
+    #[test]
+    fn plain_text_no_hover() {
+        let text = "hello world";
+        let state = make_state(text);
+        let val = hover_value(&state, 3);
+        assert!(val.is_none());
+    }
 }

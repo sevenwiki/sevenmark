@@ -1,7 +1,7 @@
-use sevenmark_ast::{Element, ErrorElement, Span};
 use crate::context::ParseContext;
 use crate::parser::document::document_parser;
 use crate::parser::{InputSource, ParserInput};
+use sevenmark_ast::{Element, ErrorElement, Span};
 use winnow::stream::Location as StreamLocation;
 
 pub fn parse_document(input: &str) -> Vec<Element> {

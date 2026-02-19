@@ -1,6 +1,6 @@
-use sevenmark_ast::{Parameter, Parameters, Span};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_content::parameter_content_parser;
+use sevenmark_ast::{Parameter, Parameters, Span};
 use std::collections::BTreeMap;
 use winnow::Result;
 use winnow::ascii::{alphanumeric1, multispace0};

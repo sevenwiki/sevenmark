@@ -1,5 +1,5 @@
-use sevenmark_ast::{Element, SoftBreakElement, Span};
 use crate::parser::ParserInput;
+use sevenmark_ast::{Element, SoftBreakElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace1;
 use winnow::combinator::{alt, not, peek};
