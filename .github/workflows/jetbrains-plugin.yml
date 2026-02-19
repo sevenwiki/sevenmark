@@ -80,6 +80,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+ㅣ      - name: Make gradlew executable
+        if: runner.os != 'Windows'
+        run: chmod +x editors/jetbrains/gradlew
+
       - name: Build plugin
         working-directory: ./editors/jetbrains
         run: ./gradlew buildPlugin
