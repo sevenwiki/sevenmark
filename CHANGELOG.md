@@ -5,6 +5,31 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.0] - 2026-02-19
+
+### Added
+- **sevenmark_ast crate**: Extracted AST type definitions into a standalone crate
+  - All AST types (`Element`, `Span`, `Traversable`, etc.) now live in `sevenmark_ast`
+  - Zero non-serde dependencies for minimal footprint
+  - `include_locations` feature flag forwarded from `sevenmark_parser`
+  - Crates that only need AST types (`sevenmark_utils`, `sevenmark_semantic`) no longer depend on the full parser
+- **sevenmark_language_server crate**: New Language Server Protocol implementation for SevenMark
+  - Diagnostics: parse errors (Error) and undefined variable warnings (Warning)
+  - Document symbols: headers (SymbolKind::STRING) and variable definitions (SymbolKind::VARIABLE)
+  - Folding ranges: multi-line block elements (Fold, Code, Table, List, BlockQuote, If, Literal, Include, Styled, Comment)
+  - Built on `tower-lsp-server` v0.23.0 with native async
+- **sevenmark_utils**: `LineIndex` for O(log n) byte-offset ↔ LSP position conversion
+  - `byte_offset_to_position(text, offset)` and `position_to_byte_offset(text, line, character)`
+  - Correct UTF-16 code unit counting for LSP compatibility (Korean, emoji, surrogate pairs)
+  - `span_to_range(text, span)` for direct parser Span to LSP Range conversion
+- **sevenmark_utils**: `extract_plain_text(elements)` shared utility for extracting text from AST elements
+
+### Changed
+- **Workspace structure**: Renamed all crate directories from hyphens to underscores
+  - `crates/sevenmark-parser` → `crates/sevenmark_parser`, etc.
+- **sevenmark_parser**: `ast` module removed; all crates now import AST types directly from `sevenmark_ast`
+- **sevenmark_transform**: `extract_plain_text` moved from `transform::utils` to `sevenmark_utils`
+
 ## [2.21.6] - 2026-02-13
 
 ### Fixed

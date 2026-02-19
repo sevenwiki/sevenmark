@@ -1,4 +1,4 @@
-use crate::ast::{BlockQuoteElement, Element, Span};
+use sevenmark_ast::{BlockQuoteElement, Element, Span};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;

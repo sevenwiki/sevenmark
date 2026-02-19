@@ -1,4 +1,4 @@
-use crate::ast::{Element, Span, TextStyleElement};
+use sevenmark_ast::{Element, Span, TextStyleElement};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::utils::with_depth;

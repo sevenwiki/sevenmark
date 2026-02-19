@@ -3,7 +3,7 @@
 //! Converts flat AST into a tree structure where headers with higher level
 //! numbers are children of headers with lower level numbers.
 
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 
 /// A section in the document tree
 #[derive(Debug)]
@@ -141,7 +141,7 @@ fn build_section(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sevenmark_parser::ast::{HeaderElement, Span, TextElement};
+    use sevenmark_ast::{HeaderElement, Span, TextElement};
 
     fn text(s: &str) -> Element {
         Element::Text(TextElement {

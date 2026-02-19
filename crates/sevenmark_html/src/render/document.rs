@@ -8,7 +8,7 @@ use crate::classes;
 use crate::config::RenderConfig;
 use crate::context::RenderContext;
 use crate::section::{Section, SectionTree, build_section_tree};
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 
 /// Render a document to semantic HTML
 ///

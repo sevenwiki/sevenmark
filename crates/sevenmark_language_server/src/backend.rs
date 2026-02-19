@@ -1,12 +1,17 @@
 use dashmap::DashMap;
-use sevenmark_parser::ast::{Element, Traversable};
+use sevenmark_ast::{Element, Traversable};
+use sevenmark_utils::extract_plain_text;
 use tower_lsp_server::jsonrpc::Result;
 use tower_lsp_server::ls_types::*;
 use tower_lsp_server::{Client, LanguageServer};
 
+use crate::completion::get_completions;
+use crate::definition::find_definition;
 use crate::diagnostics::collect_diagnostics;
 use crate::document::DocumentState;
 use crate::folding::collect_folding_ranges;
+use crate::hover::get_hover;
+use crate::semantic_tokens::{collect_semantic_tokens, legend};
 
 pub struct Backend {
     pub client: Client,
@@ -24,7 +29,27 @@ impl LanguageServer for Backend {
                         ..Default::default()
                     },
                 )),
+                completion_provider: Some(CompletionOptions {
+                    trigger_characters: Some(vec![
+                        "[".to_string(),
+                        "#".to_string(),
+                        "(".to_string(),
+                    ]),
+                    ..Default::default()
+                }),
+                definition_provider: Some(OneOf::Left(true)),
+                hover_provider: Some(HoverProviderCapability::Simple(true)),
                 document_symbol_provider: Some(OneOf::Left(true)),
+                semantic_tokens_provider: Some(
+                    SemanticTokensServerCapabilities::SemanticTokensOptions(
+                        SemanticTokensOptions {
+                            legend: legend(),
+                            full: Some(SemanticTokensFullOptions::Bool(true)),
+                            range: None,
+                            ..Default::default()
+                        },
+                    ),
+                ),
                 folding_range_provider: Some(FoldingRangeProviderCapability::Simple(true)),
                 ..Default::default()
             },
@@ -60,6 +85,74 @@ impl LanguageServer for Backend {
         self.client
             .publish_diagnostics(uri, Vec::new(), None)
             .await;
+    }
+
+    async fn goto_definition(
+        &self,
+        params: GotoDefinitionParams,
+    ) -> Result<Option<GotoDefinitionResponse>> {
+        let uri = params.text_document_position_params.text_document.uri;
+        let pos = params.text_document_position_params.position;
+        let uri_key = uri.to_string();
+        let Some(state) = self.documents.get(&uri_key) else {
+            return Ok(None);
+        };
+        let byte_offset =
+            state
+                .line_index
+                .position_to_byte_offset(&state.text, pos.line, pos.character);
+        let location = find_definition(&state, &uri, byte_offset);
+        Ok(location.map(GotoDefinitionResponse::Scalar))
+    }
+
+    async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {
+        let uri = params.text_document_position_params.text_document.uri;
+        let pos = params.text_document_position_params.position;
+        let uri_key = uri.to_string();
+        let Some(state) = self.documents.get(&uri_key) else {
+            return Ok(None);
+        };
+        let byte_offset =
+            state
+                .line_index
+                .position_to_byte_offset(&state.text, pos.line, pos.character);
+        Ok(get_hover(&state, byte_offset))
+    }
+
+    async fn completion(
+        &self,
+        params: CompletionParams,
+    ) -> Result<Option<CompletionResponse>> {
+        let uri = params.text_document_position.text_document.uri.to_string();
+        let pos = params.text_document_position.position;
+        let Some(state) = self.documents.get(&uri) else {
+            return Ok(None);
+        };
+        let byte_offset =
+            state
+                .line_index
+                .position_to_byte_offset(&state.text, pos.line, pos.character);
+        let items = get_completions(&state, pos, byte_offset);
+        if items.is_empty() {
+            Ok(None)
+        } else {
+            Ok(Some(CompletionResponse::Array(items)))
+        }
+    }
+
+    async fn semantic_tokens_full(
+        &self,
+        params: SemanticTokensParams,
+    ) -> Result<Option<SemanticTokensResult>> {
+        let uri = params.text_document.uri.to_string();
+        let Some(state) = self.documents.get(&uri) else {
+            return Ok(None);
+        };
+        let tokens = collect_semantic_tokens(&state);
+        Ok(Some(SemanticTokensResult::Tokens(SemanticTokens {
+            result_id: None,
+            data: tokens,
+        })))
     }
 
     async fn folding_range(
@@ -124,7 +217,7 @@ fn visit_for_symbols(
     for element in elements {
         match element {
             Element::Header(h) => {
-                let name = extract_text_from_children(&h.children);
+                let name = extract_plain_text(&h.children);
                 let name = if name.is_empty() {
                     format!("Header (level {})", h.level)
                 } else {
@@ -152,7 +245,7 @@ fn visit_for_symbols(
             }
             Element::Define(d) => {
                 if let Some(name_param) = d.parameters.get("name") {
-                    let var_name = extract_text_from_children(&name_param.value);
+                    let var_name = extract_plain_text(&name_param.value);
                     if !var_name.is_empty() {
                         let (start, end) =
                             state.line_index.span_to_range(&state.text, &d.span);
@@ -182,17 +275,4 @@ fn visit_for_symbols(
             }
         }
     }
-}
-
-/// Extracts plain text content from child elements for display.
-fn extract_text_from_children(elements: &[Element]) -> String {
-    let mut result = String::new();
-    for element in elements {
-        match element {
-            Element::Text(t) => result.push_str(&t.value),
-            Element::Escape(e) => result.push_str(&e.value),
-            _ => {}
-        }
-    }
-    result.trim().to_string()
 }

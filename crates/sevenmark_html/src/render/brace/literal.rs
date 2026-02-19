@@ -1,7 +1,7 @@
 //! Literal element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{Element, Span};
+use sevenmark_ast::{Element, Span};
 
 use crate::classes;
 use crate::context::RenderContext;

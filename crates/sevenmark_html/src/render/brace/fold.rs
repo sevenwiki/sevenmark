@@ -1,7 +1,7 @@
 //! Fold element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::FoldElement;
+use sevenmark_ast::FoldElement;
 
 use crate::classes;
 use crate::context::RenderContext;

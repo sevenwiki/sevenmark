@@ -1,7 +1,7 @@
 //! UTF-8 to UTF-16 offset conversion utilities
 
 use serde::Serialize;
-use sevenmark_parser::ast::{Element, Span};
+use sevenmark_ast::{Element, Span};
 
 /// UTF-16 code unit offset position (0-based)
 /// Designed for CodeMirror 6 compatibility

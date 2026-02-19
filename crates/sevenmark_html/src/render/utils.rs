@@ -1,6 +1,6 @@
 //! Common rendering utilities
 
-use sevenmark_parser::ast::{Element, Parameters};
+use sevenmark_ast::{Element, Parameters};
 
 /// Extract plain text from elements
 pub fn extract_text(elements: &[Element]) -> String {

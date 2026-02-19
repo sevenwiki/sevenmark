@@ -11,6 +11,7 @@ readme = "README.md"
 
 [dependencies]
 # Internal crates
+sevenmark_ast = { workspace = true }
 sevenmark_parser = { workspace = true }
 sevenmark_utils = { workspace = true }
 

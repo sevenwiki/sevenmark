@@ -1,5 +1,5 @@
 use super::utils::parse_uuid;
-use crate::ast::{Element, MentionElement, MentionType, Span};
+use sevenmark_ast::{Element, MentionElement, MentionType, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::combinator::delimited;

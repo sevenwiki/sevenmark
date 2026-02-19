@@ -1,4 +1,4 @@
-use crate::ast::{
+use sevenmark_ast::{
     ConditionalTableCells, ConditionalTableRows, Expression, Span, TableCellElement, TableCellItem,
     TableRowElement, TableRowItem,
 };

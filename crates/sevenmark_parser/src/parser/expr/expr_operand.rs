@@ -1,4 +1,4 @@
-use crate::ast::{Expression, Span};
+use sevenmark_ast::{Expression, Span};
 use crate::parser::ParserInput;
 use crate::parser::expr::expr_condition::condition_parser;
 use crate::parser::expr::expr_literal::{

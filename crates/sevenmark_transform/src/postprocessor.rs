@@ -1,11 +1,11 @@
 use crate::PreProcessedDocument;
 use crate::preprocessor::{DocumentReference, RedirectReference, SectionInfo};
-use crate::utils::extract_plain_text;
+use sevenmark_utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, check_documents_exist};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
-use sevenmark_parser::ast::{Element, ResolvedDoc, ResolvedFile, ResolvedMediaInfo, Traversable};
+use sevenmark_ast::{Element, ResolvedDoc, ResolvedFile, ResolvedMediaInfo, Traversable};
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
 use utoipa::ToSchema;

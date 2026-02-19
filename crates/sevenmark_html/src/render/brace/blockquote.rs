@@ -1,7 +1,7 @@
 //! BlockQuote rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{Element, Parameters, Span};
+use sevenmark_ast::{Element, Parameters, Span};
 
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};

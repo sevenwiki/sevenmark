@@ -1,4 +1,4 @@
-use crate::ast::{Element, EscapeElement, Span};
+use sevenmark_ast::{Element, EscapeElement, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::combinator::preceded;

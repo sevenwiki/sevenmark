@@ -8,7 +8,7 @@ use super::mention::{mention_discussion_parser, mention_user_parser};
 use super::text::text_parser;
 use super::token::*;
 
-use crate::ast::Element;
+use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::brace::{
     brace_blockquote_parser, brace_category_parser, brace_code_parser, brace_define_parser,

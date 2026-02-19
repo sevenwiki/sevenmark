@@ -1,4 +1,4 @@
-use crate::ast::{Element, HardBreakElement, Span};
+use sevenmark_ast::{Element, HardBreakElement, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::prelude::*;

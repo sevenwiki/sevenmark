@@ -1,4 +1,4 @@
-use crate::ast::{Element, IfElement, Span};
+use sevenmark_ast::{Element, IfElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::condition_parser;

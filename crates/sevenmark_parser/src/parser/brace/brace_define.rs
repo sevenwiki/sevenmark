@@ -1,4 +1,4 @@
-use crate::ast::{DefineElement, Element, Span};
+use sevenmark_ast::{DefineElement, Element, Span};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
 use winnow::Result;

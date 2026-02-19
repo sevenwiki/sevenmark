@@ -1,4 +1,4 @@
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 use sevenmark_parser::core::parse_document;
 use sevenmark_utils::LineIndex;
 

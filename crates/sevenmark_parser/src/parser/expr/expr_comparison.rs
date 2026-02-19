@@ -1,4 +1,4 @@
-use crate::ast::{ComparisonOperator, ComparisonOperatorKind, Expression, Span};
+use sevenmark_ast::{ComparisonOperator, ComparisonOperatorKind, Expression, Span};
 use crate::parser::ParserInput;
 use crate::parser::expr::expr_operand::operand_parser;
 use winnow::Result;

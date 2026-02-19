@@ -1,4 +1,4 @@
-use crate::ast::Element;
+use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::brace::brace_literal_parser;
 use crate::parser::brace::literal::literal_text::literal_text_parser;

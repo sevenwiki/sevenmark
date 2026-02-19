@@ -1,7 +1,7 @@
 //! Table rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{Parameters, Span, TableCellItem, TableRowItem};
+use sevenmark_ast::{Parameters, Span, TableCellItem, TableRowItem};
 
 use crate::classes;
 use crate::context::RenderContext;

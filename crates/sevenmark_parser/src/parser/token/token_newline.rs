@@ -1,4 +1,4 @@
-use crate::ast::{Element, SoftBreakElement, Span};
+use sevenmark_ast::{Element, SoftBreakElement, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::ascii::multispace1;

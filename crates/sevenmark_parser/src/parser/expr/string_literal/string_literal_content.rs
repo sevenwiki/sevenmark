@@ -1,5 +1,5 @@
 use super::string_literal_text::string_literal_text_parser;
-use crate::ast::Element;
+use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::escape::escape_parser;
 use winnow::Result;

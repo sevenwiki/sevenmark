@@ -1,4 +1,4 @@
-use crate::ast::{Element, RedirectElement, Span};
+use sevenmark_ast::{Element, RedirectElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::brace::redirect::redirect_content_parser;
 use crate::parser::parameter::parameter_core_parser;

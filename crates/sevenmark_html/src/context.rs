@@ -1,6 +1,6 @@
 //! Rendering context for footnote tracking
 
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 use sevenmark_utils::Utf16OffsetConverter;
 
 use crate::config::RenderConfig;
@@ -85,12 +85,12 @@ impl<'a> RenderContext<'a> {
     }
 
     /// Get UTF-16 start offset for span data attribute
-    pub fn span_start(&self, span: &sevenmark_parser::ast::Span) -> Option<u32> {
+    pub fn span_start(&self, span: &sevenmark_ast::Span) -> Option<u32> {
         self.converter.map(|c| c.convert(span.start))
     }
 
     /// Get UTF-16 end offset for span data attribute
-    pub fn span_end(&self, span: &sevenmark_parser::ast::Span) -> Option<u32> {
+    pub fn span_end(&self, span: &sevenmark_ast::Span) -> Option<u32> {
         self.converter.map(|c| c.convert(span.end))
     }
 

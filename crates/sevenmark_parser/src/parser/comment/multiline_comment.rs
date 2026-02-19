@@ -1,4 +1,4 @@
-use crate::ast::{CommentElement, Element, Span};
+use sevenmark_ast::{CommentElement, Element, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::combinator::delimited;

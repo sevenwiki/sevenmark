@@ -1,4 +1,4 @@
-use crate::ast::{Element, Span, TimeNowElement};
+use sevenmark_ast::{Element, Span, TimeNowElement};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::prelude::*;

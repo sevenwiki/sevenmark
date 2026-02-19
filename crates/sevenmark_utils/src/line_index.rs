@@ -4,7 +4,7 @@
 //! plus O(k) UTF-16 character offset calculation within the line.
 
 use line_span::LineSpans;
-use sevenmark_parser::ast::Span;
+use sevenmark_ast::Span;
 
 /// Precomputed line start offsets for fast byte-offset-to-position conversion.
 ///

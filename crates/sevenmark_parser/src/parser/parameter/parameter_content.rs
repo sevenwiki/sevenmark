@@ -1,4 +1,4 @@
-use crate::ast::Element;
+use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::escape::escape_parser;
 use crate::parser::r#macro::macro_variable_parser;

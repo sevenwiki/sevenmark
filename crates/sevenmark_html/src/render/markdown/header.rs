@@ -1,7 +1,7 @@
 //! Header rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 
 use crate::classes;
 use crate::config::RenderConfig;

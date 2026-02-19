@@ -1,4 +1,4 @@
-use crate::ast::{Element, FoldElement, Span};
+use sevenmark_ast::{Element, FoldElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::brace::fold::fold_core_parser;
 use crate::parser::parameter::parameter_core_parser;

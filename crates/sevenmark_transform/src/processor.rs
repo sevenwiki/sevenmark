@@ -2,7 +2,7 @@ use crate::wiki::RevisionStorageClient;
 use crate::{ProcessedDocument, postprocess_sevenmark, preprocess_sevenmark};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 
 /// Processes SevenMark AST through preprocessing and postprocessing pipeline
 ///

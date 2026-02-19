@@ -1,7 +1,7 @@
 //! Footnote rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{Element, Parameters, Span};
+use sevenmark_ast::{Element, Parameters, Span};
 
 use crate::classes;
 use crate::context::RenderContext;

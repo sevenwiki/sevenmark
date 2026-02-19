@@ -1,4 +1,4 @@
-use crate::ast::{CategoryElement, Element, Span};
+use sevenmark_ast::{CategoryElement, Element, Span};
 use crate::parser::ParserInput;
 use crate::parser::brace::category::category_content_parser;
 use crate::parser::utils::with_depth;

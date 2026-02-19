@@ -1,7 +1,7 @@
 use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
 
-use crate::ast::{FoldInnerElement, Span};
+use sevenmark_ast::{FoldInnerElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::utils::with_depth_and_trim;
 use winnow::Result;

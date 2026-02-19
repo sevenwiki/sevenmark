@@ -1,7 +1,7 @@
 //! List rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::{ListContentItem, Parameters, Span};
+use sevenmark_ast::{ListContentItem, Parameters, Span};
 
 use crate::classes;
 use crate::context::RenderContext;

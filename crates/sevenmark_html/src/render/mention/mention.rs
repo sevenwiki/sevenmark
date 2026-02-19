@@ -1,7 +1,7 @@
 //! Mention element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::MentionType;
+use sevenmark_ast::MentionType;
 
 use crate::classes;
 

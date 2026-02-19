@@ -1,4 +1,4 @@
-name: Docker - sevenmark-server
+name: Docker - sevenmark_server
 
 on:
   push:
@@ -91,11 +91,11 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
-          tags: sevenmark-server:test
+          tags: sevenmark_server:test
           cache-from: type=gha
 
       - name: Test Docker image
         run: |
           echo "Testing Docker image..."
-          docker images sevenmark-server:test
+          docker images sevenmark_server:test
           echo "✅ SevenMark server Docker image built successfully"

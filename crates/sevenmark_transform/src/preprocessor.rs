@@ -1,10 +1,10 @@
 use crate::expression_evaluator::evaluate_condition;
-use crate::utils::extract_plain_text;
+use sevenmark_utils::extract_plain_text;
 use crate::wiki::{DocumentNamespace, RevisionStorageClient, fetch_documents_batch};
 use anyhow::Result;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
-use sevenmark_parser::ast::{
+use sevenmark_ast::{
     Element, ListContentItem, MentionType, Span, TableCellItem, TableRowItem, TextElement,
     Traversable,
 };

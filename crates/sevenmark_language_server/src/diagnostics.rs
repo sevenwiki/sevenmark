@@ -1,8 +1,10 @@
 use std::collections::HashSet;
 
-use sevenmark_parser::ast::{Element, Traversable};
+use sevenmark_ast::Element;
+use sevenmark_utils::extract_plain_text;
 use tower_lsp_server::ls_types::{Diagnostic, DiagnosticSeverity, Position, Range};
 
+use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
 
 /// Collects LSP diagnostics from parsed AST.
@@ -32,7 +34,7 @@ pub fn collect_diagnostics(state: &DocumentState) -> Vec<Diagnostic> {
             }
             Element::Define(e) => {
                 if let Some(name_param) = e.parameters.get("name") {
-                    let name = extract_text_content(&name_param.value);
+                    let name = extract_plain_text(&name_param.value);
                     if !name.is_empty() {
                         defined_vars.insert(name);
                     }
@@ -62,33 +64,6 @@ pub fn collect_diagnostics(state: &DocumentState) -> Vec<Diagnostic> {
     });
 
     diagnostics
-}
-
-/// Recursively visits every element in the AST via depth-first traversal.
-///
-/// Uses `Traversable::traverse_children_ref` for child enumeration.
-fn visit_elements(elements: &[Element], visitor: &mut dyn FnMut(&Element)) {
-    for element in elements {
-        visit_element(element, visitor);
-    }
-}
-
-fn visit_element(element: &Element, visitor: &mut dyn FnMut(&Element)) {
-    visitor(element);
-    element.traverse_children_ref(&mut |child| {
-        visit_element(child, visitor);
-    });
-}
-
-/// Extracts concatenated text from parameter value elements.
-fn extract_text_content(elements: &[Element]) -> String {
-    let mut result = String::new();
-    for element in elements {
-        if let Element::Text(t) = element {
-            result.push_str(&t.value);
-        }
-    }
-    result
 }
 
 /// Truncates a string for diagnostic messages.

@@ -1,4 +1,4 @@
-use crate::ast::{Element, FootnoteRefElement, Span};
+use sevenmark_ast::{Element, FootnoteRefElement, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::prelude::*;

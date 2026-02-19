@@ -1,7 +1,7 @@
 //! Element-level rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 
 use super::{brace, bracket, r#macro, markdown, mention, text};
 use crate::context::RenderContext;

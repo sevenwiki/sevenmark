@@ -1,7 +1,7 @@
 //! Text element rendering
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::Span;
+use sevenmark_ast::Span;
 
 use crate::context::RenderContext;
 

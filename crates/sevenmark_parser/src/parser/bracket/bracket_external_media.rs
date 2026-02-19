@@ -1,4 +1,4 @@
-use crate::ast::{Element, ExternalMediaElement, Span};
+use sevenmark_ast::{Element, ExternalMediaElement, Span};
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_core_parser;
 use winnow::Result;

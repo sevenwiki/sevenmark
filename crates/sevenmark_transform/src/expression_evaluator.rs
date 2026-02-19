@@ -1,4 +1,4 @@
-use sevenmark_parser::ast::{ComparisonOperator, ComparisonOperatorKind, Element, Expression};
+use sevenmark_ast::{ComparisonOperator, ComparisonOperatorKind, Element, Expression};
 use std::collections::HashMap;
 
 /// 조건식 평가 결과
@@ -55,7 +55,7 @@ fn evaluate_expression(expr: &Expression, variables: &HashMap<String, String>) -
             name, arguments, ..
         } => evaluate_function(name, arguments, variables),
         Expression::StringLiteral { value, .. } => {
-            Value::String(crate::utils::extract_plain_text(value))
+            Value::String(sevenmark_utils::extract_plain_text(value))
         }
         Expression::NumberLiteral { value, .. } => Value::Number(*value),
         Expression::BoolLiteral { value, .. } => Value::Bool(*value),
@@ -181,7 +181,7 @@ fn evaluate_function(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use sevenmark_parser::ast::{ComparisonOperator, LogicalOperator, LogicalOperatorKind, Span};
+    use sevenmark_ast::{ComparisonOperator, LogicalOperator, LogicalOperatorKind, Span};
 
     // 테스트용 헬퍼 함수들
     fn span() -> Span {
@@ -193,7 +193,7 @@ mod tests {
     }
 
     fn str_lit(s: &str) -> Expression {
-        use sevenmark_parser::ast::TextElement;
+        use sevenmark_ast::TextElement;
         Expression::StringLiteral {
             span: span(),
             value: vec![Element::Text(TextElement {
@@ -222,7 +222,7 @@ mod tests {
     }
 
     fn var_elem(name: &str) -> Expression {
-        use sevenmark_parser::ast::VariableElement;
+        use sevenmark_ast::VariableElement;
         Expression::Element(Box::new(Element::Variable(VariableElement {
             span: span(),
             name: name.to_string(),

@@ -16,7 +16,7 @@
 //! Note: One of track/album/playlist/artist/episode/show is required
 
 use maud::{Markup, html};
-use sevenmark_parser::ast::Parameters;
+use sevenmark_ast::Parameters;
 
 use crate::classes;
 use crate::render::utils::get_param;

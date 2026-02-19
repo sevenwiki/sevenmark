@@ -1,4 +1,4 @@
-use sevenmark_parser::ast::{Element, Traversable};
+use sevenmark_ast::{Element, Traversable};
 use tower_lsp_server::ls_types::{FoldingRange, FoldingRangeKind};
 
 use crate::document::DocumentState;

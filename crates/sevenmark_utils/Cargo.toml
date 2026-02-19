@@ -11,7 +11,7 @@ readme = "README.md"
 
 [dependencies]
 # Internal crates
-sevenmark_parser = { workspace = true }
+sevenmark_ast = { workspace = true }
 
 # External dependencies
 line-span = { workspace = true }

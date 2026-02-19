@@ -1,6 +1,6 @@
 use super::category_text::category_text_parser;
 
-use crate::ast::Element;
+use sevenmark_ast::Element;
 use crate::parser::ParserInput;
 use crate::parser::escape::escape_parser;
 use crate::parser::token::{token_brace_close_parser, token_brace_open_parser};

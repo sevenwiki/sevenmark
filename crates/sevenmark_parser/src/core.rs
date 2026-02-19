@@ -1,4 +1,4 @@
-use crate::ast::{Element, ErrorElement, Span};
+use sevenmark_ast::{Element, ErrorElement, Span};
 use crate::context::ParseContext;
 use crate::parser::document::document_parser;
 use crate::parser::{InputSource, ParserInput};

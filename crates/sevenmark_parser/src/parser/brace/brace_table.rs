@@ -1,4 +1,4 @@
-use crate::ast::{Element, Span, TableElement};
+use sevenmark_ast::{Element, Span, TableElement};
 use crate::parser::ParserInput;
 use crate::parser::brace::table::table_core_parser;
 use crate::parser::parameter::parameter_core_parser;

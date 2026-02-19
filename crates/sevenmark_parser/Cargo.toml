@@ -10,14 +10,14 @@ description = "Core parsing engine for SevenMark wiki markup"
 readme = "README.md"
 
 [dependencies]
+sevenmark_ast = { workspace = true }
 winnow = { workspace = true }
 paste = { workspace = true }
-serde = { workspace = true }
 serde_json = { workspace = true }
 
 [features]
 default = []
-include_locations = []
+include_locations = ["sevenmark_ast/include_locations"]
 
 [[test]]
 name = "comprehensive_parser_tests"

@@ -1,5 +1,5 @@
 use super::string_literal::string_literal_content::string_literal_content_parser;
-use crate::ast::{Expression, Span};
+use sevenmark_ast::{Expression, Span};
 use crate::parser::ParserInput;
 use winnow::Result;
 use winnow::ascii::digit1;

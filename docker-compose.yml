@@ -1,7 +1,7 @@
 services:
-  sevenmark-server:
+  sevenmark_server:
     build: .
-    container_name: sevenmark-server
+    container_name: sevenmark_server
     extra_hosts:
       - "host.docker.internal:host-gateway"
     env_file:

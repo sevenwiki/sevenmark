@@ -2,7 +2,7 @@
 
 use maud::{Markup, html};
 use percent_encoding::{AsciiSet, NON_ALPHANUMERIC, utf8_percent_encode};
-use sevenmark_parser::ast::{Element, Parameters, ResolvedMediaInfo, Span};
+use sevenmark_ast::{Element, Parameters, ResolvedMediaInfo, Span};
 
 use crate::classes;
 use crate::context::RenderContext;

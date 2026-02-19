@@ -1,6 +1,7 @@
-use sevenmark_parser::ast::Element;
+use sevenmark_ast::Element;
 
-/// Extract plain text content from a slice of Elements
+/// Extract plain text content from a slice of Elements.
+/// Only extracts Text and Escape values (shallow, non-recursive).
 pub fn extract_plain_text(elements: &[Element]) -> String {
     elements
         .iter()

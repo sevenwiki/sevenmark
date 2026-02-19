@@ -17,12 +17,12 @@ High-performance wiki markup parser for SevenWiki.
 
 | Crate                 | Description                      |
 |-----------------------|----------------------------------|
-| `sevenmark-parser`    | Core parsing engine (standalone) |
-| `sevenmark-utils`     | Shared utilities                 |
-| `sevenmark-wasm`      | WebAssembly bindings             |
-| `sevenmark-html`      | HTML renderer                    |
-| `sevenmark-transform` | AST preprocessing/postprocessing |
-| `sevenmark-server`    | REST API server                  |
+| `sevenmark_parser`    | Core parsing engine (standalone) |
+| `sevenmark_utils`     | Shared utilities                 |
+| `sevenmark_wasm`      | WebAssembly bindings             |
+| `sevenmark_html`      | HTML renderer                    |
+| `sevenmark_transform` | AST preprocessing/postprocessing |
+| `sevenmark_server`    | REST API server                  |
 
 ## Publishing
 
