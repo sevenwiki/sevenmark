@@ -5,6 +5,29 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.3] - 2026-02-19
+
+### Added
+- **sevenmark_ast**: `open_span` and `close_span` fields on all 24 delimited AST element structs
+  - Tracks exact byte offsets of opening and closing delimiters separately from the full element `span`
+  - Applies to: `LiteralElement`, `DefineElement`, `StyledElement`, `BlockQuoteElement`, `RubyElement`, `FootnoteElement`, `CodeElement`, `TeXElement`, `FoldInnerElement`, `FoldElement`, `IncludeElement`, `CategoryElement`, `RedirectElement`, `MediaElement`, `ExternalMediaElement`, `IfElement`, `TableElement`, `TableRowElement`, `TableCellElement`, `ConditionalTableRows`, `ConditionalTableCells`, `ListElement`, `ListItemElement`, `ConditionalListItems`
+  - Fields are conditionally serialized: only included in JSON when `include_locations` feature is enabled
+
+### Changed
+- **sevenmark_parser**: Replaced `delimited()` combinator with sequential parsing in all 20 brace/bracket/sub-element parser files
+  - Manually parses open delimiter → content → close delimiter to capture delimiter byte positions
+  - No behavioral change: `delimited(a, b, c)` is syntactic sugar for the same `a → b → c` sequence
+  - Affected parsers: `brace_table`, `brace_list`, `brace_fold`, `brace_style`, `brace_code`, `brace_define`, `brace_blockquote`, `brace_ruby`, `brace_footnote`, `brace_if`, `brace_include`, `brace_category`, `brace_redirect`, `brace_literal`, `brace_tex`, `bracket_media`, `bracket_external_media`, `table_core`, `list_core`, `fold_core`
+- **sevenmark_language_server**: Semantic token generation now uses AST-provided `open_span`/`close_span` instead of computing delimiter byte lengths at the LSP layer
+  - Removed `brace_open_len()` function (hardcoded byte-length table for each element type)
+  - Added `emit_delimiter_tokens()` helper that emits separate tokens for opening and closing delimiters using AST spans
+  - Content inside delimited blocks (tables, lists, code, etc.) now receives correct per-element coloring instead of inheriting the parent block's color
+
+### Fixed
+- **sevenmark_language_server**: Table/list/code block content all rendering as a single color in VS Code
+  - Root cause: semantic tokens covered the entire element span, overriding child element tokens
+  - Fix: tokens now only cover the opening and closing delimiters, leaving inner content to be colored by its own tokens
+
 ## [2.24.2] - 2026-02-19
 
 ### Added
