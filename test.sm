@@ -7599,6 +7599,10 @@ DELETE /api/users/:id
 
 ### Authentication
 
+{{{#define #xy="123"}}}
+[var(xy)]
+
+[var(xxx)]
 {{{#code #lang="javascript"
 // Login example
 const response = await fetch('/api/auth/login', {

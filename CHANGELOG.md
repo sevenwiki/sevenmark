@@ -5,6 +5,18 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.13] - 2026-02-19
+
+### Changed
+- **sevenmark_language_server**: Migrated semantic token legend to LSP standard token types for better cross-editor compatibility (including JetBrains)
+  - Replaced custom semantic token type IDs with standard types (`keyword`, `string`, `comment`, `variable`, `function`, `parameter`, `property`, `number`, `operator`, `modifier`)
+  - Preserved existing token index ordering in the legend to keep server token encoding stable
+
+### Fixed
+- **sevenmark_language_server**: Reduced semantic token maintenance risk by removing numeric magic numbers from token emission paths
+  - Introduced `TokenIdx` enum and switched token emission/matching logic to typed indices
+  - Updated semantic token tests to reference typed indices instead of raw numeric literals
+
 ## [2.24.12] - 2026-02-19
 
 ### Fixed

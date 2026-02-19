@@ -9,70 +9,138 @@ use tower_lsp_server::ls_types::{
 
 use crate::document::DocumentState;
 
-// One custom token type per AST node that carries a span.
-// VS Code extension maps these to colors via `semanticTokenColorCustomizations`.
+#[repr(u32)]
+#[derive(Copy, Clone)]
+enum TokenIdx {
+    Text = 0,
+    Comment = 1,
+    Escape = 2,
+    Error = 3,
+    Literal = 4,
+    Define = 5,
+    Styled = 6,
+    Table = 7,
+    List = 8,
+    Fold = 9,
+    BlockQuote = 10,
+    Ruby = 11,
+    Footnote = 12,
+    Code = 13,
+    TeX = 14,
+    Include = 15,
+    Category = 16,
+    Redirect = 17,
+    Media = 18,
+    ExternalMedia = 19,
+    Null = 20,
+    FootnoteRef = 21,
+    TimeNow = 22,
+    Age = 23,
+    Variable = 24,
+    Mention = 25,
+    Bold = 26,
+    Italic = 27,
+    Strikethrough = 28,
+    Underline = 29,
+    Superscript = 30,
+    Subscript = 31,
+    SoftBreak = 32,
+    HardBreak = 33,
+    HLine = 34,
+    Header = 35,
+    If = 36,
+    Parameter = 37,
+    TableRow = 38,
+    TableCell = 39,
+    ConditionalTableRows = 40,
+    ConditionalTableCells = 41,
+    ListItem = 42,
+    ConditionalListItems = 43,
+    FoldInner = 44,
+    ExprOr = 45,
+    ExprAnd = 46,
+    ExprNot = 47,
+    ExprComparison = 48,
+    ExprFunctionCall = 49,
+    ExprStringLiteral = 50,
+    ExprNumberLiteral = 51,
+    ExprBoolLiteral = 52,
+    ExprNull = 53,
+    ExprGroup = 54,
+    LogicalOperator = 55,
+    ComparisonOperator = 56,
+}
+
+impl TokenIdx {
+    const fn as_u32(self) -> u32 {
+        self as u32
+    }
+}
+
+// Maps SevenMark AST spans to LSP standard semantic token types.
+// Keep indices stable because token emitters use numeric indices.
 pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     // ── Element variants (0–36) ──
-    SemanticTokenType::new("text"),          // 0
-    SemanticTokenType::new("comment"),       // 1
-    SemanticTokenType::new("escape"),        // 2
-    SemanticTokenType::new("error"),         // 3
-    SemanticTokenType::new("literal"),       // 4
-    SemanticTokenType::new("define"),        // 5
-    SemanticTokenType::new("styled"),        // 6
-    SemanticTokenType::new("table"),         // 7
-    SemanticTokenType::new("list"),          // 8
-    SemanticTokenType::new("fold"),          // 9
-    SemanticTokenType::new("blockQuote"),    // 10
-    SemanticTokenType::new("ruby"),          // 11
-    SemanticTokenType::new("footnote"),      // 12
-    SemanticTokenType::new("code"),          // 13
-    SemanticTokenType::new("tex"),           // 14
-    SemanticTokenType::new("include"),       // 15
-    SemanticTokenType::new("category"),      // 16
-    SemanticTokenType::new("redirect"),      // 17
-    SemanticTokenType::new("media"),         // 18
-    SemanticTokenType::new("externalMedia"), // 19
-    SemanticTokenType::new("null"),          // 20
-    SemanticTokenType::new("footnoteRef"),   // 21
-    SemanticTokenType::new("timeNow"),       // 22
-    SemanticTokenType::new("age"),           // 23
-    SemanticTokenType::new("variable"),      // 24
-    SemanticTokenType::new("mention"),       // 25
-    SemanticTokenType::new("bold"),          // 26
-    SemanticTokenType::new("italic"),        // 27
-    SemanticTokenType::new("strikethrough"), // 28
-    SemanticTokenType::new("underline"),     // 29
-    SemanticTokenType::new("superscript"),   // 30
-    SemanticTokenType::new("subscript"),     // 31
-    SemanticTokenType::new("softBreak"),     // 32
-    SemanticTokenType::new("hardBreak"),     // 33
-    SemanticTokenType::new("hLine"),         // 34
-    SemanticTokenType::new("header"),        // 35
-    SemanticTokenType::new("if"),            // 36
+    SemanticTokenType::STRING,               // 0
+    SemanticTokenType::COMMENT,              // 1
+    SemanticTokenType::STRING,               // 2
+    SemanticTokenType::MODIFIER,             // 3
+    SemanticTokenType::STRING,               // 4
+    SemanticTokenType::KEYWORD,              // 5
+    SemanticTokenType::KEYWORD,              // 6
+    SemanticTokenType::KEYWORD,              // 7
+    SemanticTokenType::KEYWORD,              // 8
+    SemanticTokenType::KEYWORD,              // 9
+    SemanticTokenType::KEYWORD,              // 10
+    SemanticTokenType::KEYWORD,              // 11
+    SemanticTokenType::KEYWORD,              // 12
+    SemanticTokenType::KEYWORD,              // 13
+    SemanticTokenType::STRING,               // 14
+    SemanticTokenType::KEYWORD,              // 15
+    SemanticTokenType::KEYWORD,              // 16
+    SemanticTokenType::KEYWORD,              // 17
+    SemanticTokenType::STRING,               // 18
+    SemanticTokenType::STRING,               // 19
+    SemanticTokenType::KEYWORD,              // 20
+    SemanticTokenType::VARIABLE,             // 21
+    SemanticTokenType::FUNCTION,             // 22
+    SemanticTokenType::FUNCTION,             // 23
+    SemanticTokenType::VARIABLE,             // 24
+    SemanticTokenType::VARIABLE,             // 25
+    SemanticTokenType::MODIFIER,             // 26
+    SemanticTokenType::MODIFIER,             // 27
+    SemanticTokenType::MODIFIER,             // 28
+    SemanticTokenType::MODIFIER,             // 29
+    SemanticTokenType::MODIFIER,             // 30
+    SemanticTokenType::MODIFIER,             // 31
+    SemanticTokenType::OPERATOR,             // 32
+    SemanticTokenType::OPERATOR,             // 33
+    SemanticTokenType::OPERATOR,             // 34
+    SemanticTokenType::KEYWORD,              // 35
+    SemanticTokenType::KEYWORD,              // 36
     // ── Structural sub-elements (37–43) ──
-    SemanticTokenType::new("parameter"),             // 37
-    SemanticTokenType::new("tableRow"),              // 38
-    SemanticTokenType::new("tableCell"),             // 39
-    SemanticTokenType::new("conditionalTableRows"),  // 40
-    SemanticTokenType::new("conditionalTableCells"), // 41
-    SemanticTokenType::new("listItem"),              // 42
-    SemanticTokenType::new("conditionalListItems"),  // 43
-    SemanticTokenType::new("foldInner"),             // 44
+    SemanticTokenType::PARAMETER,            // 37
+    SemanticTokenType::PROPERTY,             // 38
+    SemanticTokenType::PROPERTY,             // 39
+    SemanticTokenType::KEYWORD,              // 40
+    SemanticTokenType::KEYWORD,              // 41
+    SemanticTokenType::PROPERTY,             // 42
+    SemanticTokenType::KEYWORD,              // 43
+    SemanticTokenType::STRING,               // 44
     // ── Expression nodes (45–54) ──
-    SemanticTokenType::new("exprOr"),            // 45
-    SemanticTokenType::new("exprAnd"),           // 46
-    SemanticTokenType::new("exprNot"),           // 47
-    SemanticTokenType::new("exprComparison"),    // 48
-    SemanticTokenType::new("exprFunctionCall"),  // 49
-    SemanticTokenType::new("exprStringLiteral"), // 50
-    SemanticTokenType::new("exprNumberLiteral"), // 51
-    SemanticTokenType::new("exprBoolLiteral"),   // 52
-    SemanticTokenType::new("exprNull"),          // 53
-    SemanticTokenType::new("exprGroup"),         // 54
+    SemanticTokenType::OPERATOR,             // 45
+    SemanticTokenType::OPERATOR,             // 46
+    SemanticTokenType::OPERATOR,             // 47
+    SemanticTokenType::OPERATOR,             // 48
+    SemanticTokenType::FUNCTION,             // 49
+    SemanticTokenType::STRING,               // 50
+    SemanticTokenType::NUMBER,               // 51
+    SemanticTokenType::KEYWORD,              // 52
+    SemanticTokenType::KEYWORD,              // 53
+    SemanticTokenType::OPERATOR,             // 54
     // ── Operators (55–56) ──
-    SemanticTokenType::new("logicalOperator"),    // 55
-    SemanticTokenType::new("comparisonOperator"), // 56
+    SemanticTokenType::OPERATOR,             // 55
+    SemanticTokenType::OPERATOR,             // 56
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -313,7 +381,11 @@ fn walk_parameters(params: &sevenmark_ast::Parameters, raw: &mut Vec<(usize, usi
 }
 
 fn walk_parameter(param: &Parameter, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((param.span.start, param.span.end, 37)); // parameter
+    raw.push((
+        param.span.start,
+        param.span.end,
+        TokenIdx::Parameter.as_u32(),
+    ));
     walk_elements(&param.value, raw);
 }
 
@@ -363,7 +435,7 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
 // ── Table sub-structure walking ─────────────────────────────────────────
 
 fn walk_table_row(row: &TableRowElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&row.open_span, &row.close_span, 38, raw); // tableRow
+    emit_delimiter_tokens(&row.open_span, &row.close_span, TokenIdx::TableRow.as_u32(), raw);
     walk_parameters(&row.parameters, raw);
     for cell_item in &row.children {
         match cell_item {
@@ -374,7 +446,7 @@ fn walk_table_row(row: &TableRowElement, raw: &mut Vec<(usize, usize, u32)>) {
 }
 
 fn walk_table_cell(cell: &TableCellElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&cell.open_span, &cell.close_span, 39, raw); // tableCell
+    emit_delimiter_tokens(&cell.open_span, &cell.close_span, TokenIdx::TableCell.as_u32(), raw);
     walk_parameters(&cell.parameters, raw);
     walk_elements(&cell.x, raw);
     walk_elements(&cell.y, raw);
@@ -382,7 +454,12 @@ fn walk_table_cell(cell: &TableCellElement, raw: &mut Vec<(usize, usize, u32)>) 
 }
 
 fn walk_conditional_table_rows(cond: &ConditionalTableRows, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&cond.open_span, &cond.close_span, 40, raw); // conditionalTableRows
+    emit_delimiter_tokens(
+        &cond.open_span,
+        &cond.close_span,
+        TokenIdx::ConditionalTableRows.as_u32(),
+        raw,
+    );
     walk_expression(&cond.condition, raw);
     for row in &cond.rows {
         walk_table_row(row, raw);
@@ -390,7 +467,12 @@ fn walk_conditional_table_rows(cond: &ConditionalTableRows, raw: &mut Vec<(usize
 }
 
 fn walk_conditional_table_cells(cond: &ConditionalTableCells, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&cond.open_span, &cond.close_span, 41, raw); // conditionalTableCells
+    emit_delimiter_tokens(
+        &cond.open_span,
+        &cond.close_span,
+        TokenIdx::ConditionalTableCells.as_u32(),
+        raw,
+    );
     walk_expression(&cond.condition, raw);
     for cell in &cond.cells {
         walk_table_cell(cell, raw);
@@ -400,13 +482,18 @@ fn walk_conditional_table_cells(cond: &ConditionalTableCells, raw: &mut Vec<(usi
 // ── List sub-structure walking ──────────────────────────────────────────
 
 fn walk_list_item(li: &ListItemElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&li.open_span, &li.close_span, 42, raw); // listItem
+    emit_delimiter_tokens(&li.open_span, &li.close_span, TokenIdx::ListItem.as_u32(), raw);
     walk_parameters(&li.parameters, raw);
     walk_elements(&li.children, raw);
 }
 
 fn walk_conditional_list_items(cond: &ConditionalListItems, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&cond.open_span, &cond.close_span, 43, raw); // conditionalListItems
+    emit_delimiter_tokens(
+        &cond.open_span,
+        &cond.close_span,
+        TokenIdx::ConditionalListItems.as_u32(),
+        raw,
+    );
     walk_expression(&cond.condition, raw);
     for li in &cond.items {
         walk_list_item(li, raw);
@@ -416,7 +503,7 @@ fn walk_conditional_list_items(cond: &ConditionalListItems, raw: &mut Vec<(usize
 // ── Fold sub-structure walking ──────────────────────────────────────────
 
 fn walk_fold_inner(inner: &FoldInnerElement, raw: &mut Vec<(usize, usize, u32)>) {
-    emit_delimiter_tokens(&inner.open_span, &inner.close_span, 44, raw); // foldInner
+    emit_delimiter_tokens(&inner.open_span, &inner.close_span, TokenIdx::FoldInner.as_u32(), raw);
     walk_parameters(&inner.parameters, raw);
     walk_elements(&inner.children, raw);
 }
@@ -431,8 +518,12 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
             left,
             right,
         } => {
-            raw.push((span.start, span.end, 45));
-            raw.push((operator.span.start, operator.span.end, 55)); // logicalOperator
+            raw.push((span.start, span.end, TokenIdx::ExprOr.as_u32()));
+            raw.push((
+                operator.span.start,
+                operator.span.end,
+                TokenIdx::LogicalOperator.as_u32(),
+            ));
             walk_expression(left, raw);
             walk_expression(right, raw);
         }
@@ -442,8 +533,12 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
             left,
             right,
         } => {
-            raw.push((span.start, span.end, 46));
-            raw.push((operator.span.start, operator.span.end, 55));
+            raw.push((span.start, span.end, TokenIdx::ExprAnd.as_u32()));
+            raw.push((
+                operator.span.start,
+                operator.span.end,
+                TokenIdx::LogicalOperator.as_u32(),
+            ));
             walk_expression(left, raw);
             walk_expression(right, raw);
         }
@@ -452,8 +547,12 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
             operator,
             inner,
         } => {
-            raw.push((span.start, span.end, 47));
-            raw.push((operator.span.start, operator.span.end, 55));
+            raw.push((span.start, span.end, TokenIdx::ExprNot.as_u32()));
+            raw.push((
+                operator.span.start,
+                operator.span.end,
+                TokenIdx::LogicalOperator.as_u32(),
+            ));
             walk_expression(inner, raw);
         }
         Expression::Comparison {
@@ -462,34 +561,38 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
             operator,
             right,
         } => {
-            raw.push((span.start, span.end, 48));
-            raw.push((operator.span.start, operator.span.end, 56)); // comparisonOperator
+            raw.push((span.start, span.end, TokenIdx::ExprComparison.as_u32()));
+            raw.push((
+                operator.span.start,
+                operator.span.end,
+                TokenIdx::ComparisonOperator.as_u32(),
+            ));
             walk_expression(left, raw);
             walk_expression(right, raw);
         }
         Expression::FunctionCall {
             span, arguments, ..
         } => {
-            raw.push((span.start, span.end, 49));
+            raw.push((span.start, span.end, TokenIdx::ExprFunctionCall.as_u32()));
             for arg in arguments {
                 walk_expression(arg, raw);
             }
         }
         Expression::StringLiteral { span, value } => {
-            raw.push((span.start, span.end, 50));
+            raw.push((span.start, span.end, TokenIdx::ExprStringLiteral.as_u32()));
             walk_elements(value, raw);
         }
         Expression::NumberLiteral { span, .. } => {
-            raw.push((span.start, span.end, 51));
+            raw.push((span.start, span.end, TokenIdx::ExprNumberLiteral.as_u32()));
         }
         Expression::BoolLiteral { span, .. } => {
-            raw.push((span.start, span.end, 52));
+            raw.push((span.start, span.end, TokenIdx::ExprBoolLiteral.as_u32()));
         }
         Expression::Null { span } => {
-            raw.push((span.start, span.end, 53));
+            raw.push((span.start, span.end, TokenIdx::ExprNull.as_u32()));
         }
         Expression::Group { span, inner } => {
-            raw.push((span.start, span.end, 54));
+            raw.push((span.start, span.end, TokenIdx::ExprGroup.as_u32()));
             walk_expression(inner, raw);
         }
         Expression::Element(e) => {
@@ -517,43 +620,43 @@ fn emit_delimiter_tokens(
 
 fn element_token_type(element: &Element) -> u32 {
     match element {
-        Element::Text(_) => 0,
-        Element::Comment(_) => 1,
-        Element::Escape(_) => 2,
-        Element::Error(_) => 3,
-        Element::Literal(_) => 4,
-        Element::Define(_) => 5,
-        Element::Styled(_) => 6,
-        Element::Table(_) => 7,
-        Element::List(_) => 8,
-        Element::Fold(_) => 9,
-        Element::BlockQuote(_) => 10,
-        Element::Ruby(_) => 11,
-        Element::Footnote(_) => 12,
-        Element::Code(_) => 13,
-        Element::TeX(_) => 14,
-        Element::Include(_) => 15,
-        Element::Category(_) => 16,
-        Element::Redirect(_) => 17,
-        Element::Media(_) => 18,
-        Element::ExternalMedia(_) => 19,
-        Element::Null(_) => 20,
-        Element::FootnoteRef(_) => 21,
-        Element::TimeNow(_) => 22,
-        Element::Age(_) => 23,
-        Element::Variable(_) => 24,
-        Element::Mention(_) => 25,
-        Element::Bold(_) => 26,
-        Element::Italic(_) => 27,
-        Element::Strikethrough(_) => 28,
-        Element::Underline(_) => 29,
-        Element::Superscript(_) => 30,
-        Element::Subscript(_) => 31,
-        Element::SoftBreak(_) => 32,
-        Element::HardBreak(_) => 33,
-        Element::HLine(_) => 34,
-        Element::Header(_) => 35,
-        Element::If(_) => 36,
+        Element::Text(_) => TokenIdx::Text.as_u32(),
+        Element::Comment(_) => TokenIdx::Comment.as_u32(),
+        Element::Escape(_) => TokenIdx::Escape.as_u32(),
+        Element::Error(_) => TokenIdx::Error.as_u32(),
+        Element::Literal(_) => TokenIdx::Literal.as_u32(),
+        Element::Define(_) => TokenIdx::Define.as_u32(),
+        Element::Styled(_) => TokenIdx::Styled.as_u32(),
+        Element::Table(_) => TokenIdx::Table.as_u32(),
+        Element::List(_) => TokenIdx::List.as_u32(),
+        Element::Fold(_) => TokenIdx::Fold.as_u32(),
+        Element::BlockQuote(_) => TokenIdx::BlockQuote.as_u32(),
+        Element::Ruby(_) => TokenIdx::Ruby.as_u32(),
+        Element::Footnote(_) => TokenIdx::Footnote.as_u32(),
+        Element::Code(_) => TokenIdx::Code.as_u32(),
+        Element::TeX(_) => TokenIdx::TeX.as_u32(),
+        Element::Include(_) => TokenIdx::Include.as_u32(),
+        Element::Category(_) => TokenIdx::Category.as_u32(),
+        Element::Redirect(_) => TokenIdx::Redirect.as_u32(),
+        Element::Media(_) => TokenIdx::Media.as_u32(),
+        Element::ExternalMedia(_) => TokenIdx::ExternalMedia.as_u32(),
+        Element::Null(_) => TokenIdx::Null.as_u32(),
+        Element::FootnoteRef(_) => TokenIdx::FootnoteRef.as_u32(),
+        Element::TimeNow(_) => TokenIdx::TimeNow.as_u32(),
+        Element::Age(_) => TokenIdx::Age.as_u32(),
+        Element::Variable(_) => TokenIdx::Variable.as_u32(),
+        Element::Mention(_) => TokenIdx::Mention.as_u32(),
+        Element::Bold(_) => TokenIdx::Bold.as_u32(),
+        Element::Italic(_) => TokenIdx::Italic.as_u32(),
+        Element::Strikethrough(_) => TokenIdx::Strikethrough.as_u32(),
+        Element::Underline(_) => TokenIdx::Underline.as_u32(),
+        Element::Superscript(_) => TokenIdx::Superscript.as_u32(),
+        Element::Subscript(_) => TokenIdx::Subscript.as_u32(),
+        Element::SoftBreak(_) => TokenIdx::SoftBreak.as_u32(),
+        Element::HardBreak(_) => TokenIdx::HardBreak.as_u32(),
+        Element::HLine(_) => TokenIdx::HLine.as_u32(),
+        Element::Header(_) => TokenIdx::Header.as_u32(),
+        Element::If(_) => TokenIdx::If.as_u32(),
     }
 }
 
@@ -577,13 +680,17 @@ mod tests {
     fn bold_produces_bold_token_only() {
         let state = make_state("**bold**");
         let tokens = collect_semantic_tokens(&state);
-        // bold = 26, text children are skipped
+        // bold, text children are skipped
         assert!(
-            tokens.iter().any(|t| t.token_type == 26),
-            "expected bold token (type 26)"
+            tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::Bold.as_u32()),
+            "expected bold token"
         );
         assert!(
-            !tokens.iter().any(|t| t.token_type == 0),
+            !tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::Text.as_u32()),
             "text tokens should not be emitted"
         );
     }
@@ -592,14 +699,18 @@ mod tests {
     fn define_produces_define_and_parameter_tokens() {
         let state = make_state("{{{#define #x=\"v\"}}}");
         let tokens = collect_semantic_tokens(&state);
-        // define = 5, parameter = 37
+        // define + parameter tokens should both exist
         assert!(
-            tokens.iter().any(|t| t.token_type == 5),
-            "expected define token (type 5)"
+            tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::Define.as_u32()),
+            "expected define token"
         );
         assert!(
-            tokens.iter().any(|t| t.token_type == 37),
-            "expected parameter token (type 37)"
+            tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::Parameter.as_u32()),
+            "expected parameter token"
         );
     }
 
@@ -608,7 +719,10 @@ mod tests {
         // Without trailing newline
         let state = make_state("## Hello");
         let tokens = collect_semantic_tokens(&state);
-        let h = tokens.iter().find(|t| t.token_type == 35).unwrap();
+        let h = tokens
+            .iter()
+            .find(|t| t.token_type == TokenIdx::Header.as_u32())
+            .unwrap();
         eprintln!(
             "no newline: delta_start={}, length={}",
             h.delta_start, h.length
@@ -618,7 +732,10 @@ mod tests {
         // With trailing newline (real file scenario)
         let state2 = make_state("## Hello\nsome text");
         let tokens2 = collect_semantic_tokens(&state2);
-        let h2 = tokens2.iter().find(|t| t.token_type == 35).unwrap();
+        let h2 = tokens2
+            .iter()
+            .find(|t| t.token_type == TokenIdx::Header.as_u32())
+            .unwrap();
         eprintln!(
             "with newline: delta_start={}, length={}",
             h2.delta_start, h2.length
@@ -644,25 +761,38 @@ mod tests {
         }
 
         let types: Vec<u32> = tokens.iter().map(|t| t.token_type).collect();
-        // table=7 should appear exactly twice (opening {{{#table and closing }}})
-        let table_count = types.iter().filter(|&&t| t == 7).count();
+        // table delimiter tokens should appear exactly twice (open + close)
+        let table_count = types
+            .iter()
+            .filter(|&&t| t == TokenIdx::Table.as_u32())
+            .count();
         assert_eq!(
             table_count, 2,
             "expected 2 table tokens (open+close), got {table_count}"
         );
-        assert!(types.contains(&38), "expected tableRow token");
-        assert!(types.contains(&39), "expected tableCell token");
-        assert!(types.contains(&40), "expected conditionalTableRows token");
+        assert!(
+            types.contains(&TokenIdx::TableRow.as_u32()),
+            "expected tableRow token"
+        );
+        assert!(
+            types.contains(&TokenIdx::TableCell.as_u32()),
+            "expected tableCell token"
+        );
+        assert!(
+            types.contains(&TokenIdx::ConditionalTableRows.as_u32()),
+            "expected conditionalTableRows token"
+        );
     }
 
     #[test]
     fn if_produces_if_and_expression_tokens() {
         let state = make_state("{{{#if true :: content}}}");
         let tokens = collect_semantic_tokens(&state);
-        // if = 36
         assert!(
-            tokens.iter().any(|t| t.token_type == 36),
-            "expected if token (type 36)"
+            tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::If.as_u32()),
+            "expected if token"
         );
         // Should have at least 2 tokens (if, expression; content text is skipped)
         assert!(
@@ -677,10 +807,10 @@ mod tests {
         let mut raw = Vec::new();
         let open = sevenmark_ast::Span::new(0, 3);
         let close = sevenmark_ast::Span::new(3, 6);
-        emit_delimiter_tokens(&open, &close, 7, &mut raw);
+        emit_delimiter_tokens(&open, &close, TokenIdx::Table.as_u32(), &mut raw);
 
         assert_eq!(raw.len(), 2, "expected open+close delimiter tokens");
-        assert_eq!(raw[0], (0, 3, 7));
-        assert_eq!(raw[1], (3, 6, 7));
+        assert_eq!(raw[0], (0, 3, TokenIdx::Table.as_u32()));
+        assert_eq!(raw[1], (3, 6, TokenIdx::Table.as_u32()));
     }
 }
