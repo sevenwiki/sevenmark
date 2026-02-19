@@ -9,35 +9,23 @@ rust-version.workspace = true
 description = "sevenmark/server"
 
 [dependencies]
-# Internal
+# Internal crates
 sevenmark-parser = { workspace = true, features = ["include_locations"] }
 sevenmark-transform = { workspace = true }
 sevenmark-html = { workspace = true }
 
-# Web framework
+# External dependencies
 axum = { workspace = true }
 tokio = { workspace = true }
-
-# Database
 sea-orm = { workspace = true }
-
-# AWS S3 (SeaweedFS)
 aws-sdk-s3 = { workspace = true }
 aws-config = { workspace = true }
-
-# API documentation
 utoipa = { workspace = true }
 utoipa-swagger-ui = { workspace = true }
-
-# Utilities
 dotenvy = { workspace = true }
-
-# Logging
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 tracing-appender = { workspace = true }
-
-# Shared
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }

@@ -10,6 +10,9 @@ description = "Shared utilities for SevenMark crates"
 readme = "README.md"
 
 [dependencies]
+# Internal crates
 sevenmark-parser = { workspace = true }
+
+# External dependencies
 serde = { workspace = true }
 serde_json = { workspace = true }

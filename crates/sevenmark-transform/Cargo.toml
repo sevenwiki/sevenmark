@@ -9,23 +9,16 @@ rust-version.workspace = true
 description = "sevenmark/transform"
 
 [dependencies]
-# Internal
+# Internal crates
 sevenmark-parser = { workspace = true }
 
-# Database
+# External dependencies
 sea-orm = { workspace = true }
 uuid = { workspace = true }
-
-# Utilities
 utoipa = { workspace = true }
 tracing = { workspace = true }
-
-# Shared
 serde = { workspace = true }
 anyhow = { workspace = true }
-
-# SeaweedFS
 aws-sdk-s3 = { workspace = true }
-aws-config = { workspace = true }
 zstd = { workspace = true }
 futures = { workspace = true }
