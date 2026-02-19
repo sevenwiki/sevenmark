@@ -1,0 +1,8 @@
+.vscode
+node_modules
+out/
+client/**
+*.ts
+tsconfig.json
+esbuild.js
+.gitignore

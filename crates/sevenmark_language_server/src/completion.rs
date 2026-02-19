@@ -1,8 +1,5 @@
 use sevenmark_ast::Element;
-use tower_lsp_server::ls_types::{
-    CompletionItem, CompletionItemKind, CompletionTextEdit, InsertTextFormat, Position, Range,
-    TextEdit,
-};
+use tower_lsp_server::ls_types::{CompletionItem, CompletionItemKind, InsertTextFormat, Position};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
@@ -25,8 +22,13 @@ pub fn get_completions(
         return brace_keyword_completions(position);
     }
 
+    // `[[` → suggest bracket element keywords (media, external media)
+    if prefix.ends_with("[[") {
+        return bracket_completions(position);
+    }
+
     // `[` at macro position → suggest macro names
-    if prefix.ends_with('[') && !prefix.ends_with("[[") {
+    if prefix.ends_with('[') {
         return macro_completions(position);
     }
 
@@ -57,7 +59,7 @@ fn variable_completions(state: &DocumentState) -> Vec<CompletionItem> {
 }
 
 /// Brace element keyword completions after `{{{#`.
-fn brace_keyword_completions(pos: Position) -> Vec<CompletionItem> {
+fn brace_keyword_completions(_pos: Position) -> Vec<CompletionItem> {
     let keywords = [
         ("code", "code #lang=\"$1\"\n$0\n}}}", "Code block"),
         ("table", "table\n$0\n}}}", "Table"),
@@ -75,10 +77,6 @@ fn brace_keyword_completions(pos: Position) -> Vec<CompletionItem> {
         ("literal", "literal\n$0\n}}}", "Literal output"),
     ];
 
-    // The snippet replaces the `{{{#` trigger, so adjust the range
-    let start = Position::new(pos.line, pos.character.saturating_sub(4));
-    let range = Range::new(start, pos);
-
     keywords
         .into_iter()
         .map(|(label, snippet, detail)| CompletionItem {
@@ -86,17 +84,39 @@ fn brace_keyword_completions(pos: Position) -> Vec<CompletionItem> {
             kind: Some(CompletionItemKind::KEYWORD),
             detail: Some(detail.to_string()),
             insert_text_format: Some(InsertTextFormat::SNIPPET),
-            text_edit: Some(CompletionTextEdit::Edit(TextEdit {
-                range,
-                new_text: format!("{{{{{{#{snippet}"),
-            })),
+            insert_text: Some(snippet.to_string()),
+            ..Default::default()
+        })
+        .collect()
+}
+
+/// Bracket element completions after `[[`.
+fn bracket_completions(_pos: Position) -> Vec<CompletionItem> {
+    let items = [
+        ("media", "#file=\"$1\" $0]]", "Media (internal file)"),
+        ("link", "$1]]", "Wiki link"),
+        ("youtube", "#youtube #id=\"$1\"]]", "YouTube embed"),
+        ("vimeo", "#vimeo #id=\"$1\"]]", "Vimeo embed"),
+        ("nicovideo", "#nicovideo #id=\"$1\"]]", "NicoVideo embed"),
+        ("spotify", "#spotify #id=\"$1\"]]", "Spotify embed"),
+        ("discord", "#discord #id=\"$1\"]]", "Discord embed"),
+    ];
+
+    items
+        .into_iter()
+        .map(|(label, snippet, detail)| CompletionItem {
+            label: label.to_string(),
+            kind: Some(CompletionItemKind::REFERENCE),
+            detail: Some(detail.to_string()),
+            insert_text_format: Some(InsertTextFormat::SNIPPET),
+            insert_text: Some(snippet.to_string()),
             ..Default::default()
         })
         .collect()
 }
 
 /// Macro completions after `[`.
-fn macro_completions(pos: Position) -> Vec<CompletionItem> {
+fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
     let macros = [
         ("var", "var($1)]", "Variable reference"),
         ("br", "br]", "Line break"),
@@ -106,9 +126,6 @@ fn macro_completions(pos: Position) -> Vec<CompletionItem> {
         ("age", "age($1)]", "Age calculation"),
     ];
 
-    let start = Position::new(pos.line, pos.character.saturating_sub(1));
-    let range = Range::new(start, pos);
-
     macros
         .into_iter()
         .map(|(label, snippet, detail)| CompletionItem {
@@ -116,10 +133,7 @@ fn macro_completions(pos: Position) -> Vec<CompletionItem> {
             kind: Some(CompletionItemKind::FUNCTION),
             detail: Some(detail.to_string()),
             insert_text_format: Some(InsertTextFormat::SNIPPET),
-            text_edit: Some(CompletionTextEdit::Edit(TextEdit {
-                range,
-                new_text: format!("[{snippet}"),
-            })),
+            insert_text: Some(snippet.to_string()),
             ..Default::default()
         })
         .collect()
@@ -170,6 +184,23 @@ mod tests {
         let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
         assert!(labels.contains(&"var"), "expected 'var' in {labels:?}");
         assert!(labels.contains(&"br"), "expected 'br' in {labels:?}");
+    }
+
+    #[test]
+    fn double_bracket_suggests_media() {
+        let text = "hello [[";
+        let state = make_state(text);
+        let byte_offset = text.len();
+        let pos = Position::new(0, byte_offset as u32);
+        let completions = get_completions(&state, pos, byte_offset);
+        assert!(!completions.is_empty(), "expected bracket completions");
+        let labels: Vec<_> = completions.iter().map(|c| c.label.as_str()).collect();
+        assert!(labels.contains(&"media"), "expected 'media' in {labels:?}");
+        assert!(
+            labels.contains(&"youtube"),
+            "expected 'youtube' in {labels:?}"
+        );
+        assert!(labels.contains(&"link"), "expected 'link' in {labels:?}");
     }
 
     #[test]

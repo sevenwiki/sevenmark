@@ -102,12 +102,22 @@ pub fn collect_semantic_tokens(state: &DocumentState) -> Vec<SemanticToken> {
         let length = if line == end_line {
             end_char - character
         } else {
-            let line_end_byte = state
+            // Multi-line: cover from start char to end of content on the first line.
+            // position_to_byte_offset(line+1, 0) gives the start of the next line;
+            // strip trailing \n and \r to get the byte just past the last content char.
+            let next_line_byte = state
                 .line_index
                 .position_to_byte_offset(&state.text, line + 1, 0);
+            let mut content_end = next_line_byte;
+            if content_end > 0 && state.text.as_bytes().get(content_end - 1) == Some(&b'\n') {
+                content_end -= 1;
+            }
+            if content_end > 0 && state.text.as_bytes().get(content_end - 1) == Some(&b'\r') {
+                content_end -= 1;
+            }
             let (_, line_end_char) = state
                 .line_index
-                .byte_offset_to_position(&state.text, line_end_byte.min(end));
+                .byte_offset_to_position(&state.text, content_end.min(end));
             line_end_char.saturating_sub(character).max(1)
         };
 
@@ -142,9 +152,27 @@ fn walk_elements(elements: &[Element], raw: &mut Vec<(usize, usize, u32)>) {
 }
 
 fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
-    // 1. Token for this element
-    let span = element.span();
-    raw.push((span.start, span.end, element_token_type(element)));
+    // 1. Token for this element.
+    //    Skip Text — it's the default color, and emitting it would override
+    //    parent tokens (bold, header, etc.) due to overlapping.
+    if !matches!(element, Element::Text(_)) {
+        let span = element.span();
+        let token_type = element_token_type(element);
+
+        if let Some(open_len) = brace_open_len(element) {
+            // Brace elements: emit separate tokens for opening {{{#keyword and closing }}}
+            let open_end = (span.start + open_len).min(span.end);
+            raw.push((span.start, open_end, token_type));
+            if span.end >= 3 {
+                let close_start = span.end - 3;
+                if close_start > open_end {
+                    raw.push((close_start, span.end, token_type));
+                }
+            }
+        } else {
+            raw.push((span.start, span.end, token_type));
+        }
+    }
 
     // 2. Parameters
     walk_element_parameters(element, raw);
@@ -301,7 +329,16 @@ fn walk_table_cell(cell: &TableCellElement, raw: &mut Vec<(usize, usize, u32)>) 
 }
 
 fn walk_conditional_table_rows(cond: &ConditionalTableRows, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((cond.span.start, cond.span.end, 40)); // conditionalTableRows
+    // Opening: {{{#if (6 bytes)
+    let open_end = (cond.span.start + 6).min(cond.span.end);
+    raw.push((cond.span.start, open_end, 40)); // conditionalTableRows
+    // Closing: }}}
+    if cond.span.end >= 3 {
+        let close_start = cond.span.end - 3;
+        if close_start > open_end {
+            raw.push((close_start, cond.span.end, 40));
+        }
+    }
     walk_expression(&cond.condition, raw);
     for row in &cond.rows {
         walk_table_row(row, raw);
@@ -309,7 +346,14 @@ fn walk_conditional_table_rows(cond: &ConditionalTableRows, raw: &mut Vec<(usize
 }
 
 fn walk_conditional_table_cells(cond: &ConditionalTableCells, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((cond.span.start, cond.span.end, 41)); // conditionalTableCells
+    let open_end = (cond.span.start + 6).min(cond.span.end);
+    raw.push((cond.span.start, open_end, 41)); // conditionalTableCells
+    if cond.span.end >= 3 {
+        let close_start = cond.span.end - 3;
+        if close_start > open_end {
+            raw.push((close_start, cond.span.end, 41));
+        }
+    }
     walk_expression(&cond.condition, raw);
     for cell in &cond.cells {
         walk_table_cell(cell, raw);
@@ -325,7 +369,14 @@ fn walk_list_item(li: &ListItemElement, raw: &mut Vec<(usize, usize, u32)>) {
 }
 
 fn walk_conditional_list_items(cond: &ConditionalListItems, raw: &mut Vec<(usize, usize, u32)>) {
-    raw.push((cond.span.start, cond.span.end, 43)); // conditionalListItems
+    let open_end = (cond.span.start + 6).min(cond.span.end);
+    raw.push((cond.span.start, open_end, 43)); // conditionalListItems
+    if cond.span.end >= 3 {
+        let close_start = cond.span.end - 3;
+        if close_start > open_end {
+            raw.push((close_start, cond.span.end, 43));
+        }
+    }
     walk_expression(&cond.condition, raw);
     for li in &cond.items {
         walk_list_item(li, raw);
@@ -417,6 +468,53 @@ fn walk_expression(expr: &Expression, raw: &mut Vec<(usize, usize, u32)>) {
     }
 }
 
+// ── Brace element keyword length ────────────────────────────────────────
+
+/// Returns the opening delimiter length for brace-delimited elements.
+/// `{{{` = 3 bytes for Literal, `{{{#keyword` = 4 + keyword_len for others.
+fn brace_open_len(element: &Element) -> Option<usize> {
+    match element {
+        Element::Literal(_) => Some(3),      // {{{
+        Element::Table(_) => Some(9),        // {{{#table
+        Element::List(_) => Some(8),         // {{{#list
+        Element::Fold(_) => Some(8),         // {{{#fold
+        Element::Styled(_) => Some(9),       // {{{#style
+        Element::Code(_) => Some(8),         // {{{#code
+        Element::Define(_) => Some(10),      // {{{#define
+        Element::If(_) => Some(6),           // {{{#if
+        Element::Include(_) => Some(11),     // {{{#include
+        Element::Category(_) => Some(12),    // {{{#category
+        Element::Redirect(_) => Some(12),    // {{{#redirect
+        Element::BlockQuote(_) => Some(14),  // {{{#blockquote
+        Element::Ruby(_) => Some(8),         // {{{#ruby
+        Element::Footnote(_) => Some(6),     // {{{#fn
+        // Non-brace elements
+        Element::Text(_)
+        | Element::Comment(_)
+        | Element::Escape(_)
+        | Element::Error(_)
+        | Element::TeX(_)
+        | Element::ExternalMedia(_)
+        | Element::Media(_)
+        | Element::Null(_)
+        | Element::FootnoteRef(_)
+        | Element::TimeNow(_)
+        | Element::Age(_)
+        | Element::Variable(_)
+        | Element::Mention(_)
+        | Element::Bold(_)
+        | Element::Italic(_)
+        | Element::Strikethrough(_)
+        | Element::Underline(_)
+        | Element::Superscript(_)
+        | Element::Subscript(_)
+        | Element::SoftBreak(_)
+        | Element::HardBreak(_)
+        | Element::HLine(_)
+        | Element::Header(_) => None,
+    }
+}
+
 // ── Element → token type index ──────────────────────────────────────────
 
 fn element_token_type(element: &Element) -> u32 {
@@ -470,29 +568,25 @@ mod tests {
     }
 
     #[test]
-    fn plain_text_produces_text_token() {
+    fn plain_text_produces_no_tokens() {
         let state = make_state("hello");
         let tokens = collect_semantic_tokens(&state);
-        assert!(!tokens.is_empty());
-        // text token type is 0
-        assert!(
-            tokens.iter().any(|t| t.token_type == 0),
-            "expected text token (type 0)"
-        );
+        // Text elements are skipped — they use the default color
+        assert!(tokens.is_empty(), "plain text should produce no tokens");
     }
 
     #[test]
-    fn bold_produces_bold_and_text_tokens() {
+    fn bold_produces_bold_token_only() {
         let state = make_state("**bold**");
         let tokens = collect_semantic_tokens(&state);
-        // bold = 26, text = 0
+        // bold = 26, text children are skipped
         assert!(
             tokens.iter().any(|t| t.token_type == 26),
             "expected bold token (type 26)"
         );
         assert!(
-            tokens.iter().any(|t| t.token_type == 0),
-            "expected text token (type 0)"
+            !tokens.iter().any(|t| t.token_type == 0),
+            "text tokens should not be emitted"
         );
     }
 
@@ -512,6 +606,49 @@ mod tests {
     }
 
     #[test]
+    fn header_span_covers_full_line() {
+        // Without trailing newline
+        let state = make_state("## Hello");
+        let tokens = collect_semantic_tokens(&state);
+        let h = tokens.iter().find(|t| t.token_type == 35).unwrap();
+        eprintln!("no newline: delta_start={}, length={}", h.delta_start, h.length);
+        assert_eq!(h.length, 8, "'## Hello' should be 8 chars");
+
+        // With trailing newline (real file scenario)
+        let state2 = make_state("## Hello\nsome text");
+        let tokens2 = collect_semantic_tokens(&state2);
+        let h2 = tokens2.iter().find(|t| t.token_type == 35).unwrap();
+        eprintln!("with newline: delta_start={}, length={}", h2.delta_start, h2.length);
+        assert_eq!(h2.length, 8, "'## Hello' with newline should still be 8 chars");
+    }
+
+    #[test]
+    fn table_with_conditional_rows() {
+        let src = "{{{#table\n[[ [[a]] [[b]] ]]\n{{{#if true ::\n[[ [[c]] ]]\n}}}\n}}}";
+        let state = make_state(src);
+        let tokens = collect_semantic_tokens(&state);
+
+        // Print detailed token info
+        for t in &tokens {
+            eprintln!(
+                "  type={:<2} delta_line={} delta_start={} length={}",
+                t.token_type, t.delta_line, t.delta_start, t.length
+            );
+        }
+
+        let types: Vec<u32> = tokens.iter().map(|t| t.token_type).collect();
+        // table=7 should appear exactly twice (opening {{{#table and closing }}})
+        let table_count = types.iter().filter(|&&t| t == 7).count();
+        assert_eq!(
+            table_count, 2,
+            "expected 2 table tokens (open+close), got {table_count}"
+        );
+        assert!(types.contains(&38), "expected tableRow token");
+        assert!(types.contains(&39), "expected tableCell token");
+        assert!(types.contains(&40), "expected conditionalTableRows token");
+    }
+
+    #[test]
     fn if_produces_if_and_expression_tokens() {
         let state = make_state("{{{#if true :: content}}}");
         let tokens = collect_semantic_tokens(&state);
@@ -520,10 +657,10 @@ mod tests {
             tokens.iter().any(|t| t.token_type == 36),
             "expected if token (type 36)"
         );
-        // Should have at least 3 tokens (if, expression, content text)
+        // Should have at least 2 tokens (if, expression; content text is skipped)
         assert!(
-            tokens.len() >= 3,
-            "expected at least 3 tokens, got {}",
+            tokens.len() >= 2,
+            "expected at least 2 tokens, got {}",
             tokens.len()
         );
     }

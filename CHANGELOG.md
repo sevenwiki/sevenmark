@@ -5,6 +5,39 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.2] - 2026-02-19
+
+### Added
+- **VS Code Extension**: New `editors/vscode/` extension for SevenMark Language Server
+  - Language registration for `.sm` files with `sevenmark` language ID
+  - Automatic LSP client connection via stdio to `sevenmark_language_server` binary
+  - Server path configuration: `SERVER_PATH` env → `sevenmark.server.path` setting → bundled → PATH
+  - 57 custom semantic token types with TextMate scope mappings for theme compatibility
+  - `configurationDefaults` to force `editor.semanticHighlighting.enabled: true` for sevenmark files
+  - Development support: launch.json, tasks.json for Extension Development Host debugging
+
+- **sevenmark_language_server**: Bracket syntax autocompletion for `[[` trigger
+  - `media` — internal file media (`[[#file="..." caption]]`)
+  - `link` — wiki link (`[[target]]`)
+  - `youtube`, `vimeo`, `nicovideo`, `spotify`, `discord` — external media embeds
+
+### Fixed
+- **sevenmark_language_server**: Semantic tokens not requested by VS Code
+  - Root cause: `editor.semanticHighlighting.enabled` defaults to `"configuredByTheme"` — custom languages must explicitly enable it via `configurationDefaults`
+- **sevenmark_language_server**: Completion items not appearing in VS Code suggestion list
+  - Changed from `textEdit` (range replacement) to `insertText` — VS Code filters by matching typed prefix against `label`, and `{{{#` doesn't match keyword labels like `code`
+- **sevenmark_language_server**: Text tokens overriding parent tokens (bold, header)
+  - Skipped emitting Text element tokens — they use default color and would override parent tokens due to overlapping
+- **sevenmark_language_server**: Multi-line token length calculated as 1 instead of full first-line width
+  - `byte_offset_to_position(text, next_line_start)` returns `(next_line, 0)` — now strips trailing `\n`/`\r` before calculating end-of-line character position
+- **sevenmark_language_server**: `fold`, `code`, `table`, `list`, `blockQuote`, `ruby`, `footnote`, `tex` tokens not colored by VS Code themes
+  - Changed TextMate scope from `markup.other.*` to `entity.name.tag.*` which themes recognize
+- **sevenmark_language_server**: Opening `{{{#keyword` and closing `}}}` delimiters not matching color on multi-line blocks
+  - Split single full-span token into separate opening delimiter and closing `}}}` tokens
+
+### Removed
+- **VS Code Extension**: Removed `syntaxes/sevenmark.tmLanguage.json` TextMate grammar (LSP semantic tokens handle all highlighting)
+
 ## [2.24.1] - 2026-02-19
 
 ### Fixed
