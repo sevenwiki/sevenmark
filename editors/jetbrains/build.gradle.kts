@@ -69,4 +69,10 @@ tasks {
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
+
+    prepareSandbox {
+        from("server") {
+            into("${intellijPlatform.projectName.get()}/server")
+        }
+    }
 }
