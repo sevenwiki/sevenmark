@@ -12,6 +12,7 @@ High-performance wiki markup parser for SevenWiki.
 - **Transform**: Variable substitution, includes, media resolution
 - **Server**: REST API with PostgreSQL, Swagger UI
 - **WASM**: Browser/Node.js builds with CodeMirror support
+- **Editor Support**: VS Code extension and JetBrains plugin via LSP
 
 ## Crates
 
@@ -23,6 +24,15 @@ High-performance wiki markup parser for SevenWiki.
 | `sevenmark_html`      | HTML renderer                    |
 | `sevenmark_transform` | AST preprocessing/postprocessing |
 | `sevenmark_server`    | REST API server                  |
+
+## Editor Support
+
+| Editor    | Path                 | How it works                                           |
+|-----------|----------------------|--------------------------------------------------------|
+| VS Code   | `editors/vscode/`    | LSP client via `vscode-languageclient`                 |
+| JetBrains | `editors/jetbrains/` | Built-in LSP API (`com.intellij.modules.lsp`, 2024.2+) |
+
+Both connect to the same `sevenmark_language_server` binary. Install it via PATH or use the bundled binary in platform-specific release packages.
 
 ## Publishing
 
