@@ -822,6 +822,24 @@ mod tests {
     }
 
     #[test]
+    fn folded_header_produces_folded_header_token() {
+        let state = make_state("##! Folded");
+        let tokens = collect_semantic_tokens(&state);
+        assert!(
+            tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::FoldedHeader.as_u32()),
+            "expected foldedHeader token for '##!'"
+        );
+        assert!(
+            !tokens
+                .iter()
+                .any(|t| t.token_type == TokenIdx::Header.as_u32()),
+            "folded header should not produce regular header token"
+        );
+    }
+
+    #[test]
     fn adjacent_delimiters_emit_both_tokens() {
         let mut raw = Vec::new();
         let open = sevenmark_ast::Span::new(0, 3);

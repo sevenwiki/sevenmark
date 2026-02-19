@@ -88,6 +88,10 @@ Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidel
 
 ## Features
 
+{{{#quote
+"Code is like humor. When you have to explain it, it's bad." - Cory House
+}}}
+
 {{{#table 
 [[[[#x="2" #y="3" Feature]] [[Status]] [[Version]]]]
 [[[[🔐 Authentication]] [[✅ Complete]] [[v1.0]]]]
@@ -109,6 +113,9 @@ PUT    /api/users/:id
 DELETE /api/users/:id
 }}}
 
+{{{#table
+
+}}}
 ### Authentication
 
 {{{#code #lang="javascript"

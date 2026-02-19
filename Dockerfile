@@ -21,6 +21,10 @@ RUN apt-get update && apt-get install -y \
 # Copy dependency recipe
 COPY --from=planner /app/recipe.json recipe.json
 
+# Create stub files that cargo-chef doesn't generate for [[example]] entries
+RUN mkdir -p crates/sevenmark_parser/examples && \
+    echo "fn main() {}" > crates/sevenmark_parser/examples/gen_expected.rs
+
 # Build dependencies (this layer is cached unless dependencies change)
 RUN cargo chef cook --release --recipe-path recipe.json --bin sevenmark_server
 
