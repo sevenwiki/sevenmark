@@ -7,6 +7,10 @@ use super::{Element, Expression, Parameters, Span};
 pub struct ListElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub kind: String,
     pub parameters: Parameters,
     pub children: Vec<ListContentItem>,
@@ -24,6 +28,10 @@ pub enum ListContentItem {
 pub struct ListItemElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -33,6 +41,10 @@ pub struct ListItemElement {
 pub struct ConditionalListItems {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub condition: Expression,
     pub items: Vec<ListItemElement>,
 }

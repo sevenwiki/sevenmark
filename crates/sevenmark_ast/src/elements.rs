@@ -97,6 +97,10 @@ pub struct TextStyleElement {
 pub struct LiteralElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub children: Vec<Element>,
 }
 
@@ -105,6 +109,10 @@ pub struct LiteralElement {
 pub struct DefineElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
 }
 
@@ -113,6 +121,10 @@ pub struct DefineElement {
 pub struct StyledElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -122,6 +134,10 @@ pub struct StyledElement {
 pub struct BlockQuoteElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -131,6 +147,10 @@ pub struct BlockQuoteElement {
 pub struct RubyElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -140,6 +160,10 @@ pub struct RubyElement {
 pub struct FootnoteElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub footnote_index: usize,
     pub parameters: Parameters,
     pub children: Vec<Element>,
@@ -150,15 +174,23 @@ pub struct FootnoteElement {
 pub struct CodeElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub value: String,
 }
 
-/// TeX 수식 $ ... $ 또는 $$ ... $$
+/// TeX 수식 {{{#tex ...}}}
 #[derive(Debug, Clone, Serialize)]
 pub struct TeXElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub is_block: bool,
     pub value: String,
 }
@@ -168,6 +200,10 @@ pub struct TeXElement {
 pub struct FoldInnerElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -177,6 +213,10 @@ pub struct FoldInnerElement {
 pub struct FoldElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub summary: FoldInnerElement,
     pub details: FoldInnerElement,
@@ -189,6 +229,10 @@ pub struct FoldElement {
 pub struct IncludeElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -198,6 +242,10 @@ pub struct IncludeElement {
 pub struct CategoryElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub children: Vec<Element>,
 }
 
@@ -206,6 +254,10 @@ pub struct CategoryElement {
 pub struct RedirectElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }
@@ -217,6 +269,10 @@ pub struct RedirectElement {
 pub struct MediaElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<Element>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -228,6 +284,10 @@ pub struct MediaElement {
 pub struct ExternalMediaElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub provider: String,
     pub parameters: Parameters,
 }
@@ -279,6 +339,10 @@ pub struct HeaderElement {
 pub struct IfElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub condition: Expression,
     pub children: Vec<Element>,
 }

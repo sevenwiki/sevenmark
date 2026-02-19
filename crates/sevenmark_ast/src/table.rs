@@ -7,6 +7,10 @@ use super::{Element, Expression, Parameters, Span};
 pub struct TableElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<TableRowItem>,
 }
@@ -23,6 +27,10 @@ pub enum TableRowItem {
 pub struct TableRowElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     pub children: Vec<TableCellItem>,
 }
@@ -39,6 +47,10 @@ pub enum TableCellItem {
 pub struct TableCellElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub parameters: Parameters,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub x: Vec<Element>,
@@ -52,6 +64,10 @@ pub struct TableCellElement {
 pub struct ConditionalTableRows {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub condition: Expression,
     pub rows: Vec<TableRowElement>,
 }
@@ -61,6 +77,10 @@ pub struct ConditionalTableRows {
 pub struct ConditionalTableCells {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
     pub condition: Expression,
     pub cells: Vec<TableCellElement>,
 }
