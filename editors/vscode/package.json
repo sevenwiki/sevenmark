@@ -129,6 +129,7 @@
       { "id": "hardBreak", "description": "Hard line break" },
       { "id": "hLine", "description": "Horizontal line" },
       { "id": "header", "description": "Section header" },
+      { "id": "foldedHeader", "description": "Folded section header" },
       { "id": "if", "description": "Conditional block" },
       { "id": "parameter", "description": "Parameter" },
       { "id": "tableRow", "description": "Table row" },
@@ -262,6 +263,9 @@
           ],
           "header": [
             "markup.heading.sevenmark"
+          ],
+          "foldedHeader": [
+            "markup.heading.folded.sevenmark"
           ],
           "if": [
             "keyword.control.conditional.sevenmark"

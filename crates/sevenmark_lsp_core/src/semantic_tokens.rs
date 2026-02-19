@@ -46,27 +46,28 @@ enum TokenIdx {
     HardBreak = 33,
     HLine = 34,
     Header = 35,
-    If = 36,
-    Parameter = 37,
-    TableRow = 38,
-    TableCell = 39,
-    ConditionalTableRows = 40,
-    ConditionalTableCells = 41,
-    ListItem = 42,
-    ConditionalListItems = 43,
-    FoldInner = 44,
-    ExprOr = 45,
-    ExprAnd = 46,
-    ExprNot = 47,
-    ExprComparison = 48,
-    ExprFunctionCall = 49,
-    ExprStringLiteral = 50,
-    ExprNumberLiteral = 51,
-    ExprBoolLiteral = 52,
-    ExprNull = 53,
-    ExprGroup = 54,
-    LogicalOperator = 55,
-    ComparisonOperator = 56,
+    FoldedHeader = 36,
+    If = 37,
+    Parameter = 38,
+    TableRow = 39,
+    TableCell = 40,
+    ConditionalTableRows = 41,
+    ConditionalTableCells = 42,
+    ListItem = 43,
+    ConditionalListItems = 44,
+    FoldInner = 45,
+    ExprOr = 46,
+    ExprAnd = 47,
+    ExprNot = 48,
+    ExprComparison = 49,
+    ExprFunctionCall = 50,
+    ExprStringLiteral = 51,
+    ExprNumberLiteral = 52,
+    ExprBoolLiteral = 53,
+    ExprNull = 54,
+    ExprGroup = 55,
+    LogicalOperator = 56,
+    ComparisonOperator = 57,
 }
 
 impl TokenIdx {
@@ -79,66 +80,67 @@ impl TokenIdx {
 // Keep indices stable because token emitters use numeric indices.
 pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     // ── Element variants (0–36) ──
-    SemanticTokenType::STRING,   // 0
-    SemanticTokenType::COMMENT,  // 1
-    SemanticTokenType::STRING,   // 2
-    SemanticTokenType::MODIFIER, // 3
-    SemanticTokenType::STRING,   // 4
-    SemanticTokenType::KEYWORD,  // 5
-    SemanticTokenType::KEYWORD,  // 6
-    SemanticTokenType::KEYWORD,  // 7
-    SemanticTokenType::KEYWORD,  // 8
-    SemanticTokenType::KEYWORD,  // 9
-    SemanticTokenType::KEYWORD,  // 10
-    SemanticTokenType::KEYWORD,  // 11
-    SemanticTokenType::KEYWORD,  // 12
-    SemanticTokenType::KEYWORD,  // 13
-    SemanticTokenType::STRING,   // 14
-    SemanticTokenType::KEYWORD,  // 15
-    SemanticTokenType::KEYWORD,  // 16
-    SemanticTokenType::KEYWORD,  // 17
-    SemanticTokenType::STRING,   // 18
-    SemanticTokenType::STRING,   // 19
-    SemanticTokenType::KEYWORD,  // 20
-    SemanticTokenType::VARIABLE, // 21
-    SemanticTokenType::FUNCTION, // 22
-    SemanticTokenType::FUNCTION, // 23
-    SemanticTokenType::VARIABLE, // 24
-    SemanticTokenType::VARIABLE, // 25
-    SemanticTokenType::MODIFIER, // 26
-    SemanticTokenType::MODIFIER, // 27
-    SemanticTokenType::MODIFIER, // 28
-    SemanticTokenType::MODIFIER, // 29
-    SemanticTokenType::MODIFIER, // 30
-    SemanticTokenType::MODIFIER, // 31
-    SemanticTokenType::OPERATOR, // 32
-    SemanticTokenType::OPERATOR, // 33
-    SemanticTokenType::OPERATOR, // 34
-    SemanticTokenType::KEYWORD,  // 35
-    SemanticTokenType::KEYWORD,  // 36
-    // ── Structural sub-elements (37–43) ──
-    SemanticTokenType::PARAMETER, // 37
-    SemanticTokenType::OPERATOR,  // 38
-    SemanticTokenType::OPERATOR,  // 39
-    SemanticTokenType::KEYWORD,   // 40
-    SemanticTokenType::KEYWORD,   // 41
-    SemanticTokenType::OPERATOR,  // 42
-    SemanticTokenType::KEYWORD,   // 43
-    SemanticTokenType::OPERATOR,  // 44
-    // ── Expression nodes (45–54) ──
-    SemanticTokenType::OPERATOR, // 45
-    SemanticTokenType::OPERATOR, // 46
-    SemanticTokenType::OPERATOR, // 47
-    SemanticTokenType::OPERATOR, // 48
-    SemanticTokenType::FUNCTION, // 49
-    SemanticTokenType::STRING,   // 50
-    SemanticTokenType::NUMBER,   // 51
-    SemanticTokenType::KEYWORD,  // 52
-    SemanticTokenType::KEYWORD,  // 53
-    SemanticTokenType::OPERATOR, // 54
-    // ── Operators (55–56) ──
-    SemanticTokenType::OPERATOR, // 55
-    SemanticTokenType::OPERATOR, // 56
+    SemanticTokenType::STRING,   // 0  Text
+    SemanticTokenType::COMMENT,  // 1  Comment
+    SemanticTokenType::STRING,   // 2  Escape
+    SemanticTokenType::MODIFIER, // 3  Error
+    SemanticTokenType::STRING,   // 4  Literal
+    SemanticTokenType::KEYWORD,  // 5  Define
+    SemanticTokenType::KEYWORD,  // 6  Styled
+    SemanticTokenType::KEYWORD,  // 7  Table
+    SemanticTokenType::KEYWORD,  // 8  List
+    SemanticTokenType::KEYWORD,  // 9  Fold
+    SemanticTokenType::KEYWORD,  // 10 BlockQuote
+    SemanticTokenType::KEYWORD,  // 11 Ruby
+    SemanticTokenType::KEYWORD,  // 12 Footnote
+    SemanticTokenType::KEYWORD,  // 13 Code
+    SemanticTokenType::STRING,   // 14 TeX
+    SemanticTokenType::KEYWORD,  // 15 Include
+    SemanticTokenType::KEYWORD,  // 16 Category
+    SemanticTokenType::KEYWORD,  // 17 Redirect
+    SemanticTokenType::STRING,   // 18 Media
+    SemanticTokenType::STRING,   // 19 ExternalMedia
+    SemanticTokenType::KEYWORD,  // 20 Null
+    SemanticTokenType::VARIABLE, // 21 FootnoteRef
+    SemanticTokenType::FUNCTION, // 22 TimeNow
+    SemanticTokenType::FUNCTION, // 23 Age
+    SemanticTokenType::VARIABLE, // 24 Variable
+    SemanticTokenType::VARIABLE, // 25 Mention
+    SemanticTokenType::MODIFIER, // 26 Bold
+    SemanticTokenType::MODIFIER, // 27 Italic
+    SemanticTokenType::MODIFIER, // 28 Strikethrough
+    SemanticTokenType::MODIFIER, // 29 Underline
+    SemanticTokenType::MODIFIER, // 30 Superscript
+    SemanticTokenType::MODIFIER, // 31 Subscript
+    SemanticTokenType::OPERATOR, // 32 SoftBreak
+    SemanticTokenType::OPERATOR, // 33 HardBreak
+    SemanticTokenType::OPERATOR, // 34 HLine
+    SemanticTokenType::KEYWORD,  // 35 Header
+    SemanticTokenType::KEYWORD,  // 36 FoldedHeader
+    SemanticTokenType::KEYWORD,  // 37 If
+    // ── Structural sub-elements (38–45) ──
+    SemanticTokenType::PARAMETER, // 38 Parameter
+    SemanticTokenType::OPERATOR,  // 39 TableRow
+    SemanticTokenType::OPERATOR,  // 40 TableCell
+    SemanticTokenType::KEYWORD,   // 41 ConditionalTableRows
+    SemanticTokenType::KEYWORD,   // 42 ConditionalTableCells
+    SemanticTokenType::OPERATOR,  // 43 ListItem
+    SemanticTokenType::KEYWORD,   // 44 ConditionalListItems
+    SemanticTokenType::OPERATOR,  // 45 FoldInner
+    // ── Expression nodes (46–55) ──
+    SemanticTokenType::OPERATOR, // 46 ExprOr
+    SemanticTokenType::OPERATOR, // 47 ExprAnd
+    SemanticTokenType::OPERATOR, // 48 ExprNot
+    SemanticTokenType::OPERATOR, // 49 ExprComparison
+    SemanticTokenType::FUNCTION, // 50 ExprFunctionCall
+    SemanticTokenType::STRING,   // 51 ExprStringLiteral
+    SemanticTokenType::NUMBER,   // 52 ExprNumberLiteral
+    SemanticTokenType::KEYWORD,  // 53 ExprBoolLiteral
+    SemanticTokenType::KEYWORD,  // 54 ExprNull
+    SemanticTokenType::OPERATOR, // 55 ExprGroup
+    // ── Operators (56–57) ──
+    SemanticTokenType::OPERATOR, // 56 LogicalOperator
+    SemanticTokenType::OPERATOR, // 57 ComparisonOperator
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -673,6 +675,7 @@ fn element_token_type(element: &Element) -> u32 {
         Element::SoftBreak(_) => TokenIdx::SoftBreak.as_u32(),
         Element::HardBreak(_) => TokenIdx::HardBreak.as_u32(),
         Element::HLine(_) => TokenIdx::HLine.as_u32(),
+        Element::Header(h) if h.is_folded => TokenIdx::FoldedHeader.as_u32(),
         Element::Header(_) => TokenIdx::Header.as_u32(),
         Element::If(_) => TokenIdx::If.as_u32(),
     }

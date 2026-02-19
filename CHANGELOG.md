@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.24] - 2026-02-19
+
+### Added
+- **sevenmark_lsp_core**: `FoldedHeader` semantic token type (index 36) to distinguish folded headers (`##!`) from regular headers (`##`); all subsequent token indices shifted by +1
+- **VS Code**: `foldedHeader` semantic token type and `markup.heading.folded.sevenmark` TextMate scope
+
 ## [2.24.23] - 2026-02-19
 
 ### Fixed
