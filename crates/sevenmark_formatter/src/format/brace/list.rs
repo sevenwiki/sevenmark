@@ -11,7 +11,9 @@ pub fn format_list<'a>(a: &'a Arena<'a>, e: &ListElement) -> DocBuilder<'a, Aren
     let params = format_params_block(a, &e.parameters);
     // items: 한 줄에 들어가면 공백 구분, 넘으면 줄바꿈
     let items = a.intersperse(
-        e.children.iter().map(|item| format_list_content_item(a, item)),
+        e.children
+            .iter()
+            .map(|item| format_list_content_item(a, item)),
         a.line(),
     );
     a.text("{{{#list")

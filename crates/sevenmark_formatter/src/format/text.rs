@@ -1,5 +1,7 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
-use sevenmark_ast::{MentionType, CommentElement, EscapeElement, ErrorElement, MentionElement, TextElement};
+use sevenmark_ast::{
+    CommentElement, ErrorElement, EscapeElement, MentionElement, MentionType, TextElement,
+};
 
 pub fn format_text<'a>(a: &'a Arena<'a>, e: &TextElement) -> DocBuilder<'a, Arena<'a>> {
     a.text(e.value.clone())

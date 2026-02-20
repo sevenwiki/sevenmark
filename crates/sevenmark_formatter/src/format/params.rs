@@ -10,19 +10,13 @@ pub fn format_params<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuilder<'a
 }
 
 /// Format parameters as `#key="value"` pairs without leading space.
-pub fn format_params_tight<'a>(
-    a: &'a Arena<'a>,
-    params: &Parameters,
-) -> DocBuilder<'a, Arena<'a>> {
+pub fn format_params_tight<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuilder<'a, Arena<'a>> {
     format_params_inner(a, params, false, false)
 }
 
 /// Format parameters with leading space and trailing `||` separator.
 /// For `{{{#tag #key="val" ||` style.
-pub fn format_params_block<'a>(
-    a: &'a Arena<'a>,
-    params: &Parameters,
-) -> DocBuilder<'a, Arena<'a>> {
+pub fn format_params_block<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuilder<'a, Arena<'a>> {
     format_params_inner(a, params, true, true)
 }
 

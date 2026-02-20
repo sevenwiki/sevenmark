@@ -71,10 +71,7 @@ fn format_conditional_rows<'a>(
     a: &'a Arena<'a>,
     cond: &ConditionalTableRows,
 ) -> DocBuilder<'a, Arena<'a>> {
-    let rows = a.intersperse(
-        cond.rows.iter().map(|r| format_row(a, r)),
-        a.hardline(),
-    );
+    let rows = a.intersperse(cond.rows.iter().map(|r| format_row(a, r)), a.hardline());
     a.text("{{{#if ")
         .append(format_expr(a, &cond.condition))
         .append(a.text(" ::"))
@@ -87,10 +84,7 @@ fn format_conditional_cells<'a>(
     a: &'a Arena<'a>,
     cond: &ConditionalTableCells,
 ) -> DocBuilder<'a, Arena<'a>> {
-    let cells = a.intersperse(
-        cond.cells.iter().map(|c| format_cell(a, c)),
-        a.line(),
-    );
+    let cells = a.intersperse(cond.cells.iter().map(|c| format_cell(a, c)), a.line());
     a.text("{{{#if ")
         .append(format_expr(a, &cond.condition))
         .append(a.text(" ::"))

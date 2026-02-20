@@ -20,10 +20,7 @@ pub fn format_fold<'a>(a: &'a Arena<'a>, e: &FoldElement) -> DocBuilder<'a, Aren
         .append(a.text("}}}"))
 }
 
-fn format_fold_inner<'a>(
-    a: &'a Arena<'a>,
-    inner: &FoldInnerElement,
-) -> DocBuilder<'a, Arena<'a>> {
+fn format_fold_inner<'a>(a: &'a Arena<'a>, inner: &FoldInnerElement) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &inner.parameters);
     let has_params = !inner.parameters.is_empty();
     a.text("[[")
