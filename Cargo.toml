@@ -26,6 +26,7 @@ sevenmark_wasm = { path = "crates/sevenmark_wasm", version = "2.24.25"}
 sevenmark_lsp_core = { path = "crates/sevenmark_lsp_core", version = "2.24.25" }
 sevenmark_language_server = { path = "crates/sevenmark_language_server", version = "2.24.25"}
 sevenmark_server = {path = "crates/sevenmark_server", version = "2.24.25"}
+sevenmark_formatter = { path = "crates/sevenmark_formatter", version = "2.24.25" }
 
 # External dependencies
 winnow = { version = "0.7.14", features = ["simd"] }
@@ -56,6 +57,7 @@ web-sys = "0.3.85"
 maud="0.27.0"
 percent-encoding = "2.3.2"
 ls-types = "0.0.3"
+pretty = "0.12.5"
 
 [profile.dev]
 opt-level = 1

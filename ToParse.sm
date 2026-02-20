@@ -15,4 +15,23 @@ awef
 1
 
 ##! weafawef
+
+뭣
 #! x
+
+## awefwaefawefawef
+#! awefwaefawef
+
+{{{#if (3 > 4) || (2 < 4) && ((2 < 4) && 3 < [var(x)]) ::
+somethingawefuawgeifgawueifiuawgefugawuiegfui
+awgeuifgiawgeifgawuiegfuiawiue wauefhiuawgefuiawe
+}}}
+
+{{{#table #x="s"
+[[[[#x="2" x]][[y]]]]
+[[[[1]][[2]]]]
+}}}
+
+{{{#list
+[[1]][[2]][[3]][[4]]
+}}}
