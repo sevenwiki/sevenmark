@@ -8,7 +8,8 @@ pub fn format_tex<'a>(a: &'a Arena<'a>, e: &TeXElement) -> DocBuilder<'a, Arena<
         "{{{#tex"
     };
     a.text(tag)
-        .append(a.text(" "))
-        .append(a.text(e.value.clone()))
+        .append(a.hardline())
+        .append(a.text(e.value.trim().to_string()))
+        .append(a.hardline())
         .append(a.text("}}}"))
 }

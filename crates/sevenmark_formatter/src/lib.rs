@@ -86,7 +86,7 @@ mod tests {
     fn test_code_block() {
         assert_eq!(
             roundtrip("{{{#code #lang=\"rust\" fn main() {} }}}"),
-            "{{{#code #lang=\"rust\" fn main() {} }}}"
+            "{{{#code #lang=\"rust\"\nfn main() {}\n}}}"
         );
     }
 

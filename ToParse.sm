@@ -35,3 +35,10 @@ awgeuifgiawgeifgawuiegfuiawiue wauefhiuawgefuiawe
 {{{#list
 [[1]][[2]][[3]][[4]]
 }}}
+
+{{{#category 무엇}}}
+[br]
+[br]
+{{{#code #lang="python"
+print("hi")
+}}}
