@@ -5,6 +5,18 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.26] - 2026-02-20
+
+### Added
+- **sevenmark_formatter**: New crate for AST → SevenMark source text formatting using `pretty` crate for width-aware layout
+  - Supports all 35+ element types: headers, inline styles, tables, lists, code blocks, conditionals, media, macros, etc.
+  - `format_document(elements, config)` entry point with configurable line width (default 80)
+  - Width-based line breaking for table cells and list items via `group()` + `line()`
+  - Block elements (table, list, fold) indented with `nest(2)`
+  - Code and TeX blocks always format content on separate lines with trimmed values
+  - Four parameter formatting variants: normal, tight (no leading space), block (trailing `||`), block-tight (both)
+  - Expression formatting for `{{{#if` conditionals with proper operator precedence
+
 ## [2.24.25] - 2026-02-19
 
 ### Fixed
