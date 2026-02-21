@@ -63,9 +63,7 @@ fn format_conditional_list_items<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let items = a.intersperse(
-        cond.items
-            .iter()
-            .map(|li| format_list_item(a, li, config)),
+        cond.items.iter().map(|li| format_list_item(a, li, config)),
         a.hardline(),
     );
     a.text("{{{#if ")
