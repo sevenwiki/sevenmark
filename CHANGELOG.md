@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.28] - 2026-02-21
+
+### Changed
+- **sevenmark_formatter**: `list.rs` — switched from manual `" ".repeat(indent)` to pretty-printer `nest()` for indentation, consistent with `table.rs` pattern
+- **sevenmark_formatter**: `table.rs` — removed redundant manual indent before cell close `]]`; parent `nest()` already provides correct indentation
+
+### Fixed
+- **sevenmark_formatter**: `table.rs` — `is_ignorable_trailing_text` now considers `SoftBreak` as ignorable trailing content
+
 ## [2.24.26] - 2026-02-20
 
 ### Added

@@ -11,7 +11,7 @@ use format::element::format_elements;
 /// Format a SevenMark AST back into source text.
 pub fn format_document(elements: &[Element], config: &FormatConfig) -> String {
     let arena = Arena::new();
-    let doc = format_elements(&arena, elements);
+    let doc = format_elements(&arena, elements, config);
     let mut output = String::new();
     doc.render_fmt(config.width, &mut output).unwrap();
     output
@@ -20,11 +20,48 @@ pub fn format_document(elements: &[Element], config: &FormatConfig) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
+    use std::path::Path;
+
+    use sevenmark_html::{RenderConfig, render_document};
     use sevenmark_parser::core::parse_document;
 
     fn roundtrip(input: &str) -> String {
         let ast = parse_document(input);
         format_document(&ast, &FormatConfig::default())
+    }
+
+    fn normalize_newlines(s: &str) -> String {
+        s.replace("\r\n", "\n")
+    }
+
+    fn assert_ast_roundtrip_stable(input: &str, context: &str) {
+        let normalized = normalize_newlines(input);
+        let ast_before = parse_document(&normalized);
+        let formatted = format_document(&ast_before, &FormatConfig::default());
+        let ast_after = parse_document(&formatted);
+
+        let before = serde_json::to_string(&ast_before).unwrap();
+        let after = serde_json::to_string(&ast_after).unwrap();
+        assert_eq!(
+            before, after,
+            "AST roundtrip mismatch for {context}\nformatted:\n{formatted}"
+        );
+    }
+
+    fn assert_render_equivalent(input: &str, context: &str) {
+        let normalized = normalize_newlines(input);
+        let ast_before = parse_document(&normalized);
+        let html_before = render_document(&ast_before, &RenderConfig::default());
+
+        let formatted = format_document(&ast_before, &FormatConfig::default());
+        let ast_after = parse_document(&formatted);
+        let html_after = render_document(&ast_after, &RenderConfig::default());
+
+        assert_eq!(
+            html_before, html_after,
+            "Rendered HTML mismatch for {context}\nformatted:\n{formatted}"
+        );
     }
 
     #[test]
@@ -54,12 +91,12 @@ mod tests {
 
     #[test]
     fn test_header() {
-        assert_eq!(roundtrip("# Title"), "# Title");
+        assert_eq!(roundtrip("# Title"), "# Title\n");
     }
 
     #[test]
     fn test_folded_header() {
-        assert_eq!(roundtrip("#! Folded"), "#! Folded");
+        assert_eq!(roundtrip("#! Folded"), "#! Folded\n");
     }
 
     #[test]
@@ -69,7 +106,7 @@ mod tests {
 
     #[test]
     fn test_hline() {
-        assert_eq!(roundtrip("----"), "----");
+        assert_eq!(roundtrip("----"), "----\n");
     }
 
     #[test]
@@ -86,7 +123,7 @@ mod tests {
     fn test_code_block() {
         assert_eq!(
             roundtrip("{{{#code #lang=\"rust\" fn main() {} }}}"),
-            "{{{#code #lang=\"rust\"\nfn main() {}\n}}}"
+            "{{{#code #lang=\"rust\"\nfn main() {} }}}"
         );
     }
 
@@ -95,5 +132,85 @@ mod tests {
         let input = "line1\nline2\nline3";
         let output = roundtrip(input);
         assert_eq!(output, "line1\nline2\nline3");
+    }
+
+    #[test]
+    fn test_inline_comment_regression() {
+        let input = "Text before comment // This is an inline comment\nText after comment.";
+        assert_ast_roundtrip_stable(input, "inline comment newline separator");
+    }
+
+    #[test]
+    fn test_fixture_ast_roundtrip_stability() {
+        let categories = [
+            "brace",
+            "comment",
+            "complex",
+            "escape",
+            "fold",
+            "if",
+            "macro",
+            "markdown",
+            "codemirror",
+        ];
+        let fixtures_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tc");
+        let mut checked = 0usize;
+
+        for category in categories {
+            let input_dir = fixtures_root.join(category).join("input");
+            let Ok(entries) = fs::read_dir(&input_dir) else {
+                continue;
+            };
+
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.extension().and_then(|e| e.to_str()) != Some("sm") {
+                    continue;
+                }
+
+                checked += 1;
+                let input = fs::read_to_string(&path).unwrap();
+                assert_ast_roundtrip_stable(&input, &path.display().to_string());
+            }
+        }
+
+        assert!(checked > 0, "No fixture files were checked");
+    }
+
+    #[test]
+    fn test_fixture_render_equivalence() {
+        let categories = [
+            "brace",
+            "comment",
+            "complex",
+            "escape",
+            "fold",
+            "if",
+            "macro",
+            "markdown",
+            "codemirror",
+        ];
+        let fixtures_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tc");
+        let mut checked = 0usize;
+
+        for category in categories {
+            let input_dir = fixtures_root.join(category).join("input");
+            let Ok(entries) = fs::read_dir(&input_dir) else {
+                continue;
+            };
+
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.extension().and_then(|e| e.to_str()) != Some("sm") {
+                    continue;
+                }
+
+                checked += 1;
+                let input = fs::read_to_string(&path).unwrap();
+                assert_render_equivalent(&input, &path.display().to_string());
+            }
+        }
+
+        assert!(checked > 0, "No fixture files were checked");
     }
 }

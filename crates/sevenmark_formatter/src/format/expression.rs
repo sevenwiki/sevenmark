@@ -1,19 +1,24 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::{ComparisonOperatorKind, Expression};
 
+use crate::FormatConfig;
 use crate::format::element::{format_element, format_elements};
 
-pub fn format_expr<'a>(a: &'a Arena<'a>, expr: &Expression) -> DocBuilder<'a, Arena<'a>> {
+pub fn format_expr<'a>(
+    a: &'a Arena<'a>,
+    expr: &Expression,
+    config: &FormatConfig,
+) -> DocBuilder<'a, Arena<'a>> {
     match expr {
-        Expression::Or { left, right, .. } => format_expr(a, left)
+        Expression::Or { left, right, .. } => format_expr(a, left, config)
             .append(a.text(" || "))
-            .append(format_expr(a, right)),
+            .append(format_expr(a, right, config)),
 
-        Expression::And { left, right, .. } => format_expr(a, left)
+        Expression::And { left, right, .. } => format_expr(a, left, config)
             .append(a.text(" && "))
-            .append(format_expr(a, right)),
+            .append(format_expr(a, right, config)),
 
-        Expression::Not { inner, .. } => a.text("!").append(format_expr(a, inner)),
+        Expression::Not { inner, .. } => a.text("!").append(format_expr(a, inner, config)),
 
         Expression::Comparison {
             left,
@@ -29,16 +34,16 @@ pub fn format_expr<'a>(a: &'a Arena<'a>, expr: &Expression) -> DocBuilder<'a, Ar
                 ComparisonOperatorKind::GreaterEqual => ">=",
                 ComparisonOperatorKind::LessEqual => "<=",
             };
-            format_expr(a, left)
+            format_expr(a, left, config)
                 .append(a.text(format!(" {} ", op_str)))
-                .append(format_expr(a, right))
+                .append(format_expr(a, right, config))
         }
 
         Expression::FunctionCall {
             name, arguments, ..
         } => {
             let args = a.intersperse(
-                arguments.iter().map(|arg| format_expr(a, arg)),
+                arguments.iter().map(|arg| format_expr(a, arg, config)),
                 a.text(", "),
             );
             a.text(format!("{}(", name))
@@ -48,7 +53,7 @@ pub fn format_expr<'a>(a: &'a Arena<'a>, expr: &Expression) -> DocBuilder<'a, Ar
 
         Expression::StringLiteral { value, .. } => a
             .text("\"")
-            .append(format_elements(a, value))
+            .append(format_elements(a, value, config))
             .append(a.text("\"")),
 
         Expression::NumberLiteral { value, .. } => a.text(value.to_string()),
@@ -59,9 +64,9 @@ pub fn format_expr<'a>(a: &'a Arena<'a>, expr: &Expression) -> DocBuilder<'a, Ar
 
         Expression::Group { inner, .. } => a
             .text("(")
-            .append(format_expr(a, inner))
+            .append(format_expr(a, inner, config))
             .append(a.text(")")),
 
-        Expression::Element(elem) => format_element(a, elem),
+        Expression::Element(elem) => format_element(a, elem, config),
     }
 }

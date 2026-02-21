@@ -14,3 +14,5 @@ pretty = { workspace = true }
 
 [dev-dependencies]
 sevenmark_parser = { workspace = true }
+sevenmark_html = { workspace = true }
+serde_json = { workspace = true }

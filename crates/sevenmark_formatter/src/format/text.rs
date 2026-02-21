@@ -4,7 +4,11 @@ use sevenmark_ast::{
 };
 
 pub fn format_text<'a>(a: &'a Arena<'a>, e: &TextElement) -> DocBuilder<'a, Arena<'a>> {
-    a.text(e.value.clone())
+    if e.value.contains('\r') {
+        a.text(e.value.replace('\r', ""))
+    } else {
+        a.text(e.value.clone())
+    }
 }
 
 pub fn format_escape<'a>(a: &'a Arena<'a>, e: &EscapeElement) -> DocBuilder<'a, Arena<'a>> {

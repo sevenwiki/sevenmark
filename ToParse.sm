@@ -29,7 +29,12 @@ awgeuifgiawgeifgawuiegfuiawiue wauefhiuawgefuiawe
 
 {{{#table #x="s"
 [[[[#x="2" x]][[y]]]]
+[[[[1]][[2
+{{{#table #x="s"
+[[[[#x="2" x]][[y]]]]
 [[[[1]][[2]]]]
+}}}
+]]]]
 }}}
 
 {{{#list

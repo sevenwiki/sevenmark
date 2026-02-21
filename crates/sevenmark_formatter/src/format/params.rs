@@ -2,22 +2,35 @@ use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::Parameters;
 
 use super::element::format_elements;
+use crate::FormatConfig;
 
 /// Format parameters as ` #key="value"` pairs (space-prefixed).
 /// Flag parameters (empty value) are rendered as ` #key`.
-pub fn format_params<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuilder<'a, Arena<'a>> {
-    format_params_inner(a, params, true, false)
+pub fn format_params<'a>(
+    a: &'a Arena<'a>,
+    params: &Parameters,
+    config: &FormatConfig,
+) -> DocBuilder<'a, Arena<'a>> {
+    format_params_inner(a, params, true, false, config)
 }
 
 /// Format parameters as `#key="value"` pairs without leading space.
-pub fn format_params_tight<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuilder<'a, Arena<'a>> {
-    format_params_inner(a, params, false, false)
+pub fn format_params_tight<'a>(
+    a: &'a Arena<'a>,
+    params: &Parameters,
+    config: &FormatConfig,
+) -> DocBuilder<'a, Arena<'a>> {
+    format_params_inner(a, params, false, false, config)
 }
 
 /// Format parameters with leading space and trailing `||` separator.
 /// For `{{{#tag #key="val" ||` style.
-pub fn format_params_block<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuilder<'a, Arena<'a>> {
-    format_params_inner(a, params, true, true)
+pub fn format_params_block<'a>(
+    a: &'a Arena<'a>,
+    params: &Parameters,
+    config: &FormatConfig,
+) -> DocBuilder<'a, Arena<'a>> {
+    format_params_inner(a, params, true, true, config)
 }
 
 /// Format parameters without leading space, with trailing `||` separator.
@@ -25,8 +38,9 @@ pub fn format_params_block<'a>(a: &'a Arena<'a>, params: &Parameters) -> DocBuil
 pub fn format_params_block_tight<'a>(
     a: &'a Arena<'a>,
     params: &Parameters,
+    config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
-    format_params_inner(a, params, false, true)
+    format_params_inner(a, params, false, true, config)
 }
 
 fn format_params_inner<'a>(
@@ -34,6 +48,7 @@ fn format_params_inner<'a>(
     params: &Parameters,
     leading_space: bool,
     trailing_separator: bool,
+    config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
     if params.is_empty() {
         return a.nil();
@@ -52,7 +67,7 @@ fn format_params_inner<'a>(
         if !param.value.is_empty() {
             doc = doc
                 .append(a.text("=\""))
-                .append(format_elements(a, &param.value))
+                .append(format_elements(a, &param.value, config))
                 .append(a.text("\""));
         }
     }
