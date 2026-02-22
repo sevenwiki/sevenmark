@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.25.1] - 2026-02-22
+
+### Fixed
+- **sevenmark_formatter**: Roundtrip stability test now checks formatting idempotency instead of comparing span-inclusive AST JSON — previously failed when `include_locations` feature was enabled via workspace feature unification
+
 ## [2.25.0] - 2026-02-22
 
 ### Changed
