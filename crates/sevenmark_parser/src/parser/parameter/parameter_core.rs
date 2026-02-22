@@ -17,7 +17,10 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
     // Parse: whitespace, #key, optional ="value", whitespace
     let (_, key, value_opt, _): (_, &str, _, _) = (
         multispace0,
-        preceded(literal('#'), take_while(1.., |c: char| c.is_alphanumeric() || c == '_')),
+        preceded(
+            literal('#'),
+            take_while(1.., |c: char| c.is_alphanumeric() || c == '_'),
+        ),
         opt(preceded(
             delimited(multispace0, literal('='), multispace0),
             delimited(literal('"'), parameter_content_parser, literal('"')),
