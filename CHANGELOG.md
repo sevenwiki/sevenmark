@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.38] - 2026-02-22
+
+### Fixed
+- **sevenmark_formatter**: Fixed MediaElement formatter adding an unnecessary space after `[[` when no parameters are present — `[[문서]]` was being formatted as `[[ 문서]]`; now only inserts a space between parameters and content (e.g. `[[#link="url" 문서]]`)
+
 ## [2.24.36] - 2026-02-22
 
 ### Added

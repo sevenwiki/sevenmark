@@ -10,12 +10,15 @@ pub fn format_media<'a>(
     e: &MediaElement,
     config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
+    let has_params = !e.parameters.is_empty();
     a.text("[[")
         .append(format_params_tight(a, &e.parameters, config))
         .append(if e.children.is_empty() {
             a.nil()
-        } else {
+        } else if has_params {
             a.text(" ").append(format_elements(a, &e.children, config))
+        } else {
+            format_elements(a, &e.children, config)
         })
         .append(a.text("]]"))
 }
