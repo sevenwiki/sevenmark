@@ -2,7 +2,7 @@ use crate::parser::ParserInput;
 use sevenmark_ast::{Element, SoftBreakElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace1;
-use winnow::combinator::{alt, not, peek};
+use winnow::combinator::{not, peek};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
@@ -12,9 +12,12 @@ pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<Element> {
         return Err(winnow::error::ContextError::new());
     }
 
-    // trim 컨텍스트에서 }}} 또는 ]] 앞 whitespace면 실패 (suffix가 처리하도록)
-    if parser_input.state.is_trimming() {
-        not((multispace1, peek(alt((literal("}}}"), literal("]]")))))).parse_next(parser_input)?;
+    // trim 컨텍스트에서 닫는 구분자 앞 whitespace면 실패 (suffix가 처리하도록)
+    if parser_input.state.is_trimming_brace() {
+        not((multispace1, peek(literal("}}}")))).parse_next(parser_input)?;
+    }
+    if parser_input.state.is_trimming_bracket() {
+        not((multispace1, peek(literal("]]")))).parse_next(parser_input)?;
     }
 
     let start = parser_input.current_token_start();

@@ -1,6 +1,6 @@
 use crate::parser::ParserInput;
 use crate::parser::brace::literal::literal_content_parser;
-use crate::parser::utils::with_depth_and_trim;
+use crate::parser::utils::with_depth_and_trim_brace;
 use sevenmark_ast::{Element, LiteralElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
@@ -16,7 +16,7 @@ pub fn brace_literal_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let open_end = parser_input.previous_token_end();
 
     multispace0.parse_next(parser_input)?;
-    let parsed_content = with_depth_and_trim(parser_input, literal_content_parser)?;
+    let parsed_content = with_depth_and_trim_brace(parser_input, literal_content_parser)?;
 
     multispace0.parse_next(parser_input)?;
     let close_start = parser_input.current_token_start();

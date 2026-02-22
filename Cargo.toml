@@ -3,7 +3,7 @@ members = ["crates/*", "xtask"]
 resolver = "3"
 
 [workspace.package]
-version = "2.25.2"
+version = "2.25.3"
 authors = ["Levi Laine <shiueo.csh@gmail.com>"]
 license = "AGPL-3.0-only"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -16,17 +16,17 @@ readme = "README.md"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark_ast = { path="crates/sevenmark_ast", version = "2.25.2" }
-sevenmark_parser = { path = "crates/sevenmark_parser", version = "2.25.2" }
-sevenmark_transform = { path = "crates/sevenmark_transform", version = "2.25.2" }
-sevenmark_html = { path="crates/sevenmark_html", version = "2.25.2"}
-sevenmark_utils = { path = "crates/sevenmark_utils", version = "2.25.2"}
-sevenmark_semantic = { path = "crates/sevenmark_semantic", version = "2.25.2"}
-sevenmark_wasm = { path = "crates/sevenmark_wasm", version = "2.25.2"}
-sevenmark_lsp_core = { path = "crates/sevenmark_lsp_core", version = "2.25.2" }
-sevenmark_language_server = { path = "crates/sevenmark_language_server", version = "2.25.2"}
-sevenmark_server = {path = "crates/sevenmark_server", version = "2.25.2"}
-sevenmark_formatter = { path = "crates/sevenmark_formatter", version = "2.25.2" }
+sevenmark_ast = { path="crates/sevenmark_ast", version = "2.25.3" }
+sevenmark_parser = { path = "crates/sevenmark_parser", version = "2.25.3" }
+sevenmark_transform = { path = "crates/sevenmark_transform", version = "2.25.3" }
+sevenmark_html = { path="crates/sevenmark_html", version = "2.25.3"}
+sevenmark_utils = { path = "crates/sevenmark_utils", version = "2.25.3"}
+sevenmark_semantic = { path = "crates/sevenmark_semantic", version = "2.25.3"}
+sevenmark_wasm = { path = "crates/sevenmark_wasm", version = "2.25.3"}
+sevenmark_lsp_core = { path = "crates/sevenmark_lsp_core", version = "2.25.3" }
+sevenmark_language_server = { path = "crates/sevenmark_language_server", version = "2.25.3"}
+sevenmark_server = {path = "crates/sevenmark_server", version = "2.25.3"}
+sevenmark_formatter = { path = "crates/sevenmark_formatter", version = "2.25.3" }
 
 # External dependencies
 winnow = { version = "0.7.14", features = ["simd"] }

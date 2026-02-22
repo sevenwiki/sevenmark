@@ -2,7 +2,7 @@ use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::expr::expr_condition::condition_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth_and_trim;
+use crate::parser::utils::with_depth_and_trim_bracket;
 use sevenmark_ast::{
     ConditionalTableCells, ConditionalTableRows, Expression, Span, TableCellElement, TableCellItem,
     TableRowElement, TableRowItem,
@@ -162,7 +162,7 @@ fn table_cell_parser(parser_input: &mut ParserInput) -> Result<TableCellElement>
 
     let parameters = opt(parameter_core_parser).parse_next(parser_input)?;
     multispace0.parse_next(parser_input)?;
-    let parsed_content = with_depth_and_trim(parser_input, element_parser)?;
+    let parsed_content = with_depth_and_trim_bracket(parser_input, element_parser)?;
 
     multispace0.parse_next(parser_input)?;
     let close_start = parser_input.current_token_start();

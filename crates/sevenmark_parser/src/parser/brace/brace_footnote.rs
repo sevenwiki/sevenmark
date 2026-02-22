@@ -1,7 +1,7 @@
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth_and_trim;
+use crate::parser::utils::with_depth_and_trim_brace;
 use sevenmark_ast::{Element, FootnoteElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
@@ -24,7 +24,7 @@ pub fn brace_footnote_parser(parser_input: &mut ParserInput) -> Result<Element> 
     multispace0.parse_next(parser_input)?;
 
     parser_input.state.set_footnote_context();
-    let parsed_content = with_depth_and_trim(parser_input, element_parser);
+    let parsed_content = with_depth_and_trim_brace(parser_input, element_parser);
     parser_input.state.unset_footnote_context();
     let parsed_content = parsed_content?;
 

@@ -1,7 +1,7 @@
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth_and_trim;
+use crate::parser::utils::with_depth_and_trim_brace;
 use sevenmark_ast::{Element, RubyElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
@@ -19,7 +19,7 @@ pub fn brace_ruby_parser(parser_input: &mut ParserInput) -> Result<Element> {
 
     let parameters = opt(parameter_core_parser).parse_next(parser_input)?;
     multispace0.parse_next(parser_input)?;
-    let parsed_content = with_depth_and_trim(parser_input, element_parser)?;
+    let parsed_content = with_depth_and_trim_brace(parser_input, element_parser)?;
 
     multispace0.parse_next(parser_input)?;
     let close_start = parser_input.current_token_start();

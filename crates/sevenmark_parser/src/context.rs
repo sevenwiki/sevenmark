@@ -21,7 +21,8 @@ macro_rules! context_setters {
 #[derive(Debug, Clone)]
 pub struct ParseContext<'i> {
     pub recursion_depth: usize,
-    pub trim_depth: usize,
+    pub trim_brace_depth: usize,
+    pub trim_bracket_depth: usize,
     pub inside_header: bool,
     pub inside_bold: bool,
     pub inside_italic: bool,
@@ -42,7 +43,8 @@ impl<'i> ParseContext<'i> {
     pub fn new(input: &'i str) -> Self {
         Self {
             recursion_depth: 0,
-            trim_depth: 0,
+            trim_brace_depth: 0,
+            trim_bracket_depth: 0,
             inside_header: false,
             inside_bold: false,
             inside_italic: false,
@@ -112,19 +114,34 @@ impl<'i> ParseContext<'i> {
         idx
     }
 
-    /// trim_depth 증가
-    pub fn increase_trim_depth(&mut self) {
-        self.trim_depth += 1;
+    /// trim_brace_depth 증가 ({{{ }}} 앞 trim)
+    pub fn increase_trim_brace_depth(&mut self) {
+        self.trim_brace_depth += 1;
     }
 
-    /// trim_depth 감소
-    pub fn decrease_trim_depth(&mut self) {
-        self.trim_depth = self.trim_depth.saturating_sub(1);
+    /// trim_brace_depth 감소
+    pub fn decrease_trim_brace_depth(&mut self) {
+        self.trim_brace_depth = self.trim_brace_depth.saturating_sub(1);
     }
 
-    /// trim 컨텍스트 안에 있는지 확인
-    pub fn is_trimming(&self) -> bool {
-        self.trim_depth > 0
+    /// }}} 앞 trim 컨텍스트 안에 있는지 확인
+    pub fn is_trimming_brace(&self) -> bool {
+        self.trim_brace_depth > 0
+    }
+
+    /// trim_bracket_depth 증가 ([[ ]] 앞 trim)
+    pub fn increase_trim_bracket_depth(&mut self) {
+        self.trim_bracket_depth += 1;
+    }
+
+    /// trim_bracket_depth 감소
+    pub fn decrease_trim_bracket_depth(&mut self) {
+        self.trim_bracket_depth = self.trim_bracket_depth.saturating_sub(1);
+    }
+
+    /// ]] 앞 trim 컨텍스트 안에 있는지 확인
+    pub fn is_trimming_bracket(&self) -> bool {
+        self.trim_bracket_depth > 0
     }
 
     context_setters! {

@@ -2,7 +2,7 @@ use super::super::super::element::element_parser;
 use super::super::super::parameter::parameter_core_parser;
 
 use crate::parser::ParserInput;
-use crate::parser::utils::with_depth_and_trim;
+use crate::parser::utils::with_depth_and_trim_bracket;
 use sevenmark_ast::{FoldInnerElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
@@ -24,7 +24,7 @@ pub fn fold_core_parser(
 
     let parameters_1 = opt(parameter_core_parser).parse_next(parser_input)?;
     multispace0.parse_next(parser_input)?;
-    let parsed_content_1 = with_depth_and_trim(parser_input, element_parser)?;
+    let parsed_content_1 = with_depth_and_trim_bracket(parser_input, element_parser)?;
 
     multispace0.parse_next(parser_input)?;
     let close_start_1 = parser_input.current_token_start();
@@ -41,7 +41,7 @@ pub fn fold_core_parser(
 
     let parameters_2 = opt(parameter_core_parser).parse_next(parser_input)?;
     multispace0.parse_next(parser_input)?;
-    let parsed_content_2 = with_depth_and_trim(parser_input, element_parser)?;
+    let parsed_content_2 = with_depth_and_trim_bracket(parser_input, element_parser)?;
 
     multispace0.parse_next(parser_input)?;
     let close_start_2 = parser_input.current_token_start();

@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.25.3] - 2026-02-23
+
+### Fixed
+- **sevenmark_parser**: Split trim context into `trim_brace_depth` (`}}}`) and `trim_bracket_depth` (`]]`) — previously, `token_newline_parser` checked for both `}}}` and `]]` in all trim contexts, causing literal elements (`{{{ content }}}`) to fail parsing when content contained `]]` after a newline (e.g. `{{{ a\n]] }}}` became an `Error` node instead of a `Literal`)
+
 ## [2.25.2] - 2026-02-23
 
 ### Fixed

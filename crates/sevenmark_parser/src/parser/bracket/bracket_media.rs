@@ -1,7 +1,7 @@
 use crate::parser::ParserInput;
 use crate::parser::element::element_parser;
 use crate::parser::parameter::parameter_core_parser;
-use crate::parser::utils::with_depth_and_trim;
+use crate::parser::utils::with_depth_and_trim_bracket;
 use sevenmark_ast::{Element, MediaElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace0;
@@ -25,7 +25,7 @@ pub fn bracket_media_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let parameters = opt(parameter_core_parser).parse_next(parser_input)?;
     let parsed_content = opt(|inner_input: &mut ParserInput| {
         inner_input.state.set_media_element_context();
-        let result = with_depth_and_trim(inner_input, element_parser);
+        let result = with_depth_and_trim_bracket(inner_input, element_parser);
         inner_input.state.unset_media_element_context();
         result
     })
