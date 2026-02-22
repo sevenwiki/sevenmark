@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "SevenMark",
+  "scopeName": "source.sevenmark",
+  "patterns": [
+    { "include": "#brace" },
+    { "include": "#bracket" }
+  ],
+  "repository": {
+    "brace": {
+      "patterns": [
+        {
+          "name": "punctuation.bracket.brace.open.sevenmark",
+          "match": "\\{\\{\\{"
+        },
+        {
+          "name": "punctuation.bracket.brace.close.sevenmark",
+          "match": "\\}\\}\\}"
+        }
+      ]
+    },
+    "bracket": {
+      "patterns": [
+        {
+          "name": "punctuation.bracket.double.open.sevenmark",
+          "match": "\\[\\["
+        },
+        {
+          "name": "punctuation.bracket.double.close.sevenmark",
+          "match": "\\]\\]"
+        }
+      ]
+    }
+  }
+}

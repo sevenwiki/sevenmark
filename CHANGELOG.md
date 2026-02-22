@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.36] - 2026-02-22
+
+### Added
+- **VS Code**: Added minimal TextMate grammar (`syntaxes/sevenmark.tmLanguage.json`) defining `[[`, `]]`, `{{{`, `}}}` as distinct punctuation tokens — prevents VS Code's fallback tokenizer from merging ASCII text with adjacent `]]` into a single token, fixing bracket pair matching and colorization for constructs like `dwarf]]`
+
+## [2.24.35] - 2026-02-22
+
+### Fixed
+- **sevenmark_language_server**: Call `semantic_tokens_refresh` after every document change so VS Code immediately re-requests semantic tokens instead of briefly displaying stale token colors on the updated text
+
 ## [2.24.34] - 2026-02-22
 
 ### Fixed

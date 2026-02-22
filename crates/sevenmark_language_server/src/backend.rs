@@ -226,5 +226,7 @@ impl Backend {
         self.client
             .publish_diagnostics(uri, diagnostics, version)
             .await;
+
+        let _ = self.client.semantic_tokens_refresh().await;
     }
 }

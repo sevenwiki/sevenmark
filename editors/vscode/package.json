@@ -59,6 +59,13 @@
         }
       }
     ],
+    "grammars": [
+      {
+        "language": "sevenmark",
+        "scopeName": "source.sevenmark",
+        "path": "./syntaxes/sevenmark.tmLanguage.json"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "SevenMark",
