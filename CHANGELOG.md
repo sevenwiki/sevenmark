@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.33] - 2026-02-22
+
+### Fixed
+- **VS Code**: Removed `["[", "]"]` from `brackets` in `language-configuration.json` — having both `["[", "]"]` and `["[[", "]]"]]` caused VS Code's bracket pair colorization to treat each `[` individually, making nested `[[[[...]]]]` appear as 4 unmatched levels instead of 2 correctly paired `[[`/`]]` units
+
 ## [2.24.32] - 2026-02-22
 
 ### Changed
