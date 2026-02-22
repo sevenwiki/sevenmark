@@ -7,6 +7,7 @@ const CRATES: &[&str] = &[
     "sevenmark_parser",
     "sevenmark_utils",
     "sevenmark_html",
+    "sevenmark_formatter",
 ];
 
 fn main() {
