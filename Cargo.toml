@@ -3,7 +3,7 @@ members = ["crates/*", "xtask"]
 resolver = "3"
 
 [workspace.package]
-version = "2.24.33"
+version = "2.24.34"
 authors = ["Levi Laine <shiueo.csh@gmail.com>"]
 license = "AGPL-3.0-only"
 repository = "https://github.com/sevenwiki/sevenmark"
@@ -16,24 +16,24 @@ readme = "README.md"
 
 [workspace.dependencies]
 # Internal crates
-sevenmark_ast = { path="crates/sevenmark_ast", version = "2.24.33" }
-sevenmark_parser = { path = "crates/sevenmark_parser", version = "2.24.33" }
-sevenmark_transform = { path = "crates/sevenmark_transform", version = "2.24.33" }
-sevenmark_html = { path="crates/sevenmark_html", version = "2.24.33"}
-sevenmark_utils = { path = "crates/sevenmark_utils", version = "2.24.33"}
-sevenmark_semantic = { path = "crates/sevenmark_semantic", version = "2.24.33"}
-sevenmark_wasm = { path = "crates/sevenmark_wasm", version = "2.24.33"}
-sevenmark_lsp_core = { path = "crates/sevenmark_lsp_core", version = "2.24.33" }
-sevenmark_language_server = { path = "crates/sevenmark_language_server", version = "2.24.33"}
-sevenmark_server = {path = "crates/sevenmark_server", version = "2.24.33"}
-sevenmark_formatter = { path = "crates/sevenmark_formatter", version = "2.24.33" }
+sevenmark_ast = { path="crates/sevenmark_ast", version = "2.24.34" }
+sevenmark_parser = { path = "crates/sevenmark_parser", version = "2.24.34" }
+sevenmark_transform = { path = "crates/sevenmark_transform", version = "2.24.34" }
+sevenmark_html = { path="crates/sevenmark_html", version = "2.24.34"}
+sevenmark_utils = { path = "crates/sevenmark_utils", version = "2.24.34"}
+sevenmark_semantic = { path = "crates/sevenmark_semantic", version = "2.24.34"}
+sevenmark_wasm = { path = "crates/sevenmark_wasm", version = "2.24.34"}
+sevenmark_lsp_core = { path = "crates/sevenmark_lsp_core", version = "2.24.34" }
+sevenmark_language_server = { path = "crates/sevenmark_language_server", version = "2.24.34"}
+sevenmark_server = {path = "crates/sevenmark_server", version = "2.24.34"}
+sevenmark_formatter = { path = "crates/sevenmark_formatter", version = "2.24.34" }
 
 # External dependencies
 winnow = { version = "0.7.14", features = ["simd"] }
 paste = "1.0.15"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
-sea-orm = { version = "2.0.0-rc.32", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
+sea-orm = { version = "2.0.0-rc.34", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
 axum = { version = "0.8.8", features = ["multipart", "macros"] }
 tokio = { version = "1.49.0", features = ["full"] }
 utoipa = { version = "5.4.0", features = ["axum_extras", "openapi_extensions", "time"] }
@@ -51,9 +51,9 @@ tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
 tracing-appender = "0.2.4"
 dashmap = "6.1.0"
 line-span = "0.1.5"
-wasm-bindgen = "0.2.108"
-js-sys = "0.3.85"
-web-sys = "0.3.85"
+wasm-bindgen = "0.2.111"
+js-sys = "0.3.88"
+web-sys = "0.3.88"
 maud="0.27.0"
 percent-encoding = "2.3.2"
 ls-types = "0.0.3"

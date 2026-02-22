@@ -77,7 +77,9 @@ fn context_and_bracket_depth(prefix: &str) -> Option<(&str, usize)> {
             stack.pop();
             i += 3;
         } else {
-            i += 1;
+            // Advance by one Unicode scalar, not one byte —
+            // slicing a &str at a non-char-boundary panics.
+            i += prefix[i..].chars().next().map_or(1, |c| c.len_utf8());
         }
     }
 
@@ -541,6 +543,17 @@ mod tests {
     #[test]
     fn context_top_level_is_none() {
         assert!(context_and_bracket_depth("hello world").is_none());
+    }
+
+    #[test]
+    fn context_multibyte_chars_do_not_panic() {
+        // Korean / emoji in prefix must not cause a char-boundary panic
+        assert!(context_and_bracket_depth("한글 테스트").is_none());
+        assert_eq!(
+            context_and_bracket_depth("{{{#table\n  한글 [["),
+            Some(("table", 1))
+        );
+        assert!(context_and_bracket_depth("🚀🚀🚀").is_none());
     }
 
     #[test]

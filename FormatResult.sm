@@ -1,59 +1,1057 @@
-# 대문
-
-여기에 내용을 입력하세요...111111awefawefawefwaef
-awefawef
-awefawefawefawefawef
-awefawefwaf
-awefawefwaefwaef
-
-awef
-
-awef
-[[#url="javascript:xx"]]
-
-[[#url="javascript:alert('XSS-1')" 클릭]]
-1
-
-##! weafawef
-
-뭣
-#! x
-
-## awefwaefawefawef
-#! awefwaefawef
-
-{{{#if (3 > 4) || (2 < 4) && ((2 < 4) && 3 < [var(x)]) :: somethingawefuawgeifgawueifiuawgefugawuiegfui
-awgeuifgiawgeifgawuiegfuiawiue wauefhiuawgefuiawe}}}
-
-{{{#table #x="s" ||
+**bold**
+{{{#table
   [[
-    [[#x="2" || x]] [[y]]
+    [[f]] [[f]]
+  ]]
+}}}
+
+
+{{{# }}}
+
+# awefawefwefwaef
+
+{{{#define #wef="1"}}}
+{{{#list
+  {{{#if ![var(wef)] ::
+    [[wefawefwef]]
+    [[fewaewefawef]]
+    [[#]]
+  }}}
+}}}
+{{{#list
+  [[[[ cc]] ]]
+}}}
+
+{{{#list
+  [[[[ cc]]]]
+}}}
+{{{#table
+  [[
+    [[#x="2" #y="3" || xasxasx]] [[#x="2" #y="3" || xasxasx]]
+  ]]
+}}}
+{{{#list
+  [[[[ cc]]]]
+}}}
+{{{#list
+  [[[[ cc]] ]]
+}}}
+
+{{{#list
+  [[[[ cc]] ]]
+}}}
+
+
+{{{#list
+  [[[[ faefawefawef]] ]]
+}}}
+
+[[#url="hoihohohh" efwefwe]]
+[[#url="https://asdasd.com" wefwwfeawe]]
+[[#url="https://asdasd.com" xxsdfwewef]]
+
+{{{#table
+  [[
+    [[[[#url="httpsaefawef.com" waefawef]] ]]
+    [[{{{#table
+      [[
+        [[awefwaefwef weefawfwefasdcasawef ]]
+      ]]
+    }}}
+    ]]
+  ]]
+}}}
+{{{#list
+  [[wefawefwef]]
+}}}
+
+{{{#list
+  [[wefawefwef]]
+}}}
+
+{{{#list
+  [[cc]]
+}}}
+
+{{{#list
+  [[[[ cc]]]]
+}}}
+
+{{{#list
+  [[[[ cc]]]]
+}}}
+
+Screenshot 2026-02-19 155334.png
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+##! ffewfa
+## awefawef
+## Quick Start!
+esrger
+
+{{{#list
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
   ]]
   [[
-    [[1]]
-    [[2
-    {{{#table #x="s" ||
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]]
+    [[📋 Planned]]
+    [[v1.2 {{{#table
       [[
-        [[#x="2" || x]] [[y]]
+        [[Feature]] [[Status]] [[Version]]
       ]]
       [[
-        [[1]] [[2]]
+        [[🔐 Authentication]]
+        [[✅ Complete {{{#table
+          [[
+            [[Feature]] [[Status]] [[Version]]
+          ]]
+          [[
+            [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+          ]]
+          [[
+            [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+          ]]
+          [[
+            [[🔔 Notifications]]
+            [[📋 Planned]]
+            [[v1.2 {{{#table
+              [[
+                [[Feature]] [[Status]] [[Version]]
+              ]]
+              [[
+                [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+              ]]
+              [[
+                [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+              ]]
+              [[
+                [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+              ]]
+            }}}
+            ]]
+          ]]
+        }}}
+        ]]
+        [[v1.0]]
+      ]]
+      [[
+        [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+      ]]
+      [[
+        [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
       ]]
     }}}
     ]]
   ]]
 }}}
 
-{{{#list
-  [[1]]
-  [[2]]
-  [[3]]
-  [[4]]
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
 }}}
 
-{{{#category 무엇}}}
-[br]
-[br]
-{{{#code #lang="python"
-print("hi")
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+{{{#define #xxx="asdasdasd"}}}
+[var(xxx)]
+
+## Features
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+{{{#table
+  [[
+    [[#x="2" #y="3" || Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+{{{#table}}}
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+{{{#}}}
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+{{{#blockquote}}}
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+/\ㅇ\ㅇ\r\r\r\r
+\c\asdc\asdc
+
+{{{#define #x="3" #y="xxxx"}}}
+{{{#fold
+  [[asdsad]]
+  [[awefawef]]
+}}}
+[now] [var(x)] [var(z)] [var(y)]
+
+{{{#if [var(x)] > 3 :: awefwae}}}
+
+{{{#fold
+  [[awefawefawe]]
+  [[awefawefawfe]]
+}}}
+
+{{{ #bgcolor="#ff05cd" #style || awefawefawef}}}**bold**
+{{{#table
+  [[
+    [[f]] [[f]]
+  ]]
+}}}
+
+
+{{{#}}}
+
+Screenshot 2026-02-19 155334.png
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+esrger
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+[[#album #spotify ="" #]]
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+{{{#}}}
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+{{{#define #xy="xx"}}}
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+[var(xy)]
+
+**bold**
+{{{#table
+  [[
+    [[f]] [[f]]
+  ]]
+}}}
+
+
+{{{# }}}
+
+Screenshot 2026-02-19 155334.png
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+esrger
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+  ]]
+}}}
+
+## API Documentation!
+
+{{{#fold
+  [[📖 **API Endpoints** - Click to view]]
+  [[### User Management
+
+{{{#code #lang="http"
+GET    /api/users
+POST   /api/users
+PUT    /api/users/:id
+DELETE /api/users/:id
+}}}
+
+### Authentication
+
+{{{#code #lang="javascript"
+// Login example
+const response = await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+}}}]]
+}}}
+
+## Contributing
+
+Please read our [[#url="https://example.com/CONTRIBUTING.md" contribution guidelines]] before submitting PRs.
+
+{{{#quote "Code is like humor. When you have to explain it, it's bad." - Cory House}}}
+
+----
+
+**License:** MIT | **Last Updated:** [now]
+
+# MyAwesome Project
+
+{{{ #style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px" || 🚀 **A powerful web application built with modern technologies**}}}
+
+## Quick Start!
+
+{{{#list #1 ||
+  [[Clone the repository: {{{#code
+  git clone https://github.com/user/project.git }}}]]
+  [[Install dependencies: {{{#code
+  npm install }}}]]
+  [[Set up environment: {{{#code
+  cp .env.example .env }}}]]
+  [[Start development server: {{{#code
+  npm run dev }}}]]
+}}}
+
+## Features
+
+{{{#table
+  [[
+    [[#x="2" #y="3" || Feature]] [[Status]] [[Version]]
+  ]]
+  [[
+    [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+  ]]
+  [[
+    [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+  ]]
+  [[
+    [[🔔 Notifications]]
+    [[📋 Planned
+    {{{#table
+      [[
+        [[#x="2" #y="3" || Feature]] [[Status]] [[Version]]
+      ]]
+      [[
+        [[🔐 Authentication]] [[✅ Complete]] [[v1.0]]
+      ]]
+      [[
+        [[📊 Dashboard]] [[🚧 In Progress]] [[v1.1]]
+      ]]
+      [[
+        [[🔔 Notifications]] [[📋 Planned]] [[v1.2]]
+      ]]
+    }}}
+    ]]
+    [[v1.2]]
+  ]]
 }}}

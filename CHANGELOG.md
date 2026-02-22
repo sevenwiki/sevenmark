@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.34] - 2026-02-22
+
+### Fixed
+- **sevenmark_lsp_core**: Fixed language server crash (exit code 101) when triggering autocompletion in documents containing multi-byte Unicode characters (Korean, emoji, etc.) — `context_and_bracket_depth` was advancing the byte index by 1 on every unrecognized character, causing `prefix[i..]` to slice at a non-UTF-8-char-boundary and panic; now advances by the full Unicode scalar's byte length
+
 ## [2.24.33] - 2026-02-22
 
 ### Fixed
