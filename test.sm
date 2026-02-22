@@ -4,6 +4,41 @@
 
 {{{# }}}
 
+# awefawefwefwaef
+
+{{{#define #wef="1"}}}
+
+{{{#list
+{{{#if ![var(wef)] ::
+[[wefawefwef]] [[fewaewefawef]] [[#]] 
+}}}
+}}}
+
+
+{{{#list
+[[ [[faefawefawef]] ]]
+}}}
+
+{{{#list
+[[wefawefwef]]
+}}}
+
+{{{#list
+[[wefawefwef]]
+}}}
+
+{{{#list 
+[[cc]]
+}}}
+
+{{{#list
+[[ [[cc]]]]
+}}}
+
+{{{#list
+[[ [[cc]]]]
+}}}
+
 Screenshot 2026-02-19 155334.png
 
 # MyAwesome Project

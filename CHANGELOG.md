@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.32] - 2026-02-22
+
+### Changed
+- **sevenmark_lsp_core**: `[[` trigger no longer produces completions at content level — bare `[[text]]` without `#` parameters renders as empty HTML (no link is produced); all meaningful link/media creation requires `[[#` (e.g. `[[#document document="..."]]`, `[[#file file="..."]]`, `[[#url url="..."]]`)
+- **sevenmark_lsp_core**: `bracket_completions_ctx` simplified to only offer structural snippets (`row`, `cell`, `item`, `section`) at the appropriate depths inside `{{{#table}}}`, `{{{#list}}}`, and `{{{#fold}}}`; all other `[[` positions return no completions
+
 ## [2.24.30] - 2026-02-22
 
 ### Added

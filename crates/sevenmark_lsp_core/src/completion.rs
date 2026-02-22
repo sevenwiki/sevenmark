@@ -110,26 +110,26 @@ fn brace_hash_completions(ctx: Option<(&str, usize)>) -> Vec<CompletionItem> {
     }
 }
 
-/// `[[` trigger — what goes here?
-fn bracket_completions_ctx(ctx: Option<(&str, usize)>, pos: Position) -> Vec<CompletionItem> {
+/// `[[` trigger — structural contexts only.
+///
+/// At content levels, bare `[[text]]` (no `#` params) renders as empty HTML,
+/// so no completions are offered. Only structural positions within `{{{#table}}`,
+/// `{{{#list}}}` and `{{{#fold}}}` get context-aware snippets; everything else
+/// returns nothing (use `[[#` for actual links/media).
+fn bracket_completions_ctx(ctx: Option<(&str, usize)>, _pos: Position) -> Vec<CompletionItem> {
     match ctx {
         // ── table ──────────────────────────────────────────────
         Some(("table", 1)) => table_row_completions(),
         Some(("table", 2)) => table_cell_completions(),
-        Some(("table", _)) => generic_bracket_completions(pos),
 
         // ── list ───────────────────────────────────────────────
         Some(("list", 1)) => list_item_completions(),
-        Some(("list", _)) => generic_bracket_completions(pos),
 
         // ── fold ───────────────────────────────────────────────
-        // depth 1: opening a fold section → simple closing template
         Some(("fold", 1)) => fold_section_completions(),
-        // depth ≥ 2: inside fold section content → generic media/link
-        Some(("fold", _)) => generic_bracket_completions(pos),
 
-        // ── anything else (top-level or unknown context) ───────
-        _ => generic_bracket_completions(pos),
+        // ── content level or unknown → no completions ──────────
+        _ => Vec::new(),
     }
 }
 
@@ -226,33 +226,6 @@ fn brace_conditional_completions() -> Vec<CompletionItem> {
 }
 
 // ── Generic bracket completions (top-level / content) ─────────────
-
-fn generic_bracket_completions(_pos: Position) -> Vec<CompletionItem> {
-    let items = [
-        ("file", "#file=\"$1\" $0]]", "File / image media"),
-        ("document", "#document=\"$1\" $0]]", "Document link"),
-        ("category", "#category=\"$1\"]]", "Category link"),
-        ("user", "#user=\"$1\"]]", "User link"),
-        ("url", "#url=\"$1\" $0]]", "External URL link"),
-        ("link", "$1]]", "Wiki link"),
-        ("youtube", "#youtube #id=\"$1\"]]", "YouTube embed"),
-        ("vimeo", "#vimeo #id=\"$1\"]]", "Vimeo embed"),
-        ("nicovideo", "#nicovideo #id=\"$1\"]]", "NicoVideo embed"),
-        ("spotify", "#spotify $0]]", "Spotify embed"),
-        ("discord", "#discord #id=\"$1\"]]", "Discord embed"),
-    ];
-    items
-        .into_iter()
-        .map(|(label, snippet, detail)| CompletionItem {
-            label: label.to_string(),
-            kind: Some(CompletionItemKind::REFERENCE),
-            detail: Some(detail.to_string()),
-            insert_text_format: Some(InsertTextFormat::SNIPPET),
-            insert_text: Some(snippet.to_string()),
-            ..Default::default()
-        })
-        .collect()
-}
 
 /// `[[#` at top-level / content — keyword already typed.
 fn generic_bracket_hash_completions(_pos: Position) -> Vec<CompletionItem> {
@@ -644,12 +617,11 @@ mod tests {
     }
 
     #[test]
-    fn top_level_bracket_suggests_generic() {
+    fn top_level_bracket_no_completions() {
+        // [[  alone has no completions: bare [[text]] renders as empty HTML.
+        // Meaningful links all require [[#  (document, file, url, etc.)
         let c = completions("hello [[");
-        let l = labels(&c);
-        assert!(l.contains(&"file"));
-        assert!(l.contains(&"youtube"));
-        assert!(l.contains(&"link"));
+        assert!(c.is_empty(), "bare [[ should produce no completions: {c:?}");
     }
 
     #[test]
@@ -721,12 +693,13 @@ mod tests {
     }
 
     #[test]
-    fn table_bracket_inside_cell_content_is_generic() {
-        // depth ≥ 3 → generic media/link completions
+    fn table_bracket_inside_cell_content_no_completions() {
+        // depth ≥ 3: inside cell content, bare [[ → no completions (needs [[#)
         let c = completions("{{{#table\n  [[ [[ [[");
-        let l = labels(&c);
-        assert!(l.contains(&"file"));
-        assert!(l.contains(&"youtube"));
+        assert!(
+            c.is_empty(),
+            "bare [[ inside cell content should produce no completions: {c:?}"
+        );
     }
 
     #[test]
@@ -761,12 +734,12 @@ mod tests {
     }
 
     #[test]
-    fn table_outside_closed_is_generic() {
+    fn table_outside_closed_bracket_no_completions() {
+        // After closed table, bare [[ at top level → no completions
         let c = completions("{{{#table\n  [[ [[c]] ]]\n}}}\n\n[[");
-        let l = labels(&c);
         assert!(
-            l.contains(&"file"),
-            "after closed table, generic completions expected"
+            c.is_empty(),
+            "bare [[ after closed table should produce no completions: {c:?}"
         );
     }
 
@@ -797,11 +770,13 @@ mod tests {
     }
 
     #[test]
-    fn list_bracket_inside_item_content_is_generic() {
+    fn list_bracket_inside_item_content_no_completions() {
+        // [[ inside list item content → no completions; media/links need [[#
         let c = completions("{{{#list\n  [[ [[");
-        let l = labels(&c);
-        assert!(l.contains(&"file"));
-        assert!(l.contains(&"youtube"));
+        assert!(
+            c.is_empty(),
+            "bare [[ inside item content should produce no completions: {c:?}"
+        );
     }
 
     #[test]
@@ -838,15 +813,13 @@ mod tests {
     }
 
     #[test]
-    fn fold_bracket_inside_section_is_generic() {
-        // [[ [[  → depth 2 → inside fold section content → generic
+    fn fold_bracket_inside_section_no_completions() {
+        // [[ [[  → depth 2 → inside fold section content → no completions (needs [[#)
         let c = completions("{{{#fold\n  [[ [[");
-        let l = labels(&c);
         assert!(
-            l.contains(&"file"),
-            "expected generic completions inside fold section: {l:?}"
+            c.is_empty(),
+            "bare [[ inside fold section should produce no completions: {c:?}"
         );
-        assert!(l.contains(&"youtube"));
     }
 
     // ── Nesting: list in table cell ───────────────────────────────
