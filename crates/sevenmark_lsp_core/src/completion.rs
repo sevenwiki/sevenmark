@@ -134,10 +134,7 @@ fn bracket_completions_ctx(ctx: Option<(&str, usize)>, pos: Position) -> Vec<Com
 }
 
 /// `[[#` trigger — keyword after `#` or element-specific params.
-fn bracket_hash_completions_ctx(
-    ctx: Option<(&str, usize)>,
-    pos: Position,
-) -> Vec<CompletionItem> {
+fn bracket_hash_completions_ctx(ctx: Option<(&str, usize)>, pos: Position) -> Vec<CompletionItem> {
     match ctx {
         // ── table ──────────────────────────────────────────────
         // depth 1: row level — rows have no keyword params
@@ -300,7 +297,11 @@ fn table_row_completions() -> Vec<CompletionItem> {
 fn table_cell_completions() -> Vec<CompletionItem> {
     let items = [
         ("cell", "$0]]", "Table cell"),
-        ("cell (x,y)", "#x=\"$1\" #y=\"$2\" $0]]", "Table cell with position"),
+        (
+            "cell (x,y)",
+            "#x=\"$1\" #y=\"$2\" $0]]",
+            "Table cell with position",
+        ),
     ];
     items
         .into_iter()
@@ -402,10 +403,7 @@ fn detect_brace_element(prefix: &str) -> Option<&str> {
     Some(&after[..end])
 }
 
-fn parameter_completions(
-    prefix: &str,
-    ctx: Option<(&str, usize)>,
-) -> Option<Vec<CompletionItem>> {
+fn parameter_completions(prefix: &str, ctx: Option<(&str, usize)>) -> Option<Vec<CompletionItem>> {
     // Bracket element params (e.g. [[#youtube #id=...)
     if let Some(kw) = detect_bracket_element(prefix) {
         let params = bracket_param_defs(kw);
@@ -668,7 +666,10 @@ mod tests {
         let c = completions("hello [[#");
         let file = c.iter().find(|c| c.label == "file").unwrap();
         let snippet = file.insert_text.as_deref().unwrap();
-        assert!(!snippet.starts_with('#'), "snippet should not start with #: {snippet}");
+        assert!(
+            !snippet.starts_with('#'),
+            "snippet should not start with #: {snippet}"
+        );
     }
 
     // ── Table context ─────────────────────────────────────────────
@@ -763,7 +764,10 @@ mod tests {
     fn table_outside_closed_is_generic() {
         let c = completions("{{{#table\n  [[ [[c]] ]]\n}}}\n\n[[");
         let l = labels(&c);
-        assert!(l.contains(&"file"), "after closed table, generic completions expected");
+        assert!(
+            l.contains(&"file"),
+            "after closed table, generic completions expected"
+        );
     }
 
     // ── List context ──────────────────────────────────────────────
@@ -838,7 +842,10 @@ mod tests {
         // [[ [[  → depth 2 → inside fold section content → generic
         let c = completions("{{{#fold\n  [[ [[");
         let l = labels(&c);
-        assert!(l.contains(&"file"), "expected generic completions inside fold section: {l:?}");
+        assert!(
+            l.contains(&"file"),
+            "expected generic completions inside fold section: {l:?}"
+        );
         assert!(l.contains(&"youtube"));
     }
 
@@ -850,7 +857,10 @@ mod tests {
         let c = completions(prefix);
         let l = labels(&c);
         assert!(l.contains(&"item"), "expected list item completion: {l:?}");
-        assert!(!l.contains(&"row"), "should not show row inside list: {l:?}");
+        assert!(
+            !l.contains(&"row"),
+            "should not show row inside list: {l:?}"
+        );
     }
 
     #[test]
