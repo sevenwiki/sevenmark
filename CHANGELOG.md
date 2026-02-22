@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.24.30] - 2026-02-22
+
+### Added
+- **sevenmark_lsp_core**: Context-aware completions for `[[`, `[[#`, `{{{#`, and `#` parameter triggers
+  - Brace stack tracking (`context_and_bracket_depth`) detects the innermost unclosed `{{{#keyword` and bracket depth within it
+  - `{{{#table` context: `[[` at depth 1 → table row template; depth 2 → cell template with `#x`/`#y` option; depth ≥ 3 → generic media/link completions
+  - `{{{#list` context: `[[` at depth 1 → list item template; depth ≥ 2 → generic
+  - `{{{#fold` context: `[[` at depth 1 → fold section template; depth ≥ 2 → generic
+  - `{{{#` inside `table`/`list` at structural depth → only `{{{#if` suggested; inside content → all brace keywords
+  - `[[#` inside table cell level (depth 2) → `x`, `y` parameter completions; otherwise generic bracket keywords
+  - `[[#` trigger now completes bracket element keywords without the leading `#` (e.g. typing `[[#` suggests `file="$1"...` not `#file="$1"...`)
+  - Arbitrary nesting (list-in-table, table-in-list, etc.) handled correctly via brace stack; innermost context always wins
+
 ## [2.24.28] - 2026-02-21
 
 ### Changed
