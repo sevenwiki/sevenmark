@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.25.0] - 2026-02-22
+
+### Changed
+- **sevenmark_parser**: Parameter keys now support Unicode alphanumeric characters and underscores — `#한국어="value"`, `#key_name="value"` are now valid in addition to ASCII-only keys
+
 ## [2.24.38] - 2026-02-22
 
 ### Fixed

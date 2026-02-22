@@ -3,11 +3,11 @@ use crate::parser::parameter::parameter_content::parameter_content_parser;
 use sevenmark_ast::{Parameter, Parameters, Span};
 use std::collections::BTreeMap;
 use winnow::Result;
-use winnow::ascii::{alphanumeric1, multispace0};
+use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt, preceded, repeat, terminated};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
-use winnow::token::literal;
+use winnow::token::{literal, take_while};
 
 /// Parse a single parameter in the format #key="value" (spaces around = allowed)
 /// The value part is optional - if not provided, an empty Vec is used
@@ -15,9 +15,9 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
     let start = parser_input.current_token_start();
 
     // Parse: whitespace, #key, optional ="value", whitespace
-    let (_, key, value_opt, _) = (
+    let (_, key, value_opt, _): (_, &str, _, _) = (
         multispace0,
-        preceded(literal('#'), alphanumeric1),
+        preceded(literal('#'), take_while(1.., |c: char| c.is_alphanumeric() || c == '_')),
         opt(preceded(
             delimited(multispace0, literal('='), multispace0),
             delimited(literal('"'), parameter_content_parser, literal('"')),
