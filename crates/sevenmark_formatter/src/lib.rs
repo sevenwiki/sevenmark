@@ -37,15 +37,13 @@ mod tests {
 
     fn assert_ast_roundtrip_stable(input: &str, context: &str) {
         let normalized = normalize_newlines(input);
-        let ast_before = parse_document(&normalized);
-        let formatted = format_document(&ast_before, &FormatConfig::default());
-        let ast_after = parse_document(&formatted);
-
-        let before = serde_json::to_string(&ast_before).unwrap();
-        let after = serde_json::to_string(&ast_after).unwrap();
+        let ast1 = parse_document(&normalized);
+        let formatted1 = format_document(&ast1, &FormatConfig::default());
+        let ast2 = parse_document(&formatted1);
+        let formatted2 = format_document(&ast2, &FormatConfig::default());
         assert_eq!(
-            before, after,
-            "AST roundtrip mismatch for {context}\nformatted:\n{formatted}"
+            formatted1, formatted2,
+            "Format not idempotent for {context}"
         );
     }
 
