@@ -9,7 +9,14 @@ use winnow::token::{literal, take_till};
 
 /// Parse inline comments starting with "//"
 /// Comments continue until end of line or end of file
+/// Only allowed at top-level (recursion_depth == 0) to prevent `//` in URLs
+/// and other content from being greedily consumed as comments inside
+/// nested constructs like [[ ]], {{{ }}}, etc.
 pub fn inline_comment_parser(parser_input: &mut ParserInput) -> Result<Element> {
+    if parser_input.state.recursion_depth > 0 {
+        return Err(winnow::error::ContextError::new());
+    }
+
     let start = parser_input.current_token_start();
 
     let (_, content_opt) = (

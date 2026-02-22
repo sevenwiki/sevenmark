@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.25.2] - 2026-02-23
+
+### Fixed
+- **sevenmark_parser**: Inline comments (`//`) are now disabled inside nested constructs (`recursion_depth > 0`) — previously, `//` in URLs like `[[#url="https://example.com/" https://other.com]]` was consumed as a comment, greedily eating the closing `]]` delimiter and causing the entire element to become an `Error` node
+
 ## [2.25.1] - 2026-02-22
 
 ### Fixed

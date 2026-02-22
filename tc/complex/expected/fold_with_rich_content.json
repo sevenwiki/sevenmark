@@ -3,15 +3,15 @@
     "Fold": {
       "span": {
         "start": 0,
-        "end": 469
+        "end": 427
       },
       "open_span": {
         "start": 0,
         "end": 8
       },
       "close_span": {
-        "start": 466,
-        "end": 469
+        "start": 424,
+        "end": 427
       },
       "parameters": {
         "bgcolor": {
@@ -136,15 +136,15 @@
       "details": {
         "span": {
           "start": 141,
-          "end": 466
+          "end": 424
         },
         "open_span": {
           "start": 141,
           "end": 143
         },
         "close_span": {
-          "start": 463,
-          "end": 465
+          "start": 421,
+          "end": 423
         },
         "parameters": {},
         "children": [
@@ -435,19 +435,10 @@
             }
           },
           {
-            "Comment": {
-              "span": {
-                "start": 376,
-                "end": 418
-              },
-              "value": " This comment should be inside the fold"
-            }
-          },
-          {
             "Text": {
               "span": {
-                "start": 418,
-                "end": 439
+                "start": 376,
+                "end": 397
               },
               "value": "Final paragraph with "
             }
@@ -455,8 +446,8 @@
           {
             "Escape": {
               "span": {
-                "start": 439,
-                "end": 441
+                "start": 397,
+                "end": 399
               },
               "value": "*"
             }
@@ -464,8 +455,8 @@
           {
             "Text": {
               "span": {
-                "start": 441,
-                "end": 448
+                "start": 399,
+                "end": 406
               },
               "value": "escaped"
             }
@@ -473,8 +464,8 @@
           {
             "Escape": {
               "span": {
-                "start": 448,
-                "end": 450
+                "start": 406,
+                "end": 408
               },
               "value": "*"
             }
@@ -482,8 +473,8 @@
           {
             "Text": {
               "span": {
-                "start": 450,
-                "end": 462
+                "start": 408,
+                "end": 420
               },
               "value": " characters."
             }
