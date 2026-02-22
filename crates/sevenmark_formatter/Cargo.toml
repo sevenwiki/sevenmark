@@ -7,6 +7,7 @@ repository.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 description = "Source code formatter for SevenMark AST"
+readme = "README.md"
 
 [dependencies]
 sevenmark_ast = { workspace = true }
