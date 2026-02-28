@@ -1112,6 +1112,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "crossbeam-deque"
+version = "0.8.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9dd111b7b7f7d55b72c0a6ae361660ee5853c9af73f70c3c2ef6858b950e2e51"
+dependencies = [
+ "crossbeam-epoch",
+ "crossbeam-utils",
+]
+
+[[package]]
+name = "crossbeam-epoch"
+version = "0.9.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5b82ac4a3c2ca9c3460964f020e1402edd5753411d7737aa39c3714ad1b5420e"
+dependencies = [
+ "crossbeam-utils",
+]
+
+[[package]]
 name = "crossbeam-queue"
 version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2167,9 +2186,9 @@ dependencies = [
 
 [[package]]
 name = "js-sys"
-version = "0.3.88"
+version = "0.3.91"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7e709f3e3d22866f9c25b3aff01af289b18422cc8b4262fb19103ee80fe513d"
+checksum = "b49715b7073f385ba4bc528e5747d02e66cb39c6146efb66b781f131f0fb399c"
 dependencies = [
  "once_cell",
  "wasm-bindgen",
@@ -2927,6 +2946,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "rayon"
+version = "1.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "368f01d005bf8fd9b1206fb6fa653e6c4a81ceb1466406b81792d87c5677a58f"
+dependencies = [
+ "either",
+ "rayon-core",
+]
+
+[[package]]
+name = "rayon-core"
+version = "1.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22e18b0f0062d30d4230b2e85ff77fdfe4326feb054b9783a3460d8435c8ab91"
+dependencies = [
+ "crossbeam-deque",
+ "crossbeam-utils",
+]
+
+[[package]]
 name = "redox_syscall"
 version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3284,9 +3323,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "2.0.0-rc.34"
+version = "2.0.0-rc.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "462d18bd437d2ca0c363403dca347c540acc81dd61754dd951651b900234878b"
+checksum = "41c847ddcc05ba1c4a8ad6bf781ac8d3750123f6e95642c2268b0551101931de"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -3328,9 +3367,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "2.0.0-rc.34"
+version = "2.0.0-rc.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42f1d4fdbacfae22398d78de1a217048524ef7ea8c8d122c330144a98c5e685d"
+checksum = "a172f9ceaceafa0fe40f6f15df0231750755284c80bd8ba98d10d5ae611ecaf0"
 dependencies = [
  "heck 0.5.0",
  "itertools",
@@ -3524,14 +3563,14 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_ast"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "sevenmark_formatter"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "pretty",
  "serde_json",
@@ -3542,7 +3581,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_html"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "maud",
  "percent-encoding",
@@ -3553,7 +3592,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_language_server"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "dashmap",
  "sevenmark_lsp_core",
@@ -3563,7 +3602,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_lsp_core"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "ls-types",
  "serde",
@@ -3575,7 +3614,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_parser"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "paste",
  "serde_json",
@@ -3585,7 +3624,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_semantic"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "maud",
  "sevenmark_ast",
@@ -3593,7 +3632,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_server"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3616,11 +3655,12 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_transform"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "anyhow",
  "aws-sdk-s3",
  "futures",
+ "rayon",
  "sea-orm",
  "serde",
  "sevenmark_ast",
@@ -3634,7 +3674,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_utils"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "line-span",
  "serde",
@@ -3644,7 +3684,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm"
-version = "2.25.3"
+version = "2.25.4"
 dependencies = [
  "serde_json",
  "sevenmark_lsp_core",
@@ -4652,9 +4692,9 @@ checksum = "b8dad83b4f25e74f184f64c43b150b91efe7647395b42289f38e50566d82855b"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.111"
+version = "0.2.114"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec1adf1535672f5b7824f817792b1afd731d7e843d2d04ec8f27e8cb51edd8ac"
+checksum = "6532f9a5c1ece3798cb1c2cfdba640b9b3ba884f5db45973a6f442510a87d38e"
 dependencies = [
  "cfg-if",
  "once_cell",
@@ -4665,9 +4705,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.111"
+version = "0.2.114"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "19e638317c08b21663aed4d2b9a2091450548954695ff4efa75bff5fa546b3b1"
+checksum = "18a2d50fcf105fb33bb15f00e7a77b772945a2ee45dcf454961fd843e74c18e6"
 dependencies = [
  "quote",
  "wasm-bindgen-macro-support",
@@ -4675,9 +4715,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.111"
+version = "0.2.114"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2c64760850114d03d5f65457e96fc988f11f01d38fbaa51b254e4ab5809102af"
+checksum = "03ce4caeaac547cdf713d280eda22a730824dd11e6b8c3ca9e42247b25c631e3"
 dependencies = [
  "bumpalo",
  "proc-macro2",
@@ -4688,9 +4728,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.111"
+version = "0.2.114"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60eecd4fe26177cfa3339eb00b4a36445889ba3ad37080c2429879718e20ca41"
+checksum = "75a326b8c223ee17883a4251907455a2431acc2791c98c26279376490c378c16"
 dependencies = [
  "unicode-ident",
 ]

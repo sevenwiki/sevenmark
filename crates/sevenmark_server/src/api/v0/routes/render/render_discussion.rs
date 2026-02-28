@@ -7,6 +7,7 @@ use sevenmark_html::{RenderConfig, render_document as render_html};
 use sevenmark_parser::core::parse_document;
 use sevenmark_transform::process_sevenmark;
 use std::collections::HashSet;
+use tokio::task::spawn_blocking;
 use utoipa::ToSchema;
 
 #[derive(Debug, Deserialize, ToSchema)]
@@ -46,8 +47,19 @@ pub async fn render_discussion(
     State(state): State<AppState>,
     Json(payload): Json<RenderDiscussionRequest>,
 ) -> Result<Json<RenderedDiscussion>, Errors> {
+    let RenderDiscussionRequest {
+        content,
+        file_base_url,
+        document_base_url,
+        category_base_url,
+        user_base_url,
+    } = payload;
+
     // Parse
-    let ast = parse_document(payload.content.as_str());
+    let parse_input = content.clone();
+    let ast = spawn_blocking(move || parse_document(parse_input.as_str()))
+        .await
+        .map_err(|e| Errors::SysInternalError(format!("Parser task failed: {e}")))?;
 
     // Process (resolve includes, media, etc.)
     let processed = process_sevenmark(ast, &state.conn, &state.revision_storage)
@@ -57,10 +69,10 @@ pub async fn render_discussion(
     // Render to HTML (no edit links for discussions)
     let config = RenderConfig {
         edit_url: None,
-        file_base_url: Some(&payload.file_base_url),
-        document_base_url: Some(&payload.document_base_url),
-        category_base_url: Some(&payload.category_base_url),
-        user_base_url: Some(&payload.user_base_url),
+        file_base_url: Some(&file_base_url),
+        document_base_url: Some(&document_base_url),
+        category_base_url: Some(&category_base_url),
+        user_base_url: Some(&user_base_url),
     };
     let html = render_html(&processed.ast, &config);
 

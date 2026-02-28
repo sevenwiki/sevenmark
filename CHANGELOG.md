@@ -5,6 +5,18 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.25.4] - 2026-02-28
+
+### Added
+- **workspace**: Added `rayon` as a workspace dependency
+- **sevenmark_transform**: Added `rayon` dependency
+
+### Changed
+- **sevenmark_transform**: Switched include-document parsing from sequential iteration to parallel parsing via `rayon` (`into_par_iter`)
+- **sevenmark_server**: Moved `parse_document` execution to `tokio::task::spawn_blocking` in render routes (`render_document`, `render_discussion`) to avoid blocking async worker threads
+- **sevenmark_parser**: Simplified root document parsing path by removing intermediate nested `Vec` flattening (`repeat(...).flatten` -> `opt(element_parser).unwrap_or_default()`)
+- **sevenmark_parser**: Optimized UUID string construction in mention parsing (`format!` -> preallocated `String::with_capacity(36)` + `push_str`/`push`)
+
 ## [2.25.3] - 2026-02-23
 
 ### Fixed

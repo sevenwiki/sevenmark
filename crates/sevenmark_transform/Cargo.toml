@@ -24,3 +24,4 @@ anyhow = { workspace = true }
 aws-sdk-s3 = { workspace = true }
 zstd = { workspace = true }
 futures = { workspace = true }
+rayon = { workspace = true }

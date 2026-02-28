@@ -3,7 +3,7 @@ use crate::parser::brace::brace_redirect_parser;
 use crate::parser::element::element_parser;
 use sevenmark_ast::Element;
 use winnow::Result;
-use winnow::combinator::repeat;
+use winnow::combinator::opt;
 use winnow::prelude::*;
 
 /// 문서 파서 - element들을 반복 파싱 (기존 many0 + alt 패턴)
@@ -15,7 +15,7 @@ pub fn document_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
     }
 
     // redirect가 아니면 기존처럼 모든 element 파싱
-    repeat(0.., element_parser)
-        .map(|elements: Vec<_>| elements.into_iter().flatten().collect())
+    opt(element_parser)
+        .map(|elements| elements.unwrap_or_default())
         .parse_next(parser_input)
 }

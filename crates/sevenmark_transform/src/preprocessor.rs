@@ -1,6 +1,7 @@
 use crate::expression_evaluator::evaluate_condition;
 use crate::wiki::{DocumentNamespace, RevisionStorageClient, fetch_documents_batch};
 use anyhow::Result;
+use rayon::prelude::*;
 use sea_orm::DatabaseConnection;
 use serde::Serialize;
 use sevenmark_ast::{
@@ -103,13 +104,14 @@ pub async fn preprocess_sevenmark(
         let fetched_docs = fetch_documents_batch(db, revision_storage, requests).await?;
 
         // Parse fetched documents and store in map
-        let mut docs_map: HashMap<String, Vec<Element>> = HashMap::new();
-
-        for doc in fetched_docs {
-            let doc_key = format!("{}:{}", namespace_to_string(&doc.namespace), doc.title);
-            let parsed_ast = parse_document(&doc.current_revision.content);
-            docs_map.insert(doc_key, parsed_ast);
-        }
+        let docs_map: HashMap<String, Vec<Element>> = fetched_docs
+            .into_par_iter()
+            .map(|doc| {
+                let doc_key = format!("{}:{}", namespace_to_string(&doc.namespace), doc.title);
+                let parsed_ast = parse_document(&doc.current_revision.content);
+                (doc_key, parsed_ast)
+            })
+            .collect();
 
         // Substitute includes with their content
         substitute_includes(&mut ast, &docs_map, &mut all_media);

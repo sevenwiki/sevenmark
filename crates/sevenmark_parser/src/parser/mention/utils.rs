@@ -19,5 +19,16 @@ pub fn parse_uuid(parser_input: &mut ParserInput) -> Result<String> {
     )
     .parse_next(parser_input)?;
 
-    Ok(format!("{}-{}-{}-{}-{}", part1, part2, part3, part4, part5))
+    let mut uuid = String::with_capacity(36);
+    uuid.push_str(part1);
+    uuid.push('-');
+    uuid.push_str(part2);
+    uuid.push('-');
+    uuid.push_str(part3);
+    uuid.push('-');
+    uuid.push_str(part4);
+    uuid.push('-');
+    uuid.push_str(part5);
+
+    Ok(uuid)
 }
