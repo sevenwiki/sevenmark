@@ -128,6 +128,7 @@ pub enum Element {
     // Line elements
     SoftBreak(SoftBreakElement),
     HardBreak(HardBreakElement),
+    Clear(ClearElement),
     HLine(HLineElement),
     Header(HeaderElement),
 
@@ -173,6 +174,7 @@ impl Element {
             | Element::Subscript(e) => &e.span,
             Element::SoftBreak(e) => &e.span,
             Element::HardBreak(e) => &e.span,
+            Element::Clear(e) => &e.span,
             Element::HLine(e) => &e.span,
             Element::Header(e) => &e.span,
             Element::If(e) => &e.span,

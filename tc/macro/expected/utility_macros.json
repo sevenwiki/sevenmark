@@ -20,9 +20,34 @@
     "Text": {
       "span": {
         "start": 24,
-        "end": 42
+        "end": 37
       },
-      "value": " after null macro."
+      "value": " clear macro "
+    }
+  },
+  {
+    "Clear": {
+      "span": {
+        "start": 37,
+        "end": 44
+      }
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 44,
+        "end": 57
+      },
+      "value": " after clear."
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 57,
+        "end": 58
+      }
     }
   }
 ]

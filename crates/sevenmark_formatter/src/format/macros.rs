@@ -17,6 +17,10 @@ pub fn format_hard_break<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
     a.text("[br]")
 }
 
+pub fn format_clear<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
+    a.text("[clear]")
+}
+
 pub fn format_hline<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
     a.text("----")
 }

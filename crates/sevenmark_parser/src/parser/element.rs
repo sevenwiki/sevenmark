@@ -18,8 +18,8 @@ use crate::parser::brace::{
 use crate::parser::bracket::{bracket_external_media_parser, bracket_media_parser};
 use crate::parser::comment::{inline_comment_parser, multiline_comment_parser};
 use crate::parser::r#macro::{
-    macro_age_parser, macro_footnote_parser, macro_newline_parser, macro_now_parser,
-    macro_null_parser, macro_variable_parser,
+    macro_age_parser, macro_clear_parser, macro_footnote_parser, macro_newline_parser,
+    macro_now_parser, macro_null_parser, macro_variable_parser,
 };
 use sevenmark_ast::Element;
 use winnow::Result;
@@ -56,6 +56,7 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
                 bracket_media_parser,
                 macro_now_parser,
                 macro_newline_parser,
+                macro_clear_parser,
                 macro_variable_parser,
                 macro_age_parser,
                 macro_footnote_parser,

@@ -109,6 +109,7 @@ fn hover_content(element: &Element) -> Option<String> {
         | Element::Age(_)
         | Element::SoftBreak(_)
         | Element::HardBreak(_)
+        | Element::Clear(_)
         | Element::HLine(_) => return None,
     };
     Some(text)

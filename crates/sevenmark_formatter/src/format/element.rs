@@ -56,6 +56,7 @@ pub fn format_element<'a>(
         // Line elements
         Element::SoftBreak(_) => a.hardline(),
         Element::HardBreak(_) => macros::format_hard_break(a),
+        Element::Clear(_) => macros::format_clear(a),
         Element::HLine(_) => macros::format_hline(a),
 
         // Macros

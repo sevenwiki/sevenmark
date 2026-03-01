@@ -325,6 +325,7 @@ fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
     let macros = [
         ("var", "var($1)]", "Variable reference"),
         ("br", "br]", "Line break"),
+        ("clear", "clear]", "Float clear"),
         ("null", "null]", "Null (no output)"),
         ("fn", "fn]", "Footnote reference"),
         ("now", "now]", "Current time"),
@@ -903,6 +904,7 @@ mod tests {
         let l = labels(&c);
         assert!(l.contains(&"var"));
         assert!(l.contains(&"br"));
+        assert!(l.contains(&"clear"));
     }
 
     #[test]

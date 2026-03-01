@@ -287,6 +287,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
             | Element::Subscript(_)
             | Element::SoftBreak(_)
             | Element::HardBreak(_)
+            | Element::Clear(_)
             | Element::HLine(_)
             | Element::Header(_) => {
                 let span = element.span();
@@ -368,6 +369,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
         | Element::Mention(_)
         | Element::SoftBreak(_)
         | Element::HardBreak(_)
+        | Element::Clear(_)
         | Element::HLine(_) => {}
     }
 }
@@ -425,6 +427,7 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
         | Element::Subscript(_)
         | Element::SoftBreak(_)
         | Element::HardBreak(_)
+        | Element::Clear(_)
         | Element::HLine(_)
         | Element::Header(_)
         | Element::Category(_)
@@ -674,6 +677,7 @@ fn element_token_type(element: &Element) -> u32 {
         Element::Subscript(_) => TokenIdx::Subscript.as_u32(),
         Element::SoftBreak(_) => TokenIdx::SoftBreak.as_u32(),
         Element::HardBreak(_) => TokenIdx::HardBreak.as_u32(),
+        Element::Clear(_) => TokenIdx::HardBreak.as_u32(),
         Element::HLine(_) => TokenIdx::HLine.as_u32(),
         Element::Header(h) if h.is_folded => TokenIdx::FoldedHeader.as_u32(),
         Element::Header(_) => TokenIdx::Header.as_u32(),

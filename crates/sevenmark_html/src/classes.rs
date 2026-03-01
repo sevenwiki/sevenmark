@@ -87,6 +87,7 @@ pub const RUBY: &str = "sm-ruby";
 // Macros (client-rendered)
 pub const AGE: &str = "sm-age";
 pub const TIMENOW: &str = "sm-timenow";
+pub const CLEAR: &str = "sm-clear";
 
 // Variables
 pub const VARIABLE: &str = "sm-variable";

@@ -80,6 +80,7 @@ All text style variants share the same `TextStyleElement` structure with `span`,
 | `TimeNow` | Current time `[now]` |
 | `Age` | Age calculation `[age(date)]` |
 | `Null` | No-op macro `[null]` |
+| `Clear` | Float clear macro `[clear]` |
 | `FootnoteRef` | Footnote list macro `[fn]` |
 
 ## Common Element Fields

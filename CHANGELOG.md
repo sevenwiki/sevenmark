@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.25.5] - 2026-03-01
+
+### Added
+- **sevenmark_ast**: Added `ClearElement` and `Element::Clear` for `[clear]` macro support
+- **sevenmark_parser**: Added `macro_clear_parser` and wired `[clear]` into element dispatch
+- **sevenmark_html**: Added clear macro renderer (`render/macro/clear.rs`) outputting `<div class="sm-clear" style="clear: both;">`
+- **sevenmark_formatter**: Added `[clear]` formatter path and regression test (`test_clear`)
+- **sevenmark_lsp_core**: Added `[clear]` macro completion item and Clear-aware hover/semantic-token handling
+
+### Changed
+- **docs**: Updated macro documentation to include `[clear]` usage (`docs/index.md`, `docs/grammar/macros.md`, `docs/api/ast.md`)
+- **tests**: Updated macro fixture input and regenerated parser expected outputs via `gen_expected` with `include_locations`
+
 ## [2.25.4] - 2026-02-28
 
 ### Added

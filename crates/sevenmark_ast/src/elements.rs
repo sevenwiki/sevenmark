@@ -39,6 +39,13 @@ pub struct HardBreakElement {
     pub span: Span,
 }
 
+/// 플로트 해제 [clear]
+#[derive(Debug, Clone, Serialize)]
+pub struct ClearElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+}
+
 /// 수평선 ----
 #[derive(Debug, Clone, Serialize)]
 pub struct HLineElement {

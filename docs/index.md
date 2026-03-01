@@ -86,7 +86,7 @@ Current time: [now] // This is a comment
 ### Advanced Features
 
 - Comments: `// inline` and `/* multiline */`
-- Macros: `[now]`, `[age(1990-01-01)]`, `[var(name)]`, `[br]`, `[fn]`, `[null]`
+- Macros: `[now]`, `[age(1990-01-01)]`, `[var(name)]`, `[br]`, `[clear]`, `[fn]`, `[null]`
 - Variables: `{{{#define #name="key" #value="val"}}}` + `[var(key)]`
 - Variable Shadowing: Later definitions override earlier ones
 - Conditionals: `{{{#if [var(x)] == "value" :: content }}}`

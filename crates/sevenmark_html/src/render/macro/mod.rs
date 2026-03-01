@@ -1,6 +1,7 @@
 //! Macro element renderers ([...])
 
 pub mod age;
+pub mod clear;
 pub mod footnote;
 pub mod hline;
 pub mod newline;

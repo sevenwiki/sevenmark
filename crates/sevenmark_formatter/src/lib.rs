@@ -103,6 +103,11 @@ mod tests {
     }
 
     #[test]
+    fn test_clear() {
+        assert_eq!(roundtrip("[clear]"), "[clear]");
+    }
+
+    #[test]
     fn test_hline() {
         assert_eq!(roundtrip("----"), "----\n");
     }

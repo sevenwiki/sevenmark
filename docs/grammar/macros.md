@@ -33,6 +33,16 @@ Insert a line break:
 Line break:[br]Next line
 ```
 
+### Clear Float
+
+Clear preceding floated content and continue from the next block line:
+
+```sevenmark
+[[#file="sample.png" #style="float:right; width:180px"]]
+[clear]
+This text starts below the floated image.
+```
+
 ### Null Macro
 
 The null macro produces no output:
@@ -50,6 +60,7 @@ Macros can be used within other elements:
 [[Item with current time: [now]]]
 [[Person born in 1990 is [age(1990-01-01)] years old]]
 [[Line 1[br]Line 2 in same item]]
+[[Before clear [clear] after clear]]
 }}}
 ```
 

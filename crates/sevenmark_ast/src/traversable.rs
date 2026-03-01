@@ -41,6 +41,7 @@ impl Traversable for Element {
             | Element::Mention(_)
             | Element::SoftBreak(_)
             | Element::HardBreak(_)
+            | Element::Clear(_)
             | Element::HLine(_) => {}
 
             // === children 필드만 있는 노드들 ===
@@ -156,6 +157,7 @@ impl Traversable for Element {
             | Element::Mention(_)
             | Element::SoftBreak(_)
             | Element::HardBreak(_)
+            | Element::Clear(_)
             | Element::HLine(_) => {}
 
             Element::Literal(e) => e.children.iter().for_each(visitor),
@@ -265,6 +267,7 @@ impl Traversable for Element {
             | Element::Mention(_)
             | Element::SoftBreak(_)
             | Element::HardBreak(_)
+            | Element::Clear(_)
             | Element::HLine(_)
             | Element::If(_) => {}
 

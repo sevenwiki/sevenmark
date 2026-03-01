@@ -102,6 +102,7 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         // Line breaks
         Element::SoftBreak(_) => r#macro::newline::render_soft_break(ctx),
         Element::HardBreak(_) => r#macro::newline::render_hard_break(),
+        Element::Clear(_) => r#macro::clear::render(),
 
         // Macros
         Element::HLine(_) => r#macro::hline::render(),
