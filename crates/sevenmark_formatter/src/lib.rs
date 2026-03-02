@@ -157,6 +157,24 @@ mod tests {
     }
 
     #[test]
+    fn test_styled_with_nested_code_roundtrip_stable() {
+        let input = "{{{ #style=\"color:red\"\n{{{#code\nfn main() {}\n}}}\n}}}";
+        assert_ast_roundtrip_stable(input, "styled nested raw code");
+    }
+
+    #[test]
+    fn test_if_with_nested_tex_roundtrip_stable() {
+        let input = "{{{#if true ::\n{{{#tex #block\nx^2\n}}}\n}}}";
+        assert_ast_roundtrip_stable(input, "if nested raw tex");
+    }
+
+    #[test]
+    fn test_blockquote_with_nested_css_roundtrip_stable() {
+        let input = "{{{#quote\n{{{#css\n.x::after { content: \"}}}\"; }\n}}}\n}}}";
+        assert_ast_roundtrip_stable(input, "blockquote nested raw css");
+    }
+
+    #[test]
     fn test_multiline_text() {
         let input = "line1\nline2\nline3";
         let output = roundtrip(input);

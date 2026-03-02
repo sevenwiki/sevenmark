@@ -2,6 +2,7 @@ use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::CategoryElement;
 
 use crate::FormatConfig;
+use crate::format::brace::raw::needs_line_break_before_brace_close;
 use crate::format::element::format_elements;
 
 pub fn format_category<'a>(
@@ -9,11 +10,17 @@ pub fn format_category<'a>(
     e: &CategoryElement,
     config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
+    let closing = if needs_line_break_before_brace_close(&e.children) {
+        a.hardline().append(a.text("}}}"))
+    } else {
+        a.text("}}}")
+    };
+
     a.text("{{{#category")
         .append(if e.children.is_empty() {
             a.nil()
         } else {
             a.text(" ").append(format_elements(a, &e.children, config))
         })
-        .append(a.text("}}}"))
+        .append(closing)
 }

@@ -17,15 +17,13 @@ fn sanitize_style_close_tag(value: &str) -> String {
         let tag_start = start + 2;
         let tag_end = tag_start + 5; // "style"
         if tag_end <= bytes.len() && bytes[tag_start..tag_end].eq_ignore_ascii_case(b"style") {
-            let mut j = tag_end;
-            while j < bytes.len() && bytes[j].is_ascii_whitespace() {
-                j += 1;
-            }
-
-            if j < bytes.len() && bytes[j] == b'>' {
+            // Accept any non-alphanumeric boundary after `style`, e.g.
+            // `</style>`, `</style   >`, or `</style foo=bar>`.
+            let boundary_ok = tag_end == bytes.len() || !bytes[tag_end].is_ascii_alphanumeric();
+            if boundary_ok {
                 out.push_str("<\\/");
-                out.push_str(&value[tag_start..=j]);
-                i = j + 1;
+                out.push_str(&value[tag_start..tag_end]);
+                i = tag_end;
                 continue;
             }
         }
@@ -70,6 +68,22 @@ mod tests {
         assert_eq!(
             sanitize_style_close_tag("a</STYLE   >b"),
             "a<\\/STYLE   >b".to_string()
+        );
+    }
+
+    #[test]
+    fn sanitizes_style_close_tag_with_attributes() {
+        assert_eq!(
+            sanitize_style_close_tag("a</style foo=bar>b"),
+            "a<\\/style foo=bar>b".to_string()
+        );
+    }
+
+    #[test]
+    fn does_not_sanitize_style_prefix_of_longer_tag_name() {
+        assert_eq!(
+            sanitize_style_close_tag("a</stylex>b"),
+            "a</stylex>b".to_string()
         );
     }
 }

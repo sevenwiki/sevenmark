@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.1] - 2026-03-02
+
+### Fixed
+- **sevenmark_formatter**: Prevented nested raw-block close collisions by emitting a separator line before parent brace closers when the final meaningful child is `#code`, `#tex`, or `#css` (avoids `...}}}}}}` output that breaks re-parse under line-only raw closer rules)
+- **sevenmark_html**: Hardened CSS sanitizer to neutralize `</style ...>` end-tag variants (including attribute forms like `</style foo=bar>`) before `PreEscaped` injection
+
+### Added
+- **tests**: Added formatter roundtrip regressions for nested raw blocks inside brace containers (`styled`, `if`, `quote`)
+- **tests**: Added CSS sanitizer tests for attribute-bearing close tags and non-matching longer tag names (`</stylex>`)
+
 ## [2.26.0] - 2026-03-02
 
 ### Added
