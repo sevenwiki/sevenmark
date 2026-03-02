@@ -2,7 +2,6 @@ use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::FootnoteElement;
 
 use crate::FormatConfig;
-use crate::format::brace::raw::needs_line_break_before_brace_close;
 use crate::format::element::format_elements;
 use crate::format::params::format_params_block;
 
@@ -11,12 +10,6 @@ pub fn format_footnote<'a>(
     e: &FootnoteElement,
     config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
-    let closing = if needs_line_break_before_brace_close(&e.children) {
-        a.hardline().append(a.text("}}}"))
-    } else {
-        a.text("}}}")
-    };
-
     a.text("{{{#fn")
         .append(format_params_block(a, &e.parameters, config))
         .append(if e.children.is_empty() {
@@ -24,5 +17,5 @@ pub fn format_footnote<'a>(
         } else {
             a.text(" ").append(format_elements(a, &e.children, config))
         })
-        .append(closing)
+        .append(a.text("}}}"))
 }

@@ -1,4 +1,3 @@
 {{{#css
-.a::after { content: "}}}"; }
-\}}}
+.a::after { content: "ok"; }
 }}}

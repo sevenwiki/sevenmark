@@ -30,17 +30,16 @@ SevenMark supports raw CSS blocks with `{{{#css ... }}}`.
 
 `#css` uses the same raw close rule as `#code` and `#tex`:
 
-1. The block closes only when a line is exactly `}}}` (leading/trailing spaces allowed).
-2. `}}}` in the middle of a line is treated as CSS text.
-3. If you need a literal line-only closer, write `\}}}` (parsed as `}}}` content).
+1. The block closes at the first `}}}` sequence.
+2. A literal `}}}` cannot appear inside CSS content.
+3. Prefer splitting text to avoid producing `}}}` inside raw CSS.
 
 Example:
 
 ```sevenmark
 {{{#css
-.a::after { content: "}}}"; } /* not a closer */
-\}}}                          /* literal line-only closer */
-}}}                           /* actual close */
+.profile-card { border: 1px solid #ddd; } /* normal CSS */
+}}}
 ```
 
 ## Notes

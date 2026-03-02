@@ -5,6 +5,21 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.5] - 2026-03-02
+
+### Changed
+- **sevenmark_parser**: Reverted `#code/#tex/#css` raw parsing to first-closer semantics (`take_until("}}}")`) instead of line-only closer scanning
+- **sevenmark_formatter**: Rolled back raw-specific close formatting behavior to the pre-special-case style (no raw-only bracket/brace close line-break heuristics)
+- **sevenmark_formatter**: `#code/#tex/#css` now emit content directly followed by `}}}` without automatic line-only closer escaping
+- **docs**: Updated raw block grammar notes (`code`, `tex`, `css`, index) to match first-closer semantics
+
+### Removed
+- **sevenmark_parser**: Removed shared raw line-closer utility module (`utils_raw_block`)
+- **sevenmark_formatter**: Removed raw close helper module used for raw-tail close heuristics
+
+### Fixed
+- **tests/tc**: Updated parser regression expectations and `tc/brace/css` fixture/expected output to align with reverted raw closer rules
+
 ## [2.26.3] - 2026-03-02
 
 ### Changed

@@ -9,7 +9,6 @@ pub mod footnote;
 pub mod include;
 pub mod list;
 pub mod literal;
-mod raw;
 pub mod redirect;
 pub mod ruby;
 pub mod styled;

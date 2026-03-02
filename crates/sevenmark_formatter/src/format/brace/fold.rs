@@ -2,7 +2,6 @@ use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::{FoldElement, FoldInnerElement};
 
 use crate::FormatConfig;
-use crate::format::brace::raw::needs_line_break_before_bracket_close;
 use crate::format::element::format_elements;
 use crate::format::params::{format_params_block, format_params_block_tight};
 
@@ -34,11 +33,6 @@ fn format_fold_inner<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &inner.parameters, config);
     let has_params = !inner.parameters.is_empty();
-    let closing = if needs_line_break_before_bracket_close(&inner.children) {
-        a.hardline().append(a.text("]]"))
-    } else {
-        a.text("]]")
-    };
     a.text("[[")
         .append(params)
         .append(if inner.children.is_empty() {
@@ -49,5 +43,5 @@ fn format_fold_inner<'a>(
         } else {
             format_elements(a, &inner.children, config)
         })
-        .append(closing)
+        .append(a.text("]]"))
 }

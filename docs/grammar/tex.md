@@ -6,7 +6,7 @@ TeX elements allow you to include mathematical expressions and formulas using La
 
 ## TeX Expressions
 
-TeX always uses the raw block form (`{{{#tex` ... line-only `}}}`). Without
+TeX always uses the raw block form (`{{{#tex` ... `}}}`). Without
 `#block`, renderers can still present the result as inline math:
 
 ```sevenmark
@@ -361,8 +361,8 @@ f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}
 - TeX elements use standard LaTeX math syntax
 - The `#block` parameter marks math for display-style presentation
 - Without `#block`, math is marked for inline presentation
-- The closer `}}}` must appear on its own line (`^[ \t]*}}}[ \t]*$`)
-- To include a literal line-only closer in content, write `\}}}` (parsed as `}}}`)
+- The block closes at the first `}}}` sequence encountered in content
+- A literal `}}}` cannot appear inside `#tex` content
 - Complex expressions may require proper grouping with braces `{}`
 - Most standard LaTeX math commands are supported in the syntax
 - The parser preserves the LaTeX content as-is within the AST

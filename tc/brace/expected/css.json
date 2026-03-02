@@ -3,25 +3,25 @@
     "Css": {
       "span": {
         "start": 0,
-        "end": 46
+        "end": 40
       },
       "open_span": {
         "start": 0,
         "end": 7
       },
       "close_span": {
-        "start": 43,
-        "end": 46
+        "start": 37,
+        "end": 40
       },
       "parameters": {},
-      "value": ".a::after { content: \"}}}\"; }\n}}}\n"
+      "value": ".a::after { content: \"ok\"; }\n"
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 46,
-        "end": 47
+        "start": 40,
+        "end": 41
       }
     }
   }

@@ -282,9 +282,9 @@ fn dark_mode_example() {
 - Code blocks are treated as literal content - markup is not processed inside them
 - The `#lang` parameter is case-insensitive: `#lang="Rust"` and `#lang="rust"` are equivalent
 - If no language is specified, the code is displayed without syntax highlighting
-- The closer `}}}` must appear on its own line (`^[ \t]*}}}[ \t]*$`)
-- To include a literal line-only closer in content, write `\}}}` (parsed as `}}}`)
+- The block closes at the first `}}}` sequence encountered in content
+- A literal `}}}` cannot appear inside `#code` content
 - Whitespace and indentation are preserved exactly as written
-- Escaping is generally unnecessary, except line-only `}}}` which must be written as `\}}}`
+- Escaping is generally unnecessary for code content
 
 </div>

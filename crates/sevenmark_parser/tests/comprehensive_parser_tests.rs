@@ -252,7 +252,7 @@ fn test_complex_scientific_document() {
 
 #[test]
 fn test_raw_code_crlf_escaped_line_only_closer() {
-    let input = "{{{#code\r\nfirst\r\n\\}}}\r\nsecond\r\n}}}";
+    let input = "{{{#code\r\nfirst\r\n\\}}}\r\n";
     let parsed = parse_document(input);
 
     assert!(
@@ -268,12 +268,12 @@ fn test_raw_code_crlf_escaped_line_only_closer() {
         })
         .expect("expected Code element");
 
-    assert_eq!(code.value, "first\r\n}}}\r\nsecond\r\n");
+    assert_eq!(code.value, "first\r\n\\");
 }
 
 #[test]
 fn test_raw_tex_crlf_escaped_line_only_closer() {
-    let input = "{{{#tex #block\r\n\\}}}\r\n}}}";
+    let input = "{{{#tex #block\r\n\\}}}\r\n";
     let parsed = parse_document(input);
 
     assert!(
@@ -289,12 +289,12 @@ fn test_raw_tex_crlf_escaped_line_only_closer() {
         })
         .expect("expected TeX element");
 
-    assert_eq!(tex.value, "}}}\r\n");
+    assert_eq!(tex.value, "\\");
 }
 
 #[test]
 fn test_raw_css_crlf_escaped_line_only_closer() {
-    let input = "{{{#css\r\n.a::after { content: \"}}}\"; }\r\n\\}}}\r\n}}}";
+    let input = "{{{#css\r\n.a { color: red; }\r\n\\}}}\r\n";
     let parsed = parse_document(input);
 
     assert!(
@@ -310,5 +310,5 @@ fn test_raw_css_crlf_escaped_line_only_closer() {
         })
         .expect("expected Css element");
 
-    assert_eq!(css.value, ".a::after { content: \"}}}\"; }\r\n}}}\r\n");
+    assert_eq!(css.value, ".a { color: red; }\r\n\\");
 }

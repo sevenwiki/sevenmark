@@ -2,7 +2,6 @@ use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::{ConditionalListItems, ListContentItem, ListElement, ListItemElement};
 
 use crate::FormatConfig;
-use crate::format::brace::raw::needs_line_break_before_bracket_close;
 use crate::format::element::format_elements;
 use crate::format::expression::format_expr;
 use crate::format::params::{format_params_block, format_params_block_tight};
@@ -45,12 +44,6 @@ fn format_list_item<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &li.parameters, config);
     let has_params = !li.parameters.is_empty();
-    let closing = if needs_line_break_before_bracket_close(&li.children) {
-        a.hardline().append(a.text("]]"))
-    } else {
-        a.text("]]")
-    };
-
     a.text("[[")
         .append(params)
         .append(if li.children.is_empty() {
@@ -60,7 +53,7 @@ fn format_list_item<'a>(
         } else {
             format_elements(a, &li.children, config)
         })
-        .append(closing)
+        .append(a.text("]]"))
 }
 
 fn format_conditional_list_items<'a>(
