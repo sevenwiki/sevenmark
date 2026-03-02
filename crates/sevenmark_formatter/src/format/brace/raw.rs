@@ -37,15 +37,28 @@ pub fn escape_line_only_closer(value: &str, closer: &str) -> String {
 }
 
 pub fn needs_line_break_before_brace_close(children: &[Element]) -> bool {
-    let last_semantic = children
-        .iter()
-        .rev()
-        .find(|el| !is_ignorable_trailing_text(el));
+    let last_semantic = last_semantic_element(children);
 
     matches!(
         last_semantic,
         Some(Element::Code(_) | Element::TeX(_) | Element::Css(_))
     )
+}
+
+pub fn needs_line_break_before_bracket_close(children: &[Element]) -> bool {
+    let last_semantic = last_semantic_element(children);
+
+    matches!(
+        last_semantic,
+        Some(Element::Code(_) | Element::TeX(_) | Element::Css(_))
+    )
+}
+
+fn last_semantic_element(children: &[Element]) -> Option<&Element> {
+    children
+        .iter()
+        .rev()
+        .find(|el| !is_ignorable_trailing_text(el))
 }
 
 fn is_ignorable_trailing_text(el: &Element) -> bool {

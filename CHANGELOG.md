@@ -5,6 +5,17 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.3] - 2026-03-02
+
+### Changed
+- **sevenmark_formatter**: Bracket closers (`]]`) now break to a new line only when the final meaningful child is raw (`#code`, `#tex`, `#css`); non-raw trailing children keep inline closing (`...}}}]]`)
+
+### Fixed
+- **sevenmark_formatter**: Prevented bracket-close separator accumulation across repeated formatting passes (idempotency preserved)
+
+### Added
+- **tests**: Added formatter regressions for list-item closing behavior (`non-raw -> inline close`, `raw -> next-line close`)
+
 ## [2.26.2] - 2026-03-02
 
 ### Fixed

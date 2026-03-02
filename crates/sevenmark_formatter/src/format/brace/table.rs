@@ -5,6 +5,7 @@ use sevenmark_ast::{
 };
 
 use crate::FormatConfig;
+use crate::format::brace::raw::needs_line_break_before_bracket_close;
 use crate::format::element::format_elements;
 use crate::format::expression::format_expr;
 use crate::format::params::{format_params_block, format_params_block_tight};
@@ -83,7 +84,7 @@ fn format_cell<'a>(
         format_elements(a, &cell.children, config)
     };
 
-    let closing = if needs_line_break_before_cell_close(&cell.children) {
+    let closing = if needs_line_break_before_bracket_close(&cell.children) {
         a.hardline().append(a.text("]]"))
     } else {
         a.text("]]")
@@ -126,37 +127,4 @@ fn format_conditional_cells<'a>(
         .append(a.line().append(cells).nest(indent).group())
         .append(a.hardline())
         .append(a.text("}}}"))
-}
-
-fn needs_line_break_before_cell_close(children: &[sevenmark_ast::Element]) -> bool {
-    let last_semantic = children
-        .iter()
-        .rev()
-        .find(|el| !is_ignorable_trailing_text(el));
-
-    matches!(
-        last_semantic,
-        Some(
-            sevenmark_ast::Element::Table(_)
-                | sevenmark_ast::Element::List(_)
-                | sevenmark_ast::Element::Fold(_)
-                | sevenmark_ast::Element::Code(_)
-                | sevenmark_ast::Element::TeX(_)
-                | sevenmark_ast::Element::Css(_)
-                | sevenmark_ast::Element::BlockQuote(_)
-                | sevenmark_ast::Element::Literal(_)
-                | sevenmark_ast::Element::Styled(_)
-                | sevenmark_ast::Element::Include(_)
-                | sevenmark_ast::Element::Footnote(_)
-                | sevenmark_ast::Element::If(_)
-        )
-    )
-}
-
-fn is_ignorable_trailing_text(el: &sevenmark_ast::Element) -> bool {
-    match el {
-        sevenmark_ast::Element::Text(t) => t.value.chars().all(|c| matches!(c, ' ' | '\t' | '\r')),
-        sevenmark_ast::Element::SoftBreak(_) => true,
-        _ => false,
-    }
 }

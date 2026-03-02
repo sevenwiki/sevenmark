@@ -175,6 +175,26 @@ mod tests {
     }
 
     #[test]
+    fn test_list_trailing_non_raw_keeps_inline_close() {
+        let input = "{{{#list\n[[x{{{#fn y}}}]]\n}}}";
+        let output = roundtrip(input);
+        assert!(
+            output.contains("{{{#fn y}}}]]"),
+            "expected inline close after footnote, got:\n{output}"
+        );
+    }
+
+    #[test]
+    fn test_list_trailing_raw_still_closes_on_next_line() {
+        let input = "{{{#list\n[[{{{#code\nx\n}}}\n]]\n}}}";
+        let output = roundtrip(input).replace("\r\n", "\n");
+        assert!(
+            !output.contains("}}} ]]"),
+            "raw close must not share a line with list close, got:\n{output}"
+        );
+    }
+
+    #[test]
     fn test_multiline_text() {
         let input = "line1\nline2\nline3";
         let output = roundtrip(input);
