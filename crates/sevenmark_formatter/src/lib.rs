@@ -152,7 +152,10 @@ mod tests {
             value: "x}".to_string(),
         })];
 
-        assert_eq!(format_document(&elements, &FormatConfig::default()), "{{{#code\nx} }}}");
+        assert_eq!(
+            format_document(&elements, &FormatConfig::default()),
+            "{{{#code\nx} }}}"
+        );
     }
 
     #[test]
@@ -165,7 +168,10 @@ mod tests {
             value: "x}".to_string(),
         })];
 
-        assert_eq!(format_document(&elements, &FormatConfig::default()), "{{{#tex\nx} }}}");
+        assert_eq!(
+            format_document(&elements, &FormatConfig::default()),
+            "{{{#tex\nx} }}}"
+        );
     }
 
     #[test]
@@ -178,7 +184,10 @@ mod tests {
             value: "x}".to_string(),
         })];
 
-        assert_eq!(format_document(&elements, &FormatConfig::default()), "{{{#css\nx} }}}");
+        assert_eq!(
+            format_document(&elements, &FormatConfig::default()),
+            "{{{#css\nx} }}}"
+        );
     }
 
     #[test]

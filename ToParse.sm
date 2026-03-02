@@ -1,6 +1,6 @@
-    [[ {{{#tex
-    \text{\OE}
-    }}}, {{{#tex
-    \text{\oe}
-    }}}
-    ]]
+{{{#code #lang="dd"
+
+{{{ }}}
+{{{ }}}
+waefwaefawefwef
+}}}
