@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.2] - 2026-03-02
+
+### Fixed
+- **sevenmark_html**: Tightened CSS close-tag sanitization boundary checks so only valid `</style...>` closing-tag contexts are neutralized (prevents false-positive rewriting of non-closing names like `</style-foo>`)
+- **sevenmark_lsp_core**: Added missing `#style` parameter completion for `{{{#code ...}}}` to match renderer-supported style parameters
+
+### Added
+- **tests**: Added CSS sanitizer regression coverage for hyphenated non-closing tag names (`</style-foo>`)
+
 ## [2.26.1] - 2026-03-02
 
 ### Fixed

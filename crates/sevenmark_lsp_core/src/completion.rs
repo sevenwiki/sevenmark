@@ -490,6 +490,7 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
     match element {
         "code" => &[
             ("lang", "Programming language", false),
+            ("style", "CSS style", false),
             ("class", "CSS classes", false),
             ("dark", "Dark mode style override", false),
         ],
@@ -895,6 +896,7 @@ mod tests {
     fn brace_code_param() {
         let c = completions("{{{#code #");
         assert!(c.iter().any(|c| c.label == "lang"));
+        assert!(c.iter().any(|c| c.label == "style"));
     }
 
     #[test]
