@@ -296,9 +296,9 @@ When an expression is used as a boolean (e.g., in logical operators), SevenMark 
 Unlike some languages, the strings `"0"` and `"false"` evaluate to **true** because they are non-empty strings:
 
 ```sevenmark
-{{{#define #value="0"}}}
+{{{#define #zeroText="0"}}}
 
-{{{#if [var(value)]
+{{{#if [var(zeroText)]
 This WILL be shown because "0" is a non-empty string (truthy)
 }}}
 ```

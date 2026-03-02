@@ -87,9 +87,9 @@ Macros can be used within other elements:
 Create template variables using `{{{#define}}}`:
 
 ```sevenmark
-{{{#define #name="projectName" #value="SevenMark"}}}
-{{{#define #name="version" #value="2.0"}}}
-{{{#define #name="author" #value="SevenWiki Team"}}}
+{{{#define #projectName="SevenMark"}}}
+{{{#define #version="2.0"}}}
+{{{#define #author="SevenWiki Team"}}}
 ```
 
 ### Variable Substitution
@@ -106,9 +106,9 @@ Created by [var(author)].
 #### Document Header Template
 
 ```sevenmark
-{{{#define #name="docTitle" #value="API Reference"}}}
-{{{#define #name="docVersion" #value="v1.2.3"}}}
-{{{#define #name="lastUpdate" #value="2024-01-15"}}}
+{{{#define #docTitle="API Reference"}}}
+{{{#define #docVersion="v1.2.3"}}}
+{{{#define #lastUpdate="2024-01-15"}}}
 
 # [var(docTitle)] - [var(docVersion)]
 
@@ -118,8 +118,8 @@ Last updated: [var(lastUpdate)]
 #### Repeated Content
 
 ```sevenmark
-{{{#define #name="companyName" #value="Acme Corporation"}}}
-{{{#define #name="supportEmail" #value="support@acme.com"}}}
+{{{#define #companyName="Acme Corporation"}}}
+{{{#define #supportEmail="support@acme.com"}}}
 
 Welcome to [var(companyName)]!
 
@@ -137,7 +137,7 @@ For assistance, contact [var(companyName)] support at [var(supportEmail)].
 - Variables can be used in any SevenMark element after definition
 
 ```sevenmark
-{{{#define #name="greeting" #value="Hello"}}}
+{{{#define #greeting="Hello"}}}
 
 # [var(greeting)], World!
 
@@ -152,8 +152,8 @@ For assistance, contact [var(companyName)] support at [var(supportEmail)].
 Since version 2.10.0, variables are processed in **document order** using a single pass. This means a variable defined earlier in the document can be referenced by a later `{{{#define}}}`:
 
 ```sevenmark
-{{{#define #name="baseUrl" #value="https://example.com"}}}
-{{{#define #name="apiUrl" #value="[var(baseUrl)]/api/v1"}}}
+{{{#define #baseUrl="https://example.com"}}}
+{{{#define #apiUrl="[var(baseUrl)]/api/v1"}}}
 
 API endpoint: [var(apiUrl)]
 // Outputs: API endpoint: https://example.com/api/v1
@@ -164,14 +164,14 @@ API endpoint: [var(apiUrl)]
 Combine with conditionals to create dynamic variable chains:
 
 ```sevenmark
-{{{#define #name="env" #value="production"}}}
+{{{#define #env="production"}}}
 
 {{{#if [var(env)] == "production"
-{{{#define #name="apiHost" #value="https://api.example.com"}}}
+{{{#define #apiHost="https://api.example.com"}}}
 }}}
 
 {{{#if [var(env)] == "development"
-{{{#define #name="apiHost" #value="http://localhost:3000"}}}
+{{{#define #apiHost="http://localhost:3000"}}}
 }}}
 
 Connecting to: [var(apiHost)]
@@ -179,8 +179,8 @@ Connecting to: [var(apiHost)]
 
 ### Important Notes
 
-- Variable names should be defined using the `#name` parameter
-- Variable values should be defined using the `#value` parameter
+- Define variables directly with `#key="value"` pairs inside `{{{#define}}}`
+- Example: `{{{#define #projectName="SevenMark"}}}`
 - Variables are resolved in document order — a variable can reference any variable defined **before** it
 - Circular references are not possible because resolution is forward-only (single pass)
 - Undefined variables will produce an error element in the output
