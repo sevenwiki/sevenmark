@@ -36,6 +36,7 @@ pub const CODE_BLOCK: &str = "sm-code-block";
 pub const TEX: &str = "sm-tex";
 pub const TEX_INLINE: &str = "sm-tex-inline";
 pub const TEX_BLOCK: &str = "sm-tex-block";
+pub const CSS: &str = "sm-css";
 
 // Lists
 pub const LIST: &str = "sm-list";

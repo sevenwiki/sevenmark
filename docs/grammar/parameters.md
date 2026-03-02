@@ -6,11 +6,11 @@ SevenMark uses a parameter system to pass key-value data to elements.
 
 ## How Parameters Work
 
-Parameters are **generic key-value pairs** — the parser accepts `#key="value"` and stores it in AST without semantic validation. The key format itself is constrained to ASCII alphanumeric characters (`[A-Za-z0-9]+`), and meaning is decided by the **renderer** (or postprocessor).
+Parameters are **generic key-value pairs** — the parser accepts `#key="value"` and stores it in AST without semantic validation. Key names support Unicode alphanumeric characters plus underscore (`[\p{L}\p{N}_]+`), and meaning is decided by the **renderer** (or postprocessor).
 
 This means:
 - `#color`, `#style`, `#lang` are not special to the parser — they are conventions used by renderers
-- You can pass any **alphanumeric** parameter name and the parser will accept it
+- You can pass any Unicode alphanumeric/underscore parameter name and the parser will accept it
 - Unknown parameters are silently ignored by the renderer (they don't cause errors)
 
 ## Parameter Syntax
@@ -53,11 +53,13 @@ The following parameters are commonly recognized by SevenMark renderers. Remembe
 
 | Parameter | Description | Used By |
 |-----------|-------------|---------|
-| `#style` | Inline CSS styles | Styled elements, tables, lists |
+| `#style` | Inline CSS styles | Styled elements, tables, lists, code |
 | `#color` | Text color | Styled elements |
 | `#bgcolor` | Background color | Styled elements |
 | `#size` | Font size | Styled elements |
 | `#opacity` | Opacity level | Styled elements |
+| `#class` | Extra CSS class names | Styled/code/tex/css and other parameterized blocks |
+| `#dark` | Dark-mode style override string | Styled/code/tex/css and other parameterized blocks |
 
 ## Element-Specific Parameters
 
@@ -129,7 +131,10 @@ Parameters work in nested structures:
 ```sevenmark
 {{{#table #style="border-collapse:collapse"
 [[[[**Header 1**]] [[*Header 2*]] [[~~Header 3~~]]]]
-[[[[Simple cell]] [[{{{#code #lang="python" print("nested code") }}}]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
+[[[[Simple cell]] [[{{{#code #lang="python"
+print("nested code")
+}}}
+]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
 }}}
 ```
 

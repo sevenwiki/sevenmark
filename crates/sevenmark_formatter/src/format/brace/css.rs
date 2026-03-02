@@ -1,15 +1,15 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
-use sevenmark_ast::TeXElement;
+use sevenmark_ast::CssElement;
 
+use crate::FormatConfig;
 use crate::format::brace::raw::escape_line_only_closer;
+use crate::format::params::format_params;
 
-pub fn format_tex<'a>(a: &'a Arena<'a>, e: &TeXElement) -> DocBuilder<'a, Arena<'a>> {
-    let tag = if e.is_block {
-        "{{{#tex #block"
-    } else {
-        "{{{#tex"
-    };
-
+pub fn format_css<'a>(
+    a: &'a Arena<'a>,
+    e: &CssElement,
+    config: &FormatConfig,
+) -> DocBuilder<'a, Arena<'a>> {
     let value = escape_line_only_closer(&e.value, "}}}");
 
     let close_prefix = if value.ends_with('\n') {
@@ -18,7 +18,8 @@ pub fn format_tex<'a>(a: &'a Arena<'a>, e: &TeXElement) -> DocBuilder<'a, Arena<
         a.hardline()
     };
 
-    a.text(tag)
+    a.text("{{{#css")
+        .append(format_params(a, &e.parameters, config))
         .append(a.hardline())
         .append(a.text(value))
         .append(close_prefix)

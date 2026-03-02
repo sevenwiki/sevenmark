@@ -65,16 +65,23 @@ SevenMark supports syntax highlighting for many languages:
 - **haskell**, **scala**, **elixir**
 - And many more!
 
-## Inline Code
+## Code in Text
 
-Use code blocks inline within text:
+Code blocks can be embedded inside sentences, list items, and table cells, but
+the syntax is always the same multiline raw block form:
 
 ```sevenmark
-Use the {{{#code console.log() }}} function to output messages.
+Use the {{{#code
+console.log()
+}}} function to output messages.
 
-Call {{{#code #lang="bash" npm install }}} to install dependencies.
+Call {{{#code #lang="bash"
+npm install
+}}} to install dependencies.
 
-The {{{#code #lang="rust" Vec<T> }}} type is a growable array.
+The {{{#code #lang="rust"
+Vec<T>
+}}} type is a growable array.
 ```
 
 ## Multiline Code Examples
@@ -145,9 +152,18 @@ fetchData('https://api.example.com/data')
 
 ```sevenmark
 {{{#list #1
-[[Install Rust: {{{#code #lang="bash" curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh }}}]]
-[[Create project: {{{#code #lang="bash" cargo new my_project }}}]]
-[[Run project: {{{#code #lang="bash" cargo run }}}]]
+[[Install Rust: {{{#code #lang="bash"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}}}
+]]
+[[Create project: {{{#code #lang="bash"
+cargo new my_project
+}}}
+]]
+[[Run project: {{{#code #lang="bash"
+cargo run
+}}}
+]]
 }}}
 ```
 
@@ -156,9 +172,18 @@ fetchData('https://api.example.com/data')
 ```sevenmark
 {{{#table
 [[[[Language]] [[Hello World]]]]
-[[[[Rust]] [[{{{#code #lang="rust" println!("Hello!"); }}}]]]]
-[[[[Python]] [[{{{#code #lang="python" print("Hello!") }}}]]]]
-[[[[JavaScript]] [[{{{#code #lang="javascript" console.log("Hello!"); }}}]]]]
+[[[[Rust]] [[{{{#code #lang="rust"
+println!("Hello!");
+}}}
+]]]]
+[[[[Python]] [[{{{#code #lang="python"
+print("Hello!")
+}}}
+]]]]
+[[[[JavaScript]] [[{{{#code #lang="javascript"
+console.log("Hello!");
+}}}
+]]]]
 }}}
 ```
 
@@ -236,12 +261,18 @@ let braces = "{{{not a block}}}";
 
 ## Styling
 
-Code blocks support parameters for custom styling:
+Code blocks support styling and class/dark overrides via parameters:
 
 ```sevenmark
 {{{#code #lang="rust" #style="background: #f5f5f5; border-radius: 5px; padding: 10px"
 fn styled_code() {
     println!("Code with custom styling");
+}
+}}}
+
+{{{#code #lang="rust" #class="example-code" #dark="background:#111;color:#eee"
+fn dark_mode_example() {
+    println!("dark override");
 }
 }}}
 ```
@@ -251,8 +282,9 @@ fn styled_code() {
 - Code blocks are treated as literal content - markup is not processed inside them
 - The `#lang` parameter is case-insensitive: `#lang="Rust"` and `#lang="rust"` are equivalent
 - If no language is specified, the code is displayed without syntax highlighting
-- Code blocks can be inline (single line) or block (multiple lines)
+- The closer `}}}` must appear on its own line (`^[ \t]*}}}[ \t]*$`)
+- To include a literal line-only closer in content, write `\}}}` (parsed as `}}}`)
 - Whitespace and indentation are preserved exactly as written
-- No escaping is needed inside code blocks
+- Escaping is generally unnecessary, except line-only `}}}` which must be written as `\}}}`
 
 </div>

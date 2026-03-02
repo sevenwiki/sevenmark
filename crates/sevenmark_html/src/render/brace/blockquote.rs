@@ -3,6 +3,7 @@
 use maud::{Markup, html};
 use sevenmark_ast::{Element, Parameters, Span};
 
+use crate::classes;
 use crate::context::RenderContext;
 use crate::render::{render_elements, utils};
 
@@ -17,12 +18,16 @@ pub fn render(
     ctx.exit_suppress_soft_breaks();
 
     let style = utils::build_style(parameters);
+    let merged_class = utils::merge_class(classes::BLOCKQUOTE, parameters);
+    let dark_style = utils::build_dark_style(parameters);
 
     html! {
         blockquote
+            class=(merged_class)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
             style=[style]
+            data-dark-style=[dark_style]
         { (content) }
     }
 }

@@ -86,7 +86,10 @@ Lists can be nested within other lists:
 [[**Chapter 1**: Introduction]]
 [[Subsection: {{{#list #a [[Point A with *emphasis*]] [[Point B with [now]]] }}} ]]
 [[**Chapter 2**: Advanced Topics]]
-[[Complex item: {{{#fold [[Click here]] [[Hidden: {{{#code #lang="rust" fn main() { println!("Deep!"); } }}}]] }}} ]]
+[[Complex item: {{{#fold [[Click here]] [[Hidden: {{{#code #lang="rust"
+fn main() { println!("Deep!"); }
+}}}
+]] }}} ]]
 [[Final chapter with ^^superscript^^ text]]
 }}}
 ```
@@ -171,7 +174,10 @@ List items can contain any SevenMark elements:
 ```sevenmark
 {{{#list #1
 [[Text styles: **bold**, *italic*, __underline__]]
-[[Code: {{{#code println!("Hello!"); }}}]]
+[[Code: {{{#code
+println!("Hello!");
+}}}
+]]
 [[Tables: {{{#table [[[[Item]] [[Value]]]] [[[[A]] [[1]]]] [[[[B]] [[2]]]] }}}]]
 [[Media: [[#file="example.png" Example image]]]]
 }}}

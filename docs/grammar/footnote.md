@@ -44,7 +44,9 @@ Footnote content can contain other SevenMark elements:
 ```sevenmark
 See details{{{#fn
 Related docs: [[#url="https://example.com" example.com]]
-Code: {{{#code #lang="rust" println!("hi"); }}}
+Code: {{{#code #lang="rust"
+println!("hi");
+}}}
 }}}.
 ```
 

@@ -5,6 +5,58 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.3] - 2026-03-02
+
+### Changed
+- **sevenmark_formatter**: Bracket closers (`]]`) now break to a new line only when the final meaningful child is raw (`#code`, `#tex`, `#css`); non-raw trailing children keep inline closing (`...}}}]]`)
+
+### Fixed
+- **sevenmark_formatter**: Prevented bracket-close separator accumulation across repeated formatting passes (idempotency preserved)
+
+### Added
+- **tests**: Added formatter regressions for list-item closing behavior (`non-raw -> inline close`, `raw -> next-line close`)
+
+## [2.26.2] - 2026-03-02
+
+### Fixed
+- **sevenmark_html**: Tightened CSS close-tag sanitization boundary checks so only valid `</style...>` closing-tag contexts are neutralized (prevents false-positive rewriting of non-closing names like `</style-foo>`)
+- **sevenmark_lsp_core**: Added missing `#style` parameter completion for `{{{#code ...}}}` to match renderer-supported style parameters
+
+### Added
+- **tests**: Added CSS sanitizer regression coverage for hyphenated non-closing tag names (`</style-foo>`)
+
+## [2.26.1] - 2026-03-02
+
+### Fixed
+- **sevenmark_formatter**: Prevented nested raw-block close collisions by emitting a separator line before parent brace closers when the final meaningful child is `#code`, `#tex`, or `#css` (avoids `...}}}}}}` output that breaks re-parse under line-only raw closer rules)
+- **sevenmark_html**: Hardened CSS sanitizer to neutralize `</style ...>` end-tag variants (including attribute forms like `</style foo=bar>`) before `PreEscaped` injection
+
+### Added
+- **tests**: Added formatter roundtrip regressions for nested raw blocks inside brace containers (`styled`, `if`, `quote`)
+- **tests**: Added CSS sanitizer tests for attribute-bearing close tags and non-matching longer tag names (`</stylex>`)
+
+## [2.26.0] - 2026-03-02
+
+### Added
+- **sevenmark_ast**: Added `CssElement` and `Element::Css` for `{{{#css ... }}}` support
+- **sevenmark_parser**: Added `brace_css_parser` and wired `#css` into brace element dispatch
+- **sevenmark_formatter**: Added CSS formatter path and raw-block helper for closer escaping
+- **sevenmark_html**: Added CSS renderer (`render/brace/css.rs`) with safe style-tag close sanitization and `sm-css` class
+- **sevenmark_lsp_core**: Added `css` brace completion, `Element::Css` hover text, semantic token kind, and folding-range support
+- **docs**: Added CSS grammar page (`docs/grammar/css.md`) and sidebar entry
+
+### Changed
+- **sevenmark_parser**: Migrated `#code` and `#tex` from `take_until("}}}")` to raw line-scan parsing (shared with `#css`)
+- **sevenmark_parser**: Raw block closer for `#code/#tex/#css` now closes only on line-only `}}}` (`^[ \\t]*}}}[ \\t]*$`)
+- **sevenmark_parser**: Added line-only literal closer escape handling (`\}}}` -> `}}}` content) for raw blocks
+- **sevenmark_formatter**: `#code/#tex/#css` now always format with closer on a new line and re-escape line-only literal `}}}` as `\}}}`
+- **sevenmark_html**: Parameterized renderers now merge default classes with user `#class` and support `#dark` style override payload
+- **docs**: Updated code/tex examples to multiline raw syntax and documented raw closer rules
+
+### Fixed
+- **sevenmark_html**: `sanitize_style_close_tag` now handles case-insensitive and whitespace-variant `</style>` forms (e.g. `</sTyle>`, `</STYLE   >`)
+- **sevenmark_formatter**: Improved nested block close rendering so delimiter lines are emitted in parser-safe positions
+
 ## [0.25.5] - 2026-03-01
 
 ### Added

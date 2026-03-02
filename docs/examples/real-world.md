@@ -16,10 +16,22 @@ This section demonstrates practical SevenMark usage for common documentation sce
 ## Quick Start!
 
 {{{#list #1
-[[Clone the repository: {{{#code git clone https://github.com/user/project.git }}}]]
-[[Install dependencies: {{{#code npm install }}}]]
-[[Set up environment: {{{#code cp .env.example .env }}}]]
-[[Start development server: {{{#code npm run dev }}}]]
+[[Clone the repository: {{{#code
+git clone https://github.com/user/project.git
+}}}
+]]
+[[Install dependencies: {{{#code
+npm install
+}}}
+]]
+[[Set up environment: {{{#code
+cp .env.example .env
+}}}
+]]
+[[Start development server: {{{#code
+npm run dev
+}}}
+]]
 }}}
 
 ## Features
@@ -312,7 +324,10 @@ cd dataanalyzer && make install
 
 **Solution:**
 {{{#list #1
-[[Increase JVM heap size: {{{#code -Xmx8g }}}]]
+[[Increase JVM heap size: {{{#code
+-Xmx8g
+}}}
+]]
 [[Enable data streaming mode in preferences]]
 [[Split large files into smaller chunks]]
 }}}

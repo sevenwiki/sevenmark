@@ -30,6 +30,7 @@ export default defineConfig({
           items: [
             { text: "Blockquotes", link: "/grammar/blockquote" },
             { text: "Code Blocks", link: "/grammar/code" },
+            { text: "CSS Blocks", link: "/grammar/css" },
             { text: "Fold (Collapsible)", link: "/grammar/fold" },
             { text: "Lists", link: "/grammar/lists" },
             { text: "Tables", link: "/grammar/tables" },

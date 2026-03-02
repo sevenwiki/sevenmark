@@ -1,3 +1,4 @@
+use sevenmark_ast::Element;
 use sevenmark_parser::core::parse_document;
 use std::fs;
 
@@ -93,6 +94,11 @@ fn test_brace_code() {
 #[test]
 fn test_brace_tex() {
     run_parser_test("brace", "tex").expect("brace tex test failed");
+}
+
+#[test]
+fn test_brace_css() {
+    run_parser_test("brace", "css").expect("brace css test failed");
 }
 
 #[test]
@@ -242,4 +248,67 @@ fn test_complex_wiki_page_example() {
 fn test_complex_scientific_document() {
     run_parser_test("complex", "scientific_document")
         .expect("complex scientific document test failed");
+}
+
+#[test]
+fn test_raw_code_crlf_escaped_line_only_closer() {
+    let input = "{{{#code\r\nfirst\r\n\\}}}\r\nsecond\r\n}}}";
+    let parsed = parse_document(input);
+
+    assert!(
+        !parsed.iter().any(|e| matches!(e, Element::Error(_))),
+        "unexpected parse error: {parsed:#?}"
+    );
+
+    let code = parsed
+        .iter()
+        .find_map(|e| match e {
+            Element::Code(c) => Some(c),
+            _ => None,
+        })
+        .expect("expected Code element");
+
+    assert_eq!(code.value, "first\r\n}}}\r\nsecond\r\n");
+}
+
+#[test]
+fn test_raw_tex_crlf_escaped_line_only_closer() {
+    let input = "{{{#tex #block\r\n\\}}}\r\n}}}";
+    let parsed = parse_document(input);
+
+    assert!(
+        !parsed.iter().any(|e| matches!(e, Element::Error(_))),
+        "unexpected parse error: {parsed:#?}"
+    );
+
+    let tex = parsed
+        .iter()
+        .find_map(|e| match e {
+            Element::TeX(t) => Some(t),
+            _ => None,
+        })
+        .expect("expected TeX element");
+
+    assert_eq!(tex.value, "}}}\r\n");
+}
+
+#[test]
+fn test_raw_css_crlf_escaped_line_only_closer() {
+    let input = "{{{#css\r\n.a::after { content: \"}}}\"; }\r\n\\}}}\r\n}}}";
+    let parsed = parse_document(input);
+
+    assert!(
+        !parsed.iter().any(|e| matches!(e, Element::Error(_))),
+        "unexpected parse error: {parsed:#?}"
+    );
+
+    let css = parsed
+        .iter()
+        .find_map(|e| match e {
+            Element::Css(c) => Some(c),
+            _ => None,
+        })
+        .expect("expected Css element");
+
+    assert_eq!(css.value, ".a::after { content: \"}}}\"; }\r\n}}}\r\n");
 }

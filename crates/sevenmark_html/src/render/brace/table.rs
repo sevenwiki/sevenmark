@@ -15,24 +15,30 @@ pub fn render(
 ) -> Markup {
     ctx.enter_suppress_soft_breaks();
     let style = utils::build_style(parameters);
+    let class = utils::merge_class(classes::TABLE, parameters);
+    let dark_style = utils::build_dark_style(parameters);
     let content = html! {
         div
             class=(classes::TABLE_WRAPPER)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
         {
-            table class=(classes::TABLE) style=[style] {
+            table class=(class) style=[style] data-dark-style=[dark_style] {
                 tbody {
                     @for row_item in children {
                         @match row_item {
                             TableRowItem::Row(row) => {
                                 @let row_style = utils::build_style(&row.parameters);
-                                tr style=[row_style] { (render_cells(&row.children, ctx)) }
+                                @let row_class = utils::param_class(&row.parameters);
+                                @let row_dark_style = utils::build_dark_style(&row.parameters);
+                                tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] { (render_cells(&row.children, ctx)) }
                             }
                             TableRowItem::Conditional(cond) => {
                                 @for row in &cond.rows {
                                     @let row_style = utils::build_style(&row.parameters);
-                                    tr style=[row_style] { (render_cells(&row.children, ctx)) }
+                                    @let row_class = utils::param_class(&row.parameters);
+                                    @let row_dark_style = utils::build_dark_style(&row.parameters);
+                                    tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] { (render_cells(&row.children, ctx)) }
                                 }
                             }
                         }
@@ -53,7 +59,9 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext) -> Markup {
                     @let colspan = utils::extract_text(&cell.x).parse::<usize>().ok().filter(|&n| n > 1);
                     @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
                     @let style = utils::build_style(&cell.parameters);
-                    td colspan=[colspan] rowspan=[rowspan] style=[style] {
+                    @let class = utils::param_class(&cell.parameters);
+                    @let dark_style = utils::build_dark_style(&cell.parameters);
+                    td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dark-style=[dark_style] {
                         (render_elements(&cell.children, ctx))
                     }
                 }
@@ -62,7 +70,9 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext) -> Markup {
                         @let colspan = utils::extract_text(&cell.x).parse::<usize>().ok().filter(|&n| n > 1);
                         @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
                         @let style = utils::build_style(&cell.parameters);
-                        td colspan=[colspan] rowspan=[rowspan] style=[style] {
+                        @let class = utils::param_class(&cell.parameters);
+                        @let dark_style = utils::build_dark_style(&cell.parameters);
+                        td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dark-style=[dark_style] {
                             (render_elements(&cell.children, ctx))
                         }
                     }

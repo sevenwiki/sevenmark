@@ -19,13 +19,16 @@ pub fn render(
 
     let ruby_text = utils::get_param(parameters, "ruby").unwrap_or_default();
     let style = utils::build_style(parameters);
+    let class = utils::merge_class(classes::RUBY, parameters);
+    let dark_style = utils::build_dark_style(parameters);
 
     html! {
         ruby
-            class=(classes::RUBY)
+            class=(class)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
             style=[style]
+            data-dark-style=[dark_style]
         {
             (base)
             rt { (ruby_text) }

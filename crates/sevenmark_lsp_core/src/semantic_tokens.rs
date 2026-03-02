@@ -68,6 +68,7 @@ enum TokenIdx {
     ExprGroup = 55,
     LogicalOperator = 56,
     ComparisonOperator = 57,
+    Css = 58,
 }
 
 impl TokenIdx {
@@ -141,6 +142,7 @@ pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     // ── Operators (56–57) ──
     SemanticTokenType::OPERATOR, // 56 LogicalOperator
     SemanticTokenType::OPERATOR, // 57 ComparisonOperator
+    SemanticTokenType::KEYWORD,  // 58 Css
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -252,6 +254,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
             }
             Element::Code(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
             Element::TeX(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
+            Element::Css(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
             Element::Include(e) => {
                 emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
             }
@@ -359,6 +362,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
         | Element::Error(_)
         | Element::Code(_)
         | Element::TeX(_)
+        | Element::Css(_)
         | Element::Define(_)
         | Element::ExternalMedia(_)
         | Element::Null(_)
@@ -399,6 +403,7 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
         Element::Ruby(e) => walk_parameters(&e.parameters, raw),
         Element::Footnote(e) => walk_parameters(&e.parameters, raw),
         Element::Code(e) => walk_parameters(&e.parameters, raw),
+        Element::Css(e) => walk_parameters(&e.parameters, raw),
         Element::Include(e) => walk_parameters(&e.parameters, raw),
         Element::Redirect(e) => walk_parameters(&e.parameters, raw),
         Element::Media(e) => walk_parameters(&e.parameters, raw),
@@ -658,6 +663,7 @@ fn element_token_type(element: &Element) -> u32 {
         Element::Footnote(_) => TokenIdx::Footnote.as_u32(),
         Element::Code(_) => TokenIdx::Code.as_u32(),
         Element::TeX(_) => TokenIdx::TeX.as_u32(),
+        Element::Css(_) => TokenIdx::Css.as_u32(),
         Element::Include(_) => TokenIdx::Include.as_u32(),
         Element::Category(_) => TokenIdx::Category.as_u32(),
         Element::Redirect(_) => TokenIdx::Redirect.as_u32(),

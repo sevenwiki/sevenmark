@@ -125,8 +125,72 @@ mod tests {
     #[test]
     fn test_code_block() {
         assert_eq!(
-            roundtrip("{{{#code #lang=\"rust\" fn main() {} }}}"),
-            "{{{#code #lang=\"rust\"\nfn main() {} }}}"
+            roundtrip("{{{#code #lang=\"rust\"\nfn main() {}\n}}}"),
+            "{{{#code #lang=\"rust\"\nfn main() {}\n}}}"
+        );
+    }
+
+    #[test]
+    fn test_css_block() {
+        assert_eq!(
+            roundtrip("{{{#css .x { color: red; }\n}}}"),
+            "{{{#css\n.x { color: red; }\n}}}"
+        );
+    }
+
+    #[test]
+    fn test_code_block_escapes_line_only_closer_on_format() {
+        let input = "{{{#code\n\\}}}\n}}}";
+        assert_eq!(roundtrip(input), input);
+    }
+
+    #[test]
+    fn test_tex_block_escapes_line_only_closer_on_format() {
+        let input = "{{{#tex #block\n\\}}}\n}}}";
+        assert_eq!(roundtrip(input), input);
+    }
+
+    #[test]
+    fn test_css_block_escapes_line_only_closer_on_format() {
+        let input = "{{{#css\n\\}}}\n}}}";
+        assert_eq!(roundtrip(input), input);
+    }
+
+    #[test]
+    fn test_styled_with_nested_code_roundtrip_stable() {
+        let input = "{{{ #style=\"color:red\"\n{{{#code\nfn main() {}\n}}}\n}}}";
+        assert_ast_roundtrip_stable(input, "styled nested raw code");
+    }
+
+    #[test]
+    fn test_if_with_nested_tex_roundtrip_stable() {
+        let input = "{{{#if true ::\n{{{#tex #block\nx^2\n}}}\n}}}";
+        assert_ast_roundtrip_stable(input, "if nested raw tex");
+    }
+
+    #[test]
+    fn test_blockquote_with_nested_css_roundtrip_stable() {
+        let input = "{{{#quote\n{{{#css\n.x::after { content: \"}}}\"; }\n}}}\n}}}";
+        assert_ast_roundtrip_stable(input, "blockquote nested raw css");
+    }
+
+    #[test]
+    fn test_list_trailing_non_raw_keeps_inline_close() {
+        let input = "{{{#list\n[[x{{{#fn y}}}]]\n}}}";
+        let output = roundtrip(input);
+        assert!(
+            output.contains("{{{#fn y}}}]]"),
+            "expected inline close after footnote, got:\n{output}"
+        );
+    }
+
+    #[test]
+    fn test_list_trailing_raw_still_closes_on_next_line() {
+        let input = "{{{#list\n[[{{{#code\nx\n}}}\n]]\n}}}";
+        let output = roundtrip(input).replace("\r\n", "\n");
+        assert!(
+            !output.contains("}}} ]]"),
+            "raw close must not share a line with list close, got:\n{output}"
         );
     }
 

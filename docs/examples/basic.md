@@ -118,10 +118,14 @@ Tables use nested brackets:
 
 ::: code-group
 
-```sevenmark [Inline Code]
-Use the {{{#code console.log("Hello") }}} function to output messages in JavaScript.
+```sevenmark [Code in Text]
+Use the {{{#code
+console.log("Hello")
+}}} function to output messages in JavaScript.
 
-Call {{{#code #lang="bash" npm install }}} to install dependencies.
+Call {{{#code #lang="bash"
+npm install
+}}} to install dependencies.
 ```
 
 ```sevenmark [Code Block]
@@ -151,7 +155,9 @@ fn main() {
 ```
 
 ```text [Syntax]
-Inline: {{{#code your_code_here }}}
+Embedded: {{{#code
+your_code_here
+}}}
 Block:  {{{#code #lang="language"
         your_code_here
         }}}
@@ -192,7 +198,9 @@ and gradually work your way up to more complex structures."
 ### Simple Math
 
 ```sevenmark
-The Pythagorean theorem: {{{#tex a^2 + b^2 = c^2 }}}
+The Pythagorean theorem: {{{#tex
+a^2 + b^2 = c^2
+}}}
 ```
 
 ### Block Math
