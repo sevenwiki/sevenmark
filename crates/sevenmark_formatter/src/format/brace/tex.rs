@@ -7,8 +7,15 @@ pub fn format_tex<'a>(a: &'a Arena<'a>, e: &TeXElement) -> DocBuilder<'a, Arena<
     } else {
         "{{{#tex"
     };
+    let close_separator = if e.value.ends_with('}') {
+        a.text(" ")
+    } else {
+        a.nil()
+    };
+
     a.text(tag)
         .append(a.hardline())
         .append(a.text(e.value.clone()))
+        .append(close_separator)
         .append(a.text("}}}"))
 }

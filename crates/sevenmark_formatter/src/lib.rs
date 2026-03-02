@@ -26,6 +26,10 @@ mod tests {
     use sevenmark_html::{RenderConfig, render_document};
     use sevenmark_parser::core::parse_document;
 
+    fn s() -> sevenmark_ast::Span {
+        sevenmark_ast::Span::synthesized()
+    }
+
     fn roundtrip(input: &str) -> String {
         let ast = parse_document(input);
         format_document(&ast, &FormatConfig::default())
@@ -136,6 +140,45 @@ mod tests {
             roundtrip("{{{#css .x { color: red; }\n}}}"),
             "{{{#css\n.x { color: red; }\n}}}"
         );
+    }
+
+    #[test]
+    fn test_code_block_adds_space_before_closer_if_value_ends_with_brace() {
+        let elements = vec![Element::Code(sevenmark_ast::CodeElement {
+            span: s(),
+            open_span: s(),
+            close_span: s(),
+            parameters: Default::default(),
+            value: "x}".to_string(),
+        })];
+
+        assert_eq!(format_document(&elements, &FormatConfig::default()), "{{{#code\nx} }}}");
+    }
+
+    #[test]
+    fn test_tex_block_adds_space_before_closer_if_value_ends_with_brace() {
+        let elements = vec![Element::TeX(sevenmark_ast::TeXElement {
+            span: s(),
+            open_span: s(),
+            close_span: s(),
+            is_block: false,
+            value: "x}".to_string(),
+        })];
+
+        assert_eq!(format_document(&elements, &FormatConfig::default()), "{{{#tex\nx} }}}");
+    }
+
+    #[test]
+    fn test_css_block_adds_space_before_closer_if_value_ends_with_brace() {
+        let elements = vec![Element::Css(sevenmark_ast::CssElement {
+            span: s(),
+            open_span: s(),
+            close_span: s(),
+            parameters: Default::default(),
+            value: "x}".to_string(),
+        })];
+
+        assert_eq!(format_document(&elements, &FormatConfig::default()), "{{{#css\nx} }}}");
     }
 
     #[test]

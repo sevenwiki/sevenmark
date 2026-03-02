@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.8] - 2026-03-02
+
+### Changed
+- **sevenmark_formatter**: For `#code/#tex/#css`, when raw content ends with `}`, formatter now inserts a single space before the closing `}}}` to avoid boundary `}}}` collisions under first-closer parsing rules
+- **sevenmark_formatter**: Restored formatter structure to the `6854c20`-style raw output path (no raw-specific close helper module)
+
+### Added
+- **tests**: Added formatter regressions verifying `#code/#tex/#css` emit a separator before `}}}` when content ends with `}`
+
 ## [2.26.5] - 2026-03-02
 
 ### Changed
