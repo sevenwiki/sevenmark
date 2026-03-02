@@ -1,8 +1,8 @@
-{{{#style #style="xx"
-
-{{{#code #lang="something"
-awfeoinwaeofnawoefaw
- f
-\}}}
-}}}
-}}}
+    [[ {{{#tex
+    \text{\OE}
+    }}}
+    ,
+    {{{#tex
+    \text{\oe}
+    }}} 
+    ]]
