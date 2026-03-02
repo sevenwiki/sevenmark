@@ -5,6 +5,19 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.9] - 2026-03-02
+
+### Changed
+- **sevenmark_parser**: `#code/#tex/#css` raw parsing now uses triple-brace depth matching (`{{{` increments, `}}}` decrements) and closes when depth reaches zero
+- **sevenmark_formatter**: Kept raw close-boundary separator behavior (`value` ending with `}` inserts a space before final `}}}`) to avoid ambiguous close runs
+- **docs**: Updated raw grammar notes (`index`, `code`, `tex`, `css`) from first-closer semantics to depth-matching semantics
+
+### Added
+- **tests**: Added parser regressions for balanced triple-brace matching inside raw `#code/#tex/#css` content
+
+### Fixed
+- **tc**: Regenerated parser expected outputs to align fixtures with depth-matching raw close behavior
+
 ## [2.26.8] - 2026-03-02
 
 ### Changed

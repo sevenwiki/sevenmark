@@ -64,9 +64,9 @@ Current time: [now] // This is a comment
 
 - Tables: `{{{#table [[[[Cell]]]] }}}`
 - Lists: `{{{#list #1 [[Item]] }}}`
-- Code: raw block opened by `{{{#code` and closed by the first `}}}`
-- Math: raw block opened by `{{{#tex` and closed by the first `}}}` (`#block` optional)
-- CSS: raw block opened by `{{{#css` and closed by the first `}}}`
+- Code: raw block opened by `{{{#code` and closed by matching triple-brace depth
+- Math: raw block opened by `{{{#tex` and closed by matching triple-brace depth (`#block` optional)
+- CSS: raw block opened by `{{{#css` and closed by matching triple-brace depth
 - Quotes: `{{{#quote content }}}`
 - Folds: `{{{#fold [[summary]] [[details]] }}}`
 

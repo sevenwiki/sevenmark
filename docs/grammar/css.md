@@ -30,9 +30,9 @@ SevenMark supports raw CSS blocks with `{{{#css ... }}}`.
 
 `#css` uses the same raw close rule as `#code` and `#tex`:
 
-1. The block closes at the first `}}}` sequence.
-2. A literal `}}}` cannot appear inside CSS content.
-3. Prefer splitting text to avoid producing `}}}` inside raw CSS.
+1. Raw parsing uses triple-brace depth matching (`{{{` increments depth, `}}}` decrements depth).
+2. The block closes when depth returns to zero.
+3. To avoid ambiguous endings when content ends with `}`, formatter inserts a separator before the final `}}}`.
 
 Example:
 

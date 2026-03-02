@@ -282,8 +282,8 @@ fn dark_mode_example() {
 - Code blocks are treated as literal content - markup is not processed inside them
 - The `#lang` parameter is case-insensitive: `#lang="Rust"` and `#lang="rust"` are equivalent
 - If no language is specified, the code is displayed without syntax highlighting
-- The block closes at the first `}}}` sequence encountered in content
-- A literal `}}}` cannot appear inside `#code` content
+- Raw parsing uses triple-brace depth matching (`{{{` increments depth, `}}}` decrements depth)
+- The block closes when depth returns to zero
 - Whitespace and indentation are preserved exactly as written
 - Escaping is generally unnecessary for code content
 

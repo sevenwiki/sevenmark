@@ -361,8 +361,8 @@ f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}
 - TeX elements use standard LaTeX math syntax
 - The `#block` parameter marks math for display-style presentation
 - Without `#block`, math is marked for inline presentation
-- The block closes at the first `}}}` sequence encountered in content
-- A literal `}}}` cannot appear inside `#tex` content
+- Raw parsing uses triple-brace depth matching (`{{{` increments depth, `}}}` decrements depth)
+- The block closes when depth returns to zero
 - Complex expressions may require proper grouping with braces `{}`
 - Most standard LaTeX math commands are supported in the syntax
 - The parser preserves the LaTeX content as-is within the AST
