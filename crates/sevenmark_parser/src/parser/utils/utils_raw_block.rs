@@ -1,4 +1,5 @@
 use crate::parser::ParserInput;
+use memchr::memchr2;
 use winnow::Result;
 use winnow::prelude::*;
 use winnow::stream::{Location as StreamLocation, Stream};
@@ -26,24 +27,35 @@ pub fn parse_raw_until_balanced_triple_brace(
     let mut depth = 1usize;
     let mut close_byte_idx: Option<usize> = None;
 
-    while i + 3 <= bytes.len() {
-        if bytes[i..].starts_with(b"{{{") {
-            depth += 1;
-            i += 3;
-            continue;
+    while i < bytes.len() {
+        let Some(rel_idx) = memchr2(b'{', b'}', &bytes[i..]) else {
+            break;
+        };
+        i += rel_idx;
+
+        if i + 2 >= bytes.len() {
+            break;
         }
 
-        if bytes[i..].starts_with(b"}}}") {
-            depth = depth.saturating_sub(1);
-            if depth == 0 {
-                close_byte_idx = Some(i);
-                break;
+        let b = bytes[i];
+
+        match b {
+            b'{' if bytes[i + 1] == b'{' && bytes[i + 2] == b'{' => {
+                depth += 1;
+                i += 3;
             }
-            i += 3;
-            continue;
+            b'}' if bytes[i + 1] == b'}' && bytes[i + 2] == b'}' => {
+                if depth == 1 {
+                    close_byte_idx = Some(i);
+                    break;
+                }
+                depth -= 1;
+                i += 3;
+            }
+            _ => {
+                i += 1;
+            }
         }
-
-        i += 1;
     }
 
     let Some(close_idx) = close_byte_idx else {

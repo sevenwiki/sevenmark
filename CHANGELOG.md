@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.10] - 2026-03-02
+
+### Changed
+- **sevenmark_parser**: Optimized balanced raw block scanning (`#code/#tex/#css`) by switching delimiter candidate search to `memchr2('{', '}')`, reducing per-byte loop overhead while preserving depth-matching close semantics
+- **sevenmark_parser**: Switched raw body consumption to byte-offset `next_slice(close_idx)` after delimiter scan (removes extra char-count conversion pass)
+
+### Added
+- **sevenmark_parser**: Added unit test coverage in `utils_raw_block` for balanced triple-brace parsing with UTF-8 content (Korean + emoji)
+
 ## [2.26.9] - 2026-03-02
 
 ### Changed

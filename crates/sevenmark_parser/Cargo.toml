@@ -17,6 +17,7 @@ sevenmark_ast = { workspace = true }
 winnow = { workspace = true }
 paste = { workspace = true }
 serde_json = { workspace = true }
+memchr = { workspace = true }
 
 [features]
 default = []
