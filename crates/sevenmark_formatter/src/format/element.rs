@@ -95,6 +95,7 @@ pub fn format_element<'a>(
         Element::Footnote(e) => brace::footnote::format_footnote(a, e, config),
         Element::Code(e) => brace::code::format_code(a, e, config),
         Element::TeX(e) => brace::tex::format_tex(a, e),
+        Element::Css(e) => brace::css::format_css(a, e, config),
         Element::Include(e) => brace::include::format_include(a, e, config),
         Element::Category(e) => brace::category::format_category(a, e, config),
         Element::Redirect(e) => brace::redirect::format_redirect(a, e, config),

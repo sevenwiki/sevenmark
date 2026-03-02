@@ -142,6 +142,7 @@ fn needs_line_break_before_cell_close(children: &[sevenmark_ast::Element]) -> bo
                 | sevenmark_ast::Element::Fold(_)
                 | sevenmark_ast::Element::Code(_)
                 | sevenmark_ast::Element::TeX(_)
+                | sevenmark_ast::Element::Css(_)
                 | sevenmark_ast::Element::BlockQuote(_)
                 | sevenmark_ast::Element::Literal(_)
                 | sevenmark_ast::Element::Styled(_)

@@ -20,6 +20,29 @@ pub fn get_param(params: &Parameters, key: &str) -> Option<String> {
     params.get(key).map(|p| extract_text(&p.value))
 }
 
+/// Keep the base renderer class and append optional user-defined `#class`.
+pub fn merge_class(base: &str, params: &Parameters) -> String {
+    match get_param(params, "class")
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+    {
+        Some(extra) => format!("{base} {extra}"),
+        None => base.to_string(),
+    }
+}
+
+pub fn param_class(params: &Parameters) -> Option<String> {
+    get_param(params, "class")
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+}
+
+pub fn build_dark_style(params: &Parameters) -> Option<String> {
+    get_param(params, "dark")
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+}
+
 /// Build inline style string from common style parameters
 pub fn build_style(params: &Parameters) -> Option<String> {
     let mut styles = Vec::new();

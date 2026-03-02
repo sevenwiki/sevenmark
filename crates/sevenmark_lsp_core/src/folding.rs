@@ -15,6 +15,8 @@ fn visit_for_folding(elements: &[Element], state: &DocumentState, ranges: &mut V
         let (span, kind) = match element {
             Element::Fold(e) => (&e.span, Some(FoldingRangeKind::Region)),
             Element::Code(e) => (&e.span, Some(FoldingRangeKind::Region)),
+            Element::TeX(e) => (&e.span, Some(FoldingRangeKind::Region)),
+            Element::Css(e) => (&e.span, Some(FoldingRangeKind::Region)),
             Element::Table(e) => (&e.span, Some(FoldingRangeKind::Region)),
             Element::List(e) => (&e.span, Some(FoldingRangeKind::Region)),
             Element::BlockQuote(e) => (&e.span, Some(FoldingRangeKind::Region)),

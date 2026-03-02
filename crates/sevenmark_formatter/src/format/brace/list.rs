@@ -1,5 +1,5 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
-use sevenmark_ast::{ConditionalListItems, ListContentItem, ListElement, ListItemElement};
+use sevenmark_ast::{ConditionalListItems, Element, ListContentItem, ListElement, ListItemElement};
 
 use crate::FormatConfig;
 use crate::format::element::format_elements;
@@ -44,6 +44,12 @@ fn format_list_item<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &li.parameters, config);
     let has_params = !li.parameters.is_empty();
+    let closing = if needs_line_break_before_item_close(&li.children) {
+        a.hardline().append(a.text("]]"))
+    } else {
+        a.text("]]")
+    };
+
     a.text("[[")
         .append(params)
         .append(if li.children.is_empty() {
@@ -53,7 +59,7 @@ fn format_list_item<'a>(
         } else {
             format_elements(a, &li.children, config)
         })
-        .append(a.text("]]"))
+        .append(closing)
 }
 
 fn format_conditional_list_items<'a>(
@@ -72,4 +78,37 @@ fn format_conditional_list_items<'a>(
         .append(a.hardline().append(items).nest(indent))
         .append(a.hardline())
         .append(a.text("}}}"))
+}
+
+fn needs_line_break_before_item_close(children: &[Element]) -> bool {
+    let last_semantic = children
+        .iter()
+        .rev()
+        .find(|el| !is_ignorable_trailing_text(el));
+
+    matches!(
+        last_semantic,
+        Some(
+            Element::Table(_)
+                | Element::List(_)
+                | Element::Fold(_)
+                | Element::Code(_)
+                | Element::TeX(_)
+                | Element::Css(_)
+                | Element::BlockQuote(_)
+                | Element::Literal(_)
+                | Element::Styled(_)
+                | Element::Include(_)
+                | Element::Footnote(_)
+                | Element::If(_)
+        )
+    )
+}
+
+fn is_ignorable_trailing_text(el: &Element) -> bool {
+    match el {
+        Element::Text(t) => t.value.chars().all(|c| matches!(c, ' ' | '\t' | '\r')),
+        Element::SoftBreak(_) => true,
+        _ => false,
+    }
 }

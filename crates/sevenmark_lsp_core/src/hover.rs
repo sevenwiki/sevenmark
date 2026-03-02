@@ -72,6 +72,7 @@ fn hover_content(element: &Element) -> Option<String> {
                 "**TeX** (inline)".to_string()
             }
         }
+        Element::Css(_) => "**CSS** (raw block)".to_string(),
         Element::Variable(v) => format!("**Variable**: `{}`", v.name),
         Element::Define(_) => "**Define** - variable definition".to_string(),
         Element::Include(_) => "**Include** - document inclusion".to_string(),

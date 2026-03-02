@@ -189,6 +189,8 @@ fn variable_completions(state: &DocumentState) -> Vec<CompletionItem> {
 fn brace_keyword_completions() -> Vec<CompletionItem> {
     let keywords = [
         ("code", "code #lang=\"$1\"\n$0\n}}}", "Code block"),
+        ("tex", "tex\n$0\n}}}", "TeX block"),
+        ("css", "css\n$0\n}}}", "CSS block"),
         ("table", "table\n$0\n}}}", "Table"),
         ("list", "list\n$0\n}}}", "List"),
         ("fold", "fold\n$0\n}}}", "Fold (collapsible)"),
@@ -486,8 +488,20 @@ fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
 
 fn brace_param_defs(element: &str) -> &'static [ParamDef] {
     match element {
-        "code" => &[("lang", "Programming language", false)],
-        "style" => &[("style", "CSS style", false)],
+        "code" => &[
+            ("lang", "Programming language", false),
+            ("class", "CSS classes", false),
+            ("dark", "Dark mode style override", false),
+        ],
+        "style" => &[
+            ("style", "CSS style", false),
+            ("class", "CSS classes", false),
+            ("dark", "Dark mode style override", false),
+        ],
+        "css" => &[
+            ("class", "CSS classes", false),
+            ("dark", "Dark mode style override", false),
+        ],
         "ruby" => &[("ruby", "Ruby text annotation", false)],
         _ => &[],
     }

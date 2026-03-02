@@ -12,7 +12,10 @@ This famous equation shows that mass *(m)* and energy *(E)* are **interchangeabl
 [[**Derivation Steps** 📚]]
 [[
 {{{#list #1
-[[Start with relativistic momentum: {{{#tex p = \gamma mv }}}]]
+[[Start with relativistic momentum: {{{#tex
+p = \gamma mv
+}}}
+]]
 [[Apply energy-momentum relation]]
 [[Simplify for rest mass case]]
 [[Result: **E = mc²**]]
@@ -29,9 +32,18 @@ This famous equation shows that mass *(m)* and energy *(E)* are **interchangeabl
 
 {{{#table #style="margin:10px; border:1px solid #ccc"
 [[[[**Field**]] [[**Application**]] [[**Formula**]]]]
-[[[[Nuclear Physics]] [[Binding energy calculations]] [[{{{#tex \Delta E = \Delta m c^2 }}}]]]]
-[[[[Particle Physics]] [[Particle-antiparticle annihilation]] [[{{{#tex E_{total} = 2mc^2 }}}]]]]
-[[[[Cosmology]] [[Stellar energy production]] [[{{{#tex L = \frac{dm}{dt}c^2 }}}]]]]
+[[[[Nuclear Physics]] [[Binding energy calculations]] [[{{{#tex
+\Delta E = \Delta m c^2
+}}}
+]]]]
+[[[[Particle Physics]] [[Particle-antiparticle annihilation]] [[{{{#tex
+E_{total} = 2mc^2
+}}}
+]]]]
+[[[[Cosmology]] [[Stellar energy production]] [[{{{#tex
+L = \frac{dm}{dt}c^2
+}}}
+]]]]
 }}}
 
 ### Related Constants

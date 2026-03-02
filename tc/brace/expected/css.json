@@ -1,0 +1,28 @@
+[
+  {
+    "Css": {
+      "span": {
+        "start": 0,
+        "end": 46
+      },
+      "open_span": {
+        "start": 0,
+        "end": 7
+      },
+      "close_span": {
+        "start": 43,
+        "end": 46
+      },
+      "parameters": {},
+      "value": ".a::after { content: \"}}}\"; }\n}}}\n"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 46,
+        "end": 47
+      }
+    }
+  }
+]

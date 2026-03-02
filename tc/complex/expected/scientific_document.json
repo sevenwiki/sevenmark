@@ -243,15 +243,15 @@
     "Fold": {
       "span": {
         "start": 269,
-        "end": 673
+        "end": 674
       },
       "open_span": {
         "start": 269,
         "end": 277
       },
       "close_span": {
-        "start": 670,
-        "end": 673
+        "start": 671,
+        "end": 674
       },
       "parameters": {
         "bgcolor": {
@@ -321,15 +321,15 @@
       "details": {
         "span": {
           "start": 331,
-          "end": 670
+          "end": 671
         },
         "open_span": {
           "start": 331,
           "end": 333
         },
         "close_span": {
-          "start": 667,
-          "end": 669
+          "start": 668,
+          "end": 670
         },
         "parameters": {},
         "children": [
@@ -337,15 +337,15 @@
             "List": {
               "span": {
                 "start": 334,
-                "end": 505
+                "end": 506
               },
               "open_span": {
                 "start": 334,
                 "end": 342
               },
               "close_span": {
-                "start": 502,
-                "end": 505
+                "start": 503,
+                "end": 506
               },
               "kind": "1",
               "parameters": {
@@ -363,15 +363,15 @@
                   "Item": {
                     "span": {
                       "start": 346,
-                      "end": 410
+                      "end": 411
                     },
                     "open_span": {
                       "start": 346,
                       "end": 348
                     },
                     "close_span": {
-                      "start": 407,
-                      "end": 409
+                      "start": 408,
+                      "end": 410
                     },
                     "parameters": {},
                     "children": [
@@ -399,7 +399,7 @@
                             "end": 407
                           },
                           "is_block": false,
-                          "value": "p = \\gamma mv "
+                          "value": "p = \\gamma mv\n"
                         }
                       }
                     ]
@@ -408,24 +408,24 @@
                 {
                   "Item": {
                     "span": {
-                      "start": 410,
-                      "end": 445
+                      "start": 411,
+                      "end": 446
                     },
                     "open_span": {
-                      "start": 410,
-                      "end": 412
+                      "start": 411,
+                      "end": 413
                     },
                     "close_span": {
-                      "start": 442,
-                      "end": 444
+                      "start": 443,
+                      "end": 445
                     },
                     "parameters": {},
                     "children": [
                       {
                         "Text": {
                           "span": {
-                            "start": 412,
-                            "end": 442
+                            "start": 413,
+                            "end": 443
                           },
                           "value": "Apply energy-momentum relation"
                         }
@@ -436,24 +436,24 @@
                 {
                   "Item": {
                     "span": {
-                      "start": 445,
-                      "end": 477
+                      "start": 446,
+                      "end": 478
                     },
                     "open_span": {
-                      "start": 445,
-                      "end": 447
+                      "start": 446,
+                      "end": 448
                     },
                     "close_span": {
-                      "start": 474,
-                      "end": 476
+                      "start": 475,
+                      "end": 477
                     },
                     "parameters": {},
                     "children": [
                       {
                         "Text": {
                           "span": {
-                            "start": 447,
-                            "end": 474
+                            "start": 448,
+                            "end": 475
                           },
                           "value": "Simplify for rest mass case"
                         }
@@ -464,24 +464,24 @@
                 {
                   "Item": {
                     "span": {
-                      "start": 477,
-                      "end": 502
+                      "start": 478,
+                      "end": 503
                     },
                     "open_span": {
-                      "start": 477,
-                      "end": 479
+                      "start": 478,
+                      "end": 480
                     },
                     "close_span": {
-                      "start": 499,
-                      "end": 501
+                      "start": 500,
+                      "end": 502
                     },
                     "parameters": {},
                     "children": [
                       {
                         "Text": {
                           "span": {
-                            "start": 479,
-                            "end": 487
+                            "start": 480,
+                            "end": 488
                           },
                           "value": "Result: "
                         }
@@ -489,15 +489,15 @@
                       {
                         "Bold": {
                           "span": {
-                            "start": 487,
-                            "end": 499
+                            "start": 488,
+                            "end": 500
                           },
                           "children": [
                             {
                               "Text": {
                                 "span": {
-                                  "start": 489,
-                                  "end": 497
+                                  "start": 490,
+                                  "end": 498
                                 },
                                 "value": "E = mc²"
                               }
@@ -514,46 +514,46 @@
           {
             "SoftBreak": {
               "span": {
-                "start": 505,
-                "end": 506
-              }
-            }
-          },
-          {
-            "SoftBreak": {
-              "span": {
                 "start": 506,
                 "end": 507
               }
             }
           },
           {
-            "BlockQuote": {
+            "SoftBreak": {
               "span": {
                 "start": 507,
-                "end": 665
+                "end": 508
+              }
+            }
+          },
+          {
+            "BlockQuote": {
+              "span": {
+                "start": 508,
+                "end": 666
               },
               "open_span": {
-                "start": 507,
-                "end": 516
+                "start": 508,
+                "end": 517
               },
               "close_span": {
-                "start": 662,
-                "end": 665
+                "start": 663,
+                "end": 666
               },
               "parameters": {
                 "style": {
                   "span": {
-                    "start": 516,
-                    "end": 575
+                    "start": 517,
+                    "end": 576
                   },
                   "key": "style",
                   "value": [
                     {
                       "Text": {
                         "span": {
-                          "start": 525,
-                          "end": 573
+                          "start": 526,
+                          "end": 574
                         },
                         "value": "border-left:3px solid #007acc; padding-left:15px"
                       }
@@ -565,8 +565,8 @@
                 {
                   "Text": {
                     "span": {
-                      "start": 575,
-                      "end": 639
+                      "start": 576,
+                      "end": 640
                     },
                     "value": "\"The most beautiful thing we can experience is the mysterious.\" "
                   }
@@ -574,16 +574,16 @@
                 {
                   "SoftBreak": {
                     "span": {
-                      "start": 639,
-                      "end": 640
+                      "start": 640,
+                      "end": 641
                     }
                   }
                 },
                 {
                   "Text": {
                     "span": {
-                      "start": 640,
-                      "end": 644
+                      "start": 641,
+                      "end": 645
                     },
                     "value": "— "
                   }
@@ -591,15 +591,15 @@
                 {
                   "Italic": {
                     "span": {
-                      "start": 644,
-                      "end": 661
+                      "start": 645,
+                      "end": 662
                     },
                     "children": [
                       {
                         "Text": {
                           "span": {
-                            "start": 645,
-                            "end": 660
+                            "start": 646,
+                            "end": 661
                           },
                           "value": "Albert Einstein"
                         }
@@ -613,21 +613,13 @@
           {
             "Text": {
               "span": {
-                "start": 665,
-                "end": 666
+                "start": 666,
+                "end": 667
               },
               "value": "w"
             }
           }
         ]
-      }
-    }
-  },
-  {
-    "SoftBreak": {
-      "span": {
-        "start": 673,
-        "end": 674
       }
     }
   },
@@ -640,10 +632,18 @@
     }
   },
   {
-    "Header": {
+    "SoftBreak": {
       "span": {
         "start": 675,
-        "end": 710
+        "end": 676
+      }
+    }
+  },
+  {
+    "Header": {
+      "span": {
+        "start": 676,
+        "end": 711
       },
       "level": 3,
       "is_folded": false,
@@ -652,8 +652,8 @@
         {
           "Text": {
             "span": {
-              "start": 679,
-              "end": 709
+              "start": 680,
+              "end": 710
             },
             "value": "Applications in Modern Physics"
           }
@@ -664,38 +664,38 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 710,
-        "end": 711
+        "start": 711,
+        "end": 712
       }
     }
   },
   {
     "Table": {
       "span": {
-        "start": 711,
-        "end": 1101
+        "start": 712,
+        "end": 1105
       },
       "open_span": {
-        "start": 711,
-        "end": 720
+        "start": 712,
+        "end": 721
       },
       "close_span": {
-        "start": 1098,
-        "end": 1101
+        "start": 1102,
+        "end": 1105
       },
       "parameters": {
         "style": {
           "span": {
-            "start": 720,
-            "end": 765
+            "start": 721,
+            "end": 766
           },
           "key": "style",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 729,
-                  "end": 763
+                  "start": 730,
+                  "end": 764
                 },
                 "value": "margin:10px; border:1px solid #ccc"
               }
@@ -707,47 +707,47 @@
         {
           "Row": {
             "span": {
-              "start": 765,
-              "end": 819
+              "start": 766,
+              "end": 820
             },
             "open_span": {
-              "start": 765,
-              "end": 767
+              "start": 766,
+              "end": 768
             },
             "close_span": {
-              "start": 816,
-              "end": 818
+              "start": 817,
+              "end": 819
             },
             "parameters": {},
             "children": [
               {
                 "Cell": {
                   "span": {
-                    "start": 767,
-                    "end": 781
+                    "start": 768,
+                    "end": 782
                   },
                   "open_span": {
-                    "start": 767,
-                    "end": 769
+                    "start": 768,
+                    "end": 770
                   },
                   "close_span": {
-                    "start": 778,
-                    "end": 780
+                    "start": 779,
+                    "end": 781
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Bold": {
                         "span": {
-                          "start": 769,
-                          "end": 778
+                          "start": 770,
+                          "end": 779
                         },
                         "children": [
                           {
                             "Text": {
                               "span": {
-                                "start": 771,
-                                "end": 776
+                                "start": 772,
+                                "end": 777
                               },
                               "value": "Field"
                             }
@@ -761,31 +761,31 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 781,
-                    "end": 801
+                    "start": 782,
+                    "end": 802
                   },
                   "open_span": {
-                    "start": 781,
-                    "end": 783
+                    "start": 782,
+                    "end": 784
                   },
                   "close_span": {
-                    "start": 798,
-                    "end": 800
+                    "start": 799,
+                    "end": 801
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Bold": {
                         "span": {
-                          "start": 783,
-                          "end": 798
+                          "start": 784,
+                          "end": 799
                         },
                         "children": [
                           {
                             "Text": {
                               "span": {
-                                "start": 785,
-                                "end": 796
+                                "start": 786,
+                                "end": 797
                               },
                               "value": "Application"
                             }
@@ -799,31 +799,31 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 801,
-                    "end": 816
+                    "start": 802,
+                    "end": 817
                   },
                   "open_span": {
-                    "start": 801,
-                    "end": 803
+                    "start": 802,
+                    "end": 804
                   },
                   "close_span": {
-                    "start": 814,
-                    "end": 816
+                    "start": 815,
+                    "end": 817
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Bold": {
                         "span": {
-                          "start": 803,
-                          "end": 814
+                          "start": 804,
+                          "end": 815
                         },
                         "children": [
                           {
                             "Text": {
                               "span": {
-                                "start": 805,
-                                "end": 812
+                                "start": 806,
+                                "end": 813
                               },
                               "value": "Formula"
                             }
@@ -840,40 +840,40 @@
         {
           "Row": {
             "span": {
-              "start": 819,
-              "end": 915
+              "start": 820,
+              "end": 917
             },
             "open_span": {
-              "start": 819,
-              "end": 821
+              "start": 820,
+              "end": 822
             },
             "close_span": {
-              "start": 912,
-              "end": 914
+              "start": 914,
+              "end": 916
             },
             "parameters": {},
             "children": [
               {
                 "Cell": {
                   "span": {
-                    "start": 821,
-                    "end": 841
+                    "start": 822,
+                    "end": 842
                   },
                   "open_span": {
-                    "start": 821,
-                    "end": 823
+                    "start": 822,
+                    "end": 824
                   },
                   "close_span": {
-                    "start": 838,
-                    "end": 840
+                    "start": 839,
+                    "end": 841
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 823,
-                          "end": 838
+                          "start": 824,
+                          "end": 839
                         },
                         "value": "Nuclear Physics"
                       }
@@ -884,24 +884,24 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 841,
-                    "end": 873
+                    "start": 842,
+                    "end": 874
                   },
                   "open_span": {
-                    "start": 841,
-                    "end": 843
+                    "start": 842,
+                    "end": 844
                   },
                   "close_span": {
-                    "start": 870,
-                    "end": 872
+                    "start": 871,
+                    "end": 873
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 843,
-                          "end": 870
+                          "start": 844,
+                          "end": 871
                         },
                         "value": "Binding energy calculations"
                       }
@@ -912,35 +912,35 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 873,
-                    "end": 912
+                    "start": 874,
+                    "end": 914
                   },
                   "open_span": {
-                    "start": 873,
-                    "end": 875
+                    "start": 874,
+                    "end": 876
                   },
                   "close_span": {
-                    "start": 910,
-                    "end": 912
+                    "start": 912,
+                    "end": 914
                   },
                   "parameters": {},
                   "children": [
                     {
                       "TeX": {
                         "span": {
-                          "start": 875,
-                          "end": 910
+                          "start": 876,
+                          "end": 911
                         },
                         "open_span": {
-                          "start": 875,
-                          "end": 882
+                          "start": 876,
+                          "end": 883
                         },
                         "close_span": {
-                          "start": 907,
-                          "end": 910
+                          "start": 908,
+                          "end": 911
                         },
                         "is_block": false,
-                        "value": "\\Delta E = \\Delta m c^2 "
+                        "value": "\\Delta E = \\Delta m c^2\n"
                       }
                     }
                   ]
@@ -952,40 +952,40 @@
         {
           "Row": {
             "span": {
-              "start": 915,
-              "end": 1013
+              "start": 917,
+              "end": 1016
             },
             "open_span": {
-              "start": 915,
-              "end": 917
+              "start": 917,
+              "end": 919
             },
             "close_span": {
-              "start": 1010,
-              "end": 1012
+              "start": 1013,
+              "end": 1015
             },
             "parameters": {},
             "children": [
               {
                 "Cell": {
                   "span": {
-                    "start": 917,
-                    "end": 938
+                    "start": 919,
+                    "end": 940
                   },
                   "open_span": {
-                    "start": 917,
-                    "end": 919
+                    "start": 919,
+                    "end": 921
                   },
                   "close_span": {
-                    "start": 935,
-                    "end": 937
+                    "start": 937,
+                    "end": 939
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 919,
-                          "end": 935
+                          "start": 921,
+                          "end": 937
                         },
                         "value": "Particle Physics"
                       }
@@ -996,24 +996,24 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 938,
-                    "end": 977
+                    "start": 940,
+                    "end": 979
                   },
                   "open_span": {
-                    "start": 938,
-                    "end": 940
+                    "start": 940,
+                    "end": 942
                   },
                   "close_span": {
-                    "start": 974,
-                    "end": 976
+                    "start": 976,
+                    "end": 978
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 940,
-                          "end": 974
+                          "start": 942,
+                          "end": 976
                         },
                         "value": "Particle-antiparticle annihilation"
                       }
@@ -1024,35 +1024,35 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 977,
-                    "end": 1010
+                    "start": 979,
+                    "end": 1013
                   },
                   "open_span": {
-                    "start": 977,
-                    "end": 979
+                    "start": 979,
+                    "end": 981
                   },
                   "close_span": {
-                    "start": 1008,
-                    "end": 1010
+                    "start": 1011,
+                    "end": 1013
                   },
                   "parameters": {},
                   "children": [
                     {
                       "TeX": {
                         "span": {
-                          "start": 979,
-                          "end": 1008
+                          "start": 981,
+                          "end": 1010
                         },
                         "open_span": {
-                          "start": 979,
-                          "end": 986
+                          "start": 981,
+                          "end": 988
                         },
                         "close_span": {
-                          "start": 1005,
-                          "end": 1008
+                          "start": 1007,
+                          "end": 1010
                         },
                         "is_block": false,
-                        "value": "E_{total} = 2mc^2 "
+                        "value": "E_{total} = 2mc^2\n"
                       }
                     }
                   ]
@@ -1064,40 +1064,40 @@
         {
           "Row": {
             "span": {
-              "start": 1013,
-              "end": 1098
+              "start": 1016,
+              "end": 1102
             },
             "open_span": {
-              "start": 1013,
-              "end": 1015
+              "start": 1016,
+              "end": 1018
             },
             "close_span": {
-              "start": 1095,
-              "end": 1097
+              "start": 1099,
+              "end": 1101
             },
             "parameters": {},
             "children": [
               {
                 "Cell": {
                   "span": {
-                    "start": 1015,
-                    "end": 1029
+                    "start": 1018,
+                    "end": 1032
                   },
                   "open_span": {
-                    "start": 1015,
-                    "end": 1017
+                    "start": 1018,
+                    "end": 1020
                   },
                   "close_span": {
-                    "start": 1026,
-                    "end": 1028
+                    "start": 1029,
+                    "end": 1031
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 1017,
-                          "end": 1026
+                          "start": 1020,
+                          "end": 1029
                         },
                         "value": "Cosmology"
                       }
@@ -1108,24 +1108,24 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 1029,
-                    "end": 1059
+                    "start": 1032,
+                    "end": 1062
                   },
                   "open_span": {
-                    "start": 1029,
-                    "end": 1031
+                    "start": 1032,
+                    "end": 1034
                   },
                   "close_span": {
-                    "start": 1056,
-                    "end": 1058
+                    "start": 1059,
+                    "end": 1061
                   },
                   "parameters": {},
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 1031,
-                          "end": 1056
+                          "start": 1034,
+                          "end": 1059
                         },
                         "value": "Stellar energy production"
                       }
@@ -1136,35 +1136,35 @@
               {
                 "Cell": {
                   "span": {
-                    "start": 1059,
-                    "end": 1095
+                    "start": 1062,
+                    "end": 1099
                   },
                   "open_span": {
-                    "start": 1059,
-                    "end": 1061
+                    "start": 1062,
+                    "end": 1064
                   },
                   "close_span": {
-                    "start": 1093,
-                    "end": 1095
+                    "start": 1097,
+                    "end": 1099
                   },
                   "parameters": {},
                   "children": [
                     {
                       "TeX": {
                         "span": {
-                          "start": 1061,
-                          "end": 1093
+                          "start": 1064,
+                          "end": 1096
                         },
                         "open_span": {
-                          "start": 1061,
-                          "end": 1068
+                          "start": 1064,
+                          "end": 1071
                         },
                         "close_span": {
-                          "start": 1090,
-                          "end": 1093
+                          "start": 1093,
+                          "end": 1096
                         },
                         "is_block": false,
-                        "value": "L = \\frac{dm}{dt}c^2 "
+                        "value": "L = \\frac{dm}{dt}c^2\n"
                       }
                     }
                   ]
@@ -1179,24 +1179,24 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 1101,
-        "end": 1102
+        "start": 1105,
+        "end": 1106
       }
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 1102,
-        "end": 1103
+        "start": 1106,
+        "end": 1107
       }
     }
   },
   {
     "Header": {
       "span": {
-        "start": 1103,
-        "end": 1125
+        "start": 1107,
+        "end": 1129
       },
       "level": 3,
       "is_folded": false,
@@ -1205,8 +1205,8 @@
         {
           "Text": {
             "span": {
-              "start": 1107,
-              "end": 1124
+              "start": 1111,
+              "end": 1128
             },
             "value": "Related Constants"
           }
@@ -1217,16 +1217,16 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 1125,
-        "end": 1126
+        "start": 1129,
+        "end": 1130
       }
     }
   },
   {
     "Text": {
       "span": {
-        "start": 1126,
-        "end": 1155
+        "start": 1130,
+        "end": 1159
       },
       "value": "Important physical constants "
     }
@@ -1234,15 +1234,15 @@
   {
     "Italic": {
       "span": {
-        "start": 1155,
-        "end": 1179
+        "start": 1159,
+        "end": 1183
       },
       "children": [
         {
           "Text": {
             "span": {
-              "start": 1156,
-              "end": 1172
+              "start": 1160,
+              "end": 1176
             },
             "value": "(measured as of "
           }
@@ -1250,16 +1250,16 @@
         {
           "TimeNow": {
             "span": {
-              "start": 1172,
-              "end": 1177
+              "start": 1176,
+              "end": 1181
             }
           }
         },
         {
           "Text": {
             "span": {
-              "start": 1177,
-              "end": 1178
+              "start": 1181,
+              "end": 1182
             },
             "value": ")"
           }
@@ -1270,8 +1270,8 @@
   {
     "Text": {
       "span": {
-        "start": 1179,
-        "end": 1180
+        "start": 1183,
+        "end": 1184
       },
       "value": ":"
     }
@@ -1279,55 +1279,55 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 1180,
-        "end": 1181
+        "start": 1184,
+        "end": 1185
       }
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 1181,
-        "end": 1182
+        "start": 1185,
+        "end": 1186
       }
     }
   },
   {
     "List": {
       "span": {
-        "start": 1182,
-        "end": 1377
+        "start": 1186,
+        "end": 1381
       },
       "open_span": {
-        "start": 1182,
-        "end": 1190
+        "start": 1186,
+        "end": 1194
       },
       "close_span": {
-        "start": 1374,
-        "end": 1377
+        "start": 1378,
+        "end": 1381
       },
       "kind": "i",
       "parameters": {
         "i": {
           "span": {
-            "start": 1190,
-            "end": 1194
+            "start": 1194,
+            "end": 1198
           },
           "key": "i",
           "value": []
         },
         "style": {
           "span": {
-            "start": 1194,
-            "end": 1225
+            "start": 1198,
+            "end": 1229
           },
           "key": "style",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 1202,
-                  "end": 1223
+                  "start": 1206,
+                  "end": 1227
                 },
                 "value": "font-family:monospace"
               }
@@ -1339,44 +1339,26 @@
         {
           "Item": {
             "span": {
-              "start": 1225,
-              "end": 1267
+              "start": 1229,
+              "end": 1271
             },
             "open_span": {
-              "start": 1225,
-              "end": 1227
+              "start": 1229,
+              "end": 1231
             },
             "close_span": {
-              "start": 1264,
-              "end": 1266
+              "start": 1268,
+              "end": 1270
             },
             "parameters": {},
             "children": [
               {
                 "Text": {
                   "span": {
-                    "start": 1227,
-                    "end": 1251
-                  },
-                  "value": "Speed of light: `c = 299"
-                }
-              },
-              {
-                "Text": {
-                  "span": {
-                    "start": 1251,
-                    "end": 1252
-                  },
-                  "value": ","
-                }
-              },
-              {
-                "Text": {
-                  "span": {
-                    "start": 1252,
+                    "start": 1231,
                     "end": 1255
                   },
-                  "value": "792"
+                  "value": "Speed of light: `c = 299"
                 }
               },
               {
@@ -1392,7 +1374,25 @@
                 "Text": {
                   "span": {
                     "start": 1256,
-                    "end": 1261
+                    "end": 1259
+                  },
+                  "value": "792"
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 1259,
+                    "end": 1260
+                  },
+                  "value": ","
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 1260,
+                    "end": 1265
                   },
                   "value": "458 m"
                 }
@@ -1400,8 +1400,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 1261,
-                    "end": 1262
+                    "start": 1265,
+                    "end": 1266
                   },
                   "value": "/"
                 }
@@ -1409,8 +1409,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 1262,
-                    "end": 1264
+                    "start": 1266,
+                    "end": 1268
                   },
                   "value": "s`"
                 }
@@ -1421,24 +1421,24 @@
         {
           "Item": {
             "span": {
-              "start": 1267,
-              "end": 1320
+              "start": 1271,
+              "end": 1324
             },
             "open_span": {
-              "start": 1267,
-              "end": 1269
+              "start": 1271,
+              "end": 1273
             },
             "close_span": {
-              "start": 1317,
-              "end": 1319
+              "start": 1321,
+              "end": 1323
             },
             "parameters": {},
             "children": [
               {
                 "Text": {
                   "span": {
-                    "start": 1269,
-                    "end": 1317
+                    "start": 1273,
+                    "end": 1321
                   },
                   "value": "Planck constant: `h = 6.626 × 10⁻³⁴ J⋅s`"
                 }
@@ -1449,24 +1449,24 @@
         {
           "Item": {
             "span": {
-              "start": 1320,
-              "end": 1374
+              "start": 1324,
+              "end": 1378
             },
             "open_span": {
-              "start": 1320,
-              "end": 1322
+              "start": 1324,
+              "end": 1326
             },
             "close_span": {
-              "start": 1371,
-              "end": 1373
+              "start": 1375,
+              "end": 1377
             },
             "parameters": {},
             "children": [
               {
                 "Text": {
                   "span": {
-                    "start": 1322,
-                    "end": 1341
+                    "start": 1326,
+                    "end": 1345
                   },
                   "value": "Avogadro number: `N"
                 }
@@ -1474,8 +1474,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 1341,
-                    "end": 1342
+                    "start": 1345,
+                    "end": 1346
                   },
                   "value": "_"
                 }
@@ -1483,8 +1483,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 1342,
-                    "end": 1371
+                    "start": 1346,
+                    "end": 1375
                   },
                   "value": "A = 6.022 × 10²³ mol⁻¹`"
                 }
@@ -1498,24 +1498,24 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 1377,
-        "end": 1378
+        "start": 1381,
+        "end": 1382
       }
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 1378,
-        "end": 1379
+        "start": 1382,
+        "end": 1383
       }
     }
   },
   {
     "Header": {
       "span": {
-        "start": 1379,
-        "end": 1409
+        "start": 1383,
+        "end": 1413
       },
       "level": 3,
       "is_folded": false,
@@ -1524,8 +1524,8 @@
         {
           "Text": {
             "span": {
-              "start": 1383,
-              "end": 1408
+              "start": 1387,
+              "end": 1412
             },
             "value": "Experimental Verification"
           }
@@ -1536,38 +1536,38 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 1409,
-        "end": 1410
+        "start": 1413,
+        "end": 1414
       }
     }
   },
   {
     "Code": {
       "span": {
-        "start": 1410,
-        "end": 1753
+        "start": 1414,
+        "end": 1757
       },
       "open_span": {
-        "start": 1410,
-        "end": 1418
+        "start": 1414,
+        "end": 1422
       },
       "close_span": {
-        "start": 1750,
-        "end": 1753
+        "start": 1754,
+        "end": 1757
       },
       "parameters": {
         "lang": {
           "span": {
-            "start": 1418,
-            "end": 1434
+            "start": 1422,
+            "end": 1438
           },
           "key": "lang",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 1426,
-                  "end": 1432
+                  "start": 1430,
+                  "end": 1436
                 },
                 "value": "python"
               }
@@ -1576,16 +1576,16 @@
         },
         "style": {
           "span": {
-            "start": 1434,
-            "end": 1462
+            "start": 1438,
+            "end": 1466
           },
           "key": "style",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 1442,
-                  "end": 1460
+                  "start": 1446,
+                  "end": 1464
                 },
                 "value": "background:#f5f5f5"
               }
@@ -1599,61 +1599,61 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 1753,
-        "end": 1754
+        "start": 1757,
+        "end": 1758
       }
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 1754,
-        "end": 1755
+        "start": 1758,
+        "end": 1759
       }
     }
   },
   {
     "Fold": {
       "span": {
-        "start": 1755,
-        "end": 2210
+        "start": 1759,
+        "end": 2214
       },
       "open_span": {
-        "start": 1755,
-        "end": 1763
+        "start": 1759,
+        "end": 1767
       },
       "close_span": {
-        "start": 2207,
-        "end": 2210
+        "start": 2211,
+        "end": 2214
       },
       "parameters": {},
       "summary": {
         "span": {
-          "start": 1763,
-          "end": 1796
+          "start": 1767,
+          "end": 1800
         },
         "open_span": {
-          "start": 1764,
-          "end": 1766
+          "start": 1768,
+          "end": 1770
         },
         "close_span": {
-          "start": 1793,
-          "end": 1795
+          "start": 1797,
+          "end": 1799
         },
         "parameters": {},
         "children": [
           {
             "Bold": {
               "span": {
-                "start": 1766,
-                "end": 1785
+                "start": 1770,
+                "end": 1789
               },
               "children": [
                 {
                   "Text": {
                     "span": {
-                      "start": 1768,
-                      "end": 1783
+                      "start": 1772,
+                      "end": 1787
                     },
                     "value": "Historical Note"
                   }
@@ -1664,8 +1664,8 @@
           {
             "Text": {
               "span": {
-                "start": 1785,
-                "end": 1793
+                "start": 1789,
+                "end": 1797
               },
               "value": " 🏛️"
             }
@@ -1674,24 +1674,24 @@
       },
       "details": {
         "span": {
-          "start": 1796,
-          "end": 2207
+          "start": 1800,
+          "end": 2211
         },
         "open_span": {
-          "start": 1796,
-          "end": 1798
+          "start": 1800,
+          "end": 1802
         },
         "close_span": {
-          "start": 2204,
-          "end": 2206
+          "start": 2208,
+          "end": 2210
         },
         "parameters": {},
         "children": [
           {
             "Text": {
               "span": {
-                "start": 1799,
-                "end": 1830
+                "start": 1803,
+                "end": 1834
               },
               "value": "This equation was published in "
             }
@@ -1699,15 +1699,15 @@
           {
             "Bold": {
               "span": {
-                "start": 1830,
-                "end": 1838
+                "start": 1834,
+                "end": 1842
               },
               "children": [
                 {
                   "Text": {
                     "span": {
-                      "start": 1832,
-                      "end": 1836
+                      "start": 1836,
+                      "end": 1840
                     },
                     "value": "1905"
                   }
@@ -1718,8 +1718,8 @@
           {
             "Text": {
               "span": {
-                "start": 1838,
-                "end": 1861
+                "start": 1842,
+                "end": 1865
               },
               "value": " as part of Einstein's "
             }
@@ -1727,15 +1727,15 @@
           {
             "Italic": {
               "span": {
-                "start": 1861,
-                "end": 1881
+                "start": 1865,
+                "end": 1885
               },
               "children": [
                 {
                   "Text": {
                     "span": {
-                      "start": 1862,
-                      "end": 1880
+                      "start": 1866,
+                      "end": 1884
                     },
                     "value": "special relativity"
                   }
@@ -1746,8 +1746,8 @@
           {
             "Text": {
               "span": {
-                "start": 1881,
-                "end": 1888
+                "start": 1885,
+                "end": 1892
               },
               "value": " paper."
             }
@@ -1755,16 +1755,16 @@
           {
             "SoftBreak": {
               "span": {
-                "start": 1888,
-                "end": 1889
+                "start": 1892,
+                "end": 1893
               }
             }
           },
           {
             "Text": {
               "span": {
-                "start": 1889,
-                "end": 1911
+                "start": 1893,
+                "end": 1915
               },
               "value": "The paper was titled \""
             }
@@ -1772,15 +1772,15 @@
           {
             "Underline": {
               "span": {
-                "start": 1911,
-                "end": 1983
+                "start": 1915,
+                "end": 1987
               },
               "children": [
                 {
                   "Text": {
                     "span": {
-                      "start": 1913,
-                      "end": 1981
+                      "start": 1917,
+                      "end": 1985
                     },
                     "value": "Ist die Trägheit eines Körpers von seinem Energieinhalt abhängig?"
                   }
@@ -1791,8 +1791,8 @@
           {
             "Text": {
               "span": {
-                "start": 1983,
-                "end": 1984
+                "start": 1987,
+                "end": 1988
               },
               "value": "\""
             }
@@ -1800,24 +1800,24 @@
           {
             "SoftBreak": {
               "span": {
-                "start": 1984,
-                "end": 1985
+                "start": 1988,
+                "end": 1989
               }
             }
           },
           {
             "SoftBreak": {
               "span": {
-                "start": 1985,
-                "end": 1986
+                "start": 1989,
+                "end": 1990
               }
             }
           },
           {
             "Text": {
               "span": {
-                "start": 1986,
-                "end": 2005
+                "start": 1990,
+                "end": 2009
               },
               "value": "Fun fact: Einstein "
             }
@@ -1825,15 +1825,15 @@
           {
             "Strikethrough": {
               "span": {
-                "start": 2005,
-                "end": 2018
+                "start": 2009,
+                "end": 2022
               },
               "children": [
                 {
                   "Text": {
                     "span": {
-                      "start": 2007,
-                      "end": 2016
+                      "start": 2011,
+                      "end": 2020
                     },
                     "value": "initially"
                   }
@@ -1844,8 +1844,8 @@
           {
             "Text": {
               "span": {
-                "start": 2018,
-                "end": 2064
+                "start": 2022,
+                "end": 2068
               },
               "value": " didn't receive the Nobel Prize for relativity"
             }
@@ -1853,8 +1853,8 @@
           {
             "Text": {
               "span": {
-                "start": 2064,
-                "end": 2065
+                "start": 2068,
+                "end": 2069
               },
               "value": ","
             }
@@ -1862,8 +1862,8 @@
           {
             "Text": {
               "span": {
-                "start": 2065,
-                "end": 2066
+                "start": 2069,
+                "end": 2070
               },
               "value": " "
             }
@@ -1871,16 +1871,16 @@
           {
             "SoftBreak": {
               "span": {
-                "start": 2066,
-                "end": 2067
+                "start": 2070,
+                "end": 2071
               }
             }
           },
           {
             "Text": {
               "span": {
-                "start": 2067,
-                "end": 2091
+                "start": 2071,
+                "end": 2095
               },
               "value": "but for his work on the "
             }
@@ -1888,15 +1888,15 @@
           {
             "Superscript": {
               "span": {
-                "start": 2091,
-                "end": 2108
+                "start": 2095,
+                "end": 2112
               },
               "children": [
                 {
                   "Text": {
                     "span": {
-                      "start": 2093,
-                      "end": 2106
+                      "start": 2097,
+                      "end": 2110
                     },
                     "value": "photoelectric"
                   }
@@ -1907,8 +1907,8 @@
           {
             "Text": {
               "span": {
-                "start": 2108,
-                "end": 2116
+                "start": 2112,
+                "end": 2120
               },
               "value": " effect!"
             }
@@ -1916,24 +1916,24 @@
           {
             "SoftBreak": {
               "span": {
-                "start": 2116,
-                "end": 2117
+                "start": 2120,
+                "end": 2121
               }
             }
           },
           {
             "SoftBreak": {
               "span": {
-                "start": 2117,
-                "end": 2118
+                "start": 2121,
+                "end": 2122
               }
             }
           },
           {
             "Comment": {
               "span": {
-                "start": 2118,
-                "end": 2203
+                "start": 2122,
+                "end": 2207
               },
               "value": " Einstein's original paper can be found in \n   Annalen der Physik, vol. 18, 1905 "
             }
@@ -1945,47 +1945,47 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 2210,
-        "end": 2211
+        "start": 2214,
+        "end": 2215
       }
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 2211,
-        "end": 2212
+        "start": 2215,
+        "end": 2216
       }
     }
   },
   {
     "HLine": {
       "span": {
-        "start": 2212,
-        "end": 2216
+        "start": 2216,
+        "end": 2220
       }
     }
   },
   {
     "SoftBreak": {
       "span": {
-        "start": 2216,
-        "end": 2217
+        "start": 2220,
+        "end": 2221
       }
     }
   },
   {
     "Italic": {
       "span": {
-        "start": 2217,
-        "end": 2272
+        "start": 2221,
+        "end": 2276
       },
       "children": [
         {
           "Text": {
             "span": {
-              "start": 2218,
-              "end": 2271
+              "start": 2222,
+              "end": 2275
             },
             "value": "Mathematical notation powered by SevenMark TeX engine"
           }
@@ -1996,8 +1996,8 @@
   {
     "Text": {
       "span": {
-        "start": 2272,
-        "end": 2274
+        "start": 2276,
+        "end": 2278
       },
       "value": "  "
     }
@@ -2005,23 +2005,23 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 2274,
-        "end": 2275
+        "start": 2278,
+        "end": 2279
       }
     }
   },
   {
     "Italic": {
       "span": {
-        "start": 2275,
-        "end": 2304
+        "start": 2279,
+        "end": 2308
       },
       "children": [
         {
           "Text": {
             "span": {
-              "start": 2276,
-              "end": 2298
+              "start": 2280,
+              "end": 2302
             },
             "value": "Document generated on "
           }
@@ -2029,12 +2029,20 @@
         {
           "TimeNow": {
             "span": {
-              "start": 2298,
-              "end": 2303
+              "start": 2302,
+              "end": 2307
             }
           }
         }
       ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 2308,
+        "end": 2309
+      }
     }
   }
 ]

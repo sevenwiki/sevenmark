@@ -156,7 +156,9 @@ Table cells can contain other SevenMark elements:
 {{{#table
 [[[[Feature]] [[Description]]]]
 [[[[**Bold**]] [[*Italic* text]]]]
-[[[[{{{#code inline_code() }}}]] [[Code is supported]]]]
+[[[[{{{#code
+inline_code()
+}}}]] [[Code is supported]]]]
 [[[[[[#file="image.png" Image]]]] [[Media elements work too]]]]
 }}}
 ```

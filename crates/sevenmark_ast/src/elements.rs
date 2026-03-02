@@ -202,6 +202,18 @@ pub struct TeXElement {
     pub value: String,
 }
 
+#[derive(Debug, Clone, Serialize)]
+pub struct CssElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub open_span: Span,
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub close_span: Span,
+    pub parameters: Parameters,
+    pub value: String,
+}
+
 /// 폴드 내부 요소
 #[derive(Debug, Clone, Serialize)]
 pub struct FoldInnerElement {

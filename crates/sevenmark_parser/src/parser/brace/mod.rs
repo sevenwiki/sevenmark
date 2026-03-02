@@ -1,6 +1,7 @@
 pub mod brace_blockquote;
 pub mod brace_category;
 pub mod brace_code;
+pub mod brace_css;
 pub mod brace_define;
 pub mod brace_fold;
 pub mod brace_footnote;
@@ -24,6 +25,7 @@ mod table;
 pub use brace_blockquote::*;
 pub use brace_category::*;
 pub use brace_code::*;
+pub use brace_css::*;
 pub use brace_define::*;
 pub use brace_fold::*;
 pub use brace_footnote::*;

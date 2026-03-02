@@ -2,6 +2,7 @@
 
 pub mod blockquote;
 pub mod code;
+pub mod css;
 pub mod fold;
 pub mod footnote;
 pub mod include;

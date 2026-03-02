@@ -96,6 +96,11 @@ fn test_brace_tex() {
 }
 
 #[test]
+fn test_brace_css() {
+    run_parser_test("brace", "css").expect("brace css test failed");
+}
+
+#[test]
 fn test_brace_include() {
     run_parser_test("brace", "include").expect("brace include test failed");
 }

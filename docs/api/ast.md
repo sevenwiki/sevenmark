@@ -40,8 +40,15 @@ All text style variants share the same `TextStyleElement` structure with `span`,
 | `List` | Ordered/unordered list `{{{#list ...}}}` |
 | `Fold` | Collapsible section `{{{#fold ...}}}` |
 | `BlockQuote` | Quote block `{{{#quote ...}}}` |
-| `Code` | Code block `{{{#code ...}}}` |
-| `TeX` | Math expression `{{{#tex ...}}}` |
+| `Code` | Code block `{{{#code
+...
+}}}` |
+| `TeX` | Math expression `{{{#tex
+...
+}}}` |
+| `Css` | CSS block `{{{#css
+...
+}}}` |
 | `Ruby` | Ruby annotation `{{{#ruby ...}}}` |
 | `Footnote` | Footnote definition `{{{#fn ...}}}` |
 

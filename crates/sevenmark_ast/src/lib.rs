@@ -99,6 +99,7 @@ pub enum Element {
     Footnote(FootnoteElement),
     Code(CodeElement),
     TeX(TeXElement),
+    Css(CssElement),
 
     // Wiki elements
     Include(IncludeElement),
@@ -155,6 +156,7 @@ impl Element {
             Element::Footnote(e) => &e.span,
             Element::Code(e) => &e.span,
             Element::TeX(e) => &e.span,
+            Element::Css(e) => &e.span,
             Element::Include(e) => &e.span,
             Element::Category(e) => &e.span,
             Element::Redirect(e) => &e.span,

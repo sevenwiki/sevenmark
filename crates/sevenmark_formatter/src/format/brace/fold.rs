@@ -1,5 +1,5 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
-use sevenmark_ast::{FoldElement, FoldInnerElement};
+use sevenmark_ast::{Element, FoldElement, FoldInnerElement};
 
 use crate::FormatConfig;
 use crate::format::element::format_elements;
@@ -33,6 +33,11 @@ fn format_fold_inner<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &inner.parameters, config);
     let has_params = !inner.parameters.is_empty();
+    let closing = if needs_line_break_before_inner_close(&inner.children) {
+        a.hardline().append(a.text("]]"))
+    } else {
+        a.text("]]")
+    };
     a.text("[[")
         .append(params)
         .append(if inner.children.is_empty() {
@@ -43,5 +48,38 @@ fn format_fold_inner<'a>(
         } else {
             format_elements(a, &inner.children, config)
         })
-        .append(a.text("]]"))
+        .append(closing)
+}
+
+fn needs_line_break_before_inner_close(children: &[Element]) -> bool {
+    let last_semantic = children
+        .iter()
+        .rev()
+        .find(|el| !is_ignorable_trailing_text(el));
+
+    matches!(
+        last_semantic,
+        Some(
+            Element::Table(_)
+                | Element::List(_)
+                | Element::Fold(_)
+                | Element::Code(_)
+                | Element::TeX(_)
+                | Element::Css(_)
+                | Element::BlockQuote(_)
+                | Element::Literal(_)
+                | Element::Styled(_)
+                | Element::Include(_)
+                | Element::Footnote(_)
+                | Element::If(_)
+        )
+    )
+}
+
+fn is_ignorable_trailing_text(el: &Element) -> bool {
+    match el {
+        Element::Text(t) => t.value.chars().all(|c| matches!(c, ' ' | '\t' | '\r')),
+        Element::SoftBreak(_) => true,
+        _ => false,
+    }
 }

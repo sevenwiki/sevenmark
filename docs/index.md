@@ -44,7 +44,7 @@ Try SevenMark syntax:
 
 {{{#list #1
     [[First item with **bold** text]]
-    [[Second item with {{{#code console.log("hello") }}}]]
+    [[Second item with code example]]
     [[Third item]]
 }}}
 
@@ -64,8 +64,9 @@ Current time: [now] // This is a comment
 
 - Tables: `{{{#table [[[[Cell]]]] }}}`
 - Lists: `{{{#list #1 [[Item]] }}}`
-- Code: `{{{#code #lang="rust" code }}}`
-- Math: `{{{#tex formula }}}` or `{{{#tex #block formula }}}`
+- Code: raw block opened by `{{{#code` and closed by a line-only `}}}`
+- Math: raw block opened by `{{{#tex` and closed by a line-only `}}}` (`#block` optional)
+- CSS: raw block opened by `{{{#css` and closed by a line-only `}}}`
 - Quotes: `{{{#quote content }}}`
 - Folds: `{{{#fold [[summary]] [[details]] }}}`
 
