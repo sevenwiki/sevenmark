@@ -5,6 +5,24 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.27.0] - 2026-03-02
+
+### Changed
+- **sevenmark_transform**: Refactored transform pipeline into folder-based modules (`preprocessor/`, `postprocessor/`, `processor/`) and split logic by responsibility
+- **sevenmark_transform/wiki**: Optimized metadata lookups by deduplicating `(namespace, title)` requests, chunking large `IN` lists, and applying bounded query concurrency
+- **sevenmark_ast**: Extended `Traversable` with parameter-value traversal support so transform passes can process parameter AST consistently
+
+### Fixed
+- **sevenmark_transform/preprocessor**: Corrected include parameter precedence so caller include params are not overwritten by template-local `#define`
+- **sevenmark_transform/preprocessor**: Enabled variable substitution inside parameter values (including include parameters like `#x="[var(name)]"`) during define/if preprocessing
+- **sevenmark_transform/preprocessor**: Fixed document-order substitution for nested table/list/fold parameters by deferring nested parameter resolution to row/item/detail traversal time (prevents stale variable values from eager pre-substitution)
+- **sevenmark_transform/preprocessor/postprocessor**: Normalized include/category/media/reference identifiers with trimming to prevent newline/whitespace key mismatches from multiline syntax
+- **sevenmark_transform/wiki**: Replaced unbounded revision content downloads with bounded concurrency to avoid burst load under large include sets
+- **sevenmark_transform/preprocessor**: Added include substitution cache for repeated identical include calls to avoid repeated define/if evaluation and metadata collection
+
+### Added
+- **tests**: Added regression coverage for include precedence, identifier trimming, include substitution, media resolution normalization, and nested table/list/fold parameter substitution ordering
+
 ## [2.26.12] - 2026-03-02
 
 ### Fixed

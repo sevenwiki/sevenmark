@@ -16,6 +16,11 @@ pub trait Traversable {
     fn for_each_children_vec<F>(&mut self, f: &mut F)
     where
         F: FnMut(&mut Vec<Element>);
+
+    /// 각 parameter value Vec<Element>에 대해 f 호출
+    fn for_each_parameter_value_vec<F>(&mut self, f: &mut F)
+    where
+        F: FnMut(&mut Vec<Element>);
 }
 
 impl Traversable for Element {
@@ -352,6 +357,118 @@ impl Traversable for Element {
             Element::Fold(e) => {
                 f(&mut e.summary.children);
                 f(&mut e.details.children);
+            }
+        }
+    }
+
+    fn for_each_parameter_value_vec<F>(&mut self, f: &mut F)
+    where
+        F: FnMut(&mut Vec<Element>),
+    {
+        match self {
+            // === Leaf nodes / no-parameter nodes ===
+            Element::Text(_)
+            | Element::Comment(_)
+            | Element::Escape(_)
+            | Element::Error(_)
+            | Element::TeX(_)
+            | Element::Literal(_)
+            | Element::Category(_)
+            | Element::Age(_)
+            | Element::Variable(_)
+            | Element::Mention(_)
+            | Element::Null(_)
+            | Element::FootnoteRef(_)
+            | Element::TimeNow(_)
+            | Element::SoftBreak(_)
+            | Element::HardBreak(_)
+            | Element::Clear(_)
+            | Element::HLine(_)
+            | Element::Bold(_)
+            | Element::Italic(_)
+            | Element::Strikethrough(_)
+            | Element::Underline(_)
+            | Element::Superscript(_)
+            | Element::Subscript(_)
+            | Element::Header(_)
+            | Element::If(_) => {}
+
+            // === Direct parameter holders ===
+            Element::Define(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Styled(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::BlockQuote(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Ruby(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Footnote(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Code(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Css(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Include(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Redirect(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Media(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::ExternalMedia(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+
+            // === Fold element parameters ===
+            Element::Fold(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+
+            // === Table element parameters ===
+            Element::Table(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+
+            // === List element parameters ===
+            Element::List(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
             }
         }
     }

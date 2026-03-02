@@ -1,12 +1,5 @@
-{{{#code #lang="dd"
+{{{#define #user_name="Main"}}}
 
-{{{ }}}
-{{{ }}}
-waefwaefawefwef
-}}}
-
-{{{#list
-[[ {{{#style #style=""
-afwaefwaef
-}}} ]]
-}}}
+  {{{#include #x="[var(user_name)]"
+  Main
+  }}}
