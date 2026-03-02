@@ -88,7 +88,8 @@ Lists can be nested within other lists:
 [[**Chapter 2**: Advanced Topics]]
 [[Complex item: {{{#fold [[Click here]] [[Hidden: {{{#code #lang="rust"
 fn main() { println!("Deep!"); }
-}}}]] }}} ]]
+}}}
+]] }}} ]]
 [[Final chapter with ^^superscript^^ text]]
 }}}
 ```
@@ -175,7 +176,8 @@ List items can contain any SevenMark elements:
 [[Text styles: **bold**, *italic*, __underline__]]
 [[Code: {{{#code
 println!("Hello!");
-}}}]]
+}}}
+]]
 [[Tables: {{{#table [[[[Item]] [[Value]]]] [[[[A]] [[1]]]] [[[[B]] [[2]]]] }}}]]
 [[Media: [[#file="example.png" Example image]]]]
 }}}

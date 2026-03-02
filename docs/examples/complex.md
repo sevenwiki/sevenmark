@@ -12,13 +12,16 @@ This section shows advanced SevenMark usage with nested structures and complex l
 [[{{{#list #a
 [[Install dependencies: {{{#code
 npm install
-}}}]]
+}}}
+]]
 [[Configure environment: {{{#code
 cp .env.example .env
-}}}]]
+}}}
+]]
 [[Run initial setup: {{{#code
 npm run setup
-}}}]]
+}}}
+]]
 }}}]]
 [[**Development Process**]]
 [[{{{#list #a
@@ -31,7 +34,8 @@ npm run setup
 [[Run tests: [now] - All tests must pass]]
 [[Build project: {{{#code
 npm run build
-}}}]]
+}}}
+]]
 [[Deploy to staging environment]]
 [[Verify deployment works correctly]]
 }}}]]
@@ -46,7 +50,8 @@ npm run build
 [[[[Frontend]] [[✅ **Active**]] [[[now]]] [[{{{#list #1 [[Deploy]] [[Test]] [[Monitor]] }}}]]]]
 [[[[Backend API]] [[⚠️ *Maintenance*]] [[2024-01-15]] [[{{{#code #lang="bash"
 systemctl restart api
-}}}]]]]
+}}}
+]]]]
 [[[[Database]] [[❌ ~~Offline~~]] [[2024-01-10]] [[[[#url="https://status.db.com" Check Status]]]]]]
 }}}
 ```

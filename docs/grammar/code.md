@@ -154,13 +154,16 @@ fetchData('https://api.example.com/data')
 {{{#list #1
 [[Install Rust: {{{#code #lang="bash"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-}}}]]
+}}}
+]]
 [[Create project: {{{#code #lang="bash"
 cargo new my_project
-}}}]]
+}}}
+]]
 [[Run project: {{{#code #lang="bash"
 cargo run
-}}}]]
+}}}
+]]
 }}}
 ```
 
@@ -171,13 +174,16 @@ cargo run
 [[[[Language]] [[Hello World]]]]
 [[[[Rust]] [[{{{#code #lang="rust"
 println!("Hello!");
-}}}]]]]
+}}}
+]]]]
 [[[[Python]] [[{{{#code #lang="python"
 print("Hello!")
-}}}]]]]
+}}}
+]]]]
 [[[[JavaScript]] [[{{{#code #lang="javascript"
 console.log("Hello!");
-}}}]]]]
+}}}
+]]]]
 }}}
 ```
 

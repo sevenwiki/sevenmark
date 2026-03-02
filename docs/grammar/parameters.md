@@ -133,7 +133,8 @@ Parameters work in nested structures:
 [[[[**Header 1**]] [[*Header 2*]] [[~~Header 3~~]]]]
 [[[[Simple cell]] [[{{{#code #lang="python"
 print("nested code")
-}}}]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
+}}}
+]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
 }}}
 ```
 

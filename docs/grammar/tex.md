@@ -260,13 +260,16 @@ x \in A
 {{{#list #1
 [[The Pythagorean theorem: {{{#tex
 a^2 + b^2 = c^2
-}}}]]
+}}}
+]]
 [[Euler's identity: {{{#tex
 e^{i\pi} + 1 = 0
-}}}]]
+}}}
+]]
 [[The golden ratio: {{{#tex
 \phi = \frac{1 + \sqrt{5}}{2}
-}}}]]
+}}}
+]]
 }}}
 ```
 
@@ -277,13 +280,16 @@ e^{i\pi} + 1 = 0
 [[[[Formula]] [[Description]]]]
 [[[[{{{#tex
 E = mc^2
-}}}]] [[Mass-energy equivalence]]]]
+}}}
+]] [[Mass-energy equivalence]]]]
 [[[[{{{#tex
 F = ma
-}}}]] [[Newton's second law]]]]
+}}}
+]] [[Newton's second law]]]]
 [[[[{{{#tex
 a^2 + b^2 = c^2
-}}}]] [[Pythagorean theorem]]]]
+}}}
+]] [[Pythagorean theorem]]]]
 }}}
 ```
 
