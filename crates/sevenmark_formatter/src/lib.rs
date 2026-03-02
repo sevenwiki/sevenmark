@@ -139,6 +139,24 @@ mod tests {
     }
 
     #[test]
+    fn test_code_block_escapes_line_only_closer_on_format() {
+        let input = "{{{#code\n\\}}}\n}}}";
+        assert_eq!(roundtrip(input), input);
+    }
+
+    #[test]
+    fn test_tex_block_escapes_line_only_closer_on_format() {
+        let input = "{{{#tex #block\n\\}}}\n}}}";
+        assert_eq!(roundtrip(input), input);
+    }
+
+    #[test]
+    fn test_css_block_escapes_line_only_closer_on_format() {
+        let input = "{{{#css\n\\}}}\n}}}";
+        assert_eq!(roundtrip(input), input);
+    }
+
+    #[test]
     fn test_multiline_text() {
         let input = "line1\nline2\nline3";
         let output = roundtrip(input);
