@@ -375,3 +375,24 @@ fn test_raw_css_balanced_triple_brace_matching() {
 
     assert_eq!(css.value, ".a::after{content:\"{{{x}}}\";}\n");
 }
+
+#[test]
+fn test_raw_code_balanced_triple_brace_with_utf8_content() {
+    let input = "{{{#code\n한글🙂{{{중첩}}}끝\n}}}";
+    let parsed = parse_document(input);
+
+    assert!(
+        !parsed.iter().any(|e| matches!(e, Element::Error(_))),
+        "unexpected parse error: {parsed:#?}"
+    );
+
+    let code = parsed
+        .iter()
+        .find_map(|e| match e {
+            Element::Code(c) => Some(c),
+            _ => None,
+        })
+        .expect("expected Code element");
+
+    assert_eq!(code.value, "한글🙂{{{중첩}}}끝\n");
+}

@@ -64,3 +64,29 @@ pub fn parse_raw_until_balanced_triple_brace(
         close_end,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::context::ParseContext;
+    use crate::parser::InputSource;
+
+    #[test]
+    fn parse_balanced_triple_brace_with_utf8_content() {
+        let input = "한글🙂{{{중첩}}}끝}}}";
+        let context = ParseContext::new(input);
+
+        let mut parser_input = ParserInput {
+            input: InputSource::new(input),
+            state: context,
+        };
+
+        let result = parse_raw_until_balanced_triple_brace(&mut parser_input)
+            .expect("raw block parse should succeed");
+
+        assert_eq!(result.value, "한글🙂{{{중첩}}}끝");
+        assert_eq!(result.close_start, "한글🙂{{{중첩}}}끝".len());
+        assert_eq!(result.close_end, input.len());
+        assert!(parser_input.input.is_empty());
+    }
+}
