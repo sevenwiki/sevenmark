@@ -3,8 +3,9 @@ use super::metadata::collect_metadata;
 use super::references::{collect_includes, substitute_includes};
 use super::*;
 use sevenmark_ast::{
-    CategoryElement, DefineElement, IncludeElement, Parameter, Parameters, RedirectElement, Span,
-    TextElement, VariableElement,
+    CategoryElement, DefineElement, FoldElement, FoldInnerElement, IncludeElement, ListContentItem,
+    ListElement, ListItemElement, Parameter, Parameters, RedirectElement, Span, TableCellElement,
+    TableCellItem, TableElement, TableRowElement, TableRowItem, TextElement, VariableElement,
 };
 
 fn span() -> Span {
@@ -90,6 +91,112 @@ fn include_with_params_elements(
         close_span: span(),
         parameters,
         children: vec![text(title)],
+    })
+}
+
+fn table_cell(params: Vec<(String, Vec<Element>)>, children: Vec<Element>) -> TableCellItem {
+    let mut parameters = Parameters::new();
+    for (k, v) in params {
+        add_param_elements(&mut parameters, &k, v);
+    }
+
+    TableCellItem::Cell(TableCellElement {
+        span: span(),
+        open_span: span(),
+        close_span: span(),
+        parameters,
+        x: Vec::new(),
+        y: Vec::new(),
+        children,
+    })
+}
+
+fn table_row(params: Vec<(String, Vec<Element>)>, cells: Vec<TableCellItem>) -> TableRowItem {
+    let mut parameters = Parameters::new();
+    for (k, v) in params {
+        add_param_elements(&mut parameters, &k, v);
+    }
+
+    TableRowItem::Row(TableRowElement {
+        span: span(),
+        open_span: span(),
+        close_span: span(),
+        parameters,
+        children: cells,
+    })
+}
+
+fn table(rows: Vec<TableRowItem>) -> Element {
+    Element::Table(TableElement {
+        span: span(),
+        open_span: span(),
+        close_span: span(),
+        parameters: Parameters::new(),
+        children: rows,
+    })
+}
+
+fn list_item(params: Vec<(String, Vec<Element>)>, children: Vec<Element>) -> ListContentItem {
+    let mut parameters = Parameters::new();
+    for (k, v) in params {
+        add_param_elements(&mut parameters, &k, v);
+    }
+
+    ListContentItem::Item(ListItemElement {
+        span: span(),
+        open_span: span(),
+        close_span: span(),
+        parameters,
+        children,
+    })
+}
+
+fn list(items: Vec<ListContentItem>) -> Element {
+    Element::List(ListElement {
+        span: span(),
+        open_span: span(),
+        close_span: span(),
+        kind: "unordered".to_string(),
+        parameters: Parameters::new(),
+        children: items,
+    })
+}
+
+fn fold(
+    summary_params: Vec<(String, Vec<Element>)>,
+    summary_children: Vec<Element>,
+    details_params: Vec<(String, Vec<Element>)>,
+    details_children: Vec<Element>,
+) -> Element {
+    let mut summary_parameters = Parameters::new();
+    for (k, v) in summary_params {
+        add_param_elements(&mut summary_parameters, &k, v);
+    }
+
+    let mut details_parameters = Parameters::new();
+    for (k, v) in details_params {
+        add_param_elements(&mut details_parameters, &k, v);
+    }
+
+    Element::Fold(FoldElement {
+        span: span(),
+        open_span: span(),
+        close_span: span(),
+        parameters: Parameters::new(),
+        summary: FoldInnerElement {
+            span: span(),
+            open_span: span(),
+            close_span: span(),
+            parameters: summary_parameters,
+            children: summary_children,
+        },
+        details: FoldInnerElement {
+            span: span(),
+            open_span: span(),
+            close_span: span(),
+            parameters: details_parameters,
+            children: details_children,
+        },
     })
 }
 
@@ -293,4 +400,91 @@ fn include_parameter_variable_is_resolved() {
     });
 
     assert_eq!(rendered, Some("caller"));
+}
+
+#[test]
+fn table_nested_parameters_follow_document_order() {
+    let mut elements = vec![table(vec![
+        table_row(
+            Vec::new(),
+            vec![table_cell(Vec::new(), vec![define("row_cls", "later")])],
+        ),
+        table_row(
+            vec![("class".to_string(), vec![variable("row_cls")])],
+            vec![table_cell(Vec::new(), vec![text("content")])],
+        ),
+    ])];
+    let mut vars = HashMap::new();
+
+    process_defines_and_ifs(&mut elements, &mut vars);
+
+    let Element::Table(table_elem) = &elements[0] else {
+        panic!("expected table element");
+    };
+    let TableRowItem::Row(second_row) = &table_elem.children[1] else {
+        panic!("expected table row");
+    };
+    let class_param = second_row
+        .parameters
+        .get("class")
+        .expect("class parameter should exist");
+    assert_eq!(
+        sevenmark_utils::extract_plain_text(&class_param.value),
+        "later"
+    );
+}
+
+#[test]
+fn list_nested_parameters_follow_document_order() {
+    let mut elements = vec![list(vec![
+        list_item(Vec::new(), vec![define("item_cls", "later")]),
+        list_item(
+            vec![("class".to_string(), vec![variable("item_cls")])],
+            vec![text("content")],
+        ),
+    ])];
+    let mut vars = HashMap::new();
+
+    process_defines_and_ifs(&mut elements, &mut vars);
+
+    let Element::List(list_elem) = &elements[0] else {
+        panic!("expected list element");
+    };
+    let ListContentItem::Item(second_item) = &list_elem.children[1] else {
+        panic!("expected list item");
+    };
+    let class_param = second_item
+        .parameters
+        .get("class")
+        .expect("class parameter should exist");
+    assert_eq!(
+        sevenmark_utils::extract_plain_text(&class_param.value),
+        "later"
+    );
+}
+
+#[test]
+fn fold_nested_parameters_follow_document_order() {
+    let mut elements = vec![fold(
+        Vec::new(),
+        vec![define("detail_cls", "later")],
+        vec![("class".to_string(), vec![variable("detail_cls")])],
+        vec![text("content")],
+    )];
+    let mut vars = HashMap::new();
+
+    process_defines_and_ifs(&mut elements, &mut vars);
+
+    let Element::Fold(fold_elem) = &elements[0] else {
+        panic!("expected fold element");
+    };
+    let class_param = fold_elem
+        .details
+        .parameters
+        .get("class")
+        .expect("class parameter should exist");
+    assert_eq!(
+        sevenmark_utils::extract_plain_text(&class_param.value),
+        "later"
+    );
 }

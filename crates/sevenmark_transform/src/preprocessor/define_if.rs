@@ -1,6 +1,7 @@
 use crate::expression_evaluator::evaluate_condition;
 use sevenmark_ast::{
-    Element, ListContentItem, Span, TableCellItem, TableRowItem, TextElement, Traversable,
+    Element, ListContentItem, Parameters, Span, TableCellItem, TableRowItem, TextElement,
+    Traversable,
 };
 use std::collections::{HashMap, HashSet};
 
@@ -77,7 +78,27 @@ pub(super) fn process_defines_and_ifs_with_protected_keys(
             continue;
         }
 
-        // 6. Others: recurse into children
+        // 6. Fold: process summary/details in document order
+        if let Element::Fold(fold_elem) = &mut elements[i] {
+            process_parameters(&mut fold_elem.summary.parameters, variables);
+            process_defines_and_ifs_with_protected_keys(
+                &mut fold_elem.summary.children,
+                variables,
+                protected_keys,
+            );
+
+            process_parameters(&mut fold_elem.details.parameters, variables);
+            process_defines_and_ifs_with_protected_keys(
+                &mut fold_elem.details.children,
+                variables,
+                protected_keys,
+            );
+
+            i += 1;
+            continue;
+        }
+
+        // 7. Others: recurse into children
         elements[i].for_each_children_vec(&mut |vec| {
             process_defines_and_ifs_with_protected_keys(vec, variables, protected_keys);
         });
@@ -95,6 +116,7 @@ fn process_table_conditionals(
     while i < rows.len() {
         match &mut rows[i] {
             TableRowItem::Row(row) => {
+                process_parameters(&mut row.parameters, variables);
                 process_table_cell_conditionals(&mut row.children, variables, protected_keys);
                 i += 1;
             }
@@ -122,6 +144,7 @@ fn process_table_cell_conditionals(
     while i < cells.len() {
         match &mut cells[i] {
             TableCellItem::Cell(cell) => {
+                process_parameters(&mut cell.parameters, variables);
                 substitute_variables_in_elements(&mut cell.x, variables);
                 substitute_variables_in_elements(&mut cell.y, variables);
                 process_defines_and_ifs_with_protected_keys(
@@ -155,6 +178,7 @@ fn process_list_conditionals(
     while i < items.len() {
         match &mut items[i] {
             ListContentItem::Item(item) => {
+                process_parameters(&mut item.parameters, variables);
                 process_defines_and_ifs_with_protected_keys(
                     &mut item.children,
                     variables,
@@ -174,6 +198,12 @@ fn process_list_conditionals(
                 }
             }
         }
+    }
+}
+
+fn process_parameters(parameters: &mut Parameters, variables: &HashMap<String, String>) {
+    for parameter in parameters.values_mut() {
+        substitute_variables_in_elements(&mut parameter.value, variables);
     }
 }
 

@@ -450,98 +450,24 @@ impl Traversable for Element {
                 }
             }
 
-            // === Fold has nested parameter holders ===
+            // === Fold element parameters ===
             Element::Fold(e) => {
                 for parameter in e.parameters.values_mut() {
                     f(&mut parameter.value);
                 }
-                for parameter in e.summary.parameters.values_mut() {
-                    f(&mut parameter.value);
-                }
-                for parameter in e.details.parameters.values_mut() {
-                    f(&mut parameter.value);
-                }
             }
 
-            // === Table has nested row/cell parameter holders ===
+            // === Table element parameters ===
             Element::Table(e) => {
                 for parameter in e.parameters.values_mut() {
                     f(&mut parameter.value);
                 }
-
-                for row_item in &mut e.children {
-                    match row_item {
-                        TableRowItem::Row(row) => {
-                            for parameter in row.parameters.values_mut() {
-                                f(&mut parameter.value);
-                            }
-
-                            for cell_item in &mut row.children {
-                                match cell_item {
-                                    TableCellItem::Cell(cell) => {
-                                        for parameter in cell.parameters.values_mut() {
-                                            f(&mut parameter.value);
-                                        }
-                                    }
-                                    TableCellItem::Conditional(cond) => {
-                                        for cell in &mut cond.cells {
-                                            for parameter in cell.parameters.values_mut() {
-                                                f(&mut parameter.value);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        TableRowItem::Conditional(cond) => {
-                            for row in &mut cond.rows {
-                                for parameter in row.parameters.values_mut() {
-                                    f(&mut parameter.value);
-                                }
-
-                                for cell_item in &mut row.children {
-                                    match cell_item {
-                                        TableCellItem::Cell(cell) => {
-                                            for parameter in cell.parameters.values_mut() {
-                                                f(&mut parameter.value);
-                                            }
-                                        }
-                                        TableCellItem::Conditional(cond) => {
-                                            for cell in &mut cond.cells {
-                                                for parameter in cell.parameters.values_mut() {
-                                                    f(&mut parameter.value);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
 
-            // === List has nested item parameter holders ===
+            // === List element parameters ===
             Element::List(e) => {
                 for parameter in e.parameters.values_mut() {
                     f(&mut parameter.value);
-                }
-
-                for item in &mut e.children {
-                    match item {
-                        ListContentItem::Item(li) => {
-                            for parameter in li.parameters.values_mut() {
-                                f(&mut parameter.value);
-                            }
-                        }
-                        ListContentItem::Conditional(cond) => {
-                            for li in &mut cond.items {
-                                for parameter in li.parameters.values_mut() {
-                                    f(&mut parameter.value);
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

@@ -15,12 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - **sevenmark_transform/preprocessor**: Corrected include parameter precedence so caller include params are not overwritten by template-local `#define`
 - **sevenmark_transform/preprocessor**: Enabled variable substitution inside parameter values (including include parameters like `#x="[var(name)]"`) during define/if preprocessing
+- **sevenmark_transform/preprocessor**: Fixed document-order substitution for nested table/list/fold parameters by deferring nested parameter resolution to row/item/detail traversal time (prevents stale variable values from eager pre-substitution)
 - **sevenmark_transform/preprocessor/postprocessor**: Normalized include/category/media/reference identifiers with trimming to prevent newline/whitespace key mismatches from multiline syntax
 - **sevenmark_transform/wiki**: Replaced unbounded revision content downloads with bounded concurrency to avoid burst load under large include sets
 - **sevenmark_transform/preprocessor**: Added include substitution cache for repeated identical include calls to avoid repeated define/if evaluation and metadata collection
 
 ### Added
-- **tests**: Added regression coverage for include precedence, identifier trimming, include substitution, and media resolution normalization
+- **tests**: Added regression coverage for include precedence, identifier trimming, include substitution, media resolution normalization, and nested table/list/fold parameter substitution ordering
 
 ## [2.26.12] - 2026-03-02
 
