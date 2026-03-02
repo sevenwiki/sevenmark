@@ -16,6 +16,11 @@ pub trait Traversable {
     fn for_each_children_vec<F>(&mut self, f: &mut F)
     where
         F: FnMut(&mut Vec<Element>);
+
+    /// 각 parameter value Vec<Element>에 대해 f 호출
+    fn for_each_parameter_value_vec<F>(&mut self, f: &mut F)
+    where
+        F: FnMut(&mut Vec<Element>);
 }
 
 impl Traversable for Element {
@@ -352,6 +357,192 @@ impl Traversable for Element {
             Element::Fold(e) => {
                 f(&mut e.summary.children);
                 f(&mut e.details.children);
+            }
+        }
+    }
+
+    fn for_each_parameter_value_vec<F>(&mut self, f: &mut F)
+    where
+        F: FnMut(&mut Vec<Element>),
+    {
+        match self {
+            // === Leaf nodes / no-parameter nodes ===
+            Element::Text(_)
+            | Element::Comment(_)
+            | Element::Escape(_)
+            | Element::Error(_)
+            | Element::TeX(_)
+            | Element::Literal(_)
+            | Element::Category(_)
+            | Element::Age(_)
+            | Element::Variable(_)
+            | Element::Mention(_)
+            | Element::Null(_)
+            | Element::FootnoteRef(_)
+            | Element::TimeNow(_)
+            | Element::SoftBreak(_)
+            | Element::HardBreak(_)
+            | Element::Clear(_)
+            | Element::HLine(_)
+            | Element::Bold(_)
+            | Element::Italic(_)
+            | Element::Strikethrough(_)
+            | Element::Underline(_)
+            | Element::Superscript(_)
+            | Element::Subscript(_)
+            | Element::Header(_)
+            | Element::If(_) => {}
+
+            // === Direct parameter holders ===
+            Element::Define(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Styled(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::BlockQuote(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Ruby(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Footnote(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Code(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Css(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Include(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Redirect(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::Media(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+            Element::ExternalMedia(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+
+            // === Fold has nested parameter holders ===
+            Element::Fold(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+                for parameter in e.summary.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+                for parameter in e.details.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+            }
+
+            // === Table has nested row/cell parameter holders ===
+            Element::Table(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+
+                for row_item in &mut e.children {
+                    match row_item {
+                        TableRowItem::Row(row) => {
+                            for parameter in row.parameters.values_mut() {
+                                f(&mut parameter.value);
+                            }
+
+                            for cell_item in &mut row.children {
+                                match cell_item {
+                                    TableCellItem::Cell(cell) => {
+                                        for parameter in cell.parameters.values_mut() {
+                                            f(&mut parameter.value);
+                                        }
+                                    }
+                                    TableCellItem::Conditional(cond) => {
+                                        for cell in &mut cond.cells {
+                                            for parameter in cell.parameters.values_mut() {
+                                                f(&mut parameter.value);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        TableRowItem::Conditional(cond) => {
+                            for row in &mut cond.rows {
+                                for parameter in row.parameters.values_mut() {
+                                    f(&mut parameter.value);
+                                }
+
+                                for cell_item in &mut row.children {
+                                    match cell_item {
+                                        TableCellItem::Cell(cell) => {
+                                            for parameter in cell.parameters.values_mut() {
+                                                f(&mut parameter.value);
+                                            }
+                                        }
+                                        TableCellItem::Conditional(cond) => {
+                                            for cell in &mut cond.cells {
+                                                for parameter in cell.parameters.values_mut() {
+                                                    f(&mut parameter.value);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // === List has nested item parameter holders ===
+            Element::List(e) => {
+                for parameter in e.parameters.values_mut() {
+                    f(&mut parameter.value);
+                }
+
+                for item in &mut e.children {
+                    match item {
+                        ListContentItem::Item(li) => {
+                            for parameter in li.parameters.values_mut() {
+                                f(&mut parameter.value);
+                            }
+                        }
+                        ListContentItem::Conditional(cond) => {
+                            for li in &mut cond.items {
+                                for parameter in li.parameters.values_mut() {
+                                    f(&mut parameter.value);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
