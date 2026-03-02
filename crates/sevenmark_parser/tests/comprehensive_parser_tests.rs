@@ -396,3 +396,34 @@ fn test_raw_code_balanced_triple_brace_with_utf8_content() {
 
     assert_eq!(code.value, "한글🙂{{{중첩}}}끝\n");
 }
+
+#[test]
+fn test_redirect_stops_document_and_marks_trailing_content_as_error() {
+    let input = "{{{#redirect TargetPage}}}\n# This should be ignored";
+    let parsed = parse_document(input);
+
+    assert_eq!(
+        parsed.len(),
+        2,
+        "redirect + trailing content should yield Redirect + Error"
+    );
+    assert!(
+        matches!(parsed.first(), Some(Element::Redirect(_))),
+        "expected Redirect element, got: {parsed:#?}"
+    );
+    assert!(
+        matches!(parsed.get(1), Some(Element::Error(_))),
+        "expected trailing Error element, got: {parsed:#?}"
+    );
+}
+
+#[test]
+fn test_malformed_redirect_produces_error() {
+    let input = "{{{#redirect";
+    let parsed = parse_document(input);
+
+    assert!(
+        !parsed.is_empty() && parsed.iter().any(|e| matches!(e, Element::Error(_))),
+        "malformed redirect must produce Error element, got: {parsed:#?}"
+    );
+}
