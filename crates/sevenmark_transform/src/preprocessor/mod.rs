@@ -4,6 +4,7 @@ mod references;
 #[cfg(test)]
 mod tests;
 
+pub(super) use crate::text_utils::normalized_plain_text;
 use crate::wiki::{DocumentNamespace, RevisionStorageClient, fetch_documents_batch};
 use anyhow::Result;
 use rayon::prelude::*;
@@ -11,7 +12,6 @@ use sea_orm::DatabaseConnection;
 use serde::Serialize;
 use sevenmark_ast::Element;
 use sevenmark_parser::core::parse_document;
-use sevenmark_utils::extract_plain_text;
 use std::collections::{HashMap, HashSet};
 use tracing::debug;
 
@@ -67,16 +67,6 @@ pub struct PreProcessedDocument {
 }
 
 pub(super) const DEFAULT_NAMESPACE: &str = "Document";
-
-pub(super) fn normalized_plain_text(elements: &[Element]) -> Option<String> {
-    let raw = extract_plain_text(elements);
-    let trimmed = raw.trim();
-    if trimmed.is_empty() {
-        None
-    } else {
-        Some(trimmed.to_string())
-    }
-}
 
 pub(super) fn parse_namespace(namespace: &str) -> DocumentNamespace {
     match namespace {

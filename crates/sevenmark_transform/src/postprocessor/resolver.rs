@@ -1,17 +1,7 @@
 use super::MediaResolutionMap;
+use crate::text_utils::normalized_plain_text;
 use crate::wiki::DocumentNamespace;
 use sevenmark_ast::{Element, ResolvedDoc, ResolvedFile, ResolvedMediaInfo, Traversable};
-use sevenmark_utils::extract_plain_text;
-
-pub(super) fn normalized_plain_text(elements: &[Element]) -> Option<String> {
-    let raw = extract_plain_text(elements);
-    let trimmed = raw.trim();
-    if trimmed.is_empty() {
-        None
-    } else {
-        Some(trimmed.to_string())
-    }
-}
 
 pub(super) fn resolve_media_elements(elements: &mut [Element], resolved_map: &MediaResolutionMap) {
     for element in elements {

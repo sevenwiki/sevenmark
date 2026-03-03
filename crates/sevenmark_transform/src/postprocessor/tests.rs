@@ -1,5 +1,6 @@
-use super::resolver::{normalized_plain_text, resolve_media_elements};
+use super::resolver::resolve_media_elements;
 use super::*;
+use crate::text_utils::normalized_plain_text;
 use sevenmark_ast::{MediaElement, Parameter, Parameters, Span, TextElement};
 
 fn span() -> Span {
