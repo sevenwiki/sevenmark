@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 
 use super::Element;
 
-/// 소스 코드 위치 정보 (바이트 오프셋)
+/// 위치 정보 (바이트 오프셋)
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Span {
     pub start: usize,
