@@ -195,7 +195,7 @@ fn brace_keyword_completions() -> Vec<CompletionItem> {
         ("list", "list\n$0\n}}}", "List"),
         ("fold", "fold\n$0\n}}}", "Fold (collapsible)"),
         ("style", "style #style=\"$1\"\n$0\n}}}", "Styled block"),
-        ("blockquote", "blockquote\n$0\n}}}", "Block quote"),
+        ("quote", "quote\n$0\n}}}", "Block quote"),
         ("define", "define #$1=\"$2\"}}}", "Variable definition"),
         ("if", "if $1 ::\n$0\n}}}", "Conditional block"),
         ("include", "include $0}}}", "Document inclusion"),
@@ -641,6 +641,8 @@ mod tests {
         assert!(l.contains(&"code"));
         assert!(l.contains(&"table"));
         assert!(l.contains(&"list"));
+        assert!(l.contains(&"quote"));
+        assert!(!l.contains(&"blockquote"));
         assert!(l.contains(&"if"));
         assert!(!l.contains(&"literal"));
     }

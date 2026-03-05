@@ -1,4 +1,11 @@
-
-{{{#table
-[[[[ dsf [[#url="" ef]]  ]]]]
+{{{#css
+	:global(.navbar-mobile-avatar__fallback) {
+		background: rgb(255 255 255 / 15%);
+		color: #fff;
+		font-size: 0.8rem;
+		font-weight: 700;
+	}
+}}}
+{{{#blockquote #class="navbar-mobile-avatar__fallback"
+asdasdasdasd
 }}}
