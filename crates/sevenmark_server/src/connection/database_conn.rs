@@ -1,7 +1,8 @@
 use crate::config::server_config::ServerConfig;
-use sea_orm::{ConnectOptions, Database, DatabaseConnection, DbErr};
+use anyhow::Result;
+use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::time::Duration;
-use tracing::info;
+use tracing::{error, info};
 
 // This module manages database connections.
 // It provides functionality for connecting to a PostgreSQL database
@@ -14,7 +15,7 @@ use tracing::info;
 ///
 /// # Returns
 /// * `DatabaseConnection` - The successfully established database connection object.
-pub async fn establish_connection() -> Result<DatabaseConnection, DbErr> {
+pub async fn establish_connection() -> Result<DatabaseConnection> {
     // Retrieve database connection information from the environment and build the URL
     let db_config = ServerConfig::get();
     let database_url = format!(
@@ -49,7 +50,14 @@ pub async fn establish_connection() -> Result<DatabaseConnection, DbErr> {
         // Enable SQL logging (for debugging)
         .sqlx_logging(false);
 
-    let connection = Database::connect(options).await?;
-    info!("Successfully connected to the database.");
-    Ok(connection)
+    Database::connect(options)
+        .await
+        .map(|connection| {
+            info!("Successfully connected to the database.");
+            connection
+        })
+        .map_err(|err| {
+            error!("Failed to connect to the database: {}", err);
+            anyhow::Error::new(err).context("Failed to connect to the database")
+        })
 }

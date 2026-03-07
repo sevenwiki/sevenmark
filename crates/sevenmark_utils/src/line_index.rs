@@ -7,8 +7,9 @@
 //! - `\n` and `\r\n` terminate the current line
 //! - line terminators are not part of a line's character count
 //! - a trailing terminator creates a final empty line
+//! - standalone `\r` is treated as ordinary text
 
-use memchr::memchr2;
+use memchr::memchr;
 use sevenmark_ast::Span;
 
 /// Precomputed line start offsets for fast byte-offset-to-position conversion.
@@ -30,25 +31,10 @@ impl LineIndex {
         let mut line_starts = vec![0];
         let mut i = 0usize;
 
-        while let Some(rel_idx) = memchr2(b'\n', b'\r', &bytes[i..]) {
+        while let Some(rel_idx) = memchr(b'\n', &bytes[i..]) {
             i += rel_idx;
-
-            match bytes[i] {
-                b'\r' => {
-                    if bytes.get(i + 1) == Some(&b'\n') {
-                        line_starts.push(i + 2);
-                        i += 2;
-                    } else {
-                        line_starts.push(i + 1);
-                        i += 1;
-                    }
-                }
-                b'\n' => {
-                    line_starts.push(i + 1);
-                    i += 1;
-                }
-                _ => unreachable!("memchr2 returned a non-line-ending byte"),
-            }
+            line_starts.push(i + 1);
+            i += 1;
         }
 
         Self { line_starts }
@@ -290,6 +276,16 @@ mod tests {
         assert_eq!(idx.byte_offset_to_position(text, 3), (0, 3)); // '\r'
         assert_eq!(idx.byte_offset_to_position(text, 4), (0, 3)); // '\n'
         assert_eq!(idx.byte_offset_to_position(text, 5), (1, 0)); // final empty line
+    }
+
+    #[test]
+    fn test_standalone_cr_does_not_create_new_line() {
+        let text = "ab\rcd";
+        let idx = LineIndex::new(text);
+        assert_eq!(idx.byte_offset_to_position(text, 2), (0, 2)); // '\r'
+        assert_eq!(idx.byte_offset_to_position(text, 3), (0, 3)); // 'c'
+        assert_eq!(idx.byte_offset_to_position(text, 5), (0, 5)); // end
+        assert_eq!(idx.position_to_byte_offset(text, 0, 5), 5);
     }
 
     // === position_to_byte_offset tests ===

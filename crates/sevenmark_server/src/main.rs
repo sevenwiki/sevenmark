@@ -5,14 +5,12 @@ use sevenmark_server::r2_conn::establish_revision_storage_connection;
 use sevenmark_server::server_config::ServerConfig;
 use sevenmark_server::{AppState, api_routes};
 use std::net::SocketAddr;
+use std::process::ExitCode;
 use tracing::error;
 
 pub async fn run_server() -> anyhow::Result<()> {
     // Establish database connection
-    let conn = establish_connection().await.map_err(|e| {
-        error!("Failed to establish database connection: {}", e);
-        anyhow::anyhow!("Database connection failed: {}", e)
-    })?;
+    let conn = establish_connection().await?;
 
     // Establish R2 revision storage connection
     let revision_storage = establish_revision_storage_connection().await.map_err(|e| {
@@ -47,12 +45,16 @@ pub async fn run_server() -> anyhow::Result<()> {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> ExitCode {
     dotenvy::dotenv().ok();
 
     init_tracing();
 
-    if let Err(err) = run_server().await {
-        eprintln!("Application error: {}", err);
+    match run_server().await {
+        Ok(()) => ExitCode::SUCCESS,
+        Err(err) => {
+            error!("Application error: {err:#}");
+            ExitCode::FAILURE
+        }
     }
 }
