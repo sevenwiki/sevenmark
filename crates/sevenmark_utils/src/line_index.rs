@@ -117,8 +117,6 @@ impl LineIndex {
             if end > line_start && bytes.get(end - 1) == Some(&b'\r') {
                 end -= 1;
             }
-        } else if bytes.get(end - 1) == Some(&b'\r') {
-            end -= 1;
         }
 
         end
@@ -286,6 +284,16 @@ mod tests {
         assert_eq!(idx.byte_offset_to_position(text, 3), (0, 3)); // 'c'
         assert_eq!(idx.byte_offset_to_position(text, 5), (0, 5)); // end
         assert_eq!(idx.position_to_byte_offset(text, 0, 5), 5);
+    }
+
+    #[test]
+    fn test_trailing_standalone_cr_is_preserved_at_eof() {
+        let text = "abc\r";
+        let idx = LineIndex::new(text);
+        assert_eq!(idx.byte_offset_to_position(text, 3), (0, 3)); // '\r'
+        assert_eq!(idx.byte_offset_to_position(text, 4), (0, 4)); // end
+        assert_eq!(idx.position_to_byte_offset(text, 0, 4), 4);
+        assert_eq!(idx.position_to_byte_offset(text, 0, 10), 4);
     }
 
     // === position_to_byte_offset tests ===

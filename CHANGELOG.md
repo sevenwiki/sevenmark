@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **sevenmark_utils**: Dropped the unused `line-span` dependency after moving line indexing to direct byte scanning
 
 ### Added
-- **tests**: Added `LineIndex` coverage for trailing newline final-empty-line behavior, CRLF EOF handling, and standalone `\r` staying on the same logical line
+- **tests**: Added `LineIndex` coverage for trailing newline final-empty-line behavior, CRLF EOF handling, and standalone `\r` staying on the same logical line including EOF-ending bare `\r`
 
 ## [2.27.1] - 2026-03-05
 
