@@ -64,10 +64,10 @@ The main entry point for parsing SevenMark content.
 
 ### Installation
 
-Build the WASM package from the `sevenmark-wasm` crate:
+Build the parser WASM package from the `sevenmark_wasm` crate:
 
 ```bash
-cd crates/sevenmark-wasm
+cd crates/sevenmark_wasm
 
 # For browsers
 wasm-pack build --target web
@@ -79,6 +79,36 @@ wasm-pack build --target bundler
 wasm-pack build --target nodejs
 ```
 
+To prepare the bundler-target parser package for npm from this repository:
+
+```bash
+cargo xtask wasm-npm-pack --crate sevenmark_wasm --scope your-scope
+```
+
+To publish it to npm:
+
+```bash
+cargo xtask wasm-npm-publish --crate sevenmark_wasm --scope your-scope
+```
+
+The generated package is written to `crates/sevenmark_wasm/pkg-npm/` by default and is intended for Vite, Rollup, webpack, and similar bundlers.
+
+### Published Package Usage
+
+After publishing, install the package in your frontend app:
+
+```bash
+pnpm add @your-scope/sevenmark
+```
+
+```ts
+import init, { parse_sevenmark } from "@your-scope/sevenmark";
+
+await init();
+
+const ast = JSON.parse(parse_sevenmark("# Hello **World**"));
+```
+
 ### JavaScript API
 
 #### `parse_sevenmark(input: string): string`
@@ -86,7 +116,7 @@ wasm-pack build --target nodejs
 Parse SevenMark text and return AST JSON with **byte offsets**.
 
 ```javascript
-import init, { parse_sevenmark } from "sevenmark-wasm";
+import init, { parse_sevenmark } from "@your-scope/sevenmark";
 
 await init();
 
@@ -100,7 +130,7 @@ console.log(ast);
 Parse SevenMark text and return AST JSON with **UTF-16 code unit offsets**. Designed for CodeMirror 6 integration where positions must be 0-based UTF-16 offsets.
 
 ```javascript
-import init, { parse_sevenmark_to_codemirror } from "sevenmark-wasm";
+import init, { parse_sevenmark_to_codemirror } from "@your-scope/sevenmark";
 
 await init();
 
@@ -112,7 +142,7 @@ const ast = JSON.parse(result);
 ### Node.js Usage
 
 ```javascript
-const { parse_sevenmark, parse_sevenmark_to_codemirror } = require("sevenmark-wasm");
+const { parse_sevenmark, parse_sevenmark_to_codemirror } = require("@your-scope/sevenmark");
 
 const ast = JSON.parse(parse_sevenmark("**Bold** and *italic*"));
 console.log(ast);

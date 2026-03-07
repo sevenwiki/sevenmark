@@ -5,6 +5,17 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.27.3] - 2026-03-07
+
+### Changed
+- **sevenmark_wasm**: Split browser-facing WASM exports so the existing crate now ships parser-only bindings (`parse_sevenmark`, `parse_sevenmark_to_codemirror`) instead of bundling the LSP entrypoint
+- **xtask**: Generalized WASM npm packaging to work per crate via `cargo xtask wasm-npm-pack --crate ...` / `wasm-npm-publish --crate ...`, with default npm package names `@scope/sevenmark` and `@scope/sevenmark-lsp`
+- **docs/CI**: Updated WASM packaging documentation and GitHub Actions builds/releases to reflect separate parser and LSP WASM artifacts
+- **sevenmark_server**: Deduplicated `sort_strings(HashSet<String>) -> Vec<String>` into a shared render-route helper instead of repeating the same implementation in document/discussion render routes
+
+### Added
+- **sevenmark_wasm_lsp**: Added a dedicated WASM crate that exports `handle_lsp_message(json)` without pulling parser bindings into the same npm package
+
 ## [2.27.2] - 2026-03-07
 
 ### Changed

@@ -1,17 +1,16 @@
 [package]
-name = "sevenmark_wasm"
+name = "sevenmark_wasm_lsp"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-description = "WebAssembly bindings for SevenMark parser"
+description = "WebAssembly bindings for the SevenMark LSP"
 
 [dependencies]
 # Internal crates
-sevenmark_parser = { workspace = true, features = ["include_locations"] }
-sevenmark_utils = { workspace = true }
+sevenmark_lsp_core = { workspace = true }
 
 # External dependencies
 serde_json = { workspace = true }

@@ -1,6 +1,10 @@
 /target
 .idea
 pkg/
+crates/sevenmark_wasm/pkg-npm*/
+crates/sevenmark_wasm/tmp-pkg/
+crates/sevenmark_wasm_lsp/pkg-npm*/
+crates/sevenmark_wasm_lsp/tmp-pkg/
 logs/
 .env
 CLAUDE.md

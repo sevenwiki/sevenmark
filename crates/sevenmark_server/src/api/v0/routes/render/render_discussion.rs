@@ -1,3 +1,4 @@
+use super::sort_strings;
 use crate::errors::errors::Errors;
 use crate::state::AppState;
 use axum::Json;
@@ -6,7 +7,6 @@ use serde::{Deserialize, Serialize};
 use sevenmark_html::{RenderConfig, render_document as render_html};
 use sevenmark_parser::core::parse_document;
 use sevenmark_transform::process_sevenmark;
-use std::collections::HashSet;
 use tokio::task::spawn_blocking;
 use utoipa::ToSchema;
 
@@ -30,12 +30,6 @@ pub struct RenderedDiscussion {
     pub html: String,
     /// User mention UUIDs collected from the content
     pub user_mentions: Vec<String>,
-}
-
-fn sort_strings(values: HashSet<String>) -> Vec<String> {
-    let mut values: Vec<_> = values.into_iter().collect();
-    values.sort();
-    values
 }
 
 #[utoipa::path(
@@ -90,6 +84,7 @@ pub async fn render_discussion(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashSet;
 
     #[test]
     fn sort_strings_returns_stable_ascending_order() {

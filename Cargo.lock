@@ -3557,14 +3557,14 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_ast"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "sevenmark_formatter"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "pretty",
  "serde_json",
@@ -3575,7 +3575,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_html"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "maud",
  "percent-encoding",
@@ -3586,7 +3586,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_language_server"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "dashmap",
  "sevenmark_lsp_core",
@@ -3596,7 +3596,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_lsp_core"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "ls-types",
  "serde",
@@ -3608,7 +3608,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_parser"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "memchr",
  "paste",
@@ -3619,7 +3619,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_semantic"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "maud",
  "sevenmark_ast",
@@ -3627,7 +3627,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_server"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3650,7 +3650,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_transform"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "anyhow",
  "aws-sdk-s3",
@@ -3669,7 +3669,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_utils"
-version = "2.27.2"
+version = "2.27.3"
 dependencies = [
  "memchr",
  "serde",
@@ -3679,12 +3679,20 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm"
-version = "2.27.2"
+version = "2.27.3"
+dependencies = [
+ "serde_json",
+ "sevenmark_parser",
+ "sevenmark_utils",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "sevenmark_wasm_lsp"
+version = "2.27.3"
 dependencies = [
  "serde_json",
  "sevenmark_lsp_core",
- "sevenmark_parser",
- "sevenmark_utils",
  "wasm-bindgen",
 ]
 
@@ -5185,6 +5193,9 @@ checksum = "66fee0b777b0f5ac1c69bb06d361268faafa61cd4682ae064a171c16c433e9e4"
 [[package]]
 name = "xtask"
 version = "0.1.0"
+dependencies = [
+ "serde_json",
+]
 
 [[package]]
 name = "yansi"

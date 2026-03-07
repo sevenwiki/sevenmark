@@ -10,7 +10,8 @@ SevenMark is organized as a Cargo workspace with specialized crates. Each crate 
 |-------|---------|--------|
 | **sevenmark-parser** | Core parsing engine — text → AST | All platforms |
 | **sevenmark-utils** | Shared utilities (UTF-16 offset conversion) | All platforms |
-| **sevenmark-wasm** | WebAssembly bindings for browser/Node.js | WASM |
+| **sevenmark-wasm** | WebAssembly parser bindings for browser/Node.js | WASM |
+| **sevenmark-wasm-lsp** | WebAssembly LSP bindings for browser/Node.js | WASM |
 | **sevenmark-transform** | AST preprocessing and postprocessing | Server |
 | **sevenmark-server** | REST API server with PostgreSQL | Server |
 
@@ -80,6 +81,14 @@ WebAssembly bindings that wrap `sevenmark-parser` for use in browsers and Node.j
 
 - `parse_sevenmark(input)` — Returns AST JSON with byte offsets
 - `parse_sevenmark_to_codemirror(input)` — Returns AST JSON with UTF-16 offsets
+
+Built with `wasm-pack` and exported via `wasm-bindgen`.
+
+### sevenmark-wasm-lsp
+
+WebAssembly bindings that wrap `sevenmark-lsp-core` for use in browsers and workers:
+
+- `handle_lsp_message(json)` — Processes a JSON-RPC message and returns response + notifications
 
 Built with `wasm-pack` and exported via `wasm-bindgen`.
 

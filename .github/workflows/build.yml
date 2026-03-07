@@ -31,8 +31,11 @@ jobs:
       - name: Run Tests (LSP Core)
         run: cargo test -p sevenmark_lsp_core -- --nocapture
 
-      - name: Run Tests (Wasm)
+      - name: Run Tests (Wasm Parser)
         run: cargo test -p sevenmark_wasm -- --nocapture
+
+      - name: Run Tests (Wasm LSP)
+        run: cargo test -p sevenmark_wasm_lsp -- --nocapture
 
       - name: Run Tests (Server)
         run: cargo test -p sevenmark_server -- --nocapture
@@ -51,3 +54,7 @@ jobs:
       - name: Test WASM build (Node.js)
         working-directory: ./crates/sevenmark_wasm
         run: wasm-pack build --target nodejs
+
+      - name: Test WASM LSP build (Bundler)
+        working-directory: ./crates/sevenmark_wasm_lsp
+        run: wasm-pack build --target bundler

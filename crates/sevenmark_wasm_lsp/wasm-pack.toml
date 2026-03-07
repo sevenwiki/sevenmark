@@ -1,0 +1,5 @@
+[package]
+name = "sevenmark_wasm_lsp"
+
+[package.metadata.wasm-pack.profile.release]
+wee-alloc = false

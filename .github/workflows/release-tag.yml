@@ -46,11 +46,18 @@ jobs:
           wasm-pack build --target nodejs
           cp -r pkg ../../pkg-nodejs
 
+      - name: Build WASM LSP (Bundler)
+        working-directory: ./crates/sevenmark_wasm_lsp
+        run: |
+          wasm-pack build --target bundler
+          cp -r pkg ../../pkg-lsp-bundler
+
       - name: Create archives
         run: |
           tar -czf sevenmark_wasm-web-${{ github.ref_name }}.tar.gz -C pkg-web .
           tar -czf sevenmark_wasm-bundler-${{ github.ref_name }}.tar.gz -C pkg-bundler .
           tar -czf sevenmark_wasm-nodejs-${{ github.ref_name }}.tar.gz -C pkg-nodejs .
+          tar -czf sevenmark_wasm_lsp-bundler-${{ github.ref_name }}.tar.gz -C pkg-lsp-bundler .
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -59,6 +66,7 @@ jobs:
             sevenmark_wasm-web-${{ github.ref_name }}.tar.gz
             sevenmark_wasm-bundler-${{ github.ref_name }}.tar.gz  
             sevenmark_wasm-nodejs-${{ github.ref_name }}.tar.gz
+            sevenmark_wasm_lsp-bundler-${{ github.ref_name }}.tar.gz
           generate_release_notes: true
           draft: false
           prerelease: false

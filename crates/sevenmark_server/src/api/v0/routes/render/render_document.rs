@@ -1,3 +1,4 @@
+use super::sort_strings;
 use crate::errors::errors::Errors;
 use crate::state::AppState;
 use axum::Json;
@@ -44,12 +45,6 @@ pub struct RenderedDocument {
     pub user_mentions: Vec<String>,
     /// Section information with byte offsets for section editing
     pub sections: Vec<SectionInfo>,
-}
-
-fn sort_strings(values: HashSet<String>) -> Vec<String> {
-    let mut values: Vec<_> = values.into_iter().collect();
-    values.sort();
-    values
 }
 
 fn namespace_sort_key(namespace: &DocumentNamespace) -> u8 {
