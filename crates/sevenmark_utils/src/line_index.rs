@@ -2,8 +2,13 @@
 //!
 //! Provides O(log n) line lookup via binary search on precomputed line starts,
 //! plus O(k) UTF-16 character offset calculation within the line.
+//!
+//! Line starts follow LSP logical lines:
+//! - `\n` and `\r\n` terminate the current line
+//! - line terminators are not part of a line's character count
+//! - a trailing terminator creates a final empty line
 
-use line_span::LineSpans;
+use memchr::memchr2;
 use sevenmark_ast::Span;
 
 /// Precomputed line start offsets for fast byte-offset-to-position conversion.
@@ -12,21 +17,38 @@ use sevenmark_ast::Span;
 /// Each position lookup is O(log L + k) where L is the number of lines
 /// and k is the byte length from the line start to the target offset.
 pub struct LineIndex {
-    /// Byte offset of each line's first character.
+    /// Byte offset of each logical line's first character.
     /// Always non-empty: at minimum contains `[0]` for single-line text.
+    /// Includes the final empty line when text ends with a line terminator.
     line_starts: Vec<usize>,
 }
 
 impl LineIndex {
     /// Builds a line index from the given text in O(n).
     pub fn new(text: &str) -> Self {
-        let line_starts: Vec<usize> = text.line_spans().map(|span| span.range().start).collect();
+        let bytes = text.as_bytes();
+        let mut line_starts = vec![0];
+        let mut i = 0usize;
 
-        // Empty text still has one logical line starting at offset 0
-        if line_starts.is_empty() {
-            return Self {
-                line_starts: vec![0],
-            };
+        while let Some(rel_idx) = memchr2(b'\n', b'\r', &bytes[i..]) {
+            i += rel_idx;
+
+            match bytes[i] {
+                b'\r' => {
+                    if bytes.get(i + 1) == Some(&b'\n') {
+                        line_starts.push(i + 2);
+                        i += 2;
+                    } else {
+                        line_starts.push(i + 1);
+                        i += 1;
+                    }
+                }
+                b'\n' => {
+                    line_starts.push(i + 1);
+                    i += 1;
+                }
+                _ => unreachable!("memchr2 returned a non-line-ending byte"),
+            }
         }
 
         Self { line_starts }
@@ -49,7 +71,8 @@ impl LineIndex {
         let line = line.saturating_sub(1);
 
         let line_start = self.line_starts[line];
-        let character = utf16_len(&text[line_start..offset]);
+        let line_end = self.line_content_end(text, line);
+        let character = utf16_len(&text[line_start..offset.min(line_end)]);
 
         (line as u32, character)
     }
@@ -73,12 +96,7 @@ impl LineIndex {
         }
 
         let line_start = self.line_starts[line];
-        // Line ends at either the next line's start or text end
-        let line_end = self
-            .line_starts
-            .get(line + 1)
-            .copied()
-            .unwrap_or(text.len());
+        let line_end = self.line_content_end(text, line);
         let line_text = &text[line_start..line_end];
 
         // Walk the line counting UTF-16 code units until we reach `character`
@@ -93,6 +111,31 @@ impl LineIndex {
         }
 
         line_start + byte_offset
+    }
+
+    fn line_content_end(&self, text: &str, line: usize) -> usize {
+        let line_start = self.line_starts[line];
+        let mut end = self
+            .line_starts
+            .get(line + 1)
+            .copied()
+            .unwrap_or(text.len());
+
+        if end <= line_start {
+            return end;
+        }
+
+        let bytes = text.as_bytes();
+        if bytes.get(end - 1) == Some(&b'\n') {
+            end -= 1;
+            if end > line_start && bytes.get(end - 1) == Some(&b'\r') {
+                end -= 1;
+            }
+        } else if bytes.get(end - 1) == Some(&b'\r') {
+            end -= 1;
+        }
+
+        end
     }
 }
 
@@ -190,6 +233,7 @@ mod tests {
         let idx = LineIndex::new(text);
         assert_eq!(idx.byte_offset_to_position(text, 0), (0, 0)); // 'a'
         assert_eq!(idx.byte_offset_to_position(text, 2), (0, 2)); // '\r'
+        assert_eq!(idx.byte_offset_to_position(text, 3), (0, 2)); // '\n'
         assert_eq!(idx.byte_offset_to_position(text, 4), (1, 0)); // 'b'
     }
 
@@ -226,7 +270,7 @@ mod tests {
         let text = "abc\n";
         let idx = LineIndex::new(text);
         assert_eq!(idx.byte_offset_to_position(text, 3), (0, 3)); // '\n'
-        assert_eq!(idx.byte_offset_to_position(text, 4), (0, 4)); // end (past newline)
+        assert_eq!(idx.byte_offset_to_position(text, 4), (1, 0)); // final empty line
     }
 
     #[test]
@@ -237,6 +281,15 @@ mod tests {
         assert_eq!(idx.byte_offset_to_position(text, 2), (1, 0)); // empty line 1
         assert_eq!(idx.byte_offset_to_position(text, 3), (2, 0)); // empty line 2
         assert_eq!(idx.byte_offset_to_position(text, 4), (3, 0)); // 'b'
+    }
+
+    #[test]
+    fn test_trailing_crlf_creates_final_empty_line() {
+        let text = "abc\r\n";
+        let idx = LineIndex::new(text);
+        assert_eq!(idx.byte_offset_to_position(text, 3), (0, 3)); // '\r'
+        assert_eq!(idx.byte_offset_to_position(text, 4), (0, 3)); // '\n'
+        assert_eq!(idx.byte_offset_to_position(text, 5), (1, 0)); // final empty line
     }
 
     // === position_to_byte_offset tests ===
@@ -300,5 +353,14 @@ mod tests {
         assert_eq!(idx.position_to_byte_offset(text, 5, 0), text.len());
         // Character beyond line end → clamps to line end
         assert_eq!(idx.position_to_byte_offset(text, 0, 100), 3);
+    }
+
+    #[test]
+    fn test_pos_to_byte_final_empty_line_after_trailing_newline() {
+        let text = "abc\n";
+        let idx = LineIndex::new(text);
+        assert_eq!(idx.position_to_byte_offset(text, 0, 3), 3);
+        assert_eq!(idx.position_to_byte_offset(text, 1, 0), 4);
+        assert_eq!(idx.position_to_byte_offset(text, 1, 10), 4);
     }
 }

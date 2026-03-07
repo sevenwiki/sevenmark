@@ -7,19 +7,17 @@ use std::fs;
 use std::time::Instant;
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<()> {
     let input_content = fs::read_to_string("ToParse.sm").expect("ToParse.sm file not found");
     let document_len = input_content.len();
 
     println!("Input ({} bytes):\n{}\n", document_len, "=".repeat(50));
 
     // Establish database connection
-    let db = establish_connection().await;
+    let db = establish_connection().await?;
 
     // Establish R2 revision storage connection
-    let revision_storage = establish_revision_storage_connection()
-        .await
-        .expect("Failed to connect to R2 revision storage");
+    let revision_storage = establish_revision_storage_connection().await?;
 
     let start_time = Instant::now();
 
@@ -53,4 +51,6 @@ async fn main() {
         "Performance: {:.2} KB/s",
         document_len as f64 / 1024.0 / duration.as_secs_f64()
     );
+
+    Ok(())
 }

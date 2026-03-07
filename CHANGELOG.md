@@ -5,6 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.27.2] - 2026-03-07
+
+### Changed
+- **sevenmark_utils**: Switched `LineIndex` line-start scanning from `line-span`-style iteration to `memchr2('\n', '\r')` byte scanning while keeping LSP logical-line semantics (`\n`/`\r\n` separators, trailing newline creates a final empty line)
+- **sevenmark_server**: Aligned startup dependency initialization with V7-style error propagation so database and revision-storage setup return through `run_server()` instead of `panic!`/`expect()`
+- **sevenmark_server**: Removed redundant request-body cloning in render endpoints by moving `content` directly into the parser task and returning it only where span rendering still needs the original source
+- **sevenmark_server**: Stabilized render API response ordering by converting set-like fields (`categories`, `references`, `user_mentions`) to sorted `Vec` outputs instead of serializing `HashSet` directly
+
+### Removed
+- **sevenmark_utils**: Dropped the unused `line-span` dependency after moving line indexing to direct byte scanning
+
+### Added
+- **tests**: Added `LineIndex` coverage for trailing newline final-empty-line behavior and CRLF EOF handling
+
 ## [2.27.1] - 2026-03-05
 
 ### Fixed

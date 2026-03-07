@@ -5,15 +5,20 @@ use sevenmark_server::r2_conn::establish_revision_storage_connection;
 use sevenmark_server::server_config::ServerConfig;
 use sevenmark_server::{AppState, api_routes};
 use std::net::SocketAddr;
+use tracing::error;
 
 pub async fn run_server() -> anyhow::Result<()> {
     // Establish database connection
-    let conn = establish_connection().await;
+    let conn = establish_connection().await.map_err(|e| {
+        error!("Failed to establish database connection: {}", e);
+        anyhow::anyhow!("Database connection failed: {}", e)
+    })?;
 
     // Establish R2 revision storage connection
-    let revision_storage = establish_revision_storage_connection()
-        .await
-        .expect("Failed to connect to R2 revision storage");
+    let revision_storage = establish_revision_storage_connection().await.map_err(|e| {
+        error!("Failed to establish revision storage connection: {}", e);
+        anyhow::anyhow!("Revision storage connection failed: {}", e)
+    })?;
 
     let server_url = format!(
         "{}:{}",

@@ -29,7 +29,13 @@ pub struct RenderedDiscussion {
     /// Rendered HTML content
     pub html: String,
     /// User mention UUIDs collected from the content
-    pub user_mentions: HashSet<String>,
+    pub user_mentions: Vec<String>,
+}
+
+fn sort_strings(values: HashSet<String>) -> Vec<String> {
+    let mut values: Vec<_> = values.into_iter().collect();
+    values.sort();
+    values
 }
 
 #[utoipa::path(
@@ -56,8 +62,7 @@ pub async fn render_discussion(
     } = payload;
 
     // Parse
-    let parse_input = content.clone();
-    let ast = spawn_blocking(move || parse_document(parse_input.as_str()))
+    let ast = spawn_blocking(move || parse_document(&content))
         .await
         .map_err(|e| Errors::SysInternalError(format!("Parser task failed: {e}")))?;
 
@@ -78,6 +83,29 @@ pub async fn render_discussion(
 
     Ok(Json(RenderedDiscussion {
         html,
-        user_mentions: processed.user_mentions,
+        user_mentions: sort_strings(processed.user_mentions),
     }))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sort_strings_returns_stable_ascending_order() {
+        let values = HashSet::from([
+            "user-c".to_string(),
+            "user-a".to_string(),
+            "user-b".to_string(),
+        ]);
+
+        assert_eq!(
+            sort_strings(values),
+            vec![
+                "user-a".to_string(),
+                "user-b".to_string(),
+                "user-c".to_string()
+            ]
+        );
+    }
 }
