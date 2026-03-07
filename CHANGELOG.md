@@ -5,6 +5,21 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.27.2] - 2026-03-07
+
+### Changed
+- **sevenmark_utils**: Switched `LineIndex` line-start scanning from `line-span`-style iteration to `memchr('\n')` byte scanning while keeping parser-aligned LSP logical-line semantics (`\n`/`\r\n` separators, trailing newline creates a final empty line, standalone `\r` stays as text)
+- **sevenmark_server**: Aligned database startup connection handling with current V7 style by returning contextual `anyhow::Result` values instead of panicking inside the connection helper
+- **sevenmark_server**: Aligned server process exit behavior with current V7 handling so startup failures propagate through `run_server()` and `main()` returns `ExitCode::FAILURE` on startup errors
+- **sevenmark_server**: Removed redundant request-body cloning in render endpoints by moving `content` directly into the parser task and returning it only where span rendering still needs the original source
+- **sevenmark_server**: Stabilized render API response ordering by converting set-like fields (`categories`, `references`, `user_mentions`) to sorted `Vec` outputs instead of serializing `HashSet` directly
+
+### Removed
+- **sevenmark_utils**: Dropped the unused `line-span` dependency after moving line indexing to direct byte scanning
+
+### Added
+- **tests**: Added `LineIndex` coverage for trailing newline final-empty-line behavior, CRLF EOF handling, and standalone `\r` staying on the same logical line including EOF-ending bare `\r`
+
 ## [2.27.1] - 2026-03-05
 
 ### Fixed

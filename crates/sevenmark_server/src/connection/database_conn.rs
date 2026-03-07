@@ -1,4 +1,5 @@
 use crate::config::server_config::ServerConfig;
+use anyhow::Result;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::time::Duration;
 use tracing::{error, info};
@@ -14,7 +15,7 @@ use tracing::{error, info};
 ///
 /// # Returns
 /// * `DatabaseConnection` - The successfully established database connection object.
-pub async fn establish_connection() -> DatabaseConnection {
+pub async fn establish_connection() -> Result<DatabaseConnection> {
     // Retrieve database connection information from the environment and build the URL
     let db_config = ServerConfig::get();
     let database_url = format!(
@@ -49,18 +50,14 @@ pub async fn establish_connection() -> DatabaseConnection {
         // Enable SQL logging (for debugging)
         .sqlx_logging(false);
 
-    // Attempt to connect to the database and handle the result
-    match Database::connect(options).await {
-        Ok(connection) => {
-            // On successful connection, log the success and return the connection object
+    Database::connect(options)
+        .await
+        .map(|connection| {
             info!("Successfully connected to the database.");
             connection
-        }
-        Err(err) => {
-            // On failure, log the error and terminate the application
-            // Since the database connection is critical, the application cannot continue without it
+        })
+        .map_err(|err| {
             error!("Failed to connect to the database: {}", err);
-            panic!("Failed to connect to the database");
-        }
-    }
+            anyhow::Error::new(err).context("Failed to connect to the database")
+        })
 }

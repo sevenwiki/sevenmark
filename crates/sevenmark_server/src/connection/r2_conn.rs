@@ -1,11 +1,11 @@
 use crate::config::server_config::ServerConfig;
+use anyhow::Result;
 use aws_config::{BehaviorVersion, Region};
 use aws_sdk_s3::Client;
 use sevenmark_transform::wiki::RevisionStorageClient;
 use tracing::info;
 
-pub async fn establish_revision_storage_connection()
--> Result<RevisionStorageClient, Box<dyn std::error::Error + Send + Sync>> {
+pub async fn establish_revision_storage_connection() -> Result<RevisionStorageClient> {
     let config = ServerConfig::get();
 
     info!(
