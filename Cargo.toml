@@ -57,7 +57,7 @@ js-sys = "0.3.91"
 web-sys = "0.3.91"
 maud="0.27.0"
 percent-encoding = "2.3.2"
-ls-types = "0.0.3"
+ls-types = "0.0.6"
 pretty = "0.12.5"
 memchr = "2.8.0"
 
