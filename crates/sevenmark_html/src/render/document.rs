@@ -93,6 +93,8 @@ fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut Render
         }
     };
 
+    // `sm-folded` preserves the authored folded variant. Once rendered, the
+    // actual UI state should be read from the native `details[open]` attribute.
     if section.header_is_folded {
         let class = format!("{} {}", classes::SECTION, classes::SECTION_FOLDED);
         html! {

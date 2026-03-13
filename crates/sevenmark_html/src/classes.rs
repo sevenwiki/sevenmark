@@ -74,6 +74,8 @@ pub const FOOTNOTE_REF_ID_PREFIX: &str = "rn";
 
 // Section structure
 pub const SECTION: &str = "sm-section";
+// Variant marker for headers authored as folded (`#!`); live open/closed state
+// should be derived from the native `details[open]` attribute instead.
 pub const SECTION_FOLDED: &str = "sm-folded";
 pub const SECTION_CONTENT: &str = "sm-section-content";
 pub const SECTION_PATH: &str = "sm-section-path";
