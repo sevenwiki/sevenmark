@@ -48,7 +48,7 @@ aws-config = "1.8.15"
 zstd = "0.13.3"
 futures="0.3.32"
 tracing = "0.1.44"
-tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "json"] }
 tracing-appender = "0.2.4"
 dashmap = "6.1.0"
 rayon = "1.11.0"
