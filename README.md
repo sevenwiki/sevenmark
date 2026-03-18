@@ -55,17 +55,17 @@ cargo xtask publish      # Publish to crates.io
 The WASM crates can also be published as bundler-target npm packages for frontend apps.
 
 ```bash
-cargo xtask wasm-npm-pack --crate sevenmark_wasm --scope your-scope
-cargo xtask wasm-npm-publish --crate sevenmark_wasm --scope your-scope
+cargo xtask wasm-npm-pack --crate sevenmark_wasm --scope sevenwiki
+cargo xtask wasm-npm-publish --crate sevenmark_wasm --scope sevenwiki
 
-cargo xtask wasm-npm-pack --crate sevenmark_wasm_lsp --scope your-scope
-cargo xtask wasm-npm-publish --crate sevenmark_wasm_lsp --scope your-scope
+cargo xtask wasm-npm-pack --crate sevenmark_wasm_lsp --scope sevenwiki
+cargo xtask wasm-npm-publish --crate sevenmark_wasm_lsp --scope sevenwiki
 ```
 
 By default this publishes:
 
-- `sevenmark_wasm` as `@your-scope/sevenmark`
-- `sevenmark_wasm_lsp` as `@your-scope/sevenmark-lsp`
+- `sevenmark_wasm` as `@sevenwiki/sevenmark`
+- `sevenmark_wasm_lsp` as `@sevenwiki/sevenmark-lsp`
 
 #### Manual npm Release
 
