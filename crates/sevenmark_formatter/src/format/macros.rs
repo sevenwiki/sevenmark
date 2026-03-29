@@ -1,5 +1,5 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
-use sevenmark_ast::{AgeElement, VariableElement};
+use sevenmark_ast::{AgeElement, AnchorElement, VariableElement};
 
 pub fn format_null<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
     a.text("[null]")
