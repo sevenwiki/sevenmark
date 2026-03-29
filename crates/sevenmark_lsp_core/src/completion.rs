@@ -139,8 +139,8 @@ fn bracket_completions_ctx(ctx: Option<(&str, usize)>, _pos: Position) -> Vec<Co
 fn bracket_hash_completions_ctx(ctx: Option<(&str, usize)>, pos: Position) -> Vec<CompletionItem> {
     match ctx {
         // ── table ──────────────────────────────────────────────
-        // depth 1: row level — rows have no keyword params
-        Some(("table", 1)) => Vec::new(),
+        // depth 1: row level — head flag
+        Some(("table", 1)) => make_param_completions(table_row_param_defs()),
         // depth 2: cell level — show x/y params
         Some(("table", 2)) => make_param_completions(table_cell_param_defs()),
         // depth ≥ 3: inside cell content — generic media keywords
@@ -425,6 +425,10 @@ fn table_cell_param_defs() -> &'static [ParamDef] {
     ]
 }
 
+fn table_row_param_defs() -> &'static [ParamDef] {
+    &[("head", "Header row (renders as <thead>/<th>)", true)]
+}
+
 fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
     match element {
         "youtube" => &[
@@ -478,14 +482,20 @@ fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
         "file" => &[
             ("file", "File path", false),
             ("style", "Display style", false),
+            ("anchor", "Anchor fragment", false),
+            ("theme", "Theme visibility (light/dark)", false),
         ],
         "document" => &[
             ("document", "Document path", false),
             ("style", "Display style", false),
+            ("anchor", "Anchor fragment", false),
+            ("theme", "Theme visibility (light/dark)", false),
         ],
         "url" => &[
             ("url", "External URL", false),
             ("style", "Display style", false),
+            ("anchor", "Anchor fragment", false),
+            ("theme", "Theme visibility (light/dark)", false),
         ],
         _ => &[],
     }
@@ -513,6 +523,12 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
         "css" => &[
             ("class", "CSS classes", false),
             ("dark-style", "Dark mode CSS style", false),
+        ],
+        "table" => &[
+            ("caption", "Table caption", false),
+            ("sortable", "Enable column sorting", true),
+            ("style", "CSS style", false),
+            ("class", "CSS classes", false),
         ],
         "ruby" => &[("ruby", "Ruby text annotation", false)],
         _ => &[],
