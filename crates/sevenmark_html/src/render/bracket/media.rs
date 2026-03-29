@@ -29,9 +29,24 @@ const PATH_SEGMENT_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
     .remove(b'_')
     .remove(b'~');
 
+const FRAGMENT_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
+    .remove(b'-')
+    .remove(b'.')
+    .remove(b'_')
+    .remove(b'~');
+
 fn build_internal_href(base: &str, title: &str) -> String {
     let encoded = utf8_percent_encode(title, PATH_SEGMENT_ENCODE_SET).to_string();
     format!("{}{}", base, encoded)
+}
+
+fn apply_fragment(href: &str, fragment: &str) -> String {
+    let base = href
+        .split_once('#')
+        .map(|(prefix, _)| prefix)
+        .unwrap_or(href);
+    let encoded = utf8_percent_encode(fragment, FRAGMENT_ENCODE_SET).to_string();
+    format!("{base}#{encoded}")
 }
 
 pub fn render(
@@ -91,6 +106,17 @@ pub fn render(
             })
     });
 
+    // Append #anchor fragment if present
+    let href = href.map(|mut h| {
+        if let Some(anchor) = utils::get_param(parameters, "anchor") {
+            let anchor = anchor.trim();
+            if !anchor.is_empty() {
+                h = apply_fragment(&h, anchor);
+            }
+        }
+        h
+    });
+
     // 링크 유효성 (외부 url은 항상 valid 취급)
     let href_valid = resolved_info
         .map(|r| {
@@ -107,6 +133,11 @@ pub fn render(
             }
         })
         .unwrap_or(true);
+
+    // Theme visibility: #theme="light" or #theme="dark"
+    let theme = utils::get_param(parameters, "theme")
+        .map(|s| s.trim().to_lowercase())
+        .filter(|s| s == "light" || s == "dark");
 
     let caption = if children.is_empty() {
         None
@@ -132,6 +163,7 @@ pub fn render(
                     href=(link)
                     style=[style]
                     data-dark-style=[dark_style]
+                    data-theme=[theme.as_deref()]
                 {
                     figure class=(classes::MEDIA_IMAGE) {
                         @if image_valid {
@@ -154,6 +186,7 @@ pub fn render(
                     data-end=[data_end]
                     style=[style]
                     data-dark-style=[dark_style]
+                    data-theme=[theme.as_deref()]
                 {
                     @if image_valid {
                         img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
@@ -182,6 +215,7 @@ pub fn render(
                 href=(link)
                 style=[style]
                 data-dark-style=[dark_style]
+                data-theme=[theme.as_deref()]
             {
                 @if let Some(cap) = caption {
                     (cap)
@@ -223,5 +257,20 @@ mod tests {
     fn build_internal_href_percent_encodes_title() {
         let href = build_internal_href("/Document/", "A B/#?");
         assert_eq!(href, "/Document/A%20B%2F%23%3F");
+    }
+
+    #[test]
+    fn apply_fragment_replaces_existing_fragment() {
+        let href = apply_fragment(
+            "https://example.com/docs?page=1#old-fragment",
+            "new-fragment",
+        );
+        assert_eq!(href, "https://example.com/docs?page=1#new-fragment");
+    }
+
+    #[test]
+    fn apply_fragment_percent_encodes_reserved_characters() {
+        let href = apply_fragment("https://example.com/docs", "faq section #2");
+        assert_eq!(href, "https://example.com/docs#faq%20section%20%232");
     }
 }

@@ -25,6 +25,37 @@ pub struct TimeNowElement {
     pub span: Span,
 }
 
+/// 현재 날짜 [date]
+#[derive(Debug, Clone, Serialize)]
+pub struct DateElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+}
+
+/// 현재 날짜+시간 [datetime]
+#[derive(Debug, Clone, Serialize)]
+pub struct DateTimeElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+}
+
+/// D-day 카운터 [dday(...)]
+#[derive(Debug, Clone, Serialize)]
+pub struct DdayElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+    pub date: String,
+}
+
+/// 페이지 수 [pagecount] / [pagecount(...)]
+#[derive(Debug, Clone, Serialize)]
+pub struct PageCountElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub namespace: Option<String>,
+}
+
 /// 소프트 브레이크 (줄바꿈)
 #[derive(Debug, Clone, Serialize)]
 pub struct SoftBreakElement {
@@ -324,6 +355,14 @@ pub struct AgeElement {
 /// 변수 참조 [var(...)]
 #[derive(Debug, Clone, Serialize)]
 pub struct VariableElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+    pub name: String,
+}
+
+/// 앵커 [anchor(...)]
+#[derive(Debug, Clone, Serialize)]
+pub struct AnchorElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub span: Span,
     pub name: String,

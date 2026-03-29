@@ -69,6 +69,11 @@ enum TokenIdx {
     LogicalOperator = 56,
     ComparisonOperator = 57,
     Css = 58,
+    Anchor = 59,
+    Date = 60,
+    DateTime = 61,
+    Dday = 62,
+    PageCount = 63,
 }
 
 impl TokenIdx {
@@ -143,6 +148,11 @@ pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     SemanticTokenType::OPERATOR, // 56 LogicalOperator
     SemanticTokenType::OPERATOR, // 57 ComparisonOperator
     SemanticTokenType::KEYWORD,  // 58 Css
+    SemanticTokenType::KEYWORD,  // 59 Anchor
+    SemanticTokenType::FUNCTION, // 60 Date
+    SemanticTokenType::FUNCTION, // 61 DateTime
+    SemanticTokenType::FUNCTION, // 62 Dday
+    SemanticTokenType::FUNCTION, // 63 PageCount
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -279,8 +289,13 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
             | Element::Null(_)
             | Element::FootnoteRef(_)
             | Element::TimeNow(_)
+            | Element::Date(_)
+            | Element::DateTime(_)
+            | Element::Dday(_)
+            | Element::PageCount(_)
             | Element::Age(_)
             | Element::Variable(_)
+            | Element::Anchor(_)
             | Element::Mention(_)
             | Element::Bold(_)
             | Element::Italic(_)
@@ -370,6 +385,11 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
         | Element::TimeNow(_)
         | Element::Age(_)
         | Element::Variable(_)
+        | Element::Anchor(_)
+        | Element::Date(_)
+        | Element::DateTime(_)
+        | Element::Dday(_)
+        | Element::PageCount(_)
         | Element::Mention(_)
         | Element::SoftBreak(_)
         | Element::HardBreak(_)
@@ -423,6 +443,11 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
         | Element::TimeNow(_)
         | Element::Age(_)
         | Element::Variable(_)
+        | Element::Anchor(_)
+        | Element::Date(_)
+        | Element::DateTime(_)
+        | Element::Dday(_)
+        | Element::PageCount(_)
         | Element::Mention(_)
         | Element::Bold(_)
         | Element::Italic(_)
@@ -672,8 +697,13 @@ fn element_token_type(element: &Element) -> u32 {
         Element::Null(_) => TokenIdx::Null.as_u32(),
         Element::FootnoteRef(_) => TokenIdx::FootnoteRef.as_u32(),
         Element::TimeNow(_) => TokenIdx::TimeNow.as_u32(),
+        Element::Date(_) => TokenIdx::Date.as_u32(),
+        Element::DateTime(_) => TokenIdx::DateTime.as_u32(),
+        Element::Dday(_) => TokenIdx::Dday.as_u32(),
+        Element::PageCount(_) => TokenIdx::PageCount.as_u32(),
         Element::Age(_) => TokenIdx::Age.as_u32(),
         Element::Variable(_) => TokenIdx::Variable.as_u32(),
+        Element::Anchor(_) => TokenIdx::Anchor.as_u32(),
         Element::Mention(_) => TokenIdx::Mention.as_u32(),
         Element::Bold(_) => TokenIdx::Bold.as_u32(),
         Element::Italic(_) => TokenIdx::Italic.as_u32(),

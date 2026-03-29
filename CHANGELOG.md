@@ -5,6 +5,32 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.29.0] - 2026-03-29
+
+### Added
+- **sevenmark_ast**: Added `AnchorElement`, `DateElement`, `DateTimeElement`, `DdayElement`, `PageCountElement` AST types with span tracking and `Traversable` implementation
+- **sevenmark_parser**: Added `[anchor(name)]` macro parser for named anchors
+- **sevenmark_parser**: Added `[date]`, `[datetime]`, `[dday(YYYY-MM-DD)]`, `[pagecount]`/`[pagecount(namespace)]` macro parsers for client-rendered date/utility macros
+- **sevenmark_parser**: Added shared date parser utility (`macro/utils.rs`) used by `[age()]` and `[dday()]` parsers
+- **sevenmark_parser**: Parameter keys now accept hyphens (e.g. `#dark-color`, `#dark-bgcolor`) in addition to alphanumerics and underscores
+- **sevenmark_html**: Added anchor rendering (`<span id="{name}" class="sm-anchor">`)
+- **sevenmark_html**: Added client-rendered macro elements: `[date]` → `<span class="sm-date">`, `[datetime]` → `<span class="sm-datetime">`, `[dday(date)]` → `<span class="sm-dday" data-date="...">`, `[pagecount]` → `<span class="sm-pagecount">`
+- **sevenmark_html**: Added named footnote support via `#name` parameter on `{{{#footnote}}}` — first occurrence creates the footnote, subsequent references link back to the existing one
+- **sevenmark_html**: Added dark mode style parameters (`#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, `#dark-opacity`) rendered as `data-dark-style` attribute on all block elements (styled, table, list, fold, blockquote, code, css, ruby, media)
+- **sevenmark_html**: Added `#theme="light"` / `#theme="dark"` parameter on media elements, rendered as `data-theme` attribute for frontend CSS visibility control
+- **sevenmark_html**: Added `#anchor` parameter on media elements to append URL fragment (`#name`) to href
+- **sevenmark_html**: Added table `#caption` parameter rendering `<caption>` element
+- **sevenmark_html**: Added table `#sortable` flag parameter rendering `data-sortable="true"` attribute for frontend JS sorting
+- **sevenmark_html**: Added table row `#head` flag parameter — rows with `#head` render inside `<thead>` with `<th>` cells instead of `<tbody>`/`<td>`
+- **sevenmark_formatter**: Added format functions for `[anchor(name)]`, `[date]`, `[datetime]`, `[dday(date)]`, `[pagecount]`/`[pagecount(ns)]`
+- **sevenmark_lsp_core**: Added semantic token types for Anchor (59), Date (60), DateTime (61), Dday (62), PageCount (63)
+- **sevenmark_lsp_core**: Added hover information for Anchor elements
+- **sevenmark_lsp_core**: Added LSP completions for anchor, date, datetime, dday, pagecount macros, dark mode parameters, table caption/sortable/head parameters, and media theme/anchor parameters
+
+### Changed
+- **sevenmark_html**: Replaced single `#dark` raw style parameter with individual `#dark-color`, `#dark-bgcolor`, `#dark-style`, `#dark-size`, `#dark-opacity` parameters for structured dark mode styling
+- **sevenmark_html**: Table rendering now partitions rows into `<thead>` (rows with `#head`) and `<tbody>` groups instead of rendering all rows in a single `<tbody>`
+
 ## [2.28.1] - 2026-03-29
 
 ### Fixed

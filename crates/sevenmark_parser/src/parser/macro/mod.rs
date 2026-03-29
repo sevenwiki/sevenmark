@@ -1,15 +1,26 @@
 pub mod macro_age;
+pub mod macro_anchor;
 pub mod macro_clear;
+pub mod macro_date;
+pub mod macro_datetime;
+pub mod macro_dday;
 pub mod macro_footnote;
 pub mod macro_newline;
 pub mod macro_now;
 pub mod macro_null;
+pub mod macro_pagecount;
 pub mod macro_variable;
+pub mod utils;
 
 pub use macro_age::*;
+pub use macro_anchor::*;
 pub use macro_clear::*;
+pub use macro_date::*;
+pub use macro_datetime::*;
+pub use macro_dday::*;
 pub use macro_footnote::*;
 pub use macro_newline::*;
 pub use macro_now::*;
 pub use macro_null::*;
+pub use macro_pagecount::*;
 pub use macro_variable::*;

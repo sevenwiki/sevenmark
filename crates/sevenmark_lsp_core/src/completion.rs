@@ -139,8 +139,8 @@ fn bracket_completions_ctx(ctx: Option<(&str, usize)>, _pos: Position) -> Vec<Co
 fn bracket_hash_completions_ctx(ctx: Option<(&str, usize)>, pos: Position) -> Vec<CompletionItem> {
     match ctx {
         // ── table ──────────────────────────────────────────────
-        // depth 1: row level — rows have no keyword params
-        Some(("table", 1)) => Vec::new(),
+        // depth 1: row level — head flag
+        Some(("table", 1)) => make_param_completions(table_row_param_defs()),
         // depth 2: cell level — show x/y params
         Some(("table", 2)) => make_param_completions(table_cell_param_defs()),
         // depth ≥ 3: inside cell content — generic media keywords
@@ -332,6 +332,11 @@ fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
         ("fn", "fn]", "Footnote reference"),
         ("now", "now]", "Current time"),
         ("age", "age($1)]", "Age calculation"),
+        ("anchor", "anchor($1)]", "Named anchor"),
+        ("date", "date]", "Current date"),
+        ("datetime", "datetime]", "Current date and time"),
+        ("dday", "dday($1)]", "D-day counter"),
+        ("pagecount", "pagecount]", "Total page count"),
     ];
     macros
         .into_iter()
@@ -382,6 +387,15 @@ fn detect_brace_element(prefix: &str) -> Option<&str> {
 }
 
 fn parameter_completions(prefix: &str, ctx: Option<(&str, usize)>) -> Option<Vec<CompletionItem>> {
+    // Table cell params take priority: `#` inside an unclosed `[[` at cell depth
+    if let Some(("table", 2)) = ctx {
+        if let Some(bracket_pos) = prefix.rfind("[[") {
+            let after = &prefix[bracket_pos + 2..];
+            if !after.contains("]]") {
+                return Some(make_param_completions(table_cell_param_defs()));
+            }
+        }
+    }
     // Bracket element params (e.g. [[#youtube #id=...)
     if let Some(kw) = detect_bracket_element(prefix) {
         let params = bracket_param_defs(kw);
@@ -394,15 +408,6 @@ fn parameter_completions(prefix: &str, ctx: Option<(&str, usize)>) -> Option<Vec
         let params = brace_param_defs(kw);
         if !params.is_empty() {
             return Some(make_param_completions(params));
-        }
-    }
-    // Table cell params: `#` inside an unclosed `[[` at cell depth
-    if let Some(("table", 2)) = ctx {
-        if let Some(bracket_pos) = prefix.rfind("[[") {
-            let after = &prefix[bracket_pos + 2..];
-            if !after.contains("]]") {
-                return Some(make_param_completions(table_cell_param_defs()));
-            }
         }
     }
     None
@@ -418,6 +423,10 @@ fn table_cell_param_defs() -> &'static [ParamDef] {
         ("x", "Column position / span", false),
         ("y", "Row position / span", false),
     ]
+}
+
+fn table_row_param_defs() -> &'static [ParamDef] {
+    &[("head", "Header row (renders as <thead>/<th>)", true)]
 }
 
 fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
@@ -473,14 +482,20 @@ fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
         "file" => &[
             ("file", "File path", false),
             ("style", "Display style", false),
+            ("anchor", "Anchor fragment", false),
+            ("theme", "Theme visibility (light/dark)", false),
         ],
         "document" => &[
             ("document", "Document path", false),
             ("style", "Display style", false),
+            ("anchor", "Anchor fragment", false),
+            ("theme", "Theme visibility (light/dark)", false),
         ],
         "url" => &[
             ("url", "External URL", false),
             ("style", "Display style", false),
+            ("anchor", "Anchor fragment", false),
+            ("theme", "Theme visibility (light/dark)", false),
         ],
         _ => &[],
     }
@@ -492,16 +507,28 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
             ("lang", "Programming language", false),
             ("style", "CSS style", false),
             ("class", "CSS classes", false),
-            ("dark", "Dark mode style override", false),
+            ("dark-style", "Dark mode CSS style", false),
+            ("dark-color", "Dark mode text color", false),
+            ("dark-bgcolor", "Dark mode background color", false),
         ],
         "style" => &[
             ("style", "CSS style", false),
             ("class", "CSS classes", false),
-            ("dark", "Dark mode style override", false),
+            ("dark-style", "Dark mode CSS style", false),
+            ("dark-color", "Dark mode text color", false),
+            ("dark-bgcolor", "Dark mode background color", false),
+            ("dark-size", "Dark mode font size", false),
+            ("dark-opacity", "Dark mode opacity", false),
         ],
         "css" => &[
             ("class", "CSS classes", false),
-            ("dark", "Dark mode style override", false),
+            ("dark-style", "Dark mode CSS style", false),
+        ],
+        "table" => &[
+            ("caption", "Table caption", false),
+            ("sortable", "Enable column sorting", true),
+            ("style", "CSS style", false),
+            ("class", "CSS classes", false),
         ],
         "ruby" => &[("ruby", "Ruby text annotation", false)],
         _ => &[],
@@ -734,9 +761,10 @@ mod tests {
     }
 
     #[test]
-    fn table_bracket_hash_row_level_empty() {
+    fn table_bracket_hash_row_level_shows_head() {
         let c = completions("{{{#table\n  [[#");
-        assert!(c.is_empty(), "row level [[# should have no completions");
+        let l = labels(&c);
+        assert!(l.contains(&"head"), "row level [[# should show head flag");
     }
 
     #[test]

@@ -85,7 +85,12 @@ All text style variants share the same `TextStyleElement` structure with `span`,
 | `Variable` | Variable reference `[var(name)]` |
 | `Mention` | User/discussion mention `<@uuid>` or `<#uuid>` |
 | `TimeNow` | Current time `[now]` |
+| `Date` | Current date `[date]` |
+| `DateTime` | Current date and time `[datetime]` |
+| `Dday` | D-day counter `[dday(date)]` |
+| `PageCount` | Page count `[pagecount]` or `[pagecount(namespace)]` |
 | `Age` | Age calculation `[age(date)]` |
+| `Anchor` | Named anchor `[anchor(name)]` |
 | `Null` | No-op macro `[null]` |
 | `Clear` | Float clear macro `[clear]` |
 | `FootnoteRef` | Footnote list macro `[fn]` |
@@ -125,7 +130,7 @@ pub struct Parameter {
 pub type Parameters = BTreeMap<String, Parameter>;
 ```
 
-Parameters are stored as a `BTreeMap` keyed by parameter name. The value is a parsed AST (not just a raw string), allowing macros like `[var(name)]` inside parameter values.
+Parameters are stored as a `BTreeMap` keyed by parameter name. Keys may contain Unicode letters, digits, underscore, and hyphen. Values are parsed AST fragments rather than raw strings, so macros like `[var(name)]` can appear inside parameter values.
 
 ## Expression Enum (Conditionals)
 

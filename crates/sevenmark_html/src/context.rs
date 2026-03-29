@@ -1,5 +1,7 @@
 //! Rendering context for footnote tracking
 
+use std::collections::HashMap;
+
 use sevenmark_ast::Element;
 use sevenmark_utils::Utf16OffsetConverter;
 
@@ -12,6 +14,8 @@ pub struct FootnoteEntry {
     pub index: usize,
     /// Display text (from #display parameter or auto-generated number)
     pub display: String,
+    /// Optional name for named footnotes (used for anchor IDs)
+    pub name: Option<String>,
     /// Footnote content (to be rendered later)
     pub content: Vec<Element>,
 }
@@ -20,6 +24,10 @@ pub struct FootnoteEntry {
 pub struct RenderContext<'a> {
     /// Collected footnotes (rendered at document end)
     pub footnotes: Vec<FootnoteEntry>,
+    /// Sequential numbering for unnamed footnotes rendered without a custom display
+    pub next_unnamed_footnote_number: usize,
+    /// Named footnote tracking: name -> footnote index (persists across flushes)
+    pub named_footnotes: HashMap<String, usize>,
     /// Track if we are inside a footnote (to prevent nested footnotes)
     pub in_footnote: bool,
     /// Track depth of elements that suppress SoftBreak rendering
@@ -36,6 +44,8 @@ impl<'a> RenderContext<'a> {
     pub fn new(config: &'a RenderConfig<'a>) -> Self {
         Self {
             footnotes: Vec::new(),
+            next_unnamed_footnote_number: 1,
+            named_footnotes: HashMap::new(),
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
             config,
@@ -50,6 +60,8 @@ impl<'a> RenderContext<'a> {
     ) -> Self {
         Self {
             footnotes: Vec::new(),
+            next_unnamed_footnote_number: 1,
+            named_footnotes: HashMap::new(),
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
             config,
@@ -62,6 +74,8 @@ impl<'a> RenderContext<'a> {
     pub fn child(&self) -> Self {
         Self {
             footnotes: Vec::new(),
+            next_unnamed_footnote_number: 1,
+            named_footnotes: HashMap::new(),
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
             config: self.config,
@@ -101,15 +115,43 @@ impl<'a> RenderContext<'a> {
         display: Option<String>,
         content: Vec<Element>,
     ) -> &str {
-        let display = display.unwrap_or_else(|| index.to_string());
+        let number = self.next_unnamed_footnote_number;
+        self.next_unnamed_footnote_number += 1;
+
+        let display = display.unwrap_or_else(|| number.to_string());
 
         self.footnotes.push(FootnoteEntry {
             index,
             display,
+            name: None,
             content,
         });
 
         // Return reference to the display we just pushed
         &self.footnotes.last().unwrap().display
+    }
+
+    /// Adds a named footnote. Returns (is_new, existing_index_if_duplicate).
+    /// If the name already exists, returns the existing footnote's index without adding a new entry.
+    pub fn add_named_footnote(
+        &mut self,
+        index: usize,
+        name: String,
+        content: Vec<Element>,
+    ) -> Result<&str, usize> {
+        if let Some(&existing_index) = self.named_footnotes.get(&name) {
+            // Duplicate — return existing index for back-reference
+            return Err(existing_index);
+        }
+
+        self.named_footnotes.insert(name.clone(), index);
+        self.footnotes.push(FootnoteEntry {
+            index,
+            display: name.clone(),
+            name: Some(name),
+            content,
+        });
+
+        Ok(&self.footnotes.last().unwrap().display)
     }
 }

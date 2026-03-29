@@ -12,17 +12,16 @@ Embed images using the `#file` parameter:
 
 ```sevenmark
 [[#file="image.png" Alt text for image]]
-[[#file="screenshot.jpg" Application Screenshot]]
+[[#file="screenshot.jpg" Application screenshot]]
 ```
 
 ### External URLs
 
-Link to external media using the `#url` parameter.  
-`#url` only renders when the value starts with `http://` or `https://`:
+Link to external media using the `#url` parameter. `#url` only renders when the value starts with `http://` or `https://`.
 
 ```sevenmark
 [[#url="https://example.com/image.jpg" External image]]
-[[#url="https://example.com/video.mp4" Demo Video]]
+[[#url="https://example.com/video.mp4" Demo video]]
 ```
 
 ### Combined File and URL
@@ -39,18 +38,41 @@ Link to wiki pages using the `#document` parameter:
 
 ```sevenmark
 [[#document="HomePage" Home]]
-[[#document="API Reference" API Documentation]]
-[[#document="Tutorial" Getting Started Guide]]
+[[#document="API Reference" API documentation]]
+[[#document="Tutorial" Getting started guide]]
 ```
 
-### Category Links
-
-Link to category pages using the `#category` parameter:
+### Category and User Links
 
 ```sevenmark
-[[#category="Programming Languages" Category Page]]
-[[#category="Rust" All Rust Articles]]
+[[#category="Programming Languages" Category page]]
+[[#user="Alice" Alice's page]]
 ```
+
+## Anchor Fragments (`#anchor`)
+
+Add `#anchor` to append a fragment identifier to the resolved link target.
+
+```sevenmark
+[anchor(installation)]
+## Installation
+
+[[#document="Guide" #anchor="installation" Jump to installation]]
+[[#url="https://example.com/docs" #anchor="faq" Open external FAQ]]
+```
+
+This is especially useful when combined with `[anchor(name)]`.
+
+## Theme-aware Media (`#theme`)
+
+Use `#theme="light"` or `#theme="dark"` to annotate a media element with a theme hint for frontend CSS.
+
+```sevenmark
+[[#file="logo-light.svg" #theme="light" Light logo]]
+[[#file="logo-dark.svg" #theme="dark" Dark logo]]
+```
+
+The renderer exposes the value as a `data-theme` attribute. Values other than `light` and `dark` are ignored.
 
 ## Hyperlinks
 
@@ -58,11 +80,11 @@ Create hyperlinks using the `#url` parameter:
 
 ```sevenmark
 [[#url="https://example.com"]]
-[[#url="https://rust-lang.org" Official Rust Website]]
-[[#url="https://github.com/rust-lang/rust" Rust GitHub Repository]]
+[[#url="https://rust-lang.org" Official Rust website]]
+[[#url="https://github.com/rust-lang/rust" Rust GitHub repository]]
 ```
 
-The `#url` parameter provides the link target, and the optional content after parameters is used as display text. If no display text is provided, the URL itself is displayed.
+If no display text is provided, the URL itself is displayed.
 
 ## Media in Complex Structures
 
@@ -70,7 +92,7 @@ The `#url` parameter provides the link target, and the optional content after pa
 
 ```sevenmark
 {{{#table
-[[[[Name]] [[Image]] [[Link]]]]
+[[#head [[Name]] [[Image]] [[Link]]]]
 [[[[John]] [[[#file="john.jpg" John's photo]]] [[[#url="https://john.com" Profile]]]]]
 }}}
 ```
@@ -82,47 +104,47 @@ The `#url` parameter provides the link target, and the optional content after pa
 [[Profile images:]]
 [[[[#file="avatar1.png" User 1]]]]
 [[[[#file="avatar2.png" User 2]]]]
-[[Documentation: [[#url="https://docs.example.com" Official Docs]]]]
+[[Documentation: [[#url="https://docs.example.com" Official docs]]]]
 }}}
 ```
 
 ## File Types
 
-SevenMark media elements can handle various file types:
+SevenMark media elements can handle many file types:
 
 ```sevenmark
-[[#file="document.pdf" PDF Document]]
-[[#file="presentation.pptx" PowerPoint Presentation]]  
-[[#file="data.xlsx" Excel Spreadsheet]]
-[[#file="video.mp4" Video File]]
-[[#file="audio.mp3" Audio File]]
+[[#file="document.pdf" PDF document]]
+[[#file="presentation.pptx" PowerPoint presentation]]
+[[#file="data.xlsx" Excel spreadsheet]]
+[[#file="video.mp4" Video file]]
+[[#file="audio.mp3" Audio file]]
 ```
 
-## Media Resolution and Link Priority
+## Resolution and Link Priority
 
-When multiple parameters are specified:
+When multiple target parameters are specified:
 
-1. `#file` controls image/file rendering
-2. Link target (`href`) priority is: `#url` > `#document` > `#category` > `#user`
+1. `#file` controls image or file rendering.
+2. Link target priority is `#url` > `#document` > `#category` > `#user`.
+3. If `#anchor` is present, the fragment is appended after the final target URL is chosen.
 
 Example:
 
 ```sevenmark
-// Renders image from #file, links to #url
-[[#file="image.png" #url="https://example.com/image.jpg" My Image]]
+// Renders image from #file, links to #url, then appends #details
+[[#file="image.png" #url="https://example.com/image" #anchor="details" My image]]
 
 // Uses #document when #url is not provided
-[[#document="HomePage" Home Link]]
-
-// Links to a user page
-[[#user="Alice" Alice's page]]
+[[#document="HomePage" Home link]]
 ```
 
 The preprocessing stage resolves media references to actual URLs:
-- **File namespace**: Resolved to storage URLs via API
-- **Document namespace**: Generates `/document/{title}` links
-- **Category namespace**: Generates `/category/{title}` links
-- **URL parameter**: Rendered only for `http://` and `https://` schemes
+
+- `#file`: resolved to storage URLs
+- `#document`: rendered as document links
+- `#category`: rendered as category links
+- `#user`: rendered as user links
+- `#url`: allowed only for `http://` and `https://`
 
 ## External Media Embeds
 
@@ -131,13 +153,8 @@ For embedding external media from platforms like YouTube, Vimeo, Spotify, and mo
 Quick examples:
 
 ```sevenmark
-// YouTube video
 [[#youtube #id="dQw4w9WgXcQ"]]
-
-// Spotify track
 [[#spotify #track="4uLU6hMCjMI75M1A2tKUQC"]]
-
-// Discord server widget
 [[#discord #id="123456789012345678"]]
 ```
 
@@ -145,11 +162,11 @@ Quick examples:
 
 ### Media with Styling
 
-While media elements themselves don't support direct styling, they can be wrapped in styled elements:
+Media wrappers support common styling parameters such as `#style`, `#class`, and `#dark-*`.
 
 ```sevenmark
-{{{ #style="text-align: center; border: 1px solid #ccc; padding: 10px"
-[[#file="important-diagram.png" System Architecture Diagram]]
+{{{ #style="text-align:center; border:1px solid #ccc; padding:10px"
+[[#file="important-diagram.png" System architecture diagram]]
 }}}
 ```
 

@@ -2,9 +2,9 @@
 
 <div v-pre>
 
-SevenMark supports various macro elements for dynamic content generation.
+SevenMark macros use square-bracket syntax and render inline dynamic content or utility markers.
 
-## Time Macros
+## Time and Date
 
 ### Current Time
 
@@ -12,6 +12,22 @@ Display the current timestamp:
 
 ```sevenmark
 Current time: [now]
+```
+
+### Current Date
+
+Display the current date:
+
+```sevenmark
+Today: [date]
+```
+
+### Current Date and Time
+
+Display the current date and time:
+
+```sevenmark
+Updated at: [datetime]
 ```
 
 ### Age Calculation
@@ -23,14 +39,44 @@ Age calculation: [age(1990-01-15)]
 Born in 1995: [age(1995-06-20)]
 ```
 
-## Utility Macros
+### D-day Counter
+
+Count the number of days to or from an ISO date (`YYYY-MM-DD`):
+
+```sevenmark
+Days until launch: [dday(2026-12-31)]
+Days since opening day: [dday(2020-01-01)]
+```
+
+### Page Count
+
+Render the total page count, optionally scoped to a namespace:
+
+```sevenmark
+All pages: [pagecount]
+Document pages: [pagecount(Document)]
+File pages: [pagecount(File)]
+```
+
+## Anchors and Layout
+
+### Named Anchor
+
+Create a named anchor that other links can target:
+
+```sevenmark
+[anchor(api-overview)]
+## API Overview
+
+[[#document="Guide" #anchor="api-overview" Jump to this section]]
+```
 
 ### Line Break
 
-Insert a line break:
+Insert a hard line break:
 
 ```sevenmark
-Line break:[br]Next line
+Line 1[br]Line 2
 ```
 
 ### Clear Float
@@ -38,7 +84,7 @@ Line break:[br]Next line
 Clear preceding floated content and continue from the next block line:
 
 ```sevenmark
-[[#file="sample.png" #style="float:right; width:180px"]]
+[[#file="sample.png" #style="float:right; width:180px" Example]]
 [clear]
 This text starts below the floated image.
 ```
@@ -51,36 +97,51 @@ The null macro produces no output:
 This text[null]continues without interruption.
 ```
 
+## Footnote List Placement
+
+### Footnote Flush
+
+`[fn]` renders the currently collected footnotes at that position and clears the pending list:
+
+```sevenmark
+Paragraph A{{{#fn First note. }}}.
+Paragraph B{{{#fn Second note. }}}.
+
+[fn]
+```
+
+If `[fn]` is omitted, any remaining footnotes are rendered automatically at the end of the document.
+
 ## Macro Usage in Complex Elements
 
-Macros can be used within other elements:
+Macros can be used inside tables, lists, folds, and styled blocks:
 
 ```sevenmark
 {{{#list #1
-[[Item with current time: [now]]]
-[[Person born in 1990 is [age(1990-01-01)] years old]]
-[[Line 1[br]Line 2 in same item]]
-[[Before clear [clear] after clear]]
+[[Release date: [date]]]
+[[Countdown: [dday(2026-12-31)]]]
+[[Document pages: [pagecount(Document)]]]
+[[Jump target: [anchor(changelog)]]]
 }}}
 ```
 
 ### In Tables
 
 ```sevenmark
-{{{#table
-[[[[Name]] [[Age]]]]
-[[[[John]] [[[age(1985-03-15)]]]]]
-[[[[Updated]] [[[now]]]]]
+{{{#table #caption="Dashboard"
+[[#head [[Metric]] [[Value]]]]
+[[[[Today]] [[[date]]]]]
+[[[[Pages]] [[[pagecount(Document)]]]]]
 }}}
 ```
 
-### In Styled Text
+### In Styled Content
 
 ```sevenmark
-{{{ #style="color:blue" Last updated: [now] }}}
+{{{ #style="color:blue" Last updated: [datetime] }}}
 ```
 
-## Variable System
+## Variables
 
 ### Define Variables
 
@@ -88,7 +149,7 @@ Create template variables using `{{{#define}}}`:
 
 ```sevenmark
 {{{#define #projectName="SevenMark"}}}
-{{{#define #version="2.0"}}}
+{{{#define #version="2.29.0"}}}
 {{{#define #author="SevenWiki Team"}}}
 ```
 
@@ -101,67 +162,20 @@ Welcome to [var(projectName)] version [var(version)]!
 Created by [var(author)].
 ```
 
-### Variable Usage Examples
+### Document-order Resolution
 
-#### Document Header Template
-
-```sevenmark
-{{{#define #docTitle="API Reference"}}}
-{{{#define #docVersion="v1.2.3"}}}
-{{{#define #lastUpdate="2024-01-15"}}}
-
-# [var(docTitle)] - [var(docVersion)]
-
-Last updated: [var(lastUpdate)]
-```
-
-#### Repeated Content
-
-```sevenmark
-{{{#define #companyName="Acme Corporation"}}}
-{{{#define #supportEmail="support@acme.com"}}}
-
-Welcome to [var(companyName)]!
-
-For assistance, contact [var(companyName)] support at [var(supportEmail)].
-
-© 2024 [var(companyName)]. All rights reserved.
-```
-
-### Variable Scope and Resolution
-
-- Variables are resolved in a **forward-only** manner to prevent circular dependencies
-- Variables must be defined before they are used
-- **Variable shadowing**: Later definitions override earlier ones with the same name
-- Variable substitution occurs during the preprocessing stage
-- Variables can be used in any SevenMark element after definition
-
-```sevenmark
-{{{#define #greeting="Hello"}}}
-
-# [var(greeting)], World!
-
-{{{#list #1
-[[First item uses: [var(greeting)]]]
-[[Second item also uses: [var(greeting)]]]
-}}}
-```
-
-### Variable References and Document-Order Processing
-
-Since version 2.10.0, variables are processed in **document order** using a single pass. This means a variable defined earlier in the document can be referenced by a later `{{{#define}}}`:
+Variables are resolved in document order using a single pass:
 
 ```sevenmark
 {{{#define #baseUrl="https://example.com"}}}
 {{{#define #apiUrl="[var(baseUrl)]/api/v1"}}}
 
 API endpoint: [var(apiUrl)]
-// Outputs: API endpoint: https://example.com/api/v1
 ```
 
-#### Conditional Define Pattern
+### Conditional Define Pattern
 
-Combine with conditionals to create dynamic variable chains:
+Combine variables and conditionals to build dynamic templates:
 
 ```sevenmark
 {{{#define #env="production"}}}
@@ -177,12 +191,11 @@ Combine with conditionals to create dynamic variable chains:
 Connecting to: [var(apiHost)]
 ```
 
-### Important Notes
+## Notes
 
-- Define variables directly with `#key="value"` pairs inside `{{{#define}}}`
-- Example: `{{{#define #projectName="SevenMark"}}}`
-- Variables are resolved in document order — a variable can reference any variable defined **before** it
-- Circular references are not possible because resolution is forward-only (single pass)
-- Undefined variables will produce an error element in the output
+- Macro dates for `[age(...)]` and `[dday(...)]` use ISO `YYYY-MM-DD` format.
+- `[pagecount(namespace)]` passes the namespace string through to the renderer; parser-level namespace validation is not applied.
+- `[anchor(name)]` is most useful when paired with media links that use `#anchor`.
+- Undefined variables render as an error element in the output.
 
 </div>

@@ -114,8 +114,13 @@ pub enum Element {
     Null(NullElement),
     FootnoteRef(FootnoteRefElement),
     TimeNow(TimeNowElement),
+    Date(DateElement),
+    DateTime(DateTimeElement),
+    Dday(DdayElement),
+    PageCount(PageCountElement),
     Age(AgeElement),
     Variable(VariableElement),
+    Anchor(AnchorElement),
     Mention(MentionElement),
 
     // Text styles
@@ -165,8 +170,13 @@ impl Element {
             Element::Null(e) => &e.span,
             Element::FootnoteRef(e) => &e.span,
             Element::TimeNow(e) => &e.span,
+            Element::Date(e) => &e.span,
+            Element::DateTime(e) => &e.span,
+            Element::Dday(e) => &e.span,
+            Element::PageCount(e) => &e.span,
             Element::Age(e) => &e.span,
             Element::Variable(e) => &e.span,
+            Element::Anchor(e) => &e.span,
             Element::Mention(e) => &e.span,
             Element::Bold(e)
             | Element::Italic(e)

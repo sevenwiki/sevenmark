@@ -71,6 +71,20 @@ Styled text with multiple parameters
 }}}
 ```
 
+## Dark Mode Overrides
+
+Styled elements can also expose a separate dark-mode style payload with `#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, and `#dark-opacity`.
+
+```sevenmark
+{{{ #color="#222" #bgcolor="#f6f6f6" #dark-color="#eee" #dark-bgcolor="#111"
+Theme-aware text block
+}}}
+
+{{{ #style="padding: 8px 12px; border-radius: 6px" #dark-style="border:1px solid #333"
+Custom dark-mode wrapper
+}}}
+```
+
 ## Styled Content with Markup
 
 Styled elements can contain other SevenMark syntax:
@@ -227,6 +241,7 @@ new
 - **At least one parameter is required** — without any parameter, `{{{ content }}}` is parsed as a [literal block](/grammar/literal) instead of a styled element
 - The `#style` parameter accepts styling property-value pairs
 - Individual parameters (`#color`, `#size`, etc.) are convenience shortcuts
+- Dark-mode parameters (`#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, `#dark-opacity`) populate separate dark styling metadata
 - Parameters are case-sensitive
 - Multiple parameters can be combined
 - Parameters are stored in the AST's `CommonStyleAttributes` structure

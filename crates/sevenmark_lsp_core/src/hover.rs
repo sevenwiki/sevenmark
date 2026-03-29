@@ -74,6 +74,7 @@ fn hover_content(element: &Element) -> Option<String> {
         }
         Element::Css(_) => "**CSS** (raw block)".to_string(),
         Element::Variable(v) => format!("**Variable**: `{}`", v.name),
+        Element::Anchor(a) => format!("**Anchor**: `{}`", a.name),
         Element::Define(_) => "**Define** - variable definition".to_string(),
         Element::Include(_) => "**Include** - document inclusion".to_string(),
         Element::Category(_) => "**Category**".to_string(),
@@ -107,6 +108,10 @@ fn hover_content(element: &Element) -> Option<String> {
         | Element::Null(_)
         | Element::FootnoteRef(_)
         | Element::TimeNow(_)
+        | Element::Date(_)
+        | Element::DateTime(_)
+        | Element::Dday(_)
+        | Element::PageCount(_)
         | Element::Age(_)
         | Element::SoftBreak(_)
         | Element::HardBreak(_)

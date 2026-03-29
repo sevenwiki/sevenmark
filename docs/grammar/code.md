@@ -261,21 +261,23 @@ let braces = "{{{not a block}}}";
 
 ## Styling
 
-Code blocks support styling and class/dark overrides via parameters:
+Code blocks support wrapper styling, extra classes, and structured dark-mode overrides via parameters:
 
 ```sevenmark
-{{{#code #lang="rust" #style="background: #f5f5f5; border-radius: 5px; padding: 10px"
+{{{#code #lang="rust" #style="background:#f5f5f5; border-radius:5px; padding:10px"
 fn styled_code() {
     println!("Code with custom styling");
 }
 }}}
 
-{{{#code #lang="rust" #class="example-code" #dark="background:#111;color:#eee"
+{{{#code #lang="rust" #class="example-code" #dark-bgcolor="#111" #dark-color="#eee" #dark-style="border-color:#333"
 fn dark_mode_example() {
     println!("dark override");
 }
 }}}
 ```
+
+Common styling parameters for `{{{#code}}}` include `#style`, `#class`, `#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, and `#dark-opacity`.
 
 ## Technical Notes
 
