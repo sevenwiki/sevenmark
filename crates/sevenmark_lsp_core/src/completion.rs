@@ -387,6 +387,15 @@ fn detect_brace_element(prefix: &str) -> Option<&str> {
 }
 
 fn parameter_completions(prefix: &str, ctx: Option<(&str, usize)>) -> Option<Vec<CompletionItem>> {
+    // Table cell params take priority: `#` inside an unclosed `[[` at cell depth
+    if let Some(("table", 2)) = ctx {
+        if let Some(bracket_pos) = prefix.rfind("[[") {
+            let after = &prefix[bracket_pos + 2..];
+            if !after.contains("]]") {
+                return Some(make_param_completions(table_cell_param_defs()));
+            }
+        }
+    }
     // Bracket element params (e.g. [[#youtube #id=...)
     if let Some(kw) = detect_bracket_element(prefix) {
         let params = bracket_param_defs(kw);
@@ -399,15 +408,6 @@ fn parameter_completions(prefix: &str, ctx: Option<(&str, usize)>) -> Option<Vec
         let params = brace_param_defs(kw);
         if !params.is_empty() {
             return Some(make_param_completions(params));
-        }
-    }
-    // Table cell params: `#` inside an unclosed `[[` at cell depth
-    if let Some(("table", 2)) = ctx {
-        if let Some(bracket_pos) = prefix.rfind("[[") {
-            let after = &prefix[bracket_pos + 2..];
-            if !after.contains("]]") {
-                return Some(make_param_completions(table_cell_param_defs()));
-            }
         }
     }
     None
@@ -761,9 +761,10 @@ mod tests {
     }
 
     #[test]
-    fn table_bracket_hash_row_level_empty() {
+    fn table_bracket_hash_row_level_shows_head() {
         let c = completions("{{{#table\n  [[#");
-        assert!(c.is_empty(), "row level [[# should have no completions");
+        let l = labels(&c);
+        assert!(l.contains(&"head"), "row level [[# should show head flag");
     }
 
     #[test]
