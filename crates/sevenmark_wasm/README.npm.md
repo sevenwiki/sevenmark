@@ -18,8 +18,8 @@ import init, {
 
 await init();
 
-const ast = JSON.parse(parse_sevenmark("== SevenMark =="));
-const codemirrorAst = JSON.parse(parse_sevenmark_to_codemirror("== SevenMark =="));
+const ast = JSON.parse(parse_sevenmark("## SevenMark"));
+const codemirrorAst = JSON.parse(parse_sevenmark_to_codemirror("## SevenMark"));
 ```
 
 This package is built from `crates/sevenmark_wasm` in the main repository:
