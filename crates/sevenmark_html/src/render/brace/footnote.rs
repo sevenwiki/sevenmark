@@ -182,6 +182,32 @@ C{{{#fn #name="a12" First A12. }}}.
             "named references should still point at the original footnote entry"
         );
     }
+
+    #[test]
+    fn unnamed_footnotes_keep_contiguous_display_numbers_after_duplicate_named_refs() {
+        let input = r#"A{{{#fn #name="a" First named. }}}.
+B{{{#fn #name="a" Duplicate named. }}}.
+C{{{#fn First unnamed. }}}.
+D{{{#fn Second unnamed. }}}.
+
+[fn]"#;
+
+        let ast = parse_document(input);
+        let html = render_document(&ast, &RenderConfig::default());
+
+        assert!(
+            html.contains(r##"id="rn3"><a class="sm-fn-ref" href="#fn3">[1]</a>"##),
+            "expected first unnamed footnote to display as [1], got:\n{html}"
+        );
+        assert!(
+            html.contains(r##"id="rn4"><a class="sm-fn-ref" href="#fn4">[2]</a>"##),
+            "expected second unnamed footnote to display as [2], got:\n{html}"
+        );
+        assert!(
+            !html.contains(r##"href="#fn3">[3]</a>"##),
+            "duplicate named refs should not create visible numbering gaps, got:\n{html}"
+        );
+    }
 }
 
 /// Render footnote list (used at document end and for mid-flush)

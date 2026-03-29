@@ -29,9 +29,24 @@ const PATH_SEGMENT_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
     .remove(b'_')
     .remove(b'~');
 
+const FRAGMENT_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
+    .remove(b'-')
+    .remove(b'.')
+    .remove(b'_')
+    .remove(b'~');
+
 fn build_internal_href(base: &str, title: &str) -> String {
     let encoded = utf8_percent_encode(title, PATH_SEGMENT_ENCODE_SET).to_string();
     format!("{}{}", base, encoded)
+}
+
+fn apply_fragment(href: &str, fragment: &str) -> String {
+    let base = href
+        .split_once('#')
+        .map(|(prefix, _)| prefix)
+        .unwrap_or(href);
+    let encoded = utf8_percent_encode(fragment, FRAGMENT_ENCODE_SET).to_string();
+    format!("{base}#{encoded}")
 }
 
 pub fn render(
@@ -96,8 +111,7 @@ pub fn render(
         if let Some(anchor) = utils::get_param(parameters, "anchor") {
             let anchor = anchor.trim();
             if !anchor.is_empty() {
-                h.push('#');
-                h.push_str(anchor);
+                h = apply_fragment(&h, anchor);
             }
         }
         h
@@ -243,5 +257,20 @@ mod tests {
     fn build_internal_href_percent_encodes_title() {
         let href = build_internal_href("/Document/", "A B/#?");
         assert_eq!(href, "/Document/A%20B%2F%23%3F");
+    }
+
+    #[test]
+    fn apply_fragment_replaces_existing_fragment() {
+        let href = apply_fragment(
+            "https://example.com/docs?page=1#old-fragment",
+            "new-fragment",
+        );
+        assert_eq!(href, "https://example.com/docs?page=1#new-fragment");
+    }
+
+    #[test]
+    fn apply_fragment_percent_encodes_reserved_characters() {
+        let href = apply_fragment("https://example.com/docs", "faq section #2");
+        assert_eq!(href, "https://example.com/docs#faq%20section%20%232");
     }
 }

@@ -24,6 +24,8 @@ pub struct FootnoteEntry {
 pub struct RenderContext<'a> {
     /// Collected footnotes (rendered at document end)
     pub footnotes: Vec<FootnoteEntry>,
+    /// Sequential numbering for unnamed footnotes rendered without a custom display
+    pub next_unnamed_footnote_number: usize,
     /// Named footnote tracking: name -> footnote index (persists across flushes)
     pub named_footnotes: HashMap<String, usize>,
     /// Track if we are inside a footnote (to prevent nested footnotes)
@@ -42,6 +44,7 @@ impl<'a> RenderContext<'a> {
     pub fn new(config: &'a RenderConfig<'a>) -> Self {
         Self {
             footnotes: Vec::new(),
+            next_unnamed_footnote_number: 1,
             named_footnotes: HashMap::new(),
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
@@ -57,6 +60,7 @@ impl<'a> RenderContext<'a> {
     ) -> Self {
         Self {
             footnotes: Vec::new(),
+            next_unnamed_footnote_number: 1,
             named_footnotes: HashMap::new(),
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
@@ -70,6 +74,7 @@ impl<'a> RenderContext<'a> {
     pub fn child(&self) -> Self {
         Self {
             footnotes: Vec::new(),
+            next_unnamed_footnote_number: 1,
             named_footnotes: HashMap::new(),
             in_footnote: false,
             suppress_soft_breaks_depth: 0,
@@ -110,7 +115,10 @@ impl<'a> RenderContext<'a> {
         display: Option<String>,
         content: Vec<Element>,
     ) -> &str {
-        let display = display.unwrap_or_else(|| index.to_string());
+        let number = self.next_unnamed_footnote_number;
+        self.next_unnamed_footnote_number += 1;
+
+        let display = display.unwrap_or_else(|| number.to_string());
 
         self.footnotes.push(FootnoteEntry {
             index,
