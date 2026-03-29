@@ -116,6 +116,7 @@ pub enum Element {
     TimeNow(TimeNowElement),
     Age(AgeElement),
     Variable(VariableElement),
+    Anchor(AnchorElement),
     Mention(MentionElement),
 
     // Text styles
@@ -167,6 +168,7 @@ impl Element {
             Element::TimeNow(e) => &e.span,
             Element::Age(e) => &e.span,
             Element::Variable(e) => &e.span,
+            Element::Anchor(e) => &e.span,
             Element::Mention(e) => &e.span,
             Element::Bold(e)
             | Element::Italic(e)

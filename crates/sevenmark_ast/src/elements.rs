@@ -329,6 +329,14 @@ pub struct VariableElement {
     pub name: String,
 }
 
+/// 앵커 [anchor(...)]
+#[derive(Debug, Clone, Serialize)]
+pub struct AnchorElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+    pub name: String,
+}
+
 /// 멘션 <@uuid> 또는 <#uuid>
 #[derive(Debug, Clone, Serialize)]
 pub struct MentionElement {

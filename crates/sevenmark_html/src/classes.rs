@@ -87,6 +87,9 @@ pub const SECTION_ID_PREFIX: &str = "s-";
 // Ruby
 pub const RUBY: &str = "sm-ruby";
 
+// Anchors
+pub const ANCHOR: &str = "sm-anchor";
+
 // Macros (client-rendered)
 pub const AGE: &str = "sm-age";
 pub const TIMENOW: &str = "sm-timenow";

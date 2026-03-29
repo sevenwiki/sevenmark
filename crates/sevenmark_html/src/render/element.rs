@@ -109,6 +109,7 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         Element::HLine(_) => r#macro::hline::render(),
         Element::TimeNow(_) => r#macro::timenow::render(),
         Element::Age(age) => r#macro::age::render(&age.date),
+        Element::Anchor(anchor) => r#macro::anchor::render(&anchor.name),
 
         // Wiki elements (metadata, not rendered visually)
         Element::Category(_) => html! {},
