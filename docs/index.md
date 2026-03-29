@@ -15,17 +15,17 @@ hero:
 
 features:
   - title: Rich Text Styling
-    details: Support for bold, italic, underline, strikethrough, and various text formatting options.
+    details: Support for bold, italic, underline, strikethrough, superscript, subscript, and styled inline blocks.
   - title: Structured Block Elements
-    details: Complex document structures with tables, lists, folds, blockquotes, and more.
+    details: Tables, lists, folds, blockquotes, code blocks, CSS blocks, and ruby annotations with nested content support.
+  - title: Dynamic Utility Macros
+    details: Built-in macros for time, dates, anchors, page counters, footnotes, variables, and layout helpers.
   - title: Wiki-Specific Features
-    details: Built-in support for includes, categories, redirects, and other wiki system features.
+    details: Includes, categories, redirects, internal links, external embeds, and media-aware document rendering.
   - title: High Performance
-    details: Built with Rust and winnow parser library for exceptional parsing speed and efficiency.
+    details: Built with Rust and the winnow parser library for fast parsing and precise source tracking.
   - title: Extensible Architecture
-    details: Macro system and plugin architecture allow easy extension of functionality.
-  - title: Precise Location Tracking
-    details: Accurate source position tracking for all parsed elements, enabling debugging and error reporting.
+    details: Dedicated AST, formatter, HTML renderer, and LSP layers make the syntax easy to evolve.
 ---
 
 ## Quick Start
@@ -35,20 +35,27 @@ features:
 Try SevenMark syntax:
 
 ```sevenmark
-**Bold text** and *italic text* with ^^superscript^^ and ,,subscript,,.
+{{{#define #release="2.29.0"}}}
 
-{{{#table
-    [[[[Header 1]] [[Header 2]]]]
-    [[[[Cell 1]] [[Cell 2]]]]
+[anchor(release-notes)]
+# SevenMark [var(release)]
+
+Today: [date]
+Updated at: [datetime]
+Days until launch: [dday(2026-12-31)]
+
+{{{#table #caption="Release overview" #sortable
+    [[#head [[Feature]] [[Value]]]]
+    [[[[Current release]] [[[var(release)]]]]]
+    [[[[Document pages]] [[[pagecount(Document)]]]]]
 }}}
 
-{{{#list #1
-    [[First item with **bold** text]]
-    [[Second item with code example]]
-    [[Third item]]
-}}}
+See note{{{#fn #name="release-note" This branch adds utility macros, named footnotes, and richer table/media parameters. }}}.
+Repeat the same note{{{#fn #name="release-note" Later named references point back to the first definition. }}}.
 
-Current time: [now] // This is a comment
+[[#document="Guide" #anchor="installation" Jump to installation]]
+
+[fn]
 ```
 
 ## Key Features
@@ -62,7 +69,7 @@ Current time: [now] // This is a comment
 
 ### Block Elements
 
-- Tables: `{{{#table [[[[Cell]]]] }}}`
+- Tables: `{{{#table #caption="..." #sortable ...}}}`
 - Lists: `{{{#list #1 [[Item]] }}}`
 - Code: raw block opened by `{{{#code` and closed by matching triple-brace depth
 - Math: raw block opened by `{{{#tex` and closed by matching triple-brace depth (`#block` optional)
@@ -70,13 +77,13 @@ Current time: [now] // This is a comment
 - Quotes: `{{{#quote content }}}`
 - Folds: `{{{#fold [[summary]] [[details]] }}}`
 
-### Media & Links
+### Media and Links
 
 - Images: `[[#file="image.png" Alt text]]`
 - Links: `[[#url="https://example.com" Link text]]`
-- Wiki Pages: `[[#document="PageName" Link text]]`
-- Categories: `[[#category="CategoryName" Link text]]`
-- Files: `[[#file="doc.pdf" #url="https://backup.example.com/doc.pdf" Document]]`
+- Wiki pages: `[[#document="PageName" Link text]]`
+- Fragment links: `[[#document="PageName" #anchor="section-id" Jump]]`
+- Theme-aware media: `[[#file="logo.svg" #theme="dark" Dark logo]]`
 
 ### Wiki Features
 
@@ -87,13 +94,12 @@ Current time: [now] // This is a comment
 ### Advanced Features
 
 - Comments: `// inline` and `/* multiline */`
-- Macros: `[now]`, `[age(1990-01-01)]`, `[var(name)]`, `[br]`, `[clear]`, `[fn]`, `[null]`
+- Macros: `[now]`, `[date]`, `[datetime]`, `[dday(1990-01-01)]`, `[pagecount]`, `[pagecount(Document)]`, `[anchor(name)]`, `[age(1990-01-01)]`, `[var(name)]`, `[br]`, `[clear]`, `[fn]`, `[null]`
 - Variables: `{{{#define #key="val"}}}` + `[var(key)]`
-- Variable Shadowing: Later definitions override earlier ones
+- Footnotes: `{{{#fn #display="*" Note}}}` and reusable named footnotes with `{{{#fn #name="api" Note}}}`
 - Conditionals: `{{{#if [var(x)] == "value" :: content }}}`
 - Operators: `==`, `!=`, `>`, `<`, `>=`, `<=`, `&&`, `||`, `!`, `true`, `false`, `null`
-- Styling: `{{{ #style="css" #color="red" content }}}`
-- Parameters: `#style`, `#color`, `#size`, `#x`, `#y`
+- Styling parameters: `#style`, `#color`, `#size`, `#dark-color`, `#dark-bgcolor`, `#caption`, `#sortable`, `#theme`, `#anchor`, `#x`, `#y`
 - Escaping: `\*literal\*`, `\{\{\{not-element\}\}\}`
 
 </div>

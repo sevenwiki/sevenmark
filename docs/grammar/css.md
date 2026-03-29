@@ -18,13 +18,15 @@ SevenMark supports raw CSS blocks with `{{{#css ... }}}`.
 
 ## Parameters
 
-`#css` accepts common block parameters such as `#class` and `#dark`:
+`#css` accepts `#class` plus structured dark-mode overrides such as `#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, and `#dark-opacity`.
 
 ```sevenmark
-{{{#css #class="global-theme" #dark="background:#111;color:#eee"
+{{{#css #class="global-theme" #dark-style="background:#111" #dark-color="#eee"
 .label { color: #333; }
 }}}
 ```
+
+These dark parameters are attached to the rendered `<style>` element as `data-dark-style`; they do not rewrite the CSS source text inside the block.
 
 ## Raw Close Rules
 
@@ -32,19 +34,19 @@ SevenMark supports raw CSS blocks with `{{{#css ... }}}`.
 
 1. Raw parsing uses triple-brace depth matching (`{{{` increments depth, `}}}` decrements depth).
 2. The block closes when depth returns to zero.
-3. To avoid ambiguous endings when content ends with `}`, formatter inserts a separator before the final `}}}`.
+3. To avoid ambiguous endings when content ends with `}`, the formatter may insert a separator before the final `}}}`.
 
 Example:
 
 ```sevenmark
 {{{#css
-.profile-card { border: 1px solid #ddd; } /* normal CSS */
+.profile-card { border: 1px solid #ddd; }
 }}}
 ```
 
 ## Notes
 
-- CSS content is parsed as raw text (no nested SevenMark parsing inside).
-- Renderer sanitizes style-close tags (e.g. `</style>`) to prevent tag break-out.
+- CSS content is parsed as raw text; nested SevenMark syntax is not processed inside the block.
+- Renderer sanitizes style-close tags such as `</style>` to prevent tag break-out.
 
 </div>

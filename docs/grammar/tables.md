@@ -13,25 +13,41 @@ SevenMark uses `{{{#table}}}` syntax for tables, with rows and cells structured 
 }}}
 ```
 
-The structure is as follows:
-- `{{{#table}}}`: Table container
-- `[[[[Cell]] [[Cell]]]]`: Table row (TableInnerElement1)
-- Inner `[[Cell]]`: Individual cell (TableInnerElement2)
+The structure is:
 
-## Styled Tables
+- `{{{#table}}}`: table container
+- `[[ ... ]]`: one row
+- `[[Cell]]`: one cell inside that row
+
+## Header Rows (`#head`)
+
+Add the `#head` flag on a row to render it inside `<thead>` with `<th>` cells.
 
 ```sevenmark
-{{{#table #style="border-collapse:collapse"
-[[[[**Header 1**]] [[*Header 2*]] [[~~Header 3~~]]]]
-[[[[Simple cell]] [[Styled cell]] [[Another cell]]]]
+{{{#table
+[[#head [[Product]] [[Price]] [[Stock]]]]
+[[[[Laptop]] [[$1,200]] [[5 units]]]]
+[[[[Mouse]] [[$30]] [[20 units]]]]
+}}}
+```
+
+Rows without `#head` render inside `<tbody>` with normal `<td>` cells.
+
+## Table Caption and Sorting
+
+Use `#caption` on the table element to render a `<caption>`, and `#sortable` to opt into sortable-table behavior on the frontend.
+
+```sevenmark
+{{{#table #caption="Inventory" #sortable
+[[#head [[Product]] [[Price]] [[Stock]]]]
+[[[[Laptop]] [[$1,200]] [[5 units]]]]
+[[[[Mouse]] [[$30]] [[20 units]]]]
 }}}
 ```
 
 ## Cell Merging
 
-### Horizontal Merge (colspan)
-
-Use the `#x` parameter:
+### Horizontal Merge (`#x`)
 
 ```sevenmark
 {{{#table
@@ -40,9 +56,7 @@ Use the `#x` parameter:
 }}}
 ```
 
-### Vertical Merge (rowspan)
-
-Use the `#y` parameter:
+### Vertical Merge (`#y`)
 
 ```sevenmark
 {{{#table
@@ -51,100 +65,54 @@ Use the `#y` parameter:
 }}}
 ```
 
-## Table Styling
+## Styling
 
-### Table-Level Styling
+Tables, rows, and cells support the common style parameters such as `#style`, `#class`, `#color`, `#bgcolor`, and the `#dark-*` overrides.
+
+### Table-level Styling
 
 ```sevenmark
-{{{#table #style="border: 2px solid #333;"
-[[[[Header 1]] [[Header 2]]]]
-[[[[Cell 1]] [[Cell 2]]]]
+{{{#table #style="width:100%; border-collapse:collapse" #dark-bgcolor="#111"
+[[#head [[Name]] [[Status]]]]
+[[[[Widget A]] [[Active]]]]
 }}}
 ```
 
-### Individual Cell Styling
+### Cell Styling
 
 ```sevenmark
 {{{#table
-[[[[Header 1]] [[Header 2]]]]
-[[[[#color="red" Red text]] [[Normal cell]]]]
-[[[[#bgcolor="yellow" Yellow background]] [[Normal cell]]]]
-}}}
-```
-
-## Complex Table Example
-
-```sevenmark
-{{{#table #style="width: 100%; border-collapse: collapse;"
-[[[[#style="text-align: center; font-weight: bold;" Product]] [[Price]] [[Stock]]]]
-[[[[#color="blue" Laptop]] [[#style="text-align: right;" $1,200]] [[5 units]]]]
-[[[[#color="green" Mouse]] [[#style="text-align: right;" $30]] [[20 units]]]]
-[[[[#x="2" #style="text-align: center; font-weight: bold;" Total]] [[#style="text-align: right; font-weight: bold;" $1,230]]]]
+[[#head [[Name]] [[Status]]]]
+[[[[#color="blue" Laptop]] [[#bgcolor="lightyellow" Ready]]]]
 }}}
 ```
 
 ## Conditional Rows and Cells
 
-Tables support conditional rendering at both row and cell level using `{{{#if}}}` syntax.
+Tables support conditional rendering at both row and cell level using `{{{#if}}}`.
 
 ### Conditional Rows
-
-Include or exclude entire rows based on a condition:
 
 ```sevenmark
 {{{#define #showDetails="true"}}}
 
 {{{#table
-[[[[Product]] [[Price]]]]
+[[#head [[Product]] [[Price]]]]
 [[[[Widget A]] [[$10]]]]
 {{{#if [var(showDetails)] == "true" :: [[[[Details]] [[Size: Medium]]]] }}}
 [[[[Widget B]] [[$20]]]]
 }}}
 ```
 
-The conditional row `[[[[Details]] [[Size: Medium]]]]` is included only when `showDetails` is `"true"`.
-
 ### Conditional Cells
-
-Include or exclude specific cells within a row:
 
 ```sevenmark
 {{{#define #showStock="true"}}}
 
 {{{#table
-[[ [[Product]] [[Price]] {{{#if [var(showStock)] == "true" :: [[Stock]] }}} ]]
-[[ [[Widget A]] [[$10]] {{{#if [var(showStock)] == "true" :: [[5 units]] }}} ]]
-[[ [[Widget B]] [[$20]] {{{#if [var(showStock)] == "true" :: [[10 units]] }}} ]]
-}}}
-```
-
-### Multiple Conditional Items
-
-You can include multiple rows or cells in a single conditional:
-
-```sevenmark
-{{{#table
-[[[[Header 1]] [[Header 2]]]]
-{{{#if [var(showBoth)] == "true" ::
-[[[[Row A1]] [[Row A2]]]]
-[[[[Row B1]] [[Row B2]]]]
-}}}
-[[[[Footer 1]] [[Footer 2]]]]
-}}}
-```
-
-### Conditional with Complex Expressions
-
-```sevenmark
-{{{#define #userRole="admin"}}}
-{{{#define #showSensitive="true"}}}
-
-{{{#table
-[[[[Name]] [[Email]] [[Actions]]]]
-[[[[John]] [[john@example.com]] [[View]]]]
-{{{#if [var(userRole)] == "admin" && [var(showSensitive)] == "true" ::
-[[[[Admin Data]] [[admin@internal]] [[Delete]]]]
-}}}
+[[#head [[Product]] [[Price]] {{{#if [var(showStock)] == "true" :: [[Stock]] }}}]]
+[[[[Widget A]] [[$10]] {{{#if [var(showStock)] == "true" :: [[5 units]] }}}]]
+[[[[Widget B]] [[$20]] {{{#if [var(showStock)] == "true" :: [[10 units]] }}}]]
 }}}
 ```
 
@@ -153,17 +121,18 @@ You can include multiple rows or cells in a single conditional:
 Table cells can contain other SevenMark elements:
 
 ```sevenmark
-{{{#table
-[[[[Feature]] [[Description]]]]
+{{{#table #caption="Feature matrix"
+[[#head [[Feature]] [[Description]]]]
 [[[[**Bold**]] [[*Italic* text]]]]
-[[[[{{{#code
+[[[[Code]] [[{{{#code
 inline_code()
 }}}
-]] [[Code is supported]]]]
-[[[[[[#file="image.png" Image]]]] [[Media elements work too]]]]
+]]]]
+[[[[Anchor]] [[[anchor(api-section)]]]]]
+[[[[Media]] [[[[#file="image.png" Image]]]]]]
 }}}
 ```
 
-Note: Use `[[#file="..."]]` or `[[#url="..."]]` for media elements in tables, not `@media`.
+Note: use `[[#file="..."]]`, `[[#url="..."]]`, and other media syntax inside cells, not `@media`.
 
 </div>

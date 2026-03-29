@@ -6,28 +6,30 @@ SevenMark uses a parameter system to pass key-value data to elements.
 
 ## How Parameters Work
 
-Parameters are **generic key-value pairs** — the parser accepts `#key="value"` and stores it in AST without semantic validation. Key names support Unicode alphanumeric characters plus underscore (`[\p{L}\p{N}_]+`), and meaning is decided by the **renderer** (or postprocessor).
+Parameters are generic key-value pairs. The parser accepts `#key="value"` and stores the parsed value in the AST without semantic validation. Parameter names support Unicode letters, digits, underscore, and hyphen (`[\p{L}\p{N}_-]+`).
 
 This means:
-- `#color`, `#style`, `#lang` are not special to the parser — they are conventions used by renderers
-- You can pass any Unicode alphanumeric/underscore parameter name and the parser will accept it
-- Unknown parameters are silently ignored by the renderer (they don't cause errors)
+
+- `#color`, `#style`, `#lang`, `#caption`, and `#theme` are renderer conventions, not parser keywords
+- Hyphenated keys such as `#dark-color` and `#dark-bgcolor` are valid
+- Unknown parameters are silently ignored by renderers that do not use them
 
 ## Parameter Syntax
 
-Parameters use `#key="value"` for key-value pairs, or `#flag` for boolean flags (presence means enabled):
+Parameters use `#key="value"` for key-value pairs, or `#flag` for boolean flags where presence means enabled:
 
 ```sevenmark
 {{{ #style="color:red" #size="16px" Red text }}}
-{{{#list #1 #style="margin-left:20px"
-[[Item 1]]
-[[Item 2]]
+
+{{{#table #caption="Inventory" #sortable
+[[#head [[Product]] [[Price]]]]
+[[[[Laptop]] [[$1200]]]]
 }}}
 ```
 
 ### Quoted Values
 
-Parameter values are enclosed in double quotes. Quotes inside values can be escaped:
+Parameter values use double quotes. Quotes inside values can be escaped:
 
 ```sevenmark
 {{{ #style="font-family: \"Arial\", sans-serif" Text }}}
@@ -35,77 +37,100 @@ Parameter values are enclosed in double quotes. Quotes inside values can be esca
 
 ### Boolean Flags
 
-Some parameters act as flags — their presence alone enables a feature:
+Some parameters act as flags:
 
 ```sevenmark
 {{{#tex #block
 \sum_{i=1}^{n} x_i
 }}}
 
-[[#youtube #id="dQw4w9WgXcQ" #autoplay #mute]]
+{{{#table #sortable
+[[#head [[Name]] [[Value]]]]
+[[[[A]] [[1]]]]
+}}}
 ```
 
 ## Common Renderer Conventions
 
-The following parameters are commonly recognized by SevenMark renderers. Remember, these are **renderer conventions**, not parser-level features.
+The following parameters are commonly recognized by SevenMark renderers:
 
-### Styling Parameters
+| Parameter | Description | Common Usage |
+|-----------|-------------|--------------|
+| `#style` | Raw inline CSS declarations | Styled blocks, tables, lists, media wrappers |
+| `#color` | Text color | Styled blocks and style-aware renderers |
+| `#bgcolor` | Background color | Styled blocks and style-aware renderers |
+| `#size` | Font size | Styled blocks and style-aware renderers |
+| `#opacity` | Opacity | Styled blocks and style-aware renderers |
+| `#class` | Extra CSS class names | Many block and media renderers |
+| `#dark-style` | Raw dark-mode CSS declarations | Renderers that emit `data-dark-style` |
+| `#dark-color` | Dark-mode text color | Renderers that emit `data-dark-style` |
+| `#dark-bgcolor` | Dark-mode background color | Renderers that emit `data-dark-style` |
+| `#dark-size` | Dark-mode font size | Renderers that emit `data-dark-style` |
+| `#dark-opacity` | Dark-mode opacity | Renderers that emit `data-dark-style` |
 
-| Parameter | Description | Used By |
-|-----------|-------------|---------|
-| `#style` | Inline CSS styles | Styled elements, tables, lists, code |
-| `#color` | Text color | Styled elements |
-| `#bgcolor` | Background color | Styled elements |
-| `#size` | Font size | Styled elements |
-| `#opacity` | Opacity level | Styled elements |
-| `#class` | Extra CSS class names | Styled/code/tex/css and other parameterized blocks |
-| `#dark` | Dark-mode style override string | Styled/code/tex/css and other parameterized blocks |
+`#dark-*` parameters are separate from provider-specific flags like `#dark` on some external media embeds such as Spotify or Discord.
 
-## Element-Specific Parameters
+## Element-specific Parameters
 
-### Table Parameters
+### Tables
 
-For table cells, use `#x` for colspan and `#y` for rowspan:
+Table-level parameters:
+
+- `#caption`: render a `<caption>`
+- `#sortable`: emit `data-sortable="true"` for sortable-table behavior
+
+Row-level parameters:
+
+- `#head`: render the row inside `<thead>` with `<th>` cells
+
+Cell-level parameters:
+
+- `#x`: colspan
+- `#y`: rowspan
 
 ```sevenmark
-{{{#table
-[[[[#x="2" Spans 2 columns]] [[Normal cell]]]]
-[[[[#y="2" Spans 2 rows]] [[Cell 1]] [[Cell 2]]]]
-[[[[Cell 3]] [[Cell 4]]]]
+{{{#table #caption="Inventory" #sortable
+[[#head [[Product]] [[Price]]]]
+[[[[#x="2" Featured item]] [[In stock]]]]
 }}}
 ```
 
-### List Parameters
+### Media
 
-Specify list type:
+Media elements use parameters such as:
+
+- `#file`, `#url`, `#document`, `#category`, `#user`: target selection
+- `#anchor`: append a fragment to the resolved link target
+- `#theme`: annotate output with `data-theme="light|dark"`
 
 ```sevenmark
-{{{#list #1      // Numeric (1, 2, 3...)
-{{{#list #a      // Lowercase (a, b, c...)
-{{{#list #A      // Uppercase (A, B, C...)
-{{{#list #i      // Roman lowercase (i, ii, iii...)
-{{{#list #I      // Roman uppercase (I, II, III...)
+[[#document="Guide" #anchor="installation" Jump to installation]]
+[[#file="logo-dark.svg" #theme="dark" Dark logo]]
 ```
 
-### Code Parameters
+### Footnotes
 
-Specify programming language for syntax highlighting:
+Footnotes commonly use:
+
+- `#display`: custom marker text for unnamed footnotes
+- `#name`: reusable named footnote identifier
 
 ```sevenmark
-{{{#code #lang="rust"
-fn main() {
-    println!("Hello, world!");
-}
-}}}
+Text{{{#fn #display="*" Note with custom marker. }}}.
+Again{{{#fn #name="api-limit" Shared note. }}}.
 ```
 
-### TeX Parameters
+### Code and CSS Blocks
 
-Use `#block` for block-level math display:
+Common parameters include:
+
+- `#lang` on `{{{#code}}}` for syntax highlighting
+- `#class` on `{{{#code}}}` and `{{{#css}}}`
+- `#dark-*` to populate dark-mode styling metadata
 
 ```sevenmark
-{{{#tex #block
-\sum_{i=1}^{n} x_i = x_1 + x_2 + \cdots + x_n
+{{{#code #lang="rust" #class="example" #dark-bgcolor="#111" #dark-color="#eee"
+fn main() {}
 }}}
 ```
 
@@ -114,14 +139,11 @@ Use `#block` for block-level math display:
 Multiple parameters can be combined:
 
 ```sevenmark
-{{{ #style="border: 2px solid blue;" #color="red" #size="18px" 
-Multi-styled text with border, color, and size
+{{{ #style="border:2px solid blue; padding:8px" #color="red" #size="18px"
+Multi-styled text
 }}}
 
-{{{#list #1 #style="color:green; margin-left:30px"
-[[Green numbered list]]
-[[With custom margin]]
-}}}
+[[#url="https://example.com/docs" #anchor="api" #theme="light" Docs]]
 ```
 
 ## Nested Parameter Usage
@@ -129,12 +151,13 @@ Multi-styled text with border, color, and size
 Parameters work in nested structures:
 
 ```sevenmark
-{{{#table #style="border-collapse:collapse"
-[[[[**Header 1**]] [[*Header 2*]] [[~~Header 3~~]]]]
-[[[[Simple cell]] [[{{{#code #lang="python"
-print("nested code")
+{{{#table #caption="Nested examples"
+[[#head [[Name]] [[Content]]]]
+[[[[Code]] [[{{{#code #lang="python" #class="nested"
+print("hello")
 }}}
-]] [[List: {{{#list #a [[Item A]] [[Item B]] }}}]]]]
+]]]]
+[[[[Media]] [[[[#file="image.png" #theme="dark" Example]]]]]]
 }}}
 ```
 
