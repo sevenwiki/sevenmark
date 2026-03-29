@@ -93,6 +93,10 @@ pub const ANCHOR: &str = "sm-anchor";
 // Macros (client-rendered)
 pub const AGE: &str = "sm-age";
 pub const TIMENOW: &str = "sm-timenow";
+pub const DATE: &str = "sm-date";
+pub const DATETIME: &str = "sm-datetime";
+pub const DDAY: &str = "sm-dday";
+pub const PAGECOUNT: &str = "sm-pagecount";
 pub const CLEAR: &str = "sm-clear";
 
 // Variables

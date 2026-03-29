@@ -108,6 +108,10 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         // Macros
         Element::HLine(_) => r#macro::hline::render(),
         Element::TimeNow(_) => r#macro::timenow::render(),
+        Element::Date(_) => r#macro::date::render(),
+        Element::DateTime(_) => r#macro::datetime::render(),
+        Element::Dday(dday) => r#macro::dday::render(&dday.date),
+        Element::PageCount(pc) => r#macro::pagecount::render(pc.namespace.as_deref()),
         Element::Age(age) => r#macro::age::render(&age.date),
         Element::Anchor(anchor) => r#macro::anchor::render(&anchor.name),
 
