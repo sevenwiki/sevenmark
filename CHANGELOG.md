@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.28.0] - 2026-03-29
+
+### Changed
+- **sevenmark_parser**: Upgraded winnow from 0.7 to 1.0.0, splitting `alt()` tuples exceeding the new 9-element limit into nested `alt()` calls while preserving original parser priority order
+- Updated workspace dependencies: `wasm-bindgen` 0.2.115, `js-sys` 0.3.92, `web-sys` 0.3.92, `uuid` 1.23.0
+
 ## [2.27.3] - 2026-03-07
 
 ### Changed

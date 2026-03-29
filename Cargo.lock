@@ -2186,9 +2186,9 @@ dependencies = [
 
 [[package]]
 name = "js-sys"
-version = "0.3.91"
+version = "0.3.92"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b49715b7073f385ba4bc528e5747d02e66cb39c6146efb66b781f131f0fb399c"
+checksum = "cc4c90f45aa2e6eacbe8645f77fdea542ac97a494bcd117a67df9ff4d611f995"
 dependencies = [
  "once_cell",
  "wasm-bindgen",
@@ -3591,14 +3591,14 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_ast"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "sevenmark_formatter"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "pretty",
  "serde_json",
@@ -3609,7 +3609,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_html"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "maud",
  "percent-encoding",
@@ -3620,7 +3620,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_language_server"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "dashmap",
  "sevenmark_lsp_core",
@@ -3630,7 +3630,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_lsp_core"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "ls-types",
  "serde",
@@ -3642,18 +3642,18 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_parser"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "memchr",
  "paste",
  "serde_json",
  "sevenmark_ast",
- "winnow",
+ "winnow 1.0.0",
 ]
 
 [[package]]
 name = "sevenmark_semantic"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "maud",
  "sevenmark_ast",
@@ -3661,7 +3661,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_server"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -3684,7 +3684,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_transform"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "anyhow",
  "aws-sdk-s3",
@@ -3703,7 +3703,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_utils"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "memchr",
  "serde",
@@ -3713,7 +3713,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "serde_json",
  "sevenmark_parser",
@@ -3723,7 +3723,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm_lsp"
-version = "2.27.6"
+version = "2.28.0"
 dependencies = [
  "serde_json",
  "sevenmark_lsp_core",
@@ -4360,7 +4360,7 @@ dependencies = [
  "indexmap",
  "toml_datetime",
  "toml_parser",
- "winnow",
+ "winnow 0.7.15",
 ]
 
 [[package]]
@@ -4369,7 +4369,7 @@ version = "1.0.9+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "702d4415e08923e7e1ef96cd5727c0dfed80b4d2fa25db9647fe5eb6f7c5a4c4"
 dependencies = [
- "winnow",
+ "winnow 0.7.15",
 ]
 
 [[package]]
@@ -4644,9 +4644,9 @@ dependencies = [
 
 [[package]]
 name = "uuid"
-version = "1.22.0"
+version = "1.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a68d3c8f01c0cfa54a75291d83601161799e4a89a39e0929f4b0354d88757a37"
+checksum = "5ac8b6f42ead25368cf5b098aeb3dc8a1a2c05a3eee8a9a1a68c640edbfc79d9"
 dependencies = [
  "getrandom 0.4.1",
  "js-sys",
@@ -4729,9 +4729,9 @@ checksum = "b8dad83b4f25e74f184f64c43b150b91efe7647395b42289f38e50566d82855b"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.114"
+version = "0.2.115"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6532f9a5c1ece3798cb1c2cfdba640b9b3ba884f5db45973a6f442510a87d38e"
+checksum = "6523d69017b7633e396a89c5efab138161ed5aafcbc8d3e5c5a42ae38f50495a"
 dependencies = [
  "cfg-if",
  "once_cell",
@@ -4742,9 +4742,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.114"
+version = "0.2.115"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "18a2d50fcf105fb33bb15f00e7a77b772945a2ee45dcf454961fd843e74c18e6"
+checksum = "4e3a6c758eb2f701ed3d052ff5737f5bfe6614326ea7f3bbac7156192dc32e67"
 dependencies = [
  "quote",
  "wasm-bindgen-macro-support",
@@ -4752,9 +4752,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.114"
+version = "0.2.115"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03ce4caeaac547cdf713d280eda22a730824dd11e6b8c3ca9e42247b25c631e3"
+checksum = "921de2737904886b52bcbb237301552d05969a6f9c40d261eb0533c8b055fedf"
 dependencies = [
  "bumpalo",
  "proc-macro2",
@@ -4765,9 +4765,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.114"
+version = "0.2.115"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75a326b8c223ee17883a4251907455a2431acc2791c98c26279376490c378c16"
+checksum = "a93e946af942b58934c604527337bad9ae33ba1d5c6900bbb41c2c07c2364a93"
 dependencies = [
  "unicode-ident",
 ]
@@ -5133,6 +5133,15 @@ name = "winnow"
 version = "0.7.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df79d97927682d2fd8adb29682d1140b343be4ac0f08fd68b7765d9c059d3945"
+dependencies = [
+ "memchr",
+]
+
+[[package]]
+name = "winnow"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a90e88e4667264a994d34e6d1ab2d26d398dcdca8b7f52bec8668957517fc7d8"
 dependencies = [
  "memchr",
 ]
