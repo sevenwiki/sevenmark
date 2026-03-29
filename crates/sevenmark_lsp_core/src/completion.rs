@@ -332,6 +332,7 @@ fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
         ("fn", "fn]", "Footnote reference"),
         ("now", "now]", "Current time"),
         ("age", "age($1)]", "Age calculation"),
+        ("anchor", "anchor($1)]", "Named anchor"),
     ];
     macros
         .into_iter()

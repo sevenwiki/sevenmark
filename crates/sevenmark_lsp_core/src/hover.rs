@@ -74,6 +74,7 @@ fn hover_content(element: &Element) -> Option<String> {
         }
         Element::Css(_) => "**CSS** (raw block)".to_string(),
         Element::Variable(v) => format!("**Variable**: `{}`", v.name),
+        Element::Anchor(a) => format!("**Anchor**: `{}`", a.name),
         Element::Define(_) => "**Define** - variable definition".to_string(),
         Element::Include(_) => "**Include** - document inclusion".to_string(),
         Element::Category(_) => "**Category**".to_string(),
