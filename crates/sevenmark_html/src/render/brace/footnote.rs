@@ -7,10 +7,39 @@ use crate::classes;
 use crate::context::{FootnoteEntry, RenderContext};
 use crate::render::{render_elements, utils};
 
+fn encode_named_footnote_fragment(name: &str) -> String {
+    let mut encoded = String::with_capacity(name.len() * 2);
+    for byte in name.bytes() {
+        use std::fmt::Write as _;
+        let _ = write!(&mut encoded, "{byte:02x}");
+    }
+    encoded
+}
+
+fn named_footnote_id(name: &str) -> String {
+    format!(
+        "{}n-{}",
+        classes::FOOTNOTE_ID_PREFIX,
+        encode_named_footnote_fragment(name)
+    )
+}
+
+fn named_footnote_ref_id(name: &str) -> String {
+    format!(
+        "{}n-{}",
+        classes::FOOTNOTE_REF_ID_PREFIX,
+        encode_named_footnote_fragment(name)
+    )
+}
+
+fn duplicate_named_footnote_ref_id(name: &str, index: usize) -> String {
+    format!("{}-{}", named_footnote_ref_id(name), index)
+}
+
 /// Generate footnote ID (for the footnote list item)
 fn footnote_id(entry: &FootnoteEntry) -> String {
     match &entry.name {
-        Some(name) => format!("{}{}", classes::FOOTNOTE_ID_PREFIX, name),
+        Some(name) => named_footnote_id(name),
         None => format!("{}{}", classes::FOOTNOTE_ID_PREFIX, entry.index),
     }
 }
@@ -18,7 +47,7 @@ fn footnote_id(entry: &FootnoteEntry) -> String {
 /// Generate footnote reference ID (for the inline sup element)
 fn footnote_ref_id(entry: &FootnoteEntry) -> String {
     match &entry.name {
-        Some(name) => format!("{}{}", classes::FOOTNOTE_REF_ID_PREFIX, name),
+        Some(name) => named_footnote_ref_id(name),
         None => format!("{}{}", classes::FOOTNOTE_REF_ID_PREFIX, entry.index),
     }
 }
@@ -48,8 +77,8 @@ pub fn render(
         match ctx.add_named_footnote(footnote_index, name.clone(), children.to_vec()) {
             Ok(display_text) => {
                 // First occurrence — create footnote entry
-                let ref_id = format!("{}{}", classes::FOOTNOTE_REF_ID_PREFIX, name);
-                let fn_id = format!("{}{}", classes::FOOTNOTE_ID_PREFIX, name);
+                let ref_id = named_footnote_ref_id(&name);
+                let fn_id = named_footnote_id(&name);
                 return html! {
                     sup
                         class=(classes::FOOTNOTE)
@@ -65,13 +94,8 @@ pub fn render(
             }
             Err(existing_index) => {
                 // Duplicate — render as back-reference to existing footnote
-                let fn_id = format!("{}{}", classes::FOOTNOTE_ID_PREFIX, name);
-                let ref_id = format!(
-                    "{}{}{}",
-                    classes::FOOTNOTE_REF_ID_PREFIX,
-                    name,
-                    footnote_index
-                );
+                let fn_id = named_footnote_id(&name);
+                let ref_id = duplicate_named_footnote_ref_id(&name, footnote_index);
                 let _ = existing_index;
                 return html! {
                     sup
@@ -104,6 +128,59 @@ pub fn render(
                 "[" (display_text) "]"
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{RenderConfig, render::render_document};
+    use sevenmark_parser::core::parse_document;
+
+    fn count_occurrences(haystack: &str, needle: &str) -> usize {
+        haystack.match_indices(needle).count()
+    }
+
+    #[test]
+    fn duplicate_named_footnote_refs_use_unique_ids() {
+        let input = r#"A{{{#fn #name="a1" First A1. }}}.
+B{{{#fn #name="a1" Duplicate A1. }}}.
+C{{{#fn #name="a12" First A12. }}}.
+
+[fn]"#;
+
+        let ast = parse_document(input);
+        let html = render_document(&ast, &RenderConfig::default());
+
+        let first_a1_ref = super::named_footnote_ref_id("a1");
+        let duplicate_a1_ref = super::duplicate_named_footnote_ref_id("a1", 2);
+        let first_a12_ref = super::named_footnote_ref_id("a12");
+        let a1_footnote_id = super::named_footnote_id("a1");
+
+        assert_ne!(
+            duplicate_a1_ref, first_a12_ref,
+            "duplicate named footnote ref ids must not collide with other named refs"
+        );
+        assert!(
+            html.contains(&format!("id=\"{}\"", first_a1_ref)),
+            "expected first named reference id in output, got:\n{html}"
+        );
+        assert!(
+            html.contains(&format!("id=\"{}\"", duplicate_a1_ref)),
+            "expected duplicate named reference id in output, got:\n{html}"
+        );
+        assert!(
+            html.contains(&format!("id=\"{}\"", first_a12_ref)),
+            "expected second named reference id in output, got:\n{html}"
+        );
+        assert_eq!(
+            count_occurrences(&html, &format!("id=\"{}\"", first_a12_ref)),
+            1,
+            "named reference ids should remain unique"
+        );
+        assert!(
+            html.contains(&format!("href=\"#{}\"", a1_footnote_id)),
+            "named references should still point at the original footnote entry"
+        );
     }
 }
 

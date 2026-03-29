@@ -22,9 +22,10 @@ pub fn render(
     let sortable = parameters.contains_key("sortable");
 
     // Partition rows into head and body.
-    // A row is a head row if it has the `#head` flag parameter.
+    // A row is a head row if it has the `#head` flag parameter, even when it
+    // originated inside a conditional branch.
     let mut head_rows: Vec<&TableRowElement> = Vec::new();
-    let mut body_items: Vec<&TableRowItem> = Vec::new();
+    let mut body_rows: Vec<&TableRowElement> = Vec::new();
 
     for item in children {
         match item {
@@ -32,11 +33,17 @@ pub fn render(
                 if row.parameters.contains_key("head") {
                     head_rows.push(row);
                 } else {
-                    body_items.push(item);
+                    body_rows.push(row);
                 }
             }
-            TableRowItem::Conditional(_) => {
-                body_items.push(item);
+            TableRowItem::Conditional(cond) => {
+                for row in &cond.rows {
+                    if row.parameters.contains_key("head") {
+                        head_rows.push(row);
+                    } else {
+                        body_rows.push(row);
+                    }
+                }
             }
         }
     }
@@ -59,37 +66,13 @@ pub fn render(
                 @if !head_rows.is_empty() {
                     thead {
                         @for row in &head_rows {
-                            @let row_style = utils::build_style(&row.parameters);
-                            @let row_class = utils::param_class(&row.parameters);
-                            @let row_dark_style = utils::build_dark_style(&row.parameters);
-                            tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] {
-                                (render_cells(&row.children, ctx, true))
-                            }
+                            (render_row(row, ctx, true))
                         }
                     }
                 }
                 tbody {
-                    @for row_item in &body_items {
-                        @match row_item {
-                            TableRowItem::Row(row) => {
-                                @let row_style = utils::build_style(&row.parameters);
-                                @let row_class = utils::param_class(&row.parameters);
-                                @let row_dark_style = utils::build_dark_style(&row.parameters);
-                                tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] {
-                                    (render_cells(&row.children, ctx, false))
-                                }
-                            }
-                            TableRowItem::Conditional(cond) => {
-                                @for row in &cond.rows {
-                                    @let row_style = utils::build_style(&row.parameters);
-                                    @let row_class = utils::param_class(&row.parameters);
-                                    @let row_dark_style = utils::build_dark_style(&row.parameters);
-                                    tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] {
-                                        (render_cells(&row.children, ctx, false))
-                                    }
-                                }
-                            }
-                        }
+                    @for row in &body_rows {
+                        (render_row(row, ctx, false))
                     }
                 }
             }
@@ -98,6 +81,18 @@ pub fn render(
 
     ctx.exit_suppress_soft_breaks();
     content
+}
+
+fn render_row(row: &TableRowElement, ctx: &mut RenderContext, is_head: bool) -> Markup {
+    let row_style = utils::build_style(&row.parameters);
+    let row_class = utils::param_class(&row.parameters);
+    let row_dark_style = utils::build_dark_style(&row.parameters);
+
+    html! {
+        tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] {
+            (render_cells(&row.children, ctx, is_head))
+        }
+    }
 }
 
 fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool) -> Markup {
@@ -140,5 +135,37 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{RenderConfig, render::render_document};
+    use sevenmark_parser::core::parse_document;
+
+    #[test]
+    fn conditional_head_rows_render_inside_thead() {
+        let input = r#"{{{#table
+{{{#if true ::
+[[#head [[Name]] [[Value]]]]
+}}}
+[[[[Alice]] [[1]]]]
+}}}"#;
+
+        let ast = parse_document(input);
+        let html = render_document(&ast, &RenderConfig::default());
+
+        assert!(
+            html.contains("<thead>"),
+            "expected a table head, got:\n{html}"
+        );
+        assert!(
+            html.contains("<th><span>Name</span></th><th><span>Value</span></th>"),
+            "expected conditional #head row to render as header cells, got:\n{html}"
+        );
+        assert!(
+            !html.contains("<td>Name</td>"),
+            "conditional #head row should not render inside tbody cells, got:\n{html}"
+        );
     }
 }
