@@ -19,7 +19,7 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
         multispace0,
         preceded(
             literal('#'),
-            take_while(1.., |c: char| c.is_alphanumeric() || c == '_'),
+            take_while(1.., |c: char| c.is_alphanumeric() || c == '_' || c == '-'),
         ),
         opt(preceded(
             delimited(multispace0, literal('='), multispace0),

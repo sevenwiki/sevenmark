@@ -91,6 +91,18 @@ pub fn render(
             })
     });
 
+    // Append #anchor fragment if present
+    let href = href.map(|mut h| {
+        if let Some(anchor) = utils::get_param(parameters, "anchor") {
+            let anchor = anchor.trim();
+            if !anchor.is_empty() {
+                h.push('#');
+                h.push_str(anchor);
+            }
+        }
+        h
+    });
+
     // 링크 유효성 (외부 url은 항상 valid 취급)
     let href_valid = resolved_info
         .map(|r| {
@@ -107,6 +119,11 @@ pub fn render(
             }
         })
         .unwrap_or(true);
+
+    // Theme visibility: #theme="light" or #theme="dark"
+    let theme = utils::get_param(parameters, "theme")
+        .map(|s| s.trim().to_lowercase())
+        .filter(|s| s == "light" || s == "dark");
 
     let caption = if children.is_empty() {
         None
@@ -132,6 +149,7 @@ pub fn render(
                     href=(link)
                     style=[style]
                     data-dark-style=[dark_style]
+                    data-theme=[theme.as_deref()]
                 {
                     figure class=(classes::MEDIA_IMAGE) {
                         @if image_valid {
@@ -154,6 +172,7 @@ pub fn render(
                     data-end=[data_end]
                     style=[style]
                     data-dark-style=[dark_style]
+                    data-theme=[theme.as_deref()]
                 {
                     @if image_valid {
                         img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
@@ -182,6 +201,7 @@ pub fn render(
                 href=(link)
                 style=[style]
                 data-dark-style=[dark_style]
+                data-theme=[theme.as_deref()]
             {
                 @if let Some(cap) = caption {
                     (cap)

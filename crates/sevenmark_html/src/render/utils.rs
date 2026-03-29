@@ -38,9 +38,30 @@ pub fn param_class(params: &Parameters) -> Option<String> {
 }
 
 pub fn build_dark_style(params: &Parameters) -> Option<String> {
-    get_param(params, "dark")
-        .map(|s| s.trim().to_string())
-        .filter(|s| !s.is_empty())
+    let mut styles = Vec::new();
+
+    // Explicit raw dark style
+    if let Some(style) = get_param(params, "dark-style") {
+        styles.push(style);
+    }
+    if let Some(size) = get_param(params, "dark-size") {
+        styles.push(format!("font-size:{}", size));
+    }
+    if let Some(color) = get_param(params, "dark-color") {
+        styles.push(format!("color:{}", color));
+    }
+    if let Some(bg) = get_param(params, "dark-bgcolor") {
+        styles.push(format!("background-color:{}", bg));
+    }
+    if let Some(opacity) = get_param(params, "dark-opacity") {
+        styles.push(format!("opacity:{}", opacity));
+    }
+
+    if styles.is_empty() {
+        None
+    } else {
+        Some(styles.join(";"))
+    }
 }
 
 /// Build inline style string from common style parameters

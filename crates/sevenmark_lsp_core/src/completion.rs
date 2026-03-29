@@ -333,6 +333,10 @@ fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
         ("now", "now]", "Current time"),
         ("age", "age($1)]", "Age calculation"),
         ("anchor", "anchor($1)]", "Named anchor"),
+        ("date", "date]", "Current date"),
+        ("datetime", "datetime]", "Current date and time"),
+        ("dday", "dday($1)]", "D-day counter"),
+        ("pagecount", "pagecount]", "Total page count"),
     ];
     macros
         .into_iter()

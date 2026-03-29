@@ -36,3 +36,22 @@ pub fn format_age<'a>(a: &'a Arena<'a>, e: &AgeElement) -> DocBuilder<'a, Arena<
 pub fn format_anchor<'a>(a: &'a Arena<'a>, e: &AnchorElement) -> DocBuilder<'a, Arena<'a>> {
     a.text(format!("[anchor({})]", e.name))
 }
+
+pub fn format_date<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
+    a.text("[date]")
+}
+
+pub fn format_datetime<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
+    a.text("[datetime]")
+}
+
+pub fn format_dday<'a>(a: &'a Arena<'a>, e: &DdayElement) -> DocBuilder<'a, Arena<'a>> {
+    a.text(format!("[dday({})]", e.date))
+}
+
+pub fn format_pagecount<'a>(a: &'a Arena<'a>, e: &PageCountElement) -> DocBuilder<'a, Arena<'a>> {
+    match &e.namespace {
+        Some(ns) => a.text(format!("[pagecount({})]", ns)),
+        None => a.text("[pagecount]"),
+    }
+}
