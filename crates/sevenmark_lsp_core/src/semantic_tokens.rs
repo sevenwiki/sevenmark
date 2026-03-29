@@ -144,6 +144,7 @@ pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     SemanticTokenType::OPERATOR, // 56 LogicalOperator
     SemanticTokenType::OPERATOR, // 57 ComparisonOperator
     SemanticTokenType::KEYWORD,  // 58 Css
+    SemanticTokenType::KEYWORD,  // 59 Anchor
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -282,6 +283,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
             | Element::TimeNow(_)
             | Element::Age(_)
             | Element::Variable(_)
+            | Element::Anchor(_)
             | Element::Mention(_)
             | Element::Bold(_)
             | Element::Italic(_)
@@ -675,6 +677,7 @@ fn element_token_type(element: &Element) -> u32 {
         Element::TimeNow(_) => TokenIdx::TimeNow.as_u32(),
         Element::Age(_) => TokenIdx::Age.as_u32(),
         Element::Variable(_) => TokenIdx::Variable.as_u32(),
+        Element::Anchor(_) => TokenIdx::Anchor.as_u32(),
         Element::Mention(_) => TokenIdx::Mention.as_u32(),
         Element::Bold(_) => TokenIdx::Bold.as_u32(),
         Element::Italic(_) => TokenIdx::Italic.as_u32(),
