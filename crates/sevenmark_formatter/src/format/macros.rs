@@ -32,3 +32,7 @@ pub fn format_variable<'a>(a: &'a Arena<'a>, e: &VariableElement) -> DocBuilder<
 pub fn format_age<'a>(a: &'a Arena<'a>, e: &AgeElement) -> DocBuilder<'a, Arena<'a>> {
     a.text(format!("[age({})]", e.date))
 }
+
+pub fn format_anchor<'a>(a: &'a Arena<'a>, e: &AnchorElement) -> DocBuilder<'a, Arena<'a>> {
+    a.text(format!("[anchor({})]", e.name))
+}

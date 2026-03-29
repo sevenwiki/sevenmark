@@ -69,6 +69,7 @@ enum TokenIdx {
     LogicalOperator = 56,
     ComparisonOperator = 57,
     Css = 58,
+    Anchor = 59,
 }
 
 impl TokenIdx {
