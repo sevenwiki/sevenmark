@@ -40,7 +40,7 @@ fn sanitize_style_close_tag(value: &str) -> String {
     out
 }
 
-pub fn render(span: &Span, parameters: &Parameters, value: &str, ctx: &RenderContext) -> Markup {
+pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderContext) -> Markup {
     let merged_class = utils::merge_class(classes::CSS, parameters);
     let sanitized_css = super::super::sanitize::sanitize_css_block(value);
     let safe_css = sanitize_style_close_tag(&sanitized_css);
@@ -49,8 +49,6 @@ pub fn render(span: &Span, parameters: &Parameters, value: &str, ctx: &RenderCon
     html! {
         style
             class=(merged_class)
-            data-start=[ctx.span_start(span)]
-            data-end=[ctx.span_end(span)]
             data-dark-style=[dark_style]
         { (PreEscaped(safe_css)) }
     }
@@ -109,7 +107,7 @@ mod tests {
     #[test]
     fn render_sanitizes_css_block_and_escapes_style_close_sequences() {
         let input = r#"{{{#css
-.card { font-family: "</style>"; color: red; position: fixed; }
+.card { font-family: "</style>"; color: red; background: url(evil.png); }
 body { color: blue; }
 }}}"#;
 
@@ -119,6 +117,14 @@ body { color: blue; }
         assert!(
             html.contains("<style"),
             "expected style element in output, got:\n{html}"
+        );
+        assert!(
+            !html.contains("data-start="),
+            "expected non-visual style tags to omit span offsets, got:\n{html}"
+        );
+        assert!(
+            !html.contains("data-end="),
+            "expected non-visual style tags to omit span offsets, got:\n{html}"
         );
         assert!(
             html.contains(".card"),
@@ -133,8 +139,8 @@ body { color: blue; }
             "expected embedded style-close sequence to be escaped, got:\n{html}"
         );
         assert!(
-            !html.contains("position"),
-            "expected dangerous property to be removed, got:\n{html}"
+            !html.contains("url("),
+            "expected dynamic URL value to be removed, got:\n{html}"
         );
         assert!(
             !html.contains("body"),

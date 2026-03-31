@@ -1,7 +1,9 @@
 //! CSS sanitization policy for SevenMark
 //!
-//! Fail-closed policy: only whitelisted properties, selectors with classes,
-//! and safe at-rules pass through. Everything else is dropped.
+//! Fail-closed policy: allow a curated set of presentation and layout
+//! properties while still blocking overlay primitives and dynamic or
+//! external-value constructs such as url(), var(), env(), and expression().
+//! Stylesheet selectors remain class-scoped.
 
 use std::collections::HashSet;
 use std::convert::Infallible;
@@ -104,6 +106,7 @@ static ALLOWED_PROPERTIES: LazyLock<HashSet<&'static str>> = LazyLock::new(|| {
         "max-inline-size",
         "min-block-size",
         "max-block-size",
+        "aspect-ratio",
         // Border
         "border",
         "border-top",
@@ -183,13 +186,49 @@ static ALLOWED_PROPERTIES: LazyLock<HashSet<&'static str>> = LazyLock::new(|| {
         "column-rule-color",
         "column-rule-style",
         "column-rule-width",
-        // Misc
-        "aspect-ratio",
-        "object-fit",
-        "object-position",
+        // Layout
+        "display",
+        "overflow",
+        "overflow-x",
+        "overflow-y",
         "gap",
         "row-gap",
         "column-gap",
+        "flex",
+        "flex-direction",
+        "flex-wrap",
+        "flex-flow",
+        "flex-grow",
+        "flex-shrink",
+        "flex-basis",
+        "order",
+        "justify-content",
+        "justify-items",
+        "justify-self",
+        "align-content",
+        "align-items",
+        "align-self",
+        "place-content",
+        "place-items",
+        "place-self",
+        "grid",
+        "grid-template",
+        "grid-template-columns",
+        "grid-template-rows",
+        "grid-template-areas",
+        "grid-auto-flow",
+        "grid-auto-columns",
+        "grid-auto-rows",
+        "grid-column",
+        "grid-column-start",
+        "grid-column-end",
+        "grid-row",
+        "grid-row-start",
+        "grid-row-end",
+        "grid-area",
+        // Misc
+        "object-fit",
+        "object-position",
     ])
 });
 
@@ -361,255 +400,5 @@ pub(crate) fn sanitize_inline_style(input: &str) -> String {
     clean_declaration_list_with_policy(input, &POLICY)
 }
 
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
-
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    // -- Inline style tests --------------------------------------------------
-
-    #[test]
-    fn allows_safe_properties() {
-        let result = sanitize_inline_style("color: red; font-size: 16px; margin: 10px");
-        assert!(result.contains("color"));
-        assert!(result.contains("font-size"));
-        assert!(result.contains("margin"));
-    }
-
-    #[test]
-    fn blocks_position() {
-        assert_eq!(sanitize_inline_style("position: fixed"), "");
-    }
-
-    #[test]
-    fn blocks_z_index() {
-        assert_eq!(sanitize_inline_style("z-index: 999999"), "");
-    }
-
-    #[test]
-    fn blocks_display() {
-        assert_eq!(sanitize_inline_style("display: none"), "");
-    }
-
-    #[test]
-    fn blocks_pointer_events() {
-        assert_eq!(sanitize_inline_style("pointer-events: none"), "");
-    }
-
-    #[test]
-    fn blocks_overflow() {
-        assert_eq!(sanitize_inline_style("overflow: hidden"), "");
-    }
-
-    #[test]
-    fn blocks_transform() {
-        assert_eq!(sanitize_inline_style("transform: rotate(45deg)"), "");
-    }
-
-    #[test]
-    fn blocks_filter() {
-        assert_eq!(sanitize_inline_style("filter: blur(5px)"), "");
-    }
-
-    #[test]
-    fn blocks_animation() {
-        assert_eq!(sanitize_inline_style("animation: slide 1s linear"), "");
-    }
-
-    #[test]
-    fn blocks_transition() {
-        assert_eq!(sanitize_inline_style("transition: all 0.3s ease"), "");
-    }
-
-    #[test]
-    fn blocks_grid() {
-        assert_eq!(sanitize_inline_style("grid-template-columns: 1fr 1fr"), "");
-    }
-
-    #[test]
-    fn blocks_flex() {
-        assert_eq!(sanitize_inline_style("flex-direction: row"), "");
-    }
-
-    #[test]
-    fn strips_dangerous_keeps_safe() {
-        let result = sanitize_inline_style("color: red; position: fixed; font-size: 16px");
-        assert!(result.contains("color"));
-        assert!(result.contains("font-size"));
-        assert!(!result.contains("position"));
-    }
-
-    #[test]
-    fn blocks_important() {
-        assert_eq!(sanitize_inline_style("color: red !important"), "");
-    }
-
-    #[test]
-    fn blocks_url_function() {
-        assert_eq!(sanitize_inline_style("background: url(evil.png)"), "");
-    }
-
-    #[test]
-    fn blocks_var_function() {
-        assert_eq!(sanitize_inline_style("color: var(--theme-color)"), "");
-    }
-
-    #[test]
-    fn blocks_env_function() {
-        assert_eq!(
-            sanitize_inline_style("padding: env(safe-area-inset-top)"),
-            ""
-        );
-    }
-
-    #[test]
-    fn allows_gradient_in_background() {
-        let result = sanitize_inline_style("background: linear-gradient(to right, red, blue)");
-        assert!(result.contains("linear-gradient"));
-    }
-
-    // -- Stylesheet tests ----------------------------------------------------
-
-    #[test]
-    fn stylesheet_allows_class_selector() {
-        let result = sanitize_css_block(".card { color: red }");
-        assert!(result.contains(".card"));
-        assert!(result.contains("color"));
-    }
-
-    #[test]
-    fn stylesheet_blocks_bare_tag_selector() {
-        assert_eq!(sanitize_css_block("div { color: red }"), "");
-    }
-
-    #[test]
-    fn stylesheet_blocks_universal_selector() {
-        assert_eq!(sanitize_css_block("* { margin: 0 }"), "");
-    }
-
-    #[test]
-    fn stylesheet_blocks_id_selector() {
-        assert_eq!(sanitize_css_block("#main { color: red }"), "");
-    }
-
-    #[test]
-    fn stylesheet_drops_rule_with_mixed_selectors() {
-        // If any selector in the list is global, the entire rule is dropped
-        assert_eq!(sanitize_css_block(".safe, div { color: red }"), "");
-    }
-
-    #[test]
-    fn stylesheet_blocks_class_with_tag_descendant() {
-        // .class p { } is blocked because p is a bare tag
-        assert_eq!(sanitize_css_block(".parent p { color: red }"), "");
-    }
-
-    #[test]
-    fn stylesheet_allows_class_with_class_descendant() {
-        let result = sanitize_css_block(".parent .child { color: red }");
-        assert!(result.contains(".parent"));
-        assert!(result.contains(".child"));
-    }
-
-    #[test]
-    fn stylesheet_allows_class_with_pseudo() {
-        let result = sanitize_css_block(".link:hover { color: blue }");
-        assert!(result.contains(":hover"));
-        assert!(result.contains("color"));
-    }
-
-    #[test]
-    fn stylesheet_drops_import() {
-        let result = sanitize_css_block("@import url('evil.css'); .card { color: red }");
-        assert!(!result.contains("@import"));
-        assert!(result.contains(".card"));
-        assert!(result.contains("color"));
-    }
-
-    #[test]
-    fn stylesheet_drops_keyframes() {
-        assert_eq!(
-            sanitize_css_block("@keyframes slide { from { opacity: 0 } to { opacity: 1 } }"),
-            ""
-        );
-    }
-
-    #[test]
-    fn stylesheet_drops_font_face() {
-        assert_eq!(
-            sanitize_css_block("@font-face { font-family: Evil; src: url(evil.woff) }"),
-            ""
-        );
-    }
-
-    #[test]
-    fn stylesheet_preserves_media() {
-        let result = sanitize_css_block("@media (max-width: 600px) { .card { color: red } }");
-        assert!(result.contains("@media"));
-        assert!(result.contains(".card"));
-    }
-
-    #[test]
-    fn stylesheet_media_drops_nested_bare_tag_selector() {
-        let result = sanitize_css_block(
-            "@media (max-width: 600px) { body { color: red } .card { color: blue } }",
-        );
-        assert!(result.contains("@media"));
-        assert!(result.contains(".card"));
-        assert!(!result.contains("body"));
-    }
-
-    #[test]
-    fn stylesheet_preserves_supports() {
-        let result = sanitize_css_block("@supports (color: red) { .card { color: red } }");
-        assert!(result.contains("@supports"));
-        assert!(result.contains(".card"));
-    }
-
-    #[test]
-    fn stylesheet_supports_strips_nested_dangerous_property() {
-        let result =
-            sanitize_css_block("@supports (color: red) { .card { color: red; position: fixed } }");
-        assert!(result.contains("@supports"));
-        assert!(result.contains(".card"));
-        assert!(result.contains("color"));
-        assert!(!result.contains("position"));
-    }
-
-    #[test]
-    fn stylesheet_strips_dangerous_properties_in_rule() {
-        let result =
-            sanitize_css_block(".evil { position: fixed; inset: 0; z-index: 999999; color: red }");
-        assert!(result.contains("color"));
-        assert!(!result.contains("position"));
-        assert!(!result.contains("z-index"));
-        assert!(!result.contains("inset"));
-    }
-
-    #[test]
-    fn full_overlay_attack_neutralized() {
-        let attack = r#".red {
-            position: fixed;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            background: rgba(37, 99, 235, 0.9);
-            color: white;
-            z-index: 999999;
-            font-size: 32px;
-        }"#;
-
-        let result = sanitize_css_block(attack);
-        assert!(!result.contains("position"));
-        assert!(!result.contains("inset"));
-        assert!(!result.contains("display"));
-        assert!(!result.contains("place-items"));
-        assert!(!result.contains("z-index"));
-        // Safe properties survive
-        assert!(result.contains("color"));
-        assert!(result.contains("font-size"));
-    }
-}
+mod tests;

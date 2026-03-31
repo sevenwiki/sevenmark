@@ -39,33 +39,37 @@ mod tests {
     use sevenmark_parser::core::parse_document;
 
     #[test]
-    fn render_keeps_safe_style_fragments_and_drops_unsafe_ones() {
-        let input = r#"{{{ #style="position:fixed" #color="red" #dark-style="position:fixed" #dark-color="blue" Styled text }}}"#;
+    fn render_keeps_allowed_layout_styles_and_drops_overlay_primitives() {
+        let input = r#"{{{ #style="display:inline-block; position:fixed" #color="red" #dark-style="display:grid; z-index:1" #dark-color="blue" Styled text }}}"#;
 
         let ast = parse_document(input);
         let html = render_document(&ast, &RenderConfig::default());
 
         assert!(
             html.contains(" style=\""),
-            "expected sanitized inline style attribute, got:\n{html}"
+            "expected inline style attribute, got:\n{html}"
         );
         assert!(
-            html.contains("style=\"color:"),
-            "expected safe inline color to survive sanitization, got:\n{html}"
+            html.contains("display: inline-block"),
+            "expected layout display to survive sanitization, got:\n{html}"
         );
         assert!(
-            html.contains("data-dark-style=\"color:"),
-            "expected safe dark color to survive sanitization, got:\n{html}"
+            !html.contains("position: fixed"),
+            "expected overlay positioning to be removed, got:\n{html}"
         );
         assert!(
-            !html.contains("position"),
-            "expected unsafe style fragments to be removed, got:\n{html}"
+            html.contains("data-dark-style=\"display: grid; color: #00f\""),
+            "expected allowed dark style fragments to survive sanitization, got:\n{html}"
+        );
+        assert!(
+            !html.contains("z-index"),
+            "expected z-index to be removed, got:\n{html}"
         );
     }
 
     #[test]
-    fn render_omits_style_attributes_when_sanitizer_removes_everything() {
-        let input = r#"{{{ #style="position:fixed" #dark-style="position:fixed" Unsafe only }}}"#;
+    fn render_omits_style_attributes_when_only_blocked_properties_remain() {
+        let input = r#"{{{ #style="position:fixed; z-index:1" #dark-style="inset:0; pointer-events:none" Unsafe only }}}"#;
 
         let ast = parse_document(input);
         let html = render_document(&ast, &RenderConfig::default());
