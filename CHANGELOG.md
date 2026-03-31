@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.1] - 2026-03-31
+
+### Changed
+- **sevenmark_html**: Relaxed the CSS sanitization allowlist to permit common layout and presentation properties such as `display`, flex/grid layout controls, `overflow`, and `aspect-ratio` while continuing to block overlay primitives (`position`, `inset`, `z-index`, `pointer-events`), dangerous at-rules, dynamic CSS functions (`url()`, `var()`, `env()`, `expression()`), and `!important`
+- **sevenmark_html**: `{{{#css}}}` rendering no longer emits `data-start` / `data-end` span offsets on non-visual `<style>` output
+
+### Added
+- **tests**: Moved `sevenmark_html` CSS sanitizer coverage into a dedicated `render/sanitize/tests.rs` module and expanded renderer-level regressions for allowed layout styles, blocked overlay primitives, dynamic-value stripping, and safe `<style>` rendering
+
 ## [2.30.0] - 2026-03-31
 
 ### Added
