@@ -553,10 +553,30 @@ mod tests {
     }
 
     #[test]
+    fn stylesheet_media_drops_nested_bare_tag_selector() {
+        let result = sanitize_css_block(
+            "@media (max-width: 600px) { body { color: red } .card { color: blue } }",
+        );
+        assert!(result.contains("@media"));
+        assert!(result.contains(".card"));
+        assert!(!result.contains("body"));
+    }
+
+    #[test]
     fn stylesheet_preserves_supports() {
         let result = sanitize_css_block("@supports (color: red) { .card { color: red } }");
         assert!(result.contains("@supports"));
         assert!(result.contains(".card"));
+    }
+
+    #[test]
+    fn stylesheet_supports_strips_nested_dangerous_property() {
+        let result =
+            sanitize_css_block("@supports (color: red) { .card { color: red; position: fixed } }");
+        assert!(result.contains("@supports"));
+        assert!(result.contains(".card"));
+        assert!(result.contains("color"));
+        assert!(!result.contains("position"));
     }
 
     #[test]

@@ -32,3 +32,51 @@ pub fn render(
         { (content) }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::{RenderConfig, render::render_document};
+    use sevenmark_parser::core::parse_document;
+
+    #[test]
+    fn render_keeps_safe_style_fragments_and_drops_unsafe_ones() {
+        let input = r#"{{{ #style="position:fixed" #color="red" #dark-style="position:fixed" #dark-color="blue" Styled text }}}"#;
+
+        let ast = parse_document(input);
+        let html = render_document(&ast, &RenderConfig::default());
+
+        assert!(
+            html.contains(" style=\""),
+            "expected sanitized inline style attribute, got:\n{html}"
+        );
+        assert!(
+            html.contains("style=\"color:"),
+            "expected safe inline color to survive sanitization, got:\n{html}"
+        );
+        assert!(
+            html.contains("data-dark-style=\"color:"),
+            "expected safe dark color to survive sanitization, got:\n{html}"
+        );
+        assert!(
+            !html.contains("position"),
+            "expected unsafe style fragments to be removed, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn render_omits_style_attributes_when_sanitizer_removes_everything() {
+        let input = r#"{{{ #style="position:fixed" #dark-style="position:fixed" Unsafe only }}}"#;
+
+        let ast = parse_document(input);
+        let html = render_document(&ast, &RenderConfig::default());
+
+        assert!(
+            !html.contains(" style=\""),
+            "expected empty inline style attribute to be omitted, got:\n{html}"
+        );
+        assert!(
+            !html.contains("data-dark-style=\""),
+            "expected empty dark style attribute to be omitted, got:\n{html}"
+        );
+    }
+}

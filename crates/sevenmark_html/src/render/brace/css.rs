@@ -59,6 +59,12 @@ pub fn render(span: &Span, parameters: &Parameters, value: &str, ctx: &RenderCon
 #[cfg(test)]
 mod tests {
     use super::sanitize_style_close_tag;
+    use crate::{RenderConfig, render::render_document};
+    use sevenmark_parser::core::parse_document;
+
+    fn count_occurrences(haystack: &str, needle: &str) -> usize {
+        haystack.match_indices(needle).count()
+    }
 
     #[test]
     fn sanitizes_case_insensitive_style_close_tag() {
@@ -97,6 +103,47 @@ mod tests {
         assert_eq!(
             sanitize_style_close_tag("a</style-foo>b"),
             "a</style-foo>b".to_string()
+        );
+    }
+
+    #[test]
+    fn render_sanitizes_css_block_and_escapes_style_close_sequences() {
+        let input = r#"{{{#css
+.card { font-family: "</style>"; color: red; position: fixed; }
+body { color: blue; }
+}}}"#;
+
+        let ast = parse_document(input);
+        let html = render_document(&ast, &RenderConfig::default());
+
+        assert!(
+            html.contains("<style"),
+            "expected style element in output, got:\n{html}"
+        );
+        assert!(
+            html.contains(".card"),
+            "expected safe class selector to survive sanitization, got:\n{html}"
+        );
+        assert!(
+            html.contains("color"),
+            "expected safe property to survive sanitization, got:\n{html}"
+        );
+        assert!(
+            html.contains("<\\/style>"),
+            "expected embedded style-close sequence to be escaped, got:\n{html}"
+        );
+        assert!(
+            !html.contains("position"),
+            "expected dangerous property to be removed, got:\n{html}"
+        );
+        assert!(
+            !html.contains("body"),
+            "expected bare tag selector to be removed, got:\n{html}"
+        );
+        assert_eq!(
+            count_occurrences(&html, "</style>"),
+            1,
+            "expected only the renderer's closing style tag to remain, got:\n{html}"
         );
     }
 }
