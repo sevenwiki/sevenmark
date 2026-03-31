@@ -5,6 +5,13 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.0] - 2026-03-31
+
+### Added
+- **sevenmark_html**: Added CSS sanitization via `css-sanitizer` crate with a fail-closed `SevenmarkStylePolicy` that enforces a strict property whitelist, blocks dangerous at-rules (`@import`, `@keyframes`, `@font-face`, etc.), rejects dangerous CSS functions (`url()`, `var()`, `env()`, `expression()`), blocks `!important` declarations, and drops selectors without class components (bare tags, `*`, `#id`)
+- **sevenmark_html**: Inline `#style` and `#dark-style` parameters on all block elements are now sanitized through the same policy, automatically blocking CSS injection via parameters like `#style="position:fixed;z-index:999999"`
+- **sevenmark_html**: `{{{#css}}}` block content is now sanitized before rendering — only safe at-rules (`@media`, `@supports`) and class-based selectors pass through
+
 ## [2.29.0] - 2026-03-29
 
 ### Added

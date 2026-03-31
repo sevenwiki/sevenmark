@@ -60,7 +60,13 @@ pub fn build_dark_style(params: &Parameters) -> Option<String> {
     if styles.is_empty() {
         None
     } else {
-        Some(styles.join(";"))
+        let raw = styles.join(";");
+        let sanitized = super::sanitize::sanitize_inline_style(&raw);
+        if sanitized.is_empty() {
+            None
+        } else {
+            Some(sanitized)
+        }
     }
 }
 
@@ -87,6 +93,12 @@ pub fn build_style(params: &Parameters) -> Option<String> {
     if styles.is_empty() {
         None
     } else {
-        Some(styles.join(";"))
+        let raw = styles.join(";");
+        let sanitized = super::sanitize::sanitize_inline_style(&raw);
+        if sanitized.is_empty() {
+            None
+        } else {
+            Some(sanitized)
+        }
     }
 }

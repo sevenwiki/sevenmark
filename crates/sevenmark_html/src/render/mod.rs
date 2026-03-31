@@ -7,6 +7,7 @@ pub mod element;
 mod r#macro;
 pub mod markdown;
 mod mention;
+pub(crate) mod sanitize;
 mod text;
 pub mod utils;
 

@@ -18,3 +18,4 @@ sevenmark_utils = { workspace = true }
 # External dependencies
 maud = { workspace = true }
 percent-encoding = { workspace = true }
+css-sanitizer = { workspace = true }
