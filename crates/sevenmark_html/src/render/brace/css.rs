@@ -42,7 +42,8 @@ fn sanitize_style_close_tag(value: &str) -> String {
 
 pub fn render(span: &Span, parameters: &Parameters, value: &str, ctx: &RenderContext) -> Markup {
     let merged_class = utils::merge_class(classes::CSS, parameters);
-    let safe_css = sanitize_style_close_tag(value);
+    let sanitized_css = super::super::sanitize::sanitize_css_block(value);
+    let safe_css = sanitize_style_close_tag(&sanitized_css);
     let dark_style = utils::build_dark_style(parameters);
 
     html! {
