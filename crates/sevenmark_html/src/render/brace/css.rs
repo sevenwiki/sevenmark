@@ -57,8 +57,7 @@ pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderC
 #[cfg(test)]
 mod tests {
     use super::sanitize_style_close_tag;
-    use crate::{RenderConfig, render::render_document};
-    use sevenmark_parser::core::parse_document;
+    use crate::test_support::{parse_fragment, render_html, selector};
 
     fn count_occurrences(haystack: &str, needle: &str) -> usize {
         haystack.match_indices(needle).count()
@@ -111,27 +110,32 @@ mod tests {
 body { color: blue; }
 }}}"#;
 
-        let ast = parse_document(input);
-        let html = render_document(&ast, &RenderConfig::default());
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+        let style = doc
+            .select(&selector("style.sm-css"))
+            .next()
+            .expect("expected style element");
 
         assert!(
-            html.contains("<style"),
+            style.value().name() == "style",
             "expected style element in output, got:\n{html}"
         );
         assert!(
-            !html.contains("data-start="),
+            style.value().attr("data-start").is_none(),
             "expected non-visual style tags to omit span offsets, got:\n{html}"
         );
         assert!(
-            !html.contains("data-end="),
+            style.value().attr("data-end").is_none(),
             "expected non-visual style tags to omit span offsets, got:\n{html}"
         );
+        let css = style.inner_html();
         assert!(
-            html.contains(".card"),
+            css.contains(".card"),
             "expected safe class selector to survive sanitization, got:\n{html}"
         );
         assert!(
-            html.contains("color"),
+            css.contains("color"),
             "expected safe property to survive sanitization, got:\n{html}"
         );
         assert!(
@@ -143,7 +147,7 @@ body { color: blue; }
             "expected dynamic URL value to be removed, got:\n{html}"
         );
         assert!(
-            !html.contains("body"),
+            !css.contains("body"),
             "expected bare tag selector to be removed, got:\n{html}"
         );
         assert_eq!(

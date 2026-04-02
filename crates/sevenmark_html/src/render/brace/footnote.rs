@@ -133,12 +133,8 @@ pub fn render(
 
 #[cfg(test)]
 mod tests {
-    use crate::{RenderConfig, render::render_document};
-    use sevenmark_parser::core::parse_document;
-
-    fn count_occurrences(haystack: &str, needle: &str) -> usize {
-        haystack.match_indices(needle).count()
-    }
+    use crate::test_support::{parse_fragment, render_html, selector};
+    use std::collections::HashSet;
 
     #[test]
     fn duplicate_named_footnote_refs_use_unique_ids() {
@@ -148,8 +144,8 @@ C{{{#fn #name="a12" First A12. }}}.
 
 [fn]"#;
 
-        let ast = parse_document(input);
-        let html = render_document(&ast, &RenderConfig::default());
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
 
         let first_a1_ref = super::named_footnote_ref_id("a1");
         let duplicate_a1_ref = super::duplicate_named_footnote_ref_id("a1", 2);
@@ -160,25 +156,31 @@ C{{{#fn #name="a12" First A12. }}}.
             duplicate_a1_ref, first_a12_ref,
             "duplicate named footnote ref ids must not collide with other named refs"
         );
+
+        let ids: HashSet<_> = doc
+            .select(&selector("sup.sm-footnote"))
+            .filter_map(|node| node.value().attr("id"))
+            .collect();
         assert!(
-            html.contains(&format!("id=\"{}\"", first_a1_ref)),
+            ids.contains(first_a1_ref.as_str()),
             "expected first named reference id in output, got:\n{html}"
         );
         assert!(
-            html.contains(&format!("id=\"{}\"", duplicate_a1_ref)),
+            ids.contains(duplicate_a1_ref.as_str()),
             "expected duplicate named reference id in output, got:\n{html}"
         );
         assert!(
-            html.contains(&format!("id=\"{}\"", first_a12_ref)),
+            ids.contains(first_a12_ref.as_str()),
             "expected second named reference id in output, got:\n{html}"
         );
-        assert_eq!(
-            count_occurrences(&html, &format!("id=\"{}\"", first_a12_ref)),
-            1,
-            "named reference ids should remain unique"
-        );
+        assert_eq!(ids.len(), 3, "named reference ids should remain unique");
+
+        let hrefs: HashSet<_> = doc
+            .select(&selector("sup.sm-footnote > a.sm-fn-ref"))
+            .filter_map(|node| node.value().attr("href"))
+            .collect();
         assert!(
-            html.contains(&format!("href=\"#{}\"", a1_footnote_id)),
+            hrefs.contains(format!("#{}", a1_footnote_id).as_str()),
             "named references should still point at the original footnote entry"
         );
     }
@@ -192,19 +194,28 @@ D{{{#fn Second unnamed. }}}.
 
 [fn]"#;
 
-        let ast = parse_document(input);
-        let html = render_document(&ast, &RenderConfig::default());
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        let refs: Vec<_> = doc
+            .select(&selector("sup.sm-footnote"))
+            .filter_map(|node| {
+                let id = node.value().attr("id")?;
+                let text = node.text().collect::<String>();
+                Some((id.to_string(), text))
+            })
+            .collect();
 
         assert!(
-            html.contains(r##"id="rn3"><a class="sm-fn-ref" href="#fn3">[1]</a>"##),
+            refs.contains(&("rn3".to_string(), "[1]".to_string())),
             "expected first unnamed footnote to display as [1], got:\n{html}"
         );
         assert!(
-            html.contains(r##"id="rn4"><a class="sm-fn-ref" href="#fn4">[2]</a>"##),
+            refs.contains(&("rn4".to_string(), "[2]".to_string())),
             "expected second unnamed footnote to display as [2], got:\n{html}"
         );
         assert!(
-            !html.contains(r##"href="#fn3">[3]</a>"##),
+            !refs.iter().any(|(_, text)| text == "[3]"),
             "duplicate named refs should not create visible numbering gaps, got:\n{html}"
         );
     }

@@ -140,8 +140,7 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
 
 #[cfg(test)]
 mod tests {
-    use crate::{RenderConfig, render::render_document};
-    use sevenmark_parser::core::parse_document;
+    use crate::test_support::{parse_fragment, render_html, selector};
 
     #[test]
     fn conditional_head_rows_render_inside_thead() {
@@ -152,19 +151,27 @@ mod tests {
 [[[[Alice]] [[1]]]]
 }}}"#;
 
-        let ast = parse_document(input);
-        let html = render_document(&ast, &RenderConfig::default());
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
 
         assert!(
-            html.contains("<thead>"),
+            doc.select(&selector("table.sm-table thead"))
+                .next()
+                .is_some(),
             "expected a table head, got:\n{html}"
         );
+
+        let head_text: Vec<_> = doc
+            .select(&selector("table.sm-table thead th"))
+            .map(|cell| cell.text().collect::<String>())
+            .collect();
         assert!(
-            html.contains("<th><span>Name</span></th><th><span>Value</span></th>"),
+            head_text == vec!["Name".to_string(), "Value".to_string()],
             "expected conditional #head row to render as header cells, got:\n{html}"
         );
         assert!(
-            !html.contains("<td>Name</td>"),
+            doc.select(&selector("table.sm-table tbody td"))
+                .all(|cell| cell.text().collect::<String>() != "Name"),
             "conditional #head row should not render inside tbody cells, got:\n{html}"
         );
     }
