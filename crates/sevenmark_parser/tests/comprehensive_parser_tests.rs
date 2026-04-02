@@ -1,6 +1,7 @@
 use sevenmark_ast::Element;
 use sevenmark_parser::core::parse_document;
 use std::fs;
+use std::path::Path;
 
 fn parse_file_content(content: &str) -> Result<String, Box<dyn std::error::Error>> {
     let result = parse_document(content);
@@ -44,210 +45,88 @@ fn run_parser_test(category: &str, test_name: &str) -> Result<(), Box<dyn std::e
     Ok(())
 }
 
-// Fold Tests
-#[test]
-fn test_basic_fold() {
-    run_parser_test("fold", "basic_fold").expect("basic fold test failed");
+fn fixture_names_for_category(category: &str) -> Result<Vec<String>, Box<dyn std::error::Error>> {
+    let fixtures_dir = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tc")
+        .join(category)
+        .join("input");
+    let mut fixture_names = Vec::new();
+
+    for entry in fs::read_dir(&fixtures_dir)? {
+        let entry = entry?;
+        let path = entry.path();
+        if path.extension().and_then(|ext| ext.to_str()) != Some("sm") {
+            continue;
+        }
+
+        let name = path
+            .file_stem()
+            .and_then(|stem| stem.to_str())
+            .ok_or_else(|| format!("Invalid fixture filename: {}", path.display()))?;
+        fixture_names.push(name.to_string());
+    }
+
+    fixture_names.sort_unstable();
+    Ok(fixture_names)
+}
+
+fn run_parser_category(category: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let fixture_names = fixture_names_for_category(category)?;
+    assert!(
+        !fixture_names.is_empty(),
+        "No parser fixtures found for category '{category}'"
+    );
+
+    for fixture_name in fixture_names {
+        run_parser_test(category, &fixture_name)?;
+    }
+
+    Ok(())
 }
 
 #[test]
-fn test_fold_with_params() {
-    run_parser_test("fold", "fold_with_params").expect("fold with params test failed");
+fn test_fold_fixtures() {
+    run_parser_category("fold").expect("fold fixture tests failed");
 }
 
 #[test]
-fn test_fold_with_formatting() {
-    run_parser_test("fold", "fold_with_formatting").expect("fold with formatting test failed");
-}
-
-// Brace Tests
-#[test]
-fn test_brace_literal() {
-    run_parser_test("brace", "literal").expect("brace literal test failed");
+fn test_brace_fixtures() {
+    run_parser_category("brace").expect("brace fixture tests failed");
 }
 
 #[test]
-fn test_brace_styled() {
-    run_parser_test("brace", "styled").expect("brace styled test failed");
+fn test_markdown_fixtures() {
+    run_parser_category("markdown").expect("markdown fixture tests failed");
 }
 
 #[test]
-fn test_brace_table() {
-    run_parser_test("brace", "table").expect("brace table test failed");
+fn test_macro_fixtures() {
+    run_parser_category("macro").expect("macro fixture tests failed");
 }
 
 #[test]
-fn test_brace_list() {
-    run_parser_test("brace", "list").expect("brace list test failed");
+fn test_comment_fixtures() {
+    run_parser_category("comment").expect("comment fixture tests failed");
 }
 
 #[test]
-fn test_brace_blockquote() {
-    run_parser_test("brace", "blockquote").expect("brace blockquote test failed");
+fn test_escape_fixtures() {
+    run_parser_category("escape").expect("escape fixture tests failed");
 }
 
 #[test]
-fn test_brace_code() {
-    run_parser_test("brace", "code").expect("brace code test failed");
+fn test_if_fixtures() {
+    run_parser_category("if").expect("if fixture tests failed");
 }
 
 #[test]
-fn test_brace_tex() {
-    run_parser_test("brace", "tex").expect("brace tex test failed");
+fn test_complex_fixtures() {
+    run_parser_category("complex").expect("complex fixture tests failed");
 }
 
 #[test]
-fn test_brace_css() {
-    run_parser_test("brace", "css").expect("brace css test failed");
-}
-
-#[test]
-fn test_brace_include() {
-    run_parser_test("brace", "include").expect("brace include test failed");
-}
-
-#[test]
-fn test_brace_category() {
-    run_parser_test("brace", "category").expect("brace category test failed");
-}
-
-// Markdown Tests
-#[test]
-fn test_markdown_formatting() {
-    run_parser_test("markdown", "formatting").expect("markdown formatting test failed");
-}
-
-#[test]
-fn test_markdown_headers() {
-    run_parser_test("markdown", "headers").expect("markdown headers test failed");
-}
-
-#[test]
-fn test_markdown_hline() {
-    run_parser_test("markdown", "hline").expect("markdown hline test failed");
-}
-
-// Macro Tests
-#[test]
-fn test_macro_time_macros() {
-    run_parser_test("macro", "time_macros").expect("macro time_macros test failed");
-}
-
-#[test]
-fn test_macro_utility_macros() {
-    run_parser_test("macro", "utility_macros").expect("macro utility_macros test failed");
-}
-
-// Comment Tests
-#[test]
-fn test_comment_inline_comment() {
-    run_parser_test("comment", "inline_comment").expect("comment inline test failed");
-}
-
-#[test]
-fn test_comment_multiline_comment() {
-    run_parser_test("comment", "multiline_comment").expect("comment multiline test failed");
-}
-
-// Escape Tests
-#[test]
-fn test_escape_chars() {
-    run_parser_test("escape", "escape_chars").expect("escape chars test failed");
-}
-
-// If Tests
-#[test]
-fn test_if_basic_comparison() {
-    run_parser_test("if", "basic_comparison").expect("if basic comparison test failed");
-}
-
-#[test]
-fn test_if_delimiter_and_grouping() {
-    run_parser_test("if", "delimiter_and_grouping").expect("if delimiter and grouping test failed");
-}
-
-#[test]
-fn test_if_functions() {
-    run_parser_test("if", "functions").expect("if functions test failed");
-}
-
-#[test]
-fn test_if_logical_operators() {
-    run_parser_test("if", "logical_operators").expect("if logical operators test failed");
-}
-
-#[test]
-fn test_if_null_and_bool() {
-    run_parser_test("if", "null_and_bool").expect("if null and bool test failed");
-}
-
-#[test]
-fn test_if_table_row_conditional() {
-    run_parser_test("if", "table_row_conditional").expect("if table row conditional test failed");
-}
-
-#[test]
-fn test_if_table_cell_conditional() {
-    run_parser_test("if", "table_cell_conditional").expect("if table cell conditional test failed");
-}
-
-#[test]
-fn test_if_list_conditional() {
-    run_parser_test("if", "list_conditional").expect("if list conditional test failed");
-}
-
-// Complex Tests
-#[test]
-fn test_complex_fold_with_rich_content() {
-    run_parser_test("complex", "fold_with_rich_content")
-        .expect("complex fold with rich content test failed");
-}
-
-#[test]
-fn test_complex_table_with_nested_elements() {
-    run_parser_test("complex", "table_with_nested_elements")
-        .expect("complex table with nested elements test failed");
-}
-
-#[test]
-fn test_complex_deeply_nested_lists() {
-    run_parser_test("complex", "deeply_nested_lists")
-        .expect("complex deeply nested lists test failed");
-}
-
-#[test]
-fn test_complex_all_parameter_combinations() {
-    run_parser_test("complex", "all_parameter_combinations")
-        .expect("complex all parameter combinations test failed");
-}
-
-#[test]
-fn test_complex_parameter_conflicts() {
-    run_parser_test("complex", "parameter_conflicts")
-        .expect("complex parameter conflicts test failed");
-}
-
-#[test]
-fn test_complex_special_parameters() {
-    run_parser_test("complex", "special_parameters")
-        .expect("complex special parameters test failed");
-}
-
-#[test]
-fn test_complex_technical_documentation() {
-    run_parser_test("complex", "technical_documentation")
-        .expect("complex technical documentation test failed");
-}
-
-#[test]
-fn test_complex_wiki_page_example() {
-    run_parser_test("complex", "wiki_page_example").expect("complex wiki page example test failed");
-}
-
-#[test]
-fn test_complex_scientific_document() {
-    run_parser_test("complex", "scientific_document")
-        .expect("complex scientific document test failed");
+fn test_invalid_fixtures() {
+    run_parser_category("invalid").expect("invalid fixture tests failed");
 }
 
 #[test]

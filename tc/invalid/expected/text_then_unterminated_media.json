@@ -1,0 +1,28 @@
+[
+  {
+    "Text": {
+      "span": {
+        "start": 0,
+        "end": 6
+      },
+      "value": "Before"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 6,
+        "end": 7
+      }
+    }
+  },
+  {
+    "Error": {
+      "span": {
+        "start": 7,
+        "end": 28
+      },
+      "value": "[[#file=\"poster.png\"\n"
+    }
+  }
+]

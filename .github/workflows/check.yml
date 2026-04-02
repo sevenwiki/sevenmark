@@ -22,6 +22,12 @@ jobs:
       - name: Check
         run: cargo check --workspace --all-targets
 
+      - name: Test
+        run: cargo test --workspace
+
+      - name: Parser Fixture Tests
+        run: cargo test -p sevenmark_parser --features include_locations --test comprehensive_parser_tests
+
       - name: Clippy
         run: cargo clippy --workspace --all-targets
 
