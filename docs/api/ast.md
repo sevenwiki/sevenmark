@@ -127,10 +127,10 @@ pub struct Parameter {
     pub value: Vec<Element>,  // parsed value (may contain macros)
 }
 
-pub type Parameters = BTreeMap<String, Parameter>;
+pub type Parameters = IndexMap<String, Parameter>;
 ```
 
-Parameters are stored as a `BTreeMap` keyed by parameter name. Keys may contain Unicode letters, digits, underscore, and hyphen. Values are parsed AST fragments rather than raw strings, so macros like `[var(name)]` can appear inside parameter values.
+Parameters are stored as an `IndexMap` keyed by parameter name. This preserves the order they appeared in the source while still supporting efficient keyed lookup. Keys may contain Unicode letters, digits, underscore, and hyphen. Values are parsed AST fragments rather than raw strings, so macros like `[var(name)]` can appear inside parameter values.
 
 ## Expression Enum (Conditionals)
 

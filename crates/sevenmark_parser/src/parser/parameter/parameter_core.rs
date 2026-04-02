@@ -1,7 +1,6 @@
 use crate::parser::ParserInput;
 use crate::parser::parameter::parameter_content::parameter_content_parser;
 use sevenmark_ast::{Parameter, Parameters, Span};
-use std::collections::BTreeMap;
 use winnow::Result;
 use winnow::ascii::multispace0;
 use winnow::combinator::{delimited, opt, preceded, repeat, terminated};
@@ -43,14 +42,14 @@ fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter
     Ok((key_string, parameter))
 }
 
-/// Parse multiple parameters and collect them into a BTreeMap
+/// Parse multiple parameters and collect them into a Parameters map
 /// Terminated by an optional "||" followed by whitespace
 /// Returns a Parameters map where keys are parameter names and values are SevenMarkElement vectors
 pub fn parameter_core_parser(parser_input: &mut ParserInput) -> Result<Parameters> {
     terminated(
-        // Parse one or more parameters and directly collect into BTreeMap
+        // Parse one or more parameters and directly collect into Parameters
         repeat(1.., parameter_parser)
-            .map(|pairs: Vec<_>| pairs.into_iter().collect::<BTreeMap<_, _>>()),
+            .map(|pairs: Vec<_>| pairs.into_iter().collect::<Parameters>()),
         // End marker: optional "||" followed by whitespace
         preceded(opt(literal("||")), multispace0),
     )

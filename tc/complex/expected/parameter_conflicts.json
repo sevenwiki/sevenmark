@@ -86,22 +86,6 @@
           "key": "1",
           "value": []
         },
-        "A": {
-          "span": {
-            "start": 104,
-            "end": 107
-          },
-          "key": "A",
-          "value": []
-        },
-        "I": {
-          "span": {
-            "start": 110,
-            "end": 113
-          },
-          "key": "I",
-          "value": []
-        },
         "a": {
           "span": {
             "start": 101,
@@ -110,12 +94,28 @@
           "key": "a",
           "value": []
         },
+        "A": {
+          "span": {
+            "start": 104,
+            "end": 107
+          },
+          "key": "A",
+          "value": []
+        },
         "i": {
           "span": {
             "start": 107,
             "end": 110
           },
           "key": "i",
+          "value": []
+        },
+        "I": {
+          "span": {
+            "start": 110,
+            "end": 113
+          },
+          "key": "I",
           "value": []
         }
       },

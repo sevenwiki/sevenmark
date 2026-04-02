@@ -1,5 +1,5 @@
+use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
 
 use super::Element;
 
@@ -30,5 +30,5 @@ pub struct Parameter {
 }
 
 /// 파라미터 맵: key-value 쌍으로 각 value는 Parameter 구조체 (span 포함)
-/// BTreeMap을 사용하여 키 순서를 일관되게 유지
-pub type Parameters = BTreeMap<String, Parameter>;
+/// IndexMap을 사용하여 문서에 작성된 파라미터 순서를 유지
+pub type Parameters = IndexMap<String, Parameter>;

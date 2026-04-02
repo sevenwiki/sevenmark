@@ -14,56 +14,20 @@
         "end": 144
       },
       "parameters": {
-        "bgcolor": {
+        "style": {
           "span": {
-            "start": 68,
-            "end": 86
+            "start": 3,
+            "end": 41
           },
-          "key": "bgcolor",
+          "key": "style",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 78,
-                  "end": 84
+                  "start": 12,
+                  "end": 39
                 },
-                "value": "yellow"
-              }
-            }
-          ]
-        },
-        "color": {
-          "span": {
-            "start": 54,
-            "end": 68
-          },
-          "key": "color",
-          "value": [
-            {
-              "Text": {
-                "span": {
-                  "start": 62,
-                  "end": 66
-                },
-                "value": "blue"
-              }
-            }
-          ]
-        },
-        "opacity": {
-          "span": {
-            "start": 86,
-            "end": 101
-          },
-          "key": "opacity",
-          "value": [
-            {
-              "Text": {
-                "span": {
-                  "start": 96,
-                  "end": 99
-                },
-                "value": "0.8"
+                "value": "color:red; font-weight:bold"
               }
             }
           ]
@@ -86,20 +50,56 @@
             }
           ]
         },
-        "style": {
+        "color": {
           "span": {
-            "start": 3,
-            "end": 41
+            "start": 54,
+            "end": 68
           },
-          "key": "style",
+          "key": "color",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 12,
-                  "end": 39
+                  "start": 62,
+                  "end": 66
                 },
-                "value": "color:red; font-weight:bold"
+                "value": "blue"
+              }
+            }
+          ]
+        },
+        "bgcolor": {
+          "span": {
+            "start": 68,
+            "end": 86
+          },
+          "key": "bgcolor",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 78,
+                  "end": 84
+                },
+                "value": "yellow"
+              }
+            }
+          ]
+        },
+        "opacity": {
+          "span": {
+            "start": 86,
+            "end": 101
+          },
+          "key": "opacity",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 96,
+                  "end": 99
+                },
+                "value": "0.8"
               }
             }
           ]
@@ -182,24 +182,6 @@
           "end": 265
         },
         "parameters": {
-          "color": {
-            "span": {
-              "start": 203,
-              "end": 219
-            },
-            "key": "color",
-            "value": [
-              {
-                "Text": {
-                  "span": {
-                    "start": 211,
-                    "end": 217
-                  },
-                  "value": "purple"
-                }
-              }
-            ]
-          },
           "size": {
             "span": {
               "start": 190,
@@ -214,6 +196,24 @@
                     "end": 201
                   },
                   "value": "14px"
+                }
+              }
+            ]
+          },
+          "color": {
+            "span": {
+              "start": 203,
+              "end": 219
+            },
+            "key": "color",
+            "value": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 211,
+                    "end": 217
+                  },
+                  "value": "purple"
                 }
               }
             ]
@@ -382,24 +382,6 @@
             }
           ]
         },
-        "size": {
-          "span": {
-            "start": 438,
-            "end": 451
-          },
-          "key": "size",
-          "value": [
-            {
-              "Text": {
-                "span": {
-                  "start": 445,
-                  "end": 449
-                },
-                "value": "12px"
-              }
-            }
-          ]
-        },
         "style": {
           "span": {
             "start": 400,
@@ -414,6 +396,24 @@
                   "end": 436
                 },
                 "value": "background:black; color:lime"
+              }
+            }
+          ]
+        },
+        "size": {
+          "span": {
+            "start": 438,
+            "end": 451
+          },
+          "key": "size",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 445,
+                  "end": 449
+                },
+                "value": "12px"
               }
             }
           ]

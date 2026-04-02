@@ -14,20 +14,20 @@
         "end": 95
       },
       "parameters": {
-        "color": {
+        "style": {
           "span": {
-            "start": 25,
-            "end": 63
+            "start": 3,
+            "end": 15
           },
-          "key": "color",
+          "key": "style",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 33,
-                  "end": 61
+                  "start": 12,
+                  "end": 13
                 },
-                "value": "with spaces and symbols!@#$%"
+                "value": " "
               }
             }
           ]
@@ -50,20 +50,20 @@
             }
           ]
         },
-        "style": {
+        "color": {
           "span": {
-            "start": 3,
-            "end": 15
+            "start": 25,
+            "end": 63
           },
-          "key": "style",
+          "key": "color",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 12,
-                  "end": 13
+                  "start": 33,
+                  "end": 61
                 },
-                "value": " "
+                "value": "with spaces and symbols!@#$%"
               }
             }
           ]
