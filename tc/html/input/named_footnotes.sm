@@ -1,0 +1,5 @@
+Alpha{{{#fn #name="a1" First named. }}}.
+Beta{{{#fn #name="a1" Duplicate named. }}}.
+Gamma{{{#fn Plain footnote. }}}.
+
+[fn]

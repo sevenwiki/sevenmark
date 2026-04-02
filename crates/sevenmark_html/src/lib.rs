@@ -18,6 +18,8 @@ mod config;
 mod context;
 mod render;
 mod section;
+#[cfg(test)]
+mod test_support;
 
 pub use config::RenderConfig;
 pub use render::{render_document, render_document_with_spans, render_element, render_elements};

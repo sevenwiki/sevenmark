@@ -1,0 +1,11 @@
+[
+  {
+    "Error": {
+      "span": {
+        "start": 0,
+        "end": 13
+      },
+      "value": "{{{#redirect\n"
+    }
+  }
+]

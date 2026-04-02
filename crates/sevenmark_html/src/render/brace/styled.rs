@@ -35,34 +35,45 @@ pub fn render(
 
 #[cfg(test)]
 mod tests {
-    use crate::{RenderConfig, render::render_document};
-    use sevenmark_parser::core::parse_document;
+    use crate::test_support::{parse_fragment, render_html, selector};
 
     #[test]
     fn render_keeps_allowed_layout_styles_and_drops_overlay_primitives() {
         let input = r#"{{{ #style="display:inline-block; position:fixed" #color="red" #dark-style="display:grid; z-index:1" #dark-color="blue" Styled text }}}"#;
-
-        let ast = parse_document(input);
-        let html = render_document(&ast, &RenderConfig::default());
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+        let styled = doc
+            .select(&selector("span.sm-styled"))
+            .next()
+            .expect("expected styled span");
 
         assert!(
-            html.contains(" style=\""),
+            styled.value().attr("style").is_some(),
             "expected inline style attribute, got:\n{html}"
         );
-        assert!(
-            html.contains("display: inline-block"),
-            "expected layout display to survive sanitization, got:\n{html}"
+        let style = styled
+            .value()
+            .attr("style")
+            .expect("styled span should have style attribute");
+        let dark_style = styled
+            .value()
+            .attr("data-dark-style")
+            .expect("styled span should have dark style attribute");
+
+        assert_eq!(
+            style, "display: inline-block; color: red",
+            "expected layout display and color to survive sanitization, got:\n{html}"
         );
         assert!(
-            !html.contains("position: fixed"),
+            !style.contains("position"),
             "expected overlay positioning to be removed, got:\n{html}"
         );
-        assert!(
-            html.contains("data-dark-style=\"display: grid; color: #00f\""),
+        assert_eq!(
+            dark_style, "display: grid; color: #00f",
             "expected allowed dark style fragments to survive sanitization, got:\n{html}"
         );
         assert!(
-            !html.contains("z-index"),
+            !dark_style.contains("z-index"),
             "expected z-index to be removed, got:\n{html}"
         );
     }
@@ -70,16 +81,19 @@ mod tests {
     #[test]
     fn render_omits_style_attributes_when_only_blocked_properties_remain() {
         let input = r#"{{{ #style="position:fixed; z-index:1" #dark-style="inset:0; pointer-events:none" Unsafe only }}}"#;
-
-        let ast = parse_document(input);
-        let html = render_document(&ast, &RenderConfig::default());
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+        let styled = doc
+            .select(&selector("span.sm-styled"))
+            .next()
+            .expect("expected styled span");
 
         assert!(
-            !html.contains(" style=\""),
+            styled.value().attr("style").is_none(),
             "expected empty inline style attribute to be omitted, got:\n{html}"
         );
         assert!(
-            !html.contains("data-dark-style=\""),
+            styled.value().attr("data-dark-style").is_none(),
             "expected empty dark style attribute to be omitted, got:\n{html}"
         );
     }

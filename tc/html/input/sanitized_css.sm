@@ -1,0 +1,4 @@
+{{{#css
+.card { font-family: "</style>"; color: red; background: url(evil.png); }
+body { color: blue; }
+}}}

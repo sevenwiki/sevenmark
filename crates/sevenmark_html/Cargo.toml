@@ -19,3 +19,6 @@ sevenmark_utils = { workspace = true }
 maud = { workspace = true }
 percent-encoding = { workspace = true }
 css-sanitizer = { workspace = true }
+
+[dev-dependencies]
+scraper = "0.24"

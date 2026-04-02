@@ -4,7 +4,7 @@ use std::path::Path;
 
 fn main() {
     let categories = [
-        "brace", "comment", "complex", "escape", "fold", "if", "macro", "markdown",
+        "brace", "comment", "complex", "escape", "fold", "if", "invalid", "macro", "markdown",
     ];
 
     for category in categories {
