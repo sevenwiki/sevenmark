@@ -6,7 +6,6 @@
   max-width: 1040px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fafbff;
   color: #1a1d27;
   font-family: "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
@@ -17,10 +16,6 @@
   background-color: #ffffff;
   border: 1px solid #e7e9f2;
   padding: 24px 22px;
-}
-
-.sevenwiki-portal .portal-card-soft {
-  background-color: #fbfcff;
 }
 
 .sevenwiki-portal .portal-hero {
@@ -80,7 +75,7 @@
 
 .sevenwiki-portal .portal-link-stack {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 10px;
   margin-top: 22px;
 }
@@ -182,7 +177,6 @@ How to Earn Money with Sevenwiki
 }}}
 {{{ #class="portal-link-stack"
 [[#url="https://sevenwiki.example/docs/earn-money" 글 읽어보기 (5분) →]]
-{{{#style="x" 글은 [pagecount]개, [date], [datetime], [dday(2006-09-22)] }}}
 [[#url="https://sevenwiki.example/reports/earnings" Earnings Report →]]
 }}}
 }}}
