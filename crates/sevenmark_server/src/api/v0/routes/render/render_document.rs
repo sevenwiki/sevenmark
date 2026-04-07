@@ -17,8 +17,6 @@ use utoipa::ToSchema;
 pub struct RenderDocumentRequest {
     /// Raw SevenMark content to render
     pub content: String,
-    /// Edit URL for section edit links (e.g., "/edit/Document/대문")
-    pub edit_url: String,
     /// Base URL for file/media (e.g., Cloudflare CDN URL)
     pub file_base_url: String,
     /// Base URL for document links (e.g., "/Document/")
@@ -83,7 +81,6 @@ pub async fn render_document(
 ) -> Result<Json<RenderedDocument>, Errors> {
     let RenderDocumentRequest {
         content,
-        edit_url,
         file_base_url,
         document_base_url,
         category_base_url,
@@ -105,7 +102,6 @@ pub async fn render_document(
 
     // Render to HTML with span data attributes for editor sync
     let config = RenderConfig {
-        edit_url: Some(&edit_url),
         file_base_url: Some(&file_base_url),
         document_base_url: Some(&document_base_url),
         category_base_url: Some(&category_base_url),

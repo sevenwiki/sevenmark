@@ -80,7 +80,6 @@ pub const SECTION_FOLDED: &str = "sm-folded";
 pub const SECTION_CONTENT: &str = "sm-section-content";
 pub const SECTION_PATH: &str = "sm-section-path";
 pub const HEADER_CONTENT: &str = "sm-header-content";
-pub const EDIT_LINK: &str = "sm-edit-link";
 /// Section ID prefix (e.g., "s-1", "s-1.1")
 pub const SECTION_ID_PREFIX: &str = "s-";
 

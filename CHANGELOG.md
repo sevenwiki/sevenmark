@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.3] - 2026-04-07
+
+### Changed
+- **sevenmark_html**: Removed app-specific section edit link rendering from heading output. Section HTML still preserves structural markers such as `data-section`, `sm-section-path`, and `sm-header-content` so clients can attach their own edit UI without coupling renderer output to frontend routes or localized labels.
+- **sevenmark_server**: `POST /v0/render-document` no longer consumes an `edit_url` field. Document rendering is now route-agnostic and only receives shared asset/document/category/user base URL configuration.
+
+### Added
+- **tests**: Updated HTML fixture expectations to cover section rendering without embedded edit links while preserving section structure and authored fold state.
+
 ## [2.30.2] - 2026-04-02
 
 ### Changed

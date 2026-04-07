@@ -65,9 +65,8 @@ pub async fn render_discussion(
         .await
         .map_err(|e| Errors::SysInternalError(e.to_string()))?;
 
-    // Render to HTML (no edit links for discussions)
+    // Render to HTML
     let config = RenderConfig {
-        edit_url: None,
         file_base_url: Some(&file_base_url),
         document_base_url: Some(&document_base_url),
         category_base_url: Some(&category_base_url),

@@ -11,7 +11,6 @@ fn fixture_root() -> PathBuf {
 
 fn render_config() -> RenderConfig<'static> {
     RenderConfig {
-        edit_url: Some("/edit/TestDocument"),
         file_base_url: Some("https://cdn.example.com/"),
         document_base_url: Some("/Document/"),
         category_base_url: Some("/Category/"),
@@ -78,9 +77,6 @@ fn renders_section_outline_fixture() {
         folded[0].value().attr("open").is_none(),
         "folded sections should omit the open attribute"
     );
-
-    let edit_links = doc.select(&selector("a.sm-edit-link")).collect::<Vec<_>>();
-    assert_eq!(edit_links.len(), 3, "expected edit links for every header");
 }
 
 #[test]

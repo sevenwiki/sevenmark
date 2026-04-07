@@ -75,10 +75,8 @@ fn render_section_tree(
 fn render_section(section: &Section<'_>, config: &RenderConfig, ctx: &mut RenderContext) -> Markup {
     let header_markup = markdown::header::render_with_path(
         section.header_level,
-        section.header_section_index,
         section.header_children,
         &section.section_path,
-        config,
         ctx,
     );
 
