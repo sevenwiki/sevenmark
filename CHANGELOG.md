@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.5] - 2026-04-09
+
+### Changed
+- **sevenmark_html**: `[toc]` now renders each table of contents as its own collapsible `details` block instead of a bare `nav`, allowing frontends to attach a per-TOC toggle UI rather than relying on browser-default disclosure styling
+- **sevenmark_html**: Added dedicated TOC structure classes `sm-toc-summary` and `sm-toc-body` so UI layers can style the toggle affordance and content area independently while keeping repeated `[toc]` macros as separate rendered TOC blocks
+
+### Added
+- **tests**: Extended HTML renderer coverage to assert the new collapsible TOC wrapper, summary toggle, and expanded-by-default behavior
+
 ## [2.30.4] - 2026-04-09
 
 ### Added

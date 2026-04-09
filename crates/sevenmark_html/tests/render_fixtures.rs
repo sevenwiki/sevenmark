@@ -171,27 +171,38 @@ fn renders_toc_with_inline_heading_markup_and_without_media_widgets() {
     let doc = Html::parse_fragment(&html);
 
     let toc = doc
-        .select(&selector("nav.sm-toc"))
+        .select(&selector("details.sm-toc"))
         .next()
         .expect("expected rendered toc");
+    assert_eq!(
+        toc.value().attr("open"),
+        Some(""),
+        "TOC should start expanded"
+    );
+    assert_eq!(
+        toc.select(&selector("summary.sm-toc-summary")).count(),
+        1,
+        "TOC should render a summary toggle"
+    );
 
     assert_eq!(
-        doc.select(&selector("nav.sm-toc a.sm-toc-link")).count(),
+        doc.select(&selector("details.sm-toc a.sm-toc-link"))
+            .count(),
         4,
         "expected one TOC link per section"
     );
     assert_eq!(
-        doc.select(&selector("nav.sm-toc img")).count(),
+        doc.select(&selector("details.sm-toc img")).count(),
         0,
         "TOC should not render image tags from media headings"
     );
     assert_eq!(
-        doc.select(&selector("nav.sm-toc figure")).count(),
+        doc.select(&selector("details.sm-toc figure")).count(),
         0,
         "TOC should not render figure wrappers from media headings"
     );
     assert_eq!(
-        doc.select(&selector("nav.sm-toc a.sm-link")).count(),
+        doc.select(&selector("details.sm-toc a.sm-link")).count(),
         0,
         "TOC should reuse link captions, not nested media link widgets"
     );
@@ -236,7 +247,7 @@ fn toc_without_headers_renders_nothing() {
     let doc = Html::parse_fragment(&html);
 
     assert_eq!(
-        doc.select(&selector("nav.sm-toc")).count(),
+        doc.select(&selector("details.sm-toc")).count(),
         0,
         "documents without headers should not emit a TOC container"
     );

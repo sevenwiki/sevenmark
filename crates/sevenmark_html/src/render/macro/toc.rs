@@ -13,8 +13,11 @@ pub fn build(tree: &SectionTree<'_>, ctx: &mut RenderContext) -> Markup {
     }
 
     html! {
-        nav class=(classes::TOC) aria-label="Table of contents" {
-            (render_section_list(&tree.sections, ctx))
+        details class=(classes::TOC) open {
+            summary class=(classes::TOC_SUMMARY) aria-label="Table of contents" {}
+            nav class=(classes::TOC_BODY) aria-label="Table of contents" {
+                (render_section_list(&tree.sections, ctx))
+            }
         }
     }
 }
