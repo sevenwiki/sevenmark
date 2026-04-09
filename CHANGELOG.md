@@ -5,6 +5,20 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.4] - 2026-04-09
+
+### Added
+- **sevenmark_ast**: Added `TocElement` / `Element::Toc` with span tracking and traversal support for the `[toc]` macro
+- **sevenmark_parser**: Added `[toc]` macro parsing support
+- **sevenmark_html**: Added document-level `[toc]` rendering backed by the section tree, with nested TOC links that target rendered section ids
+- **sevenmark_html**: TOC labels now preserve inline heading markup such as ruby, markdown text styles, and styled spans while skipping non-text heading widgets such as images and embeds
+- **sevenmark_formatter**: Added formatter support for `[toc]`
+- **sevenmark_lsp_core**: Added hover and semantic token support for `[toc]`
+
+### Changed
+- **docs**: Documented the `[toc]` macro and clarified that media headings do not render image/embed widgets inside the TOC
+- **tests**: Added parser and HTML renderer regression coverage for `[toc]`, including ruby/inline-style preservation and no-output behavior when a document has no headers
+
 ## [2.30.3] - 2026-04-07
 
 ### Changed
