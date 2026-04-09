@@ -97,6 +97,10 @@ pub const DATETIME: &str = "sm-datetime";
 pub const DDAY: &str = "sm-dday";
 pub const PAGECOUNT: &str = "sm-pagecount";
 pub const CLEAR: &str = "sm-clear";
+pub const TOC: &str = "sm-toc";
+pub const TOC_LIST: &str = "sm-toc-list";
+pub const TOC_ITEM: &str = "sm-toc-item";
+pub const TOC_LINK: &str = "sm-toc-link";
 
 // Variables
 pub const VARIABLE: &str = "sm-variable";

@@ -18,6 +18,7 @@ use sevenmark_ast::Element;
 pub fn render_document(ast: &[Element], config: &RenderConfig) -> String {
     let tree = build_section_tree(ast);
     let mut ctx = RenderContext::new(config);
+    ctx.set_toc_markup(prebuild_toc_markup(&tree, &ctx));
     let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {
@@ -43,6 +44,7 @@ pub fn render_document_with_spans(ast: &[Element], config: &RenderConfig, input:
     let tree = build_section_tree(ast);
     let converter = Utf16OffsetConverter::new(input);
     let mut ctx = RenderContext::with_converter(config, &converter);
+    ctx.set_toc_markup(prebuild_toc_markup(&tree, &ctx));
     let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {
@@ -53,6 +55,16 @@ pub fn render_document_with_spans(ast: &[Element], config: &RenderConfig, input:
     };
 
     markup.into_string()
+}
+
+fn prebuild_toc_markup(tree: &SectionTree<'_>, ctx: &RenderContext<'_>) -> Option<String> {
+    let mut toc_ctx = ctx.child();
+    let markup = crate::render::r#macro::toc::build(tree, &mut toc_ctx).into_string();
+    if markup.is_empty() {
+        None
+    } else {
+        Some(markup)
+    }
 }
 
 /// Render a section tree

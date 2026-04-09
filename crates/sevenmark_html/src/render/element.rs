@@ -114,6 +114,7 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         Element::PageCount(pc) => r#macro::pagecount::render(pc.namespace.as_deref()),
         Element::Age(age) => r#macro::age::render(&age.date),
         Element::Anchor(anchor) => r#macro::anchor::render(&anchor.name),
+        Element::Toc(_) => r#macro::toc::render(ctx),
 
         // Wiki elements (metadata, not rendered visually)
         Element::Category(_) => html! {},

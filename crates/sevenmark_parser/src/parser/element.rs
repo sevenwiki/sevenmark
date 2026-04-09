@@ -20,7 +20,8 @@ use crate::parser::comment::{inline_comment_parser, multiline_comment_parser};
 use crate::parser::r#macro::{
     macro_age_parser, macro_anchor_parser, macro_clear_parser, macro_date_parser,
     macro_datetime_parser, macro_dday_parser, macro_footnote_parser, macro_newline_parser,
-    macro_now_parser, macro_null_parser, macro_pagecount_parser, macro_variable_parser,
+    macro_now_parser, macro_null_parser, macro_pagecount_parser, macro_toc_parser,
+    macro_variable_parser,
 };
 use sevenmark_ast::Element;
 use winnow::Result;
@@ -74,6 +75,7 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
                     macro_dday_parser,
                     macro_age_parser,
                     macro_footnote_parser,
+                    macro_toc_parser,
                     macro_null_parser,
                     token_bracket_open_parser,
                 )),

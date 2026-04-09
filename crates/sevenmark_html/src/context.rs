@@ -37,6 +37,8 @@ pub struct RenderContext<'a> {
     pub config: &'a RenderConfig<'a>,
     /// UTF-16 offset converter for span data attributes
     pub converter: Option<&'a Utf16OffsetConverter>,
+    /// Pre-rendered table-of-contents markup reused by [toc]
+    pub toc_markup: Option<String>,
 }
 
 impl<'a> RenderContext<'a> {
@@ -50,6 +52,7 @@ impl<'a> RenderContext<'a> {
             suppress_soft_breaks_depth: 0,
             config,
             converter: None,
+            toc_markup: None,
         }
     }
 
@@ -66,6 +69,7 @@ impl<'a> RenderContext<'a> {
             suppress_soft_breaks_depth: 0,
             config,
             converter: Some(converter),
+            toc_markup: None,
         }
     }
 
@@ -80,7 +84,13 @@ impl<'a> RenderContext<'a> {
             suppress_soft_breaks_depth: 0,
             config: self.config,
             converter: self.converter,
+            toc_markup: self.toc_markup.clone(),
         }
+    }
+
+    /// Store pre-rendered table-of-contents markup for [toc] macros.
+    pub fn set_toc_markup(&mut self, toc_markup: Option<String>) {
+        self.toc_markup = toc_markup;
     }
 
     /// Enter a context that suppresses SoftBreak rendering

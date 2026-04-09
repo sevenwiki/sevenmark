@@ -11,3 +11,4 @@ pub mod hline;
 pub mod newline;
 pub mod pagecount;
 pub mod timenow;
+pub mod toc;

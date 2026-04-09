@@ -368,6 +368,13 @@ pub struct AnchorElement {
     pub name: String,
 }
 
+/// 목차 [toc]
+#[derive(Debug, Clone, Serialize)]
+pub struct TocElement {
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    pub span: Span,
+}
+
 /// 멘션 <@uuid> 또는 <#uuid>
 #[derive(Debug, Clone, Serialize)]
 pub struct MentionElement {

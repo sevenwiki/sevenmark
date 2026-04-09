@@ -193,6 +193,27 @@ fn test_raw_css_crlf_backslash_before_closer() {
 }
 
 #[test]
+fn test_toc_macro() {
+    let input = "[toc]\n";
+    let parsed = parse_document(input);
+
+    let toc = parsed
+        .first()
+        .and_then(|e| match e {
+            Element::Toc(toc) => Some(toc),
+            _ => None,
+        })
+        .expect("expected Toc element");
+
+    assert_eq!(toc.span.start, 0);
+    assert_eq!(toc.span.end, 5);
+    assert!(
+        matches!(parsed.get(1), Some(Element::SoftBreak(_))),
+        "expected trailing newline to become SoftBreak: {parsed:#?}"
+    );
+}
+
+#[test]
 fn test_raw_code_balanced_triple_brace_matching() {
     let input = "{{{#code\nwhat{{{}}}{{{}}}\n}}}";
     let parsed = parse_document(input);

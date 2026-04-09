@@ -70,6 +70,7 @@ pub fn format_element<'a>(
         Element::Age(e) => macros::format_age(a, e),
         Element::Variable(e) => macros::format_variable(a, e),
         Element::Anchor(e) => macros::format_anchor(a, e),
+        Element::Toc(_) => macros::format_toc(a),
 
         // Markdown text styles
         Element::Bold(e) => markdown::bold::format_bold(a, &e.children, config),

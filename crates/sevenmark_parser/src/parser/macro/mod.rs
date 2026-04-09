@@ -9,6 +9,7 @@ pub mod macro_newline;
 pub mod macro_now;
 pub mod macro_null;
 pub mod macro_pagecount;
+pub mod macro_toc;
 pub mod macro_variable;
 pub mod utils;
 
@@ -23,4 +24,5 @@ pub use macro_newline::*;
 pub use macro_now::*;
 pub use macro_null::*;
 pub use macro_pagecount::*;
+pub use macro_toc::*;
 pub use macro_variable::*;

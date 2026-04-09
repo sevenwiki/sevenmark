@@ -74,6 +74,7 @@ enum TokenIdx {
     DateTime = 61,
     Dday = 62,
     PageCount = 63,
+    Toc = 64,
 }
 
 impl TokenIdx {
@@ -153,6 +154,7 @@ pub const TOKEN_TYPES: &[SemanticTokenType] = &[
     SemanticTokenType::FUNCTION, // 61 DateTime
     SemanticTokenType::FUNCTION, // 62 Dday
     SemanticTokenType::FUNCTION, // 63 PageCount
+    SemanticTokenType::KEYWORD,  // 64 Toc
 ];
 
 pub const TOKEN_MODIFIERS: &[SemanticTokenModifier] = &[];
@@ -296,6 +298,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
             | Element::Age(_)
             | Element::Variable(_)
             | Element::Anchor(_)
+            | Element::Toc(_)
             | Element::Mention(_)
             | Element::Bold(_)
             | Element::Italic(_)
@@ -391,6 +394,7 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
         | Element::Dday(_)
         | Element::PageCount(_)
         | Element::Mention(_)
+        | Element::Toc(_)
         | Element::SoftBreak(_)
         | Element::HardBreak(_)
         | Element::Clear(_)
@@ -449,6 +453,7 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
         | Element::Dday(_)
         | Element::PageCount(_)
         | Element::Mention(_)
+        | Element::Toc(_)
         | Element::Bold(_)
         | Element::Italic(_)
         | Element::Strikethrough(_)
@@ -704,6 +709,7 @@ fn element_token_type(element: &Element) -> u32 {
         Element::Age(_) => TokenIdx::Age.as_u32(),
         Element::Variable(_) => TokenIdx::Variable.as_u32(),
         Element::Anchor(_) => TokenIdx::Anchor.as_u32(),
+        Element::Toc(_) => TokenIdx::Toc.as_u32(),
         Element::Mention(_) => TokenIdx::Mention.as_u32(),
         Element::Bold(_) => TokenIdx::Bold.as_u32(),
         Element::Italic(_) => TokenIdx::Italic.as_u32(),

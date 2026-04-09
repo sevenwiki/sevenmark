@@ -22,6 +22,10 @@ fn normalize_newlines(value: &str) -> String {
     value.replace("\r\n", "\n")
 }
 
+fn normalize_whitespace(value: &str) -> String {
+    value.split_whitespace().collect::<Vec<_>>().join(" ")
+}
+
 fn render_case(name: &str) -> String {
     let input_path = fixture_root().join("input").join(format!("{name}.sm"));
     let input = fs::read_to_string(&input_path).expect("fixture input should exist");
@@ -34,6 +38,11 @@ fn expected_case(name: &str) -> String {
     normalize_newlines(
         &fs::read_to_string(&expected_path).expect("fixture expected html should exist"),
     )
+}
+
+fn render_inline(input: &str) -> String {
+    let ast = parse_document(&normalize_newlines(input));
+    render_document(&ast, &render_config())
 }
 
 fn assert_snapshot(name: &str) -> String {
@@ -152,4 +161,83 @@ fn renders_named_footnotes_fixture() {
         .filter_map(|node| node.value().attr("id"))
         .collect();
     assert_eq!(ids.len(), 3, "footnote reference ids should remain unique");
+}
+
+#[test]
+fn renders_toc_with_inline_heading_markup_and_without_media_widgets() {
+    let html = render_inline(
+        "[toc]\n\n# Intro\n## {{{#ruby #ruby=\"かんじ\" 漢字}}} and **Bold**\n### [[#url=\"https://example.com\" Linked]] [[#file=\"logo.png\" Logo]]\n#### {{{ #style=\"color:red\" Styled }}}[br]Line\n",
+    );
+    let doc = Html::parse_fragment(&html);
+
+    let toc = doc
+        .select(&selector("nav.sm-toc"))
+        .next()
+        .expect("expected rendered toc");
+
+    assert_eq!(
+        doc.select(&selector("nav.sm-toc a.sm-toc-link")).count(),
+        4,
+        "expected one TOC link per section"
+    );
+    assert_eq!(
+        doc.select(&selector("nav.sm-toc img")).count(),
+        0,
+        "TOC should not render image tags from media headings"
+    );
+    assert_eq!(
+        doc.select(&selector("nav.sm-toc figure")).count(),
+        0,
+        "TOC should not render figure wrappers from media headings"
+    );
+    assert_eq!(
+        doc.select(&selector("nav.sm-toc a.sm-link")).count(),
+        0,
+        "TOC should reuse link captions, not nested media link widgets"
+    );
+    assert_eq!(
+        toc.select(&selector("ruby.sm-ruby rt"))
+            .next()
+            .map(|node| node.text().collect::<String>()),
+        Some("かんじ".to_string()),
+        "ruby annotations should be preserved in the TOC"
+    );
+    assert_eq!(
+        toc.select(&selector("strong.sm-bold")).count(),
+        1,
+        "markdown inline formatting should be preserved in the TOC"
+    );
+
+    let styled = toc
+        .select(&selector("span.sm-styled"))
+        .next()
+        .expect("expected styled heading content in TOC");
+    assert_eq!(styled.value().attr("style"), Some("color: red"));
+    assert_eq!(
+        toc.select(&selector("br")).count(),
+        0,
+        "line-break macros should be normalized to spaces inside the TOC"
+    );
+
+    let toc_text = normalize_whitespace(&toc.text().collect::<String>());
+    assert!(
+        toc_text.contains("Linked Logo"),
+        "media captions should survive in the TOC text, got:\n{toc_text}"
+    );
+    assert!(
+        toc_text.contains("Styled Line"),
+        "styled content and hard breaks should collapse into readable text, got:\n{toc_text}"
+    );
+}
+
+#[test]
+fn toc_without_headers_renders_nothing() {
+    let html = render_inline("[toc]\nPlain text only.");
+    let doc = Html::parse_fragment(&html);
+
+    assert_eq!(
+        doc.select(&selector("nav.sm-toc")).count(),
+        0,
+        "documents without headers should not emit a TOC container"
+    );
 }

@@ -121,6 +121,7 @@ pub enum Element {
     Age(AgeElement),
     Variable(VariableElement),
     Anchor(AnchorElement),
+    Toc(TocElement),
     Mention(MentionElement),
 
     // Text styles
@@ -177,6 +178,7 @@ impl Element {
             Element::Age(e) => &e.span,
             Element::Variable(e) => &e.span,
             Element::Anchor(e) => &e.span,
+            Element::Toc(e) => &e.span,
             Element::Mention(e) => &e.span,
             Element::Bold(e)
             | Element::Italic(e)

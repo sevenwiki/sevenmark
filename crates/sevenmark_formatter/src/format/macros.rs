@@ -37,6 +37,10 @@ pub fn format_anchor<'a>(a: &'a Arena<'a>, e: &AnchorElement) -> DocBuilder<'a, 
     a.text(format!("[anchor({})]", e.name))
 }
 
+pub fn format_toc<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
+    a.text("[toc]")
+}
+
 pub fn format_date<'a>(a: &'a Arena<'a>) -> DocBuilder<'a, Arena<'a>> {
     a.text("[date]")
 }

@@ -71,6 +71,16 @@ Create a named anchor that other links can target:
 [[#document="Guide" #anchor="api-overview" Jump to this section]]
 ```
 
+### Table of Contents
+
+Render the document table of contents at the current position:
+
+```sevenmark
+[toc]
+```
+
+`[toc]` uses the document heading tree and links to the rendered section ids. Headings that contain images or embeds do not render those widgets inside the TOC; only textual and inline heading content is reused.
+
 ### Line Break
 
 Insert a hard line break:
