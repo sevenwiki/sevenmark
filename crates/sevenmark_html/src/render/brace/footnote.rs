@@ -234,7 +234,6 @@ pub fn render_footnote_entries(entries: &[FootnoteEntry], ctx: &RenderContext) -
 
     let mut inner_ctx = ctx.child();
     inner_ctx.in_footnote = true;
-    inner_ctx.enter_suppress_soft_breaks();
 
     html! {
         section class=(classes::FOOTNOTE_LIST) {

@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.8] - 2026-04-12
+
+### Fixed
+- **sevenmark_html**: Footnote list content (`[fn]`) now renders soft breaks correctly; previously all line breaks inside footnote entries were suppressed
+- **sevenmark_html**: `{{{#include}}}` now resets the soft-break suppression context so included documents render with their natural line breaks regardless of the surrounding element (e.g. inside `{{{#fn}}}`)
+
 ## [2.30.7] - 2026-04-12
 
 ### Added
