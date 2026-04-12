@@ -8,9 +8,12 @@ use crate::context::RenderContext;
 use crate::render::render_elements;
 
 pub fn render(span: &Span, children: &[Element], ctx: &mut RenderContext) -> Markup {
-    ctx.enter_suppress_soft_breaks();
+    // Reset soft-break suppression so the included document renders naturally
+    // (e.g. when {{{#include}}} appears inside {{{#fn}}}).
+    let saved_depth = ctx.suppress_soft_breaks_depth;
+    ctx.suppress_soft_breaks_depth = 0;
     let content = render_elements(children, ctx);
-    ctx.exit_suppress_soft_breaks();
+    ctx.suppress_soft_breaks_depth = saved_depth;
 
     html! {
         span
