@@ -45,6 +45,7 @@ pub const LIST_UNORDERED: &str = "sm-list-unordered";
 
 // Tables
 pub const TABLE: &str = "sm-table";
+pub const TABLE_WRAPPER: &str = "sm-table-wrapper";
 
 // Media
 pub const MEDIA: &str = "sm-media";

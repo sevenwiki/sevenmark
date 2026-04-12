@@ -49,27 +49,31 @@ pub fn render(
     }
 
     let content = html! {
-        table
-            class=(class)
-            style=[style]
-            data-dark-style=[dark_style]
-            data-sortable=[sortable.then_some("true")]
+        div
+            class=(classes::TABLE_WRAPPER)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
         {
-            @if let Some(cap) = caption {
-                caption { (cap) }
-            }
-            @if !head_rows.is_empty() {
-                thead {
-                    @for row in &head_rows {
-                        (render_row(row, ctx, true))
+            table
+                class=(class)
+                style=[style]
+                data-dark-style=[dark_style]
+                data-sortable=[sortable.then_some("true")]
+            {
+                @if let Some(cap) = caption {
+                    caption { (cap) }
+                }
+                @if !head_rows.is_empty() {
+                    thead {
+                        @for row in &head_rows {
+                            (render_row(row, ctx, true))
+                        }
                     }
                 }
-            }
-            tbody {
-                @for row in &body_rows {
-                    (render_row(row, ctx, false))
+                tbody {
+                    @for row in &body_rows {
+                        (render_row(row, ctx, false))
+                    }
                 }
             }
         }
@@ -161,8 +165,9 @@ mod tests {
             .select(&selector("table.sm-table thead th"))
             .map(|cell| cell.text().collect::<String>())
             .collect();
-        assert!(
-            head_text == vec!["Name".to_string(), "Value".to_string()],
+        assert_eq!(
+            head_text,
+            vec!["Name".to_string(), "Value".to_string()],
             "expected conditional #head row to render as header cells, got:\n{html}"
         );
         assert!(
