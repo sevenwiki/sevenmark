@@ -5,6 +5,16 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.7] - 2026-04-12
+
+### Added
+- **sevenmark_html**: Table elements now support `#align="left|center|right"`; the HTML renderer maps this parameter to alignment classes on `div.sm-table-wrapper` so frontends can position wrapper-based tables without rewriting authored table styles
+
+### Changed
+- **sevenmark_html**: Table rendering keeps `div.sm-table-wrapper` as the top-level table container and attaches `data-start` / `data-end` source span metadata to the wrapper instead of the inner `<table>`
+- **sevenmark_lsp_core**: Table parameter completions now include `#align`
+- **docs**: Documented wrapper-based table alignment and the new `#align` table parameter in the overview, grammar reference, and examples
+
 ## [2.30.6] - 2026-04-12
 
 ### Changed

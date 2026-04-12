@@ -77,6 +77,7 @@ The following parameters are commonly recognized by SevenMark renderers:
 Table-level parameters:
 
 - `#caption`: render a `<caption>`
+- `#align`: align the table wrapper (`left`, `center`, or `right`)
 - `#sortable`: emit `data-sortable="true"` for sortable-table behavior
 
 Row-level parameters:
@@ -89,7 +90,7 @@ Cell-level parameters:
 - `#y`: rowspan
 
 ```sevenmark
-{{{#table #caption="Inventory" #sortable
+{{{#table #caption="Inventory" #align="right" #sortable
 [[#head [[Product]] [[Price]]]]
 [[[[#x="2" Featured item]] [[In stock]]]]
 }}}

@@ -46,6 +46,9 @@ pub const LIST_UNORDERED: &str = "sm-list-unordered";
 // Tables
 pub const TABLE: &str = "sm-table";
 pub const TABLE_WRAPPER: &str = "sm-table-wrapper";
+pub const TABLE_ALIGN_LEFT: &str = "sm-table-align-left";
+pub const TABLE_ALIGN_CENTER: &str = "sm-table-align-center";
+pub const TABLE_ALIGN_RIGHT: &str = "sm-table-align-right";
 
 // Media
 pub const MEDIA: &str = "sm-media";

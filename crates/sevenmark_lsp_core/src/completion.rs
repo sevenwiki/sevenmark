@@ -526,6 +526,11 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
         ],
         "table" => &[
             ("caption", "Table caption", false),
+            (
+                "align",
+                "Table wrapper alignment (left/center/right)",
+                false,
+            ),
             ("sortable", "Enable column sorting", true),
             ("style", "CSS style", false),
             ("class", "CSS classes", false),
@@ -790,6 +795,15 @@ mod tests {
         let l = labels(&c);
         assert!(l.contains(&"x"));
         assert!(l.contains(&"y"));
+    }
+
+    #[test]
+    fn table_brace_params_include_align() {
+        let c = completions("{{{#table #");
+        let l = labels(&c);
+        assert!(l.contains(&"align"));
+        assert!(l.contains(&"caption"));
+        assert!(l.contains(&"sortable"));
     }
 
     #[test]

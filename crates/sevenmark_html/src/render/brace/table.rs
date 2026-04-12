@@ -17,6 +17,15 @@ pub fn render(
 
     let style = utils::build_style(parameters);
     let class = utils::merge_class(classes::TABLE, parameters);
+    let wrapper_align_class = match utils::get_param(parameters, "align")
+        .map(|value| value.trim().to_ascii_lowercase())
+        .as_deref()
+    {
+        Some("left") => Some(classes::TABLE_ALIGN_LEFT),
+        Some("center") => Some(classes::TABLE_ALIGN_CENTER),
+        Some("right") => Some(classes::TABLE_ALIGN_RIGHT),
+        _ => None,
+    };
     let dark_style = utils::build_dark_style(parameters);
     let caption = utils::get_param(parameters, "caption");
     let sortable = parameters.contains_key("sortable");
@@ -50,7 +59,10 @@ pub fn render(
 
     let content = html! {
         div
-            class=(classes::TABLE_WRAPPER)
+            class=(match wrapper_align_class {
+                Some(align_class) => format!("{} {}", classes::TABLE_WRAPPER, align_class),
+                None => classes::TABLE_WRAPPER.to_string(),
+            })
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
         {
@@ -174,6 +186,29 @@ mod tests {
             doc.select(&selector("table.sm-table tbody td"))
                 .all(|cell| cell.text().collect::<String>() != "Name"),
             "conditional #head row should not render inside tbody cells, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn table_align_parameter_applies_wrapper_class() {
+        let input = r#"{{{#table #align="right"
+[[[[Aligned]]]]
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        assert_eq!(
+            doc.select(&selector("div.sm-table-wrapper.sm-table-align-right"))
+                .count(),
+            1,
+            "expected right-aligned class on the table wrapper, got:\n{html}"
+        );
+        assert_eq!(
+            doc.select(&selector("table.sm-table.sm-table-align-right"))
+                .count(),
+            0,
+            "alignment class should stay on the wrapper, not the table, got:\n{html}"
         );
     }
 }

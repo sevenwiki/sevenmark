@@ -33,17 +33,19 @@ Add the `#head` flag on a row to render it inside `<thead>` with `<th>` cells.
 
 Rows without `#head` render inside `<tbody>` with normal `<td>` cells.
 
-## Table Caption and Sorting
+## Table Caption, Sorting, and Alignment
 
-Use `#caption` on the table element to render a `<caption>`, and `#sortable` to opt into sortable-table behavior on the frontend.
+Use `#caption` on the table element to render a `<caption>`, `#sortable` to opt into sortable-table behavior on the frontend, and `#align` to position the table wrapper.
 
 ```sevenmark
-{{{#table #caption="Inventory" #sortable
+{{{#table #caption="Inventory" #align="right" #sortable
 [[#head [[Product]] [[Price]] [[Stock]]]]
 [[[[Laptop]] [[$1,200]] [[5 units]]]]
 [[[[Mouse]] [[$30]] [[20 units]]]]
 }}}
 ```
+
+`#align` accepts `left`, `center`, and `right`. It affects the outer table wrapper rather than the `<table>` element itself, so authored table styles can stay on `#style` while layout is handled separately.
 
 ## Cell Merging
 
