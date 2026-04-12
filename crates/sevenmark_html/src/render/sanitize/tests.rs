@@ -11,10 +11,12 @@ fn allows_safe_properties() {
 #[test]
 fn allows_layout_properties() {
     let result = sanitize_inline_style(
-        "display: grid; overflow: hidden; grid-template-columns: 1fr 1fr; \
+        "display: grid; float: right; clear: both; overflow: hidden; grid-template-columns: 1fr 1fr; \
          flex-direction: row; place-items: center",
     );
     assert!(result.contains("display"));
+    assert!(result.contains("float"));
+    assert!(result.contains("clear"));
     assert!(result.contains("overflow"));
     assert!(result.contains("grid-template-columns"));
     assert!(result.contains("flex-direction"));

@@ -49,31 +49,27 @@ pub fn render(
     }
 
     let content = html! {
-        div
-            class=(classes::TABLE_WRAPPER)
+        table
+            class=(class)
+            style=[style]
+            data-dark-style=[dark_style]
+            data-sortable=[sortable.then_some("true")]
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
         {
-            table
-                class=(class)
-                style=[style]
-                data-dark-style=[dark_style]
-                data-sortable=[sortable.then_some("true")]
-            {
-                @if let Some(cap) = caption {
-                    caption { (cap) }
-                }
-                @if !head_rows.is_empty() {
-                    thead {
-                        @for row in &head_rows {
-                            (render_row(row, ctx, true))
-                        }
+            @if let Some(cap) = caption {
+                caption { (cap) }
+            }
+            @if !head_rows.is_empty() {
+                thead {
+                    @for row in &head_rows {
+                        (render_row(row, ctx, true))
                     }
                 }
-                tbody {
-                    @for row in &body_rows {
-                        (render_row(row, ctx, false))
-                    }
+            }
+            tbody {
+                @for row in &body_rows {
+                    (render_row(row, ctx, false))
                 }
             }
         }

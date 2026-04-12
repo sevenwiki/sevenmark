@@ -5,6 +5,15 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.6] - 2026-04-12
+
+### Changed
+- **sevenmark_html**: Table rendering no longer injects an extra `div.sm-table-wrapper`; the authored table now renders directly as the top-level `<table class="sm-table">` so user-provided table styles apply to the actual rendered root instead of an internal wrapper affecting layout flow
+- **sevenmark_html**: Inline CSS sanitization now preserves `float` and `clear` so authored layout styles such as right-floating infobox tables are not stripped during rendering
+
+### Added
+- **tests**: Updated HTML renderer coverage and fixture expectations to lock in wrapper-free table output and retained `float` / `clear` inline styles
+
 ## [2.30.5] - 2026-04-09
 
 ### Changed

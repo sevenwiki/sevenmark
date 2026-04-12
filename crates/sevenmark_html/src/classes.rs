@@ -44,7 +44,6 @@ pub const LIST_ORDERED: &str = "sm-list-ordered";
 pub const LIST_UNORDERED: &str = "sm-list-unordered";
 
 // Tables
-pub const TABLE_WRAPPER: &str = "sm-table-wrapper";
 pub const TABLE: &str = "sm-table";
 
 // Media

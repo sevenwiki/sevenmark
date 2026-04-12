@@ -188,6 +188,8 @@ static ALLOWED_PROPERTIES: LazyLock<HashSet<&'static str>> = LazyLock::new(|| {
         "column-rule-width",
         // Layout
         "display",
+        "float",
+        "clear",
         "overflow",
         "overflow-x",
         "overflow-y",
