@@ -7,7 +7,7 @@
 
 .probe-safe {
   color: #0f172a;
-  background: linear-gradient(135deg, #dbeafe, #ede9fe);
+  background: linear-gradient(75deg, #01acdc, #ffffff);
   border: 2px solid #60a5fa;
   padding: 16px;
   border-radius: 14px;
@@ -26,7 +26,7 @@
 }
 
 .probe-url {
-  color: #111827;
+   color: #e5e7eb;
   background-image: url("https://evil.example/bg.png");
   cursor: url("https://evil.example/cursor.cur"), auto;
   border: 1px dashed #9ca3af;
@@ -66,6 +66,22 @@ body {
   }
 }
 }}}
+
+{{{#css
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap");
+
+.probe-import {
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 32px;
+  color: #f59e0b;
+}
+}}}
+
+{{{#blockquote #class="probe-import"
+이 글씨체가 바뀌면 @import가 살아있는 것.
+안 바뀌면 @import가 제거된 것.
+}}}
+
 
 {{{#blockquote #class="probe-safe"
 이건 안전한 속성만 있는 기준 박스.
