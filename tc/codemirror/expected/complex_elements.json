@@ -24,7 +24,7 @@
         "size": {
           "key": "size",
           "span": {
-            "end": 35,
+            "end": 34,
             "start": 22
           },
           "value": [
@@ -42,7 +42,7 @@
         "style": {
           "key": "style",
           "span": {
-            "end": 22,
+            "end": 21,
             "start": 3
           },
           "value": [
@@ -352,7 +352,7 @@
           "key": "lang",
           "span": {
             "end": 160,
-            "start": 154
+            "start": 155
           },
           "value": []
         }

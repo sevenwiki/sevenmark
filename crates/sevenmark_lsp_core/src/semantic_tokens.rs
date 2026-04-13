@@ -167,42 +167,61 @@ pub fn legend() -> SemanticTokensLegend {
 }
 
 /// Collects semantic tokens from the entire AST — every node with a span emits a token.
+///
+/// LSP semantic tokens must be single-line. Multi-line spans are split into one token
+/// per line so every line that a span covers gets highlighted.
 pub fn collect_semantic_tokens(state: &DocumentState) -> Vec<SemanticToken> {
     let mut raw: Vec<(usize, usize, u32)> = Vec::new();
     walk_elements(&state.elements, &mut raw);
     raw.sort_by_key(|&(start, _, _)| start);
 
+    // Expand raw byte-offset spans into per-line (line, col, length, token_type) tuples.
+    let mut per_line: Vec<(u32, u32, u32, u32)> = Vec::new();
+    let mut has_multiline = false;
+
+    for (start, end, token_type) in raw {
+        if start >= end {
+            continue;
+        }
+        let (start_line, start_col) = state.line_index.byte_offset_to_position(&state.text, start);
+        let (end_line, end_col) = state.line_index.byte_offset_to_position(&state.text, end);
+
+        if start_line == end_line {
+            let length = end_col - start_col;
+            if length > 0 {
+                per_line.push((start_line, start_col, length, token_type));
+            }
+        } else {
+            has_multiline = true;
+            // Emit one token per line covered by this span.
+            for line in start_line..=end_line {
+                let col_start = if line == start_line { start_col } else { 0 };
+                let col_end = if line == end_line {
+                    end_col
+                } else {
+                    line_content_end_col(state, line)
+                };
+                let length = col_end.saturating_sub(col_start);
+                if length > 0 {
+                    per_line.push((line, col_start, length, token_type));
+                }
+            }
+        }
+    }
+
+    // Re-sort only when multi-line spans were split — their per-line tokens can
+    // interleave with tokens from other spans. Single-line-only documents keep
+    // the original byte-offset order which is already (line, col) sorted.
+    if has_multiline {
+        per_line.sort_by_key(|&(line, col, _, _)| (line, col));
+    }
+
     // Delta-encode
-    let mut tokens = Vec::with_capacity(raw.len());
+    let mut tokens = Vec::with_capacity(per_line.len());
     let mut prev_line: u32 = 0;
     let mut prev_char: u32 = 0;
 
-    for (start, end, token_type) in raw {
-        let (line, character) = state.line_index.byte_offset_to_position(&state.text, start);
-        let (end_line, end_char) = state.line_index.byte_offset_to_position(&state.text, end);
-
-        let length = if line == end_line {
-            end_char - character
-        } else {
-            // Multi-line: cover from start char to end of content on the first line.
-            // position_to_byte_offset(line+1, 0) gives the start of the next line;
-            // strip trailing \n and \r to get the byte just past the last content char.
-            let next_line_byte = state
-                .line_index
-                .position_to_byte_offset(&state.text, line + 1, 0);
-            let mut content_end = next_line_byte;
-            if content_end > 0 && state.text.as_bytes().get(content_end - 1) == Some(&b'\n') {
-                content_end -= 1;
-            }
-            if content_end > 0 && state.text.as_bytes().get(content_end - 1) == Some(&b'\r') {
-                content_end -= 1;
-            }
-            let (_, line_end_char) = state
-                .line_index
-                .byte_offset_to_position(&state.text, content_end.min(end));
-            line_end_char.saturating_sub(character).max(1)
-        };
-
+    for (line, character, length, token_type) in per_line {
         let delta_line = line - prev_line;
         let delta_start = if delta_line == 0 {
             character - prev_char
@@ -223,6 +242,27 @@ pub fn collect_semantic_tokens(state: &DocumentState) -> Vec<SemanticToken> {
     }
 
     tokens
+}
+
+/// Returns the column index of the last visible character on `line` (i.e. excludes `\r`/`\n`).
+fn line_content_end_col(state: &DocumentState, line: u32) -> u32 {
+    let text_len = state.text.len();
+    let next_line_start = state
+        .line_index
+        .position_to_byte_offset(&state.text, line + 1, 0)
+        .min(text_len);
+    let mut content_end = next_line_start;
+    let bytes = state.text.as_bytes();
+    if content_end > 0 && bytes.get(content_end - 1) == Some(&b'\n') {
+        content_end -= 1;
+    }
+    if content_end > 0 && bytes.get(content_end - 1) == Some(&b'\r') {
+        content_end -= 1;
+    }
+    state
+        .line_index
+        .byte_offset_to_position(&state.text, content_end)
+        .1
 }
 
 // ── Full AST walker ─────────────────────────────────────────────────────

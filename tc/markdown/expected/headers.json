@@ -232,7 +232,7 @@
               "not": {
                 "span": {
                   "start": 178,
-                  "end": 183
+                  "end": 182
                 },
                 "key": "not",
                 "value": []

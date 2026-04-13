@@ -11,24 +11,25 @@ use winnow::token::{literal, take_while};
 /// Parse a single parameter in the format #key="value" (spaces around = allowed)
 /// The value part is optional - if not provided, an empty Vec is used
 fn parameter_parser(parser_input: &mut ParserInput) -> Result<(String, Parameter)> {
+    // Consume leading whitespace before recording start so the span begins at '#',
+    // not at any preceding newline (which would make the token invisible on its line).
+    multispace0.parse_next(parser_input)?;
     let start = parser_input.current_token_start();
 
-    // Parse: whitespace, #key, optional ="value", whitespace
-    let (_, key, value_opt, _): (_, &str, _, _) = (
-        multispace0,
-        preceded(
-            literal('#'),
-            take_while(1.., |c: char| c.is_alphanumeric() || c == '_' || c == '-'),
-        ),
+    // Parse: #key, optional ="value"
+    let (_, key, value_opt): (_, &str, _) = (
+        literal('#'),
+        take_while(1.., |c: char| c.is_alphanumeric() || c == '_' || c == '-'),
         opt(preceded(
             delimited(multispace0, literal('='), multispace0),
             delimited(literal('"'), parameter_content_parser, literal('"')),
         )),
-        multispace0,
     )
         .parse_next(parser_input)?;
 
+    // Record end before consuming trailing whitespace so the span is tight.
     let end = parser_input.previous_token_end();
+    multispace0.parse_next(parser_input)?;
 
     let key_string = key.to_string();
     let value = value_opt.unwrap_or_else(Vec::new);

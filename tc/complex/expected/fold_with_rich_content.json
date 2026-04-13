@@ -16,8 +16,8 @@
       "parameters": {
         "style": {
           "span": {
-            "start": 8,
-            "end": 40
+            "start": 9,
+            "end": 39
           },
           "key": "style",
           "value": [
@@ -35,7 +35,7 @@
         "bgcolor": {
           "span": {
             "start": 40,
-            "end": 61
+            "end": 60
           },
           "key": "bgcolor",
           "value": [
@@ -68,7 +68,7 @@
           "style": {
             "span": {
               "start": 63,
-              "end": 89
+              "end": 88
             },
             "key": "style",
             "value": [
@@ -86,7 +86,7 @@
           "color": {
             "span": {
               "start": 89,
-              "end": 107
+              "end": 106
             },
             "key": "color",
             "value": [
@@ -360,8 +360,8 @@
               "parameters": {
                 "style": {
                   "span": {
-                    "start": 305,
-                    "end": 327
+                    "start": 306,
+                    "end": 326
                   },
                   "key": "style",
                   "value": [

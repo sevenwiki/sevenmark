@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.9] - 2026-04-13
+
+### Fixed
+- **sevenmark_parser**: Parameter spans now start at `#` instead of preceding whitespace; previously, when parameters began on the line after the opening keyword (e.g. `{{{#table\n    #style=...`), the span started at the newline, causing semantic-token highlighting to emit an invisible 1-character token on the keyword line and nothing on the actual parameter line
+- **sevenmark_lsp_core**: Semantic token collection now emits one token per line for spans that cross line boundaries; previously only the first line was covered, so multi-line parameters (e.g. `#align =\n    "right"`), multi-line comments (`/* ... */`), and other elements spanning multiple lines received no highlighting beyond their first line
+
 ## [2.30.8] - 2026-04-12
 
 ### Fixed

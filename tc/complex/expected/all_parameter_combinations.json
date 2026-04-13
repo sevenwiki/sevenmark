@@ -16,8 +16,8 @@
       "parameters": {
         "style": {
           "span": {
-            "start": 3,
-            "end": 41
+            "start": 4,
+            "end": 40
           },
           "key": "style",
           "value": [
@@ -35,7 +35,7 @@
         "size": {
           "span": {
             "start": 41,
-            "end": 54
+            "end": 53
           },
           "key": "size",
           "value": [
@@ -53,7 +53,7 @@
         "color": {
           "span": {
             "start": 54,
-            "end": 68
+            "end": 67
           },
           "key": "color",
           "value": [
@@ -71,7 +71,7 @@
         "bgcolor": {
           "span": {
             "start": 68,
-            "end": 86
+            "end": 85
           },
           "key": "bgcolor",
           "value": [
@@ -89,7 +89,7 @@
         "opacity": {
           "span": {
             "start": 86,
-            "end": 101
+            "end": 100
           },
           "key": "opacity",
           "value": [
@@ -151,8 +151,8 @@
       "parameters": {
         "style": {
           "span": {
-            "start": 154,
-            "end": 188
+            "start": 155,
+            "end": 187
           },
           "key": "style",
           "value": [
@@ -185,7 +185,7 @@
           "size": {
             "span": {
               "start": 190,
-              "end": 203
+              "end": 202
             },
             "key": "size",
             "value": [
@@ -203,7 +203,7 @@
           "color": {
             "span": {
               "start": 203,
-              "end": 219
+              "end": 218
             },
             "key": "color",
             "value": [
@@ -267,7 +267,7 @@
           "bgcolor": {
             "span": {
               "start": 268,
-              "end": 289
+              "end": 288
             },
             "key": "bgcolor",
             "value": [
@@ -285,7 +285,7 @@
           "opacity": {
             "span": {
               "start": 289,
-              "end": 304
+              "end": 303
             },
             "key": "opacity",
             "value": [
@@ -303,7 +303,7 @@
           "style": {
             "span": {
               "start": 304,
-              "end": 326
+              "end": 325
             },
             "key": "style",
             "value": [
@@ -366,8 +366,8 @@
       "parameters": {
         "lang": {
           "span": {
-            "start": 380,
-            "end": 400
+            "start": 381,
+            "end": 399
           },
           "key": "lang",
           "value": [
@@ -385,7 +385,7 @@
         "style": {
           "span": {
             "start": 400,
-            "end": 438
+            "end": 437
           },
           "key": "style",
           "value": [
@@ -403,7 +403,7 @@
         "size": {
           "span": {
             "start": 438,
-            "end": 451
+            "end": 450
           },
           "key": "size",
           "value": [

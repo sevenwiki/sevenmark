@@ -16,8 +16,8 @@
       "parameters": {
         "style": {
           "span": {
-            "start": 3,
-            "end": 23
+            "start": 4,
+            "end": 22
           },
           "key": "style",
           "value": [
@@ -35,7 +35,7 @@
         "size": {
           "span": {
             "start": 23,
-            "end": 36
+            "end": 35
           },
           "key": "size",
           "value": [

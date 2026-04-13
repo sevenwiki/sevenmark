@@ -16,8 +16,8 @@
       "parameters": {
         "style": {
           "span": {
-            "start": 9,
-            "end": 44
+            "start": 10,
+            "end": 43
           },
           "key": "style",
           "value": [
@@ -244,8 +244,8 @@
                         "parameters": {
                           "lang": {
                             "span": {
-                              "start": 125,
-                              "end": 141
+                              "start": 126,
+                              "end": 140
                             },
                             "key": "lang",
                             "value": [
@@ -310,8 +310,8 @@
                         "parameters": {
                           "a": {
                             "span": {
-                              "start": 185,
-                              "end": 189
+                              "start": 186,
+                              "end": 188
                             },
                             "key": "a",
                             "value": []

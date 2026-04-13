@@ -17,8 +17,8 @@
       "parameters": {
         "1": {
           "span": {
-            "start": 8,
-            "end": 12
+            "start": 9,
+            "end": 11
           },
           "key": "1",
           "value": []
@@ -26,7 +26,7 @@
         "style": {
           "span": {
             "start": 12,
-            "end": 38
+            "end": 37
           },
           "key": "style",
           "value": [
@@ -133,8 +133,8 @@
                   "parameters": {
                     "a": {
                       "span": {
-                        "start": 92,
-                        "end": 96
+                        "start": 93,
+                        "end": 95
                       },
                       "key": "a",
                       "value": []
@@ -393,8 +393,8 @@
                           "parameters": {
                             "lang": {
                               "span": {
-                                "start": 247,
-                                "end": 261
+                                "start": 248,
+                                "end": 260
                               },
                               "key": "lang",
                               "value": [

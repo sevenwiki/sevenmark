@@ -17,7 +17,7 @@
         "color": {
           "span": {
             "start": 31,
-            "end": 46
+            "end": 45
           },
           "key": "color",
           "value": [
@@ -80,8 +80,8 @@
       "parameters": {
         "1": {
           "span": {
-            "start": 97,
-            "end": 101
+            "start": 98,
+            "end": 100
           },
           "key": "1",
           "value": []
@@ -89,7 +89,7 @@
         "a": {
           "span": {
             "start": 101,
-            "end": 104
+            "end": 103
           },
           "key": "a",
           "value": []
@@ -97,7 +97,7 @@
         "A": {
           "span": {
             "start": 104,
-            "end": 107
+            "end": 106
           },
           "key": "A",
           "value": []
@@ -105,7 +105,7 @@
         "i": {
           "span": {
             "start": 107,
-            "end": 110
+            "end": 109
           },
           "key": "i",
           "value": []
@@ -113,7 +113,7 @@
         "I": {
           "span": {
             "start": 110,
-            "end": 113
+            "end": 112
           },
           "key": "I",
           "value": []
