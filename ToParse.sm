@@ -1,261 +1,92 @@
+# CSS Sanitize Probe
+
+고정 배너 / 외부 URL / import 제거 여부 확인용 샘플.
+
 {{{#css
-.sevenwiki-portal {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fafbff;
-  color: #1a1d27;
-  font-family: "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+@import url("https://evil.example/import.css");
+
+.probe-safe {
+  color: #0f172a;
+  background: linear-gradient(135deg, #dbeafe, #ede9fe);
+  border: 2px solid #60a5fa;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 18px;
 }
 
-.sevenwiki-portal .portal-card {
-  display: block;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  border: 1px solid #e7e9f2;
-  padding: 24px 22px;
-}
-
-.sevenwiki-portal .portal-card-soft {
-  background-color: #fbfcff;
-}
-
-.sevenwiki-portal .portal-hero {
-  min-height: 168px;
-  margin-bottom: 14px;
-}
-
-.sevenwiki-portal .portal-grid-frame {
-  display: block;
-  background-color: #e7e9f2;
-  padding: 1px;
-  margin-bottom: 18px;
-}
-
-.sevenwiki-portal .portal-grid {
+.probe-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
+  place-items: center;
+  background: rgba(220, 38, 38, 0.88);
+  color: white;
+  font-size: 28px;
 }
 
-.sevenwiki-portal .portal-grid .portal-card {
-  min-height: 182px;
-  border: none;
+.probe-url {
+  color: #111827;
+  background-image: url("https://evil.example/bg.png");
+  cursor: url("https://evil.example/cursor.cur"), auto;
+  border: 1px dashed #9ca3af;
+  padding: 12px;
 }
 
-.sevenwiki-portal .portal-hero-title {
-  display: block;
-  margin-bottom: 14px;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+.probe-escape {
+  font-family: "</style>";
+  color: #2563eb;
+  padding: 12px;
+  border: 1px solid #93c5fd;
 }
 
-.sevenwiki-portal .portal-card-title {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 1.12rem;
-  font-weight: 700;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
+body {
+  background: black;
+  color: hotpink;
 }
 
-.sevenwiki-portal .portal-copy {
-  display: block;
-  color: #4a5163;
-  font-size: 0.95rem;
-  line-height: 1.7;
+@font-face {
+  font-family: "Evil";
+  src: url("https://evil.example/evil.woff2");
 }
 
-.sevenwiki-portal .portal-link-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 58px;
-}
-
-.sevenwiki-portal .portal-link-stack {
-  display: flex;
-  flex-direction: column; 
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.sevenwiki-portal .portal-link-row .sm-link,
-.sevenwiki-portal .portal-link-stack .sm-link,
-.sevenwiki-portal .portal-notice-head .sm-link {
-  color: #5c5fff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.sevenwiki-portal .portal-link-row .sm-link:hover,
-.sevenwiki-portal .portal-link-stack .sm-link:hover,
-.sevenwiki-portal .portal-notice-head .sm-link:hover {
-  text-decoration: underline;
-}
-
-.sevenwiki-portal .portal-notice {
-  display: block;
-  background-color: #ffffff;
-  border: 1px solid #e7e9f2;
-  padding: 22px;
-}
-
-.sevenwiki-portal .portal-notice-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-
-.sevenwiki-portal .portal-notice-title {
-  margin-bottom: 0;
-}
-
-.sevenwiki-portal .portal-notice-list {
-  display: block;
-}
-
-.sevenwiki-portal .portal-notice-item {
-  display: block;
-  color: #444b5d;
-  font-size: 0.95rem;
-  line-height: 1.9;
-}
-
-.sevenwiki-portal .portal-idea-copy {
-  color: #757c8f;
-}
-
-@media (max-width: 820px) {
-  .sevenwiki-portal {
-    padding: 16px;
+@supports (color: red) {
+  .probe-supports {
+    color: red;
+    display: grid;
+    position: fixed;
   }
+}
 
-  .sevenwiki-portal .portal-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .sevenwiki-portal .portal-hero {
-    min-height: auto;
-  }
-
-  .sevenwiki-portal .portal-link-row {
-    margin-top: 30px;
-    gap: 14px;
-  }
-
-  .sevenwiki-portal .portal-notice-head {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 640px) {
+  .probe-media {
+    color: green;
+    background: linear-gradient(90deg, #dcfce7, #bbf7d0);
+    background-image: url("https://evil.example/mobile.png");
   }
 }
 }}}
 
-{{{ #class="sevenwiki-portal"
-{{{ #class="portal-card portal-hero"
-{{{ #class="portal-hero-title" Welcome to Sevenwiki! }}}
-{{{ #class="portal-copy"
-여기에 뭐라뭐라 말이 있어야 하는데 잘 몰루겠음
-}}}
-{{{ #class="portal-link-row"
-[[#url="https://sevenwiki.example/about" 자세히 알아보기 →]]
-[[#url="https://sevenwiki.example/docs/write-guide" 문서 작성 가이드 →]]
-}}}
+{{{#blockquote #class="probe-safe"
+이건 안전한 속성만 있는 기준 박스.
 }}}
 
-{{{ #class="portal-grid-frame"
-{{{ #class="portal-grid"
-{{{ #class="portal-card"
-{{{ #class="portal-card-title"
-How to Earn Money with Sevenwiki
-}}}
-{{{ #class="portal-copy"
-세븐위키에 기여해서 수익을 얻는 방법에 대해 설명해 드려요.
-}}}
-{{{ #class="portal-link-stack"
-[[#url="https://sevenwiki.example/docs/earn-money" 글 읽어보기 (5분) →]]
-{{{#style="x" 글은 [pagecount]개, [date], [datetime], [dday(2006-09-22)] }}}
-[[#url="https://sevenwiki.example/reports/earnings" Earnings Report →]]
-}}}
+{{{#blockquote #class="probe-fixed"
+sanitize가 되면 이 박스는 화면 전체를 덮으면 안 됨.
 }}}
 
-{{{ #class="portal-card portal-card-soft"
-{{{ #class="portal-card-title"
-위키문법에 대해 알려주세요.
-}}}
-{{{ #class="portal-copy"
-세븐위키는 마크다운의 간략한 변형인 '세븐마크'를 사용하고 있어요. 누군가 쉽게 익힐 수 있으니 도움말을 보고 익혀 보세요.
-}}}
-{{{ #class="portal-link-stack"
-[[#url="https://sevenwiki.example/docs/sevenmark" 세븐마크 문서 →]]
-[[#url="https://sevenwiki.example/playground" 세븐위키:연습장 →]]
-}}}
+{{{#blockquote #class="probe-url"
+sanitize가 되면 외부 배경 이미지와 커서는 빠지고, 테두리/패딩/글자색만 남아야 함.
 }}}
 
-{{{ #class="portal-card portal-card-soft"
-{{{ #class="portal-card-title"
-어디서부터 시작하나요?
-}}}
-{{{ #class="portal-copy"
-분류를 이용해서 원하는 카테고리를 찾거나, 진행 중인 프로젝트와 도움이 필요한 문서 목록에서 시작하면 좋아요.
-}}}
-{{{ #class="portal-link-stack"
-[[#url="https://sevenwiki.example/categories" 분류 →]]
-[[#url="https://sevenwiki.example/projects/active" 진행 중인 프로젝트 →]]
-[[#url="https://sevenwiki.example/docs/help-wanted" 도움이 필요한 문서 →]]
-}}}
+{{{#blockquote #class="probe-escape"
+sanitize가 되면 </style> 문자열이 스타일 탈출 없이 안전하게 처리돼야 함.
 }}}
 
-{{{ #class="portal-card"
-{{{ #class="portal-card-title"
-The New Assistant:
-“Just Ask”
-}}}
-{{{ #class="portal-copy"
-궁금한 게 있으면 검색 박스에서 바로 대화형으로 물어볼 수 있어요.
-}}}
+{{{#blockquote #class="probe-supports"
+@supports 안에서도 color/display는 남고 position: fixed는 빠져야 함.
 }}}
 
-{{{ #class="portal-card"
-{{{ #class="portal-card-title"
-위키에 대한 의견이 있어요.
-}}}
-{{{ #class="portal-copy"
-피드백과 불편 신고, 차단 이의 제기는 커뮤니티에서 이루어지고 있어요.
-}}}
-{{{ #class="portal-link-stack"
-[[#url="https://sevenwiki.example/community" 커뮤니티 →]]
-}}}
-}}}
-
-{{{ #class="portal-card portal-card-soft"
-{{{ #class="portal-card-title"
-여기에 뭘 쓰면 좋을까
-}}}
-{{{ #class="portal-copy portal-idea-copy"
-오늘의 문서, 추천 주제, 위키 이벤트 배너처럼 운영팀이 유연하게 채울 수 있는 영역입니다.
-}}}
-}}}
-}}}
-}}}
-
-{{{ #class="portal-notice"
-{{{ #class="portal-notice-head"
-{{{ #class="portal-card-title portal-notice-title" 운영 공지 }}}
-[[#url="https://sevenwiki.example/notice" 더보기 →]]
-}}}
-{{{ #class="portal-notice-list"
-{{{ #class="portal-notice-item" • 운영 공지 1 | 운영 공지 1 운영 공지 1 운영 공지 1 운영 공지 1에 대한 안내 }}}
-{{{ #class="portal-notice-item" • 운영 공지 1 | 운영 공지 1 운영 공지 1 운영 공지 1 운영 공지 1에 대한 안내 }}}
-{{{ #class="portal-notice-item" • 운영 공지 1 | 운영 공지 1 운영 공지 1 운영 공지 1 운영 공지 1에 대한 안내 }}}
-}}}
-}}}
+{{{#blockquote #class="probe-media"
+모바일 폭에서는 @media 안의 안전한 속성만 적용되어야 함.
 }}}
