@@ -98,6 +98,6 @@
         "editor.semanticHighlighting.enabled": true,
         "editor.minimap.renderCharacters": false
       }
-    },
+    }
   }
 }
