@@ -65,8 +65,14 @@ pub fn render(
         }
     }
 
+    // Collect dark style tags for all rows and cells up front so they can be
+    // emitted before the wrapper div — injecting <style> inside <tr> or
+    // <tbody>/<thead> would corrupt table structure selectors.
+    let row_dark_tags = collect_row_dark_tags(head_rows.iter().chain(body_rows.iter()).copied());
+
     let content = html! {
         (dark_tag)
+        (row_dark_tags)
         div
             class=(match wrapper_align_class {
                 Some(align_class) => format!("{} {}", classes::TABLE_WRAPPER, align_class),
@@ -105,13 +111,39 @@ pub fn render(
     content
 }
 
+/// Collect all dark-style `<style>` tags for a set of rows and their cells.
+/// Called before the table wrapper is rendered so the tags land outside any
+/// table structural element.
+fn collect_row_dark_tags<'a>(rows: impl Iterator<Item = &'a TableRowElement>) -> Markup {
+    let tags: Vec<Markup> = rows
+        .flat_map(|row| {
+            let row_tag = utils::dark_style_parts(utils::build_dark_style(&row.parameters)).1;
+            let cell_tags: Vec<Markup> = row
+                .children
+                .iter()
+                .flat_map(|item| match item {
+                    TableCellItem::Cell(cell) => {
+                        vec![utils::dark_style_parts(utils::build_dark_style(&cell.parameters)).1]
+                    }
+                    TableCellItem::Conditional(cond) => cond
+                        .cells
+                        .iter()
+                        .map(|c| utils::dark_style_parts(utils::build_dark_style(&c.parameters)).1)
+                        .collect(),
+                })
+                .collect();
+            std::iter::once(row_tag).chain(cell_tags)
+        })
+        .collect();
+    html! { @for t in &tags { (t) } }
+}
+
 fn render_row(row: &TableRowElement, ctx: &mut RenderContext, is_head: bool) -> Markup {
     let row_style = utils::build_style(&row.parameters);
     let row_class = utils::param_class(&row.parameters);
-    let (row_dk, row_dark_tag) = utils::dark_style_parts(utils::build_dark_style(&row.parameters));
+    let (row_dk, _) = utils::dark_style_parts(utils::build_dark_style(&row.parameters));
 
     html! {
-        (row_dark_tag)
         tr class=[row_class] style=[row_style] data-dk=[row_dk] {
             (render_cells(&row.children, ctx, is_head))
         }
@@ -127,8 +159,7 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                     @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
                     @let style = utils::build_style(&cell.parameters);
                     @let class = utils::param_class(&cell.parameters);
-                    @let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&cell.parameters));
-                    (dark_tag)
+                    @let (dk, _) = utils::dark_style_parts(utils::build_dark_style(&cell.parameters));
                     @if is_head {
                         th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
                             (render_elements(&cell.children, ctx))
@@ -145,8 +176,7 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                         @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
                         @let style = utils::build_style(&cell.parameters);
                         @let class = utils::param_class(&cell.parameters);
-                        @let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&cell.parameters));
-                        (dark_tag)
+                        @let (dk, _) = utils::dark_style_parts(utils::build_dark_style(&cell.parameters));
                         @if is_head {
                             th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
                                 (render_elements(&cell.children, ctx))
