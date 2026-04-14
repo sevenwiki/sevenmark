@@ -4,15 +4,21 @@ use std::hash::{Hash, Hasher};
 
 use sevenmark_ast::{Element, Parameters};
 
-/// Extract plain text from elements
+/// Extract plain text from elements, recursing into nested children.
 pub fn extract_text(elements: &[Element]) -> String {
+    use sevenmark_ast::Traversable;
+
+    fn collect(el: &Element, out: &mut String) {
+        match el {
+            Element::Text(text) => out.push_str(&text.value),
+            Element::Escape(escape) => out.push_str(&escape.value),
+            other => other.traverse_children_ref(&mut |child| collect(child, out)),
+        }
+    }
+
     let mut result = String::new();
     for el in elements {
-        match el {
-            Element::Text(text) => result.push_str(&text.value),
-            Element::Escape(escape) => result.push_str(&escape.value),
-            _ => {}
-        }
+        collect(el, &mut result);
     }
     result
 }

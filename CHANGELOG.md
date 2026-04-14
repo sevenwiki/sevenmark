@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.2] - 2026-04-14
+
+### Changed
+- **sevenmark_html**: Media image elements no longer emit `width`/`height` HTML attributes. Instead, when both dimensions are known, an inline `style="aspect-ratio:W/H"` is emitted so the browser can reserve the correct space before the image loads. This allows CSS `width: 100%` to resolve correctly inside table cells without conflicting with the intrinsic size hint used by auto table layout.
+- **sevenmark_html**: `extract_text` now recurses into nested children, so inline children of a media element (e.g. text inside a styled block) are correctly extracted as the `alt` attribute value.
+
 ## [2.32.1] - 2026-04-14
 
 ### Changed
