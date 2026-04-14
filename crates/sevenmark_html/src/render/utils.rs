@@ -39,41 +39,33 @@ pub fn param_class(params: &Parameters) -> Option<String> {
         .filter(|s| !s.is_empty())
 }
 
+/// Build the shared light-mode CSS rule for a sanitized inline-style payload.
+///
+/// The returned tuple is `(data_lk_hash, css_rule)`.
+pub fn build_light_style_rule(light_style: &str) -> (String, String) {
+    let lk = style_hash(light_style);
+    let escaped = super::sanitize::escape_style_close_tag(light_style);
+    let rule = format!("[data-lk=\"{lk}\"]{{{escaped}}}");
+    (lk, rule)
+}
+
 /// Build the shared dark-mode CSS rule for a sanitized inline-style payload.
 ///
-/// The returned tuple is `(data_dk_hash, css_rule)`. Every declaration is
-/// strengthened with `!important` so it overrides inline `style` on the same
-/// element.
+/// The returned tuple is `(data_dk_hash, css_rule)`.
 pub fn build_dark_style_rule(dark_style: &str) -> (String, String) {
-    let dk = dark_style_hash(dark_style);
-    let important = add_important(dark_style);
-    let escaped = super::sanitize::escape_style_close_tag(&important);
+    let dk = style_hash(dark_style);
+    let escaped = super::sanitize::escape_style_close_tag(dark_style);
     let rule = format!(".dark [data-dk=\"{dk}\"]{{{escaped}}}");
     (dk, rule)
 }
 
-fn dark_style_hash(css: &str) -> String {
+fn style_hash(css: &str) -> String {
     let mut hasher = std::collections::hash_map::DefaultHasher::new();
     css.hash(&mut hasher);
     format!("{:x}", hasher.finish())
 }
 
-/// Append `!important` to every declaration in a sanitized inline-style string.
-fn add_important(css: &str) -> String {
-    css.split(';')
-        .map(str::trim)
-        .filter(|d| !d.is_empty())
-        .map(|d| {
-            if d.ends_with("!important") {
-                d.to_string()
-            } else {
-                format!("{d} !important")
-            }
-        })
-        .collect::<Vec<_>>()
-        .join(";")
-}
-
+/// Build a sanitized dark-style declaration list from common style parameters.
 pub fn build_dark_style(params: &Parameters) -> Option<String> {
     let mut styles = Vec::new();
 
@@ -107,7 +99,7 @@ pub fn build_dark_style(params: &Parameters) -> Option<String> {
     }
 }
 
-/// Build inline style string from common style parameters
+/// Build a sanitized light-style declaration list from common style parameters.
 pub fn build_style(params: &Parameters) -> Option<String> {
     let mut styles = Vec::new();
 

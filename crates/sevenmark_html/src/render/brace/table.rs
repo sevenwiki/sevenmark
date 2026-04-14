@@ -15,7 +15,7 @@ pub fn render(
 ) -> Markup {
     ctx.enter_suppress_soft_breaks();
 
-    let style = utils::build_style(parameters);
+    let lk = ctx.add_light_style(utils::build_style(parameters));
     let class = utils::merge_class(classes::TABLE, parameters);
     let wrapper_align_class = match utils::get_param(parameters, "align")
         .map(|value| value.trim().to_ascii_lowercase())
@@ -77,7 +77,7 @@ pub fn render(
         {
             table
                 class=(class)
-                style=[style]
+                data-lk=[lk]
                 data-dk=[dk]
                 data-sortable=[sortable.then_some("true")]
             {
@@ -105,12 +105,12 @@ pub fn render(
 }
 
 fn render_row(row: &TableRowElement, ctx: &mut RenderContext, is_head: bool) -> Markup {
-    let row_style = utils::build_style(&row.parameters);
+    let row_lk = ctx.add_light_style(utils::build_style(&row.parameters));
     let row_class = utils::param_class(&row.parameters);
     let row_dk = ctx.add_dark_style(utils::build_dark_style(&row.parameters));
 
     html! {
-        tr class=[row_class] style=[row_style] data-dk=[row_dk] {
+        tr class=[row_class] data-lk=[row_lk] data-dk=[row_dk] {
             (render_cells(&row.children, ctx, is_head))
         }
     }
@@ -123,15 +123,15 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                 TableCellItem::Cell(cell) => {
                     @let colspan = utils::extract_text(&cell.x).parse::<usize>().ok().filter(|&n| n > 1);
                     @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
-                    @let style = utils::build_style(&cell.parameters);
+                    @let lk = ctx.add_light_style(utils::build_style(&cell.parameters));
                     @let class = utils::param_class(&cell.parameters);
                     @let dk = ctx.add_dark_style(utils::build_dark_style(&cell.parameters));
                     @if is_head {
-                        th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
+                        th class=[class] colspan=[colspan] rowspan=[rowspan] data-lk=[lk] data-dk=[dk] {
                             (render_elements(&cell.children, ctx))
                         }
                     } @else {
-                        td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
+                        td class=[class] colspan=[colspan] rowspan=[rowspan] data-lk=[lk] data-dk=[dk] {
                             (render_elements(&cell.children, ctx))
                         }
                     }
@@ -140,15 +140,15 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                     @for cell in &cond.cells {
                         @let colspan = utils::extract_text(&cell.x).parse::<usize>().ok().filter(|&n| n > 1);
                         @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
-                        @let style = utils::build_style(&cell.parameters);
+                        @let lk = ctx.add_light_style(utils::build_style(&cell.parameters));
                         @let class = utils::param_class(&cell.parameters);
                         @let dk = ctx.add_dark_style(utils::build_dark_style(&cell.parameters));
                         @if is_head {
-                            th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
+                            th class=[class] colspan=[colspan] rowspan=[rowspan] data-lk=[lk] data-dk=[dk] {
                                 (render_elements(&cell.children, ctx))
                             }
                         } @else {
-                            td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
+                            td class=[class] colspan=[colspan] rowspan=[rowspan] data-lk=[lk] data-dk=[dk] {
                                 (render_elements(&cell.children, ctx))
                             }
                         }

@@ -28,7 +28,7 @@ pub fn render_document(ast: &[Element], config: &RenderConfig) -> String {
         @if !ctx.footnotes.is_empty() {
             (brace::footnote::render_list(&ctx))
         }
-        @if let Some(sheet) = ctx.dark_style_sheet() {
+        @if let Some(sheet) = ctx.shared_style_sheet() {
             style { (PreEscaped(sheet)) }
         }
     };
@@ -59,7 +59,7 @@ pub fn render_document_with_spans(ast: &[Element], config: &RenderConfig, input:
         @if !ctx.footnotes.is_empty() {
             (brace::footnote::render_list(&ctx))
         }
-        @if let Some(sheet) = ctx.dark_style_sheet() {
+        @if let Some(sheet) = ctx.shared_style_sheet() {
             style { (PreEscaped(sheet)) }
         }
     };
