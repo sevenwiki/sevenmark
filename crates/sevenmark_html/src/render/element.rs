@@ -59,7 +59,7 @@ pub fn render_element(el: &Element, ctx: &mut RenderContext) -> Markup {
         }
         Element::Code(code) => brace::code::render(&code.span, &code.parameters, &code.value, ctx),
         Element::TeX(tex) => brace::tex::render(&tex.span, tex.is_block, &tex.value, ctx),
-        Element::Css(css) => brace::css::render(&css.span, &css.parameters, &css.value, ctx),
+        Element::Css(css) => brace::css::render(&css.span, &css.value, ctx),
 
         // Container elements
         Element::List(list) => brace::list::render(

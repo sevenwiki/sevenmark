@@ -107,6 +107,8 @@ struct SomeElement {
 }
 ```
 
+`CssElement` is an exception: it stores `span`, `open_span`, `close_span`, and raw `value`, but it does not carry `parameters`.
+
 ### Span
 
 ```rust

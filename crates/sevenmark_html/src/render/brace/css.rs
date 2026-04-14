@@ -1,62 +1,25 @@
 use maud::{Markup, PreEscaped, html};
-use sevenmark_ast::{Parameters, Span};
+use sevenmark_ast::Span;
 
 use crate::classes;
 use crate::context::RenderContext;
-use crate::render::utils;
 
-fn is_style_close_boundary(b: u8) -> bool {
-    b.is_ascii_whitespace() || matches!(b, b'>' | b'/')
-}
+use super::super::sanitize::escape_style_close_tag;
 
-fn sanitize_style_close_tag(value: &str) -> String {
-    let bytes = value.as_bytes();
-    let mut out = String::with_capacity(value.len());
-    let mut i = 0usize;
-
-    while let Some(rel) = value[i..].find("</") {
-        let start = i + rel;
-        out.push_str(&value[i..start]);
-
-        let tag_start = start + 2;
-        let tag_end = tag_start + 5; // "style"
-        if tag_end <= bytes.len() && bytes[tag_start..tag_end].eq_ignore_ascii_case(b"style") {
-            // Accept only valid closing-tag boundaries after `style`, e.g.
-            // `</style>`, `</style   >`, or `</style foo=bar>`.
-            let boundary_ok = tag_end == bytes.len() || is_style_close_boundary(bytes[tag_end]);
-            if boundary_ok {
-                out.push_str("<\\/");
-                out.push_str(&value[tag_start..tag_end]);
-                i = tag_end;
-                continue;
-            }
-        }
-
-        out.push_str("</");
-        i = tag_start;
-    }
-
-    out.push_str(&value[i..]);
-    out
-}
-
-pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderContext) -> Markup {
-    let merged_class = utils::merge_class(classes::CSS, parameters);
+pub fn render(_span: &Span, value: &str, _ctx: &RenderContext) -> Markup {
     let sanitized_css = super::super::sanitize::sanitize_css_block(value);
-    let safe_css = sanitize_style_close_tag(&sanitized_css);
-    let dark_style = utils::build_dark_style(parameters);
+    let safe_css = escape_style_close_tag(&sanitized_css);
 
     html! {
         style
-            class=(merged_class)
-            data-dark-style=[dark_style]
+            class=(classes::CSS)
         { (PreEscaped(safe_css)) }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::sanitize_style_close_tag;
+    use crate::render::sanitize::escape_style_close_tag;
     use crate::test_support::{parse_fragment, render_html, selector};
 
     fn count_occurrences(haystack: &str, needle: &str) -> usize {
@@ -66,7 +29,7 @@ mod tests {
     #[test]
     fn sanitizes_case_insensitive_style_close_tag() {
         assert_eq!(
-            sanitize_style_close_tag("a</sTyle>b"),
+            escape_style_close_tag("a</sTyle>b"),
             "a<\\/sTyle>b".to_string()
         );
     }
@@ -74,7 +37,7 @@ mod tests {
     #[test]
     fn sanitizes_style_close_tag_with_whitespace() {
         assert_eq!(
-            sanitize_style_close_tag("a</STYLE   >b"),
+            escape_style_close_tag("a</STYLE   >b"),
             "a<\\/STYLE   >b".to_string()
         );
     }
@@ -82,7 +45,7 @@ mod tests {
     #[test]
     fn sanitizes_style_close_tag_with_attributes() {
         assert_eq!(
-            sanitize_style_close_tag("a</style foo=bar>b"),
+            escape_style_close_tag("a</style foo=bar>b"),
             "a<\\/style foo=bar>b".to_string()
         );
     }
@@ -90,7 +53,7 @@ mod tests {
     #[test]
     fn does_not_sanitize_style_prefix_of_longer_tag_name() {
         assert_eq!(
-            sanitize_style_close_tag("a</stylex>b"),
+            escape_style_close_tag("a</stylex>b"),
             "a</stylex>b".to_string()
         );
     }
@@ -98,7 +61,7 @@ mod tests {
     #[test]
     fn does_not_sanitize_hyphenated_tag_name() {
         assert_eq!(
-            sanitize_style_close_tag("a</style-foo>b"),
+            escape_style_close_tag("a</style-foo>b"),
             "a</style-foo>b".to_string()
         );
     }
@@ -117,8 +80,9 @@ body { color: blue; }
             .next()
             .expect("expected style element");
 
-        assert!(
-            style.value().name() == "style",
+        assert_eq!(
+            style.value().name(),
+            "style",
             "expected style element in output, got:\n{html}"
         );
         assert!(
@@ -154,6 +118,33 @@ body { color: blue; }
             count_occurrences(&html, "</style>"),
             1,
             "expected only the renderer's closing style tag to remain, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn css_blocks_do_not_emit_data_dk_or_shared_dark_style_rules() {
+        let input = r#"{{{#css
+.card { color: red; }
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+        let styles = doc.select(&selector("style")).collect::<Vec<_>>();
+        assert_eq!(
+            styles.len(),
+            1,
+            "expected only the authored css style tag, got:\n{html}"
+        );
+
+        let style = styles[0].value();
+        assert_eq!(style.attr("class"), Some("sm-css"));
+        assert!(
+            style.attr("data-dk").is_none(),
+            "css blocks must not emit data-dk, got:\n{html}"
+        );
+        assert!(
+            !html.contains(".dark [data-dk="),
+            "css block dark params should be ignored instead of generating shared dark rules, got:\n{html}"
         );
     }
 }

@@ -59,7 +59,7 @@ pub fn render(
     let data_start = ctx.span_start(span);
     let data_end = ctx.span_end(span);
     let style = utils::build_style(parameters);
-    let dark_style = utils::build_dark_style(parameters);
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     // 파일 정보 추출 (URL, 유효성, 크기)
     let file_info = resolved_info.and_then(|r| r.file.as_ref());
@@ -162,7 +162,7 @@ pub fn render(
                     data-end=[data_end]
                     href=(link)
                     style=[style]
-                    data-dark-style=[dark_style]
+                    data-dk=[dk]
                     data-theme=[theme.as_deref()]
                 {
                     figure class=(classes::MEDIA_IMAGE) {
@@ -185,7 +185,7 @@ pub fn render(
                     data-start=[data_start]
                     data-end=[data_end]
                     style=[style]
-                    data-dark-style=[dark_style]
+                    data-dk=[dk]
                     data-theme=[theme.as_deref()]
                 {
                     @if image_valid {
@@ -214,7 +214,7 @@ pub fn render(
                 data-end=[data_end]
                 href=(link)
                 style=[style]
-                data-dark-style=[dark_style]
+                data-dk=[dk]
                 data-theme=[theme.as_deref()]
             {
                 @if let Some(cap) = caption {

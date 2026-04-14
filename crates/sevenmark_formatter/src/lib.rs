@@ -180,7 +180,6 @@ mod tests {
             span: s(),
             open_span: s(),
             close_span: s(),
-            parameters: Default::default(),
             value: "x}".to_string(),
         })];
 

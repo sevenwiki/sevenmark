@@ -241,7 +241,6 @@ pub struct CssElement {
     pub open_span: Span,
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub close_span: Span,
-    pub parameters: Parameters,
     pub value: String,
 }
 

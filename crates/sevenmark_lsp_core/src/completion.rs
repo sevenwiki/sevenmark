@@ -520,10 +520,6 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
             ("dark-size", "Dark mode font size", false),
             ("dark-opacity", "Dark mode opacity", false),
         ],
-        "css" => &[
-            ("class", "CSS classes", false),
-            ("dark-style", "Dark mode CSS style", false),
-        ],
         "table" => &[
             ("caption", "Table caption", false),
             (
@@ -943,6 +939,15 @@ mod tests {
         let c = completions("{{{#code #");
         assert!(c.iter().any(|c| c.label == "lang"));
         assert!(c.iter().any(|c| c.label == "style"));
+    }
+
+    #[test]
+    fn brace_css_has_no_parameter_completions() {
+        let c = completions("{{{#css #");
+        assert!(
+            c.is_empty(),
+            "css blocks should not offer parameter completions: {c:?}"
+        );
     }
 
     #[test]

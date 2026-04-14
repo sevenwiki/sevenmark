@@ -1,6 +1,6 @@
 //! Document-level rendering
 
-use maud::{Markup, html};
+use maud::{Markup, PreEscaped, html};
 use sevenmark_utils::Utf16OffsetConverter;
 
 use super::{brace, element, markdown};
@@ -8,7 +8,7 @@ use crate::classes;
 use crate::config::RenderConfig;
 use crate::context::RenderContext;
 use crate::section::{Section, SectionTree, build_section_tree};
-use sevenmark_ast::Element;
+use sevenmark_ast::{Element, Traversable};
 
 /// Render a document to semantic HTML
 ///
@@ -18,13 +18,18 @@ use sevenmark_ast::Element;
 pub fn render_document(ast: &[Element], config: &RenderConfig) -> String {
     let tree = build_section_tree(ast);
     let mut ctx = RenderContext::new(config);
-    ctx.set_toc_markup(prebuild_toc_markup(&tree, &ctx));
+    if contains_toc(ast) {
+        ctx.set_toc_markup(prebuild_toc_markup(&tree, &ctx));
+    }
     let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {
         (content)
         @if !ctx.footnotes.is_empty() {
             (brace::footnote::render_list(&ctx))
+        }
+        @if let Some(sheet) = ctx.dark_style_sheet() {
+            style { (PreEscaped(sheet)) }
         }
     };
 
@@ -44,13 +49,18 @@ pub fn render_document_with_spans(ast: &[Element], config: &RenderConfig, input:
     let tree = build_section_tree(ast);
     let converter = Utf16OffsetConverter::new(input);
     let mut ctx = RenderContext::with_converter(config, &converter);
-    ctx.set_toc_markup(prebuild_toc_markup(&tree, &ctx));
+    if contains_toc(ast) {
+        ctx.set_toc_markup(prebuild_toc_markup(&tree, &ctx));
+    }
     let content = render_section_tree(&tree, config, &mut ctx);
 
     let markup = html! {
         (content)
         @if !ctx.footnotes.is_empty() {
             (brace::footnote::render_list(&ctx))
+        }
+        @if let Some(sheet) = ctx.dark_style_sheet() {
+            style { (PreEscaped(sheet)) }
         }
     };
 
@@ -65,6 +75,24 @@ fn prebuild_toc_markup(tree: &SectionTree<'_>, ctx: &RenderContext<'_>) -> Optio
     } else {
         Some(markup)
     }
+}
+
+fn contains_toc(elements: &[Element]) -> bool {
+    fn visit(element: &Element) -> bool {
+        if matches!(element, Element::Toc(_)) {
+            return true;
+        }
+
+        let mut found = false;
+        element.traverse_children_ref(&mut |child| {
+            if !found && visit(child) {
+                found = true;
+            }
+        });
+        found
+    }
+
+    elements.iter().any(visit)
 }
 
 /// Render a section tree

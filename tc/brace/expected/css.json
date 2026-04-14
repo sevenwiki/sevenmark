@@ -13,7 +13,6 @@
         "start": 37,
         "end": 40
       },
-      "parameters": {},
       "value": ".a::after { content: \"ok\"; }\n"
     }
   },

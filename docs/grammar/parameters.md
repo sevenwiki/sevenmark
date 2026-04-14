@@ -62,11 +62,11 @@ The following parameters are commonly recognized by SevenMark renderers:
 | `#size` | Font size | Styled blocks and style-aware renderers |
 | `#opacity` | Opacity | Styled blocks and style-aware renderers |
 | `#class` | Extra CSS class names | Many block and media renderers |
-| `#dark-style` | Raw dark-mode CSS declarations | Renderers that emit `data-dark-style` |
-| `#dark-color` | Dark-mode text color | Renderers that emit `data-dark-style` |
-| `#dark-bgcolor` | Dark-mode background color | Renderers that emit `data-dark-style` |
-| `#dark-size` | Dark-mode font size | Renderers that emit `data-dark-style` |
-| `#dark-opacity` | Dark-mode opacity | Renderers that emit `data-dark-style` |
+| `#dark-style` | Raw dark-mode CSS declarations | Visual renderers that emit `data-dk` and participate in the shared dark-style registry |
+| `#dark-color` | Dark-mode text color | Visual renderers that emit `data-dk` and participate in the shared dark-style registry |
+| `#dark-bgcolor` | Dark-mode background color | Visual renderers that emit `data-dk` and participate in the shared dark-style registry |
+| `#dark-size` | Dark-mode font size | Visual renderers that emit `data-dk` and participate in the shared dark-style registry |
+| `#dark-opacity` | Dark-mode opacity | Visual renderers that emit `data-dk` and participate in the shared dark-style registry |
 
 `#dark-*` parameters are separate from provider-specific flags like `#dark` on some external media embeds such as Spotify or Discord.
 
@@ -126,8 +126,10 @@ Again{{{#fn #name="api-limit" Shared note. }}}.
 Common parameters include:
 
 - `#lang` on `{{{#code}}}` for syntax highlighting
-- `#class` on `{{{#code}}}` and `{{{#css}}}`
-- `#dark-*` to populate dark-mode styling metadata
+- `#class` on `{{{#code}}}`
+- `#dark-*` on visual renderers such as `{{{#code}}}` to populate shared dark-mode styling rules
+
+`{{{#css}}}` does not accept parameters; write dark-mode selectors directly in the authored stylesheet.
 
 ```sevenmark
 {{{#code #lang="rust" #class="example" #dark-bgcolor="#111" #dark-color="#eee"
