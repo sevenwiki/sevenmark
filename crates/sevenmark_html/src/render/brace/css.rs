@@ -5,45 +5,12 @@ use crate::classes;
 use crate::context::RenderContext;
 use crate::render::utils;
 
-fn is_style_close_boundary(b: u8) -> bool {
-    b.is_ascii_whitespace() || matches!(b, b'>' | b'/')
-}
-
-fn sanitize_style_close_tag(value: &str) -> String {
-    let bytes = value.as_bytes();
-    let mut out = String::with_capacity(value.len());
-    let mut i = 0usize;
-
-    while let Some(rel) = value[i..].find("</") {
-        let start = i + rel;
-        out.push_str(&value[i..start]);
-
-        let tag_start = start + 2;
-        let tag_end = tag_start + 5; // "style"
-        if tag_end <= bytes.len() && bytes[tag_start..tag_end].eq_ignore_ascii_case(b"style") {
-            // Accept only valid closing-tag boundaries after `style`, e.g.
-            // `</style>`, `</style   >`, or `</style foo=bar>`.
-            let boundary_ok = tag_end == bytes.len() || is_style_close_boundary(bytes[tag_end]);
-            if boundary_ok {
-                out.push_str("<\\/");
-                out.push_str(&value[tag_start..tag_end]);
-                i = tag_end;
-                continue;
-            }
-        }
-
-        out.push_str("</");
-        i = tag_start;
-    }
-
-    out.push_str(&value[i..]);
-    out
-}
+use super::super::sanitize::escape_style_close_tag;
 
 pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderContext) -> Markup {
     let merged_class = utils::merge_class(classes::CSS, parameters);
     let sanitized_css = super::super::sanitize::sanitize_css_block(value);
-    let safe_css = sanitize_style_close_tag(&sanitized_css);
+    let safe_css = escape_style_close_tag(&sanitized_css);
     let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
 
     html! {

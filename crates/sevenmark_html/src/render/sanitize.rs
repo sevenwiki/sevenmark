@@ -402,5 +402,40 @@ pub(crate) fn sanitize_inline_style(input: &str) -> String {
     clean_declaration_list_with_policy(input, &POLICY)
 }
 
+/// Escape `</style` sequences so they cannot terminate an enclosing `<style>` tag.
+/// Used by any renderer that embeds arbitrary CSS text inside a `<style>` element.
+pub(crate) fn escape_style_close_tag(value: &str) -> String {
+    fn is_style_close_boundary(b: u8) -> bool {
+        b.is_ascii_whitespace() || matches!(b, b'>' | b'/')
+    }
+
+    let bytes = value.as_bytes();
+    let mut out = String::with_capacity(value.len());
+    let mut i = 0usize;
+
+    while let Some(rel) = value[i..].find("</") {
+        let start = i + rel;
+        out.push_str(&value[i..start]);
+
+        let tag_start = start + 2;
+        let tag_end = tag_start + 5; // "style"
+        if tag_end <= bytes.len() && bytes[tag_start..tag_end].eq_ignore_ascii_case(b"style") {
+            let boundary_ok = tag_end == bytes.len() || is_style_close_boundary(bytes[tag_end]);
+            if boundary_ok {
+                out.push_str("<\\/");
+                out.push_str(&value[tag_start..tag_end]);
+                i = tag_end;
+                continue;
+            }
+        }
+
+        out.push_str("</");
+        i = tag_start;
+    }
+
+    out.push_str(&value[i..]);
+    out
+}
+
 #[cfg(test)]
 mod tests;

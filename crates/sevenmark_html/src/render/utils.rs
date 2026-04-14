@@ -43,12 +43,16 @@ pub fn param_class(params: &Parameters) -> Option<String> {
 /// Build a `<style>.dark [data-dk="hash"] { … }</style>` tag for the given dark style.
 ///
 /// The `data-dk` value is a hash of the CSS text, so identical dark styles share
-/// the same selector.  Returns `(None, empty markup)` when there is no dark style.
+/// the same selector.  Every declaration is strengthened with `!important` so it
+/// overrides any inline `style` attribute on the same element.
+/// Returns `(None, empty markup)` when there is no dark style.
 pub fn dark_style_parts(dark_style: Option<String>) -> (Option<String>, Markup) {
     match dark_style {
         Some(ds) => {
             let dk = dark_style_hash(&ds);
-            let rule = format!(".dark [data-dk=\"{dk}\"]{{{ds}}}");
+            let important = add_important(&ds);
+            let escaped = super::sanitize::escape_style_close_tag(&important);
+            let rule = format!(".dark [data-dk=\"{dk}\"]{{{escaped}}}");
             let tag = html! { style { (PreEscaped(rule)) } };
             (Some(dk), tag)
         }
@@ -60,6 +64,22 @@ fn dark_style_hash(css: &str) -> String {
     let mut hasher = std::collections::hash_map::DefaultHasher::new();
     css.hash(&mut hasher);
     format!("{:x}", hasher.finish())
+}
+
+/// Append `!important` to every declaration in a sanitized inline-style string.
+fn add_important(css: &str) -> String {
+    css.split(';')
+        .map(str::trim)
+        .filter(|d| !d.is_empty())
+        .map(|d| {
+            if d.ends_with("!important") {
+                d.to_string()
+            } else {
+                format!("{d} !important")
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(";")
 }
 
 pub fn build_dark_style(params: &Parameters) -> Option<String> {
