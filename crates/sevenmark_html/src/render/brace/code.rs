@@ -14,7 +14,7 @@ pub fn render(
     ctx: &mut RenderContext,
 ) -> Markup {
     let lang = utils::get_param(parameters, "lang");
-    let style = utils::build_style(parameters);
+    let lk = ctx.add_light_style(utils::build_style(parameters));
     let merged_class = utils::merge_class(classes::CODE, parameters);
     let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
     html! {
@@ -22,7 +22,7 @@ pub fn render(
             class=(merged_class)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
-            style=[style]
+            data-lk=[lk]
             data-dk=[dk]
         {
             code data-lang=[lang] { (value) }

@@ -58,7 +58,7 @@ pub fn render(
 ) -> Markup {
     let data_start = ctx.span_start(span);
     let data_end = ctx.span_end(span);
-    let style = utils::build_style(parameters);
+    let lk = ctx.add_light_style(utils::build_style(parameters));
     let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     // 파일 정보 추출 (URL, 유효성, 크기)
@@ -161,7 +161,7 @@ pub fn render(
                     data-start=[data_start]
                     data-end=[data_end]
                     href=(link)
-                    style=[style]
+                    data-lk=[lk]
                     data-dk=[dk]
                     data-theme=[theme.as_deref()]
                 {
@@ -184,7 +184,7 @@ pub fn render(
                     class=(utils::merge_class(classes::MEDIA_IMAGE, parameters))
                     data-start=[data_start]
                     data-end=[data_end]
-                    style=[style]
+                    data-lk=[lk]
                     data-dk=[dk]
                     data-theme=[theme.as_deref()]
                 {
@@ -213,7 +213,7 @@ pub fn render(
                 data-start=[data_start]
                 data-end=[data_end]
                 href=(link)
-                style=[style]
+                data-lk=[lk]
                 data-dk=[dk]
                 data-theme=[theme.as_deref()]
             {

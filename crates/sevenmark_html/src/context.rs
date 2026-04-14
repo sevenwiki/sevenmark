@@ -41,6 +41,8 @@ pub struct RenderContext<'a> {
     pub converter: Option<&'a Utf16OffsetConverter>,
     /// Pre-rendered table-of-contents markup reused by [toc]
     pub toc_markup: Option<String>,
+    /// Shared light-style registry flushed once at document top level
+    pub light_styles: Rc<RefCell<BTreeMap<String, String>>>,
     /// Shared dark-style registry flushed once at document top level
     pub dark_styles: Rc<RefCell<BTreeMap<String, String>>>,
 }
@@ -57,6 +59,7 @@ impl<'a> RenderContext<'a> {
             config,
             converter: None,
             toc_markup: None,
+            light_styles: Rc::new(RefCell::new(BTreeMap::new())),
             dark_styles: Rc::new(RefCell::new(BTreeMap::new())),
         }
     }
@@ -75,6 +78,7 @@ impl<'a> RenderContext<'a> {
             config,
             converter: Some(converter),
             toc_markup: None,
+            light_styles: Rc::new(RefCell::new(BTreeMap::new())),
             dark_styles: Rc::new(RefCell::new(BTreeMap::new())),
         }
     }
@@ -91,6 +95,7 @@ impl<'a> RenderContext<'a> {
             config: self.config,
             converter: self.converter,
             toc_markup: self.toc_markup.clone(),
+            light_styles: Rc::clone(&self.light_styles),
             dark_styles: Rc::clone(&self.dark_styles),
         }
     }
@@ -98,6 +103,17 @@ impl<'a> RenderContext<'a> {
     /// Store pre-rendered table-of-contents markup for [toc] macros.
     pub fn set_toc_markup(&mut self, toc_markup: Option<String>) {
         self.toc_markup = toc_markup;
+    }
+
+    /// Register a sanitized light-style payload and return its `data-lk` hash.
+    pub fn add_light_style(&mut self, light_style: Option<String>) -> Option<String> {
+        let light_style = light_style?;
+        let (lk, rule) = crate::render::utils::build_light_style_rule(&light_style);
+        self.light_styles
+            .borrow_mut()
+            .entry(lk.clone())
+            .or_insert(rule);
+        Some(lk)
     }
 
     /// Register a sanitized dark-style payload and return its `data-dk` hash.
@@ -111,13 +127,31 @@ impl<'a> RenderContext<'a> {
         Some(dk)
     }
 
-    /// Return the aggregated dark stylesheet, if any.
-    pub fn dark_style_sheet(&self) -> Option<String> {
-        let registry = self.dark_styles.borrow();
-        if registry.is_empty() {
+    /// Return the aggregated light+dark stylesheet, if any.
+    pub fn shared_style_sheet(&self) -> Option<String> {
+        let light_rules = self
+            .light_styles
+            .borrow()
+            .values()
+            .cloned()
+            .collect::<Vec<_>>();
+        let dark_rules = self
+            .dark_styles
+            .borrow()
+            .values()
+            .cloned()
+            .collect::<Vec<_>>();
+
+        if light_rules.is_empty() && dark_rules.is_empty() {
             None
         } else {
-            Some(registry.values().cloned().collect::<Vec<_>>().join("\n"))
+            Some(
+                light_rules
+                    .into_iter()
+                    .chain(dark_rules)
+                    .collect::<Vec<_>>()
+                    .join(""),
+            )
         }
     }
 

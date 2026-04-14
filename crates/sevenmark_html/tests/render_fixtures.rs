@@ -223,7 +223,20 @@ fn renders_toc_with_inline_heading_markup_and_without_media_widgets() {
         .select(&selector("span.sm-styled"))
         .next()
         .expect("expected styled heading content in TOC");
-    assert_eq!(styled.value().attr("style"), Some("color: red"));
+    let lk = styled
+        .value()
+        .attr("data-lk")
+        .expect("expected styled heading content in TOC to carry data-lk");
+    let sheet = doc
+        .select(&selector("style"))
+        .next()
+        .expect("expected shared stylesheet for TOC-styled heading");
+    assert!(
+        sheet
+            .inner_html()
+            .contains(&format!(r#"[data-lk="{lk}"]{{color: red"#)),
+        "expected shared stylesheet to contain the TOC light rule, got:\n{html}"
+    );
     assert_eq!(
         toc.select(&selector("br")).count(),
         0,
@@ -250,6 +263,37 @@ fn toc_without_headers_renders_nothing() {
         doc.select(&selector("details.sm-toc")).count(),
         0,
         "documents without headers should not emit a TOC container"
+    );
+}
+
+#[test]
+fn dedupes_identical_light_styles_into_one_shared_rule() {
+    let html = render_inline(r##"{{{ #color="#111" Alpha }}} {{{ #color="#111" Beta }}}"##);
+    let doc = Html::parse_fragment(&html);
+
+    let style = doc
+        .select(&selector("style"))
+        .next()
+        .expect("expected shared style tag");
+    let styled: Vec<_> = doc.select(&selector("span.sm-styled")).collect();
+    assert_eq!(styled.len(), 2, "expected two styled spans, got:\n{html}");
+
+    let first_lk = styled[0]
+        .value()
+        .attr("data-lk")
+        .expect("first styled element should have data-lk");
+    let second_lk = styled[1]
+        .value()
+        .attr("data-lk")
+        .expect("second styled element should have data-lk");
+    assert_eq!(
+        first_lk, second_lk,
+        "identical light styles should hash to the same data-lk, got:\n{html}"
+    );
+    assert_eq!(
+        style.inner_html().matches("[data-lk=").count(),
+        1,
+        "expected one deduped light rule in the shared stylesheet, got:\n{html}"
     );
 }
 
@@ -282,6 +326,29 @@ fn dedupes_identical_dark_styles_into_one_shared_rule() {
         style.inner_html().matches(".dark [data-dk=").count(),
         1,
         "expected one deduped dark rule in the shared stylesheet, got:\n{html}"
+    );
+}
+
+#[test]
+fn footnote_child_context_light_styles_flush_into_top_level_style() {
+    let html = render_inline(r##"Ref{{{#fn {{{ #color="#111" Note }}} }}}."##);
+    let doc = Html::parse_fragment(&html);
+
+    let footnote_span = doc
+        .select(&selector("section.sm-footnotes span.sm-styled"))
+        .next()
+        .expect("expected styled content inside rendered footnotes");
+    let lk = footnote_span
+        .value()
+        .attr("data-lk")
+        .expect("footnote child context should emit data-lk");
+    let style = doc
+        .select(&selector("style"))
+        .next()
+        .expect("expected shared stylesheet");
+    assert!(
+        style.inner_html().contains(&format!(r#"[data-lk="{lk}"]"#)),
+        "expected top-level stylesheet to include footnote-collected light rule, got:\n{html}"
     );
 }
 
