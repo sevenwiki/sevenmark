@@ -1,5 +1,8 @@
 //! Common rendering utilities
 
+use std::hash::{Hash, Hasher};
+
+use maud::{Markup, PreEscaped, html};
 use sevenmark_ast::{Element, Parameters};
 
 /// Extract plain text from elements
@@ -35,6 +38,28 @@ pub fn param_class(params: &Parameters) -> Option<String> {
     get_param(params, "class")
         .map(|s| s.trim().to_string())
         .filter(|s| !s.is_empty())
+}
+
+/// Build a `<style>.dark [data-dk="hash"] { … }</style>` tag for the given dark style.
+///
+/// The `data-dk` value is a hash of the CSS text, so identical dark styles share
+/// the same selector.  Returns `(None, empty markup)` when there is no dark style.
+pub fn dark_style_parts(dark_style: Option<String>) -> (Option<String>, Markup) {
+    match dark_style {
+        Some(ds) => {
+            let dk = dark_style_hash(&ds);
+            let rule = format!(".dark [data-dk=\"{dk}\"]{{{ds}}}");
+            let tag = html! { style { (PreEscaped(rule)) } };
+            (Some(dk), tag)
+        }
+        None => (None, html! {}),
+    }
+}
+
+fn dark_style_hash(css: &str) -> String {
+    let mut hasher = std::collections::hash_map::DefaultHasher::new();
+    css.hash(&mut hasher);
+    format!("{:x}", hasher.finish())
 }
 
 pub fn build_dark_style(params: &Parameters) -> Option<String> {

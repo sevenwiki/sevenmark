@@ -20,15 +20,16 @@ pub fn render(
     let style = utils::build_style(parameters);
     // Keep base renderer class and append optional user-defined #class.
     let merged_class = utils::merge_class(classes::STYLED, parameters);
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
 
     html! {
+        (dark_tag)
         span
             class=(merged_class)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
             style=[style]
-            data-dark-style=[dark_style]
+            data-dk=[dk]
         { (content) }
     }
 }
@@ -55,11 +56,6 @@ mod tests {
             .value()
             .attr("style")
             .expect("styled span should have style attribute");
-        let dark_style = styled
-            .value()
-            .attr("data-dark-style")
-            .expect("styled span should have dark style attribute");
-
         assert_eq!(
             style, "display: inline-block; color: red",
             "expected layout display and color to survive sanitization, got:\n{html}"
@@ -68,12 +64,12 @@ mod tests {
             !style.contains("position"),
             "expected overlay positioning to be removed, got:\n{html}"
         );
-        assert_eq!(
-            dark_style, "display: grid; color: #00f",
+        assert!(
+            html.contains("display: grid") && html.contains("color: #00f"),
             "expected allowed dark style fragments to survive sanitization, got:\n{html}"
         );
         assert!(
-            !dark_style.contains("z-index"),
+            !html.contains("z-index"),
             "expected z-index to be removed, got:\n{html}"
         );
     }
@@ -93,8 +89,8 @@ mod tests {
             "expected empty inline style attribute to be omitted, got:\n{html}"
         );
         assert!(
-            styled.value().attr("data-dark-style").is_none(),
-            "expected empty dark style attribute to be omitted, got:\n{html}"
+            !html.contains("data-dk"),
+            "expected no dark style tag when all dark properties are blocked, got:\n{html}"
         );
     }
 }

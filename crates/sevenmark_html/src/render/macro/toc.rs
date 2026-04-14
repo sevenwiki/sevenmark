@@ -135,10 +135,11 @@ fn render_styled_label(
 ) -> Markup {
     let merged_class = utils::merge_class(base_class, parameters);
     let style = utils::build_style(parameters);
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
 
     html! {
-        span class=(merged_class) style=[style] data-dark-style=[dark_style] {
+        (dark_tag)
+        span class=(merged_class) style=[style] data-dk=[dk] {
             (render_toc_label(children, ctx))
         }
     }
@@ -151,11 +152,12 @@ fn render_ruby_label(
 ) -> Markup {
     let class = utils::merge_class(classes::RUBY, parameters);
     let style = utils::build_style(parameters);
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
     let ruby_text = utils::get_param(parameters, "ruby").unwrap_or_default();
 
     html! {
-        ruby class=(class) style=[style] data-dark-style=[dark_style] {
+        (dark_tag)
+        ruby class=(class) style=[style] data-dk=[dk] {
             (render_toc_label(children, ctx))
             rt { (ruby_text) }
         }

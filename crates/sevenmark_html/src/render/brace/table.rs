@@ -34,7 +34,7 @@ pub fn render(
         .map(|w| sanitize::sanitize_inline_style(&format!("width:{}", w)))
         .filter(|s| !s.is_empty());
 
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
     let caption = utils::get_param(parameters, "caption");
     let sortable = parameters.contains_key("sortable");
 
@@ -66,6 +66,7 @@ pub fn render(
     }
 
     let content = html! {
+        (dark_tag)
         div
             class=(match wrapper_align_class {
                 Some(align_class) => format!("{} {}", classes::TABLE_WRAPPER, align_class),
@@ -78,7 +79,7 @@ pub fn render(
             table
                 class=(class)
                 style=[style]
-                data-dark-style=[dark_style]
+                data-dk=[dk]
                 data-sortable=[sortable.then_some("true")]
             {
                 @if let Some(cap) = caption {
@@ -107,10 +108,11 @@ pub fn render(
 fn render_row(row: &TableRowElement, ctx: &mut RenderContext, is_head: bool) -> Markup {
     let row_style = utils::build_style(&row.parameters);
     let row_class = utils::param_class(&row.parameters);
-    let row_dark_style = utils::build_dark_style(&row.parameters);
+    let (row_dk, row_dark_tag) = utils::dark_style_parts(utils::build_dark_style(&row.parameters));
 
     html! {
-        tr class=[row_class] style=[row_style] data-dark-style=[row_dark_style] {
+        (row_dark_tag)
+        tr class=[row_class] style=[row_style] data-dk=[row_dk] {
             (render_cells(&row.children, ctx, is_head))
         }
     }
@@ -125,13 +127,14 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                     @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
                     @let style = utils::build_style(&cell.parameters);
                     @let class = utils::param_class(&cell.parameters);
-                    @let dark_style = utils::build_dark_style(&cell.parameters);
+                    @let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&cell.parameters));
+                    (dark_tag)
                     @if is_head {
-                        th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dark-style=[dark_style] {
+                        th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
                             (render_elements(&cell.children, ctx))
                         }
                     } @else {
-                        td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dark-style=[dark_style] {
+                        td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
                             (render_elements(&cell.children, ctx))
                         }
                     }
@@ -142,13 +145,14 @@ fn render_cells(cells: &[TableCellItem], ctx: &mut RenderContext, is_head: bool)
                         @let rowspan = utils::extract_text(&cell.y).parse::<usize>().ok().filter(|&n| n > 1);
                         @let style = utils::build_style(&cell.parameters);
                         @let class = utils::param_class(&cell.parameters);
-                        @let dark_style = utils::build_dark_style(&cell.parameters);
+                        @let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&cell.parameters));
+                        (dark_tag)
                         @if is_head {
-                            th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dark-style=[dark_style] {
+                            th class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
                                 (render_elements(&cell.children, ctx))
                             }
                         } @else {
-                            td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dark-style=[dark_style] {
+                            td class=[class] colspan=[colspan] rowspan=[rowspan] style=[style] data-dk=[dk] {
                                 (render_elements(&cell.children, ctx))
                             }
                         }

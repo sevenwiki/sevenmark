@@ -19,15 +19,16 @@ pub fn render(
 
     let style = utils::build_style(parameters);
     let merged_class = utils::merge_class(classes::BLOCKQUOTE, parameters);
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
 
     html! {
+        (dark_tag)
         blockquote
             class=(merged_class)
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
             style=[style]
-            data-dark-style=[dark_style]
+            data-dk=[dk]
         { (content) }
     }
 }

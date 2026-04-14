@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.31.0] - 2026-04-14
+
+### Changed
+- **sevenmark_html**: Dark mode style parameters (`#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, `#dark-opacity`) are now rendered as a `<style>.dark [data-dk="…"]{ … }</style>` tag paired with a `data-dk` attribute on the element, replacing the previous `data-dark-style` data attribute approach. The `data-dk` value is a hash of the CSS text so identical dark styles share one selector. Dark mode switching is now handled entirely by CSS without requiring any JavaScript.
+
 ## [2.30.11] - 2026-04-14
 
 ### Added

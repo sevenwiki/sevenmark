@@ -16,7 +16,7 @@ pub fn render(
 ) -> Markup {
     ctx.enter_suppress_soft_breaks();
     let style = utils::build_style(parameters);
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
     let items = render_items(children, ctx);
     ctx.exit_suppress_soft_breaks();
     let is_ordered = !kind.is_empty();
@@ -29,13 +29,14 @@ pub fn render(
             parameters,
         );
         html! {
+            (dark_tag)
             ol
                 class=(merged_class)
                 data-start=[ctx.span_start(span)]
                 data-end=[ctx.span_end(span)]
                 type=[list_type]
                 style=[style]
-                data-dark-style=[dark_style]
+                data-dk=[dk]
             { (items) }
         }
     } else {
@@ -44,12 +45,13 @@ pub fn render(
             parameters,
         );
         html! {
+            (dark_tag)
             ul
                 class=(merged_class)
                 data-start=[ctx.span_start(span)]
                 data-end=[ctx.span_end(span)]
                 style=[style]
-                data-dark-style=[dark_style]
+                data-dk=[dk]
             { (items) }
         }
     }
@@ -62,15 +64,17 @@ fn render_items(items: &[ListContentItem], ctx: &mut RenderContext) -> Markup {
                 ListContentItem::Item(list_item) => {
                     @let style = utils::build_style(&list_item.parameters);
                     @let class = utils::param_class(&list_item.parameters);
-                    @let dark_style = utils::build_dark_style(&list_item.parameters);
-                    li class=[class] style=[style] data-dark-style=[dark_style] { (render_elements(&list_item.children, ctx)) }
+                    @let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&list_item.parameters));
+                    (dark_tag)
+                    li class=[class] style=[style] data-dk=[dk] { (render_elements(&list_item.children, ctx)) }
                 }
                 ListContentItem::Conditional(cond) => {
                     @for list_item in &cond.items {
                         @let style = utils::build_style(&list_item.parameters);
                         @let class = utils::param_class(&list_item.parameters);
-                        @let dark_style = utils::build_dark_style(&list_item.parameters);
-                        li class=[class] style=[style] data-dark-style=[dark_style] { (render_elements(&list_item.children, ctx)) }
+                        @let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&list_item.parameters));
+                        (dark_tag)
+                        li class=[class] style=[style] data-dk=[dk] { (render_elements(&list_item.children, ctx)) }
                     }
                 }
             }

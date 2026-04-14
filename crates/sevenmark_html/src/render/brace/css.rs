@@ -44,12 +44,13 @@ pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderC
     let merged_class = utils::merge_class(classes::CSS, parameters);
     let sanitized_css = super::super::sanitize::sanitize_css_block(value);
     let safe_css = sanitize_style_close_tag(&sanitized_css);
-    let dark_style = utils::build_dark_style(parameters);
+    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
 
     html! {
+        (dark_tag)
         style
             class=(merged_class)
-            data-dark-style=[dark_style]
+            data-dk=[dk]
         { (PreEscaped(safe_css)) }
     }
 }
