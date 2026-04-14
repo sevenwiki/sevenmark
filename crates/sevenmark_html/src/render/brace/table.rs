@@ -34,7 +34,6 @@ pub fn render(
         .map(|w| sanitize::sanitize_inline_style(&format!("width:{}", w)))
         .filter(|s| !s.is_empty());
 
-    let has_explicit_width = wrapper_width_style.is_some();
     let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
     let caption = utils::get_param(parameters, "caption");
     let sortable = parameters.contains_key("sortable");
@@ -78,7 +77,6 @@ pub fn render(
         {
             table
                 class=(class)
-                style=[has_explicit_width.then_some("width:100%")]
                 data-lk=[lk]
                 data-dk=[dk]
                 data-sortable=[sortable.then_some("true")]

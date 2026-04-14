@@ -146,10 +146,6 @@ pub fn render(
         utils::extract_text(children)
     };
 
-    let aspect_ratio = image_width
-        .zip(image_height)
-        .map(|(w, h)| format!("aspect-ratio:{w}/{h}"));
-
     // 이미지가 있는 경우
     if let Some(src) = image_src {
         if let Some(ref link) = href {
@@ -171,7 +167,7 @@ pub fn render(
                     data-theme=[theme.as_deref()]
                 {
                     @if image_valid {
-                        img class=(classes::MEDIA_IMAGE) style=[aspect_ratio.as_deref()] src=(src) alt=(img_alt) loading="lazy";
+                        img class=(classes::MEDIA_IMAGE) src=(src) width=[image_width] height=[image_height] alt=(img_alt) loading="lazy";
                     } @else {
                         span class=(classes::MEDIA_IMAGE_BROKEN) {}
                     }
@@ -184,10 +180,11 @@ pub fn render(
                 @if image_valid {
                     img
                         class=(img_class)
-                        style=[aspect_ratio.as_deref()]
                         data-start=[data_start]
                         data-end=[data_end]
                         src=(src)
+                        width=[image_width]
+                        height=[image_height]
                         alt=(img_alt)
                         loading="lazy"
                         data-lk=[lk]
