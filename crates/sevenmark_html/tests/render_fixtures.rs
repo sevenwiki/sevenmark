@@ -232,7 +232,9 @@ fn renders_toc_with_inline_heading_markup_and_without_media_widgets() {
         .next()
         .expect("expected shared stylesheet for TOC-styled heading");
     assert!(
-        sheet.inner_html().contains(&format!(r#"[data-lk="{lk}"]{{color: red"#)),
+        sheet
+            .inner_html()
+            .contains(&format!(r#"[data-lk="{lk}"]{{color: red"#)),
         "expected shared stylesheet to contain the TOC light rule, got:\n{html}"
     );
     assert_eq!(
