@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.3] - 2026-04-14
+
+### Fixed
+- **sevenmark_html**: Table elements with an explicit `#width` parameter now emit `style="width:100%"` on the inner `<table>` element so that it fills the fixed-width wrapper div. Without this, `width: 100%` on cell content (e.g. images) had no definite containing block to resolve against in CSS auto table layout. Tables without `#width` continue to shrink-wrap to their content.
+
 ## [2.32.2] - 2026-04-14
 
 ### Changed
