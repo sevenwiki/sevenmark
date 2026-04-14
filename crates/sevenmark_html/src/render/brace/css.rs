@@ -24,7 +24,7 @@ pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderC
 
 #[cfg(test)]
 mod tests {
-    use super::sanitize_style_close_tag;
+    use crate::render::sanitize::escape_style_close_tag;
     use crate::test_support::{parse_fragment, render_html, selector};
 
     fn count_occurrences(haystack: &str, needle: &str) -> usize {
@@ -34,7 +34,7 @@ mod tests {
     #[test]
     fn sanitizes_case_insensitive_style_close_tag() {
         assert_eq!(
-            sanitize_style_close_tag("a</sTyle>b"),
+            escape_style_close_tag("a</sTyle>b"),
             "a<\\/sTyle>b".to_string()
         );
     }
@@ -42,7 +42,7 @@ mod tests {
     #[test]
     fn sanitizes_style_close_tag_with_whitespace() {
         assert_eq!(
-            sanitize_style_close_tag("a</STYLE   >b"),
+            escape_style_close_tag("a</STYLE   >b"),
             "a<\\/STYLE   >b".to_string()
         );
     }
@@ -50,7 +50,7 @@ mod tests {
     #[test]
     fn sanitizes_style_close_tag_with_attributes() {
         assert_eq!(
-            sanitize_style_close_tag("a</style foo=bar>b"),
+            escape_style_close_tag("a</style foo=bar>b"),
             "a<\\/style foo=bar>b".to_string()
         );
     }
@@ -58,7 +58,7 @@ mod tests {
     #[test]
     fn does_not_sanitize_style_prefix_of_longer_tag_name() {
         assert_eq!(
-            sanitize_style_close_tag("a</stylex>b"),
+            escape_style_close_tag("a</stylex>b"),
             "a</stylex>b".to_string()
         );
     }
@@ -66,7 +66,7 @@ mod tests {
     #[test]
     fn does_not_sanitize_hyphenated_tag_name() {
         assert_eq!(
-            sanitize_style_close_tag("a</style-foo>b"),
+            escape_style_close_tag("a</style-foo>b"),
             "a</style-foo>b".to_string()
         );
     }
