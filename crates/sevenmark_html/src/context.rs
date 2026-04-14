@@ -150,7 +150,7 @@ impl<'a> RenderContext<'a> {
                     .into_iter()
                     .chain(dark_rules)
                     .collect::<Vec<_>>()
-                    .join("\n"),
+                    .join(""),
             )
         }
     }
