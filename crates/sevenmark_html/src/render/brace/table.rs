@@ -220,4 +220,96 @@ mod tests {
             "alignment class should stay on the wrapper, not the table, got:\n{html}"
         );
     }
+
+    #[test]
+    fn width_parameter_applies_to_wrapper_not_table() {
+        let input = r#"{{{#table #width="400px"
+[[[[Cell]]]]
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        let wrapper = doc
+            .select(&selector("div.sm-table-wrapper"))
+            .next()
+            .expect("expected wrapper div");
+        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
+        assert!(
+            wrapper_style.contains("width"),
+            "expected width on the wrapper style, got:\n{html}"
+        );
+
+        let table = doc
+            .select(&selector("table.sm-table"))
+            .next()
+            .expect("expected table");
+        let table_style = table.value().attr("style").unwrap_or("");
+        assert!(
+            !table_style.contains("400px"),
+            "width value should not appear on the inner table style, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn width_parameter_strips_var_function() {
+        // var() is blocked by the sanitizer's security scan.
+        let input = r#"{{{#table #width="var(--custom)"
+[[[[Cell]]]]
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        let wrapper = doc
+            .select(&selector("div.sm-table-wrapper"))
+            .next()
+            .expect("expected wrapper div");
+        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
+        assert!(
+            !wrapper_style.contains("var("),
+            "var() in #width should be stripped by the sanitizer, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn width_parameter_strips_expression_function() {
+        // expression() is an IE-era CSS injection vector and is blocked by the sanitizer.
+        let input = r#"{{{#table #width="expression(alert(1))"
+[[[[Cell]]]]
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        let wrapper = doc
+            .select(&selector("div.sm-table-wrapper"))
+            .next()
+            .expect("expected wrapper div");
+        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
+        assert!(
+            !wrapper_style.contains("expression("),
+            "expression() in #width should be stripped by the sanitizer, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn width_and_align_together_on_wrapper() {
+        let input = r#"{{{#table #align="right" #width="400px"
+[[[[Cell]]]]
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        let wrapper = doc
+            .select(&selector("div.sm-table-wrapper.sm-table-align-right"))
+            .next()
+            .expect("expected right-aligned wrapper div");
+        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
+        assert!(
+            wrapper_style.contains("width"),
+            "expected width on the wrapper style when #align and #width are combined, got:\n{html}"
+        );
+    }
 }
