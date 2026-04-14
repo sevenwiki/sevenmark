@@ -389,6 +389,7 @@ impl Traversable for Element {
             | Element::Comment(_)
             | Element::Escape(_)
             | Element::Error(_)
+            | Element::Css(_)
             | Element::TeX(_)
             | Element::Literal(_)
             | Element::Category(_)
