@@ -7,7 +7,12 @@ use crate::classes;
 use crate::context::RenderContext;
 use crate::render::utils;
 
-pub fn render(span: &Span, parameters: &Parameters, value: &str, ctx: &mut RenderContext) -> Markup {
+pub fn render(
+    span: &Span,
+    parameters: &Parameters,
+    value: &str,
+    ctx: &mut RenderContext,
+) -> Markup {
     let lang = utils::get_param(parameters, "lang");
     let style = utils::build_style(parameters);
     let merged_class = utils::merge_class(classes::CODE, parameters);

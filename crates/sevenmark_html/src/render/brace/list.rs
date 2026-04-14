@@ -77,4 +77,3 @@ fn render_items(items: &[ListContentItem], ctx: &mut RenderContext) -> Markup {
         }
     }
 }
-

@@ -6,11 +6,7 @@ use crate::context::RenderContext;
 
 use super::super::sanitize::escape_style_close_tag;
 
-pub fn render(
-    _span: &Span,
-    value: &str,
-    _ctx: &RenderContext,
-) -> Markup {
+pub fn render(_span: &Span, value: &str, _ctx: &RenderContext) -> Markup {
     let sanitized_css = super::super::sanitize::sanitize_css_block(value);
     let safe_css = escape_style_close_tag(&sanitized_css);
 
@@ -84,7 +80,11 @@ body { color: blue; }
             .next()
             .expect("expected style element");
 
-        assert_eq!(style.value().name(), "style", "expected style element in output, got:\n{html}");
+        assert_eq!(
+            style.value().name(),
+            "style",
+            "expected style element in output, got:\n{html}"
+        );
         assert!(
             style.value().attr("data-start").is_none(),
             "expected non-visual style tags to omit span offsets, got:\n{html}"
@@ -130,7 +130,11 @@ body { color: blue; }
         let html = render_html(input);
         let doc = parse_fragment(&html);
         let styles = doc.select(&selector("style")).collect::<Vec<_>>();
-        assert_eq!(styles.len(), 1, "expected only the authored css style tag, got:\n{html}");
+        assert_eq!(
+            styles.len(),
+            1,
+            "expected only the authored css style tag, got:\n{html}"
+        );
 
         let style = styles[0].value();
         assert_eq!(style.attr("class"), Some("sm-css"));

@@ -944,7 +944,10 @@ mod tests {
     #[test]
     fn brace_css_has_no_parameter_completions() {
         let c = completions("{{{#css #");
-        assert!(c.is_empty(), "css blocks should not offer parameter completions: {c:?}");
+        assert!(
+            c.is_empty(),
+            "css blocks should not offer parameter completions: {c:?}"
+        );
     }
 
     #[test]

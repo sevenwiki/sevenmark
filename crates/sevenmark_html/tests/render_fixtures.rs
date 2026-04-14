@@ -255,9 +255,8 @@ fn toc_without_headers_renders_nothing() {
 
 #[test]
 fn dedupes_identical_dark_styles_into_one_shared_rule() {
-    let html = render_inline(
-        r##"{{{ #dark-color="#eee" Alpha }}} {{{ #dark-color="#eee" Beta }}}"##,
-    );
+    let html =
+        render_inline(r##"{{{ #dark-color="#eee" Alpha }}} {{{ #dark-color="#eee" Beta }}}"##);
     let doc = Html::parse_fragment(&html);
 
     let style = doc
@@ -319,8 +318,10 @@ fn table_dark_styles_do_not_inject_style_nodes_into_structure() {
     let doc = Html::parse_fragment(&html);
 
     assert_eq!(
-        doc.select(&selector("table style, thead style, tbody style, tr style, td style, th style"))
-            .count(),
+        doc.select(&selector(
+            "table style, thead style, tbody style, tr style, td style, th style"
+        ))
+        .count(),
         0,
         "shared dark stylesheet must stay outside table structure, got:\n{html}"
     );

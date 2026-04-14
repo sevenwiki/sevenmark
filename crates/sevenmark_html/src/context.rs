@@ -104,7 +104,10 @@ impl<'a> RenderContext<'a> {
     pub fn add_dark_style(&mut self, dark_style: Option<String>) -> Option<String> {
         let dark_style = dark_style?;
         let (dk, rule) = crate::render::utils::build_dark_style_rule(&dark_style);
-        self.dark_styles.borrow_mut().entry(dk.clone()).or_insert(rule);
+        self.dark_styles
+            .borrow_mut()
+            .entry(dk.clone())
+            .or_insert(rule);
         Some(dk)
     }
 
