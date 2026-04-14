@@ -5,7 +5,7 @@ use sevenmark_ast::{Parameters, Span, TableCellItem, TableRowElement, TableRowIt
 
 use crate::classes;
 use crate::context::RenderContext;
-use crate::render::{render_elements, utils};
+use crate::render::{render_elements, sanitize, utils};
 
 pub fn render(
     span: &Span,
@@ -26,6 +26,14 @@ pub fn render(
         Some("right") => Some(classes::TABLE_ALIGN_RIGHT),
         _ => None,
     };
+
+    // `#width` mirrors namuWiki's `<tablewidth=N>`: the value goes on the wrapper div
+    // (so float and width live on the same element).  The inner table fills the
+    // wrapper via CSS (`.sm-table { width: 100% }`).
+    let wrapper_width_style = utils::get_param(parameters, "width")
+        .map(|w| sanitize::sanitize_inline_style(&format!("width:{}", w)))
+        .filter(|s| !s.is_empty());
+
     let dark_style = utils::build_dark_style(parameters);
     let caption = utils::get_param(parameters, "caption");
     let sortable = parameters.contains_key("sortable");
@@ -63,6 +71,7 @@ pub fn render(
                 Some(align_class) => format!("{} {}", classes::TABLE_WRAPPER, align_class),
                 None => classes::TABLE_WRAPPER.to_string(),
             })
+            style=[wrapper_width_style]
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
         {

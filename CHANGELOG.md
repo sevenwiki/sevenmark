@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.10] - 2026-04-14
+
+### Added
+- **sevenmark_html**: Table elements now support `#width="<value>"`, which applies the width to `div.sm-table-wrapper`. the inner `<table>` fills the wrapper via CSS so that `#align` and `#width` together produce a correctly floated, size-constrained table block
+
 ## [2.30.9] - 2026-04-13
 
 ### Fixed
