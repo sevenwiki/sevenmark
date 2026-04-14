@@ -520,9 +520,6 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
             ("dark-size", "Dark mode font size", false),
             ("dark-opacity", "Dark mode opacity", false),
         ],
-        "css" => &[
-            ("class", "CSS classes", false),
-        ],
         "table" => &[
             ("caption", "Table caption", false),
             (
@@ -945,14 +942,9 @@ mod tests {
     }
 
     #[test]
-    fn brace_css_params_do_not_include_dark_overrides() {
+    fn brace_css_has_no_parameter_completions() {
         let c = completions("{{{#css #");
-        let l = labels(&c);
-        assert!(l.contains(&"class"));
-        assert!(
-            !l.contains(&"dark-style"),
-            "css completions should not suggest dark-style overrides"
-        );
+        assert!(c.is_empty(), "css blocks should not offer parameter completions: {c:?}");
     }
 
     #[test]

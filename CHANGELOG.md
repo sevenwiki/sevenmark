@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **sevenmark_html**: Dark mode style parameters (`#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, `#dark-opacity`) now register hash-keyed shared rules in a document-level stylesheet instead of emitting scattered sibling `<style>` tags next to each element. The `data-dk` value is derived from the sanitized dark CSS text so identical dark styles dedupe automatically, and child render contexts such as TOC/footnotes share the same registry.
+- **sevenmark_parser/sevenmark_formatter/sevenmark_lsp_core**: `{{{#css}}}` no longer accepts parameters. Any text after `#css` is treated as raw stylesheet content, formatter no longer emits `#css` parameters, and completions no longer suggest them.
 - **sevenmark_html**: `{{{#css}}}` no longer consumes `#dark-*` parameters or emits `data-dk`; dark-mode behavior for raw CSS blocks must be authored directly in the stylesheet with selectors such as `.dark ...` or `@media (prefers-color-scheme: dark)`.
 
 ## [2.30.11] - 2026-04-14

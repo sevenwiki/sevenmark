@@ -126,10 +126,10 @@ Again{{{#fn #name="api-limit" Shared note. }}}.
 Common parameters include:
 
 - `#lang` on `{{{#code}}}` for syntax highlighting
-- `#class` on `{{{#code}}}` and `{{{#css}}}`
+- `#class` on `{{{#code}}}`
 - `#dark-*` on visual renderers such as `{{{#code}}}` to populate shared dark-mode styling rules
 
-`{{{#css}}}` does not consume `#dark-*`; write dark-mode selectors directly in the authored stylesheet.
+`{{{#css}}}` does not accept parameters; write dark-mode selectors directly in the authored stylesheet.
 
 ```sevenmark
 {{{#code #lang="rust" #class="example" #dark-bgcolor="#111" #dark-color="#eee"

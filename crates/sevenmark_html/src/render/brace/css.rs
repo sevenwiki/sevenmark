@@ -1,20 +1,22 @@
 use maud::{Markup, PreEscaped, html};
-use sevenmark_ast::{Parameters, Span};
+use sevenmark_ast::Span;
 
 use crate::classes;
 use crate::context::RenderContext;
-use crate::render::utils;
 
 use super::super::sanitize::escape_style_close_tag;
 
-pub fn render(_span: &Span, parameters: &Parameters, value: &str, _ctx: &RenderContext) -> Markup {
-    let merged_class = utils::merge_class(classes::CSS, parameters);
+pub fn render(
+    _span: &Span,
+    value: &str,
+    _ctx: &RenderContext,
+) -> Markup {
     let sanitized_css = super::super::sanitize::sanitize_css_block(value);
     let safe_css = escape_style_close_tag(&sanitized_css);
 
     html! {
         style
-            class=(merged_class)
+            class=(classes::CSS)
         { (PreEscaped(safe_css)) }
     }
 }
@@ -121,7 +123,7 @@ body { color: blue; }
 
     #[test]
     fn css_blocks_do_not_emit_data_dk_or_shared_dark_style_rules() {
-        let input = r#"{{{#css #class="theme" #dark-style="color:#eee"
+        let input = r#"{{{#css
 .card { color: red; }
 }}}"#;
 
@@ -131,7 +133,7 @@ body { color: blue; }
         assert_eq!(styles.len(), 1, "expected only the authored css style tag, got:\n{html}");
 
         let style = styles[0].value();
-        assert_eq!(style.attr("class"), Some("sm-css theme"));
+        assert_eq!(style.attr("class"), Some("sm-css"));
         assert!(
             style.attr("data-dk").is_none(),
             "css blocks must not emit data-dk, got:\n{html}"

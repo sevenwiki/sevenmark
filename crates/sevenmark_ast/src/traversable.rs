@@ -448,11 +448,6 @@ impl Traversable for Element {
                     f(&mut parameter.value);
                 }
             }
-            Element::Css(e) => {
-                for parameter in e.parameters.values_mut() {
-                    f(&mut parameter.value);
-                }
-            }
             Element::Include(e) => {
                 for parameter in e.parameters.values_mut() {
                     f(&mut parameter.value);

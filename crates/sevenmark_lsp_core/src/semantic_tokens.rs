@@ -467,7 +467,6 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
         Element::Ruby(e) => walk_parameters(&e.parameters, raw),
         Element::Footnote(e) => walk_parameters(&e.parameters, raw),
         Element::Code(e) => walk_parameters(&e.parameters, raw),
-        Element::Css(e) => walk_parameters(&e.parameters, raw),
         Element::Include(e) => walk_parameters(&e.parameters, raw),
         Element::Redirect(e) => walk_parameters(&e.parameters, raw),
         Element::Media(e) => walk_parameters(&e.parameters, raw),
@@ -482,6 +481,7 @@ fn walk_element_parameters(element: &Element, raw: &mut Vec<(usize, usize, u32)>
         | Element::Error(_)
         | Element::Literal(_)
         | Element::TeX(_)
+        | Element::Css(_)
         | Element::Null(_)
         | Element::FootnoteRef(_)
         | Element::TimeNow(_)

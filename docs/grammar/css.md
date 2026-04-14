@@ -18,15 +18,9 @@ SevenMark supports raw CSS blocks with `{{{#css ... }}}`.
 
 ## Parameters
 
-`#css` accepts `#class`.
+`#css` does not accept parameters. Write raw stylesheet content directly after `#css`.
 
-```sevenmark
-{{{#css #class="global-theme"
-.label { color: #333; }
-}}}
-```
-
-`#css` does not consume `#dark-*` parameters. For dark-mode CSS, author it directly in the stylesheet with selectors such as `.dark .label { ... }` or with `@media (prefers-color-scheme: dark) { ... }`.
+For dark-mode CSS, author it directly in the stylesheet with selectors such as `.dark .label { ... }` or with `@media (prefers-color-scheme: dark) { ... }`.
 
 ## Raw Close Rules
 
