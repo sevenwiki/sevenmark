@@ -85,10 +85,7 @@ body { color: blue; }
             .next()
             .expect("expected style element");
 
-        assert!(
-            style.value().name() == "style",
-            "expected style element in output, got:\n{html}"
-        );
+        assert_eq!(style.value().name(), "style", "expected style element in output, got:\n{html}");
         assert!(
             style.value().attr("data-start").is_none(),
             "expected non-visual style tags to omit span offsets, got:\n{html}"
