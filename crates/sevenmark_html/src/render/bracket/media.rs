@@ -139,10 +139,11 @@ pub fn render(
         .map(|s| s.trim().to_lowercase())
         .filter(|s| s == "light" || s == "dark");
 
-    let caption = if children.is_empty() {
-        None
+    // 이미지가 있는 경우: children은 alt 텍스트로만 사용
+    let img_alt = if children.is_empty() {
+        alt_text
     } else {
-        Some(render_elements(children, ctx))
+        utils::extract_text(children)
     };
 
     // 이미지가 있는 경우
@@ -165,48 +166,51 @@ pub fn render(
                     data-dk=[dk]
                     data-theme=[theme.as_deref()]
                 {
-                    figure class=(classes::MEDIA_IMAGE) {
-                        @if image_valid {
-                            img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
-                        } @else {
-                            span class=(classes::MEDIA_IMAGE_BROKEN) {}
-                        }
-                        @if let Some(cap) = caption {
-                            figcaption { (cap) }
-                        }
+                    @if image_valid {
+                        img class=(classes::MEDIA_IMAGE) src=(src) width=[image_width] height=[image_height] alt=(img_alt) loading="lazy";
+                    } @else {
+                        span class=(classes::MEDIA_IMAGE_BROKEN) {}
                     }
                 }
             }
         } else {
             // 이미지만
+            let img_class = utils::merge_class(classes::MEDIA_IMAGE, parameters);
             html! {
-                figure
-                    class=(utils::merge_class(classes::MEDIA_IMAGE, parameters))
-                    data-start=[data_start]
-                    data-end=[data_end]
-                    data-lk=[lk]
-                    data-dk=[dk]
-                    data-theme=[theme.as_deref()]
-                {
-                    @if image_valid {
-                        img src=(src) width=[image_width] height=[image_height] alt=(alt_text) loading="lazy";
-                    } @else {
-                        span class=(classes::MEDIA_IMAGE_BROKEN) {}
-                    }
-                    @if let Some(cap) = caption {
-                        figcaption { (cap) }
-                    }
+                @if image_valid {
+                    img
+                        class=(img_class)
+                        data-start=[data_start]
+                        data-end=[data_end]
+                        src=(src)
+                        width=[image_width]
+                        height=[image_height]
+                        alt=(img_alt)
+                        loading="lazy"
+                        data-lk=[lk]
+                        data-dk=[dk]
+                        data-theme=[theme.as_deref()];
+                } @else {
+                    span
+                        class=(utils::merge_class(classes::MEDIA_IMAGE_BROKEN, parameters))
+                        data-start=[data_start]
+                        data-end=[data_end]
+                        data-lk=[lk]
+                        data-dk=[dk]
+                        data-theme=[theme.as_deref()]
+                    {}
                 }
             }
         }
     } else if let Some(ref link) = href {
-        // 링크만 (이미지 없음)
+        // 링크만 (이미지 없음): children은 링크 레이블로 렌더링
         let link_class = if href_valid {
             classes::MEDIA_LINK
         } else {
             classes::MEDIA_LINK_INVALID
         };
         let link_class = utils::merge_class(link_class, parameters);
+        let label = render_elements(children, ctx);
         html! {
             a
                 class=(link_class)
@@ -217,10 +221,10 @@ pub fn render(
                 data-dk=[dk]
                 data-theme=[theme.as_deref()]
             {
-                @if let Some(cap) = caption {
-                    (cap)
-                } @else {
+                @if children.is_empty() {
                     (link)
+                } @else {
+                    (label)
                 }
             }
         }

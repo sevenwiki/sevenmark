@@ -145,13 +145,7 @@ impl<'a> RenderContext<'a> {
         if light_rules.is_empty() && dark_rules.is_empty() {
             None
         } else {
-            Some(
-                light_rules
-                    .into_iter()
-                    .chain(dark_rules)
-                    .collect::<Vec<_>>()
-                    .join(""),
-            )
+            Some(light_rules.join("") + &dark_rules.join(""))
         }
     }
 

@@ -39,24 +39,26 @@ pub fn param_class(params: &Parameters) -> Option<String> {
         .filter(|s| !s.is_empty())
 }
 
-/// Build the shared light-mode CSS rule for a sanitized inline-style payload.
+/// Build a shared CSS rule for a sanitized style payload.
 ///
-/// The returned tuple is `(data_lk_hash, css_rule)`.
-pub fn build_light_style_rule(light_style: &str) -> (String, String) {
-    let lk = style_hash(light_style);
-    let escaped = super::sanitize::escape_style_close_tag(light_style);
-    let rule = format!("[data-lk=\"{lk}\"]{{{escaped}}}");
-    (lk, rule)
+/// `selector_prefix` is prepended before the attribute selector, e.g. `""` for
+/// light mode (`[data-lk="..."]`) or `".dark "` for dark mode
+/// (`.dark [data-dk="..."]`).  Returns `(hash, css_rule)`.
+fn build_style_rule(css: &str, attr: &str, selector_prefix: &str) -> (String, String) {
+    let hash = style_hash(css);
+    let escaped = super::sanitize::escape_style_close_tag(css);
+    let rule = format!("{selector_prefix}[{attr}=\"{hash}\"]{{{escaped}}}");
+    (hash, rule)
 }
 
-/// Build the shared dark-mode CSS rule for a sanitized inline-style payload.
-///
-/// The returned tuple is `(data_dk_hash, css_rule)`.
-pub fn build_dark_style_rule(dark_style: &str) -> (String, String) {
-    let dk = style_hash(dark_style);
-    let escaped = super::sanitize::escape_style_close_tag(dark_style);
-    let rule = format!(".dark [data-dk=\"{dk}\"]{{{escaped}}}");
-    (dk, rule)
+/// Build the shared light-mode CSS rule. Returns `(data_lk_hash, css_rule)`.
+pub fn build_light_style_rule(css: &str) -> (String, String) {
+    build_style_rule(css, "data-lk", "")
+}
+
+/// Build the shared dark-mode CSS rule. Returns `(data_dk_hash, css_rule)`.
+pub fn build_dark_style_rule(css: &str) -> (String, String) {
+    build_style_rule(css, "data-dk", ".dark ")
 }
 
 fn style_hash(css: &str) -> String {

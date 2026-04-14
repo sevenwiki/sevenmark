@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.1] - 2026-04-14
+
+### Changed
+- **sevenmark_html**: Media elements (`[[...]]`) no longer render a `<figure>`/`<figcaption>` wrapper. When an image is present, inline children are extracted as plain text and used as the `alt` attribute; for link-only media the children continue to render as rich markup for the link label. `sm-image` is now applied directly to the `<img>` element.
+
+### Fixed
+- **sevenmark_html**: `build_light_style_rule` and `build_dark_style_rule` are now backed by a single shared helper, eliminating duplicated rule-building logic.
+
 ## [2.32.0] - 2026-04-14
 
 ### Changed
