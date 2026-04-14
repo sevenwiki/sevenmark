@@ -531,6 +531,7 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
                 "Table wrapper alignment (left/center/right)",
                 false,
             ),
+            ("width", "Table wrapper width (e.g. 400px)", false),
             ("sortable", "Enable column sorting", true),
             ("style", "CSS style", false),
             ("class", "CSS classes", false),
@@ -798,10 +799,11 @@ mod tests {
     }
 
     #[test]
-    fn table_brace_params_include_align() {
+    fn table_brace_params_include_align_and_width() {
         let c = completions("{{{#table #");
         let l = labels(&c);
         assert!(l.contains(&"align"));
+        assert!(l.contains(&"width"));
         assert!(l.contains(&"caption"));
         assert!(l.contains(&"sortable"));
     }
