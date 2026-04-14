@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.31.0] - 2026-04-14
 
 ### Changed
-- **sevenmark_html**: Dark mode style parameters (`#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, `#dark-opacity`) are now rendered as a `<style>.dark [data-dk="…"]{ … }</style>` tag paired with a `data-dk` attribute on the element, replacing the previous `data-dark-style` data attribute approach. The `data-dk` value is a hash of the CSS text so identical dark styles share one selector. Dark mode switching is now handled entirely by CSS without requiring any JavaScript.
+- **sevenmark_html**: Dark mode style parameters (`#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, `#dark-opacity`) now register hash-keyed shared rules in a document-level stylesheet instead of emitting scattered sibling `<style>` tags next to each element. The `data-dk` value is derived from the sanitized dark CSS text so identical dark styles dedupe automatically, and child render contexts such as TOC/footnotes share the same registry.
+- **sevenmark_html**: `{{{#css}}}` no longer consumes `#dark-*` parameters or emits `data-dk`; dark-mode behavior for raw CSS blocks must be authored directly in the stylesheet with selectors such as `.dark ...` or `@media (prefers-color-scheme: dark)`.
 
 ## [2.30.11] - 2026-04-14
 

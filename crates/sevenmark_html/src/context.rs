@@ -1,6 +1,8 @@
 //! Rendering context for footnote tracking
 
-use std::collections::HashMap;
+use std::cell::RefCell;
+use std::collections::{BTreeMap, HashMap};
+use std::rc::Rc;
 
 use sevenmark_ast::Element;
 use sevenmark_utils::Utf16OffsetConverter;
@@ -20,7 +22,7 @@ pub struct FootnoteEntry {
     pub content: Vec<Element>,
 }
 
-/// Simple rendering context - only tracks footnotes
+/// Rendering context shared across document and child renders.
 pub struct RenderContext<'a> {
     /// Collected footnotes (rendered at document end)
     pub footnotes: Vec<FootnoteEntry>,
@@ -39,6 +41,8 @@ pub struct RenderContext<'a> {
     pub converter: Option<&'a Utf16OffsetConverter>,
     /// Pre-rendered table-of-contents markup reused by [toc]
     pub toc_markup: Option<String>,
+    /// Shared dark-style registry flushed once at document top level
+    pub dark_styles: Rc<RefCell<BTreeMap<String, String>>>,
 }
 
 impl<'a> RenderContext<'a> {
@@ -53,6 +57,7 @@ impl<'a> RenderContext<'a> {
             config,
             converter: None,
             toc_markup: None,
+            dark_styles: Rc::new(RefCell::new(BTreeMap::new())),
         }
     }
 
@@ -70,6 +75,7 @@ impl<'a> RenderContext<'a> {
             config,
             converter: Some(converter),
             toc_markup: None,
+            dark_styles: Rc::new(RefCell::new(BTreeMap::new())),
         }
     }
 
@@ -85,12 +91,31 @@ impl<'a> RenderContext<'a> {
             config: self.config,
             converter: self.converter,
             toc_markup: self.toc_markup.clone(),
+            dark_styles: Rc::clone(&self.dark_styles),
         }
     }
 
     /// Store pre-rendered table-of-contents markup for [toc] macros.
     pub fn set_toc_markup(&mut self, toc_markup: Option<String>) {
         self.toc_markup = toc_markup;
+    }
+
+    /// Register a sanitized dark-style payload and return its `data-dk` hash.
+    pub fn add_dark_style(&mut self, dark_style: Option<String>) -> Option<String> {
+        let dark_style = dark_style?;
+        let (dk, rule) = crate::render::utils::build_dark_style_rule(&dark_style);
+        self.dark_styles.borrow_mut().entry(dk.clone()).or_insert(rule);
+        Some(dk)
+    }
+
+    /// Return the aggregated dark stylesheet, if any.
+    pub fn dark_style_sheet(&self) -> Option<String> {
+        let registry = self.dark_styles.borrow();
+        if registry.is_empty() {
+            None
+        } else {
+            Some(registry.values().cloned().collect::<Vec<_>>().join("\n"))
+        }
     }
 
     /// Enter a context that suppresses SoftBreak rendering

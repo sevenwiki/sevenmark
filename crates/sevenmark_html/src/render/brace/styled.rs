@@ -20,10 +20,9 @@ pub fn render(
     let style = utils::build_style(parameters);
     // Keep base renderer class and append optional user-defined #class.
     let merged_class = utils::merge_class(classes::STYLED, parameters);
-    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
-        (dark_tag)
         span
             class=(merged_class)
             data-start=[ctx.span_start(span)]

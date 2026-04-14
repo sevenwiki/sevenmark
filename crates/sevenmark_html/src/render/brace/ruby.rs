@@ -20,10 +20,9 @@ pub fn render(
     let ruby_text = utils::get_param(parameters, "ruby").unwrap_or_default();
     let style = utils::build_style(parameters);
     let class = utils::merge_class(classes::RUBY, parameters);
-    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
-        (dark_tag)
         ruby
             class=(class)
             data-start=[ctx.span_start(span)]

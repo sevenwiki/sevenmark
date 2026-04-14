@@ -2,7 +2,6 @@
 
 use std::hash::{Hash, Hasher};
 
-use maud::{Markup, PreEscaped, html};
 use sevenmark_ast::{Element, Parameters};
 
 /// Extract plain text from elements
@@ -40,24 +39,17 @@ pub fn param_class(params: &Parameters) -> Option<String> {
         .filter(|s| !s.is_empty())
 }
 
-/// Build a `<style>.dark [data-dk="hash"] { … }</style>` tag for the given dark style.
+/// Build the shared dark-mode CSS rule for a sanitized inline-style payload.
 ///
-/// The `data-dk` value is a hash of the CSS text, so identical dark styles share
-/// the same selector.  Every declaration is strengthened with `!important` so it
-/// overrides any inline `style` attribute on the same element.
-/// Returns `(None, empty markup)` when there is no dark style.
-pub fn dark_style_parts(dark_style: Option<String>) -> (Option<String>, Markup) {
-    match dark_style {
-        Some(ds) => {
-            let dk = dark_style_hash(&ds);
-            let important = add_important(&ds);
-            let escaped = super::sanitize::escape_style_close_tag(&important);
-            let rule = format!(".dark [data-dk=\"{dk}\"]{{{escaped}}}");
-            let tag = html! { style { (PreEscaped(rule)) } };
-            (Some(dk), tag)
-        }
-        None => (None, html! {}),
-    }
+/// The returned tuple is `(data_dk_hash, css_rule)`. Every declaration is
+/// strengthened with `!important` so it overrides inline `style` on the same
+/// element.
+pub fn build_dark_style_rule(dark_style: &str) -> (String, String) {
+    let dk = dark_style_hash(dark_style);
+    let important = add_important(dark_style);
+    let escaped = super::sanitize::escape_style_close_tag(&important);
+    let rule = format!(".dark [data-dk=\"{dk}\"]{{{escaped}}}");
+    (dk, rule)
 }
 
 fn dark_style_hash(css: &str) -> String {

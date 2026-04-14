@@ -59,7 +59,7 @@ pub fn render(
     let data_start = ctx.span_start(span);
     let data_end = ctx.span_end(span);
     let style = utils::build_style(parameters);
-    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     // 파일 정보 추출 (URL, 유효성, 크기)
     let file_info = resolved_info.and_then(|r| r.file.as_ref());
@@ -156,7 +156,6 @@ pub fn render(
             };
             let link_class = utils::merge_class(link_class, parameters);
             html! {
-                (dark_tag)
                 a
                     class=(link_class)
                     data-start=[data_start]
@@ -181,7 +180,6 @@ pub fn render(
         } else {
             // 이미지만
             html! {
-                (dark_tag)
                 figure
                     class=(utils::merge_class(classes::MEDIA_IMAGE, parameters))
                     data-start=[data_start]
@@ -210,7 +208,6 @@ pub fn render(
         };
         let link_class = utils::merge_class(link_class, parameters);
         html! {
-            (dark_tag)
             a
                 class=(link_class)
                 data-start=[data_start]

@@ -252,3 +252,81 @@ fn toc_without_headers_renders_nothing() {
         "documents without headers should not emit a TOC container"
     );
 }
+
+#[test]
+fn dedupes_identical_dark_styles_into_one_shared_rule() {
+    let html = render_inline(
+        r##"{{{ #dark-color="#eee" Alpha }}} {{{ #dark-color="#eee" Beta }}}"##,
+    );
+    let doc = Html::parse_fragment(&html);
+
+    let style = doc
+        .select(&selector("style"))
+        .next()
+        .expect("expected shared dark style tag");
+    let styled: Vec<_> = doc.select(&selector("span.sm-styled")).collect();
+    assert_eq!(styled.len(), 2, "expected two styled spans, got:\n{html}");
+
+    let first_dk = styled[0]
+        .value()
+        .attr("data-dk")
+        .expect("first styled element should have data-dk");
+    let second_dk = styled[1]
+        .value()
+        .attr("data-dk")
+        .expect("second styled element should have data-dk");
+    assert_eq!(
+        first_dk, second_dk,
+        "identical dark styles should hash to the same data-dk, got:\n{html}"
+    );
+    assert_eq!(
+        style.inner_html().matches(".dark [data-dk=").count(),
+        1,
+        "expected one deduped dark rule in the shared stylesheet, got:\n{html}"
+    );
+}
+
+#[test]
+fn footnote_child_context_dark_styles_flush_into_top_level_style() {
+    let html = render_inline(r##"Ref{{{#fn {{{ #dark-color="#eee" Note }}} }}}."##);
+    let doc = Html::parse_fragment(&html);
+
+    let footnote_span = doc
+        .select(&selector("section.sm-footnotes span.sm-styled"))
+        .next()
+        .expect("expected styled content inside rendered footnotes");
+    let dk = footnote_span
+        .value()
+        .attr("data-dk")
+        .expect("footnote child context should emit data-dk");
+    let style = doc
+        .select(&selector("style"))
+        .next()
+        .expect("expected shared dark stylesheet");
+    assert!(
+        style.inner_html().contains(&format!(r#"[data-dk="{dk}"]"#)),
+        "expected top-level stylesheet to include footnote-collected dark rule, got:\n{html}"
+    );
+}
+
+#[test]
+fn table_dark_styles_do_not_inject_style_nodes_into_structure() {
+    let html = render_inline(
+        r##"{{{#table #dark-color="#eee"
+[[#dark-color="#ddd" [[#dark-color="#ccc" A]] [[B]]]]
+}}}"##,
+    );
+    let doc = Html::parse_fragment(&html);
+
+    assert_eq!(
+        doc.select(&selector("table style, thead style, tbody style, tr style, td style, th style"))
+            .count(),
+        0,
+        "shared dark stylesheet must stay outside table structure, got:\n{html}"
+    );
+    assert_eq!(
+        doc.select(&selector("style")).count(),
+        1,
+        "expected one shared top-level dark stylesheet, got:\n{html}"
+    );
+}

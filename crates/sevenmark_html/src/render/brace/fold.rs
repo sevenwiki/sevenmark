@@ -16,10 +16,9 @@ pub fn render(fold: &FoldElement, ctx: &mut RenderContext) -> Markup {
 
     let style = utils::build_style(&fold.parameters);
     let merged_class = utils::merge_class(classes::FOLD, &fold.parameters);
-    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(&fold.parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(&fold.parameters));
 
     html! {
-        (dark_tag)
         details
             class=(merged_class)
             data-start=[ctx.span_start(&fold.span)]

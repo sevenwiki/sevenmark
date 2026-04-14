@@ -16,13 +16,7 @@ pub fn render(
 ) -> Markup {
     ctx.enter_suppress_soft_breaks();
     let style = utils::build_style(parameters);
-    let (dk, dark_tag) = utils::dark_style_parts(utils::build_dark_style(parameters));
-
-    // Collect dark style tags for all list items up front so they can be
-    // emitted before the list container — injecting <style> inside <ul>/<ol>
-    // would corrupt list-item position selectors (:first-child, :nth-child).
-    let item_dark_tags = collect_item_dark_tags(children);
-
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
     let items = render_items(children, ctx);
     ctx.exit_suppress_soft_breaks();
     let is_ordered = !kind.is_empty();
@@ -35,8 +29,6 @@ pub fn render(
             parameters,
         );
         html! {
-            (dark_tag)
-            (item_dark_tags)
             ol
                 class=(merged_class)
                 data-start=[ctx.span_start(span)]
@@ -52,8 +44,6 @@ pub fn render(
             parameters,
         );
         html! {
-            (dark_tag)
-            (item_dark_tags)
             ul
                 class=(merged_class)
                 data-start=[ctx.span_start(span)]
@@ -65,26 +55,6 @@ pub fn render(
     }
 }
 
-/// Collect all dark-style `<style>` tags for list items (both direct and
-/// conditional). Called before the list container is rendered so the tags
-/// land outside any list structural element.
-fn collect_item_dark_tags(items: &[ListContentItem]) -> Markup {
-    let tags: Vec<Markup> = items
-        .iter()
-        .flat_map(|item| match item {
-            ListContentItem::Item(list_item) => {
-                vec![utils::dark_style_parts(utils::build_dark_style(&list_item.parameters)).1]
-            }
-            ListContentItem::Conditional(cond) => cond
-                .items
-                .iter()
-                .map(|li| utils::dark_style_parts(utils::build_dark_style(&li.parameters)).1)
-                .collect(),
-        })
-        .collect();
-    html! { @for t in &tags { (t) } }
-}
-
 fn render_items(items: &[ListContentItem], ctx: &mut RenderContext) -> Markup {
     html! {
         @for item in items {
@@ -92,14 +62,14 @@ fn render_items(items: &[ListContentItem], ctx: &mut RenderContext) -> Markup {
                 ListContentItem::Item(list_item) => {
                     @let style = utils::build_style(&list_item.parameters);
                     @let class = utils::param_class(&list_item.parameters);
-                    @let (dk, _) = utils::dark_style_parts(utils::build_dark_style(&list_item.parameters));
+                    @let dk = ctx.add_dark_style(utils::build_dark_style(&list_item.parameters));
                     li class=[class] style=[style] data-dk=[dk] { (render_elements(&list_item.children, ctx)) }
                 }
                 ListContentItem::Conditional(cond) => {
                     @for list_item in &cond.items {
                         @let style = utils::build_style(&list_item.parameters);
                         @let class = utils::param_class(&list_item.parameters);
-                        @let (dk, _) = utils::dark_style_parts(utils::build_dark_style(&list_item.parameters));
+                        @let dk = ctx.add_dark_style(utils::build_dark_style(&list_item.parameters));
                         li class=[class] style=[style] data-dk=[dk] { (render_elements(&list_item.children, ctx)) }
                     }
                 }

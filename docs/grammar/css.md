@@ -18,15 +18,15 @@ SevenMark supports raw CSS blocks with `{{{#css ... }}}`.
 
 ## Parameters
 
-`#css` accepts `#class` plus structured dark-mode overrides such as `#dark-style`, `#dark-color`, `#dark-bgcolor`, `#dark-size`, and `#dark-opacity`.
+`#css` accepts `#class`.
 
 ```sevenmark
-{{{#css #class="global-theme" #dark-style="background:#111" #dark-color="#eee"
+{{{#css #class="global-theme"
 .label { color: #333; }
 }}}
 ```
 
-These dark parameters are attached to the rendered `<style>` element as `data-dark-style`; they do not rewrite the CSS source text inside the block.
+`#css` does not consume `#dark-*` parameters. For dark-mode CSS, author it directly in the stylesheet with selectors such as `.dark .label { ... }` or with `@media (prefers-color-scheme: dark) { ... }`.
 
 ## Raw Close Rules
 
