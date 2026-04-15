@@ -238,8 +238,8 @@ Embed Discord server widgets.
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `#id` | Server ID (required) | - |
-| `#width` | Widget width | 350 |
-| `#height` | Widget height | 500 |
+| `#width` | Widget width (CSS value) | `min(350px,100%)` |
+| `#height` | Widget height (CSS value) | `500px` |
 | `#dark` | Dark theme (presence = enabled) | light |
 
 ### Examples
