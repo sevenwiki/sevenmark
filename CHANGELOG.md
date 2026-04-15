@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.5] - 2026-04-15
+
+### Changed
+- **sevenmark_html**: Table wrapper parameters renamed for consistency: `#align` → `#wrapper-align`, `#width` → `#wrapper-width`. A new `#wrapper-style` parameter allows arbitrary light-mode CSS on the wrapper div via the shared stylesheet (`data-lk`); `#wrapper-dark-style` handles dark-mode. The wrapper div now carries `data-lk`/`data-dk` attributes so all rendered elements are user-addressable.
+
 ## [2.32.4] - 2026-04-14
 - rollback media and table renderer.
 

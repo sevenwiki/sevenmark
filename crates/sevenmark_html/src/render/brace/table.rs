@@ -17,7 +17,7 @@ pub fn render(
 
     let lk = ctx.add_light_style(utils::build_style(parameters));
     let class = utils::merge_class(classes::TABLE, parameters);
-    let wrapper_align_class = match utils::get_param(parameters, "align")
+    let wrapper_align_class = match utils::get_param(parameters, "wrapper-align")
         .map(|value| value.trim().to_ascii_lowercase())
         .as_deref()
     {
@@ -27,12 +27,37 @@ pub fn render(
         _ => None,
     };
 
-    // `#width` mirrors namuWiki's `<tablewidth=N>`: the value goes on the wrapper div
+    // `#wrapper-width` mirrors namuWiki's `<tablewidth=N>`: the value goes on the wrapper div
     // (so float and width live on the same element).  The inner table fills the
-    // wrapper via CSS (`.sm-table { width: 100% }`).
-    let wrapper_width_style = utils::get_param(parameters, "width")
-        .map(|w| sanitize::sanitize_inline_style(&format!("width:{}", w)))
-        .filter(|s| !s.is_empty());
+    // wrapper via CSS (`width:100%` on the table when this is set).
+    //
+    // Wrapper light-mode style: combine #wrapper-width + #wrapper-style.
+    let wrapper_width = utils::get_param(parameters, "wrapper-width");
+    let has_explicit_width = wrapper_width.is_some();
+    let wlk = {
+        let mut parts = Vec::new();
+        if let Some(w) = wrapper_width {
+            parts.push(format!("width:{}", w));
+        }
+        if let Some(s) = utils::get_param(parameters, "wrapper-style") {
+            parts.push(s);
+        }
+        let css = if parts.is_empty() {
+            None
+        } else {
+            let sanitized = sanitize::sanitize_inline_style(&parts.join(";"));
+            if sanitized.is_empty() { None } else { Some(sanitized) }
+        };
+        ctx.add_light_style(css)
+    };
+
+    // Wrapper dark-mode style: #wrapper-dark-style.
+    let wdk = {
+        let css = utils::get_param(parameters, "wrapper-dark-style")
+            .map(|s| sanitize::sanitize_inline_style(&s))
+            .filter(|s| !s.is_empty());
+        ctx.add_dark_style(css)
+    };
 
     let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
     let caption = utils::get_param(parameters, "caption");
@@ -71,12 +96,14 @@ pub fn render(
                 Some(align_class) => format!("{} {}", classes::TABLE_WRAPPER, align_class),
                 None => classes::TABLE_WRAPPER.to_string(),
             })
-            style=[wrapper_width_style]
+            data-lk=[wlk]
+            data-dk=[wdk]
             data-start=[ctx.span_start(span)]
             data-end=[ctx.span_end(span)]
         {
             table
                 class=(class)
+                style=[has_explicit_width.then_some("width:100%")]
                 data-lk=[lk]
                 data-dk=[dk]
                 data-sortable=[sortable.then_some("true")]
@@ -200,7 +227,7 @@ mod tests {
 
     #[test]
     fn table_align_parameter_applies_wrapper_class() {
-        let input = r#"{{{#table #align="right"
+        let input = r#"{{{#table #wrapper-align="right"
 [[[[Aligned]]]]
 }}}"#;
 
@@ -223,79 +250,76 @@ mod tests {
 
     #[test]
     fn width_parameter_applies_to_wrapper_not_table() {
-        let input = r#"{{{#table #width="400px"
+        let input = r#"{{{#table #wrapper-width="400px"
 [[[[Cell]]]]
 }}}"#;
 
         let html = render_html(input);
         let doc = parse_fragment(&html);
 
+        // Width goes into the shared stylesheet via data-lk, not as inline style.
         let wrapper = doc
             .select(&selector("div.sm-table-wrapper"))
             .next()
             .expect("expected wrapper div");
-        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
         assert!(
-            wrapper_style.contains("width"),
-            "expected width on the wrapper style, got:\n{html}"
+            wrapper.value().attr("data-lk").is_some(),
+            "expected wrapper to have data-lk when #wrapper-width is set, got:\n{html}"
+        );
+        assert!(
+            wrapper.value().attr("style").is_none(),
+            "wrapper should not have inline style, got:\n{html}"
         );
 
+        // Width value is in the shared stylesheet, not on the inner table element.
+        assert!(
+            !html.contains("style=\"width:400px\""),
+            "width value should not appear as inline style on the inner table, got:\n{html}"
+        );
+
+        // Inner table gets width:100% to fill the wrapper.
         let table = doc
             .select(&selector("table.sm-table"))
             .next()
             .expect("expected table");
-        let table_style = table.value().attr("style").unwrap_or("");
-        assert!(
-            !table_style.contains("400px"),
-            "width value should not appear on the inner table style, got:\n{html}"
+        assert_eq!(
+            table.value().attr("style"),
+            Some("width:100%"),
+            "inner table should have style=\"width:100%\" when #wrapper-width is set, got:\n{html}"
         );
     }
 
     #[test]
     fn width_parameter_strips_var_function() {
         // var() is blocked by the sanitizer's security scan.
-        let input = r#"{{{#table #width="var(--custom)"
+        let input = r#"{{{#table #wrapper-width="var(--custom)"
 [[[[Cell]]]]
 }}}"#;
 
         let html = render_html(input);
-        let doc = parse_fragment(&html);
-
-        let wrapper = doc
-            .select(&selector("div.sm-table-wrapper"))
-            .next()
-            .expect("expected wrapper div");
-        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
         assert!(
-            !wrapper_style.contains("var("),
-            "var() in #width should be stripped by the sanitizer, got:\n{html}"
+            !html.contains("var("),
+            "var() in #wrapper-width should be stripped by the sanitizer, got:\n{html}"
         );
     }
 
     #[test]
     fn width_parameter_strips_expression_function() {
         // expression() is an IE-era CSS injection vector and is blocked by the sanitizer.
-        let input = r#"{{{#table #width="expression(alert(1))"
+        let input = r#"{{{#table #wrapper-width="expression(alert(1))"
 [[[[Cell]]]]
 }}}"#;
 
         let html = render_html(input);
-        let doc = parse_fragment(&html);
-
-        let wrapper = doc
-            .select(&selector("div.sm-table-wrapper"))
-            .next()
-            .expect("expected wrapper div");
-        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
         assert!(
-            !wrapper_style.contains("expression("),
-            "expression() in #width should be stripped by the sanitizer, got:\n{html}"
+            !html.contains("expression("),
+            "expression() in #wrapper-width should be stripped by the sanitizer, got:\n{html}"
         );
     }
 
     #[test]
     fn width_and_align_together_on_wrapper() {
-        let input = r#"{{{#table #align="right" #width="400px"
+        let input = r#"{{{#table #wrapper-align="right" #wrapper-width="400px"
 [[[[Cell]]]]
 }}}"#;
 
@@ -306,10 +330,45 @@ mod tests {
             .select(&selector("div.sm-table-wrapper.sm-table-align-right"))
             .next()
             .expect("expected right-aligned wrapper div");
-        let wrapper_style = wrapper.value().attr("style").unwrap_or("");
         assert!(
-            wrapper_style.contains("width"),
-            "expected width on the wrapper style when #align and #width are combined, got:\n{html}"
+            wrapper.value().attr("data-lk").is_some(),
+            "expected wrapper to have data-lk when #wrapper-align and #wrapper-width are combined, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn wrapper_style_applies_to_wrapper_via_data_lk() {
+        let input = r#"{{{#table #wrapper-style="margin:2rem auto"
+[[[[Cell]]]]
+}}}"#;
+
+        let html = render_html(input);
+        let doc = parse_fragment(&html);
+
+        let wrapper = doc
+            .select(&selector("div.sm-table-wrapper"))
+            .next()
+            .expect("expected wrapper div");
+        assert!(
+            wrapper.value().attr("data-lk").is_some(),
+            "expected wrapper to have data-lk when #wrapper-style is set, got:\n{html}"
+        );
+        assert!(
+            html.contains("margin"),
+            "expected margin in shared stylesheet, got:\n{html}"
+        );
+    }
+
+    #[test]
+    fn wrapper_style_strips_var_function() {
+        let input = r#"{{{#table #wrapper-style="margin:var(--x)"
+[[[[Cell]]]]
+}}}"#;
+
+        let html = render_html(input);
+        assert!(
+            !html.contains("var("),
+            "var() in #wrapper-style should be stripped by the sanitizer, got:\n{html}"
         );
     }
 }

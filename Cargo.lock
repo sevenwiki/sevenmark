@@ -747,9 +747,9 @@ dependencies = [
 
 [[package]]
 name = "axum"
-version = "0.8.8"
+version = "0.8.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b52af3cb4058c895d37317bb27508dccc8e5f2d39454016b297bf4a400597b8"
+checksum = "31b698c5f9a010f6573133b09e0de5408834d0c82f8d7475a89fc1867a71cd90"
 dependencies = [
  "axum-core",
  "axum-macros",
@@ -801,9 +801,9 @@ dependencies = [
 
 [[package]]
 name = "axum-macros"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "604fde5e028fea851ce1d8570bbdc034bec850d157f7569d10f347d06808c05c"
+checksum = "7aa268c23bfbbd2c4363b9cd302a4f504fb2a9dfe7e3451d66f35dd392e20aca"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4030,7 +4030,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_ast"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "indexmap",
  "serde",
@@ -4038,7 +4038,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_formatter"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "pretty",
  "serde_json",
@@ -4049,7 +4049,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_html"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "css-sanitizer",
  "maud",
@@ -4062,7 +4062,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_language_server"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "dashmap 6.1.0",
  "sevenmark_lsp_core",
@@ -4072,7 +4072,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_lsp_core"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "ls-types",
  "serde",
@@ -4084,7 +4084,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_parser"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "memchr",
  "paste",
@@ -4095,7 +4095,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_semantic"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "maud",
  "sevenmark_ast",
@@ -4103,7 +4103,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_server"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "anyhow",
  "aws-config",
@@ -4126,7 +4126,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_transform"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "anyhow",
  "aws-sdk-s3",
@@ -4145,7 +4145,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_utils"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "memchr",
  "serde",
@@ -4155,7 +4155,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "serde_json",
  "sevenmark_parser",
@@ -4165,7 +4165,7 @@ dependencies = [
 
 [[package]]
 name = "sevenmark_wasm_lsp"
-version = "2.32.4"
+version = "2.32.5"
 dependencies = [
  "serde_json",
  "sevenmark_lsp_core",
@@ -4765,9 +4765,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.51.1"
+version = "1.52.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f66bf9585cda4b724d3e78ab34b73fb2bbaba9011b9bfdf69dc836382ea13b8c"
+checksum = "a91135f59b1cbf38c91e73cf3386fca9bb77915c45ce2771460c9d92f0f3d776"
 dependencies = [
  "bytes",
  "libc",
