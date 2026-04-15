@@ -93,7 +93,7 @@ Available list types:
 ```
 
 ```sevenmark [Styled Table]
-{{{#table #align="right" #style="width: 18rem; border-collapse: collapse"
+{{{#table #wrapper-align="right" #style="width: 18rem; border-collapse: collapse"
     [[[[**Feature**]] [[*Basic*]] [[*Pro*]]]]
     [[[[Storage]] [[1GB]] [[100GB]]]]
     [[[[Users]] [[1 user]] [[~~Unlimited~~ **Unlimited**]]]]
