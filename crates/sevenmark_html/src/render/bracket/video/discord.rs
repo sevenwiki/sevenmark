@@ -5,16 +5,17 @@
 //! Parameters:
 //!   - id: Server ID (required)
 //!   - dark: Dark theme (presence = enabled, default light)
-//!   - width, height: Dimensions (default: 350x500)
+//!   - width, height: Dimensions (overrides CSS default via data-lk)
 
 use maud::{Markup, html};
 use sevenmark_ast::Parameters;
 
 use crate::classes;
-use crate::render::utils::get_param;
+use crate::context::RenderContext;
+use crate::render::utils;
 
 fn build_embed_url(server_id: &str, parameters: &Parameters) -> String {
-    let theme = if get_param(parameters, "dark").is_some() {
+    let theme = if utils::get_param(parameters, "dark").is_some() {
         "dark"
     } else {
         "light"
@@ -26,8 +27,13 @@ fn build_embed_url(server_id: &str, parameters: &Parameters) -> String {
     )
 }
 
-pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
-    let server_id = match get_param(parameters, "id") {
+pub fn render(
+    data_start: Option<u32>,
+    data_end: Option<u32>,
+    parameters: &Parameters,
+    ctx: &mut RenderContext,
+) -> Markup {
+    let server_id = match utils::get_param(parameters, "id") {
         Some(id) => id,
         None => {
             return html! {
@@ -39,8 +45,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
     };
 
     let url = build_embed_url(&server_id, parameters);
-    let width = get_param(parameters, "width").unwrap_or_else(|| "350".to_string());
-    let height = get_param(parameters, "height").unwrap_or_else(|| "500".to_string());
+    let lk = ctx.add_light_style(utils::build_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
         iframe
@@ -48,8 +54,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
             data-start=[data_start]
             data-end=[data_end]
             src=(url)
-            width=(width)
-            height=(height)
+            data-lk=[lk]
+            data-dk=[dk]
             frameborder="0"
             allowtransparency="true"
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"

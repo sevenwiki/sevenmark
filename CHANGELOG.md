@@ -5,6 +5,12 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.7] - 2026-04-15
+
+### Changed
+- **sevenmark_html**: External media embeds (YouTube, Vimeo, NicoVideo, Spotify, Discord) no longer emit fixed `width`/`height` HTML attributes. Default responsive sizing is now handled by CSS classes in the frontend stylesheet (`sm-embed-youtube` etc.). Embed renderers now accept `&mut RenderContext` and emit `data-lk`/`data-dk`, so `#style`, `#dark-style`, `#width`, `#height`, and all common style parameters work the same way as other elements.
+- **sevenmark_html**: `#width` and `#height` added to `build_style` and `#dark-width`/`#dark-height` added to `build_dark_style`, making these available as convenience parameters on all elements.
+
 ## [2.32.6] - 2026-04-15
 
 ### Changed

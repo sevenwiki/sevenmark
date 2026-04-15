@@ -4,7 +4,7 @@
 //!
 //! Parameters:
 //!   - id: Video ID (required, e.g., "sm9", "so39402840")
-//!   - width, height: Dimensions (default: 640x360)
+//!   - width, height: Dimensions (overrides CSS default via data-lk)
 //!   - from: Start time in seconds
 //!   - autoplay: Auto-play (present = enabled)
 
@@ -12,15 +12,16 @@ use maud::{Markup, html};
 use sevenmark_ast::Parameters;
 
 use crate::classes;
-use crate::render::utils::get_param;
+use crate::context::RenderContext;
+use crate::render::utils;
 
 fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     let mut params = Vec::new();
 
-    if let Some(from) = get_param(parameters, "from") {
+    if let Some(from) = utils::get_param(parameters, "from") {
         params.push(format!("from={}", from));
     }
-    if get_param(parameters, "autoplay").is_some() {
+    if utils::get_param(parameters, "autoplay").is_some() {
         params.push("autoplay=1".to_string());
     }
 
@@ -35,8 +36,13 @@ fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     }
 }
 
-pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
-    let id = match get_param(parameters, "id") {
+pub fn render(
+    data_start: Option<u32>,
+    data_end: Option<u32>,
+    parameters: &Parameters,
+    ctx: &mut RenderContext,
+) -> Markup {
+    let id = match utils::get_param(parameters, "id") {
         Some(id) => id,
         None => {
             return html! {
@@ -48,8 +54,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
     };
 
     let url = build_embed_url(&id, parameters);
-    let width = get_param(parameters, "width").unwrap_or_else(|| "640".to_string());
-    let height = get_param(parameters, "height").unwrap_or_else(|| "360".to_string());
+    let lk = ctx.add_light_style(utils::build_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
         iframe
@@ -57,8 +63,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
             data-start=[data_start]
             data-end=[data_end]
             src=(url)
-            width=(width)
-            height=(height)
+            data-lk=[lk]
+            data-dk=[dk]
             frameborder="0"
             allow="autoplay"
             allowfullscreen

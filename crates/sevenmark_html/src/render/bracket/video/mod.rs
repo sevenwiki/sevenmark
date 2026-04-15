@@ -15,16 +15,21 @@ use crate::classes;
 use crate::context::RenderContext;
 
 /// Render external media element by dispatching to provider-specific renderer
-pub fn render(span: &Span, provider: &str, parameters: &Parameters, ctx: &RenderContext) -> Markup {
+pub fn render(
+    span: &Span,
+    provider: &str,
+    parameters: &Parameters,
+    ctx: &mut RenderContext,
+) -> Markup {
     let data_start = ctx.span_start(span);
     let data_end = ctx.span_end(span);
 
     match provider {
-        "youtube" => youtube::render(data_start, data_end, parameters),
-        "vimeo" => vimeo::render(data_start, data_end, parameters),
-        "nicovideo" => nicovideo::render(data_start, data_end, parameters),
-        "spotify" => spotify::render(data_start, data_end, parameters),
-        "discord" => discord::render(data_start, data_end, parameters),
+        "youtube" => youtube::render(data_start, data_end, parameters, ctx),
+        "vimeo" => vimeo::render(data_start, data_end, parameters, ctx),
+        "nicovideo" => nicovideo::render(data_start, data_end, parameters, ctx),
+        "spotify" => spotify::render(data_start, data_end, parameters, ctx),
+        "discord" => discord::render(data_start, data_end, parameters, ctx),
         _ => html! {
             span
                 class=(classes::ERROR)

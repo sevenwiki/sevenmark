@@ -9,7 +9,7 @@
 //!   - artist: Artist ID
 //!   - episode: Podcast episode ID
 //!   - show: Podcast show ID
-//!   - width, height: Dimensions (default: 100%, 352)
+//!   - width, height: Dimensions (overrides CSS default via data-lk)
 //!   - dark: Dark theme (presence = enabled)
 //!   - compact: Compact cover art view (presence = enabled)
 //!
@@ -19,25 +19,26 @@ use maud::{Markup, html};
 use sevenmark_ast::Parameters;
 
 use crate::classes;
-use crate::render::utils::get_param;
+use crate::context::RenderContext;
+use crate::render::utils;
 
 fn get_content_type_and_id(parameters: &Parameters) -> Option<(&'static str, String)> {
-    if let Some(id) = get_param(parameters, "track") {
+    if let Some(id) = utils::get_param(parameters, "track") {
         return Some(("track", id));
     }
-    if let Some(id) = get_param(parameters, "album") {
+    if let Some(id) = utils::get_param(parameters, "album") {
         return Some(("album", id));
     }
-    if let Some(id) = get_param(parameters, "playlist") {
+    if let Some(id) = utils::get_param(parameters, "playlist") {
         return Some(("playlist", id));
     }
-    if let Some(id) = get_param(parameters, "artist") {
+    if let Some(id) = utils::get_param(parameters, "artist") {
         return Some(("artist", id));
     }
-    if let Some(id) = get_param(parameters, "episode") {
+    if let Some(id) = utils::get_param(parameters, "episode") {
         return Some(("episode", id));
     }
-    if let Some(id) = get_param(parameters, "show") {
+    if let Some(id) = utils::get_param(parameters, "show") {
         return Some(("show", id));
     }
     None
@@ -46,10 +47,10 @@ fn get_content_type_and_id(parameters: &Parameters) -> Option<(&'static str, Str
 fn build_embed_url(content_type: &str, id: &str, parameters: &Parameters) -> String {
     let mut params = Vec::new();
 
-    if get_param(parameters, "dark").is_some() {
+    if utils::get_param(parameters, "dark").is_some() {
         params.push("theme=0".to_string());
     }
-    if get_param(parameters, "compact").is_some() {
+    if utils::get_param(parameters, "compact").is_some() {
         params.push("view=coverart".to_string());
     }
 
@@ -65,7 +66,12 @@ fn build_embed_url(content_type: &str, id: &str, parameters: &Parameters) -> Str
     }
 }
 
-pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
+pub fn render(
+    data_start: Option<u32>,
+    data_end: Option<u32>,
+    parameters: &Parameters,
+    ctx: &mut RenderContext,
+) -> Markup {
     let (content_type, id) = match get_content_type_and_id(parameters) {
         Some(result) => result,
         None => {
@@ -78,8 +84,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
     };
 
     let url = build_embed_url(content_type, &id, parameters);
-    let width = get_param(parameters, "width").unwrap_or_else(|| "100%".to_string());
-    let height = get_param(parameters, "height").unwrap_or_else(|| "352".to_string());
+    let lk = ctx.add_light_style(utils::build_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
         iframe
@@ -87,8 +93,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
             data-start=[data_start]
             data-end=[data_end]
             src=(url)
-            width=(width)
-            height=(height)
+            data-lk=[lk]
+            data-dk=[dk]
             frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             allowfullscreen

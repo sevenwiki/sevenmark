@@ -93,6 +93,12 @@ pub fn build_dark_style(params: &Parameters) -> Option<String> {
     if let Some(opacity) = get_param(params, "dark-opacity") {
         styles.push(format!("opacity:{}", opacity));
     }
+    if let Some(width) = get_param(params, "dark-width") {
+        styles.push(format!("width:{}", width));
+    }
+    if let Some(height) = get_param(params, "dark-height") {
+        styles.push(format!("height:{}", height));
+    }
 
     if styles.is_empty() {
         None
@@ -125,6 +131,12 @@ pub fn build_style(params: &Parameters) -> Option<String> {
     }
     if let Some(opacity) = get_param(params, "opacity") {
         styles.push(format!("opacity:{}", opacity));
+    }
+    if let Some(width) = get_param(params, "width") {
+        styles.push(format!("width:{}", width));
+    }
+    if let Some(height) = get_param(params, "height") {
+        styles.push(format!("height:{}", height));
     }
 
     if styles.is_empty() {

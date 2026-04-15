@@ -6,7 +6,7 @@
 //! Parameters:
 //!   - id: Video ID (required if no playlist)
 //!   - playlist: Playlist ID (e.g., "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
-//!   - width, height: Dimensions (default: 640x360)
+//!   - width, height: Dimensions (overrides CSS default via data-lk)
 //!   - start: Start time in seconds
 //!   - end: End time in seconds
 //!   - autoplay: Auto-play on load
@@ -18,7 +18,8 @@ use maud::{Markup, html};
 use sevenmark_ast::Parameters;
 
 use crate::classes;
-use crate::render::utils::get_param;
+use crate::context::RenderContext;
+use crate::render::utils;
 
 fn build_embed_url(
     video_id: Option<&str>,
@@ -32,16 +33,16 @@ fn build_embed_url(
         params.push(format!("list={}", pl));
     }
 
-    if let Some(start) = get_param(parameters, "start") {
+    if let Some(start) = utils::get_param(parameters, "start") {
         params.push(format!("start={}", start));
     }
-    if let Some(end) = get_param(parameters, "end") {
+    if let Some(end) = utils::get_param(parameters, "end") {
         params.push(format!("end={}", end));
     }
-    if get_param(parameters, "autoplay").is_some() {
+    if utils::get_param(parameters, "autoplay").is_some() {
         params.push("autoplay=1".to_string());
     }
-    if get_param(parameters, "loop").is_some() {
+    if utils::get_param(parameters, "loop").is_some() {
         params.push("loop=1".to_string());
         // For single video loop (no playlist), add playlist=id
         if playlist_id.is_none() {
@@ -50,10 +51,10 @@ fn build_embed_url(
             }
         }
     }
-    if get_param(parameters, "mute").is_some() {
+    if utils::get_param(parameters, "mute").is_some() {
         params.push("mute=1".to_string());
     }
-    if get_param(parameters, "nocontrols").is_some() {
+    if utils::get_param(parameters, "nocontrols").is_some() {
         params.push("controls=0".to_string());
     }
 
@@ -73,9 +74,14 @@ fn build_embed_url(
     }
 }
 
-pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
-    let video_id = get_param(parameters, "id");
-    let playlist_id = get_param(parameters, "playlist");
+pub fn render(
+    data_start: Option<u32>,
+    data_end: Option<u32>,
+    parameters: &Parameters,
+    ctx: &mut RenderContext,
+) -> Markup {
+    let video_id = utils::get_param(parameters, "id");
+    let playlist_id = utils::get_param(parameters, "playlist");
 
     if video_id.is_none() && playlist_id.is_none() {
         return html! {
@@ -86,8 +92,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
     }
 
     let url = build_embed_url(video_id.as_deref(), playlist_id.as_deref(), parameters);
-    let width = get_param(parameters, "width").unwrap_or_else(|| "640".to_string());
-    let height = get_param(parameters, "height").unwrap_or_else(|| "360".to_string());
+    let lk = ctx.add_light_style(utils::build_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
         iframe
@@ -95,8 +101,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
             data-start=[data_start]
             data-end=[data_end]
             src=(url)
-            width=(width)
-            height=(height)
+            data-lk=[lk]
+            data-dk=[dk]
             frameborder="0"
             allowfullscreen
             loading="lazy"

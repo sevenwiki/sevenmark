@@ -5,7 +5,7 @@
 //! Parameters:
 //!   - id: Video ID (required)
 //!   - h: Hash for unlisted videos
-//!   - width, height: Dimensions (default: 640x360)
+//!   - width, height: Dimensions (overrides CSS default via data-lk)
 //!   - autoplay: Auto-play on load
 //!   - loop: Loop video
 //!   - mute: Start muted
@@ -16,28 +16,29 @@ use maud::{Markup, html};
 use sevenmark_ast::Parameters;
 
 use crate::classes;
-use crate::render::utils::get_param;
+use crate::context::RenderContext;
+use crate::render::utils;
 
 fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     let mut params = Vec::new();
 
-    if let Some(h) = get_param(parameters, "h") {
+    if let Some(h) = utils::get_param(parameters, "h") {
         params.push(format!("h={}", h));
     }
-    if get_param(parameters, "autoplay").is_some() {
+    if utils::get_param(parameters, "autoplay").is_some() {
         params.push("autoplay=1".to_string());
     }
-    if get_param(parameters, "loop").is_some() {
+    if utils::get_param(parameters, "loop").is_some() {
         params.push("loop=1".to_string());
     }
-    if get_param(parameters, "mute").is_some() {
+    if utils::get_param(parameters, "mute").is_some() {
         params.push("muted=1".to_string());
     }
-    if let Some(color) = get_param(parameters, "color") {
+    if let Some(color) = utils::get_param(parameters, "color") {
         let color = color.trim_start_matches('#');
         params.push(format!("color={}", color));
     }
-    if get_param(parameters, "dnt").is_some() {
+    if utils::get_param(parameters, "dnt").is_some() {
         params.push("dnt=1".to_string());
     }
 
@@ -48,8 +49,13 @@ fn build_embed_url(id: &str, parameters: &Parameters) -> String {
     }
 }
 
-pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Parameters) -> Markup {
-    let id = match get_param(parameters, "id") {
+pub fn render(
+    data_start: Option<u32>,
+    data_end: Option<u32>,
+    parameters: &Parameters,
+    ctx: &mut RenderContext,
+) -> Markup {
+    let id = match utils::get_param(parameters, "id") {
         Some(id) => id,
         None => {
             return html! {
@@ -61,8 +67,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
     };
 
     let url = build_embed_url(&id, parameters);
-    let width = get_param(parameters, "width").unwrap_or_else(|| "640".to_string());
-    let height = get_param(parameters, "height").unwrap_or_else(|| "360".to_string());
+    let lk = ctx.add_light_style(utils::build_style(parameters));
+    let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
 
     html! {
         iframe
@@ -70,8 +76,8 @@ pub fn render(data_start: Option<u32>, data_end: Option<u32>, parameters: &Param
             data-start=[data_start]
             data-end=[data_end]
             src=(url)
-            width=(width)
-            height=(height)
+            data-lk=[lk]
+            data-dk=[dk]
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
