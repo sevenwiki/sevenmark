@@ -46,7 +46,11 @@ pub fn render(
             None
         } else {
             let sanitized = sanitize::sanitize_inline_style(&parts.join(";"));
-            if sanitized.is_empty() { None } else { Some(sanitized) }
+            if sanitized.is_empty() {
+                None
+            } else {
+                Some(sanitized)
+            }
         };
         ctx.add_light_style(css)
     };

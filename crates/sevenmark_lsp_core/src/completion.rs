@@ -522,10 +522,18 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
         ],
         "table" => &[
             ("caption", "Table caption", false),
-            ("wrapper-align", "Table wrapper alignment (left/center/right)", false),
+            (
+                "wrapper-align",
+                "Table wrapper alignment (left/center/right)",
+                false,
+            ),
             ("wrapper-width", "Table wrapper width (e.g. 400px)", false),
             ("wrapper-style", "CSS style for the table wrapper", false),
-            ("wrapper-dark-style", "Dark mode CSS style for the table wrapper", false),
+            (
+                "wrapper-dark-style",
+                "Dark mode CSS style for the table wrapper",
+                false,
+            ),
             ("sortable", "Enable column sorting", true),
             ("style", "CSS style", false),
             ("class", "CSS classes", false),
