@@ -522,12 +522,10 @@ fn brace_param_defs(element: &str) -> &'static [ParamDef] {
         ],
         "table" => &[
             ("caption", "Table caption", false),
-            (
-                "align",
-                "Table wrapper alignment (left/center/right)",
-                false,
-            ),
-            ("width", "Table wrapper width (e.g. 400px)", false),
+            ("wrapper-align", "Table wrapper alignment (left/center/right)", false),
+            ("wrapper-width", "Table wrapper width (e.g. 400px)", false),
+            ("wrapper-style", "CSS style for the table wrapper", false),
+            ("wrapper-dark-style", "Dark mode CSS style for the table wrapper", false),
             ("sortable", "Enable column sorting", true),
             ("style", "CSS style", false),
             ("class", "CSS classes", false),
@@ -795,11 +793,13 @@ mod tests {
     }
 
     #[test]
-    fn table_brace_params_include_align_and_width() {
+    fn table_brace_params_include_wrapper_params() {
         let c = completions("{{{#table #");
         let l = labels(&c);
-        assert!(l.contains(&"align"));
-        assert!(l.contains(&"width"));
+        assert!(l.contains(&"wrapper-align"));
+        assert!(l.contains(&"wrapper-width"));
+        assert!(l.contains(&"wrapper-style"));
+        assert!(l.contains(&"wrapper-dark-style"));
         assert!(l.contains(&"caption"));
         assert!(l.contains(&"sortable"));
     }

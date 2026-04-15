@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.6] - 2026-04-15
+
+### Changed
+- **sevenmark_lsp_core**: Table parameter completions updated to reflect the renamed wrapper parameters: `align` and `width` replaced by `wrapper-align`, `wrapper-width`, `wrapper-style`, and `wrapper-dark-style`.
+
 ## [2.32.5] - 2026-04-15
 
 ### Changed
