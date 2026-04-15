@@ -44,8 +44,8 @@ Embed YouTube videos and playlists.
 |-----------|-------------|---------|
 | `#id` | Video ID (required if no playlist) | - |
 | `#playlist` | Playlist ID | - |
-| `#width` | Player width | 640 |
-| `#height` | Player height | 360 |
+| `#width` | Player width (CSS value, e.g. `800px`, `50%`) | `min(640px,100%)` |
+| `#height` | Player height (CSS value) | auto via `aspect-ratio:16/9` |
 | `#start` | Start time in seconds | - |
 | `#end` | End time in seconds | - |
 | `#autoplay` | Auto-play on load (presence = enabled) | - |
@@ -57,7 +57,10 @@ Embed YouTube videos and playlists.
 
 ```sevenmark
 // Custom dimensions
-[[#youtube #id="dQw4w9WgXcQ" #width="800" #height="450"]]
+[[#youtube #id="dQw4w9WgXcQ" #width="800px" #height="450px"]]
+
+// Custom styling (border, opacity, etc.)
+[[#youtube #id="dQw4w9WgXcQ" #style="border-radius:8px;overflow:hidden"]]
 
 // Start at 30 seconds, end at 60 seconds
 [[#youtube #id="dQw4w9WgXcQ" #start="30" #end="60"]]
@@ -87,8 +90,8 @@ Embed Vimeo videos.
 |-----------|-------------|---------|
 | `#id` | Video ID (required) | - |
 | `#h` | Hash for unlisted videos | - |
-| `#width` | Player width | 640 |
-| `#height` | Player height | 360 |
+| `#width` | Player width (CSS value) | `min(640px,100%)` |
+| `#height` | Player height (CSS value) | auto via `aspect-ratio:16/9` |
 | `#autoplay` | Auto-play on load | - |
 | `#loop` | Loop video | - |
 | `#mute` | Start muted | - |
