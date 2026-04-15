@@ -35,17 +35,26 @@ Rows without `#head` render inside `<tbody>` with normal `<td>` cells.
 
 ## Table Caption, Sorting, and Alignment
 
-Use `#caption` on the table element to render a `<caption>`, `#sortable` to opt into sortable-table behavior on the frontend, and `#align` to position the table wrapper.
+Use `#caption` on the table element to render a `<caption>`, `#sortable` to opt into sortable-table behavior on the frontend, and `#wrapper-align` to position the table wrapper.
 
 ```sevenmark
-{{{#table #caption="Inventory" #align="right" #sortable
+{{{#table #caption="Inventory" #wrapper-align="right" #sortable
 [[#head [[Product]] [[Price]] [[Stock]]]]
 [[[[Laptop]] [[$1,200]] [[5 units]]]]
 [[[[Mouse]] [[$30]] [[20 units]]]]
 }}}
 ```
 
-`#align` accepts `left`, `center`, and `right`. It affects the outer table wrapper rather than the `<table>` element itself, so authored table styles can stay on `#style` while layout is handled separately.
+`#wrapper-align` accepts `left`, `center`, and `right`. It affects the outer table wrapper rather than the `<table>` element itself, so authored table styles can stay on `#style` while layout is handled separately.
+
+Use `#wrapper-width` to set a fixed width on the wrapper div, and `#wrapper-style` / `#wrapper-dark-style` for arbitrary CSS on the wrapper:
+
+```sevenmark
+{{{#table #wrapper-align="right" #wrapper-width="400px" #wrapper-style="margin:2rem 0"
+[[#head [[Product]] [[Price]]]]
+[[[[Laptop]] [[$1,200]]]]
+}}}
+```
 
 ## Cell Merging
 

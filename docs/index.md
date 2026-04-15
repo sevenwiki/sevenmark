@@ -69,7 +69,7 @@ Repeat the same note{{{#fn #name="release-note" Later named references point bac
 
 ### Block Elements
 
-- Tables: `{{{#table #caption="..." #sortable #align="right" ...}}}`
+- Tables: `{{{#table #caption="..." #sortable #wrapper-align="right" ...}}}`
 - Lists: `{{{#list #1 [[Item]] }}}`
 - Code: raw block opened by `{{{#code` and closed by matching triple-brace depth
 - Math: raw block opened by `{{{#tex` and closed by matching triple-brace depth (`#block` optional)
@@ -99,7 +99,7 @@ Repeat the same note{{{#fn #name="release-note" Later named references point bac
 - Footnotes: `{{{#fn #display="*" Note}}}` and reusable named footnotes with `{{{#fn #name="api" Note}}}`
 - Conditionals: `{{{#if [var(x)] == "value" :: content }}}`
 - Operators: `==`, `!=`, `>`, `<`, `>=`, `<=`, `&&`, `||`, `!`, `true`, `false`, `null`
-- Styling parameters: `#style`, `#color`, `#size`, `#dark-color`, `#dark-bgcolor`, `#caption`, `#sortable`, `#align`, `#theme`, `#anchor`, `#x`, `#y`
+- Styling parameters: `#style`, `#color`, `#size`, `#dark-color`, `#dark-bgcolor`, `#caption`, `#sortable`, `#wrapper-align`, `#wrapper-width`, `#wrapper-style`, `#theme`, `#anchor`, `#x`, `#y`
 - Escaping: `\*literal\*`, `\{\{\{not-element\}\}\}`
 
 </div>
