@@ -218,7 +218,7 @@ Embed Spotify tracks, albums, playlists, artists, podcasts, and episodes.
 [[#spotify #track="4uLU6hMCjMI75M1A2tKUQC" #compact]]
 
 // Custom dimensions
-[[#spotify #playlist="37i9dQZF1DXcBWIGoYBM5M" #width="300" #height="380"]]
+[[#spotify #playlist="37i9dQZF1DXcBWIGoYBM5M" #width="300px" #height="380px"]]
 ```
 
 ---
