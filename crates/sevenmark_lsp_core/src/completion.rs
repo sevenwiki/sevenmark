@@ -422,11 +422,19 @@ fn table_cell_param_defs() -> &'static [ParamDef] {
     &[
         ("x", "Column position / span", false),
         ("y", "Row position / span", false),
+        ("style", "CSS style", false),
+        ("dark-style", "Dark mode CSS style", false),
+        ("class", "CSS classes", false),
     ]
 }
 
 fn table_row_param_defs() -> &'static [ParamDef] {
-    &[("head", "Header row (renders as <thead>/<th>)", true)]
+    &[
+        ("head", "Header row (renders as <thead>/<th>)", true),
+        ("style", "CSS style", false),
+        ("dark-style", "Dark mode CSS style", false),
+        ("class", "CSS classes", false),
+    ]
 }
 
 fn bracket_param_defs(element: &str) -> &'static [ParamDef] {
@@ -781,6 +789,8 @@ mod tests {
         let l = labels(&c);
         assert!(l.contains(&"x"));
         assert!(l.contains(&"y"));
+        assert!(l.contains(&"style"));
+        assert!(l.contains(&"dark-style"));
         assert!(!l.contains(&"youtube"));
     }
 
@@ -798,6 +808,8 @@ mod tests {
         let l = labels(&c);
         assert!(l.contains(&"x"));
         assert!(l.contains(&"y"));
+        assert!(l.contains(&"style"));
+        assert!(l.contains(&"dark-style"));
     }
 
     #[test]

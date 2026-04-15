@@ -5,6 +5,11 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.8] - 2026-04-15
+
+### Changed
+- **sevenmark_lsp_core**: Table row and cell parameter completions now include `#style`, `#dark-style`, and `#class` alongside the existing positional parameters (`#head`, `#x`, `#y`).
+
 ## [2.32.7] - 2026-04-15
 
 ### Changed
