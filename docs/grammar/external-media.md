@@ -252,7 +252,7 @@ Embed Discord server widgets.
 [[#discord #id="123456789012345678" #dark]]
 
 // Custom dimensions
-[[#discord #id="123456789012345678" #width="400" #height="600" #dark]]
+[[#discord #id="123456789012345678" #width="400px" #height="600px" #dark]]
 ```
 
 ---
@@ -276,7 +276,7 @@ Embed Discord server widgets.
 {{{#fold
 [[Watch Video]]
 [[
-[[#youtube #id="dQw4w9WgXcQ" #width="560" #height="315"]]
+[[#youtube #id="dQw4w9WgXcQ" #width="560px" #height="315px"]]
 ]]
 }}}
 ```
@@ -307,10 +307,28 @@ Embed Discord server widgets.
 
 ### Responsive Embeds
 
-For responsive layouts, use percentage widths:
+All embeds are responsive by default — video embeds use `min(640px,100%)` width with a `16/9` aspect ratio, so they never overflow on mobile without any extra parameters.
+
+To override the default width, use a CSS value:
 
 ```sevenmark
+// Narrower embed
+[[#youtube #id="dQw4w9WgXcQ" #width="400px"]]
+
+// Full container width
 [[#youtube #id="dQw4w9WgXcQ" #width="100%"]]
+```
+
+### Custom Styling
+
+Use `#style` / `#dark-style` to apply arbitrary CSS to any embed:
+
+```sevenmark
+// Rounded corners
+[[#youtube #id="dQw4w9WgXcQ" #style="border-radius:12px;overflow:hidden"]]
+
+// Different dark-mode size
+[[#spotify #track="4uLU6hMCjMI75M1A2tKUQC" #style="height:152px" #dark-style="height:80px"]]
 ```
 
 ### Privacy Considerations
@@ -344,6 +362,8 @@ Watch the introduction video below:
 - Boolean parameters (like `#autoplay`, `#mute`, `#dark`) are enabled by their presence
 - Missing required parameters will result in an error message being displayed
 - Embeds are rendered as iframes with lazy loading enabled
-- Each platform has specific CSS classes for styling customization
+- Each platform has specific CSS classes for styling customization: `sm-embed-youtube`, `sm-embed-vimeo`, `sm-embed-nicovideo`, `sm-embed-spotify`, `sm-embed-discord`
+- Default sizing is provided by CSS (responsive by default); `#width` and `#height` accept CSS values (e.g. `800px`, `50%`) and override the defaults
+- `#style` and `#dark-style` accept arbitrary inline CSS and are applied via the `data-lk`/`data-dk` shared stylesheet system
 
 </div>
