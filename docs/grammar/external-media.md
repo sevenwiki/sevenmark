@@ -131,8 +131,8 @@ Embed videos from NicoNico Douga (Japanese video platform).
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `#id` | Video ID (required, e.g., "sm9", "so39402840") | - |
-| `#width` | Player width | 640 |
-| `#height` | Player height | 360 |
+| `#width` | Player width (CSS value) | `min(640px,100%)` |
+| `#height` | Player height (CSS value) | auto via `aspect-ratio:16/9` |
 | `#from` | Start time in seconds | - |
 | `#autoplay` | Auto-play on load | - |
 
@@ -146,7 +146,7 @@ Embed videos from NicoNico Douga (Japanese video platform).
 [[#nicovideo #id="sm9" #from="60"]]
 
 // Custom size with autoplay
-[[#nicovideo #id="sm9" #width="800" #height="450" #autoplay]]
+[[#nicovideo #id="sm9" #width="800px" #height="450px" #autoplay]]
 ```
 
 ---
@@ -201,8 +201,8 @@ Embed Spotify tracks, albums, playlists, artists, podcasts, and episodes.
 | `#artist` | Artist ID | - |
 | `#episode` | Podcast episode ID | - |
 | `#show` | Podcast show ID | - |
-| `#width` | Player width | 100% |
-| `#height` | Player height | 352 |
+| `#width` | Player width (CSS value) | `100%` |
+| `#height` | Player height (CSS value) | `352px` |
 | `#dark` | Dark theme (presence = enabled) | - |
 | `#compact` | Compact cover art view (presence = enabled) | - |
 
