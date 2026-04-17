@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.9] - 2026-04-17
+
+### Changed
+- **sevenmark_lsp_core**: Completion logic refactored from a single `completion.rs` into four focused submodules — `context`, `items`, `params`, `variables` — each with a single responsibility. `CompletionContext` is now a named type alias; context helpers (`detect_brace_element`, `detect_bracket_element`, `in_unclosed_bracket`, `in_unclosed_styled_brace`) are exported from `context`.
+- **sevenmark_lsp_core**: `{{{#` completions at non-structural positions now also include styled-brace shortcuts (e.g. `{{{#style #style="…" $0}}}`), which were previously omitted.
+- **sevenmark_lsp_core**: `#` parameter completions inside `[[...]]` are now context-aware beyond table rows/cells: list item level suggests style/class params; fold inner level suggests style/class params; all unclosed bracket contexts fall back to the full generic media param set (`#file`, `#document`, `#url`, `#anchor`, `#theme`, style, class). Previously these cases returned no completions.
+- **sevenmark_lsp_core**: Full parameter definition sets added for `{{{#code}}}`, `{{{#tex}}}`, `{{{#ruby}}}`, `{{{#footnote}}}`, `{{{#style}}}`, `{{{#namespace}}}`, and all media embeds (`[[#youtube]]`, `[[#vimeo]]`, `[[#nicovideo]]`, `[[#spotify]]`, `[[#discord]]`).
+
 ## [2.32.8] - 2026-04-15
 
 ### Changed
