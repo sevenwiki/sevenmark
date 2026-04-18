@@ -162,6 +162,11 @@ fn blockquote_lazy_continuation_line<'i>(
         return Err(winnow::error::ContextError::new());
     }
 
+    // Policy: SevenMark keeps blockquote lazy continuation permissive.
+    // If indentation matches `content_indent`, any non-empty line is part of the quote
+    // even when it looks like a block starter (`- item`, `---`, nested list/table starts).
+    // Those lines are intentionally re-parsed inside the quote, not at the root level.
+
     let _: &str = parser_input.next_slice(content_indent);
     let content_start = parser_input.current_token_start();
     let content = line_content(parser_input)?;
