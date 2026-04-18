@@ -1,6 +1,6 @@
 use crate::context::BlockMode;
 use crate::core::parse_document_input;
-use crate::parser::utils::{line_content, line_end};
+use crate::parser::utils::{line_break_or_eof, line_content};
 use crate::parser::{InputSource, ParserInput, SourceSegment};
 use sevenmark_ast::{Element, HeaderElement, Span};
 use winnow::Result;
@@ -18,7 +18,7 @@ pub fn markdown_header_parser(parser_input: &mut ParserInput) -> Result<Element>
 
     let content_start = parser_input.current_token_start();
     let content = line_content(parser_input)?;
-    line_end(parser_input)?;
+    line_break_or_eof(parser_input)?;
 
     let end = parser_input.previous_token_end();
     let header_level = header_marks.len();

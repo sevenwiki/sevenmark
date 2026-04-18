@@ -85,7 +85,6 @@ pub fn content_element_parser(parser_input: &mut ParserInput) -> Result<Element>
         '^' => alt((markdown_superscript_parser, token_caret_parser)),
         ',' => alt((markdown_subscript_parser, token_comma_parser)),
         '\n' => token_newline_parser,
-        '\r' => token_newline_parser,
         _ => text_parser,
     }
     .parse_next(parser_input)

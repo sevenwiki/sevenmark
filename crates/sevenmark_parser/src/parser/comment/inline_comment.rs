@@ -1,5 +1,5 @@
 use crate::parser::ParserInput;
-use crate::parser::utils::{line_content, line_end};
+use crate::parser::utils::{line_break_or_eof, line_content};
 use sevenmark_ast::{CommentElement, Element, Span};
 use winnow::Result;
 use winnow::prelude::*;
@@ -20,7 +20,7 @@ pub fn inline_comment_parser(parser_input: &mut ParserInput) -> Result<Element> 
 
     literal("//").parse_next(parser_input)?;
     let content = line_content(parser_input)?.to_string();
-    line_end(parser_input)?;
+    line_break_or_eof(parser_input)?;
 
     let end = parser_input.previous_token_end();
 

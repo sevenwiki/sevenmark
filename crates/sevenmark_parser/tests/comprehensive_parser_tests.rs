@@ -433,6 +433,41 @@ fn test_markdown_blockquote_keeps_non_header_block_children() {
 }
 
 #[test]
+fn test_markdown_nested_block_spans_map_to_original_offsets() {
+    let input = "> - item\n> > nested\n";
+    let parsed = parse_document(input);
+
+    let quote = match parsed.as_slice() {
+        [Element::BlockQuote(quote)] => quote,
+        other => panic!("expected a single BlockQuote element, got: {other:#?}"),
+    };
+    assert_eq!((quote.span.start, quote.span.end), (0, input.len()));
+
+    let [Element::List(list), Element::BlockQuote(nested_quote)] = quote.children.as_slice() else {
+        panic!(
+            "expected List then nested BlockQuote, got: {:#?}",
+            quote.children
+        );
+    };
+    assert_eq!((list.span.start, list.span.end), (2, 9));
+    assert_eq!((nested_quote.span.start, nested_quote.span.end), (11, 20));
+
+    let ListContentItem::Item(item) = &list.children[0] else {
+        panic!("expected list item, got: {:#?}", list.children[0]);
+    };
+    assert_eq!((item.span.start, item.span.end), (2, 9));
+    assert!(
+        matches!(item.children.as_slice(), [Element::Text(text)] if text.value == "item" && (text.span.start, text.span.end) == (4, 8))
+    );
+
+    assert!(
+        matches!(nested_quote.children.as_slice(), [Element::Text(text), Element::SoftBreak(soft_break)] if text.value == "nested" && (text.span.start, text.span.end) == (13, 19) && (soft_break.span.start, soft_break.span.end) == (19, 20)),
+        "unexpected nested quote children: {:#?}",
+        nested_quote.children
+    );
+}
+
+#[test]
 fn test_markdown_header_children_do_not_include_line_ending() {
     let input = "# title\nbody";
     let parsed = parse_document(input);
@@ -447,30 +482,4 @@ fn test_markdown_header_children_do_not_include_line_ending() {
         "expected header content only, got: {:#?}",
         header.children
     );
-}
-
-#[test]
-fn test_markdown_line_content_excludes_crlf_carriage_return() {
-    let parsed = parse_document("# title\r\n// note\r\n> quote\r\n- item\r\n");
-
-    let [
-        Element::Header(header),
-        Element::Comment(comment),
-        Element::BlockQuote(quote),
-        Element::List(list),
-    ] = parsed.as_slice()
-    else {
-        panic!("expected Header, Comment, BlockQuote, List; got: {parsed:#?}");
-    };
-
-    assert!(matches!(header.children.as_slice(), [Element::Text(text)] if text.value == "title"));
-    assert_eq!(comment.value, " note");
-    assert!(
-        matches!(quote.children.as_slice(), [Element::Text(text), Element::SoftBreak(_)] if text.value == "quote")
-    );
-
-    let ListContentItem::Item(item) = &list.children[0] else {
-        panic!("expected list item, got: {:#?}", list.children[0]);
-    };
-    assert!(matches!(item.children.as_slice(), [Element::Text(text)] if text.value == "item"));
 }

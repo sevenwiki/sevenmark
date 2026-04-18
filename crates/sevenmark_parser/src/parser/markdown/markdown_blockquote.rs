@@ -1,6 +1,6 @@
 use crate::context::BlockMode;
 use crate::core::parse_document_input;
-use crate::parser::utils::{line_content, line_end};
+use crate::parser::utils::{line_break_or_eof, line_content};
 use crate::parser::{InputSource, ParserInput, SourceSegment};
 use sevenmark_ast::{BlockQuoteElement, Element, Span};
 use winnow::Result;
@@ -82,13 +82,13 @@ fn blockquote_line(parser_input: &mut ParserInput) -> Result<BlockQuoteLine> {
     }
 
     let ending_start = parser_input.current_token_start();
-    if let Some(ending) = line_end(parser_input)? {
+    if let Some(ending) = line_break_or_eof(parser_input)? {
         let logical_start = logical_content.len();
-        logical_content.push('\n');
+        logical_content.push_str(ending);
         segments.push(SourceSegment {
             logical_start,
-            original_start: ending_start + ending.len() - 1,
-            len: 1,
+            original_start: ending_start,
+            len: ending.len(),
         });
     }
 
