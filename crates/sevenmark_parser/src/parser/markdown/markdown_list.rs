@@ -2,7 +2,9 @@ use crate::context::BlockMode;
 use crate::core::parse_document_input;
 use crate::parser::utils::{line_break_or_eof, line_content};
 use crate::parser::{InputSource, ParserInput, SourceSegment};
-use sevenmark_ast::{Element, ListContentItem, ListElement, ListItemElement, ListKind, Span};
+use sevenmark_ast::{
+    Element, HardBreakElement, ListContentItem, ListElement, ListItemElement, ListKind, Span,
+};
 use winnow::Result;
 use winnow::combinator::{alt, peek};
 use winnow::prelude::*;
@@ -19,6 +21,7 @@ struct ListLine {
     indent: usize,
     marker: ListMarker,
     content: String,
+    segments: Vec<SourceSegment>,
     original_content_start: usize,
     original_line_start: usize,
     original_line_end: usize,
@@ -35,8 +38,9 @@ pub fn markdown_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let lines = collect_list_lines(parser_input)?;
 
     let (nodes, roots) = build_list_tree(&lines);
-    let mut root_lists = build_list_elements(&lines, &nodes, &roots, parser_input)?;
-    Ok(root_lists.remove(0))
+    // `collect_list_lines` guarantees all root-level lines share the same marker
+    // type, so the roots form exactly one list element. No grouping needed here.
+    build_list_element(&lines, &nodes, &roots, parser_input)
 }
 
 fn list_marker(parser_input: &mut ParserInput) -> Result<ListMarker> {
@@ -112,19 +116,18 @@ fn is_same_marker_type(left: ListMarker, right: ListMarker) -> bool {
 }
 
 fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
-    let first_line = list_line(parser_input)?;
+    let mut first_line = list_line(parser_input)?;
+    consume_continuation_lines(parser_input, &mut first_line);
     let root_marker = first_line.marker;
     let mut lines = vec![first_line];
     let mut stack = vec![(lines[0].indent, lines[0].marker)];
 
     loop {
         let checkpoint = parser_input.checkpoint();
-        let state = parser_input.state.clone();
-        let line = match list_line(parser_input) {
+        let mut line = match list_line(parser_input) {
             Ok(line) => line,
             Err(_) => {
                 parser_input.reset(&checkpoint);
-                parser_input.state = state;
                 break;
             }
         };
@@ -140,10 +143,10 @@ fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
         let is_new_root = stack.is_empty();
         if is_new_root && !is_same_marker_type(root_marker, line.marker) {
             parser_input.reset(&checkpoint);
-            parser_input.state = state;
             break;
         }
 
+        consume_continuation_lines(parser_input, &mut line);
         stack.push((line.indent, line.marker));
         lines.push(line);
     }
@@ -162,6 +165,14 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
     let content_start = parser_input.current_token_start();
 
     let content = line_content(parser_input)?;
+    let mut segments = Vec::new();
+    if !content.is_empty() {
+        segments.push(SourceSegment {
+            logical_start: 0,
+            original_start: content_start,
+            len: content.len(),
+        });
+    }
     line_break_or_eof(parser_input)?;
     let line_end = parser_input.previous_token_end();
 
@@ -169,10 +180,125 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
         indent,
         marker,
         content: content.to_string(),
+        segments,
         original_content_start: content_start,
         original_line_start: line_start,
         original_line_end: line_end,
     })
+}
+
+/// Tries to consume one lazy-continuation line, appending its content to `base`
+/// in place. Returns `Err` (without consuming input) when the next line is empty,
+/// starts a new block construct, or starts a new list marker.
+///
+/// Continuation rule: strip up to `base.indent` leading spaces (the column where
+/// the parent line's marker sits), then take the rest as additional inline text
+/// for the same item. The previous line's `\n` is mapped into logical content as
+/// the separator so re-parse offsets stay aligned with the original source.
+fn list_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -> Result<()> {
+    let remaining: &str = &parser_input.input;
+    if remaining.is_empty() {
+        return Err(winnow::error::ContextError::new());
+    }
+    let line_end_pos = remaining.find('\n').unwrap_or(remaining.len());
+    let after_spaces = remaining[..line_end_pos].trim_start_matches(' ');
+    if after_spaces.is_empty() {
+        return Err(winnow::error::ContextError::new());
+    }
+    if line_starts_block_or_list(after_spaces) {
+        return Err(winnow::error::ContextError::new());
+    }
+
+    // The previous line consumed its trailing '\n' (or hit EOF). Since
+    // `remaining` is non-empty here, there was a '\n' immediately before this
+    // line — its original offset is `original_line_end - 1`.
+    let separator_original = base.original_line_end.saturating_sub(1);
+    let separator_logical = base.content.len();
+
+    let _: &str = take_while(0..=base.indent, |c: char| c == ' ').parse_next(parser_input)?;
+    let cont_content_start = parser_input.current_token_start();
+    let cont_content = line_content(parser_input)?;
+    line_break_or_eof(parser_input)?;
+    let line_end = parser_input.previous_token_end();
+
+    base.content.push('\n');
+    base.segments.push(SourceSegment {
+        logical_start: separator_logical,
+        original_start: separator_original,
+        len: 1,
+    });
+    if !cont_content.is_empty() {
+        let logical_start = base.content.len();
+        base.segments.push(SourceSegment {
+            logical_start,
+            original_start: cont_content_start,
+            len: cont_content.len(),
+        });
+        base.content.push_str(cont_content);
+    }
+    base.original_line_end = line_end;
+
+    Ok(())
+}
+
+fn consume_continuation_lines(parser_input: &mut ParserInput, base: &mut ListLine) {
+    loop {
+        let checkpoint = parser_input.checkpoint();
+        if list_continuation_line(parser_input, base).is_err() {
+            parser_input.reset(&checkpoint);
+            break;
+        }
+    }
+}
+
+/// Cheap line-start classifier mirroring the block parsers in `parse_line_block`
+/// plus list markers. Used by `list_continuation_line` to bail before mutating.
+fn line_starts_block_or_list(after_spaces: &str) -> bool {
+    if after_spaces.is_empty() {
+        return false;
+    }
+    let bytes = after_spaces.as_bytes();
+    let first = bytes[0];
+
+    if first == b'#' || first == b'>' {
+        return true;
+    }
+
+    if first == b'-' {
+        let dash_count = bytes.iter().take_while(|&&b| b == b'-').count();
+        if (3..=9).contains(&dash_count) && dash_count == bytes.len() {
+            return true;
+        }
+    }
+
+    if after_spaces.starts_with("- ")
+        || after_spaces.starts_with("+ ")
+        || after_spaces.starts_with("* ")
+    {
+        return true;
+    }
+
+    let mut digit_end = 0;
+    while digit_end < bytes.len() && bytes[digit_end].is_ascii_digit() {
+        digit_end += 1;
+    }
+    if digit_end > 0
+        && digit_end + 1 < bytes.len()
+        && (bytes[digit_end] == b'.' || bytes[digit_end] == b')')
+        && bytes[digit_end + 1] == b' '
+    {
+        return true;
+    }
+
+    if bytes.len() >= 3
+        && bytes[0].is_ascii_alphabetic()
+        && (bytes[1] == b'.' || bytes[1] == b')')
+        && bytes[2] == b' '
+    {
+        return true;
+    }
+
+    false
 }
 
 /// Builds a parent/child tree from list lines using indentation.
@@ -334,15 +460,7 @@ fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result
     let mut child_input = ParserInput {
         input: InputSource::new_segmented(
             &line.content,
-            if line.content.is_empty() {
-                Vec::new()
-            } else {
-                vec![SourceSegment {
-                    logical_start: 0,
-                    original_start: line.original_content_start,
-                    len: line.content.len(),
-                }]
-            },
+            line.segments.clone(),
             line.original_content_start,
         ),
         state: parser_input.state.clone(),
@@ -354,9 +472,20 @@ fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result
         .state
         .increase_depth()
         .map_err(|e| e.into_context_error())?;
-    let children = parse_document_input(&mut child_input);
+    let mut children = parse_document_input(&mut child_input);
     child_input.state.decrease_depth();
     child_input.state.replace_block_mode(previous_block_mode);
     parser_input.state = child_input.state;
+    // List item content has no native '\n' (each `line_content` stops at '\n'),
+    // so any top-level SoftBreak here came from a lazy-continuation separator
+    // we injected. Promote it to HardBreak so the list renderer (which
+    // suppresses SoftBreak) still emits a visible <br>.
+    for child in &mut children {
+        if let Element::SoftBreak(soft) = child {
+            *child = Element::HardBreak(HardBreakElement {
+                span: soft.span.clone(),
+            });
+        }
+    }
     Ok(children)
 }

@@ -50,9 +50,6 @@ impl SourceMap {
                     if offset >= segment.logical_start && offset < segment.logical_end() {
                         return segment.original_start + (offset - segment.logical_start);
                     }
-                    if offset == segment.logical_start {
-                        return segment.original_start;
-                    }
                 }
 
                 segments
@@ -77,9 +74,6 @@ impl SourceMap {
                 for segment in segments.iter().rev() {
                     if offset > segment.logical_start && offset <= segment.logical_end() {
                         return segment.original_start + (offset - segment.logical_start);
-                    }
-                    if offset == segment.logical_end() {
-                        return segment.original_end();
                     }
                 }
 
