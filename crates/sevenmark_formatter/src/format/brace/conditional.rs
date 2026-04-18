@@ -14,6 +14,11 @@ pub fn format_if<'a>(
     a.text("{{{#if ")
         .append(format_expr(a, &e.condition, config))
         .append(a.text(" :: "))
-        .append(format_elements_with_context(a, &e.children, config, context))
+        .append(format_elements_with_context(
+            a,
+            &e.children,
+            config,
+            context,
+        ))
         .append(a.text("}}}"))
 }

@@ -41,8 +41,12 @@ fn format_fold_inner<'a>(
         .append(if inner.children.is_empty() {
             a.nil()
         } else if has_params {
-            a.text(" ")
-                .append(format_elements_with_context(a, &inner.children, config, context))
+            a.text(" ").append(format_elements_with_context(
+                a,
+                &inner.children,
+                config,
+                context,
+            ))
         } else {
             format_elements_with_context(a, &inner.children, config, context)
         })

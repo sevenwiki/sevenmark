@@ -74,7 +74,9 @@ pub fn format_elements_with_context<'a>(
         .saturating_sub(count_trailing_soft_breaks(elements));
 
     for (index, el) in elements.iter().enumerate() {
-        if matches!(el, Element::SoftBreak(_)) && context.soft_break_policy == SoftBreakPolicy::Suppress {
+        if matches!(el, Element::SoftBreak(_))
+            && context.soft_break_policy == SoftBreakPolicy::Suppress
+        {
             continue;
         }
 
@@ -170,11 +172,15 @@ pub fn format_element_with_context<'a>(
         Element::Strikethrough(e) => {
             markdown::strikethrough::format_strikethrough(a, &e.children, config, context)
         }
-        Element::Underline(e) => markdown::underline::format_underline(a, &e.children, config, context),
+        Element::Underline(e) => {
+            markdown::underline::format_underline(a, &e.children, config, context)
+        }
         Element::Superscript(e) => {
             markdown::superscript::format_superscript(a, &e.children, config, context)
         }
-        Element::Subscript(e) => markdown::subscript::format_subscript(a, &e.children, config, context),
+        Element::Subscript(e) => {
+            markdown::subscript::format_subscript(a, &e.children, config, context)
+        }
         Element::Header(e) => markdown::header::format_header(a, e, config, context),
 
         // Bracket elements

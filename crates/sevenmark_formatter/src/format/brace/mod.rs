@@ -1,7 +1,7 @@
 pub mod blockquote;
 pub mod category;
-pub mod common;
 pub mod code;
+pub mod common;
 pub mod conditional;
 pub mod css;
 pub mod define;

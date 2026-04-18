@@ -65,7 +65,9 @@ fn format_list_content_item<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     match item {
         ListContentItem::Item(li) => format_list_item(a, li, config, context),
-        ListContentItem::Conditional(cond) => format_conditional_list_items(a, cond, config, context),
+        ListContentItem::Conditional(cond) => {
+            format_conditional_list_items(a, cond, config, context)
+        }
     }
 }
 
@@ -82,8 +84,12 @@ fn format_list_item<'a>(
         .append(if li.children.is_empty() {
             a.nil()
         } else if has_params {
-            a.text(" ")
-                .append(format_elements_with_context(a, &li.children, config, context))
+            a.text(" ").append(format_elements_with_context(
+                a,
+                &li.children,
+                config,
+                context,
+            ))
         } else {
             format_elements_with_context(a, &li.children, config, context)
         })
@@ -98,7 +104,9 @@ fn format_conditional_list_items<'a>(
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let items = a.intersperse(
-        cond.items.iter().map(|li| format_list_item(a, li, config, context)),
+        cond.items
+            .iter()
+            .map(|li| format_list_item(a, li, config, context)),
         a.hardline(),
     );
     a.text("{{{#if ")

@@ -12,6 +12,7 @@ pub fn format_blockquote<'a>(
     a: &'a Arena<'a>,
     e: &BlockQuoteElement,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let trailing_soft_break_count = count_trailing_soft_breaks(&e.children);
     let semantic_children_end = e.children.len().saturating_sub(trailing_soft_break_count);
@@ -23,16 +24,19 @@ pub fn format_blockquote<'a>(
         a.nil()
     };
 
-    let quote_context =
-        FormatContext::default().with_trailing_soft_break_policy(TrailingSoftBreakPolicy::Drop);
+    let quote_context = context.with_trailing_soft_break_policy(TrailingSoftBreakPolicy::Drop);
 
     a.text("{{{#quote")
         .append(format_params_block(a, &e.parameters, config))
         .append(if e.children.is_empty() {
             a.nil()
         } else {
-            a.text(" ")
-                .append(format_elements_with_context(a, &e.children, config, quote_context))
+            a.text(" ").append(format_elements_with_context(
+                a,
+                &e.children,
+                config,
+                quote_context,
+            ))
         })
         .append(close_separator)
         .append(a.text("}}}"))

@@ -18,5 +18,10 @@ pub fn format_header<'a>(
     };
     a.text(prefix)
         .append(a.text(" "))
-        .append(format_elements_with_context(a, &e.children, config, context))
+        .append(format_elements_with_context(
+            a,
+            &e.children,
+            config,
+            context,
+        ))
 }

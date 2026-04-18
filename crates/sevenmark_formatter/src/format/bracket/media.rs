@@ -17,8 +17,12 @@ pub fn format_media<'a>(
         .append(if e.children.is_empty() {
             a.nil()
         } else if has_params {
-            a.text(" ")
-                .append(format_elements_with_context(a, &e.children, config, context))
+            a.text(" ").append(format_elements_with_context(
+                a,
+                &e.children,
+                config,
+                context,
+            ))
         } else {
             format_elements_with_context(a, &e.children, config, context)
         })

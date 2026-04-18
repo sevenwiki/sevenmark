@@ -1,6 +1,6 @@
+use crate::format::brace::common::needs_close_separator_for_raw_value;
 use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::TeXElement;
-use crate::format::brace::common::needs_close_separator_for_raw_value;
 
 pub fn format_tex<'a>(a: &'a Arena<'a>, e: &TeXElement) -> DocBuilder<'a, Arena<'a>> {
     let tag = if e.is_block {

@@ -14,8 +14,12 @@ pub fn format_category<'a>(
         .append(if e.children.is_empty() {
             a.nil()
         } else {
-            a.text(" ")
-                .append(format_elements_with_context(a, &e.children, config, context))
+            a.text(" ").append(format_elements_with_context(
+                a,
+                &e.children,
+                config,
+                context,
+            ))
         })
         .append(a.text("}}}"))
 }

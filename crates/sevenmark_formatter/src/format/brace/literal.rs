@@ -11,6 +11,11 @@ pub fn format_literal<'a>(
     context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     a.text("{{{")
-        .append(format_elements_with_context(a, &e.children, config, context))
+        .append(format_elements_with_context(
+            a,
+            &e.children,
+            config,
+            context,
+        ))
         .append(a.text("}}}"))
 }

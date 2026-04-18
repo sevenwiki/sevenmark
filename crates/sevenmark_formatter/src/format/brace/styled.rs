@@ -18,8 +18,12 @@ pub fn format_styled<'a>(
         .append(if e.children.is_empty() {
             a.nil()
         } else {
-            a.text(" ")
-                .append(format_elements_with_context(a, &e.children, config, styled_context))
+            a.text(" ").append(format_elements_with_context(
+                a,
+                &e.children,
+                config,
+                styled_context,
+            ))
         })
         .append(a.text("}}}"))
 }

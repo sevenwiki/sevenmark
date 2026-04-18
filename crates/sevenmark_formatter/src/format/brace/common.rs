@@ -5,7 +5,9 @@ pub fn needs_close_separator_for_raw_value(value: &str) -> bool {
 }
 
 pub fn needs_close_separator_for_elements(elements: &[Element]) -> bool {
-    elements.last().is_some_and(formatted_element_ends_with_right_brace)
+    elements
+        .last()
+        .is_some_and(formatted_element_ends_with_right_brace)
 }
 
 fn formatted_element_ends_with_right_brace(el: &Element) -> bool {
