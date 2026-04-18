@@ -15,13 +15,12 @@ pub fn format_table<'a>(
     config: &FormatConfig,
     context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
-    let table_context = context.suppress_soft_breaks();
     let indent = config.indent as isize;
     let params = format_params_block(a, &e.parameters, config);
     let rows = a.intersperse(
         e.children
             .iter()
-            .map(|r| format_row_item(a, r, config, table_context)),
+            .map(|r| format_row_item(a, r, config, context)),
         a.hardline(),
     );
     a.text("{{{#table")

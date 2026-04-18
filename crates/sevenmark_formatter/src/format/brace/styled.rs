@@ -11,8 +11,6 @@ pub fn format_styled<'a>(
     config: &FormatConfig,
     context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
-    let styled_context = context.suppress_soft_breaks();
-
     a.text("{{{")
         .append(format_params_block(a, &e.parameters, config))
         .append(if e.children.is_empty() {
@@ -22,7 +20,7 @@ pub fn format_styled<'a>(
                 a,
                 &e.children,
                 config,
-                styled_context,
+                context,
             ))
         })
         .append(a.text("}}}"))

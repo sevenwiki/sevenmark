@@ -11,16 +11,15 @@ pub fn format_fold<'a>(
     config: &FormatConfig,
     context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
-    let fold_context = context.suppress_soft_breaks();
     let indent = " ".repeat(config.indent);
     let params = format_params_block(a, &e.parameters, config);
     let inner = a
         .hardline()
         .append(a.text(indent.clone()))
-        .append(format_fold_inner(a, &e.summary, config, fold_context))
+        .append(format_fold_inner(a, &e.summary, config, context))
         .append(a.hardline())
         .append(a.text(indent))
-        .append(format_fold_inner(a, &e.details, config, fold_context));
+        .append(format_fold_inner(a, &e.details, config, context));
     a.text("{{{#fold")
         .append(params)
         .append(inner)

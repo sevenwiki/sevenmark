@@ -10,41 +10,25 @@ use super::markdown;
 use super::text;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum SoftBreakPolicy {
-    Preserve,
-    Suppress,
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum TrailingSoftBreakPolicy {
     Preserve,
-    Drop,
     AsHardBreak,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct FormatContext {
-    pub soft_break_policy: SoftBreakPolicy,
     pub trailing_soft_break_policy: TrailingSoftBreakPolicy,
 }
 
 impl Default for FormatContext {
     fn default() -> Self {
         Self {
-            soft_break_policy: SoftBreakPolicy::Preserve,
             trailing_soft_break_policy: TrailingSoftBreakPolicy::Preserve,
         }
     }
 }
 
 impl FormatContext {
-    pub fn suppress_soft_breaks(self) -> Self {
-        Self {
-            soft_break_policy: SoftBreakPolicy::Suppress,
-            ..self
-        }
-    }
-
     pub fn with_trailing_soft_break_policy(self, policy: TrailingSoftBreakPolicy) -> Self {
         Self {
             trailing_soft_break_policy: policy,
@@ -74,16 +58,9 @@ pub fn format_elements_with_context<'a>(
         .saturating_sub(count_trailing_soft_breaks(elements));
 
     for (index, el) in elements.iter().enumerate() {
-        if matches!(el, Element::SoftBreak(_))
-            && context.soft_break_policy == SoftBreakPolicy::Suppress
-        {
-            continue;
-        }
-
         if index >= trailing_soft_break_start && matches!(el, Element::SoftBreak(_)) {
             match context.trailing_soft_break_policy {
                 TrailingSoftBreakPolicy::Preserve => {}
-                TrailingSoftBreakPolicy::Drop => continue,
                 TrailingSoftBreakPolicy::AsHardBreak => {
                     doc = doc.append(macros::format_hard_break(a));
                     continue;
@@ -145,10 +122,7 @@ pub fn format_element_with_context<'a>(
         Element::Mention(e) => text::format_mention(a, e),
 
         // Line elements
-        Element::SoftBreak(_) => match context.soft_break_policy {
-            SoftBreakPolicy::Preserve => a.hardline(),
-            SoftBreakPolicy::Suppress => a.nil(),
-        },
+        Element::SoftBreak(_) => a.hardline(),
         Element::HardBreak(_) => macros::format_hard_break(a),
         Element::Clear(_) => macros::format_clear(a),
         Element::HLine(_) => macros::format_hline(a),

@@ -18,13 +18,16 @@ pub fn format_blockquote<'a>(
     let semantic_children_end = e.children.len().saturating_sub(trailing_soft_break_count);
     let semantic_children = &e.children[..semantic_children_end];
 
-    let close_separator = if needs_close_separator_for_elements(semantic_children) {
+    let close_separator = if trailing_soft_break_count == 0
+        && needs_close_separator_for_elements(semantic_children)
+    {
         a.text(" ")
     } else {
         a.nil()
     };
 
-    let quote_context = context.with_trailing_soft_break_policy(TrailingSoftBreakPolicy::Drop);
+    let quote_context =
+        context.with_trailing_soft_break_policy(TrailingSoftBreakPolicy::AsHardBreak);
 
     a.text("{{{#quote")
         .append(format_params_block(a, &e.parameters, config))
