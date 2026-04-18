@@ -65,25 +65,15 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
     let mut stack: Vec<usize> = Vec::new();
 
     for (line_index, line) in lines.iter().enumerate() {
-        let parent = if let Some(&previous_index) = stack.last() {
-            let previous_indent = lines[nodes[previous_index].line_index].indent;
-            if line.indent > previous_indent {
-                Some(previous_index)
+        while let Some(&top_index) = stack.last() {
+            let top_indent = lines[nodes[top_index].line_index].indent;
+            if top_indent >= line.indent {
+                stack.pop();
             } else {
-                while let Some(&top_index) = stack.last() {
-                    let top_indent = lines[nodes[top_index].line_index].indent;
-                    if top_indent > line.indent {
-                        stack.pop();
-                    } else {
-                        break;
-                    }
-                }
-
-                stack.pop().and_then(|top_index| nodes[top_index].parent)
+                break;
             }
-        } else {
-            None
-        };
+        }
+        let parent = stack.last().copied();
 
         let node_index = nodes.len();
         nodes.push(ListNode {
