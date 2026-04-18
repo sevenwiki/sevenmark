@@ -70,6 +70,14 @@
             },
             "value": " content."
           }
+        },
+        {
+          "SoftBreak": {
+            "span": {
+              "start": 92,
+              "end": 93
+            }
+          }
         }
       ]
     }

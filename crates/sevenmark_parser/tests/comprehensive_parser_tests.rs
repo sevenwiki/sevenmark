@@ -579,6 +579,129 @@ fn test_markdown_nested_block_spans_map_to_original_offsets() {
 }
 
 #[test]
+fn test_markdown_list_accepts_indented_blockquote_in_item_content() {
+    let input = "- item\n  > quote\n";
+    let parsed = parse_document(input);
+
+    let [Element::List(list)] = parsed.as_slice() else {
+        panic!("expected a single list element, got: {parsed:#?}");
+    };
+    let [ListContentItem::Item(item)] = list.children.as_slice() else {
+        panic!("expected one list item, got: {:#?}", list.children);
+    };
+    assert!(
+        item.children
+            .iter()
+            .any(|child| matches!(child, Element::BlockQuote(_))),
+        "expected blockquote child inside list item, got: {:#?}",
+        item.children
+    );
+}
+
+#[test]
+fn test_markdown_list_does_not_capture_unindented_blockquote() {
+    let input = "- item\n> outside\n";
+    let parsed = parse_document(input);
+
+    assert!(
+        matches!(
+            parsed.as_slice(),
+            [Element::List(_), Element::BlockQuote(_)]
+        ),
+        "expected list followed by root blockquote, got: {parsed:#?}",
+    );
+}
+
+#[test]
+fn test_markdown_list_does_not_capture_under_indented_plain_continuation() {
+    let input = "* awefawef\nawefawef\n";
+    let parsed = parse_document(input);
+
+    assert!(
+        matches!(
+            parsed.as_slice(),
+            [Element::List(_), Element::Text(_), Element::SoftBreak(_)]
+        ),
+        "expected list followed by root text line, got: {parsed:#?}",
+    );
+}
+
+#[test]
+fn test_markdown_list_continuation_preserves_extra_spaces_after_content_indent() {
+    let input = "* wefawe\n     awfawef\n";
+    let parsed = parse_document(input);
+
+    let [Element::List(list)] = parsed.as_slice() else {
+        panic!("expected a single list element, got: {parsed:#?}");
+    };
+    let [ListContentItem::Item(item)] = list.children.as_slice() else {
+        panic!("expected one list item, got: {:#?}", list.children);
+    };
+    assert!(
+        matches!(
+            item.children.as_slice(),
+            [Element::Text(first), Element::SoftBreak(_), Element::Text(second)]
+            if first.value == "wefawe" && second.value == "   awfawef"
+        ),
+        "expected continuation line to keep spaces beyond marker indent, got: {:#?}",
+        item.children
+    );
+}
+
+#[test]
+fn test_markdown_list_parses_hline_when_indented_to_content_column() {
+    let input = "* awefawef\n  ----\n";
+    let parsed = parse_document(input);
+
+    let [Element::List(list)] = parsed.as_slice() else {
+        panic!("expected a single list element, got: {parsed:#?}");
+    };
+    let [ListContentItem::Item(item)] = list.children.as_slice() else {
+        panic!("expected one list item, got: {:#?}", list.children);
+    };
+    assert!(
+        item.children
+            .iter()
+            .any(|child| matches!(child, Element::HLine(_))),
+        "expected hline inside list item, got: {:#?}",
+        item.children
+    );
+}
+
+#[test]
+fn test_brace_quote_parses_nested_markdown_blocks() {
+    let input = "{{{#quote\n- item\n> nested\n---\n}}}";
+    let parsed = parse_document(input);
+
+    let [Element::BlockQuote(quote)] = parsed.as_slice() else {
+        panic!("expected a single brace blockquote, got: {parsed:#?}");
+    };
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [Element::List(_), Element::BlockQuote(_), Element::HLine(_)]
+        ),
+        "expected list, nested blockquote, and hline in brace quote, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_brace_quote_keeps_hash_header_like_text_plain() {
+    let input = "{{{#quote\n# title\n}}}";
+    let parsed = parse_document(input);
+
+    let [Element::BlockQuote(quote)] = parsed.as_slice() else {
+        panic!("expected a single brace blockquote, got: {parsed:#?}");
+    };
+    assert!(
+        matches!(quote.children.as_slice(), [Element::Text(text), Element::SoftBreak(_)] if text.value == "# title"),
+        "expected '# title' to stay text inside brace quote, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
 fn test_markdown_header_children_do_not_include_line_ending() {
     let input = "# title\nbody";
     let parsed = parse_document(input);

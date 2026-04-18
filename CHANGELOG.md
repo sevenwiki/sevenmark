@@ -20,7 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **sevenmark_ast/sevenmark_parser/sevenmark_html**: List kind handling migrated from free-form string values to a typed `ListKind` enum across AST, parsers, and HTML rendering paths.
 - **sevenmark_parser**: Refactored element parsing flow into block-aware document parsing plus content element parsing, improving parser composition for nested contexts.
 - **sevenmark_parser**: Normalized parser line-ending handling to `\n` semantics in markdown block paths.
-- **sevenmark_html**: Blockquote rendering no longer suppresses soft breaks, matching updated parser offset/line handling.
+- **sevenmark_parser**: Markdown list lazy continuation now uses a strict content-column rule (marker + required whitespace). Continuation lines must be indented to that column; under-indented lines are no longer captured as item content.
+- **sevenmark_parser**: List item content is now re-parsed in nested document mode, allowing block constructs (e.g. nested `>`, `---`, nested lists) inside markdown list items when continuation indentation rules are met.
+- **sevenmark_html**: List rendering no longer suppresses soft breaks, so lazy continuation line breaks are emitted visibly.
 - **deps**: Bumped `tracing-appender` to `0.2.5`.
 
 ### Fixed

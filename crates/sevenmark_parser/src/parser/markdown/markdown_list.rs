@@ -17,6 +17,7 @@ enum ListMarker {
 
 struct ListLine {
     indent: usize,
+    content_indent: usize,
     marker: ListMarker,
     content: String,
     segments: Vec<SourceSegment>,
@@ -176,6 +177,7 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
 
     Ok(ListLine {
         indent,
+        content_indent: content_start.saturating_sub(line_start),
         marker,
         content: content.to_string(),
         segments,
@@ -187,23 +189,31 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
 
 /// Tries to consume one lazy-continuation line, appending its content to `base`
 /// in place. Returns `Err` (without consuming input) when the next line is empty,
-/// starts a new block construct, or starts a new list marker.
+/// is less-indented than the list content column, or starts a new list marker.
 ///
-/// Continuation rule: strip up to `base.indent` leading spaces (the column where
-/// the parent line's marker sits), then take the rest as additional inline text
-/// for the same item. The previous line's `\n` is mapped into logical content as
-/// the separator so re-parse offsets stay aligned with the original source.
+/// Continuation rule: strip up to `base.content_indent` leading spaces (the list
+/// content column), then take the rest as additional item text. This applies to
+/// both plain text and block-like lines, so list lazy-continuation boundaries are
+/// consistently defined by marker+whitespace (`*␠`, `-␠`, `1.␠`, ...). List markers
+/// are still handled by the outer list-line collector/tree builder.
+/// The previous line's `\n` is mapped into logical content as the separator so
+/// re-parse offsets stay aligned with the original source.
 fn list_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -> Result<()> {
     let remaining: &str = &parser_input.input;
     if remaining.is_empty() {
         return Err(winnow::error::ContextError::new());
     }
     let line_end_pos = remaining.find('\n').unwrap_or(remaining.len());
-    let after_spaces = remaining[..line_end_pos].trim_start_matches(' ');
+    let line = &remaining[..line_end_pos];
+    let leading_spaces = line.chars().take_while(|&c| c == ' ').count();
+    let after_spaces = line.trim_start_matches(' ');
     if after_spaces.is_empty() {
         return Err(winnow::error::ContextError::new());
     }
-    if line_starts_block_or_list(after_spaces) {
+    if line_starts_list(after_spaces) {
+        return Err(winnow::error::ContextError::new());
+    }
+    if leading_spaces < base.content_indent {
         return Err(winnow::error::ContextError::new());
     }
 
@@ -213,7 +223,8 @@ fn list_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -
     let separator_original = base.original_line_end.saturating_sub(1);
     let separator_logical = base.content.len();
 
-    let _: &str = take_while(0..=base.indent, |c: char| c == ' ').parse_next(parser_input)?;
+    let _: &str =
+        take_while(0..=base.content_indent, |c: char| c == ' ').parse_next(parser_input)?;
     let cont_content_start = parser_input.current_token_start();
     let cont_content = line_content(parser_input)?;
     line_break_or_eof(parser_input)?;
@@ -249,25 +260,10 @@ fn consume_continuation_lines(parser_input: &mut ParserInput, base: &mut ListLin
     }
 }
 
-/// Cheap line-start classifier mirroring the block parsers in `parse_line_block`
-/// plus list markers. Used by `list_continuation_line` to bail before mutating.
-fn line_starts_block_or_list(after_spaces: &str) -> bool {
-    if after_spaces.is_empty() {
-        return false;
-    }
+/// Returns whether a line starts a list marker. These remain handled by the
+/// list-line collector/tree builder, not by lazy continuation.
+fn line_starts_list(after_spaces: &str) -> bool {
     let bytes = after_spaces.as_bytes();
-    let first = bytes[0];
-
-    if first == b'#' || first == b'>' {
-        return true;
-    }
-
-    if first == b'-' {
-        let dash_count = bytes.iter().take_while(|&&b| b == b'-').count();
-        if (3..=9).contains(&dash_count) && dash_count == bytes.len() {
-            return true;
-        }
-    }
 
     if after_spaces.starts_with("- ")
         || after_spaces.starts_with("+ ")
@@ -453,7 +449,8 @@ fn build_list_item(
     })
 }
 
-/// Re-parses list item text in inline mode while preserving original source offsets.
+/// Re-parses list item text as a nested document while preserving original source
+/// offsets. This allows block constructs (e.g. nested `>`, `---`) inside list items.
 fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result<Vec<Element>> {
     let mut child_input = ParserInput {
         input: InputSource::new_segmented(
@@ -465,7 +462,7 @@ fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result
     };
     let previous_block_mode = child_input
         .state
-        .replace_block_mode(BlockMode::InlineContent);
+        .replace_block_mode(BlockMode::NestedDocument);
     child_input
         .state
         .increase_depth()
