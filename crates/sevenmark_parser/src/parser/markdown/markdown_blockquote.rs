@@ -20,18 +20,34 @@ pub fn markdown_blockquote_parser(parser_input: &mut ParserInput) -> Result<Elem
 
     let empty_original_offset = raw_lines
         .first()
-        .map(|line| line.original_start)
+        .map(|line| line.content_start)
         .unwrap_or(start);
-    let mut logical = String::new();
-    let mut segments = Vec::with_capacity(raw_lines.len());
+    let logical_len = raw_lines
+        .iter()
+        .map(|line| line.content.len() + line.ending.map(str::len).unwrap_or_default())
+        .sum();
+    let mut logical = String::with_capacity(logical_len);
+    let mut segments = Vec::with_capacity(raw_lines.len() * 2);
     for line in &raw_lines {
-        let logical_start = logical.len();
+        if !line.content.is_empty() {
+            segments.push(SourceSegment {
+                logical_start: logical.len(),
+                original_start: line.content_start,
+                len: line.content.len(),
+            });
+        }
         logical.push_str(&line.content);
-        segments.extend(line.segments.iter().map(|segment| SourceSegment {
-            logical_start: logical_start + segment.logical_start,
-            original_start: segment.original_start,
-            len: segment.len,
-        }));
+
+        if let Some(ending) = line.ending {
+            if let Some(ending_start) = line.ending_start {
+                segments.push(SourceSegment {
+                    logical_start: logical.len(),
+                    original_start: ending_start,
+                    len: ending.len(),
+                });
+            }
+            logical.push_str(ending);
+        }
     }
 
     let mut child_input = ParserInput {
@@ -59,14 +75,17 @@ pub fn markdown_blockquote_parser(parser_input: &mut ParserInput) -> Result<Elem
     }))
 }
 
-struct BlockQuoteLine {
-    content: String,
+struct BlockQuoteLine<'i> {
+    content: &'i str,
+    ending: Option<&'i str>,
     content_indent: usize,
-    original_start: usize,
-    segments: Vec<SourceSegment>,
+    content_start: usize,
+    ending_start: Option<usize>,
 }
 
-fn collect_blockquote_lines(parser_input: &mut ParserInput) -> Result<Vec<BlockQuoteLine>> {
+fn collect_blockquote_lines<'i>(
+    parser_input: &mut ParserInput<'i>,
+) -> Result<Vec<BlockQuoteLine<'i>>> {
     let first_line = blockquote_line(parser_input)?;
     let mut content_indent = first_line.content_indent;
     let mut lines = vec![first_line];
@@ -98,7 +117,7 @@ fn collect_blockquote_lines(parser_input: &mut ParserInput) -> Result<Vec<BlockQ
 }
 
 /// Parses one blockquote line and records source segments for both text and line ending.
-fn blockquote_line(parser_input: &mut ParserInput) -> Result<BlockQuoteLine> {
+fn blockquote_line<'i>(parser_input: &mut ParserInput<'i>) -> Result<BlockQuoteLine<'i>> {
     let line_start = parser_input.current_token_start();
     literal(">").parse_next(parser_input)?;
     opt(literal(" ")).parse_next(parser_input)?;
@@ -106,40 +125,23 @@ fn blockquote_line(parser_input: &mut ParserInput) -> Result<BlockQuoteLine> {
     let content_start = parser_input.current_token_start();
 
     let content = line_content(parser_input)?;
-    let mut logical_content = content.to_string();
-    let mut segments = Vec::new();
-
-    if !content.is_empty() {
-        segments.push(SourceSegment {
-            logical_start: 0,
-            original_start: content_start,
-            len: content.len(),
-        });
-    }
 
     let ending_start = parser_input.current_token_start();
-    if let Some(ending) = line_break_or_eof(parser_input)? {
-        let logical_start = logical_content.len();
-        logical_content.push_str(ending);
-        segments.push(SourceSegment {
-            logical_start,
-            original_start: ending_start,
-            len: ending.len(),
-        });
-    }
+    let ending = line_break_or_eof(parser_input)?;
 
     Ok(BlockQuoteLine {
-        content: logical_content,
+        content,
+        ending,
         content_indent: content_start.saturating_sub(line_start),
-        original_start: content_start,
-        segments,
+        content_start,
+        ending_start: ending.map(|_| ending_start),
     })
 }
 
-fn blockquote_lazy_continuation_line(
-    parser_input: &mut ParserInput,
+fn blockquote_lazy_continuation_line<'i>(
+    parser_input: &mut ParserInput<'i>,
     content_indent: usize,
-) -> Result<BlockQuoteLine> {
+) -> Result<BlockQuoteLine<'i>> {
     let remaining: &str = &parser_input.input;
     if remaining.is_empty() {
         return Err(winnow::error::ContextError::new());
@@ -163,32 +165,15 @@ fn blockquote_lazy_continuation_line(
     let _: &str = parser_input.next_slice(content_indent);
     let content_start = parser_input.current_token_start();
     let content = line_content(parser_input)?;
-    let mut logical_content = content.to_string();
-    let mut segments = Vec::new();
-
-    if !content.is_empty() {
-        segments.push(SourceSegment {
-            logical_start: 0,
-            original_start: content_start,
-            len: content.len(),
-        });
-    }
 
     let ending_start = parser_input.current_token_start();
-    if let Some(ending) = line_break_or_eof(parser_input)? {
-        let logical_start = logical_content.len();
-        logical_content.push_str(ending);
-        segments.push(SourceSegment {
-            logical_start,
-            original_start: ending_start,
-            len: ending.len(),
-        });
-    }
+    let ending = line_break_or_eof(parser_input)?;
 
     Ok(BlockQuoteLine {
-        content: logical_content,
+        content,
+        ending,
         content_indent,
-        original_start: content_start,
-        segments,
+        content_start,
+        ending_start: ending.map(|_| ending_start),
     })
 }
