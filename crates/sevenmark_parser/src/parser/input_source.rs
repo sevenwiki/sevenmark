@@ -35,6 +35,26 @@ enum SourceMap {
 }
 
 impl SourceMap {
+    fn segment_for_start(segments: &[SourceSegment], offset: usize) -> Option<&SourceSegment> {
+        let index = segments.partition_point(|segment| segment.logical_start <= offset);
+        if index == 0 {
+            return None;
+        }
+
+        let segment = &segments[index - 1];
+        (offset < segment.logical_end()).then_some(segment)
+    }
+
+    fn segment_for_end(segments: &[SourceSegment], offset: usize) -> Option<&SourceSegment> {
+        let index = segments.partition_point(|segment| segment.logical_start < offset);
+        if index == 0 {
+            return None;
+        }
+
+        let segment = &segments[index - 1];
+        (offset <= segment.logical_end()).then_some(segment)
+    }
+
     fn map_start(&self, offset: usize) -> usize {
         match self {
             SourceMap::Identity { base } => base + offset,
@@ -46,10 +66,8 @@ impl SourceMap {
                     return *empty_original_offset;
                 }
 
-                for segment in segments {
-                    if offset >= segment.logical_start && offset < segment.logical_end() {
-                        return segment.original_start + (offset - segment.logical_start);
-                    }
+                if let Some(segment) = Self::segment_for_start(segments, offset) {
+                    return segment.original_start + (offset - segment.logical_start);
                 }
 
                 segments
@@ -71,10 +89,8 @@ impl SourceMap {
                     return *empty_original_offset;
                 }
 
-                for segment in segments.iter().rev() {
-                    if offset > segment.logical_start && offset <= segment.logical_end() {
-                        return segment.original_start + (offset - segment.logical_start);
-                    }
+                if let Some(segment) = Self::segment_for_end(segments, offset) {
+                    return segment.original_start + (offset - segment.logical_start);
                 }
 
                 segments

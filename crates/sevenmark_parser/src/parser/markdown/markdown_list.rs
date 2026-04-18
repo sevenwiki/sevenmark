@@ -4,10 +4,10 @@ use crate::parser::utils::{line_break_or_eof, line_content};
 use crate::parser::{InputSource, ParserInput, SourceSegment};
 use sevenmark_ast::{Element, ListContentItem, ListElement, ListItemElement, ListKind, Span};
 use winnow::Result;
-use winnow::combinator::{alt, peek};
+use winnow::combinator::peek;
 use winnow::prelude::*;
-use winnow::stream::Location as StreamLocation;
-use winnow::token::{literal, take_while};
+use winnow::stream::{Location as StreamLocation, Stream};
+use winnow::token::take_while;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum ListMarker {
@@ -28,7 +28,7 @@ struct ListLine {
 
 struct ListNode {
     line_index: usize,
-    indent: usize,
+    content_indent: usize,
     children: Vec<usize>,
 }
 
@@ -43,58 +43,82 @@ pub fn markdown_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
 }
 
 fn list_marker(parser_input: &mut ParserInput) -> Result<ListMarker> {
-    alt((
-        literal("- ").value(ListMarker::Bullet('-')),
-        literal("+ ").value(ListMarker::Bullet('+')),
-        literal("* ").value(ListMarker::Bullet('*')),
-        (
-            take_while(1.., |c: char| c.is_ascii_digit()),
-            alt((literal(". "), literal(") "))),
-        )
-            .map(|(_, delimiter): (&str, &str)| {
-                let delimiter = delimiter
-                    .chars()
-                    .next()
-                    .expect("ordered list delimiter must be present");
-                ListMarker::Ordered {
-                    kind: ListKind::OrderedNumeric,
-                    delimiter,
-                }
-            }),
-        (
-            take_while(1..=1, |c: char| c.is_ascii_lowercase()),
-            alt((literal(". "), literal(") "))),
-        )
-            .map(|(token, delimiter): (&str, &str)| {
-                let delimiter = delimiter
-                    .chars()
-                    .next()
-                    .expect("ordered list delimiter must be present");
-                let kind = if token == "i" {
-                    ListKind::OrderedRomanLower
-                } else {
-                    ListKind::OrderedAlphaLower
-                };
-                ListMarker::Ordered { kind, delimiter }
-            }),
-        (
-            take_while(1..=1, |c: char| c.is_ascii_uppercase()),
-            alt((literal(". "), literal(") "))),
-        )
-            .map(|(token, delimiter): (&str, &str)| {
-                let delimiter = delimiter
-                    .chars()
-                    .next()
-                    .expect("ordered list delimiter must be present");
-                let kind = if token == "I" {
-                    ListKind::OrderedRomanUpper
-                } else {
-                    ListKind::OrderedAlphaUpper
-                };
-                ListMarker::Ordered { kind, delimiter }
-            }),
-    ))
-    .parse_next(parser_input)
+    let input: &str = &parser_input.input;
+    let Some((marker, marker_len)) = scan_list_marker(input) else {
+        return Err(winnow::error::ContextError::new());
+    };
+
+    let _: &str = parser_input.next_slice(marker_len);
+    Ok(marker)
+}
+
+fn scan_list_marker(input: &str) -> Option<(ListMarker, usize)> {
+    let bytes = input.as_bytes();
+    if bytes.len() < 2 {
+        return None;
+    }
+
+    if matches!(bytes[0], b'-' | b'+' | b'*') && bytes[1] == b' ' {
+        return Some((ListMarker::Bullet(bytes[0] as char), 2));
+    }
+
+    let mut digit_end = 0;
+    while digit_end < bytes.len() && bytes[digit_end].is_ascii_digit() {
+        digit_end += 1;
+    }
+    if digit_end > 0
+        && digit_end + 1 < bytes.len()
+        && matches!(bytes[digit_end], b'.' | b')')
+        && bytes[digit_end + 1] == b' '
+    {
+        return Some((
+            ListMarker::Ordered {
+                kind: ListKind::OrderedNumeric,
+                delimiter: bytes[digit_end] as char,
+            },
+            digit_end + 2,
+        ));
+    }
+
+    if bytes.len() >= 3
+        && bytes[0].is_ascii_lowercase()
+        && matches!(bytes[1], b'.' | b')')
+        && bytes[2] == b' '
+    {
+        let kind = if bytes[0] == b'i' {
+            ListKind::OrderedRomanLower
+        } else {
+            ListKind::OrderedAlphaLower
+        };
+        return Some((
+            ListMarker::Ordered {
+                kind,
+                delimiter: bytes[1] as char,
+            },
+            3,
+        ));
+    }
+
+    if bytes.len() >= 3
+        && bytes[0].is_ascii_uppercase()
+        && matches!(bytes[1], b'.' | b')')
+        && bytes[2] == b' '
+    {
+        let kind = if bytes[0] == b'I' {
+            ListKind::OrderedRomanUpper
+        } else {
+            ListKind::OrderedAlphaUpper
+        };
+        return Some((
+            ListMarker::Ordered {
+                kind,
+                delimiter: bytes[1] as char,
+            },
+            3,
+        ));
+    }
+
+    None
 }
 
 fn is_same_marker_type(left: ListMarker, right: ListMarker) -> bool {
@@ -119,7 +143,7 @@ fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
     consume_continuation_lines(parser_input, &mut first_line);
     let root_marker = first_line.marker;
     let mut lines = vec![first_line];
-    let mut stack = vec![(lines[0].indent, lines[0].marker)];
+    let mut stack = vec![(lines[0].content_indent, lines[0].marker)];
 
     loop {
         let checkpoint = parser_input.checkpoint();
@@ -131,8 +155,8 @@ fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
             }
         };
 
-        while let Some((top_indent, _)) = stack.last() {
-            if *top_indent >= line.indent {
+        while let Some((top_content_indent, _)) = stack.last() {
+            if line.indent < *top_content_indent {
                 stack.pop();
             } else {
                 break;
@@ -146,7 +170,7 @@ fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
         }
 
         consume_continuation_lines(parser_input, &mut line);
-        stack.push((line.indent, line.marker));
+        stack.push((line.content_indent, line.marker));
         lines.push(line);
     }
 
@@ -263,42 +287,13 @@ fn consume_continuation_lines(parser_input: &mut ParserInput, base: &mut ListLin
 /// Returns whether a line starts a list marker. These remain handled by the
 /// list-line collector/tree builder, not by lazy continuation.
 fn line_starts_list(after_spaces: &str) -> bool {
-    let bytes = after_spaces.as_bytes();
-
-    if after_spaces.starts_with("- ")
-        || after_spaces.starts_with("+ ")
-        || after_spaces.starts_with("* ")
-    {
-        return true;
-    }
-
-    let mut digit_end = 0;
-    while digit_end < bytes.len() && bytes[digit_end].is_ascii_digit() {
-        digit_end += 1;
-    }
-    if digit_end > 0
-        && digit_end + 1 < bytes.len()
-        && (bytes[digit_end] == b'.' || bytes[digit_end] == b')')
-        && bytes[digit_end + 1] == b' '
-    {
-        return true;
-    }
-
-    if bytes.len() >= 3
-        && bytes[0].is_ascii_alphabetic()
-        && (bytes[1] == b'.' || bytes[1] == b')')
-        && bytes[2] == b' '
-    {
-        return true;
-    }
-
-    false
+    scan_list_marker(after_spaces).is_some()
 }
 
-/// Builds a parent/child tree from list lines using indentation.
+/// Builds a parent/child tree from list lines using content-column indentation.
 ///
 /// Invariant: the stack contains the current ancestor path with strictly increasing
-/// indentation, so the nearest remaining stack top is the parent candidate.
+/// content columns, so the nearest remaining stack top is the parent candidate.
 fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
     let mut nodes: Vec<ListNode> = Vec::with_capacity(lines.len());
     let mut roots = Vec::new();
@@ -306,8 +301,8 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
 
     for (line_index, line) in lines.iter().enumerate() {
         while let Some(&top_index) = stack.last() {
-            let top_indent = nodes[top_index].indent;
-            if top_indent >= line.indent {
+            let top_content_indent = nodes[top_index].content_indent;
+            if line.indent < top_content_indent {
                 stack.pop();
             } else {
                 break;
@@ -318,7 +313,7 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
         let node_index = nodes.len();
         nodes.push(ListNode {
             line_index,
-            indent: line.indent,
+            content_indent: line.content_indent,
             children: Vec::new(),
         });
 

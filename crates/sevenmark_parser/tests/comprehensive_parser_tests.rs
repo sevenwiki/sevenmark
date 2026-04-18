@@ -356,7 +356,7 @@ fn test_markdown_list_keeps_decreasing_root_indent_items() {
 }
 
 #[test]
-fn test_markdown_list_uses_relative_indent_for_nesting() {
+fn test_markdown_list_uses_content_column_for_nesting() {
     let input = "- parent\n  - child\n - sibling";
     let parsed = parse_document(input);
 
@@ -365,7 +365,7 @@ fn test_markdown_list_uses_relative_indent_for_nesting() {
         other => panic!("expected a single List element, got: {other:#?}"),
     };
 
-    assert_eq!(list.children.len(), 1, "unexpected root items: {list:#?}");
+    assert_eq!(list.children.len(), 2, "unexpected root items: {list:#?}");
 
     let ListContentItem::Item(parent) = &list.children[0] else {
         panic!("expected first root item, got: {:#?}", list.children[0]);
@@ -387,11 +387,8 @@ fn test_markdown_list_uses_relative_indent_for_nesting() {
     };
     assert!(matches!(child.children.as_slice(), [Element::Text(text)] if text.value == "child"));
 
-    let ListContentItem::Item(sibling) = &nested.children[1] else {
-        panic!(
-            "expected nested sibling item, got: {:#?}",
-            nested.children[1]
-        );
+    let ListContentItem::Item(sibling) = &list.children[1] else {
+        panic!("expected second root item, got: {:#?}", list.children[1]);
     };
     assert!(
         matches!(sibling.children.as_slice(), [Element::Text(text)] if text.value == "sibling")
@@ -408,7 +405,7 @@ fn test_markdown_list_only_indent_increase_creates_nested_level() {
         other => panic!("expected a single List element, got: {other:#?}"),
     };
 
-    assert_eq!(list.children.len(), 1, "unexpected root items: {list:#?}");
+    assert_eq!(list.children.len(), 2, "unexpected root items: {list:#?}");
 
     let ListContentItem::Item(first) = &list.children[0] else {
         panic!("expected first root item, got: {:#?}", list.children[0]);
@@ -439,13 +436,31 @@ fn test_markdown_list_only_indent_increase_creates_nested_level() {
     };
     assert!(matches!(third.children.as_slice(), [Element::Text(text)] if text.value == "c"));
 
-    let ListContentItem::Item(root_sibling) = &second_level.children[1] else {
-        panic!(
-            "expected nested sibling under first item, got: {:#?}",
-            second_level.children[1]
-        );
+    let ListContentItem::Item(root_sibling) = &list.children[1] else {
+        panic!("expected second root item, got: {:#?}", list.children[1]);
     };
     assert!(matches!(root_sibling.children.as_slice(), [Element::Text(text)] if text.value == "d"));
+}
+
+#[test]
+fn test_markdown_ordered_list_nesting_requires_marker_content_column() {
+    let input = "10. parent\n   1. sibling";
+    let parsed = parse_document(input);
+
+    let list = match parsed.as_slice() {
+        [Element::List(list)] => list,
+        other => panic!("expected a single List element, got: {other:#?}"),
+    };
+
+    assert_eq!(list.children.len(), 2, "unexpected root items: {list:#?}");
+    let ListContentItem::Item(parent) = &list.children[0] else {
+        panic!("expected first root item, got: {:#?}", list.children[0]);
+    };
+    assert!(
+        matches!(parent.children.as_slice(), [Element::Text(text)] if text.value == "parent"),
+        "under-indented ordered marker should not nest under parent, got: {:#?}",
+        parent.children
+    );
 }
 
 #[test]
@@ -695,8 +710,23 @@ fn test_brace_quote_keeps_hash_header_like_text_plain() {
         panic!("expected a single brace blockquote, got: {parsed:#?}");
     };
     assert!(
-        matches!(quote.children.as_slice(), [Element::Text(text), Element::SoftBreak(_)] if text.value == "# title"),
+        matches!(quote.children.as_slice(), [Element::Text(text)] if text.value == "# title"),
         "expected '# title' to stay text inside brace quote, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_brace_quote_trims_whitespace_before_closing_delimiter() {
+    let input = "{{{#quote\nbody\n  \t\n}}}";
+    let parsed = parse_document(input);
+
+    let [Element::BlockQuote(quote)] = parsed.as_slice() else {
+        panic!("expected a single brace blockquote, got: {parsed:#?}");
+    };
+    assert!(
+        matches!(quote.children.as_slice(), [Element::Text(text)] if text.value == "body"),
+        "expected trailing whitespace before close delimiter to be trimmed, got: {:#?}",
         quote.children
     );
 }
