@@ -15,12 +15,90 @@ enum ListMarker {
     Ordered { kind: ListKind, delimiter: char },
 }
 
-struct ListLine {
+enum ListContentPart<'i> {
+    Borrowed {
+        value: &'i str,
+        original_start: usize,
+    },
+    SeparatorNewline {
+        original_start: usize,
+    },
+}
+
+struct ListContent<'i> {
+    parts: Vec<ListContentPart<'i>>,
+    len: usize,
+}
+
+impl<'i> ListContent<'i> {
+    fn new() -> Self {
+        Self {
+            parts: Vec::new(),
+            len: 0,
+        }
+    }
+
+    fn from_borrowed(value: &'i str, original_start: usize) -> Self {
+        let mut content = Self::new();
+        content.push_borrowed(value, original_start);
+        content
+    }
+
+    fn push_borrowed(&mut self, value: &'i str, original_start: usize) {
+        if value.is_empty() {
+            return;
+        }
+
+        self.len += value.len();
+        self.parts.push(ListContentPart::Borrowed {
+            value,
+            original_start,
+        });
+    }
+
+    fn push_separator_newline(&mut self, original_start: usize) {
+        self.len += 1;
+        self.parts
+            .push(ListContentPart::SeparatorNewline { original_start });
+    }
+
+    fn materialize(&self) -> (String, Vec<SourceSegment>) {
+        let mut logical = String::with_capacity(self.len);
+        let mut segments = Vec::with_capacity(self.parts.len());
+
+        for part in &self.parts {
+            match part {
+                ListContentPart::Borrowed {
+                    value,
+                    original_start,
+                } => {
+                    segments.push(SourceSegment {
+                        logical_start: logical.len(),
+                        original_start: *original_start,
+                        len: value.len(),
+                    });
+                    logical.push_str(value);
+                }
+                ListContentPart::SeparatorNewline { original_start } => {
+                    segments.push(SourceSegment {
+                        logical_start: logical.len(),
+                        original_start: *original_start,
+                        len: 1,
+                    });
+                    logical.push('\n');
+                }
+            }
+        }
+
+        (logical, segments)
+    }
+}
+
+struct ListLine<'i> {
     indent: usize,
     content_indent: usize,
     marker: ListMarker,
-    content: String,
-    segments: Vec<SourceSegment>,
+    content: ListContent<'i>,
     original_content_start: usize,
     original_line_start: usize,
     original_line_end: usize,
@@ -138,7 +216,7 @@ fn is_same_marker_type(left: ListMarker, right: ListMarker) -> bool {
     }
 }
 
-fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
+fn collect_list_lines<'i>(parser_input: &mut ParserInput<'i>) -> Result<Vec<ListLine<'i>>> {
     let mut first_line = list_line(parser_input)?;
     consume_lazy_continuation_lines(parser_input, &mut first_line);
     let root_marker = first_line.marker;
@@ -177,7 +255,7 @@ fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
     Ok(lines)
 }
 
-fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
+fn list_line<'i>(parser_input: &mut ParserInput<'i>) -> Result<ListLine<'i>> {
     peek((take_while(0.., |c: char| c == ' '), list_marker)).parse_next(parser_input)?;
 
     let line_start = parser_input.current_token_start();
@@ -188,14 +266,6 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
     let content_start = parser_input.current_token_start();
 
     let content = line_content(parser_input)?;
-    let mut segments = Vec::new();
-    if !content.is_empty() {
-        segments.push(SourceSegment {
-            logical_start: 0,
-            original_start: content_start,
-            len: content.len(),
-        });
-    }
     line_break_or_eof(parser_input)?;
     let line_end = parser_input.previous_token_end();
 
@@ -203,8 +273,7 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
         indent,
         content_indent: content_start.saturating_sub(line_start),
         marker,
-        content: content.to_string(),
-        segments,
+        content: ListContent::from_borrowed(content, content_start),
         original_content_start: content_start,
         original_line_start: line_start,
         original_line_end: line_end,
@@ -222,7 +291,10 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
 /// are still handled by the outer list-line collector/tree builder.
 /// The previous line's `\n` is mapped into logical content as the separator so
 /// re-parse offsets stay aligned with the original source.
-fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -> Result<()> {
+fn list_lazy_continuation_line<'i>(
+    parser_input: &mut ParserInput<'i>,
+    base: &mut ListLine<'i>,
+) -> Result<()> {
     let remaining: &str = &parser_input.input;
     if remaining.is_empty() {
         return Err(winnow::error::ContextError::new());
@@ -251,7 +323,6 @@ fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLi
     // `remaining` is non-empty here, there was a '\n' immediately before this
     // line — its original offset is `original_line_end - 1`.
     let separator_original = base.original_line_end.saturating_sub(1);
-    let separator_logical = base.content.len();
 
     let _: &str = parser_input.next_slice(base.content_indent);
     let cont_content_start = parser_input.current_token_start();
@@ -259,27 +330,17 @@ fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLi
     line_break_or_eof(parser_input)?;
     let line_end = parser_input.previous_token_end();
 
-    base.content.push('\n');
-    base.segments.push(SourceSegment {
-        logical_start: separator_logical,
-        original_start: separator_original,
-        len: 1,
-    });
-    if !cont_content.is_empty() {
-        let logical_start = base.content.len();
-        base.segments.push(SourceSegment {
-            logical_start,
-            original_start: cont_content_start,
-            len: cont_content.len(),
-        });
-        base.content.push_str(cont_content);
-    }
+    base.content.push_separator_newline(separator_original);
+    base.content.push_borrowed(cont_content, cont_content_start);
     base.original_line_end = line_end;
 
     Ok(())
 }
 
-fn consume_lazy_continuation_lines(parser_input: &mut ParserInput, base: &mut ListLine) {
+fn consume_lazy_continuation_lines<'i>(
+    parser_input: &mut ParserInput<'i>,
+    base: &mut ListLine<'i>,
+) {
     loop {
         let checkpoint = parser_input.checkpoint();
         if list_lazy_continuation_line(parser_input, base).is_err() {
@@ -299,7 +360,7 @@ fn line_starts_list(after_spaces: &str) -> bool {
 ///
 /// Invariant: the stack contains the current ancestor path with strictly increasing
 /// content columns, so the nearest remaining stack top is the parent candidate.
-fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
+fn build_list_tree(lines: &[ListLine<'_>]) -> (Vec<ListNode>, Vec<usize>) {
     let mut nodes: Vec<ListNode> = Vec::with_capacity(lines.len());
     let mut roots = Vec::new();
     let mut stack: Vec<usize> = Vec::new();
@@ -335,7 +396,7 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
 }
 
 fn group_by_marker(
-    lines: &[ListLine],
+    lines: &[ListLine<'_>],
     nodes: &[ListNode],
     node_indices: &[usize],
 ) -> Vec<Vec<usize>> {
@@ -362,7 +423,7 @@ fn group_by_marker(
 /// Builds one or more `List` elements from tree node indices, splitting adjacent
 /// siblings when their marker types differ (CommonMark list-type boundary rule).
 fn build_list_elements(
-    lines: &[ListLine],
+    lines: &[ListLine<'_>],
     nodes: &[ListNode],
     node_indices: &[usize],
     parser_input: &mut ParserInput,
@@ -384,7 +445,7 @@ fn list_kind_for_marker(marker: ListMarker) -> ListKind {
 
 /// Builds a single `List` element from a homogeneous marker group.
 fn build_list_element(
-    lines: &[ListLine],
+    lines: &[ListLine<'_>],
     nodes: &[ListNode],
     node_indices: &[usize],
     parser_input: &mut ParserInput,
@@ -418,7 +479,7 @@ fn build_list_element(
 
 /// Builds a single `ListItem` and recursively appends nested child lists.
 fn build_list_item(
-    lines: &[ListLine],
+    lines: &[ListLine<'_>],
     nodes: &[ListNode],
     node_index: usize,
     parser_input: &mut ParserInput,
@@ -451,13 +512,10 @@ fn build_list_item(
 
 /// Re-parses list item text as a nested document while preserving original source
 /// offsets. This allows block constructs (e.g. nested `>`, `---`) inside list items.
-fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result<Vec<Element>> {
+fn parse_item_content(line: &ListLine<'_>, parser_input: &mut ParserInput) -> Result<Vec<Element>> {
+    let (logical, segments) = line.content.materialize();
     let mut child_input = ParserInput {
-        input: InputSource::new_segmented(
-            &line.content,
-            line.segments.clone(),
-            line.original_content_start,
-        ),
+        input: InputSource::new_segmented(&logical, segments, line.original_content_start),
         state: parser_input.state.clone(),
     };
     let previous_block_mode = child_input
