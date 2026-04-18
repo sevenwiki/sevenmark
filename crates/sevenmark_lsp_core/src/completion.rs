@@ -10,7 +10,7 @@ use crate::document::DocumentState;
 use context::context_and_bracket_depth;
 use items::{
     brace_hash_completions, bracket_completions_ctx, bracket_hash_completions_ctx,
-    macro_completions,
+    macro_completions, markdown_line_start_completions,
 };
 use params::parameter_completions;
 use variables::variable_completions;
@@ -51,7 +51,18 @@ pub fn get_completions(
         return macro_completions(position);
     }
 
+    if is_markdown_line_start(prefix) && ctx.is_none() {
+        return markdown_line_start_completions();
+    }
+
     Vec::new()
+}
+
+fn is_markdown_line_start(prefix: &str) -> bool {
+    if prefix.is_empty() {
+        return true;
+    }
+    prefix.ends_with('\n')
 }
 
 #[cfg(test)]

@@ -1,0 +1,725 @@
+[
+  {
+    "Header": {
+      "span": {
+        "start": 0,
+        "end": 28
+      },
+      "level": 1,
+      "is_folded": false,
+      "section_index": 1,
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 2,
+              "end": 27
+            },
+            "value": "Block Parser Mixed Stress"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 28,
+        "end": 29
+      }
+    }
+  },
+  {
+    "List": {
+      "span": {
+        "start": 29,
+        "end": 93
+      },
+      "open_span": {
+        "start": 0,
+        "end": 0
+      },
+      "close_span": {
+        "start": 0,
+        "end": 0
+      },
+      "kind": "",
+      "parameters": {},
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 29,
+              "end": 93
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 31,
+                    "end": 40
+                  },
+                  "value": "root item"
+                }
+              },
+              {
+                "List": {
+                  "span": {
+                    "start": 41,
+                    "end": 93
+                  },
+                  "open_span": {
+                    "start": 0,
+                    "end": 0
+                  },
+                  "close_span": {
+                    "start": 0,
+                    "end": 0
+                  },
+                  "kind": "",
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Item": {
+                        "span": {
+                          "start": 41,
+                          "end": 59
+                        },
+                        "open_span": {
+                          "start": 0,
+                          "end": 0
+                        },
+                        "close_span": {
+                          "start": 0,
+                          "end": 0
+                        },
+                        "parameters": {},
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 47,
+                                "end": 58
+                              },
+                              "value": "deeper item"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "Item": {
+                        "span": {
+                          "start": 59,
+                          "end": 75
+                        },
+                        "open_span": {
+                          "start": 0,
+                          "end": 0
+                        },
+                        "close_span": {
+                          "start": 0,
+                          "end": 0
+                        },
+                        "parameters": {},
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 63,
+                                "end": 74
+                              },
+                              "value": "middle item"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "Item": {
+                        "span": {
+                          "start": 75,
+                          "end": 93
+                        },
+                        "open_span": {
+                          "start": 0,
+                          "end": 0
+                        },
+                        "close_span": {
+                          "start": 0,
+                          "end": 0
+                        },
+                        "parameters": {},
+                        "children": [
+                          {
+                            "Text": {
+                              "span": {
+                                "start": 78,
+                                "end": 92
+                              },
+                              "value": "near-root item"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 93,
+        "end": 94
+      }
+    }
+  },
+  {
+    "BlockQuote": {
+      "span": {
+        "start": 94,
+        "end": 203
+      },
+      "open_span": {
+        "start": 0,
+        "end": 0
+      },
+      "close_span": {
+        "start": 0,
+        "end": 0
+      },
+      "parameters": {},
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 96,
+              "end": 160
+            },
+            "value": "quoted heading-like text (# stays plain text in blockquote mode)"
+          }
+        },
+        {
+          "SoftBreak": {
+            "span": {
+              "start": 160,
+              "end": 161
+            }
+          }
+        },
+        {
+          "List": {
+            "span": {
+              "start": 163,
+              "end": 181
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "kind": "",
+            "parameters": {},
+            "children": [
+              {
+                "Item": {
+                  "span": {
+                    "start": 163,
+                    "end": 181
+                  },
+                  "open_span": {
+                    "start": 0,
+                    "end": 0
+                  },
+                  "close_span": {
+                    "start": 0,
+                    "end": 0
+                  },
+                  "parameters": {},
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 165,
+                          "end": 180
+                        },
+                        "value": "quote list item"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "BlockQuote": {
+            "span": {
+              "start": 183,
+              "end": 203
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 185,
+                    "end": 202
+                  },
+                  "value": "nested quote line"
+                }
+              },
+              {
+                "SoftBreak": {
+                  "span": {
+                    "start": 202,
+                    "end": 203
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 203,
+        "end": 204
+      }
+    }
+  },
+  {
+    "List": {
+      "span": {
+        "start": 204,
+        "end": 235
+      },
+      "open_span": {
+        "start": 0,
+        "end": 0
+      },
+      "close_span": {
+        "start": 0,
+        "end": 0
+      },
+      "kind": "a",
+      "parameters": {},
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 204,
+              "end": 218
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 207,
+                    "end": 217
+                  },
+                  "value": "alpha item"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 218,
+              "end": 235
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 221,
+                    "end": 234
+                  },
+                  "value": "alpha sibling"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 235,
+        "end": 236
+      }
+    }
+  },
+  {
+    "List": {
+      "span": {
+        "start": 236,
+        "end": 256
+      },
+      "open_span": {
+        "start": 0,
+        "end": 0
+      },
+      "close_span": {
+        "start": 0,
+        "end": 0
+      },
+      "kind": "I",
+      "parameters": {},
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 236,
+              "end": 256
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 239,
+                    "end": 255
+                  },
+                  "value": "roman upper item"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Text": {
+      "span": {
+        "start": 256,
+        "end": 279
+      },
+      "value": "II. roman upper sibling"
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 279,
+        "end": 280
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 280,
+        "end": 281
+      }
+    }
+  },
+  {
+    "List": {
+      "span": {
+        "start": 281,
+        "end": 328
+      },
+      "open_span": {
+        "start": 0,
+        "end": 0
+      },
+      "close_span": {
+        "start": 0,
+        "end": 0
+      },
+      "kind": "1",
+      "parameters": {},
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 281,
+              "end": 303
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 284,
+                    "end": 302
+                  },
+                  "value": "numeric paren item"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 303,
+              "end": 328
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 306,
+                    "end": 327
+                  },
+                  "value": "numeric paren sibling"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 328,
+        "end": 329
+      }
+    }
+  },
+  {
+    "Styled": {
+      "span": {
+        "start": 329,
+        "end": 416
+      },
+      "open_span": {
+        "start": 329,
+        "end": 332
+      },
+      "close_span": {
+        "start": 413,
+        "end": 416
+      },
+      "parameters": {
+        "styled": {
+          "span": {
+            "start": 332,
+            "end": 339
+          },
+          "key": "styled",
+          "value": []
+        },
+        "style": {
+          "span": {
+            "start": 340,
+            "end": 370
+          },
+          "key": "style",
+          "value": [
+            {
+              "Text": {
+                "span": {
+                  "start": 348,
+                  "end": 369
+                },
+                "value": "border:1px solid #888"
+              }
+            }
+          ]
+        }
+      },
+      "children": [
+        {
+          "Text": {
+            "span": {
+              "start": 371,
+              "end": 412
+            },
+            "value": "Styled block after mixed markdown blocks."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 416,
+        "end": 417
+      }
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 417,
+        "end": 418
+      }
+    }
+  },
+  {
+    "List": {
+      "span": {
+        "start": 418,
+        "end": 486
+      },
+      "open_span": {
+        "start": 418,
+        "end": 426
+      },
+      "close_span": {
+        "start": 483,
+        "end": 486
+      },
+      "kind": "A",
+      "parameters": {
+        "A": {
+          "span": {
+            "start": 427,
+            "end": 429
+          },
+          "key": "A",
+          "value": []
+        }
+      },
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 430,
+              "end": 456
+            },
+            "open_span": {
+              "start": 430,
+              "end": 432
+            },
+            "close_span": {
+              "start": 453,
+              "end": 455
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 432,
+                    "end": 453
+                  },
+                  "value": "Brace list alpha item"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 456,
+              "end": 483
+            },
+            "open_span": {
+              "start": 456,
+              "end": 458
+            },
+            "close_span": {
+              "start": 480,
+              "end": 482
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 458,
+                    "end": 480
+                  },
+                  "value": "Brace list second item"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 486,
+        "end": 487
+      }
+    }
+  }
+]

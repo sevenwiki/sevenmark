@@ -1,0 +1,28 @@
+# Block Parser Mixed Stress
+
+- root item
+    - deeper item
+  - middle item
+ - near-root item
+
+> quoted heading-like text (# stays plain text in blockquote mode)
+> - quote list item
+> > nested quote line
+
+a. alpha item
+b. alpha sibling
+
+I. roman upper item
+I. roman upper sibling
+
+1) numeric paren item
+2) numeric paren sibling
+
+{{{#styled #style="border:1px solid #888"
+Styled block after mixed markdown blocks.
+}}}
+
+{{{#list #A
+[[Brace list alpha item]]
+[[Brace list second item]]
+}}}

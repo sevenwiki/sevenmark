@@ -89,6 +89,45 @@ pub(super) fn macro_completions(_pos: Position) -> Vec<CompletionItem> {
         .collect()
 }
 
+/// Line-start markdown block helpers (`#`, `>`, list markers).
+pub(super) fn markdown_line_start_completions() -> Vec<CompletionItem> {
+    let items = [
+        ("header 1", "# $0", "Markdown H1"),
+        ("header 2", "## $0", "Markdown H2"),
+        ("header 3", "### $0", "Markdown H3"),
+        ("header 4", "#### $0", "Markdown H4"),
+        ("header 5", "##### $0", "Markdown H5"),
+        ("header 6", "###### $0", "Markdown H6"),
+        ("folded header 1", "#! $0", "Markdown folded H1"),
+        ("folded header 2", "##! $0", "Markdown folded H2"),
+        ("folded header 3", "###! $0", "Markdown folded H3"),
+        ("folded header 4", "####! $0", "Markdown folded H4"),
+        ("folded header 5", "#####! $0", "Markdown folded H5"),
+        ("folded header 6", "######! $0", "Markdown folded H6"),
+        ("blockquote", "> $0", "Markdown blockquote"),
+        ("list -", "- $0", "Markdown unordered list (-)"),
+        ("list +", "+ $0", "Markdown unordered list (+)"),
+        ("list *", "* $0", "Markdown unordered list (*)"),
+        ("list 1.", "1. $0", "Markdown ordered list (numeric dot)"),
+        ("list 1)", "1) $0", "Markdown ordered list (numeric paren)"),
+        ("list a.", "a. $0", "Markdown ordered list (alpha lower)"),
+        ("list A.", "A. $0", "Markdown ordered list (alpha upper)"),
+        ("list i.", "i. $0", "Markdown ordered list (roman lower)"),
+        ("list I.", "I. $0", "Markdown ordered list (roman upper)"),
+    ];
+    items
+        .into_iter()
+        .map(|(label, snippet, detail)| CompletionItem {
+            label: label.to_string(),
+            kind: Some(CompletionItemKind::SNIPPET),
+            detail: Some(detail.to_string()),
+            insert_text_format: Some(InsertTextFormat::SNIPPET),
+            insert_text: Some(snippet.to_string()),
+            ..Default::default()
+        })
+        .collect()
+}
+
 fn brace_keyword_completions() -> Vec<CompletionItem> {
     let keywords = [
         ("code", "code #lang=\"$1\"\n$0\n}}}", "Code block"),

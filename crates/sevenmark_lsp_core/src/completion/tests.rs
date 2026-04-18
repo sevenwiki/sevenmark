@@ -488,6 +488,40 @@ fn macro_completions_after_single_bracket() {
 }
 
 #[test]
+fn line_start_markdown_completions_include_all_header_levels() {
+    let c = completions("\n");
+    let l = labels(&c);
+    assert!(l.contains(&"header 1"));
+    assert!(l.contains(&"header 2"));
+    assert!(l.contains(&"header 3"));
+    assert!(l.contains(&"header 4"));
+    assert!(l.contains(&"header 5"));
+    assert!(l.contains(&"header 6"));
+    assert!(l.contains(&"folded header 1"));
+    assert!(l.contains(&"folded header 2"));
+    assert!(l.contains(&"folded header 3"));
+    assert!(l.contains(&"folded header 4"));
+    assert!(l.contains(&"folded header 5"));
+    assert!(l.contains(&"folded header 6"));
+}
+
+#[test]
+fn line_start_markdown_completions_include_list_and_blockquote() {
+    let c = completions("\n");
+    let l = labels(&c);
+    assert!(l.contains(&"blockquote"));
+    assert!(l.contains(&"list -"));
+    assert!(l.contains(&"list +"));
+    assert!(l.contains(&"list *"));
+    assert!(l.contains(&"list 1."));
+    assert!(l.contains(&"list 1)"));
+    assert!(l.contains(&"list a."));
+    assert!(l.contains(&"list A."));
+    assert!(l.contains(&"list i."));
+    assert!(l.contains(&"list I."));
+}
+
+#[test]
 fn no_completions_for_plain_text() {
     assert!(completions("hello world").is_empty());
 }
