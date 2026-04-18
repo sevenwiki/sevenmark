@@ -130,8 +130,8 @@ fn test_invalid_fixtures() {
 }
 
 #[test]
-fn test_raw_code_crlf_backslash_before_closer() {
-    let input = "{{{#code\r\nfirst\r\n\\}}}";
+fn test_raw_code_crlf_escaped_closer_stays_in_content() {
+    let input = "{{{#code\r\nfirst\r\n\\}}}\r\n}}}";
     let parsed = parse_document(input);
 
     assert!(
@@ -147,12 +147,12 @@ fn test_raw_code_crlf_backslash_before_closer() {
         })
         .expect("expected Code element");
 
-    assert_eq!(code.value, "first\r\n\\");
+    assert_eq!(code.value, "first\r\n\\}}}\r\n");
 }
 
 #[test]
-fn test_raw_tex_crlf_backslash_before_closer() {
-    let input = "{{{#tex #block\r\n\\}}}";
+fn test_raw_tex_crlf_escaped_closer_stays_in_content() {
+    let input = "{{{#tex #block\r\n\\}}}\r\n}}}";
     let parsed = parse_document(input);
 
     assert!(
@@ -168,12 +168,12 @@ fn test_raw_tex_crlf_backslash_before_closer() {
         })
         .expect("expected TeX element");
 
-    assert_eq!(tex.value, "\\");
+    assert_eq!(tex.value, "\\}}}\r\n");
 }
 
 #[test]
-fn test_raw_css_crlf_backslash_before_closer() {
-    let input = "{{{#css\r\n.a { color: red; }\r\n\\}}}";
+fn test_raw_css_crlf_escaped_closer_stays_in_content() {
+    let input = "{{{#css\r\n.a { color: red; }\r\n\\}}}\r\n}}}";
     let parsed = parse_document(input);
 
     assert!(
@@ -189,7 +189,7 @@ fn test_raw_css_crlf_backslash_before_closer() {
         })
         .expect("expected Css element");
 
-    assert_eq!(css.value, ".a { color: red; }\r\n\\");
+    assert_eq!(css.value, ".a { color: red; }\r\n\\}}}\r\n");
 }
 
 #[test]
@@ -843,6 +843,64 @@ fn test_brace_quote_trims_whitespace_before_closing_delimiter() {
     assert!(
         matches!(quote.children.as_slice(), [Element::Text(text)] if text.value == "body"),
         "expected trailing whitespace before close delimiter to be trimmed, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_brace_quote_keeps_escaped_closing_triple_brace_inside() {
+    let input = "{{{#quote literal \\}}} still inside}}}";
+    let parsed = parse_document(input);
+
+    let [Element::BlockQuote(quote)] = parsed.as_slice() else {
+        panic!("expected a single brace blockquote, got: {parsed:#?}");
+    };
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [
+                Element::Text(first),
+                Element::Escape(escaped),
+                Element::Text(second),
+                Element::Text(third),
+                Element::Text(rest),
+            ]
+            if first.value == "literal "
+                && escaped.value == "}"
+                && second.value == "}"
+                && third.value == "}"
+                && rest.value == " still inside"
+        ),
+        "expected escaped closing delimiter inside quote body, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_brace_quote_keeps_escaped_opening_triple_brace_inside() {
+    let input = "{{{#quote literal \\{{{ still inside}}}";
+    let parsed = parse_document(input);
+
+    let [Element::BlockQuote(quote)] = parsed.as_slice() else {
+        panic!("expected a single brace blockquote, got: {parsed:#?}");
+    };
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [
+                Element::Text(first),
+                Element::Escape(escaped),
+                Element::Text(second),
+                Element::Text(third),
+                Element::Text(rest),
+            ]
+            if first.value == "literal "
+                && escaped.value == "{"
+                && second.value == "{"
+                && third.value == "{"
+                && rest.value == " still inside"
+        ),
+        "expected escaped opening delimiter inside quote body, got: {:#?}",
         quote.children
     );
 }

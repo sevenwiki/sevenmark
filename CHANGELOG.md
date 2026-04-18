@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **deps**: Bumped `tracing-appender` to `0.2.5`.
 
 ### Fixed
+- **sevenmark_parser**: Raw triple-brace delimiter scanning now treats `\{{{` and `\}}}` as content, preventing escaped brace sequences inside raw-style blocks and brace quotes from affecting delimiter depth or closing the block early.
 - **sevenmark_parser**: Fixed blockquote nested span/offset mapping when stripping `>` prefixes and re-parsing nested content.
 - **tests**: Updated parser integration coverage and fixtures for nested markdown blocks, list indentation behavior, and offset mapping regressions.
 
