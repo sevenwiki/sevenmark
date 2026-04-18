@@ -617,6 +617,64 @@ fn test_markdown_blockquote_keeps_double_marker_as_nested_quote() {
 }
 
 #[test]
+fn test_markdown_block_spans_cover_original_source_ranges() {
+    let input = "# title\n---\n> quote\n  continuation\n- item\n  continuation\n";
+    let parsed = parse_document(input);
+
+    let [
+        Element::Header(header),
+        Element::HLine(hline),
+        Element::BlockQuote(quote),
+        Element::List(list),
+    ] = parsed.as_slice()
+    else {
+        panic!("expected Header, HLine, BlockQuote, List, got: {parsed:#?}");
+    };
+
+    assert_eq!(&input[header.span.start..header.span.end], "# title\n");
+    assert_eq!(&input[hline.span.start..hline.span.end], "---\n");
+    assert_eq!(
+        &input[quote.span.start..quote.span.end],
+        "> quote\n  continuation\n"
+    );
+    assert_eq!(
+        &input[list.span.start..list.span.end],
+        "- item\n  continuation\n"
+    );
+
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [Element::Text(first), Element::SoftBreak(soft_break), Element::Text(second), Element::SoftBreak(_)]
+            if &input[first.span.start..first.span.end] == "quote"
+                && &input[soft_break.span.start..soft_break.span.end] == "\n"
+                && &input[second.span.start..second.span.end] == "continuation"
+        ),
+        "unexpected blockquote child spans: {:#?}",
+        quote.children
+    );
+
+    let [ListContentItem::Item(item)] = list.children.as_slice() else {
+        panic!("expected one list item, got: {:#?}", list.children);
+    };
+    assert_eq!(
+        &input[item.span.start..item.span.end],
+        "- item\n  continuation\n"
+    );
+    assert!(
+        matches!(
+            item.children.as_slice(),
+            [Element::Text(first), Element::SoftBreak(soft_break), Element::Text(second)]
+            if &input[first.span.start..first.span.end] == "item"
+                && &input[soft_break.span.start..soft_break.span.end] == "\n"
+                && &input[second.span.start..second.span.end] == "continuation"
+        ),
+        "unexpected list item child spans: {:#?}",
+        item.children
+    );
+}
+
+#[test]
 fn test_markdown_nested_block_spans_map_to_original_offsets() {
     let input = "> - item\n> > nested\n";
     let parsed = parse_document(input);
