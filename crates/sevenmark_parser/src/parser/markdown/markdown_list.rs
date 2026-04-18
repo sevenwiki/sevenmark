@@ -227,17 +227,23 @@ fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLi
     if remaining.is_empty() {
         return Err(winnow::error::ContextError::new());
     }
-    let line_end_pos = remaining.find('\n').unwrap_or(remaining.len());
-    let line = &remaining[..line_end_pos];
-    let leading_spaces = line.bytes().take_while(|&b| b == b' ').count();
-    let after_spaces = line.trim_start_matches(' ');
-    if after_spaces.is_empty() {
+
+    let has_content_indent = match remaining.as_bytes().get(..base.content_indent) {
+        Some(prefix) => prefix.iter().all(|&b| b == b' '),
+        None => false,
+    };
+    if !has_content_indent {
         return Err(winnow::error::ContextError::new());
     }
+
+    let after_indent = &remaining[base.content_indent..];
+    let extra_spaces = after_indent.bytes().take_while(|&b| b == b' ').count();
+    let after_spaces = &after_indent[extra_spaces..];
+    if after_spaces.is_empty() || after_spaces.as_bytes().first() == Some(&b'\n') {
+        return Err(winnow::error::ContextError::new());
+    }
+
     if line_starts_list(after_spaces) {
-        return Err(winnow::error::ContextError::new());
-    }
-    if leading_spaces < base.content_indent {
         return Err(winnow::error::ContextError::new());
     }
 
@@ -247,8 +253,7 @@ fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLi
     let separator_original = base.original_line_end.saturating_sub(1);
     let separator_logical = base.content.len();
 
-    let _: &str =
-        take_while(0..=base.content_indent, |c: char| c == ' ').parse_next(parser_input)?;
+    let _: &str = parser_input.next_slice(base.content_indent);
     let cont_content_start = parser_input.current_token_start();
     let cont_content = line_content(parser_input)?;
     line_break_or_eof(parser_input)?;

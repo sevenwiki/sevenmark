@@ -6,8 +6,8 @@ use sevenmark_ast::{BlockQuoteElement, Element, Span};
 use winnow::Result;
 use winnow::combinator::opt;
 use winnow::prelude::*;
-use winnow::stream::Location as StreamLocation;
-use winnow::token::{literal, take_while};
+use winnow::stream::{Location as StreamLocation, Stream};
+use winnow::token::literal;
 
 /// Parses contiguous `>` lines as one blockquote, then re-parses the inner content
 /// as a nested document while preserving original offset mappings.
@@ -145,14 +145,22 @@ fn blockquote_lazy_continuation_line(
         return Err(winnow::error::ContextError::new());
     }
 
-    let line_end_pos = remaining.find('\n').unwrap_or(remaining.len());
-    let line = &remaining[..line_end_pos];
-    let leading_spaces = line.bytes().take_while(|&b| b == b' ').count();
-    if leading_spaces < content_indent || line.trim_start_matches(' ').is_empty() {
+    let has_content_indent = match remaining.as_bytes().get(..content_indent) {
+        Some(prefix) => prefix.iter().all(|&b| b == b' '),
+        None => false,
+    };
+    if !has_content_indent {
         return Err(winnow::error::ContextError::new());
     }
 
-    let _: &str = take_while(0..=content_indent, |c: char| c == ' ').parse_next(parser_input)?;
+    let after_indent = &remaining[content_indent..];
+    let extra_spaces = after_indent.bytes().take_while(|&b| b == b' ').count();
+    let after_spaces = &after_indent[extra_spaces..];
+    if after_spaces.is_empty() || after_spaces.as_bytes().first() == Some(&b'\n') {
+        return Err(winnow::error::ContextError::new());
+    }
+
+    let _: &str = parser_input.next_slice(content_indent);
     let content_start = parser_input.current_token_start();
     let content = line_content(parser_input)?;
     let mut logical_content = content.to_string();

@@ -1,5 +1,7 @@
 use pretty::{Arena, DocAllocator, DocBuilder};
-use sevenmark_ast::{ConditionalListItems, ListContentItem, ListElement, ListItemElement};
+use sevenmark_ast::{
+    ConditionalListItems, ListContentItem, ListElement, ListItemElement, ListKind, Parameter, Span,
+};
 
 use crate::FormatConfig;
 use crate::format::element::format_elements;
@@ -12,7 +14,8 @@ pub fn format_list<'a>(
     config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
-    let params = format_params_block(a, &e.parameters, config);
+    let params = with_list_kind_param(e);
+    let params = format_params_block(a, &params, config);
     let items = a.intersperse(
         e.children
             .iter()
@@ -24,6 +27,33 @@ pub fn format_list<'a>(
         .append(a.hardline().append(items).nest(indent))
         .append(a.hardline())
         .append(a.text("}}}"))
+}
+
+fn with_list_kind_param(e: &ListElement) -> sevenmark_ast::Parameters {
+    let mut params = e.parameters.clone();
+    let kind_key = match e.kind {
+        ListKind::Unordered => None,
+        ListKind::OrderedNumeric => Some("1"),
+        ListKind::OrderedAlphaLower => Some("a"),
+        ListKind::OrderedAlphaUpper => Some("A"),
+        ListKind::OrderedRomanLower => Some("i"),
+        ListKind::OrderedRomanUpper => Some("I"),
+    };
+
+    if let Some(kind_key) = kind_key
+        && !params.contains_key(kind_key)
+    {
+        params.insert(
+            kind_key.to_string(),
+            Parameter {
+                span: Span::synthesized(),
+                key: kind_key.to_string(),
+                value: Vec::new(),
+            },
+        );
+    }
+
+    params
 }
 
 fn format_list_content_item<'a>(
