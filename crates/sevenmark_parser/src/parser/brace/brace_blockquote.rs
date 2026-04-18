@@ -22,12 +22,9 @@ pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<Element
     multispace0.parse_next(parser_input)?;
     let content_start = parser_input.current_token_start();
     let raw_content = parse_raw_until_balanced_triple_brace(parser_input)?;
-    let content = raw_content
-        .value
-        .trim_end_matches(|c: char| c.is_ascii_whitespace());
 
     let mut child_input = ParserInput {
-        input: InputSource::new_at(content, content_start),
+        input: InputSource::new_at(&raw_content.value, content_start),
         state: parser_input.state.clone(),
     };
     let previous_block_mode = child_input
