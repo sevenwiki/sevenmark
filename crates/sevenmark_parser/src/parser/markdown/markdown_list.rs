@@ -140,7 +140,7 @@ fn is_same_marker_type(left: ListMarker, right: ListMarker) -> bool {
 
 fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
     let mut first_line = list_line(parser_input)?;
-    consume_continuation_lines(parser_input, &mut first_line);
+    consume_lazy_continuation_lines(parser_input, &mut first_line);
     let root_marker = first_line.marker;
     let mut lines = vec![first_line];
     let mut stack = vec![(lines[0].content_indent, lines[0].marker)];
@@ -169,7 +169,7 @@ fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
             break;
         }
 
-        consume_continuation_lines(parser_input, &mut line);
+        consume_lazy_continuation_lines(parser_input, &mut line);
         stack.push((line.content_indent, line.marker));
         lines.push(line);
     }
@@ -222,7 +222,7 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
 /// are still handled by the outer list-line collector/tree builder.
 /// The previous line's `\n` is mapped into logical content as the separator so
 /// re-parse offsets stay aligned with the original source.
-fn list_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -> Result<()> {
+fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -> Result<()> {
     let remaining: &str = &parser_input.input;
     if remaining.is_empty() {
         return Err(winnow::error::ContextError::new());
@@ -274,10 +274,10 @@ fn list_continuation_line(parser_input: &mut ParserInput, base: &mut ListLine) -
     Ok(())
 }
 
-fn consume_continuation_lines(parser_input: &mut ParserInput, base: &mut ListLine) {
+fn consume_lazy_continuation_lines(parser_input: &mut ParserInput, base: &mut ListLine) {
     loop {
         let checkpoint = parser_input.checkpoint();
-        if list_continuation_line(parser_input, base).is_err() {
+        if list_lazy_continuation_line(parser_input, base).is_err() {
             parser_input.reset(&checkpoint);
             break;
         }

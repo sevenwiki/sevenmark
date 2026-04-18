@@ -15,13 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **sevenmark_parser**: Added line utilities (`utils_line`) used by block parsers to handle line content and boundaries consistently.
 
 ### Changed
-- **sevenmark_parser**: Refactored list nesting to a stack/tree model driven by relative indentation; both `-` and `*` markers are supported, and parent selection now uses the nearest smaller-indent ancestor.
+- **sevenmark_parser**: Refactored list nesting to a stack/tree model driven by marker content columns; parent selection now uses the nearest ancestor whose `marker + required space` content column contains the child marker.
 - **sevenmark_parser**: Markdown list marker support expanded to `-`, `+`, `*`, numeric ordered markers (`1.` / `1)`), alphabetic markers (`a.` / `A.`), and single-letter roman markers (`i.` / `I.`). Adjacent list groups are now split when marker type changes (including ordered delimiter changes).
 - **sevenmark_ast/sevenmark_parser/sevenmark_html**: List kind handling migrated from free-form string values to a typed `ListKind` enum across AST, parsers, and HTML rendering paths.
 - **sevenmark_parser**: Refactored element parsing flow into block-aware document parsing plus content element parsing, improving parser composition for nested contexts.
 - **sevenmark_parser**: Normalized parser line-ending handling to `\n` semantics in markdown block paths.
 - **sevenmark_parser**: Markdown list lazy continuation now uses a strict content-column rule (marker + required whitespace). Continuation lines must be indented to that column; under-indented lines are no longer captured as item content.
+- **sevenmark_parser**: Markdown blockquote parsing now mirrors list lazy-continuation behavior: markerless continuation lines are captured only when indented to the current quote content column, while `>>` remains an explicit nested quote marker.
 - **sevenmark_parser**: List item content is now re-parsed in nested document mode, allowing block constructs (e.g. nested `>`, `---`, nested lists) inside markdown list items when continuation indentation rules are met.
+- **sevenmark_parser**: Unified markdown list marker scanning between list-line parsing and lazy-continuation boundary detection.
+- **sevenmark_parser**: Optimized segmented input source span remapping with binary-search lookup over logical source segments.
 - **sevenmark_html**: List rendering no longer suppresses soft breaks, so lazy continuation line breaks are emitted visibly.
 - **deps**: Bumped `tracing-appender` to `0.2.5`.
 

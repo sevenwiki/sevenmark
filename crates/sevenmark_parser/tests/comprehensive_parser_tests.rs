@@ -559,6 +559,64 @@ fn test_markdown_blockquote_keeps_non_header_block_children() {
 }
 
 #[test]
+fn test_markdown_blockquote_accepts_indented_lazy_continuation() {
+    let input = "> quote\n  continuation\n";
+    let parsed = parse_document(input);
+
+    let quote = match parsed.as_slice() {
+        [Element::BlockQuote(quote)] => quote,
+        other => panic!("expected a single BlockQuote element, got: {other:#?}"),
+    };
+
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [Element::Text(first), Element::SoftBreak(_), Element::Text(second), Element::SoftBreak(_)]
+            if first.value == "quote" && second.value == "continuation"
+        ),
+        "expected indented continuation inside blockquote, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_markdown_blockquote_does_not_capture_under_indented_continuation() {
+    let input = "> quote\noutside\n";
+    let parsed = parse_document(input);
+
+    assert!(
+        matches!(
+            parsed.as_slice(),
+            [Element::BlockQuote(_), Element::Text(text), Element::SoftBreak(_)]
+            if text.value == "outside"
+        ),
+        "expected under-indented line outside blockquote, got: {parsed:#?}",
+    );
+}
+
+#[test]
+fn test_markdown_blockquote_keeps_double_marker_as_nested_quote() {
+    let input = "> quote\n>> nested\n";
+    let parsed = parse_document(input);
+
+    let quote = match parsed.as_slice() {
+        [Element::BlockQuote(quote)] => quote,
+        other => panic!("expected a single BlockQuote element, got: {other:#?}"),
+    };
+
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [Element::Text(first), Element::SoftBreak(_), Element::BlockQuote(nested)]
+            if first.value == "quote"
+                && matches!(nested.children.as_slice(), [Element::Text(text), Element::SoftBreak(_)] if text.value == "nested")
+        ),
+        "expected >> to remain a nested blockquote, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
 fn test_markdown_nested_block_spans_map_to_original_offsets() {
     let input = "> - item\n> > nested\n";
     let parsed = parse_document(input);
