@@ -319,6 +319,11 @@ fn list_lazy_continuation_line<'i>(
         return Err(winnow::error::ContextError::new());
     }
 
+    // Policy: list lazy continuation is marker-bounded, not block-starter-bounded.
+    // Once indentation reaches `base.content_indent`, non-empty lines remain item content
+    // unless they start with another list marker. Block starters like `>` or `---` are
+    // intentionally kept inside the current item and re-parsed in nested-document mode.
+
     // The previous line consumed its trailing '\n' (or hit EOF). Since
     // `remaining` is non-empty here, there was a '\n' immediately before this
     // line — its original offset is `original_line_end - 1`.
