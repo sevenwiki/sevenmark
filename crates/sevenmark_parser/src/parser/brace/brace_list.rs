@@ -1,7 +1,7 @@
 use crate::parser::ParserInput;
 use crate::parser::brace::list::list_core_parser;
 use crate::parser::parameter::parameter_core_parser;
-use sevenmark_ast::{Element, ListElement, Span};
+use sevenmark_ast::{Element, ListElement, ListKind, Span};
 use winnow::Result;
 use winnow::combinator::opt;
 use winnow::prelude::*;
@@ -23,11 +23,17 @@ pub fn brace_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
 
     let parameters = parameters.unwrap_or_default();
 
-    let kind = ["1", "a", "A", "i", "I"]
-        .iter()
-        .find(|&&k| parameters.contains_key(k))
-        .map(|&k| k.to_string())
-        .unwrap_or_default();
+    let kind = match ["1", "a", "A", "i", "I"]
+        .into_iter()
+        .find(|key| parameters.contains_key(*key))
+    {
+        Some("1") => ListKind::OrderedNumeric,
+        Some("a") => ListKind::OrderedAlphaLower,
+        Some("A") => ListKind::OrderedAlphaUpper,
+        Some("i") => ListKind::OrderedRomanLower,
+        Some("I") => ListKind::OrderedRomanUpper,
+        _ => ListKind::Unordered,
+    };
 
     Ok(Element::List(ListElement {
         span: Span { start, end },

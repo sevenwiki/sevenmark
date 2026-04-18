@@ -9,20 +9,79 @@ use super::macros;
 use super::markdown;
 use super::text;
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum TrailingSoftBreakPolicy {
+    Preserve,
+    AsHardBreak,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct FormatContext {
+    pub trailing_soft_break_policy: TrailingSoftBreakPolicy,
+}
+
+impl Default for FormatContext {
+    fn default() -> Self {
+        Self {
+            trailing_soft_break_policy: TrailingSoftBreakPolicy::Preserve,
+        }
+    }
+}
+
+impl FormatContext {
+    pub fn with_trailing_soft_break_policy(self, policy: TrailingSoftBreakPolicy) -> Self {
+        Self {
+            trailing_soft_break_policy: policy,
+            ..self
+        }
+    }
+}
+
 /// Format multiple elements, concatenating their output.
 pub fn format_elements<'a>(
     a: &'a Arena<'a>,
     elements: &[Element],
     config: &FormatConfig,
 ) -> DocBuilder<'a, Arena<'a>> {
+    format_elements_with_context(a, elements, config, FormatContext::default())
+}
+
+pub fn format_elements_with_context<'a>(
+    a: &'a Arena<'a>,
+    elements: &[Element],
+    config: &FormatConfig,
+    context: FormatContext,
+) -> DocBuilder<'a, Arena<'a>> {
     let mut doc = a.nil();
-    for el in elements {
-        doc = doc.append(format_element(a, el, config));
+    let trailing_soft_break_start = elements
+        .len()
+        .saturating_sub(count_trailing_soft_breaks(elements));
+
+    for (index, el) in elements.iter().enumerate() {
+        if index >= trailing_soft_break_start && matches!(el, Element::SoftBreak(_)) {
+            match context.trailing_soft_break_policy {
+                TrailingSoftBreakPolicy::Preserve => {}
+                TrailingSoftBreakPolicy::AsHardBreak => {
+                    doc = doc.append(macros::format_hard_break(a));
+                    continue;
+                }
+            }
+        }
+
+        doc = doc.append(format_element_with_context(a, el, config, context));
         if needs_terminating_newline(el) {
             doc = doc.append(a.hardline());
         }
     }
     doc
+}
+
+fn count_trailing_soft_breaks(elements: &[Element]) -> usize {
+    elements
+        .iter()
+        .rev()
+        .take_while(|el| matches!(el, Element::SoftBreak(_)))
+        .count()
 }
 
 /// Some parsers consume trailing line breaks/whitespace and do not emit SoftBreak.
@@ -44,6 +103,15 @@ pub fn format_element<'a>(
     a: &'a Arena<'a>,
     el: &Element,
     config: &FormatConfig,
+) -> DocBuilder<'a, Arena<'a>> {
+    format_element_with_context(a, el, config, FormatContext::default())
+}
+
+pub fn format_element_with_context<'a>(
+    a: &'a Arena<'a>,
+    el: &Element,
+    config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     match el {
         // Basic text elements
@@ -73,40 +141,44 @@ pub fn format_element<'a>(
         Element::Toc(_) => macros::format_toc(a),
 
         // Markdown text styles
-        Element::Bold(e) => markdown::bold::format_bold(a, &e.children, config),
-        Element::Italic(e) => markdown::italic::format_italic(a, &e.children, config),
+        Element::Bold(e) => markdown::bold::format_bold(a, &e.children, config, context),
+        Element::Italic(e) => markdown::italic::format_italic(a, &e.children, config, context),
         Element::Strikethrough(e) => {
-            markdown::strikethrough::format_strikethrough(a, &e.children, config)
+            markdown::strikethrough::format_strikethrough(a, &e.children, config, context)
         }
-        Element::Underline(e) => markdown::underline::format_underline(a, &e.children, config),
+        Element::Underline(e) => {
+            markdown::underline::format_underline(a, &e.children, config, context)
+        }
         Element::Superscript(e) => {
-            markdown::superscript::format_superscript(a, &e.children, config)
+            markdown::superscript::format_superscript(a, &e.children, config, context)
         }
-        Element::Subscript(e) => markdown::subscript::format_subscript(a, &e.children, config),
-        Element::Header(e) => markdown::header::format_header(a, e, config),
+        Element::Subscript(e) => {
+            markdown::subscript::format_subscript(a, &e.children, config, context)
+        }
+        Element::Header(e) => markdown::header::format_header(a, e, config, context),
 
         // Bracket elements
-        Element::Media(e) => bracket::media::format_media(a, e, config),
+        Element::Media(e) => bracket::media::format_media(a, e, config, context),
         Element::ExternalMedia(e) => bracket::external_media::format_external_media(a, e, config),
 
         // Brace block elements
-        Element::Literal(e) => brace::literal::format_literal(a, e, config),
+        Element::Literal(e) => brace::literal::format_literal(a, e, config, context),
         Element::Define(e) => brace::define::format_define(a, e, config),
-        Element::Styled(e) => brace::styled::format_styled(a, e, config),
-        Element::Table(e) => brace::table::format_table(a, e, config),
-        Element::List(e) => brace::list::format_list(a, e, config),
-        Element::Fold(e) => brace::fold::format_fold(a, e, config),
-        Element::BlockQuote(e) => brace::blockquote::format_blockquote(a, e, config),
-        Element::Ruby(e) => brace::ruby::format_ruby(a, e, config),
-        Element::Footnote(e) => brace::footnote::format_footnote(a, e, config),
+        Element::Styled(e) => brace::styled::format_styled(a, e, config, context),
+        Element::Table(e) => brace::table::format_table(a, e, config, context),
+        Element::List(e) => brace::list::format_list(a, e, config, context),
+        Element::Fold(e) => brace::fold::format_fold(a, e, config, context),
+        Element::BlockQuote(e) => brace::blockquote::format_blockquote(a, e, config, context),
+        Element::Ruby(e) => brace::ruby::format_ruby(a, e, config, context),
+        Element::Footnote(e) => brace::footnote::format_footnote(a, e, config, context),
         Element::Code(e) => brace::code::format_code(a, e, config),
         Element::TeX(e) => brace::tex::format_tex(a, e),
         Element::Css(e) => brace::css::format_css(a, e, config),
-        Element::Include(e) => brace::include::format_include(a, e, config),
-        Element::Category(e) => brace::category::format_category(a, e, config),
-        Element::Redirect(e) => brace::redirect::format_redirect(a, e, config),
+        Element::Include(e) => brace::include::format_include(a, e, config, context),
+        Element::Category(e) => brace::category::format_category(a, e, config, context),
+        Element::Redirect(e) => brace::redirect::format_redirect(a, e, config, context),
 
         // Conditional
-        Element::If(e) => brace::conditional::format_if(a, e, config),
+        Element::If(e) => brace::conditional::format_if(a, e, config, context),
     }
 }

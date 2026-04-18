@@ -1,6 +1,7 @@
 use crate::context::ParseContext;
-use winnow::stream::{LocatingSlice, Stateful};
+use winnow::stream::Stateful;
 
+mod block;
 mod brace;
 mod bracket;
 mod comment;
@@ -13,10 +14,12 @@ mod mention;
 mod parameter;
 
 mod expr;
+mod input_source;
 pub mod text;
 pub mod token;
 mod utils;
 
-pub type InputSource<'i> = LocatingSlice<&'i str>;
+pub use block::block_document_parser;
+pub use input_source::{InputSource, SourceSegment};
 
-pub type ParserInput<'i> = Stateful<InputSource<'i>, ParseContext<'i>>;
+pub type ParserInput<'input> = Stateful<InputSource<'input>, ParseContext>;

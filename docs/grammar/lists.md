@@ -2,7 +2,10 @@
 
 <div v-pre>
 
-SevenMark uses `{{{#list}}}` syntax for creating lists with various numbering styles.
+SevenMark supports two list syntaxes:
+
+- Brace lists: `{{{#list ...}}}`
+- Markdown lists: `- `, `+ `, `* `, `1. `, `1) `, `a. `, `a) `, `A. `, `A) `, `i. `, `i) `, `I. `, `I) `
 
 ## Basic Lists
 
@@ -182,5 +185,40 @@ println!("Hello!");
 [[Media: [[#file="example.png" Example image]]]]
 }}}
 ```
+
+## Markdown List Parsing Policy
+
+When markdown list markers are used, SevenMark follows these parser rules.
+
+### 1. Nesting is based on the content column
+
+Nesting is determined by the marker's content column (marker + required space), not only by
+raw leading spaces.
+
+### 2. Lazy continuation is allowed, but list markers are a hard boundary
+
+For a list item, a following line is treated as lazy continuation when:
+
+- it is non-empty, and
+- it is indented to at least the current item's content column.
+
+However, if that continuation candidate starts with a valid list marker, it is **not**
+consumed as continuation. It starts a new list line instead.
+
+### 3. Block starters can stay inside list item content
+
+Lines like blockquotes (`>`), horizontal lines (`---`), and other block constructs can be
+part of the current list item when they satisfy continuation indentation. They are then
+re-parsed as nested blocks inside that item.
+
+### 4. Root-level marker type boundary
+
+At the root level, a marker-type change (for example `-` to `*`, or `1.` to `1)`) ends the
+current markdown list block. The next marker starts a new list block.
+
+### 5. Ordered marker families
+
+- `i` / `I` markers are treated as roman-style list kinds.
+- Other alphabetic markers are treated as alphabetic list kinds.
 
 </div>

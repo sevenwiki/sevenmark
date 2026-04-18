@@ -105,7 +105,31 @@ A styled blockquote with custom colors and padding.
 - Blockquotes are block-level elements
 - They can contain any other SevenMark elements
 - The `{{{#quote}}}` container wraps all content until `}}}`
-- Whitespace and line breaks are preserved within the blockquote
+- Trailing whitespace right before the close delimiter is parser-trimmed for brace quotes
 - Parameters are optional; basic quotes work without any parameters
+
+## Parsing Policy: Lazy Continuation
+
+SevenMark intentionally uses a permissive lazy-continuation rule for markdown blockquotes.
+
+Once a `>` quote line establishes the quote content indentation, a following line without `>`
+is still treated as part of the same blockquote when:
+
+- it has at least that indentation, and
+- it is non-empty.
+
+This includes lines that look like root block starters (for example `- item` or `---`).
+They are parsed as nested content *inside* the blockquote, not as root-level blocks.
+
+Example:
+
+```sevenmark
+> quote
+  - item in quote
+  ---
+  text in quote
+```
+
+The list marker and horizontal line marker above stay inside the quote by design.
 
 </div>

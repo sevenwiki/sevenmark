@@ -18,12 +18,19 @@ macro_rules! context_setters {
     };
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BlockMode {
+    FullDocument,
+    NestedDocument,
+    InlineContent,
+}
+
 #[derive(Debug, Clone)]
-pub struct ParseContext<'i> {
+pub struct ParseContext {
     pub recursion_depth: usize,
+    pub block_mode: BlockMode,
     pub trim_brace_depth: usize,
     pub trim_bracket_depth: usize,
-    pub inside_header: bool,
     pub inside_bold: bool,
     pub inside_italic: bool,
     pub inside_strikethrough: bool,
@@ -32,20 +39,19 @@ pub struct ParseContext<'i> {
     pub inside_underline: bool,
     pub inside_footnote: bool,
     pub inside_media_element: bool,
-    pub original_input: &'i [u8],
     pub max_recursion_depth: usize,
     pub section_counter: usize,
     pub footnote_counter: usize,
 }
 
-impl<'i> ParseContext<'i> {
+impl ParseContext {
     /// 새 컨텍스트 생성
-    pub fn new(input: &'i str) -> Self {
+    pub fn new() -> Self {
         Self {
             recursion_depth: 0,
+            block_mode: BlockMode::FullDocument,
             trim_brace_depth: 0,
             trim_bracket_depth: 0,
-            inside_header: false,
             inside_bold: false,
             inside_italic: false,
             inside_strikethrough: false,
@@ -54,16 +60,10 @@ impl<'i> ParseContext<'i> {
             inside_underline: false,
             inside_footnote: false,
             inside_media_element: false,
-            original_input: input.as_bytes(),
             max_recursion_depth: 16,
             section_counter: 1,
             footnote_counter: 1,
         }
-    }
-
-    /// 현재 위치가 라인 시작인지 확인
-    pub fn is_at_line_start(&self, position: usize) -> bool {
-        position == 0 || self.original_input.get(position - 1) == Some(&b'\n')
     }
 
     /// 재귀 깊이 증가 (in-place)
@@ -92,6 +92,12 @@ impl<'i> ParseContext<'i> {
     /// 현재 재귀 깊이 반환
     pub fn current_depth(&self) -> usize {
         self.recursion_depth
+    }
+
+    pub fn replace_block_mode(&mut self, mode: BlockMode) -> BlockMode {
+        let previous = self.block_mode;
+        self.block_mode = mode;
+        previous
     }
 
     /// 남은 재귀 깊이 반환
@@ -145,7 +151,6 @@ impl<'i> ParseContext<'i> {
     }
 
     context_setters! {
-        header => inside_header,
         bold => inside_bold,
         italic => inside_italic,
         strikethrough => inside_strikethrough,

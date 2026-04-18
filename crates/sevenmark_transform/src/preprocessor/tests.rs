@@ -4,8 +4,9 @@ use super::references::{collect_includes, substitute_includes};
 use super::*;
 use sevenmark_ast::{
     CategoryElement, DefineElement, FoldElement, FoldInnerElement, IncludeElement, ListContentItem,
-    ListElement, ListItemElement, Parameter, Parameters, RedirectElement, Span, TableCellElement,
-    TableCellItem, TableElement, TableRowElement, TableRowItem, TextElement, VariableElement,
+    ListElement, ListItemElement, ListKind, Parameter, Parameters, RedirectElement, Span,
+    TableCellElement, TableCellItem, TableElement, TableRowElement, TableRowItem, TextElement,
+    VariableElement,
 };
 
 fn span() -> Span {
@@ -156,7 +157,7 @@ fn list(items: Vec<ListContentItem>) -> Element {
         span: span(),
         open_span: span(),
         close_span: span(),
-        kind: "unordered".to_string(),
+        kind: ListKind::Unordered,
         parameters: Parameters::new(),
         children: items,
     })

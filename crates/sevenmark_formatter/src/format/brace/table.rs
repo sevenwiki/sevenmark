@@ -5,7 +5,7 @@ use sevenmark_ast::{
 };
 
 use crate::FormatConfig;
-use crate::format::element::format_elements;
+use crate::format::element::{FormatContext, format_elements_with_context};
 use crate::format::expression::format_expr;
 use crate::format::params::{format_params_block, format_params_block_tight};
 
@@ -13,11 +13,14 @@ pub fn format_table<'a>(
     a: &'a Arena<'a>,
     e: &TableElement,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let params = format_params_block(a, &e.parameters, config);
     let rows = a.intersperse(
-        e.children.iter().map(|r| format_row_item(a, r, config)),
+        e.children
+            .iter()
+            .map(|r| format_row_item(a, r, config, context)),
         a.hardline(),
     );
     a.text("{{{#table")
@@ -31,10 +34,11 @@ fn format_row_item<'a>(
     a: &'a Arena<'a>,
     item: &TableRowItem,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     match item {
-        TableRowItem::Row(row) => format_row(a, row, config),
-        TableRowItem::Conditional(cond) => format_conditional_rows(a, cond, config),
+        TableRowItem::Row(row) => format_row(a, row, config, context),
+        TableRowItem::Conditional(cond) => format_conditional_rows(a, cond, config, context),
     }
 }
 
@@ -42,11 +46,14 @@ fn format_row<'a>(
     a: &'a Arena<'a>,
     row: &TableRowElement,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let params = format_params_block_tight(a, &row.parameters, config);
     let cells = a.intersperse(
-        row.children.iter().map(|c| format_cell_item(a, c, config)),
+        row.children
+            .iter()
+            .map(|c| format_cell_item(a, c, config, context)),
         a.line(),
     );
     a.text("[[")
@@ -60,10 +67,11 @@ fn format_cell_item<'a>(
     a: &'a Arena<'a>,
     item: &TableCellItem,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     match item {
-        TableCellItem::Cell(cell) => format_cell(a, cell, config),
-        TableCellItem::Conditional(cond) => format_conditional_cells(a, cond, config),
+        TableCellItem::Cell(cell) => format_cell(a, cell, config, context),
+        TableCellItem::Conditional(cond) => format_conditional_cells(a, cond, config, context),
     }
 }
 
@@ -71,16 +79,21 @@ fn format_cell<'a>(
     a: &'a Arena<'a>,
     cell: &TableCellElement,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &cell.parameters, config);
     let has_params = !cell.parameters.is_empty();
     let content = if cell.children.is_empty() {
         a.nil()
     } else if has_params {
-        a.text(" ")
-            .append(format_elements(a, &cell.children, config))
+        a.text(" ").append(format_elements_with_context(
+            a,
+            &cell.children,
+            config,
+            context,
+        ))
     } else {
-        format_elements(a, &cell.children, config)
+        format_elements_with_context(a, &cell.children, config, context)
     };
 
     let closing = if needs_line_break_before_cell_close(&cell.children) {
@@ -96,10 +109,11 @@ fn format_conditional_rows<'a>(
     a: &'a Arena<'a>,
     cond: &ConditionalTableRows,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let rows = a.intersperse(
-        cond.rows.iter().map(|r| format_row(a, r, config)),
+        cond.rows.iter().map(|r| format_row(a, r, config, context)),
         a.hardline(),
     );
     a.text("{{{#if ")
@@ -114,10 +128,13 @@ fn format_conditional_cells<'a>(
     a: &'a Arena<'a>,
     cond: &ConditionalTableCells,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let cells = a.intersperse(
-        cond.cells.iter().map(|c| format_cell(a, c, config)),
+        cond.cells
+            .iter()
+            .map(|c| format_cell(a, c, config, context)),
         a.line(),
     );
     a.text("{{{#if ")

@@ -1,5 +1,5 @@
 use ls_types::{Hover, HoverContents, MarkupContent, MarkupKind, Position, Range};
-use sevenmark_ast::Element;
+use sevenmark_ast::{Element, ListKind};
 
 use crate::ast_walk::visit_elements;
 use crate::document::DocumentState;
@@ -83,7 +83,17 @@ fn hover_content(element: &Element) -> Option<String> {
         Element::Media(_) => "**Media** `[[...]]`".to_string(),
         Element::ExternalMedia(e) => format!("**External Media**: `{}`", e.provider),
         Element::Table(_) => "**Table**".to_string(),
-        Element::List(l) => format!("**List** ({})", l.kind),
+        Element::List(l) => {
+            let kind = match l.kind {
+                ListKind::Unordered => "unordered",
+                ListKind::OrderedNumeric => "ordered: numeric",
+                ListKind::OrderedAlphaLower => "ordered: lower-alpha",
+                ListKind::OrderedAlphaUpper => "ordered: upper-alpha",
+                ListKind::OrderedRomanLower => "ordered: lower-roman",
+                ListKind::OrderedRomanUpper => "ordered: upper-roman",
+            };
+            format!("**List** ({kind})")
+        }
         Element::Fold(_) => "**Fold** - collapsible block".to_string(),
         Element::BlockQuote(_) => "**Block Quote**".to_string(),
         Element::Styled(_) => "**Styled** - custom styled block".to_string(),

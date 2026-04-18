@@ -16,6 +16,7 @@ pub struct RawBlockParseResult {
 /// - Initial depth is 1 (the opening `{{{` already consumed by caller).
 /// - Every `{{{` increments depth.
 /// - Every `}}}` decrements depth.
+/// - Triple braces escaped by an odd number of preceding backslashes are content.
 /// - When depth returns to 0, that `}}}` is treated as the block closer.
 pub fn parse_raw_until_balanced_triple_brace(
     parser_input: &mut ParserInput,
@@ -38,13 +39,14 @@ pub fn parse_raw_until_balanced_triple_brace(
         }
 
         let b = bytes[i];
+        let is_escaped = has_odd_preceding_backslashes(bytes, i);
 
         match b {
-            b'{' if bytes[i + 1] == b'{' && bytes[i + 2] == b'{' => {
+            b'{' if !is_escaped && bytes[i + 1] == b'{' && bytes[i + 2] == b'{' => {
                 depth += 1;
                 i += 3;
             }
-            b'}' if bytes[i + 1] == b'}' && bytes[i + 2] == b'}' => {
+            b'}' if !is_escaped && bytes[i + 1] == b'}' && bytes[i + 2] == b'}' => {
                 if depth == 1 {
                     close_byte_idx = Some(i);
                     break;
@@ -77,6 +79,16 @@ pub fn parse_raw_until_balanced_triple_brace(
     })
 }
 
+fn has_odd_preceding_backslashes(bytes: &[u8], offset: usize) -> bool {
+    let mut count = 0usize;
+    let mut i = offset;
+    while i > 0 && bytes[i - 1] == b'\\' {
+        count += 1;
+        i -= 1;
+    }
+    count % 2 == 1
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -87,7 +99,7 @@ mod tests {
     fn parse_balanced_triple_brace_with_utf8_content() {
         let value = "한글🙂{{{중첩}}}끝";
         let input = [value, "}}}"].concat();
-        let context = ParseContext::new(&input);
+        let context = ParseContext::new();
 
         let mut parser_input = ParserInput {
             input: InputSource::new(&input),
@@ -96,6 +108,46 @@ mod tests {
 
         let result = parse_raw_until_balanced_triple_brace(&mut parser_input)
             .expect("raw block parse should succeed");
+
+        assert_eq!(result.value, value);
+        assert_eq!(result.close_start, value.len());
+        assert_eq!(result.close_end, input.len());
+        assert!(parser_input.input.is_empty());
+    }
+
+    #[test]
+    fn parse_escaped_closing_triple_brace_as_content() {
+        let value = "literal \\}}} still content";
+        let input = [value, "}}}"].concat();
+        let context = ParseContext::new();
+
+        let mut parser_input = ParserInput {
+            input: InputSource::new(&input),
+            state: context,
+        };
+
+        let result = parse_raw_until_balanced_triple_brace(&mut parser_input)
+            .expect("raw block parse should skip escaped close delimiter");
+
+        assert_eq!(result.value, value);
+        assert_eq!(result.close_start, value.len());
+        assert_eq!(result.close_end, input.len());
+        assert!(parser_input.input.is_empty());
+    }
+
+    #[test]
+    fn parse_escaped_opening_triple_brace_as_content() {
+        let value = "literal \\{{{ still content";
+        let input = [value, "}}}"].concat();
+        let context = ParseContext::new();
+
+        let mut parser_input = ParserInput {
+            input: InputSource::new(&input),
+            state: context,
+        };
+
+        let result = parse_raw_until_balanced_triple_brace(&mut parser_input)
+            .expect("raw block parse should skip escaped open delimiter");
 
         assert_eq!(result.value, value);
         assert_eq!(result.close_start, value.len());

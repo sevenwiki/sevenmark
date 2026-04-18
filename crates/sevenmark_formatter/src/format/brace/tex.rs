@@ -1,3 +1,4 @@
+use crate::format::brace::common::needs_close_separator_for_raw_value;
 use pretty::{Arena, DocAllocator, DocBuilder};
 use sevenmark_ast::TeXElement;
 
@@ -7,7 +8,7 @@ pub fn format_tex<'a>(a: &'a Arena<'a>, e: &TeXElement) -> DocBuilder<'a, Arena<
     } else {
         "{{{#tex"
     };
-    let close_separator = if e.value.ends_with('}') {
+    let close_separator = if needs_close_separator_for_raw_value(&e.value) {
         a.text(" ")
     } else {
         a.nil()

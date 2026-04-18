@@ -11,6 +11,7 @@
 mod elements;
 mod expression;
 mod list;
+pub mod remap;
 mod span;
 mod table;
 mod traversable;

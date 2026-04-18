@@ -49,7 +49,7 @@ zstd = "0.13.3"
 futures="0.3.32"
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter", "json"] }
-tracing-appender = "0.2.4"
+tracing-appender = "0.2.5"
 dashmap = "6.1.0"
 rayon = "1.12.0"
 wasm-bindgen = "0.2.118"
