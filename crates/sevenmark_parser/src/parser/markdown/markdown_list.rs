@@ -2,9 +2,7 @@ use crate::context::BlockMode;
 use crate::core::parse_document_input;
 use crate::parser::utils::{line_break_or_eof, line_content};
 use crate::parser::{InputSource, ParserInput, SourceSegment};
-use sevenmark_ast::{
-    Element, HardBreakElement, ListContentItem, ListElement, ListItemElement, ListKind, Span,
-};
+use sevenmark_ast::{Element, ListContentItem, ListElement, ListItemElement, ListKind, Span};
 use winnow::Result;
 use winnow::combinator::{alt, peek};
 use winnow::prelude::*;
@@ -472,20 +470,9 @@ fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result
         .state
         .increase_depth()
         .map_err(|e| e.into_context_error())?;
-    let mut children = parse_document_input(&mut child_input);
+    let children = parse_document_input(&mut child_input);
     child_input.state.decrease_depth();
     child_input.state.replace_block_mode(previous_block_mode);
     parser_input.state = child_input.state;
-    // List item content has no native '\n' (each `line_content` stops at '\n'),
-    // so any top-level SoftBreak here came from a lazy-continuation separator
-    // we injected. Promote it to HardBreak so the list renderer (which
-    // suppresses SoftBreak) still emits a visible <br>.
-    for child in &mut children {
-        if let Element::SoftBreak(soft) = child {
-            *child = Element::HardBreak(HardBreakElement {
-                span: soft.span.clone(),
-            });
-        }
-    }
     Ok(children)
 }

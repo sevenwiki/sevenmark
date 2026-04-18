@@ -14,11 +14,9 @@ pub fn render(
     children: &[ListContentItem],
     ctx: &mut RenderContext,
 ) -> Markup {
-    ctx.enter_suppress_soft_breaks();
     let lk = ctx.add_light_style(utils::build_style(parameters));
     let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
     let items = render_items(children, ctx);
-    ctx.exit_suppress_soft_breaks();
     let is_ordered = kind.is_ordered();
 
     if is_ordered {
