@@ -5,6 +5,14 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.34.1] - 2026-04-18
+
+### Fixed
+- **sevenmark_ast**: Added `marker_spans: Vec<Span>` field to `BlockQuoteElement` to track per-line `>` marker positions for markdown blockquotes. Brace-style `{{{#quote}}}` blocks carry an empty slice.
+- **sevenmark_parser**: Markdown blockquote parser now records the byte span of each `>` marker in `BlockQuoteElement::marker_spans`; lazy continuation lines (no `>`) contribute no marker span.
+- **sevenmark_parser**: Markdown list item parser now populates `ListItemElement::open_span` with the actual marker span (`- `, `* `, `1. `, etc.) instead of a synthesized zero span.
+- **sevenmark_lsp_core**: Semantic token walker now emits `BlockQuote`-typed tokens for every `>` marker span in markdown blockquotes, and `ListItem`-typed tokens for list markers, enabling syntax highlighting of these markers in the LSP.
+
 ## [2.34.0] - 2026-04-18
 
 ### Added
