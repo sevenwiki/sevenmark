@@ -1,9 +1,7 @@
 use super::escape::escape_parser;
 use super::markdown::{
-    markdown_blockquote_parser, markdown_bold_parser, markdown_header_parser,
-    markdown_hline_parser, markdown_italic_parser, markdown_list_parser,
-    markdown_strikethrough_parser, markdown_subscript_parser, markdown_superscript_parser,
-    markdown_underline_parser,
+    markdown_bold_parser, markdown_italic_parser, markdown_strikethrough_parser,
+    markdown_subscript_parser, markdown_superscript_parser, markdown_underline_parser,
 };
 use super::mention::{mention_discussion_parser, mention_user_parser};
 use super::text::text_parser;
@@ -30,71 +28,69 @@ use winnow::combinator::{alt, dispatch, peek, repeat};
 use winnow::prelude::*;
 use winnow::token::any;
 
-pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
-    repeat(
-        1..,
-        dispatch! {peek(any);
-            '\\' => alt((escape_parser, token_backslash_parser)),
-            '/' => alt((multiline_comment_parser, inline_comment_parser, token_slash)),
-            '{' => alt((
-                alt((
-                    brace_include_parser,
-                    brace_category_parser,
-                    brace_if_parser,
-                    brace_table_parser,
-                    brace_list_parser,
-                    brace_fold_parser,
-                    brace_footnote_parser,
-                    brace_blockquote_parser,
-                )),
-                alt((
-                    brace_ruby_parser,
-                    brace_code_parser,
-                    brace_tex_parser,
-                    brace_css_parser,
-                    brace_define_parser,
-                    brace_style_parser,
-                    brace_literal_parser,
-                    token_brace_open_parser,
-                )),
+pub fn content_element_parser(parser_input: &mut ParserInput) -> Result<Element> {
+    dispatch! {peek(any);
+        '\\' => alt((escape_parser, token_backslash_parser)),
+        '/' => alt((multiline_comment_parser, inline_comment_parser, token_slash)),
+        '{' => alt((
+            alt((
+                brace_include_parser,
+                brace_category_parser,
+                brace_if_parser,
+                brace_table_parser,
+                brace_list_parser,
+                brace_fold_parser,
+                brace_footnote_parser,
+                brace_blockquote_parser,
             )),
-            '}' => token_brace_close_parser,
-            '[' => alt((
-                alt((
-                    bracket_external_media_parser,
-                    bracket_media_parser,
-                    macro_now_parser,
-                    macro_datetime_parser,
-                    macro_date_parser,
-                    macro_newline_parser,
-                    macro_clear_parser,
-                )),
-                alt((
-                    macro_variable_parser,
-                    macro_anchor_parser,
-                    macro_pagecount_parser,
-                    macro_dday_parser,
-                    macro_age_parser,
-                    macro_footnote_parser,
-                    macro_toc_parser,
-                    macro_null_parser,
-                    token_bracket_open_parser,
-                )),
+            alt((
+                brace_ruby_parser,
+                brace_code_parser,
+                brace_tex_parser,
+                brace_css_parser,
+                brace_define_parser,
+                brace_style_parser,
+                brace_literal_parser,
+                token_brace_open_parser,
             )),
-            ']' => token_bracket_close_parser,
-            '<' => alt((mention_discussion_parser, mention_user_parser, token_angle_bracket_parser)),
-            '#' => alt((markdown_header_parser, text_parser)),
-            '>' => alt((markdown_blockquote_parser, text_parser)),
-            '-' => alt((markdown_hline_parser, markdown_list_parser, text_parser)),
-            ' ' => alt((markdown_list_parser, text_parser)),    
-            '*' => alt((markdown_bold_parser, markdown_italic_parser, token_asterisk_parser)),
-            '_' => alt((markdown_underline_parser, token_underscore_parser)),
-            '~' => alt((markdown_strikethrough_parser, token_tilde_parser)),
-            '^' => alt((markdown_superscript_parser, token_caret_parser)),
-            ',' => alt((markdown_subscript_parser, token_comma_parser)),
-            '\n' => token_newline_parser,
-            _ => text_parser,
-        },
-    )
+        )),
+        '}' => token_brace_close_parser,
+        '[' => alt((
+            alt((
+                bracket_external_media_parser,
+                bracket_media_parser,
+                macro_now_parser,
+                macro_datetime_parser,
+                macro_date_parser,
+                macro_newline_parser,
+                macro_clear_parser,
+            )),
+            alt((
+                macro_variable_parser,
+                macro_anchor_parser,
+                macro_pagecount_parser,
+                macro_dday_parser,
+                macro_age_parser,
+                macro_footnote_parser,
+                macro_toc_parser,
+                macro_null_parser,
+                token_bracket_open_parser,
+            )),
+        )),
+        ']' => token_bracket_close_parser,
+        '<' => alt((mention_discussion_parser, mention_user_parser, token_angle_bracket_parser)),
+        '*' => alt((markdown_bold_parser, markdown_italic_parser, token_asterisk_parser)),
+        '_' => alt((markdown_underline_parser, token_underscore_parser)),
+        '~' => alt((markdown_strikethrough_parser, token_tilde_parser)),
+        '^' => alt((markdown_superscript_parser, token_caret_parser)),
+        ',' => alt((markdown_subscript_parser, token_comma_parser)),
+        '\n' => token_newline_parser,
+        '\r' => token_newline_parser,
+        _ => text_parser,
+    }
     .parse_next(parser_input)
+}
+
+pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
+    repeat(1.., content_element_parser).parse_next(parser_input)
 }

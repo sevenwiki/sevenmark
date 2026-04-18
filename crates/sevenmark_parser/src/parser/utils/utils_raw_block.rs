@@ -87,7 +87,7 @@ mod tests {
     fn parse_balanced_triple_brace_with_utf8_content() {
         let value = "한글🙂{{{중첩}}}끝";
         let input = [value, "}}}"].concat();
-        let context = ParseContext::new(&input);
+        let context = ParseContext::new();
 
         let mut parser_input = ParserInput {
             input: InputSource::new(&input),

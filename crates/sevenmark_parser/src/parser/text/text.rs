@@ -1,4 +1,5 @@
 use crate::parser::ParserInput;
+use crate::parser::utils::is_line_end_char;
 use sevenmark_ast::{Element, Span, TextElement};
 use winnow::Result;
 use winnow::prelude::*;
@@ -11,8 +12,8 @@ pub fn text_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let parsed_content = take_while(1.., |c: char| {
         !matches!(
             c,
-            '*' | '~' | '_' | '^' | ',' | '{' | '}' | '[' | ']' | '/' | '\\' | '\n' | '<'
-        )
+            '*' | '~' | '_' | '^' | ',' | '{' | '}' | '[' | ']' | '/' | '\\' | '<'
+        ) && !is_line_end_char(c)
     })
     .parse_next(parser_input)?;
     let end = parser_input.previous_token_end();

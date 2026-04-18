@@ -1,4 +1,5 @@
 use crate::parser::ParserInput;
+use crate::parser::utils::line_break;
 use sevenmark_ast::{Element, SoftBreakElement, Span};
 use winnow::Result;
 use winnow::ascii::multispace1;
@@ -8,10 +9,6 @@ use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
 pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    if parser_input.state.inside_header && parser_input.input.starts_with('\n') {
-        return Err(winnow::error::ContextError::new());
-    }
-
     // trim 컨텍스트에서 닫는 구분자 앞 whitespace면 실패 (suffix가 처리하도록)
     if parser_input.state.is_trimming_brace() {
         not((multispace1, peek(literal("}}}")))).parse_next(parser_input)?;
@@ -21,7 +18,7 @@ pub fn token_newline_parser(parser_input: &mut ParserInput) -> Result<Element> {
     }
 
     let start = parser_input.current_token_start();
-    literal("\n").parse_next(parser_input)?;
+    line_break(parser_input)?;
     let end = parser_input.previous_token_end();
 
     Ok(Element::SoftBreak(SoftBreakElement {

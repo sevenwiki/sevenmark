@@ -1,4 +1,4 @@
-use sevenmark_ast::Element;
+use sevenmark_ast::{Element, ListContentItem};
 use sevenmark_parser::core::parse_document;
 use std::fs;
 use std::path::Path;
@@ -326,4 +326,151 @@ fn test_malformed_redirect_produces_error() {
         !parsed.is_empty() && parsed.iter().any(|e| matches!(e, Element::Error(_))),
         "malformed redirect must produce Error element, got: {parsed:#?}"
     );
+}
+
+#[test]
+fn test_markdown_list_keeps_decreasing_root_indent_items() {
+    let input = "  - f\n - ㄹ\n- ㄹ";
+    let parsed = parse_document(input);
+
+    let list = match parsed.as_slice() {
+        [Element::List(list)] => list,
+        other => panic!("expected a single List element, got: {other:#?}"),
+    };
+
+    let values: Vec<&str> = list
+        .children
+        .iter()
+        .map(|child| {
+            let ListContentItem::Item(item) = child else {
+                panic!("expected list item, got: {child:#?}");
+            };
+            match item.children.as_slice() {
+                [Element::Text(text)] => text.value.as_str(),
+                other => panic!("expected a text-only list item, got: {other:#?}"),
+            }
+        })
+        .collect();
+
+    assert_eq!(values, ["f", "ㄹ", "ㄹ"]);
+}
+
+#[test]
+fn test_markdown_list_uses_cmark_content_indent_for_nesting() {
+    let input = "- parent\n  - child\n - sibling";
+    let parsed = parse_document(input);
+
+    let list = match parsed.as_slice() {
+        [Element::List(list)] => list,
+        other => panic!("expected a single List element, got: {other:#?}"),
+    };
+
+    assert_eq!(list.children.len(), 2, "unexpected root items: {list:#?}");
+
+    let ListContentItem::Item(parent) = &list.children[0] else {
+        panic!("expected first root item, got: {:#?}", list.children[0]);
+    };
+    assert!(
+        matches!(
+            parent.children.as_slice(),
+            [Element::Text(_), Element::List(_)]
+        ),
+        "expected parent text plus nested list, got: {:#?}",
+        parent.children
+    );
+
+    let Element::List(nested) = &parent.children[1] else {
+        unreachable!();
+    };
+    let ListContentItem::Item(child) = &nested.children[0] else {
+        panic!("expected nested item, got: {:#?}", nested.children[0]);
+    };
+    assert!(matches!(child.children.as_slice(), [Element::Text(text)] if text.value == "child"));
+
+    let ListContentItem::Item(sibling) = &list.children[1] else {
+        panic!("expected second root item, got: {:#?}", list.children[1]);
+    };
+    assert!(
+        matches!(sibling.children.as_slice(), [Element::Text(text)] if text.value == "sibling")
+    );
+}
+
+#[test]
+fn test_markdown_blockquote_suppresses_section_headers() {
+    let input = "> # title\n";
+    let parsed = parse_document(input);
+
+    let quote = match parsed.as_slice() {
+        [Element::BlockQuote(quote)] => quote,
+        other => panic!("expected a single BlockQuote element, got: {other:#?}"),
+    };
+
+    assert!(
+        matches!(quote.children.as_slice(), [Element::Text(text), Element::SoftBreak(_)] if text.value == "# title"),
+        "expected blockquote child header syntax to stay as Text, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_markdown_blockquote_keeps_non_header_block_children() {
+    let input = "> - item\n> > nested\n> ---\n";
+    let parsed = parse_document(input);
+
+    let quote = match parsed.as_slice() {
+        [Element::BlockQuote(quote)] => quote,
+        other => panic!("expected a single BlockQuote element, got: {other:#?}"),
+    };
+
+    assert!(
+        matches!(
+            quote.children.as_slice(),
+            [Element::List(_), Element::BlockQuote(_), Element::HLine(_)]
+        ),
+        "expected list, nested blockquote, and hline inside blockquote, got: {:#?}",
+        quote.children
+    );
+}
+
+#[test]
+fn test_markdown_header_children_do_not_include_line_ending() {
+    let input = "# title\nbody";
+    let parsed = parse_document(input);
+
+    let header = match parsed.as_slice() {
+        [Element::Header(header), Element::Text(_)] => header,
+        other => panic!("expected Header followed by Text, got: {other:#?}"),
+    };
+
+    assert!(
+        matches!(header.children.as_slice(), [Element::Text(_)]),
+        "expected header content only, got: {:#?}",
+        header.children
+    );
+}
+
+#[test]
+fn test_markdown_line_content_excludes_crlf_carriage_return() {
+    let parsed = parse_document("# title\r\n// note\r\n> quote\r\n- item\r\n");
+
+    let [
+        Element::Header(header),
+        Element::Comment(comment),
+        Element::BlockQuote(quote),
+        Element::List(list),
+    ] = parsed.as_slice()
+    else {
+        panic!("expected Header, Comment, BlockQuote, List; got: {parsed:#?}");
+    };
+
+    assert!(matches!(header.children.as_slice(), [Element::Text(text)] if text.value == "title"));
+    assert_eq!(comment.value, " note");
+    assert!(
+        matches!(quote.children.as_slice(), [Element::Text(text), Element::SoftBreak(_)] if text.value == "quote")
+    );
+
+    let ListContentItem::Item(item) = &list.children[0] else {
+        panic!("expected list item, got: {:#?}", list.children[0]);
+    };
+    assert!(matches!(item.children.as_slice(), [Element::Text(text)] if text.value == "item"));
 }
