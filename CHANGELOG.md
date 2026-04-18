@@ -5,6 +5,26 @@ All notable changes to SevenMark parser will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **sevenmark_parser**: Added block-level document parsing via `block_document_parser` and parsing modes (`BlockMode::{FullDocument,NestedDocument,InlineContent}`) so markdown block constructs can be gated by context.
+- **sevenmark_parser**: Added segmented input mapping (`InputSource` / `SourceSegment`) for child parsing pipelines that preserve original source offsets.
+- **sevenmark_parser**: Added markdown block parsers for blockquotes and lists (`markdown_blockquote_parser`, `markdown_list_parser`) and integrated them into parser routing.
+- **sevenmark_ast**: Added span remapping helpers (`remap` module) and exported them for offset remap workflows.
+- **sevenmark_parser**: Added line utilities (`utils_line`) used by block parsers to handle line content and boundaries consistently.
+
+### Changed
+- **sevenmark_parser**: Refactored list nesting to a stack/tree model driven by relative indentation; both `-` and `*` markers are supported, and parent selection now uses the nearest smaller-indent ancestor.
+- **sevenmark_parser**: Refactored element parsing flow into block-aware document parsing plus content element parsing, improving parser composition for nested contexts.
+- **sevenmark_parser**: Normalized parser line-ending handling to `\n` semantics in markdown block paths.
+- **sevenmark_html**: Blockquote rendering no longer suppresses soft breaks, matching updated parser offset/line handling.
+- **deps**: Bumped `tracing-appender` to `0.2.5`.
+
+### Fixed
+- **sevenmark_parser**: Fixed blockquote nested span/offset mapping when stripping `>` prefixes and re-parsing nested content.
+- **tests**: Updated parser integration coverage and fixtures for nested markdown blocks, list indentation behavior, and offset mapping regressions.
+
 ## [2.32.9] - 2026-04-17
 
 ### Changed

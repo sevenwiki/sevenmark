@@ -9,6 +9,8 @@ use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::literal;
 
+/// Parses contiguous `>` lines as one blockquote, then re-parses the inner content
+/// as a nested document while preserving original offset mappings.
 pub fn markdown_blockquote_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let start = parser_input.current_token_start();
 
@@ -63,6 +65,7 @@ struct BlockQuoteLine {
     segments: Vec<SourceSegment>,
 }
 
+/// Parses one blockquote line and records source segments for both text and line ending.
 fn blockquote_line(parser_input: &mut ParserInput) -> Result<BlockQuoteLine> {
     literal(">").parse_next(parser_input)?;
     opt(literal(" ")).parse_next(parser_input)?;

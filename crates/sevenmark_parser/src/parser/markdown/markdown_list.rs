@@ -23,6 +23,7 @@ struct ListNode {
     children: Vec<usize>,
 }
 
+/// Parses a contiguous markdown list block (`-` / `*` items) from the current line.
 pub fn markdown_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
     let mut lines = vec![list_line(parser_input)?];
     let mut rest: Vec<ListLine> = repeat(0.., list_line).parse_next(parser_input)?;
@@ -59,6 +60,10 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
     })
 }
 
+/// Builds a parent/child tree from list lines using indentation.
+///
+/// Invariant: the stack contains the current ancestor path with strictly increasing
+/// indentation, so the nearest remaining stack top is the parent candidate.
 fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
     let mut nodes: Vec<ListNode> = Vec::with_capacity(lines.len());
     let mut roots = Vec::new();
@@ -94,6 +99,7 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
     (nodes, roots)
 }
 
+/// Builds a `List` element from a slice of tree node indices.
 fn build_list_element(
     lines: &[ListLine],
     nodes: &[ListNode],
@@ -123,6 +129,7 @@ fn build_list_element(
     }))
 }
 
+/// Builds a single `ListItem` and recursively appends nested child lists.
 fn build_list_item(
     lines: &[ListLine],
     nodes: &[ListNode],
@@ -153,6 +160,7 @@ fn build_list_item(
     })
 }
 
+/// Re-parses list item text in inline mode while preserving original source offsets.
 fn parse_item_content(line: &ListLine, parser_input: &mut ParserInput) -> Result<Vec<Element>> {
     let mut child_input = ParserInput {
         input: InputSource::new_segmented(

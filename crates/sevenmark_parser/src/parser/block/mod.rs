@@ -10,6 +10,7 @@ use winnow::combinator::{alt, opt};
 use winnow::prelude::*;
 use winnow::stream::Stream;
 
+/// Parses a document as a sequence of line-level blocks and inline content.
 pub fn block_document_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
     let mut elements = Vec::new();
 
@@ -36,6 +37,7 @@ pub fn block_document_parser(parser_input: &mut ParserInput) -> Result<Vec<Eleme
     Ok(elements)
 }
 
+/// Parses block constructs allowed at line start for the current block mode.
 fn parse_line_block(parser_input: &mut ParserInput) -> Result<Option<Element>> {
     match parser_input.state.block_mode {
         BlockMode::FullDocument => opt(alt((
