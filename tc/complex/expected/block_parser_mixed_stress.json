@@ -405,7 +405,7 @@
     "List": {
       "span": {
         "start": 236,
-        "end": 256
+        "end": 279
       },
       "open_span": {
         "start": 0,
@@ -445,17 +445,36 @@
               }
             ]
           }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 256,
+              "end": 279
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 259,
+                    "end": 278
+                  },
+                  "value": "roman upper sibling"
+                }
+              }
+            ]
+          }
         }
       ]
-    }
-  },
-  {
-    "Text": {
-      "span": {
-        "start": 256,
-        "end": 279
-      },
-      "value": "II. roman upper sibling"
     }
   },
   {
@@ -467,18 +486,10 @@
     }
   },
   {
-    "SoftBreak": {
-      "span": {
-        "start": 280,
-        "end": 281
-      }
-    }
-  },
-  {
     "List": {
       "span": {
-        "start": 281,
-        "end": 328
+        "start": 280,
+        "end": 327
       },
       "open_span": {
         "start": 0,
@@ -494,8 +505,8 @@
         {
           "Item": {
             "span": {
-              "start": 281,
-              "end": 303
+              "start": 280,
+              "end": 302
             },
             "open_span": {
               "start": 0,
@@ -510,8 +521,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 284,
-                    "end": 302
+                    "start": 283,
+                    "end": 301
                   },
                   "value": "numeric paren item"
                 }
@@ -522,8 +533,8 @@
         {
           "Item": {
             "span": {
-              "start": 303,
-              "end": 328
+              "start": 302,
+              "end": 327
             },
             "open_span": {
               "start": 0,
@@ -538,8 +549,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 306,
-                    "end": 327
+                    "start": 305,
+                    "end": 326
                   },
                   "value": "numeric paren sibling"
                 }
@@ -553,46 +564,46 @@
   {
     "SoftBreak": {
       "span": {
-        "start": 328,
-        "end": 329
+        "start": 327,
+        "end": 328
       }
     }
   },
   {
     "Styled": {
       "span": {
-        "start": 329,
-        "end": 416
+        "start": 328,
+        "end": 415
       },
       "open_span": {
-        "start": 329,
-        "end": 332
+        "start": 328,
+        "end": 331
       },
       "close_span": {
-        "start": 413,
-        "end": 416
+        "start": 412,
+        "end": 415
       },
       "parameters": {
         "styled": {
           "span": {
-            "start": 332,
-            "end": 339
+            "start": 331,
+            "end": 338
           },
           "key": "styled",
           "value": []
         },
         "style": {
           "span": {
-            "start": 340,
-            "end": 370
+            "start": 339,
+            "end": 369
           },
           "key": "style",
           "value": [
             {
               "Text": {
                 "span": {
-                  "start": 348,
-                  "end": 369
+                  "start": 347,
+                  "end": 368
                 },
                 "value": "border:1px solid #888"
               }
@@ -604,13 +615,21 @@
         {
           "Text": {
             "span": {
-              "start": 371,
-              "end": 412
+              "start": 370,
+              "end": 411
             },
             "value": "Styled block after mixed markdown blocks."
           }
         }
       ]
+    }
+  },
+  {
+    "SoftBreak": {
+      "span": {
+        "start": 415,
+        "end": 416
+      }
     }
   },
   {
@@ -622,33 +641,25 @@
     }
   },
   {
-    "SoftBreak": {
-      "span": {
-        "start": 417,
-        "end": 418
-      }
-    }
-  },
-  {
     "List": {
       "span": {
-        "start": 418,
-        "end": 486
+        "start": 417,
+        "end": 485
       },
       "open_span": {
-        "start": 418,
-        "end": 426
+        "start": 417,
+        "end": 425
       },
       "close_span": {
-        "start": 483,
-        "end": 486
+        "start": 482,
+        "end": 485
       },
       "kind": "A",
       "parameters": {
         "A": {
           "span": {
-            "start": 427,
-            "end": 429
+            "start": 426,
+            "end": 428
           },
           "key": "A",
           "value": []
@@ -658,24 +669,24 @@
         {
           "Item": {
             "span": {
-              "start": 430,
-              "end": 456
+              "start": 429,
+              "end": 455
             },
             "open_span": {
-              "start": 430,
-              "end": 432
+              "start": 429,
+              "end": 431
             },
             "close_span": {
-              "start": 453,
-              "end": 455
+              "start": 452,
+              "end": 454
             },
             "parameters": {},
             "children": [
               {
                 "Text": {
                   "span": {
-                    "start": 432,
-                    "end": 453
+                    "start": 431,
+                    "end": 452
                   },
                   "value": "Brace list alpha item"
                 }
@@ -686,24 +697,24 @@
         {
           "Item": {
             "span": {
-              "start": 456,
-              "end": 483
+              "start": 455,
+              "end": 482
             },
             "open_span": {
-              "start": 456,
-              "end": 458
+              "start": 455,
+              "end": 457
             },
             "close_span": {
-              "start": 480,
-              "end": 482
+              "start": 479,
+              "end": 481
             },
             "parameters": {},
             "children": [
               {
                 "Text": {
                   "span": {
-                    "start": 458,
-                    "end": 480
+                    "start": 457,
+                    "end": 479
                   },
                   "value": "Brace list second item"
                 }
@@ -712,14 +723,6 @@
           }
         }
       ]
-    }
-  },
-  {
-    "SoftBreak": {
-      "span": {
-        "start": 486,
-        "end": 487
-      }
     }
   }
 ]
