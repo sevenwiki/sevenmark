@@ -929,6 +929,62 @@ mod tests {
     }
 
     #[test]
+    fn markdown_blockquote_marker_produces_blockquote_token() {
+        let state = make_state("> hello\n> world");
+        let tokens = collect_semantic_tokens(&state);
+
+        for t in &tokens {
+            eprintln!(
+                "  type={:<2} delta_line={} delta_start={} length={}",
+                t.token_type, t.delta_line, t.delta_start, t.length
+            );
+        }
+
+        let bq_tokens: Vec<_> = tokens
+            .iter()
+            .filter(|t| t.token_type == TokenIdx::BlockQuote.as_u32())
+            .collect();
+        // Two `>` markers, one per line
+        assert_eq!(
+            bq_tokens.len(),
+            2,
+            "expected 2 BlockQuote tokens (one per `>` marker), got {}",
+            bq_tokens.len()
+        );
+        // First marker is at column 0, length 1
+        assert_eq!(bq_tokens[0].delta_start, 0, "first `>` should be at col 0");
+        assert_eq!(bq_tokens[0].length, 1, "`>` marker should be length 1");
+    }
+
+    #[test]
+    fn markdown_list_marker_produces_list_item_token() {
+        let state = make_state("- foo\n- bar");
+        let tokens = collect_semantic_tokens(&state);
+
+        for t in &tokens {
+            eprintln!(
+                "  type={:<2} delta_line={} delta_start={} length={}",
+                t.token_type, t.delta_line, t.delta_start, t.length
+            );
+        }
+
+        let li_tokens: Vec<_> = tokens
+            .iter()
+            .filter(|t| t.token_type == TokenIdx::ListItem.as_u32())
+            .collect();
+        // Two `- ` markers
+        assert_eq!(
+            li_tokens.len(),
+            2,
+            "expected 2 ListItem tokens (one per `- ` marker), got {}",
+            li_tokens.len()
+        );
+        // Each `- ` marker is at col 0, length 2
+        assert_eq!(li_tokens[0].delta_start, 0, "first `- ` should be at col 0");
+        assert_eq!(li_tokens[0].length, 2, "`- ` marker should be length 2");
+    }
+
+    #[test]
     fn adjacent_delimiters_emit_both_tokens() {
         let mut raw = Vec::new();
         let open = sevenmark_ast::Span::new(0, 3);
