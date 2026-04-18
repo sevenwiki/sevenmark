@@ -356,7 +356,7 @@ fn test_markdown_list_keeps_decreasing_root_indent_items() {
 }
 
 #[test]
-fn test_markdown_list_uses_cmark_content_indent_for_nesting() {
+fn test_markdown_list_uses_relative_indent_for_nesting() {
     let input = "- parent\n  - child\n - sibling";
     let parsed = parse_document(input);
 
@@ -393,6 +393,53 @@ fn test_markdown_list_uses_cmark_content_indent_for_nesting() {
     assert!(
         matches!(sibling.children.as_slice(), [Element::Text(text)] if text.value == "sibling")
     );
+}
+
+#[test]
+fn test_markdown_list_only_indent_increase_creates_nested_level() {
+    let input = "* a\n     * b\n         * c\n * d";
+    let parsed = parse_document(input);
+
+    let list = match parsed.as_slice() {
+        [Element::List(list)] => list,
+        other => panic!("expected a single List element, got: {other:#?}"),
+    };
+
+    assert_eq!(list.children.len(), 2, "unexpected root items: {list:#?}");
+
+    let ListContentItem::Item(first) = &list.children[0] else {
+        panic!("expected first root item, got: {:#?}", list.children[0]);
+    };
+    assert!(
+        matches!(first.children.as_slice(), [Element::Text(text), Element::List(_)] if text.value == "a"),
+        "expected first item text plus nested list, got: {:#?}",
+        first.children
+    );
+
+    let Element::List(second_level) = &first.children[1] else {
+        unreachable!();
+    };
+    let ListContentItem::Item(second) = &second_level.children[0] else {
+        panic!("expected nested item, got: {:#?}", second_level.children[0]);
+    };
+    assert!(
+        matches!(second.children.as_slice(), [Element::Text(text), Element::List(_)] if text.value == "b"),
+        "expected second item text plus nested list, got: {:#?}",
+        second.children
+    );
+
+    let Element::List(third_level) = &second.children[1] else {
+        unreachable!();
+    };
+    let ListContentItem::Item(third) = &third_level.children[0] else {
+        panic!("expected nested item, got: {:#?}", third_level.children[0]);
+    };
+    assert!(matches!(third.children.as_slice(), [Element::Text(text)] if text.value == "c"));
+
+    let ListContentItem::Item(root_sibling) = &list.children[1] else {
+        panic!("expected root sibling, got: {:#?}", list.children[1]);
+    };
+    assert!(matches!(root_sibling.children.as_slice(), [Element::Text(text)] if text.value == "d"));
 }
 
 #[test]
