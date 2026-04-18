@@ -147,7 +147,7 @@ fn blockquote_lazy_continuation_line(
 
     let line_end_pos = remaining.find('\n').unwrap_or(remaining.len());
     let line = &remaining[..line_end_pos];
-    let leading_spaces = line.chars().take_while(|&c| c == ' ').count();
+    let leading_spaces = line.bytes().take_while(|&b| b == b' ').count();
     if leading_spaces < content_indent || line.trim_start_matches(' ').is_empty() {
         return Err(winnow::error::ContextError::new());
     }

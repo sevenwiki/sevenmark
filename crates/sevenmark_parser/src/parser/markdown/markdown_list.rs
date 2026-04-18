@@ -229,7 +229,7 @@ fn list_lazy_continuation_line(parser_input: &mut ParserInput, base: &mut ListLi
     }
     let line_end_pos = remaining.find('\n').unwrap_or(remaining.len());
     let line = &remaining[..line_end_pos];
-    let leading_spaces = line.chars().take_while(|&c| c == ' ').count();
+    let leading_spaces = line.bytes().take_while(|&b| b == b' ').count();
     let after_spaces = line.trim_start_matches(' ');
     if after_spaces.is_empty() {
         return Err(winnow::error::ContextError::new());
