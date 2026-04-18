@@ -508,7 +508,7 @@ fn build_list_item(
             start: item_start,
             end: item_end,
         },
-        open_span: Span::synthesized(),
+        open_span: Span::new(item_start + line.indent, line.original_content_start),
         close_span: Span::synthesized(),
         parameters: Default::default(),
         children,

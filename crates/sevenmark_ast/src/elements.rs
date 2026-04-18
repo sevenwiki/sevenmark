@@ -167,7 +167,7 @@ pub struct StyledElement {
     pub children: Vec<Element>,
 }
 
-/// 인용 블록 {{{#blockquote ...}}}
+/// 인용 블록 {{{#blockquote ...}}} 또는 markdown `>`
 #[derive(Debug, Clone, Serialize)]
 pub struct BlockQuoteElement {
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
@@ -176,6 +176,10 @@ pub struct BlockQuoteElement {
     pub open_span: Span,
     #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
     pub close_span: Span,
+    /// Per-line `>` marker spans for markdown blockquotes. Empty for brace-style.
+    #[cfg_attr(not(feature = "include_locations"), serde(skip_serializing))]
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub marker_spans: Vec<Span>,
     pub parameters: Parameters,
     pub children: Vec<Element>,
 }

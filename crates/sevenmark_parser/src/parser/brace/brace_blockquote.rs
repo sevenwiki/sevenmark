@@ -53,6 +53,7 @@ pub fn brace_blockquote_parser(parser_input: &mut ParserInput) -> Result<Element
             start: raw_content.close_start,
             end,
         },
+        marker_spans: vec![],
         parameters: parameters.unwrap_or_default(),
         children: parsed_content,
     }))
