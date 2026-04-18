@@ -298,7 +298,10 @@ fn walk_element(element: &Element, raw: &mut Vec<(usize, usize, u32)>) {
             Element::List(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
             Element::Fold(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
             Element::BlockQuote(e) => {
-                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw)
+                emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw);
+                for ms in &e.marker_spans {
+                    raw.push((ms.start, ms.end, token_type));
+                }
             }
             Element::Ruby(e) => emit_delimiter_tokens(&e.open_span, &e.close_span, token_type, raw),
             Element::Footnote(e) => {

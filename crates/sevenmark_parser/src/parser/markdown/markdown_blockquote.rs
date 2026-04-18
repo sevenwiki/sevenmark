@@ -18,6 +18,11 @@ pub fn markdown_blockquote_parser(parser_input: &mut ParserInput) -> Result<Elem
 
     let end = parser_input.previous_token_end();
 
+    let marker_spans: Vec<Span> = raw_lines
+        .iter()
+        .filter_map(|line| line.marker_span.map(|(s, e)| Span::new(s, e)))
+        .collect();
+
     let empty_original_offset = raw_lines
         .first()
         .map(|line| line.content_start)
@@ -70,6 +75,7 @@ pub fn markdown_blockquote_parser(parser_input: &mut ParserInput) -> Result<Elem
         span: Span { start, end },
         open_span: Span::synthesized(),
         close_span: Span::synthesized(),
+        marker_spans,
         parameters: Default::default(),
         children,
     }))
@@ -81,6 +87,8 @@ struct BlockQuoteLine<'i> {
     content_indent: usize,
     content_start: usize,
     ending_start: Option<usize>,
+    /// Span of the `>` marker (None for lazy continuation lines).
+    marker_span: Option<(usize, usize)>,
 }
 
 fn collect_blockquote_lines<'i>(
@@ -120,6 +128,7 @@ fn collect_blockquote_lines<'i>(
 fn blockquote_line<'i>(parser_input: &mut ParserInput<'i>) -> Result<BlockQuoteLine<'i>> {
     let line_start = parser_input.current_token_start();
     literal(">").parse_next(parser_input)?;
+    let marker_end = parser_input.previous_token_end();
     opt(literal(" ")).parse_next(parser_input)?;
 
     let content_start = parser_input.current_token_start();
@@ -135,6 +144,7 @@ fn blockquote_line<'i>(parser_input: &mut ParserInput<'i>) -> Result<BlockQuoteL
         content_indent: content_start.saturating_sub(line_start),
         content_start,
         ending_start: ending.map(|_| ending_start),
+        marker_span: Some((line_start, marker_end)),
     })
 }
 
@@ -180,5 +190,6 @@ fn blockquote_lazy_continuation_line<'i>(
         content_indent,
         content_start,
         ending_start: ending.map(|_| ending_start),
+        marker_span: None,
     })
 }
