@@ -53,8 +53,8 @@
               "end": 75
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 29,
+              "end": 31
             },
             "close_span": {
               "start": 0,
@@ -95,8 +95,8 @@
                           "end": 59
                         },
                         "open_span": {
-                          "start": 0,
-                          "end": 0
+                          "start": 45,
+                          "end": 47
                         },
                         "close_span": {
                           "start": 0,
@@ -123,8 +123,8 @@
                           "end": 75
                         },
                         "open_span": {
-                          "start": 0,
-                          "end": 0
+                          "start": 61,
+                          "end": 63
                         },
                         "close_span": {
                           "start": 0,
@@ -157,8 +157,8 @@
               "end": 93
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 76,
+              "end": 78
             },
             "close_span": {
               "start": 0,
@@ -203,6 +203,20 @@
         "start": 0,
         "end": 0
       },
+      "marker_spans": [
+        {
+          "start": 94,
+          "end": 95
+        },
+        {
+          "start": 161,
+          "end": 162
+        },
+        {
+          "start": 181,
+          "end": 182
+        }
+      ],
       "parameters": {},
       "children": [
         {
@@ -246,8 +260,8 @@
                     "end": 181
                   },
                   "open_span": {
-                    "start": 0,
-                    "end": 0
+                    "start": 163,
+                    "end": 165
                   },
                   "close_span": {
                     "start": 0,
@@ -284,6 +298,12 @@
               "start": 0,
               "end": 0
             },
+            "marker_spans": [
+              {
+                "start": 183,
+                "end": 184
+              }
+            ],
             "parameters": {},
             "children": [
               {
@@ -341,8 +361,8 @@
               "end": 218
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 204,
+              "end": 207
             },
             "close_span": {
               "start": 0,
@@ -369,8 +389,8 @@
               "end": 235
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 218,
+              "end": 221
             },
             "close_span": {
               "start": 0,
@@ -425,8 +445,8 @@
               "end": 256
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 236,
+              "end": 239
             },
             "close_span": {
               "start": 0,
@@ -453,8 +473,8 @@
               "end": 279
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 256,
+              "end": 259
             },
             "close_span": {
               "start": 0,
@@ -509,8 +529,8 @@
               "end": 302
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 280,
+              "end": 283
             },
             "close_span": {
               "start": 0,
@@ -537,8 +557,8 @@
               "end": 327
             },
             "open_span": {
-              "start": 0,
-              "end": 0
+              "start": 302,
+              "end": 305
             },
             "close_span": {
               "start": 0,
