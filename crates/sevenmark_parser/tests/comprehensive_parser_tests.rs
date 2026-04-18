@@ -1,4 +1,4 @@
-use sevenmark_ast::{Element, ListContentItem};
+use sevenmark_ast::{Element, ListContentItem, ListKind};
 use sevenmark_parser::core::parse_document;
 use std::fs;
 use std::path::Path;
@@ -446,6 +446,64 @@ fn test_markdown_list_only_indent_increase_creates_nested_level() {
         );
     };
     assert!(matches!(root_sibling.children.as_slice(), [Element::Text(text)] if text.value == "d"));
+}
+
+#[test]
+fn test_markdown_list_splits_when_bullet_marker_changes() {
+    let input = "- a\n- b\n+ c\n+ d";
+    let parsed = parse_document(input);
+
+    let [Element::List(first), Element::List(second)] = parsed.as_slice() else {
+        panic!("expected two sibling list elements, got: {parsed:#?}");
+    };
+
+    let first_values: Vec<&str> = first
+        .children
+        .iter()
+        .map(|child| match child {
+            ListContentItem::Item(item) => match item.children.as_slice() {
+                [Element::Text(text)] => text.value.as_str(),
+                other => panic!("expected text-only item, got: {other:#?}"),
+            },
+            other => panic!("expected list item, got: {other:#?}"),
+        })
+        .collect();
+    let second_values: Vec<&str> = second
+        .children
+        .iter()
+        .map(|child| match child {
+            ListContentItem::Item(item) => match item.children.as_slice() {
+                [Element::Text(text)] => text.value.as_str(),
+                other => panic!("expected text-only item, got: {other:#?}"),
+            },
+            other => panic!("expected list item, got: {other:#?}"),
+        })
+        .collect();
+
+    assert_eq!(first_values, ["a", "b"]);
+    assert_eq!(second_values, ["c", "d"]);
+}
+
+#[test]
+fn test_markdown_list_splits_when_ordered_delimiter_changes() {
+    let input = "1. a\n2. b\n3) c\n4) d";
+    let parsed = parse_document(input);
+
+    let [Element::List(first), Element::List(second)] = parsed.as_slice() else {
+        panic!("expected two ordered list elements, got: {parsed:#?}");
+    };
+
+    assert_eq!(first.kind, ListKind::OrderedNumeric);
+    assert_eq!(second.kind, ListKind::OrderedNumeric);
+
+    let ListContentItem::Item(first_head) = &first.children[0] else {
+        panic!("expected first list item, got: {:#?}", first.children[0]);
+    };
+    let ListContentItem::Item(second_head) = &second.children[0] else {
+        panic!("expected first list item, got: {:#?}", second.children[0]);
+    };
+    assert!(matches!(first_head.children.as_slice(), [Element::Text(text)] if text.value == "a"));
+    assert!(matches!(second_head.children.as_slice(), [Element::Text(text)] if text.value == "c"));
 }
 
 #[test]

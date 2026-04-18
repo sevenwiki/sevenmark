@@ -2,15 +2,22 @@ use crate::context::BlockMode;
 use crate::core::parse_document_input;
 use crate::parser::utils::{line_break_or_eof, line_content};
 use crate::parser::{InputSource, ParserInput, SourceSegment};
-use sevenmark_ast::{Element, ListContentItem, ListElement, ListItemElement, Span};
+use sevenmark_ast::{Element, ListContentItem, ListElement, ListItemElement, ListKind, Span};
 use winnow::Result;
-use winnow::combinator::{alt, peek, repeat};
+use winnow::combinator::{alt, peek};
 use winnow::prelude::*;
 use winnow::stream::Location as StreamLocation;
 use winnow::token::{literal, take_while};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum ListMarker {
+    Bullet(char),
+    Ordered { kind: ListKind, delimiter: char },
+}
+
 struct ListLine {
     indent: usize,
+    marker: ListMarker,
     content: String,
     original_content_start: usize,
     original_line_start: usize,
@@ -25,26 +32,133 @@ struct ListNode {
 
 /// Parses a contiguous markdown list block (`-` / `*` items) from the current line.
 pub fn markdown_list_parser(parser_input: &mut ParserInput) -> Result<Element> {
-    let mut lines = vec![list_line(parser_input)?];
-    let mut rest: Vec<ListLine> = repeat(0.., list_line).parse_next(parser_input)?;
-    lines.append(&mut rest);
+    let lines = collect_list_lines(parser_input)?;
 
     let (nodes, roots) = build_list_tree(&lines);
-    build_list_element(&lines, &nodes, &roots, parser_input)
+    let mut root_lists = build_list_elements(&lines, &nodes, &roots, parser_input)?;
+    Ok(root_lists.remove(0))
+}
+
+fn list_marker(parser_input: &mut ParserInput) -> Result<ListMarker> {
+    alt((
+        literal("- ").value(ListMarker::Bullet('-')),
+        literal("+ ").value(ListMarker::Bullet('+')),
+        literal("* ").value(ListMarker::Bullet('*')),
+        (
+            take_while(1.., |c: char| c.is_ascii_digit()),
+            alt((literal(". "), literal(") "))),
+        )
+            .map(|(_, delimiter): (&str, &str)| {
+                let delimiter = delimiter
+                    .chars()
+                    .next()
+                    .expect("ordered list delimiter must be present");
+                ListMarker::Ordered {
+                    kind: ListKind::OrderedNumeric,
+                    delimiter,
+                }
+            }),
+        (
+            take_while(1..=1, |c: char| c.is_ascii_lowercase()),
+            alt((literal(". "), literal(") "))),
+        )
+            .map(|(token, delimiter): (&str, &str)| {
+                let delimiter = delimiter
+                    .chars()
+                    .next()
+                    .expect("ordered list delimiter must be present");
+                let kind = if token == "i" {
+                    ListKind::OrderedRomanLower
+                } else {
+                    ListKind::OrderedAlphaLower
+                };
+                ListMarker::Ordered { kind, delimiter }
+            }),
+        (
+            take_while(1..=1, |c: char| c.is_ascii_uppercase()),
+            alt((literal(". "), literal(") "))),
+        )
+            .map(|(token, delimiter): (&str, &str)| {
+                let delimiter = delimiter
+                    .chars()
+                    .next()
+                    .expect("ordered list delimiter must be present");
+                let kind = if token == "I" {
+                    ListKind::OrderedRomanUpper
+                } else {
+                    ListKind::OrderedAlphaUpper
+                };
+                ListMarker::Ordered { kind, delimiter }
+            }),
+    ))
+    .parse_next(parser_input)
+}
+
+fn is_same_marker_type(left: ListMarker, right: ListMarker) -> bool {
+    match (left, right) {
+        (ListMarker::Bullet(a), ListMarker::Bullet(b)) => a == b,
+        (
+            ListMarker::Ordered {
+                kind: left_kind,
+                delimiter: left_delimiter,
+            },
+            ListMarker::Ordered {
+                kind: right_kind,
+                delimiter: right_delimiter,
+            },
+        ) => left_kind == right_kind && left_delimiter == right_delimiter,
+        _ => false,
+    }
+}
+
+fn collect_list_lines(parser_input: &mut ParserInput) -> Result<Vec<ListLine>> {
+    let first_line = list_line(parser_input)?;
+    let root_marker = first_line.marker;
+    let mut lines = vec![first_line];
+    let mut stack = vec![(lines[0].indent, lines[0].marker)];
+
+    loop {
+        let checkpoint = parser_input.checkpoint();
+        let state = parser_input.state.clone();
+        let line = match list_line(parser_input) {
+            Ok(line) => line,
+            Err(_) => {
+                parser_input.reset(&checkpoint);
+                parser_input.state = state;
+                break;
+            }
+        };
+
+        while let Some((top_indent, _)) = stack.last() {
+            if *top_indent >= line.indent {
+                stack.pop();
+            } else {
+                break;
+            }
+        }
+
+        let is_new_root = stack.is_empty();
+        if is_new_root && !is_same_marker_type(root_marker, line.marker) {
+            parser_input.reset(&checkpoint);
+            parser_input.state = state;
+            break;
+        }
+
+        stack.push((line.indent, line.marker));
+        lines.push(line);
+    }
+
+    Ok(lines)
 }
 
 fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
-    peek((
-        take_while(0.., |c: char| c == ' '),
-        alt((literal("- "), literal("* "))),
-    ))
-    .parse_next(parser_input)?;
+    peek((take_while(0.., |c: char| c == ' '), list_marker)).parse_next(parser_input)?;
 
     let line_start = parser_input.current_token_start();
     let spaces: &str = take_while(0.., |c: char| c == ' ').parse_next(parser_input)?;
     let indent = spaces.len();
 
-    alt((literal("- "), literal("* "))).parse_next(parser_input)?;
+    let marker = list_marker(parser_input)?;
     let content_start = parser_input.current_token_start();
 
     let content = line_content(parser_input)?;
@@ -53,6 +167,7 @@ fn list_line(parser_input: &mut ParserInput) -> Result<ListLine> {
 
     Ok(ListLine {
         indent,
+        marker,
         content: content.to_string(),
         original_content_start: content_start,
         original_line_start: line_start,
@@ -99,7 +214,55 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
     (nodes, roots)
 }
 
-/// Builds a `List` element from a slice of tree node indices.
+fn group_by_marker(
+    lines: &[ListLine],
+    nodes: &[ListNode],
+    node_indices: &[usize],
+) -> Vec<Vec<usize>> {
+    let mut groups: Vec<Vec<usize>> = Vec::new();
+
+    for &node_index in node_indices {
+        if let Some(current_group) = groups.last_mut() {
+            let last_index = *current_group
+                .last()
+                .expect("group must contain at least one index");
+            let left = lines[nodes[last_index].line_index].marker;
+            let right = lines[nodes[node_index].line_index].marker;
+            if is_same_marker_type(left, right) {
+                current_group.push(node_index);
+                continue;
+            }
+        }
+        groups.push(vec![node_index]);
+    }
+
+    groups
+}
+
+/// Builds one or more `List` elements from tree node indices, splitting adjacent
+/// siblings when their marker types differ (CommonMark list-type boundary rule).
+fn build_list_elements(
+    lines: &[ListLine],
+    nodes: &[ListNode],
+    node_indices: &[usize],
+    parser_input: &mut ParserInput,
+) -> Result<Vec<Element>> {
+    let groups = group_by_marker(lines, nodes, node_indices);
+    let mut result = Vec::with_capacity(groups.len());
+    for group in groups {
+        result.push(build_list_element(lines, nodes, &group, parser_input)?);
+    }
+    Ok(result)
+}
+
+fn list_kind_for_marker(marker: ListMarker) -> ListKind {
+    match marker {
+        ListMarker::Ordered { kind, .. } => kind,
+        ListMarker::Bullet(_) => ListKind::Unordered,
+    }
+}
+
+/// Builds a single `List` element from a homogeneous marker group.
 fn build_list_element(
     lines: &[ListLine],
     nodes: &[ListNode],
@@ -112,6 +275,10 @@ fn build_list_element(
         .map(|&node_index| lines[nodes[node_index].line_index].original_line_start)
         .unwrap_or_default();
     let mut end = start;
+    let kind = node_indices
+        .first()
+        .map(|&node_index| list_kind_for_marker(lines[nodes[node_index].line_index].marker))
+        .unwrap_or(ListKind::Unordered);
 
     for &node_index in node_indices {
         let item = build_list_item(lines, nodes, node_index, parser_input)?;
@@ -123,7 +290,7 @@ fn build_list_element(
         span: Span { start, end },
         open_span: Span::synthesized(),
         close_span: Span::synthesized(),
-        kind: String::new(),
+        kind,
         parameters: Default::default(),
         children,
     }))
@@ -143,9 +310,11 @@ fn build_list_item(
     let mut children = parse_item_content(line, parser_input)?;
 
     if !node.children.is_empty() {
-        let nested_list = build_list_element(lines, nodes, &node.children, parser_input)?;
-        item_end = nested_list.span().end;
-        children.push(nested_list);
+        let nested_lists = build_list_elements(lines, nodes, &node.children, parser_input)?;
+        for nested_list in nested_lists {
+            item_end = nested_list.span().end;
+            children.push(nested_list);
+        }
     }
 
     Ok(ListItemElement {

@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **sevenmark_parser**: Refactored list nesting to a stack/tree model driven by relative indentation; both `-` and `*` markers are supported, and parent selection now uses the nearest smaller-indent ancestor.
+- **sevenmark_parser**: Markdown list marker support expanded to `-`, `+`, `*`, numeric ordered markers (`1.` / `1)`), alphabetic markers (`a.` / `A.`), and single-letter roman markers (`i.` / `I.`). Adjacent list groups are now split when marker type changes (including ordered delimiter changes).
+- **sevenmark_ast/sevenmark_parser/sevenmark_html**: List kind handling migrated from free-form string values to a typed `ListKind` enum across AST, parsers, and HTML rendering paths.
 - **sevenmark_parser**: Refactored element parsing flow into block-aware document parsing plus content element parsing, improving parser composition for nested contexts.
 - **sevenmark_parser**: Normalized parser line-ending handling to `\n` semantics in markdown block paths.
 - **sevenmark_html**: Blockquote rendering no longer suppresses soft breaks, matching updated parser offset/line handling.

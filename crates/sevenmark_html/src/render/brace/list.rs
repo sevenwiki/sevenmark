@@ -1,7 +1,7 @@
 //! List rendering
 
 use maud::{Markup, html};
-use sevenmark_ast::{ListContentItem, Parameters, Span};
+use sevenmark_ast::{ListContentItem, ListKind, Parameters, Span};
 
 use crate::classes;
 use crate::context::RenderContext;
@@ -9,7 +9,7 @@ use crate::render::{render_elements, utils};
 
 pub fn render(
     span: &Span,
-    kind: &str,
+    kind: &ListKind,
     parameters: &Parameters,
     children: &[ListContentItem],
     ctx: &mut RenderContext,
@@ -19,11 +19,10 @@ pub fn render(
     let dk = ctx.add_dark_style(utils::build_dark_style(parameters));
     let items = render_items(children, ctx);
     ctx.exit_suppress_soft_breaks();
-    let is_ordered = !kind.is_empty();
+    let is_ordered = kind.is_ordered();
 
     if is_ordered {
-        // kind: "1", "a", "A", "i", "I"
-        let list_type = if kind == "1" { None } else { Some(kind) };
+        let list_type = kind.ordered_type_attr();
         let merged_class = utils::merge_class(
             &format!("{} {}", classes::LIST, classes::LIST_ORDERED),
             parameters,
