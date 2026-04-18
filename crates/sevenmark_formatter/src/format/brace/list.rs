@@ -4,7 +4,7 @@ use sevenmark_ast::{
 };
 
 use crate::FormatConfig;
-use crate::format::element::format_elements;
+use crate::format::element::{FormatContext, format_elements_with_context};
 use crate::format::expression::format_expr;
 use crate::format::params::{format_params_block, format_params_block_tight};
 
@@ -12,6 +12,7 @@ pub fn format_list<'a>(
     a: &'a Arena<'a>,
     e: &ListElement,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let params = with_list_kind_param(e);
@@ -19,7 +20,7 @@ pub fn format_list<'a>(
     let items = a.intersperse(
         e.children
             .iter()
-            .map(|item| format_list_content_item(a, item, config)),
+            .map(|item| format_list_content_item(a, item, config, context)),
         a.hardline(),
     );
     a.text("{{{#list")
@@ -60,10 +61,11 @@ fn format_list_content_item<'a>(
     a: &'a Arena<'a>,
     item: &ListContentItem,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     match item {
-        ListContentItem::Item(li) => format_list_item(a, li, config),
-        ListContentItem::Conditional(cond) => format_conditional_list_items(a, cond, config),
+        ListContentItem::Item(li) => format_list_item(a, li, config, context),
+        ListContentItem::Conditional(cond) => format_conditional_list_items(a, cond, config, context),
     }
 }
 
@@ -71,6 +73,7 @@ fn format_list_item<'a>(
     a: &'a Arena<'a>,
     li: &ListItemElement,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let params = format_params_block_tight(a, &li.parameters, config);
     let has_params = !li.parameters.is_empty();
@@ -79,9 +82,10 @@ fn format_list_item<'a>(
         .append(if li.children.is_empty() {
             a.nil()
         } else if has_params {
-            a.text(" ").append(format_elements(a, &li.children, config))
+            a.text(" ")
+                .append(format_elements_with_context(a, &li.children, config, context))
         } else {
-            format_elements(a, &li.children, config)
+            format_elements_with_context(a, &li.children, config, context)
         })
         .append(a.text("]]"))
 }
@@ -90,10 +94,11 @@ fn format_conditional_list_items<'a>(
     a: &'a Arena<'a>,
     cond: &ConditionalListItems,
     config: &FormatConfig,
+    context: FormatContext,
 ) -> DocBuilder<'a, Arena<'a>> {
     let indent = config.indent as isize;
     let items = a.intersperse(
-        cond.items.iter().map(|li| format_list_item(a, li, config)),
+        cond.items.iter().map(|li| format_list_item(a, li, config, context)),
         a.hardline(),
     );
     a.text("{{{#if ")
