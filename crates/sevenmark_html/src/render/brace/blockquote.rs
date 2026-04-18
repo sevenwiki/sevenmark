@@ -13,9 +13,7 @@ pub fn render(
     children: &[Element],
     ctx: &mut RenderContext,
 ) -> Markup {
-    ctx.enter_suppress_soft_breaks();
     let content = render_elements(children, ctx);
-    ctx.exit_suppress_soft_breaks();
 
     let lk = ctx.add_light_style(utils::build_style(parameters));
     let merged_class = utils::merge_class(classes::BLOCKQUOTE, parameters);

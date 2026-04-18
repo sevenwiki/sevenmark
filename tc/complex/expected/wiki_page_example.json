@@ -1534,15 +1534,15 @@
               {
                 "Strikethrough": {
                   "span": {
-                    "start": 0,
-                    "end": 32
+                    "start": 1418,
+                    "end": 1450
                   },
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 2,
-                          "end": 30
+                          "start": 1420,
+                          "end": 1448
                         },
                         "value": "Manual dependency management"
                       }
@@ -1553,8 +1553,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 32,
-                    "end": 68
+                    "start": 1450,
+                    "end": 1486
                   },
                   "value": " → Automatic dependency resolution"
                 }
@@ -1581,8 +1581,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 0,
-                    "end": 36
+                    "start": 1489,
+                    "end": 1525
                   },
                   "value": "Building projects with `cargo build`"
                 }
@@ -1609,8 +1609,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 0,
-                    "end": 31
+                    "start": 1528,
+                    "end": 1559
                   },
                   "value": "Running tests with `cargo test`"
                 }
@@ -1637,8 +1637,8 @@
               {
                 "Text": {
                   "span": {
-                    "start": 0,
-                    "end": 14
+                    "start": 1562,
+                    "end": 1576
                   },
                   "value": "Publishing to "
                 }
@@ -1646,15 +1646,15 @@
               {
                 "Superscript": {
                   "span": {
-                    "start": 14,
-                    "end": 27
+                    "start": 1576,
+                    "end": 1589
                   },
                   "children": [
                     {
                       "Text": {
                         "span": {
-                          "start": 16,
-                          "end": 25
+                          "start": 1578,
+                          "end": 1587
                         },
                         "value": "crates.io"
                       }

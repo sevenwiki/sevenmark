@@ -86,6 +86,7 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
             '#' => alt((markdown_header_parser, text_parser)),
             '>' => alt((markdown_blockquote_parser, text_parser)),
             '-' => alt((markdown_hline_parser, markdown_list_parser, text_parser)),
+            ' ' => alt((markdown_list_parser, text_parser)),    
             '*' => alt((markdown_bold_parser, markdown_italic_parser, token_asterisk_parser)),
             '_' => alt((markdown_underline_parser, token_underscore_parser)),
             '~' => alt((markdown_strikethrough_parser, token_tilde_parser)),
