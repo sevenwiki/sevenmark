@@ -19,7 +19,7 @@ struct ListLine {
 
 struct ListNode {
     line_index: usize,
-    parent: Option<usize>,
+    indent: usize,
     children: Vec<usize>,
 }
 
@@ -66,7 +66,7 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
 
     for (line_index, line) in lines.iter().enumerate() {
         while let Some(&top_index) = stack.last() {
-            let top_indent = lines[nodes[top_index].line_index].indent;
+            let top_indent = nodes[top_index].indent;
             if top_indent >= line.indent {
                 stack.pop();
             } else {
@@ -78,7 +78,7 @@ fn build_list_tree(lines: &[ListLine]) -> (Vec<ListNode>, Vec<usize>) {
         let node_index = nodes.len();
         nodes.push(ListNode {
             line_index,
-            parent,
+            indent: line.indent,
             children: Vec::new(),
         });
 
