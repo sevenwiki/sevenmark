@@ -1499,118 +1499,173 @@
     }
   },
   {
-    "Text": {
+    "List": {
       "span": {
         "start": 1416,
-        "end": 1418
-      },
-      "value": "- "
-    }
-  },
-  {
-    "Strikethrough": {
-      "span": {
-        "start": 1418,
-        "end": 1450
-      },
-      "children": [
-        {
-          "Text": {
-            "span": {
-              "start": 1420,
-              "end": 1448
-            },
-            "value": "Manual dependency management"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "Text": {
-      "span": {
-        "start": 1450,
-        "end": 1486
-      },
-      "value": " → Automatic dependency resolution"
-    }
-  },
-  {
-    "SoftBreak": {
-      "span": {
-        "start": 1486,
-        "end": 1487
-      }
-    }
-  },
-  {
-    "Text": {
-      "span": {
-        "start": 1487,
-        "end": 1525
-      },
-      "value": "- Building projects with `cargo build`"
-    }
-  },
-  {
-    "SoftBreak": {
-      "span": {
-        "start": 1525,
-        "end": 1526
-      }
-    }
-  },
-  {
-    "Text": {
-      "span": {
-        "start": 1526,
-        "end": 1559
-      },
-      "value": "- Running tests with `cargo test`"
-    }
-  },
-  {
-    "SoftBreak": {
-      "span": {
-        "start": 1559,
-        "end": 1560
-      }
-    }
-  },
-  {
-    "Text": {
-      "span": {
-        "start": 1560,
-        "end": 1576
-      },
-      "value": "- Publishing to "
-    }
-  },
-  {
-    "Superscript": {
-      "span": {
-        "start": 1576,
-        "end": 1589
-      },
-      "children": [
-        {
-          "Text": {
-            "span": {
-              "start": 1578,
-              "end": 1587
-            },
-            "value": "crates.io"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "SoftBreak": {
-      "span": {
-        "start": 1589,
         "end": 1590
-      }
+      },
+      "open_span": {
+        "start": 0,
+        "end": 0
+      },
+      "close_span": {
+        "start": 0,
+        "end": 0
+      },
+      "kind": "",
+      "parameters": {},
+      "children": [
+        {
+          "Item": {
+            "span": {
+              "start": 1416,
+              "end": 1487
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Strikethrough": {
+                  "span": {
+                    "start": 0,
+                    "end": 32
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 2,
+                          "end": 30
+                        },
+                        "value": "Manual dependency management"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "span": {
+                    "start": 32,
+                    "end": 68
+                  },
+                  "value": " → Automatic dependency resolution"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 1487,
+              "end": 1526
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 0,
+                    "end": 36
+                  },
+                  "value": "Building projects with `cargo build`"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 1526,
+              "end": 1560
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 0,
+                    "end": 31
+                  },
+                  "value": "Running tests with `cargo test`"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Item": {
+            "span": {
+              "start": 1560,
+              "end": 1590
+            },
+            "open_span": {
+              "start": 0,
+              "end": 0
+            },
+            "close_span": {
+              "start": 0,
+              "end": 0
+            },
+            "parameters": {},
+            "children": [
+              {
+                "Text": {
+                  "span": {
+                    "start": 0,
+                    "end": 14
+                  },
+                  "value": "Publishing to "
+                }
+              },
+              {
+                "Superscript": {
+                  "span": {
+                    "start": 14,
+                    "end": 27
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "span": {
+                          "start": 16,
+                          "end": 25
+                        },
+                        "value": "crates.io"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   {

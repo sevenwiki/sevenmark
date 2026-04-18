@@ -1,6 +1,7 @@
 use super::escape::escape_parser;
 use super::markdown::{
-    markdown_bold_parser, markdown_header_parser, markdown_hline_parser, markdown_italic_parser,
+    markdown_blockquote_parser, markdown_bold_parser, markdown_header_parser,
+    markdown_hline_parser, markdown_italic_parser, markdown_list_parser,
     markdown_strikethrough_parser, markdown_subscript_parser, markdown_superscript_parser,
     markdown_underline_parser,
 };
@@ -83,7 +84,8 @@ pub fn element_parser(parser_input: &mut ParserInput) -> Result<Vec<Element>> {
             ']' => token_bracket_close_parser,
             '<' => alt((mention_discussion_parser, mention_user_parser, token_angle_bracket_parser)),
             '#' => alt((markdown_header_parser, text_parser)),
-            '-' => alt((markdown_hline_parser, text_parser)),
+            '>' => alt((markdown_blockquote_parser, text_parser)),
+            '-' => alt((markdown_hline_parser, markdown_list_parser, text_parser)),
             '*' => alt((markdown_bold_parser, markdown_italic_parser, token_asterisk_parser)),
             '_' => alt((markdown_underline_parser, token_underscore_parser)),
             '~' => alt((markdown_strikethrough_parser, token_tilde_parser)),
